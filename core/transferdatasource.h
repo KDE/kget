@@ -47,8 +47,8 @@ class KGET_EXPORT TransferDataSource : public QObject
 
         /**
          * Tries to find the filesize if this capability is supported,
-         * if successfull it emits foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)
-         * and assigns all segements to itself
+         * if successful it emits foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)
+         * and assigns all segments to itself
          * if not succesfull it will try to download the file nevertheless
          * @note if stop is called and no size is found yet then this is aborted, i.e. needs to be
          * called again if start is later called

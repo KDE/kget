@@ -201,7 +201,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
 
         QList<QStandardItem*> items;
         QStandardItem *number = new QStandardItem();
-        number->setData(model->rowCount(), Qt::DisplayRole);//used for inital sorting
+        number->setData(model->rowCount(), Qt::DisplayRole);//used for initial sorting
         items << number;
         items << item;
         items << new QStandardItem();

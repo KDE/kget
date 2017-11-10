@@ -476,11 +476,11 @@ void AbstractMetalink::filesSelected()
 
             //check if the file at dest exists already and ask the user what to do in this case, ignore already running transfers
             if (doDownload && (factory->status() != Job::Running) && QFile::exists(dest.toLocalFile())) {
-                //usere has chosen to skip all files that exist already before
+                //user has chosen to skip all files that exist already before
                 if (autoSkip) {
                     fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
                     doDownload = false;
-                //ask the user, unless he has choosen overwriteAll before
+                //ask the user, unless he has chosen overwriteAll before
                 } else if (!overwriteAll) {
                     KIO::RenameDialog dlg(0, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Mode(KIO::M_MULTI | KIO::M_OVERWRITE | KIO::M_SKIP));
                     const int result = dlg.exec();

@@ -89,7 +89,7 @@ void DragDlg::slotFinished()
     if (uiData.os->text().isEmpty()) {
         m_commonData->oses.clear();
     } else {
-        m_commonData->oses = uiData.os->text().split(i18nc("comma, to seperate members of a list", ","));
+        m_commonData->oses = uiData.os->text().split(i18nc("comma, to separate members of a list", ","));
     }
     m_commonData->copyright = uiData.copyright->text();
     m_commonData->publisher.name = uiData.pub_name->text();

@@ -2,7 +2,7 @@
 
    Copyright (C) 2005 Dario Massarin <nekkar@libero.it>
    Copyright (C) 2009 Lukas Appelhans <l.appelhans@gmx.de>
-   Coypright (C) 2010 Matthias Fuchs <mat69@gmx.net>
+   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public

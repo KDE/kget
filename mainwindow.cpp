@@ -698,7 +698,7 @@ void MainWindow::slotStopAllDownload()
     KGet::setSchedulerRunning(false);
     
     // This line ensures that each transfer is stopped. In the handler class
-    // the policy of the transfer will be correctly setted to None
+    // the policy of the transfer will be correctly set to None
     foreach (TransferHandler * it, KGet::allTransfers())
         it->stop();
 }
@@ -852,7 +852,7 @@ void MainWindow::slotPriorityUp()
                         after = groupTransfers[newIndex - 1];
                     }
 
-                    //keep the list with the actual movements synchronised
+                    //keep the list with the actual movements synchronized
                     groupTransfers.move(index, newIndex);
 
                     KGet::model()->moveTransfer(transfer, group, after);
@@ -895,7 +895,7 @@ void MainWindow::slotPriorityDown()
                     TransferHandler *after = groupTransfers[newIndex];
 
 
-                    //keep the list with the actual movements synchronised
+                    //keep the list with the actual movements synchronized
                     groupTransfers.move(index, newIndex);
 
                     KGet::model()->moveTransfer(transfer, group, after);

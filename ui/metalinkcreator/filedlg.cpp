@@ -62,7 +62,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     uiData.description->setText(m_file->data.description);
     uiData.logo->setUrl(m_file->data.logo);
     if (m_file->data.oses.count()) {
-        uiData.os->setText(m_file->data.oses.join(i18nc("comma, to seperate members of a list", ",")));
+        uiData.os->setText(m_file->data.oses.join(i18nc("comma, to separate members of a list", ",")));
     }
     uiData.copyright->setText(m_file->data.copyright);
     uiData.pub_name->setText(m_file->data.publisher.name);
@@ -170,7 +170,7 @@ void FileDlg::slotOkClicked()
     m_file->data.description = uiData.description->text();
     m_file->data.logo = QUrl(uiData.logo->text());
     if (!uiData.os->text().isEmpty()) {
-        m_file->data.oses = uiData.os->text().split(i18nc("comma, to seperate members of a list", ","));
+        m_file->data.oses = uiData.os->text().split(i18nc("comma, to separate members of a list", ","));
     }
     m_file->data.copyright = uiData.copyright->text();
     m_file->data.publisher.name = uiData.pub_name->text();

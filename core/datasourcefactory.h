@@ -292,7 +292,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         bool m_downloadInitialized;
 
         /**
-         * Wether the file-size has been initially defined (it is to be trusted) or not
+         * Whether the file-size has been initially defined (it is to be trusted) or not
          */
         bool m_sizeInitiallyDefined;
 

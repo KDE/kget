@@ -71,7 +71,7 @@ void MmsDownload::splitTransfer()
 {
     /** We split the download in similar and each part is asigned to a thread and thi is saved in
      * a map named m_mapEndIni. If we resume the download, then the temporal file will exist
-     * and we dont have to split the download only use it.
+     * and we don't have to split the download only use it.
      */
     m_amountThreads = mmsx_get_seekable(m_mms) ? m_amountThreads : 0;
     if (m_amountThreads == 0) {
@@ -184,9 +184,9 @@ void MmsDownload::slotRead(int reading, int thread_end, int thread_in)
 
 void MmsDownload::slotIsThreadConnected(bool connected)
 {
-    /** All thread emit a signal connected with this slot, if they get connected succefully
+    /** All threads emit a signal connected with this slot, if they get connected successfully
      * the value of "connected" will be true, and will be false if they can't connected. When all
-     * the thread emited the signal the amount of m_connectionsSuccefully and m_connectionsFails
+     * the threads emitted the signal the amount of m_connectionsSuccefully and m_connectionsFails
      * will be equal to m_amountThreads and we emit a signal to restart the download in
      * mmstransfer using the amount of connections succefully connected.
      */

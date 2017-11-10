@@ -131,7 +131,7 @@ class DBusTransferWrapper : public QObject
 
         /**
          * Returns the dBusObjectPath to the verifier
-         * @param file for wich to return the verifier
+         * @param file for which to return the verifier
          */
         QString verifier(const QString &file);
 
