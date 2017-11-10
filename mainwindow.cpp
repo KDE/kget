@@ -147,23 +147,22 @@ void MainWindow::setupActions()
     QAction *newDownloadAction = actionCollection()->addAction("new_download");
     newDownloadAction->setText(i18n("&New Download..."));
     newDownloadAction->setIcon(QIcon::fromTheme("document-new"));
-    //newDownloadAction->setShortcut(QKeySequence(i18n("Ctrl+N")));
-    newDownloadAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
     //newDownloadAction->setHelpText(i18n("Opens a dialog to add a transfer to the list"));
+    actionCollection()->setDefaultShortcut(newDownloadAction, QKeySequence(Qt::CTRL + Qt::Key_N));
     connect(newDownloadAction, SIGNAL(triggered()), SLOT(slotNewTransfer()));
 
     QAction *openAction = actionCollection()->addAction("import_transfers");
     openAction->setText(i18n("&Import Transfers..."));
     openAction->setIcon(QIcon::fromTheme("document-open"));
-    openAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_I));
     //openAction->setHelpText(i18n("Imports a list of transfers"));
+    actionCollection()->setDefaultShortcut(openAction, QKeySequence(Qt::CTRL + Qt::Key_I));
     connect(openAction, SIGNAL(triggered()), SLOT(slotImportTransfers()));
 
     QAction *exportAction = actionCollection()->addAction("export_transfers");
     exportAction->setText(i18n("&Export Transfers List..."));
     exportAction->setIcon(QIcon::fromTheme("document-export"));
-    exportAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_E));
     //exportAction->setHelpText(i18n("Exports the current transfers into a file"));
+    actionCollection()->setDefaultShortcut(exportAction, QKeySequence(Qt::CTRL + Qt::Key_E));
     connect(exportAction, SIGNAL(triggered()), SLOT(slotExportTransfers()));
 
     QAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
@@ -175,29 +174,29 @@ void MainWindow::setupActions()
     QAction *priorityTop = actionCollection()->addAction("priority_top");
     priorityTop->setText(i18n("Top Priority"));
     priorityTop->setIcon(QIcon::fromTheme("arrow-up-double"));
-    priorityTop->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
     //priorityTop->setHelpText(i18n("Download selected transfer first"));
+    actionCollection()->setDefaultShortcut(priorityTop, QKeySequence(Qt::CTRL + Qt::Key_PageUp));
     connect(priorityTop, SIGNAL(triggered()), this, SLOT(slotPriorityTop()));
 
     QAction *priorityBottom = actionCollection()->addAction("priority_bottom");
     priorityBottom->setText(i18n("Least Priority"));
     priorityBottom->setIcon(QIcon::fromTheme("arrow-down-double"));
-    priorityBottom->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
     //priorityBottom->setHelpText(i18n("Download selected transfer last"));
+    actionCollection()->setDefaultShortcut(priorityBottom, QKeySequence(Qt::CTRL + Qt::Key_PageDown));
     connect(priorityBottom, SIGNAL(triggered()), this, SLOT(slotPriorityBottom()));
 
     QAction *priorityUp = actionCollection()->addAction("priority_up");
     priorityUp->setText(i18n("Increase Priority"));
     priorityUp->setIcon(QIcon::fromTheme("arrow-up"));
-    priorityUp->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Up));
     //priorityUp->setHelpText(i18n("Increase priority for selected transfer"));
+    actionCollection()->setDefaultShortcut(priorityUp, QKeySequence(Qt::CTRL + Qt::Key_Up));
     connect(priorityUp, SIGNAL(triggered()), this, SLOT(slotPriorityUp()));
 
     QAction *priorityDown = actionCollection()->addAction("priority_down");
     priorityDown->setText(i18n("Decrease Priority"));
     priorityDown->setIcon(QIcon::fromTheme("arrow-down"));
-    priorityDown->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
     //priorityDown->setHelpText(i18n("Decrease priority for selected transfer"));
+    actionCollection()->setDefaultShortcut(priorityDown, QKeySequence(Qt::CTRL + Qt::Key_Down));
     connect(priorityDown, SIGNAL(triggered()), this, SLOT(slotPriorityDown()));
 
     //FIXME: Not needed maybe because the normal delete already deletes groups?
@@ -248,8 +247,8 @@ void MainWindow::setupActions()
     QAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
     deleteSelectedAction->setText(i18nc("delete selected transfer item", "Remove Selected"));
     deleteSelectedAction->setIcon(QIcon::fromTheme("edit-delete"));
-    deleteSelectedAction->setShortcut(QKeySequence(Qt::Key_Delete));
 //     deleteSelectedAction->setHelpText(i18n("Removes selected transfer and deletes files from disk if it's not finished"));
+    actionCollection()->setDefaultShortcut(deleteSelectedAction, QKeySequence(Qt::Key_Delete));
     connect(deleteSelectedAction, SIGNAL(triggered()), SLOT(slotDeleteSelected()));
 
     QAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
@@ -272,8 +271,8 @@ void MainWindow::setupActions()
     QAction *startAllAction = actionCollection()->addAction("start_all_download");
     startAllAction->setText(i18n("Start All"));
     startAllAction->setIcon(QIcon::fromTheme("media-seek-forward"));
-    startAllAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
 //     startAllAction->setHelpText(i18n("Starts / resumes all transfers"));
+    actionCollection()->setDefaultShortcut(startAllAction, QKeySequence(Qt::CTRL + Qt::Key_R));
     connect(startAllAction, SIGNAL(triggered()), SLOT(slotStartAllDownload()));
 
     QAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
@@ -285,8 +284,8 @@ void MainWindow::setupActions()
     QAction *stopAllAction = actionCollection()->addAction("stop_all_download");
     stopAllAction->setText(i18n("Pause All"));
     stopAllAction->setIcon(QIcon::fromTheme("media-playback-pause"));
-    stopAllAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
 //     stopAllAction->setHelpText(i18n("Pauses all transfers"));
+    actionCollection()->setDefaultShortcut(stopAllAction, QKeySequence(Qt::CTRL + Qt::Key_P));
     connect(stopAllAction, SIGNAL(triggered()), SLOT(slotStopAllDownload()));
 
     QAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
@@ -333,25 +332,25 @@ void MainWindow::setupActions()
     QAction *transferHistoryAction = actionCollection()->addAction("transfer_history");
     transferHistoryAction->setText(i18n("&Transfer History"));
     transferHistoryAction->setIcon(QIcon::fromTheme("view-history"));
-    transferHistoryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
+    actionCollection()->setDefaultShortcut(transferHistoryAction, QKeySequence(Qt::CTRL + Qt::Key_H));
     connect(transferHistoryAction, SIGNAL(triggered()), SLOT(slotTransferHistory()));
 
     QAction *transferGroupSettingsAction = actionCollection()->addAction("transfer_group_settings");
     transferGroupSettingsAction->setText(i18n("&Group Settings"));
     transferGroupSettingsAction->setIcon(QIcon::fromTheme("preferences-system"));
-    transferGroupSettingsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_G));
+    actionCollection()->setDefaultShortcut(transferGroupSettingsAction, QKeySequence(Qt::CTRL + Qt::Key_G));
     connect(transferGroupSettingsAction, SIGNAL(triggered()), SLOT(slotTransferGroupSettings()));
 
     QAction *transferSettingsAction = actionCollection()->addAction("transfer_settings");
     transferSettingsAction->setText(i18n("&Transfer Settings"));
     transferSettingsAction->setIcon(QIcon::fromTheme("preferences-system"));
-    transferSettingsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_T));
+    actionCollection()->setDefaultShortcut(transferSettingsAction, QKeySequence(Qt::CTRL + Qt::Key_T));
     connect(transferSettingsAction, SIGNAL(triggered()), SLOT(slotTransferSettings()));
 
     QAction *listLinksAction = actionCollection()->addAction("import_links");
     listLinksAction->setText(i18n("Import &Links..."));
     listLinksAction->setIcon(QIcon::fromTheme("view-list-text"));
-    listLinksAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_L));
+    actionCollection()->setDefaultShortcut(listLinksAction, QKeySequence(Qt::CTRL + Qt::Key_L));
     connect(listLinksAction, SIGNAL(triggered()), SLOT(slotShowListLinks()));
 
     //create the download finished actions which can be displayed in the toolbar
