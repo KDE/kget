@@ -55,7 +55,7 @@
 #include <QClipboard>
 #include <QAbstractItemView>
 #include <QTimer>
-#include <QtCore/qtemporaryfile.h>
+#include <QTemporaryFile>
 
 #ifdef HAVE_KWORKSPACE
     #include <QDBusConnection>

@@ -39,7 +39,6 @@
 
 #include <QIcon>
 #include <KLocale>
-#include <QPushButton>
 
 const int KGetAppletUtils::SPACING = 4;
 
