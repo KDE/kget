@@ -605,7 +605,7 @@ void MainWindow::slotExportTransfers()
         );
 
     if (!filename.isEmpty()) {
-        const bool plain = !filename.endsWith(QLatin1String("kgt"));
+        const bool plain = !filename.endsWith(QLatin1String(".kgt"));
         KGet::save(filename, plain);
     }
 }
