@@ -180,13 +180,13 @@ UrlChecker::UrlError UrlChecker::checkDestination(const QUrl &destination, bool 
 
     if (error == NoError) {
         //not supposed to be a folder
-        QFileInfo fileInfo(destination.toString());
+        QFileInfo fileInfo(destination.toLocalFile());
         if (!destination.isValid() || fileInfo.isDir()) {
             error = Invalid;
         }
 
-        qDebug() << "Adjusted destination:" << destination.adjusted(QUrl::RemoveFilename).toString();
-        if ((error == NoError) && !QFileInfo(destination.adjusted(QUrl::RemoveFilename).toString().remove("file://")).isWritable()) {
+        qDebug() << "Adjusted destination:" << destination.adjusted(QUrl::RemoveFilename).path();
+        if ((error == NoError) && !QFileInfo(destination.adjusted(QUrl::RemoveFilename).path()).isWritable()) {
             error = NotWriteable;
         }
     }
@@ -205,7 +205,7 @@ UrlChecker::UrlError UrlChecker::checkFolder(const QUrl &folder, bool showNotifi
 {
     UrlError error = NoError;
 
-    const QString destDir = folder.toString();
+    const QString destDir = folder.toLocalFile();
     if (folder.isEmpty() || destDir.isEmpty()) {
         error = Empty;
     }
@@ -239,9 +239,9 @@ QUrl UrlChecker::destUrl(const QUrl &destOrFolder, const QUrl &source, const QSt
         if (usedFileName.isEmpty()) {
             usedFileName = QUrl::toPercentEncoding(source.toString(), "/");
         }
-        dest = dest.adjusted(QUrl::RemoveFilename).toString() + usedFileName;
+        dest = dest.adjusted(QUrl::RemoveFilename).path() + usedFileName;
     } else if (!fileName.isEmpty()) {
-        dest.setPath(dest.adjusted(QUrl::RemoveFilename).toString() + fileName);
+        dest.setPath(dest.adjusted(QUrl::RemoveFilename).path() + fileName);
     }
 
     return dest;

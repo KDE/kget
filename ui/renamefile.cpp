@@ -54,7 +54,7 @@ void RenameFile::updateButton()
 {
     const QString newName = ui.name->text();
     QUrl dest = m_dest;
-    dest.setPath(m_dest.toString() + newName);
+    dest.setPath(m_dest.path() + newName);
 
     const bool enabled = !newName.isEmpty() && !QFile::exists(dest.toString());
     ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);

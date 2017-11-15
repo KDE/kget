@@ -33,7 +33,7 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     setLayout(m_layout);
 
     frm.sourceContentEdit->setText(m_transfer->source().toString());
-    frm.destContentEdit->setText(m_transfer->dest().toString());
+    frm.destContentEdit->setText(m_transfer->dest().toLocalFile());
 
     //This updates the widget with the right values
     slotTransferChanged(transfer, 0xFFFFFFFF);
@@ -94,7 +94,7 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
     }
 
     if(flags & Transfer::Tc_FileName) {
-        frm.destContentEdit->setText(m_transfer->dest().toString());
+        frm.destContentEdit->setText(m_transfer->dest().toLocalFile());
     }
     
     if (flags & Transfer::Tc_Source) {

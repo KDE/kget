@@ -124,7 +124,7 @@ bool TransferMultiSegKio::repair(const QUrl &file)
 bool TransferMultiSegKio::setDirectory(const QUrl& newDirectory)
 {
     QUrl newDest = newDirectory;
-    newDest.setPath(newDest.toString() + "/" + m_dest.fileName());
+    newDest.setPath(newDest.path() + "/" + m_dest.fileName());
     return setNewDestination(newDest);
 }
 
@@ -177,7 +177,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
                 return;
         }
         QUrl path = m_dest.adjusted(QUrl::RemoveFilename);
-        path.setPath(path.toString() + "/" + filename);
+        path.setPath(path.path() + "/" + filename);
         setNewDestination(path);
     }
     if (change & Tc_Source) {

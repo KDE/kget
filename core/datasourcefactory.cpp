@@ -68,7 +68,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const QUrl &dest, KIO::fil
     m_verifier(nullptr),
     m_signature(nullptr)
 {
-    qCDebug(KGET_DEBUG) << "Initialize DataSourceFactory: Dest: " + m_dest.url() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
+    qCDebug(KGET_DEBUG) << "Initialize DataSourceFactory: Dest: " + m_dest.toLocalFile() + "Size: " + QString::number(m_size) + "SegSize: " + QString::number(m_segSize);
 
     m_prevDownloadedSizes.append(0);
 }
@@ -217,7 +217,7 @@ void DataSourceFactory::start()
 
     //create all dirs needed
     QDir dir;
-    dir.mkpath(m_dest.adjusted(QUrl::RemoveFilename).toString());
+    dir.mkpath(m_dest.adjusted(QUrl::RemoveFilename).toLocalFile());
     if (checkLocalFile()) {
         if (!m_putJob) {
             m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);

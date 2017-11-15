@@ -292,12 +292,12 @@ FileModel::~FileModel()
 
 void FileModel::setupModelData(const QList<QUrl> &files)
 {
-    QString destDirectory = m_destDirectory.toString();
+    QString destDirectory = m_destDirectory.toLocalFile();
 
     foreach (const QUrl &file, files)
     {
         FileItem *parent = m_rootItem;
-        QStringList directories = file.toString().remove(destDirectory).split('/', QString::SkipEmptyParts);
+        QStringList directories = file.toLocalFile().remove(destDirectory).split('/', QString::SkipEmptyParts);
         FileItem *child = nullptr;
         while (directories.count())
         {
@@ -557,7 +557,7 @@ QUrl FileModel::getUrl(FileItem *item)
     const QString path = getPath(item);
     const QString name = item->data(FileItem::File, Qt::DisplayRole).toString();
     QUrl url = m_destDirectory;
-    url.setPath(m_destDirectory.toString() + path + name);
+    url.setPath(m_destDirectory.path() + path + name);
 
     return url;
 }
@@ -582,10 +582,10 @@ FileItem *FileModel::getItem(const QUrl &file)
         return m_itemCache[file];
     }
 
-    QString destDirectory = m_destDirectory.toString();
+    QString destDirectory = m_destDirectory.toLocalFile();
 
     FileItem *item = m_rootItem;
-    QStringList directories = file.toString().remove(destDirectory).split('/', QString::SkipEmptyParts);
+    QStringList directories = file.toLocalFile().remove(destDirectory).split('/', QString::SkipEmptyParts);
     while (directories.count())
     {
         QString part = directories.takeFirst();
@@ -664,9 +664,9 @@ void FileModel::rename(const QModelIndex &file, const QString &newName)
     QString path = getPath(item);
 
     QUrl oldUrl = m_destDirectory;
-    oldUrl.setPath(m_destDirectory.toString() + path + oldName);
+    oldUrl.setPath(m_destDirectory.path() + path + oldName);
     QUrl newUrl = m_destDirectory;
-    newUrl.setPath(m_destDirectory.toString() + path + newName);
+    newUrl.setPath(m_destDirectory.path() + path + newName);
 
     m_itemCache.remove(oldUrl);
 

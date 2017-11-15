@@ -1160,7 +1160,7 @@ QString KGetMetalink::Metalink_v3::dateConstructToString(const KGetMetalink::Dat
 
 bool KGetMetalink::HandleMetalink::load(const QUrl &destination, KGetMetalink::Metalink *metalink)
 {
-    QFile file(destination.toString());
+    QFile file(destination.toLocalFile());
     if (!file.open(QIODevice::ReadOnly))
     {
         return false;
@@ -1224,7 +1224,7 @@ bool KGetMetalink::HandleMetalink::load(const QByteArray &data, KGetMetalink::Me
 
 bool KGetMetalink::HandleMetalink::save(const QUrl &destination, KGetMetalink::Metalink *metalink)
 {
-    QFile file(destination.toString());
+    QFile file(destination.toLocalFile());
     if (!file.open(QIODevice::WriteOnly)) {
         return false;
     }

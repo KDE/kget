@@ -992,7 +992,7 @@ QUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName
 
     QUrl destUrl = KFileDialog::getSaveUrl(startLocation, QString(), m_mainWindow, i18n("Save As"));
     if (!destUrl.isEmpty()) {
-        Settings::setLastDirectory(destUrl.adjusted(QUrl::RemoveFilename).toString());
+        Settings::setLastDirectory(destUrl.adjusted(QUrl::RemoveFilename).path());
     }
 
     return destUrl;
