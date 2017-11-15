@@ -20,6 +20,7 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QVariant>
+#include <QApplication>
 
 TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     : QWidget(parent)
@@ -36,7 +37,7 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     m_drawer = new KCategoryDrawer(m_view);
     m_view->setCategoryDrawer(m_drawer);
     m_view->setSelectionMode(QAbstractItemView::SingleSelection);
-    //m_view->setSpacing(KDialog::spacingHint());TODO: Port this line
+    m_view->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
     m_view->setViewMode(QListView::IconMode);
     m_view->setMouseTracking(true);
     m_view->setItemDelegate(item_delegate);
