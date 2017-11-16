@@ -9,6 +9,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
+#include <Kdelibs4ConfigMigrator>
+#include <Kdelibs4Migration>
 #include <kwindowsystem.h>
 #include <klocale.h>
 #include <kaboutdata.h>
@@ -150,6 +152,39 @@ int main(int argc, char *argv[])
     aboutData.processCommandLine(&parser);
 
     KDBusService dbusService(KDBusService::Unique);
+
+    Kdelibs4ConfigMigrator migrate(QStringLiteral("kget"));
+    migrate.setConfigFiles(QStringList() << QStringLiteral("kgetrc")
+        << QStringLiteral("kget_bittorrentfactory.rc")
+        << QStringLiteral("kget_checksumsearchfactory.rc")
+        << QStringLiteral("kget_metalinkfactory.rc")
+        << QStringLiteral("kget_mirrorsearchfactory.rc")
+        << QStringLiteral("kget_mmsfactory.rc")
+        << QStringLiteral("kget_multisegkiofactory.rc")
+        << QStringLiteral("kget.notifyrc"));
+    if (migrate.migrate()) {
+        Kdelibs4Migration dataMigrator;
+        const QString sourceBasePath = dataMigrator.saveLocation("data", QStringLiteral("kget"));
+        const QString targetBasePath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kget/");
+        QString targetFilePath;
+
+        QDir sourceDir(sourceBasePath);
+        QDir targetDir(targetBasePath);
+
+        if (sourceDir.exists()) {
+            if (!targetDir.exists()) {
+                QDir().mkpath(targetBasePath);
+            }
+            QStringList fileNames = sourceDir.entryList(
+                QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
+            foreach (const QString &fileName, fileNames) {
+                targetFilePath = targetBasePath + fileName;
+                if (!QFile::exists(targetFilePath)) {
+                    QFile::copy(sourceBasePath + fileName, targetFilePath);
+                }
+            }
+        }
+    }
 
     KGetApp kApp(&parser);
 
