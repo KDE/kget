@@ -1,6 +1,8 @@
 add_subdirectory(kio)
-add_subdirectory(multisegmentkio)
-add_subdirectory(metalink)
+#doesn't work currently, needs to be fixed
+#add_subdirectory(multisegmentkio)
+#requires multisegmentkio plugin
+#add_subdirectory(metalink)
 if (KF5Torrent_FOUND)
   add_subdirectory(bittorrent)
 endif (KF5Torrent_FOUND)
