@@ -90,7 +90,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     buttonBox->addButton(QDialogButtonBox::Close);
     m_verticalLayout->addWidget(buttonBox);
     
-    layout()->addWidget(mainWidget);
+    setLayout(m_verticalLayout);
 
     watcher = new QFileSystemWatcher();
     watcher->addPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString());
