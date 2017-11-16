@@ -219,6 +219,18 @@ endif()
 
 
 set_target_properties(kgetcore PROPERTIES VERSION 5.0.0 SOVERSION 5 )
+if(${CMAKE_VERSION} VERSION_LESS "3.9.0")
+# work around a bug in cmake that breaks the build on 32bit systems
+# see bug#386948
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        add_custom_command(
+            OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_predefs.h
+            COMMAND "${CMAKE_CXX_COMPILER}" "-dM" "-E" "-c" "${CMAKE_ROOT}/Modules/CMakeCXXCompilerABI.cpp" > ${CMAKE_CURRENT_BINARY_DIR}/moc_predefs.h
+        )
+        set_property(TARGET kgetcore APPEND PROPERTY AUTOMOC_MOC_OPTIONS --include ${CMAKE_CURRENT_BINARY_DIR}/moc_predefs.h)
+        set_property(TARGET kgetcore APPEND PROPERTY AUTOGEN_TARGET_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/moc_predefs.h)
+    endif()
+endif()
 install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 
