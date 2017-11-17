@@ -209,7 +209,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void slotOffset(KIO::Job *job, KIO::filesize_t offset);
         void slotDataWritten(KIO::Job *job, KIO::filesize_t offset);
         void slotPercent(KJob *job, ulong percent);
-        void open(KIO::Job *job);
+        void slotOpen(KIO::Job *job);
         void speedChanged();
         /**
          * Kills the putjob and starts the moving of files

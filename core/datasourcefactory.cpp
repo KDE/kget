@@ -221,7 +221,7 @@ void DataSourceFactory::start()
     if (checkLocalFile()) {
         if (!m_putJob) {
             m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
-            connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(open(KIO::Job*)));
+            connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(slotOpen(KIO::Job*)));
             connect(m_putJob, SIGNAL(destroyed(QObject*)), this, SLOT(slotPutJobDestroyed(QObject*)));
             m_startTried = true;
             return;
@@ -305,7 +305,7 @@ void DataSourceFactory::slotRemovedFile()
     }
 }
 
-void DataSourceFactory::open(KIO::Job *job)
+void DataSourceFactory::slotOpen(KIO::Job *job)
 {
     Q_UNUSED(job)
     qCDebug(KGET_DEBUG) << "File opened" << this;
