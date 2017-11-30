@@ -177,7 +177,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
                 return;
         }
         QUrl path = m_dest.adjusted(QUrl::RemoveFilename);
-        path.setPath(path.path() + "/" + filename);
+        path.setPath(path.path() + filename);
         setNewDestination(path);
     }
     if (change & Tc_Source) {
