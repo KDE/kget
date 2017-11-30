@@ -28,7 +28,7 @@ TransferHistoryItem::TransferHistoryItem() : QObject()
 
 TransferHistoryItem::TransferHistoryItem(const Transfer &transfer) : QObject()
 {
-    setDest(transfer.dest().toString());
+    setDest(transfer.dest().toLocalFile());
     setSource(transfer.source().url());
     setSize(transfer.totalSize());
     setDateTime(QDateTime::currentDateTime());
