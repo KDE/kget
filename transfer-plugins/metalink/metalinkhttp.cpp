@@ -174,7 +174,7 @@ bool MetalinkHttp::metalinkHttpInit()
 {
     kDebug() << "m_dest = " << m_dest;
     const QUrl tempDest = QUrl(m_dest.adjusted(QUrl::RemoveFilename));
-    QUrl dest = tempDest.toString() + "/" + m_dest.fileName();
+    QUrl dest = tempDest.toString() + m_dest.fileName();
     kDebug() << "dest = " << dest;
 
     //sort the urls according to their priority (highest first)
