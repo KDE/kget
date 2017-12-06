@@ -128,7 +128,7 @@ void BTTransfer::start()
         {
             qCDebug(KGET_DEBUG) << m_dest.path();
             m_tmpTorrentFile = QString(KStandardDirs::locateLocal("appdata", "tmp/") + m_dest.fileName());
-            Download *download = new Download(m_source, m_tmpTorrentFile);
+            Download *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
 
             setStatus(Job::Stopped, i18n("Downloading Torrent File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
@@ -458,7 +458,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
         m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
         torrent->init(nullptr, file.readAll(), m_tmp + m_source.fileName().remove(".torrent"), QUrl::fromLocalFile(m_dest.adjusted(QUrl::RemoveFilename).path()).toLocalFile());
 
-        m_dest = torrent->getStats().output_path;
+        m_dest = QUrl::fromLocalFile(torrent->getStats().output_path);
         if (!torrent->getStats().multi_file_torrent && (m_dest.fileName() != torrent->getStats().torrent_name))//TODO check if this is needed, so if that case is true at some point
         {
             m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
