@@ -11,6 +11,7 @@
 
 #include <Kdelibs4ConfigMigrator>
 #include <Kdelibs4Migration>
+#include <kstartupinfo.h>
 #include <kwindowsystem.h>
 #include <klocale.h>
 #include <kaboutdata.h>
@@ -25,10 +26,6 @@
 #include "settings.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
-
-#if defined Q_WS_X11
-    #include <kstartupinfo.h>
-#endif
 
 class KGetApp : public QObject
 {
@@ -57,20 +54,9 @@ public:
             new MainAdaptor(wrapper);
             QDBusConnection::sessionBus().registerObject("/KGet", wrapper);
         } else {
-
-            //BEGIN taken from "kuniqueapplication.cpp"
-#ifdef Q_WS_X11
-            // This is the line that handles window activation if necessary,
-            // and what's important, it does it properly. If you reimplement newInstance(),
-            // and don't call the inherited one, use this (but NOT when newInstance()
-            // is called for the first time, like here).
+            // activate window if it is already open
             KStartupInfo::setNewStartupId(kget, startupId());
-#endif
-#ifdef Q_WS_WIN
             KWindowSystem::forceActiveWindow(kget->winId());
-#endif
-            //END
-
         }
 
         if (parser->isSet("showDropTarget"))
