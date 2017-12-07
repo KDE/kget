@@ -97,7 +97,7 @@ void NewTransferDialog::setMultiple(bool useMultiple)
     ui.urlLabel->setAlignment(alignment);
     ui.urlRequester->setVisible(!m_multiple);
     ui.listWidget->setVisible(m_multiple);
-    ui.destRequester->setMode(m_multiple ? KFile::Directory : KFile::File);
+    ui.destRequester->setMode(m_multiple ? QFileDialog::Directory : QFileDialog::AnyFile);
 }
 
 void NewTransferDialog::clear()
