@@ -77,7 +77,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     connect(ui.groupComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setDefaultDestination()));
 
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(setDefaultDestination()));
-    connect(ui.destRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
+    connect(ui.destRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer())); //FIXME for some reason this signal never seems to be emitted
     connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
     connect(ui.listWidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(inputTimer()));
     connect(this, SIGNAL(finished(int)), this, SLOT(slotFinished(int)));
@@ -396,6 +396,10 @@ void NewTransferDialog::slotFinished(int resultCode)
 void NewTransferDialog::dialogAccepted()
 {
     qCDebug(KGET_DEBUG) << "Dialog accepted.";
+
+    //FIXME checkInput() shouldn't have to be called here, it should actually be called whenever the text in the input fields changes.
+    // For some reason that doesn't work for the destination field though, so call it explicitly here as a workaround for now, to make the choice be respected. (checkInput() sets m_destination accordingly)
+    checkInput();
 
     //an existing transfer has been specified and since ok was clicked, it was chosen to be overwritten
     if (m_existingTransfer) {
