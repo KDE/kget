@@ -206,7 +206,7 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
 
     //qDebug() << "Try to open the file : " << file;
     if (!file.isEmpty()) {
-        new KRun(file, this, true);
+        new KRun(QUrl::fromLocalFile(file), this, true);
     }
 }
 
