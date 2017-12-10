@@ -61,7 +61,6 @@ Name[ug]=MMS
 Name[uk]=MMS
 Name[wa]=MMS
 Name[x-test]=xxMMSxx
-Name[zh_CN]=MMS
 Name[zh_TW]=MMS
 Comment=MMS-Transfer plugin for KGet
 Comment[ar]=ملحق محول MMS لـ KGet
@@ -118,7 +117,6 @@ Comment[tr]=MMS- KGet için aktarım eklentisi
 Comment[ug]=KGet نىڭ MMS يوللاش قىستۇرمىسى
 Comment[uk]=Додаток перенесення MMS для KGet
 Comment[x-test]=xxMMS-Transfer plugin for KGetxx
-Comment[zh_CN]=MMS-KGet 传输插件
 Comment[zh_TW]=KGet 的 MMS 傳輸外掛程式
 
 # options for library loader
