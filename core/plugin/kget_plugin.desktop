@@ -122,7 +122,7 @@ Comment[ug]=KGet قىستۇرمىسى
 Comment[uk]=Додаток для KGet
 Comment[vi]=Phần bổ sung cho KGet
 Comment[x-test]=xxPlugin for KGetxx
-Comment[zh_CN]=KGet 插件
+Comment[zh_CN]=用于 KGet 的插件
 Comment[zh_TW]=KGet 外掛程式
 
 # Type of plugin, e.g. "TransferFactory".
