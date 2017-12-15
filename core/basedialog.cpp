@@ -24,15 +24,16 @@ KGetSaveSizeDialog::KGetSaveSizeDialog(const QByteArray &name, QWidget *parent, 
   : QDialog(parent, flags),
     m_name("Size" + name)
 {
-    const QSize size = KSharedConfig::openConfig()->group("Geometry").readEntry(m_name.constData(), QSize()); //TODO: Port this file
+    const QSize size = KSharedConfig::openConfig()->group("Geometry").readEntry(m_name.constData(), QSize());
     if (size.isValid()) {
         resize(size);
     }
-} 
+}
 
 KGetSaveSizeDialog::~KGetSaveSizeDialog()
 {
-    const QString name = QString("Size_") + metaObject()->className();
-    KSharedConfig::openConfig()->group("Geometry").writeEntry(m_name.constData(), size());
-} 
+    KConfigGroup grp(KSharedConfig::openConfig(), "Geometry");
+    grp.writeEntry(m_name.constData(), size());
+    grp.sync();
+}
 

@@ -52,45 +52,34 @@ TransferHistory::TransferHistory(QWidget *parent)
     //Setup Ui-Parts from Designer
     QWidget *mainWidget = new QWidget(this);
 
-    Ui::TransferHistory widget;
-    widget.setupUi(mainWidget);
+    setupUi(mainWidget);
 
     m_view = new TransferHistoryCategorizedView(this);
 
     // list icon view
-    m_iconView = widget.bt_iconview;
-    m_listView = widget.bt_listview;
+    auto &iconView = bt_iconview;
+    auto &listView = bt_listview;
 
-    m_listView->setIcon(QIcon::fromTheme("view-list-details"));
-    m_iconView->setIcon(QIcon::fromTheme("view-list-icons"));
+    listView->setIcon(QIcon::fromTheme("view-list-details"));
+    iconView->setIcon(QIcon::fromTheme("view-list-icons"));
 
-    connect(m_listView, SIGNAL(clicked()), SLOT(slotSetListMode()));
-    connect(m_iconView, SIGNAL(clicked()), SLOT(slotSetIconMode()));
+    connect(listView, SIGNAL(clicked()), SLOT(slotSetListMode()));
+    connect(iconView, SIGNAL(clicked()), SLOT(slotSetIconMode()));
 
-    // range type
-    m_rangeTypeCombobox = widget.rangeType;
-
-    m_verticalLayout = widget.vboxLayout;
-    m_hboxLayout = widget.hboxLayout;
-    m_searchBar = widget.searchBar;
-    //m_searchBar->setTreeWidget(m_treeWidget);
-    m_clearButton = widget.clearButton;
-    m_clearButton->setIcon(QIcon::fromTheme("edit-clear-history"));
-    m_actionDelete_Selected = widget.actionDelete_Selected;
-    m_actionDelete_Selected->setIcon(QIcon::fromTheme("edit-delete"));
-    m_actionDownload = widget.actionDownload;
-    m_actionDownload->setIcon(QIcon::fromTheme("document-new"));
+    clearButton->setIcon(QIcon::fromTheme("edit-clear-history"));
+    actionDelete_Selected->setIcon(QIcon::fromTheme("edit-delete"));
+    actionDownload->setIcon(QIcon::fromTheme("document-new"));
     m_openFile = new QAction(QIcon::fromTheme("document-open"), i18n("&Open File"), this);
 
-    m_verticalLayout->addWidget(m_view);
-    m_verticalLayout->addWidget(m_progressBar);
-    
+    vboxLayout->addWidget(m_view);
+    vboxLayout->addWidget(m_progressBar);
+
     QDialogButtonBox * buttonBox = new QDialogButtonBox(mainWidget);
     buttonBox->clear();
     buttonBox->addButton(QDialogButtonBox::Close);
-    m_verticalLayout->addWidget(buttonBox);
-    
-    setLayout(m_verticalLayout);
+    vboxLayout->addWidget(buttonBox);
+
+    setLayout(vboxLayout);
 
     watcher = new QFileSystemWatcher();
     watcher->addPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString());
@@ -98,18 +87,18 @@ TransferHistory::TransferHistory(QWidget *parent)
 
     m_store = TransferHistoryStore::getStore();
 
-    connect(m_actionDelete_Selected, SIGNAL(triggered()), this, SLOT(slotDeleteTransfer()));
-    connect(m_actionDownload, SIGNAL(triggered()), this, SLOT(slotDownload()));
+    connect(actionDelete_Selected, SIGNAL(triggered()), this, SLOT(slotDeleteTransfer()));
+    connect(actionDownload, SIGNAL(triggered()), this, SLOT(slotDownload()));
     connect(m_openFile, SIGNAL(triggered()), this, SLOT(slotOpenFile()));
-    connect(m_clearButton, SIGNAL(clicked()), this, SLOT(slotClear()));
-    connect(m_rangeTypeCombobox, SIGNAL(activated(int)), this, SLOT(slotLoadRangeType(int)));
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClear()));
+    connect(rangeType, SIGNAL(activated(int)), this, SLOT(slotLoadRangeType(int)));
     connect(m_view, SIGNAL(deletedTransfer(QString,QModelIndex)),
                     SLOT(slotDeleteTransfer(QString,QModelIndex)));
     connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SLOT(slotOpenFile(QModelIndex)));
     connect(m_store, SIGNAL(loadFinished()), SLOT(slotLoadFinished()));
     connect(m_store, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
                      SLOT(slotElementLoaded(int,int,TransferHistoryItem)));
-    connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
+    connect(searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     slotAddTransfers();
@@ -181,8 +170,8 @@ void TransferHistory::contextMenuEvent(QContextMenuEvent *event)
         RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
         if(range_view->currentIndex().parent().isValid()) {
             QMenu *contextMenu = new QMenu(this);
-            contextMenu->addAction(m_actionDownload);
-            contextMenu->addAction(m_actionDelete_Selected);
+            contextMenu->addAction(actionDownload);
+            contextMenu->addAction(actionDelete_Selected);
 
             if (range_view->currentItem(4)->data().toInt() == Job::Finished)
                 contextMenu->addAction(m_openFile);
@@ -312,10 +301,10 @@ void TransferHistory::slotSetListMode()
     m_iconModeEnabled = false;
     delete m_view;
     m_view = new RangeTreeWidget(this);
-    m_verticalLayout->insertWidget(1, m_view);
+    vboxLayout->insertWidget(1, m_view);
     slotLoadRangeType(m_rangeType);
 
-    connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
+    connect(searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
     // we connect the doubleClicked signal over an item to the open file action
     connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SLOT(slotOpenFile(QModelIndex)));
 }
@@ -325,10 +314,10 @@ void TransferHistory::slotSetIconMode()
     m_iconModeEnabled = true;
     delete m_view;
     m_view = new TransferHistoryCategorizedView(this);
-    m_verticalLayout->insertWidget(1, m_view);
+    vboxLayout->insertWidget(1, m_view);
     slotLoadRangeType(m_rangeType);
 
-    connect(m_searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
+    connect(searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
     connect(m_view, SIGNAL(deletedTransfer(QString,QModelIndex)),
                     SLOT(slotDeleteTransfer(QString,QModelIndex)));
     connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SLOT(slotOpenFile(QModelIndex)));
