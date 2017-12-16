@@ -20,9 +20,10 @@
  ***************************************************************************/
 #include "iwfilelistmodel.h"
 
-#include <math.h>
-#include <klocale.h>
-#include <kglobal.h>
+#include <cmath>
+
+#include <KLocalizedString>
+
 #include <util/functions.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>

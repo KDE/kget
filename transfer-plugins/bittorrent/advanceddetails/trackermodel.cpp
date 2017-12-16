@@ -19,8 +19,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
 #include "trackermodel.h"
+
 #include <QList>
-#include <klocale.h>
+
+#include <KLocalizedString>
+
 #include <interfaces/torrentinterface.h>
 #include <interfaces/trackerinterface.h>
 

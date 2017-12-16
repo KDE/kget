@@ -21,9 +21,11 @@
 #ifndef KTWEBSEEDSTAB_H
 #define KTWEBSEEDSTAB_H
 
-#include <QWidget>
 #include <QSortFilterProxyModel>
+#include <QWidget>
+
 #include <KSharedConfig>
+
 #include "ui_webseedstab.h"
 
 namespace bt

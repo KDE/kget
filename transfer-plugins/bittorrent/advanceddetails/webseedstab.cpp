@@ -19,9 +19,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
 #include "webseedstab.h"
+
 #include <QHeaderView>
-#include <kconfiggroup.h>
-#include <kmessagebox.h>
+
+#include <KConfigGroup>
+#include <KMessageBox>
+
 #include <interfaces/torrentinterface.h>
 #include <interfaces/webseedinterface.h>
 #include "webseedsmodel.h"

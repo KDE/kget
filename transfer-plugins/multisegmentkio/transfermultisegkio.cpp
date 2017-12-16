@@ -22,13 +22,14 @@
 #include <utime.h>
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <kiconloader.h>
+
+#include <KIconLoader>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KMessageBox>
 
+#include <QDebug>
 #include <QDomElement>
 #include <QFile>
 

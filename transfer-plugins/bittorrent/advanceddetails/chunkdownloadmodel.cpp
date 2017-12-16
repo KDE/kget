@@ -20,11 +20,12 @@
  ***************************************************************************/
 #include "chunkdownloadmodel.h"
 
-#include <klocale.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>
 #include <interfaces/chunkdownloadinterface.h>
 #include <util/functions.h>
+
+#include <KLocalizedString>
 
 using namespace bt;
 

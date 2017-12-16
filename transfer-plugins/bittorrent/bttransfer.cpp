@@ -32,18 +32,18 @@
 #include <version.h>
 
 #include "kget_debug.h"
-#include <QDebug>
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIO/CopyJob>
 #include <KStandardDirs>
-#include <QUrl>
 #include <KMessageBox>
 
-#include <QFile>
-#include <QDomElement>
-#include <QFileInfo>
+#include <QDebug>
 #include <QDir>
+#include <QDomElement>
+#include <QFile>
+#include <QFileInfo>
+#include <QUrl>
 
 #ifdef ERROR
 #undef ERROR

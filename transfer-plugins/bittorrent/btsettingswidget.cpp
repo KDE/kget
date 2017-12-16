@@ -13,8 +13,9 @@
 #include "bittorrentsettings.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <kfiledialog.h>
+
+#include <QDebug>
+#include <KFileDialog>
 
 KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)
 

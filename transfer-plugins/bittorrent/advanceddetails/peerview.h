@@ -20,11 +20,11 @@
 #ifndef KT_PEERVIEW_HH
 #define KT_PEERVIEW_HH
 
-
 #include <QTreeWidget>
+#include <KSharedConfig>
+
 #include <util/ptrmap.h>
 #include <interfaces/peerinterface.h>
-#include <ksharedconfig.h>
 
 class QMenu;
 

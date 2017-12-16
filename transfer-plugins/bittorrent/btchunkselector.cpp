@@ -11,9 +11,10 @@
 
 #include "btchunkselector.h"
 
-#include <stdlib.h>
-#include <vector>
 #include <algorithm>
+#include <cstdlib>
+#include <vector>
+
 #include <util/log.h>
 #include <util/bitset.h>
 #include <peer/chunkcounter.h>

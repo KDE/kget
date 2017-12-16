@@ -20,11 +20,13 @@
  ***************************************************************************/
 #include "torrentfiletreemodel.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
+#include <KMimeType>
+
 #include <QIcon>
-#include <kmimetype.h>
-#include <QTreeView>
 #include <QSortFilterProxyModel>
+#include <QTreeView>
+
 #include <bcodec/bdecoder.h>
 #include <bcodec/bencoder.h>
 #include <bcodec/bnode.h>

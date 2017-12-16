@@ -13,9 +13,9 @@
 #include "core/transfergroup.h"
 #include "script.h"
 
-#include <kiconloader.h>
-#include <klocale.h>
 #include <KDebug>
+#include <KIconLoader>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KUrl>
 

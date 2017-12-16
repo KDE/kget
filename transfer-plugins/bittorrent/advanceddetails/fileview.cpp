@@ -19,25 +19,25 @@
  ***************************************************************************/
 #include "fileview.h"
 
+#include <QFileInfo>
 #include <QHeaderView>
 #include <QItemSelectionModel>
-#include <QSortFilterProxyModel>
-#include <klocale.h>
-#include <kiconloader.h>
-#include <kglobal.h>
 #include <QMenu>
-#include <krun.h>
-#include <kmessagebox.h>
-#include <kmimetype.h>
-#include <ksharedconfig.h>
-#include <kconfiggroup.h>
-#include <kfiledialog.h>
+#include <QSortFilterProxyModel>
+
+#include <KConfigGroup>
+#include <KFileDialog>
+#include <KIconLoader>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KMimeType>
+#include <KRun>
+
 #include <util/bitset.h>
 #include <util/error.h>
 #include <util/functions.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>
-#include <qfileinfo.h>
 #include <util/log.h>
 #include <util/timer.h>
 #include "iwfiletreemodel.h"

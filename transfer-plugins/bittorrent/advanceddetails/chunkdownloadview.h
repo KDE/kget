@@ -20,9 +20,9 @@
 #ifndef KT_CHUNKDOWNLOADVIEW_HH
 #define KT_CHUNKDOWNLOADVIEW_HH
 
-
 #include <QTreeWidget>
-#include <ksharedconfig.h>
+#include <KSharedConfig>
+
 #include <interfaces/chunkdownloadinterface.h>
 #include "ui_chunkdownloadview.h"
 

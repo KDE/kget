@@ -21,11 +21,13 @@
 #include "peerview.h"
 
 #include <QHeaderView>
-#include <klocale.h>
 #include <QIcon>
 #include <QMenu>
-#include <kstandarddirs.h>
-#include <kconfiggroup.h>
+
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KStandardDirs>
+
 #include <interfaces/peerinterface.h>
 #include <peer/accessmanager.h>
 #include <util/functions.h>

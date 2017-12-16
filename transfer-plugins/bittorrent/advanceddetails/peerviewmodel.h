@@ -21,9 +21,10 @@
 #ifndef KTPEERVIEWMODEL_H
 #define KTPEERVIEWMODEL_H
 
+#include <QAbstractTableModel>
 #include <QIcon>
 #include <QList>
-#include <QAbstractTableModel>
+
 #include <interfaces/peerinterface.h>
 
 namespace kt

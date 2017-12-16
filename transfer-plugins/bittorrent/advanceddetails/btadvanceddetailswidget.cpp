@@ -24,11 +24,13 @@
 #include "webseedstab.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <kglobal.h>
-#include <kdialog.h>
-#include <ktabwidget.h>
-#include <ktitlewidget.h>
+
+#include <KDialog>
+#include <KGlobal>
+#include <KTabWidget>
+#include <KTitleWidget>
+
+#include <QDebug>
 #include <QGridLayout>
 
 using namespace kt;

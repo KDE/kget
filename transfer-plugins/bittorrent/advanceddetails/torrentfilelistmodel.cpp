@@ -20,10 +20,12 @@
  ***************************************************************************/
 #include "torrentfilelistmodel.h"
 
-#include <klocale.h>
 #include <QIcon>
-#include <kmimetype.h>
 #include <QTreeView>
+
+#include <KLocalizedString>
+#include <KMimeType>
+
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>
 #include <util/functions.h>

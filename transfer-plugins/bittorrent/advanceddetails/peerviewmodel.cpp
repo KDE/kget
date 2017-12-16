@@ -19,9 +19,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
 #include "peerviewmodel.h"
-#include <klocale.h>
+
+#include <KLocalizedString>
+#include <KStandardDirs>
+
 #include <QIcon>
-#include <kstandarddirs.h>
+#include <QLocale>
+
 #include <interfaces/torrentinterface.h>
 #include <util/functions.h>
 #include <kdebug.h>
@@ -151,9 +155,9 @@ namespace kt
 					return QVariant();
 			case 4: return stats.choked ? i18nc("Choked", "Yes") : i18nc("Not choked", "No");
 			case 5: return stats.snubbed ? i18nc("Snubbed", "Yes") : i18nc("Not snubbed", "No");
-			case 6: return QString("%1 %").arg(KLocale::global()->formatNumber(stats.perc_of_file,2));
+			case 6: return QString("%1 %").arg(QLocale().toString(stats.perc_of_file, 'g', 2));
 			case 7: return QVariant();
-			case 8: return KLocale::global()->formatNumber(stats.aca_score,2);
+			case 8: return QLocale().toString(stats.aca_score, 'g', 2);
 			case 9: return QVariant(); 
 			case 10: return QString("%1 / %2").arg(stats.num_down_requests).arg(stats.num_up_requests);
 			case 11: return BytesToString(stats.bytes_downloaded);

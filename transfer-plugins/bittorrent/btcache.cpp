@@ -11,7 +11,6 @@
 
 #include <diskio/chunk.h>
 
-#include <KDebug>
 #include <QDataStream>
 
 using namespace bt;

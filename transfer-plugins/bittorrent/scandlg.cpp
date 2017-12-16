@@ -19,13 +19,16 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
  ***************************************************************************/
 #include "scandlg.h"
-#include <QCloseEvent>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kstandardguiitem.h>
 #include <util/error.h>
 #include <util/log.h>
 #include <interfaces/torrentinterface.h>
+
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KStandardGuiItem>
+
+#include <QCloseEvent>
+
 using namespace bt;
 
 namespace kt

@@ -24,6 +24,7 @@
 #include <QTimer>
 #include <QMutex>
 #include <KDialog>
+
 #include <version.h>
 #include <torrent/job.h>
 #include "ui_scandlg.h"

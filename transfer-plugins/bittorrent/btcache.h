@@ -12,10 +12,11 @@
 
 #include <diskio/cache.h>
 #include <interfaces/cachefactory.h>
-#include <kio/job.h>
 
-#include <QString>
+#include <KIO/Job>
+
 #include <QByteArray>
+#include <QString>
 
 class QStringList;
 class KJob;

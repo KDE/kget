@@ -22,12 +22,13 @@
 
 #include <QHeaderView>
 #include <QClipboard>
-#include <klocale.h>
-#include <kurl.h>
-#include <kmessagebox.h>
-#include <kglobal.h>
-#include <kinputdialog.h>
-#include <kconfiggroup.h>
+
+#include <KConfigGroup>
+#include <KInputDialog>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KUrl>
+
 #include <torrent/globals.h>
 #include <interfaces/trackerinterface.h>
 #include <interfaces/torrentinterface.h>

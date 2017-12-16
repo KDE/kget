@@ -23,8 +23,7 @@
 #include <peer/authenticationmonitor.h>
 #include <util/functions.h>
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <KStandardDirs>
 
 using namespace bt;
 

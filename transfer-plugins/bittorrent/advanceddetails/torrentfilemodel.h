@@ -21,8 +21,9 @@
 #ifndef KTTORRENTFILEMODEL_HH
 #define KTTORRENTFILEMODEL_HH
 
-#include <QByteArray>
 #include <QAbstractItemModel>
+#include <QByteArray>
+
 #include <util/constants.h>
 
 class QTreeView;

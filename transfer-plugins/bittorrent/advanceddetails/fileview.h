@@ -20,9 +20,10 @@
 #ifndef KTFILEVIEW_H
 #define KTFILEVIEW_H
 
-#include <QTreeView>
 #include <util/constants.h>
-#include <ksharedconfig.h>
+
+#include <QTreeView>
+#include <KSharedConfig>
 
 class QMenu;
 class QSortFilterProxyModel;

@@ -18,10 +18,11 @@
 #include "advanceddetails/btadvanceddetailswidget.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
 #include <util/functions.h>
 #include <version.h>
 #include <torrent/job.h>
+
+#include <QDebug>
 
 K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_bittorrentfactory.json", registerPlugin<BTTransferFactory>();)
 

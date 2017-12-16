@@ -13,7 +13,7 @@
 
 #include "core/transferdatasource.h"
 
-#include <kio/job.h>
+#include <KIO/Job>
 #include <QUrl>
 #include <QTimer>
 
