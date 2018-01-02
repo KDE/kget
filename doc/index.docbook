@@ -1,9 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!-- Define an entity for your application if it is not part of KDE CVS -->
-  <!ENTITY kget "<application>KGet</application>">
-  <!ENTITY kappname "&kget;"><!-- replace kget here do *not* replace kappname-->
-  <!ENTITY package "kdenetwork">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"> 
 ]>
@@ -30,14 +27,14 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-07-17</date>
-<releaseinfo>2.4.93 (&kde; 4.5)</releaseinfo>
+<date>2017-11-21</date>
+<releaseinfo>2.95.0 (Applications 17.12)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para>
-&kget; is the download manager for &kde; 
+&kget; is an advanced download manager by &kde; 
 </para>
 </abstract>
 
@@ -127,20 +124,6 @@ Right click on the drop target to see the options.
       </para>
      </listitem>
     </varlistentry>
-<!-- no longer in 4.5
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem>Show Drop Target</guimenuitem>
-	</menuchoice>
-      </term>
-    <listitem>
-      <para>
-	<action>Uncheck this box to make the &kget; Drop Target go away.</action>
-      </para>
-     </listitem>
-    </varlistentry>
--->
     <varlistentry>
       <term>
 	<menuchoice>
@@ -214,19 +197,7 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Show splashscreen</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action>Check this check box to show a splashscreen before startup.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem>Show drop target</guimenuitem>
+	  <guimenuitem>Use Drop Target</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -247,20 +218,6 @@ Right click on the drop target to see the options.
 	</para>
       </listitem>
     </varlistentry>
-<!-- what is this?
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem>Enable popup tooltip</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action>???</action>
-	</para>
-      </listitem>
-    </varlistentry>
--->
   </variablelist>
 </para>
 </sect1>
@@ -325,20 +282,6 @@ Right click on the drop target to see the options.
 	</para>
       </listitem>
     </varlistentry>
-    
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem>Number of downloads</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action>You can set the maximum simultaneous downloads using this box.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-
     <varlistentry>
       <term>
 	<menuchoice>
@@ -381,7 +324,7 @@ Right click on the drop target to see the options.
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Reconnect on Error or Broken Connection</guimenuitem>
+	  <guimenuitem>Reconnect on Broken Connection</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -459,11 +402,42 @@ You will need to enter the username and password to get access.
 	</mediaobject>
   </screenshot>
 
-<para>Using the two methods <guilabel>Checksums</guilabel> and <guilabel>Signature</guilabel> 
+<para>Using the two methods <guilabel>Automatic checksums verification</guilabel> and <guilabel>Signature</guilabel> 
 you can verify your downloads. You just have to tick the Automatic verification check box.</para>
 </sect1>
 
-<sect1 id='Advanced'>
+<sect1 id="Integration">
+<title>Integration</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem>Use as download manager for Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action>You can set &kget; as your download manager for &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem>Monitor clipboard for files to download</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+          You can turn on this feature that asks if you want to download &URL;s copied into the clipboard.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
 <title>Advanced</title>
   <para>Modify Advanced Options.</para>
   <screenshot>
@@ -479,19 +453,6 @@ you can verify your downloads. You just have to tick the Automatic verification 
   </screenshot>
 
   <variablelist>
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem>Disable confirmation dialogs (less verbosity)</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action>Disables the confirmation dialogs</action>, which causes verbosity.
-	</para>
-      </listitem>
-    </varlistentry>
-
     <varlistentry>
       <term>
 	<menuchoice>
@@ -535,34 +496,6 @@ you can verify your downloads. You just have to tick the Automatic verification 
     <varlistentry>
       <term>
 	<menuchoice>
-	  <guimenuitem>Use as download manager for Konqueror</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action>You can set &kget; as your download manager for &konqueror;.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem>Monitor clipboard for files to download</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-<!--
-	  <action>Blank</action>
--->
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-	<menuchoice>
 	  <guimenuitem>Enable &kde; global progress tracking</guimenuitem>
 	</menuchoice>
       </term>
@@ -574,6 +507,24 @@ you can verify your downloads. You just have to tick the Automatic verification 
     </varlistentry>
   </variablelist>
 </sect1>
+
+<sect1 id="Plugins">
+<title>Plugins</title>
+  <screenshot>
+    <screeninfo>&kget; Plugins Options</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>&kget; Plugins Options</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para>On this page you can select the transfer plugins to be used. Use the <inlinemediaobject><imageobject><imagedata fileref="pluginsettings.png" format="PNG"/>
+</imageobject></inlinemediaobject> button to change the default settings for a plugin.</para>
+
+ </sect1>
 
 </chapter>
 
@@ -593,7 +544,7 @@ you can verify your downloads. You just have to tick the Automatic verification 
 </screenshot>
 
 <sect1 id='File_Options'>
-<title>The <guimenu>File</guimenu> Menu</title>
+<title>The File Menu</title>
 <variablelist>
 <varlistentry>
 <term><menuchoice>
@@ -604,39 +555,6 @@ you can verify your downloads. You just have to tick the Automatic verification 
 <guimenuitem>New Download...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Add a new file to download</action></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Import Transfers...</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Loads a *.kgt, *.metalink, *.meta4 or *.torrent file.</action></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Export Transfers List...</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Export the highlighted links to a .kgt file, to be loaded later.</action></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Export Transfers as Plain Text...</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Exports the links being downloaded as plain text.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -661,6 +579,28 @@ you can verify your downloads. You just have to tick the Automatic verification 
 </screenshot>
 <para><action>This action brings up another window, where you can see and manipulate which file to download. Also you can make a selection based on <guilabel>Videos</guilabel>, <guilabel>Images</guilabel>, <guilabel>Audio</guilabel> and <guilabel>Archives</guilabel>.
 There is also a text box to filter out results.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Import Transfers...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Loads a <filename class="extension">*.kgt</filename>, <filename class="extension">*.metalink</filename>, <filename class="extension">*.meta4</filename> or <filename class="extension">*.torrent</filename> file.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Export Transfers List...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Export the highlighted links to a <filename class="extension">.kgt</filename> file, to be loaded later.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -782,24 +722,6 @@ You can manage your history here, including filter and clear the history. </acti
 &underGPL;
 
 </chapter>
-
-<appendix id="installation">
-<title>Installation</title>
-
-<sect1 id="getting-KGet">
-<title>How to obtain &kget;</title>
-
-&install.intro.documentation;
-
-</sect1>
-
-<sect1 id="compilation">
-<title>Compilation and installation</title>
-
-&install.compile.documentation;
-
-</sect1>
-</appendix>
 
 &documentation.index;
 </book>
