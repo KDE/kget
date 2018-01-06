@@ -53,7 +53,7 @@ void MmsTransfer::start()
 
     setStatus(Job::Running, i18nc("transfer state: running", "Running...."),
               QIcon::fromTheme("media-playback-start").pixmap(16));
-    m_mmsdownload = new MmsDownload(m_source.toString(), m_dest.toString(),
+    m_mmsdownload = new MmsDownload(m_source.toString(), m_dest.toLocalFile(),
                                     m_fileTemp, m_amountThreads);
     connect(m_mmsdownload, SIGNAL(finished()), this, SLOT(slotResult()));
     connect(m_mmsdownload, SIGNAL(signBrokenUrl()), this, SLOT(slotBrokenUrl()));
@@ -96,9 +96,9 @@ void MmsTransfer::deinit(Transfer::DeleteOptions options)
 {
     /** Deleting the temporary file and the unfinish file*/
     if (options & Transfer::DeleteFiles) {
-        KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
+        KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_fileTemp), KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, nullptr);
-        del = KIO::del(m_dest.path(), KIO::HideProgressInfo);
+        del = KIO::del(m_dest, KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, nullptr);
     }
 }
@@ -119,7 +119,7 @@ void MmsTransfer::slotResult()
         m_percent = 100;
         m_downloadSpeed = 0;
         setTransferChange(Tc_Status | Tc_Percent | Tc_DownloadSpeed, true);
-        KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
+        KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_fileTemp), KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, nullptr);
     }
      
@@ -130,7 +130,7 @@ void MmsTransfer::slotResult()
      */
     if (m_retryDownload) {
         m_retryDownload = false;
-        KIO::Job *del = KIO::del(m_fileTemp, KIO::HideProgressInfo);
+        KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_fileTemp), KIO::HideProgressInfo);
         KIO::NetAccess::synchronousRun(del, nullptr);
         start();
     }
