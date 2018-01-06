@@ -37,6 +37,7 @@
 #include <KColorScheme>
 #include <KWindowSystem>
 #include <QStandardPaths>
+#include <kio_version.h>
 
 Q_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 
@@ -70,7 +71,11 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     ui.destRequester->comboBox()->setDuplicatesEnabled(false);
     ui.destRequester->comboBox()->setUrlDropsEnabled(true);
     ui.destRequester->comboBox()->setEditable(true);
-    //ui.destRequester->fileDialog()->setKeepLocation(true);
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 33, 0)
+    ui.destRequester->setAcceptMode(QFileDialog::AcceptSave);
+#else
+    ui.destRequester->fileDialog()->setAcceptMode(QFileDialog::AcceptSave);
+#endif
 
     ui.errorWidget->setCloseButtonVisible(false);
 
