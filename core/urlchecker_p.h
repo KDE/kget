@@ -46,8 +46,6 @@ class ExistingTransferDialog : public QDialog
             NoAll
         };
         
-        ExistingDialogReturn result();
-
     private slots:
         void slotYesClicked();
         void slotNoClicked();
@@ -55,7 +53,6 @@ class ExistingTransferDialog : public QDialog
 
     private:
         QCheckBox *m_applyAll;
-        ExistingDialogReturn m_result;
 };
 
 #endif

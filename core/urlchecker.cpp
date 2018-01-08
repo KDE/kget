@@ -75,22 +75,17 @@ ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QStrin
 
 void ExistingTransferDialog::slotYesClicked()
 {
-    m_result = m_applyAll ? YesAll : Yes;
+    done(m_applyAll->isChecked() ? YesAll : Yes);
 }
 
 void ExistingTransferDialog::slotNoClicked()
 {
-    m_result = m_applyAll ? NoAll : No;
+    done(m_applyAll->isChecked() ? NoAll : No);
 }
 
 void ExistingTransferDialog::slotCancelClicked()
 {
-    m_result = Cancel;
-}
-
-ExistingTransferDialog::ExistingDialogReturn ExistingTransferDialog::result()
-{
-    return m_result;
+    done(Cancel);
 }
 
 
@@ -662,9 +657,7 @@ int UrlChecker::hasExistingDialog(const QUrl &url, const UrlChecker::UrlType typ
 
     QScopedPointer<QDialog> dialog(new ExistingTransferDialog(message(url, type, warning), caption, parent));
 
-    dialog->exec();
-    const int result = (int) dialog->result();
-    return result;
+    return dialog->exec();
 }
 
 ///Non static methods following
