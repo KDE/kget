@@ -156,7 +156,7 @@ class KGET_EXPORT Transfer : public Job
         /**
          * @returns the directory the Transfer will be stored to
          */
-        virtual QUrl directory() const {return m_dest.path();} //FIXME: Does this work?
+        virtual QUrl directory() const {return KIO::upUrl(m_dest);}
 
         /**
          * Move the download to the new destination
