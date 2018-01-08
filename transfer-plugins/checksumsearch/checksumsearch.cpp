@@ -179,7 +179,7 @@ QUrl ChecksumSearch::createUrl(const QUrl &src, const QString &change, ChecksumS
     else if (mode == kg_ReplaceFile)
     {
         QUrl temp = src.adjusted(QUrl::RemoveFilename);
-        temp.setPath(temp.toString() + "/" + change);
+        temp.setPath(temp.path() + change);
         url = temp;
     }
     else if (mode == kg_ReplaceEnding)
@@ -190,7 +190,7 @@ QUrl ChecksumSearch::createUrl(const QUrl &src, const QString &change, ChecksumS
         {
             fileName = fileName.left(index) + change;
             QUrl temp = src.adjusted(QUrl::RemoveFilename);
-            temp.setPath(temp.toString() + "/" + fileName);
+            temp.setPath(temp.path() + fileName);
             url = temp;
         }
     }
