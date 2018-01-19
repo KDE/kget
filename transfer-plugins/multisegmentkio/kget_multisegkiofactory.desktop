@@ -5,7 +5,6 @@ Icon=kget
 
 Name=Multi Segment KIO
 Name[ar]=متعدد اجزاء KIO
-Name[ast]=Multi SegmentuKIO
 Name[bs]=Više-segmentni KIO
 Name[ca]=KIO per a multisegment
 Name[ca@valencia]=KIO per a multisegment
@@ -60,7 +59,7 @@ Name[x-test]=xxMulti Segment KIOxx
 Name[zh_TW]=多段式 KIO
 Comment=Multithreaded file download plugin
 Comment[ar]=ملحق تعدد تنزيل الملف
-Comment[ast]=Complementu de baxada de ficheru multicapa
+Comment[ast]=Complementu de descarga de ficheros multi-filu
 Comment[bg]=Приставка за многонишково изтегляне на файлове
 Comment[bs]=Dodatak za više-nitno preuzimanje datoteka
 Comment[ca]=Connector de transferències multifil per al KGet

@@ -1,7 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KGet Piechart Applet
-Name[ast]=Miniaplicación gráfica circular
 Name[bs]=Torta grafikon KGeta
 Name[ca]=Miniaplicació de diagrama de sectors del KGet
 Name[ca@valencia]=Miniaplicació de diagrama de sectors del KGet
@@ -52,7 +51,6 @@ Name[x-test]=xxKGet Piechart Appletxx
 Name[zh_TW]=KGet 圓餅圖小程式
 Comment=KGet piechart applet
 Comment[ar]=بريمج KGet piechart
-Comment[ast]=Miniaplicación gráfica circular
 Comment[bs]=Aplet torta grafikona za KGet
 Comment[ca]=Miniaplicació de diagrama de sectors del KGet
 Comment[ca@valencia]=Miniaplicació de diagrama de sectors del KGet

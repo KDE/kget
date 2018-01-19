@@ -57,7 +57,7 @@ Name[x-test]=xxChecksum Searchxx
 Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified URL
-Comment[ast]=Intenta alcontrar comprobación de suma pa una direición URL especificada
+Comment[ast]=Tenta d'alcontrar sumes de comprobación pa una URL especificada
 Comment[bg]=Търсене на контролни суми за указания URL-адрес
 Comment[bs]=Pokušava da nađe kontrolne sume za navedeni URL
 Comment[ca]=Intenta cercar sumes de verificació per a un URL especificat
