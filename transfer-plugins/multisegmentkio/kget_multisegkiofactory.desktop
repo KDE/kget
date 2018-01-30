@@ -112,6 +112,7 @@ Comment[tr]=Çoklu işleyebilen indirme eklentisi
 Comment[ug]=كۆپ يوللۇق ھۆججەت چۈشۈرۈش قىستۇرمىسى
 Comment[uk]=Додаток отримання файлів у декілька потоків
 Comment[x-test]=xxMultithreaded file download pluginxx
+Comment[zh_CN]=多线程文件下载插件
 Comment[zh_TW]=多緒檔案下載外掛程式
 
 # options for library loader
