@@ -54,7 +54,7 @@ Tray::Tray(MainWindow * parent)
     connect(this, &Tray::secondaryActivateRequested, this, &Tray::slotActivated);
 
     // show/hide the main window if requested
-    // KSystemTrayItem should handle this, but that apparenly doesn't work on Wayland (bug 389663)
+    // KStatusNotifierItem should handle this, but that apparenly doesn't work on Wayland (bug 389663)
     connect(this, &Tray::activateRequested, this, &Tray::slotRestore);
 }
 
@@ -71,7 +71,7 @@ void Tray::slotActivated()
 }
 
 // show/hide the main window if requested
-// KSystemTrayItem should handle this, but that apparenly doesn't work on Wayland (bug 389663)
+// KStatusNotifierItem should handle this, but that apparenly doesn't work on Wayland (bug 389663)
 void Tray::slotRestore(bool active)
 {
     if (active)
