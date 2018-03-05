@@ -209,8 +209,8 @@ TransferHandler * KGet::addTransfer(QUrl srcUrl, QString destDir, QString sugges
         
     } else {
         // check whether destDir is actually already the path to a file
-        QUrl targetUrl = QUrl(destDir);
-        QString directory = targetUrl.adjusted(QUrl::RemoveFilename).toString();
+        QUrl targetUrl = QUrl::fromLocalFile(destDir);
+        QString directory = targetUrl.adjusted(QUrl::RemoveFilename).path();
         QString fileName = targetUrl.fileName(QUrl::PrettyDecoded);
         if (QFileInfo(directory).isDir() && !fileName.isEmpty()) {
             destDir = directory;
@@ -220,7 +220,7 @@ TransferHandler * KGet::addTransfer(QUrl srcUrl, QString destDir, QString sugges
 
     if (suggestedFileName.isEmpty())
     {
-	    confirmDestination = true;
+        confirmDestination = true;
         suggestedFileName = srcUrl.fileName(QUrl::PrettyDecoded);
         if (suggestedFileName.isEmpty())
         {
@@ -238,11 +238,10 @@ TransferHandler * KGet::addTransfer(QUrl srcUrl, QString destDir, QString sugges
             if (destUrl.isEmpty())
                 return nullptr;
 
-            destDir = destUrl.adjusted(QUrl::RemoveFilename).toString();
+            destDir = destUrl.adjusted(QUrl::RemoveFilename).path();
         } while (!isValidDestDirectory(destDir));
     } else {
-        destUrl = QUrl();
-        destUrl.setPath(destDir + suggestedFileName); 
+        destUrl = QUrl::fromLocalFile(destDir + suggestedFileName);
     }
     destUrl = getValidDestUrl(destUrl, srcUrl);
 
@@ -328,7 +327,7 @@ const QList<TransferHandler *> KGet::addTransfer(QList<QUrl> srcUrls, QString de
                 groupName = list.first()->name();
             }
         }
-        destUrl = getValidDestUrl(QUrl(destDir), *it);
+        destUrl = getValidDestUrl(QUrl::fromLocalFile(destDir), *it);
 
         if (destUrl == QUrl())
             continue;
@@ -403,8 +402,8 @@ void KGet::moveTransfer(TransferHandler * transfer, const QString& groupName)
 void KGet::redownloadTransfer(TransferHandler * transfer)
 {
      QString group = transfer->group()->name();
-     QString src = transfer->source().url();
-     QString dest = transfer->dest().url();
+     QUrl src = transfer->source();
+     QString dest = transfer->dest().toLocalFile();
      QString destFile = transfer->dest().fileName();
 
      KGet::delTransfer(transfer);
