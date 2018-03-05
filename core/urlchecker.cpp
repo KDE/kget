@@ -234,6 +234,7 @@ QUrl UrlChecker::destUrl(const QUrl &destOrFolder, const QUrl &source, const QSt
         if (usedFileName.isEmpty()) {
             usedFileName = QUrl::toPercentEncoding(source.toString(), "/");
         }
+        if (!dest.path().endsWith('/')) dest.setPath(dest.path() + '/');
         dest.setPath(dest.adjusted(QUrl::RemoveFilename).path() + usedFileName);
     } else if (!fileName.isEmpty()) {
         dest.setPath(dest.adjusted(QUrl::RemoveFilename).path() + fileName);
