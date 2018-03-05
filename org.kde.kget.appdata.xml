@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>org.kde.kget</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>KGet</name>
+  <summary>Download Manager</summary>
+  <description>
+    <p>
+     KGet is a versatile and user-friendly download manager.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Downloading files from FTP and HTTP(S) sources.</li>
+      <li>Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
+      <li>Tells lots of information about current and pending downloads.</li>
+      <li>Embedding into system tray.</li>
+      <li>Integration with the Konqueror web browser.</li>
+      <li>Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
+    </ul>
+  </description>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kget</url>
+  <url type="donation">https://www.kde.org/community/donations/</url>
+  <url type="help">https://docs.kde.org/?application=kget</url>
+  <url type="homepage">https://www.kde.org/applications/internet/kget/</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://www.kde.org/images/screenshots/kget.png</image>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kget</binary>
+  </provides>
+  <launchable type="desktop-id">org.kde.kget.desktop</launchable>
+</component>
