@@ -614,13 +614,13 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
     UrlChecker::removeDuplicates(urls);
 
     QString folder = (*itUrls).folder;
-    if (!folder.isEmpty() && (UrlChecker::checkFolder(QUrl(folder), true) != UrlChecker::NoError)) {
+    if (!folder.isEmpty() && (UrlChecker::checkFolder(QUrl::fromLocalFile(folder), true) != UrlChecker::NoError)) {
         folder.clear();
     }
 
     const QString suggestedFileName = (*itUrls).suggestedFileName;
     QUrl newDest;
-    const QUrl folderUrl = QUrl(folder);
+    const QUrl folderUrl = QUrl::fromLocalFile(folder);
 
     //check if the sources are correct
     UrlChecker check(UrlChecker::Source);
@@ -644,15 +644,15 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
         }
 
         if (!folder.isEmpty()) {
-            const QUrl destUrl = UrlChecker::destUrl(QUrl(folder), sourceUrl, suggestedFileName);
+            const QUrl destUrl = UrlChecker::destUrl(QUrl::fromLocalFile(folder), sourceUrl, suggestedFileName);
             newDest = check.checkExistingFile(sourceUrl, destUrl);
             if (!newDest.isEmpty()) {
                 data << KGet::TransferData(sourceUrl, newDest, groupName);
             }
             urls.removeFirst();
         } else if (((!groups.isEmpty() && !Settings::directoriesAsSuggestion()) || !Settings::askForDestination()) &&
-                   (UrlChecker::checkFolder(QUrl(defaultFolder)) == UrlChecker::NoError)) {
-            const QUrl destUrl = UrlChecker::destUrl(QUrl(defaultFolder), sourceUrl, suggestedFileName);
+                   (UrlChecker::checkFolder(QUrl::fromLocalFile(defaultFolder)) == UrlChecker::NoError)) {
+            const QUrl destUrl = UrlChecker::destUrl(QUrl::fromLocalFile(defaultFolder), sourceUrl, suggestedFileName);
             newDest = check.checkExistingFile(sourceUrl, destUrl);
             if (!newDest.isEmpty()) {
                 data << KGet::TransferData(sourceUrl, newDest, groupName);
@@ -715,7 +715,7 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
                 break;
             }
 
-            const QUrl folderUrl = QUrl(group->defaultFolder());
+            const QUrl folderUrl = QUrl::fromLocalFile(group->defaultFolder());
             if (UrlChecker::checkFolder(folderUrl) != UrlChecker::NoError) {
                 continue;
             }
@@ -749,7 +749,7 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
             QList<QUrl>::iterator it = urls.begin();
             while (it != urls.end()) {
                 const QUrl sourceUrl = *it;
-                const QUrl destUrl = UrlChecker::destUrl(dir, sourceUrl);
+                const QUrl destUrl = UrlChecker::destUrl(QUrl::fromLocalFile(dir), sourceUrl);
                 newDest = check.checkExistingFile(sourceUrl, destUrl);
                 if (!newDest.isEmpty()) {
                     data << KGet::TransferData(sourceUrl, newDest);
