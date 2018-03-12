@@ -5,6 +5,7 @@
   <project_license>GPL-2.0+</project_license>
   <name>KGet</name>
   <name xml:lang="ca">KGet</name>
+  <name xml:lang="de">KGet</name>
   <name xml:lang="en-GB">KGet</name>
   <name xml:lang="nl">KGet</name>
   <name xml:lang="pt">KGet</name>
@@ -13,6 +14,7 @@
   <name xml:lang="x-test">xxKGetxx</name>
   <summary>Download Manager</summary>
   <summary xml:lang="ca">Gestor de baixades</summary>
+  <summary xml:lang="de">Download-Verwaltung</summary>
   <summary xml:lang="en-GB">Download Manager</summary>
   <summary xml:lang="nl">Downloadbeheerder</summary>
   <summary xml:lang="pt">Gestor de Transferências</summary>
@@ -32,6 +34,7 @@
     <p xml:lang="x-test">xxKGet is a versatile and user-friendly download manager.xx</p>
     <p>Features:</p>
     <p xml:lang="ca">Característiques:</p>
+    <p xml:lang="de">Funktionen:</p>
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
