@@ -26,6 +26,7 @@
 #include "settings.h"
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
+#include "kget_version.h"
 
 class KGetApp : public QObject
 {
@@ -98,7 +99,7 @@ int main(int argc, char *argv[])
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     KLocalizedString::setApplicationDomain("kget");
     KAboutData aboutData(QStringLiteral("kget"), i18n("KGet"),
-                         QStringLiteral("2.95.0"),//+ QByteArray::number(KDE_VERSION_MINOR) + '.' + QByteArray::number(KDE_VERSION_RELEASE)),
+                         QStringLiteral(KGET_VERSION_STRING),
                          i18n("An advanced download manager by KDE"),
                          KAboutLicense::GPL,
                          i18n("(C) 2005 - 2014, The KGet developers\n"

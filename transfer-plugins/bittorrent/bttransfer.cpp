@@ -17,6 +17,7 @@
 #include "core/kget.h"
 #include "core/filemodel.h"
 #include "core/download.h"
+#include "kget_version.h"
 
 #include <torrent/torrent.h>
 #include <peer/peermanager.h>
@@ -422,7 +423,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
 
     bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"), false, false);//initialize the torrent-log
 
-    bt::SetClientInfo("KGet", 2, 95, 0, bt::NORMAL, "KG");//Set client info to KGet TODO: don't hardcode version number
+    bt::SetClientInfo("KGet", KGET_VERSION_MAJOR, KGET_VERSION_MINOR, KGET_VERSION_PATCH, bt::NORMAL, "KG");//Set client info to KGet
 
     bt::Uint16 i = 0;
     while (!bt::Globals::instance().initTCPServer(BittorrentSettings::port() + i) && i < 10)

@@ -1,7 +1,12 @@
-cmake_minimum_required(VERSION 2.8.9)
-project(kget)
+cmake_minimum_required(VERSION 3.0.0)
 
-cmake_minimum_required(VERSION 2.8.12)
+# KDE Application Version, managed by release script
+set(KDE_APPLICATIONS_VERSION_MAJOR "18")
+set(KDE_APPLICATIONS_VERSION_MINOR "03")
+set(KDE_APPLICATIONS_VERSION_MICRO "70")
+set(KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}.${KDE_APPLICATIONS_VERSION_MICRO}")
+
+project(kget VERSION ${KDE_APPLICATIONS_VERSION})
 
 find_package(ECM 5.14.0 REQUIRED NO_MODULE)
 
@@ -15,6 +20,9 @@ include(ECMInstallIcons)
 include(ECMMarkAsTest)
 include(GenerateExportHeader)
 include(ECMQtDeclareLoggingCategory)
+include(ECMSetupVersion)
+
+ecm_setup_version(PROJECT VARIABLE_PREFIX KGET VERSION_HEADER "kget_version.h")
 
 find_package(KF5 REQUIRED
     Completion
