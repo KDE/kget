@@ -1555,21 +1555,21 @@ void GenericObserver::slotAfterFinishAction()
                         KWorkSpace::ShutdownModeForceNow);
             break;
         case KGet::Hibernate: {
-           QDBusMessage call;
-           call = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement"),
-                                                 QStringLiteral("/org/freedesktop/PowerManagement"),
-                                                 QStringLiteral("org.freedesktop.PowerManagement"),
-                                                 QStringLiteral("Suspend"));
-           QDBusConnection::sessionBus().asyncCall(call);
+            QDBusMessage call;
+            call = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement"),
+                                                  QStringLiteral("/org/freedesktop/PowerManagement"),
+                                                  QStringLiteral("org.freedesktop.PowerManagement"),
+                                                  QStringLiteral("Hibernate"));
+            QDBusConnection::sessionBus().asyncCall(call);
             break;
         }
         case KGet::Suspend: {
-           QDBusMessage call;
-           call = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement"),
-                                                 QStringLiteral("/org/freedesktop/PowerManagement"),
-                                                 QStringLiteral("org.freedesktop.PowerManagement"),
-                                                 QStringLiteral("Hibernate"));
-           QDBusConnection::sessionBus().asyncCall(call);
+            QDBusMessage call;
+            call = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement"),
+                                                  QStringLiteral("/org/freedesktop/PowerManagement"),
+                                                  QStringLiteral("org.freedesktop.PowerManagement"),
+                                                  QStringLiteral("Suspend"));
+            QDBusConnection::sessionBus().asyncCall(call);
             break;
         }
     #endif
