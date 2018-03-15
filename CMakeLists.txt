@@ -127,12 +127,11 @@ add_subdirectory(desktop)
 add_subdirectory(tests)
 add_subdirectory(doc)
 
-#macro_optional_find_package(KDE4Workspace)
-#macro_log_feature(KDE4WORKSPACE_FOUND "KDE4Workspace" "KDE4 workspace libraries, part of kdebase-workspace" "http://www.kde.org" FALSE "" "Allows 'shutdown after downloads completed' in kget")
-#if(KDE4WORKSPACE_FOUND)
-#    add_definitions(-DHAVE_KWORKSPACE)
-#	include_directories(${KDE4WORKSPACE_INCLUDE_DIR})
-#endif(KDE4WORKSPACE_FOUND)
+find_package(LibKWorkspace CONFIG)
+set_package_properties(LibKWorkspace PROPERTIES TYPE OPTIONAL PURPOSE "Allows 'shutdown after downloads completed' in kget")
+if(LibKWorkspace_FOUND)
+    add_definitions(-DHAVE_KWORKSPACE)
+endif()
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -208,9 +207,9 @@ generate_export_header(kgetcore BASE_NAME kget)
 
 target_link_libraries(kgetcore Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KDELibs4Support)
 
-if (KDE4WORKSPACE_FOUND)
-    target_link_libraries(kgetcore ${KDE4WORKSPACE_KWORKSPACE_LIBS})
-endif (KDE4WORKSPACE_FOUND)
+if(LibKWorkspace_FOUND)
+    target_link_libraries(kgetcore PW::KWorkspace)
+endif()
 
 if (SQLITE_FOUND)
   target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})

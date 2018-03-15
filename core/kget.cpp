@@ -58,10 +58,10 @@
 #include <QTemporaryFile>
 
 #ifdef HAVE_KWORKSPACE
-    #include <QDBusConnection>
-            #include <kworkspace/kworkspace.h>
-    #include <solid/powermanagement.h>
-#include <QStandardPaths>
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDBusPendingCall>
+#include <kworkspace.h>
 #endif
 
 
@@ -1556,19 +1556,19 @@ void GenericObserver::slotAfterFinishAction()
             break;
         case KGet::Hibernate: {
            QDBusMessage call;
-           call = QDBusMessage::createMethodCall("org.kde.Solid.PowerManagement",
-                                                 "/org/kde/Solid/PowerManagement",
-                                                 "org.kde.Solid.PowerManagement",
-                                                 "suspendToRam");
+           call = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement"),
+                                                 QStringLiteral("/org/freedesktop/PowerManagement"),
+                                                 QStringLiteral("org.freedesktop.PowerManagement"),
+                                                 QStringLiteral("Suspend"));
            QDBusConnection::sessionBus().asyncCall(call);
             break;
         }
         case KGet::Suspend: {
            QDBusMessage call;
-           call = QDBusMessage::createMethodCall("org.kde.Solid.PowerManagement",
-                                                 "/org/kde/Solid/PowerManagement",
-                                                 "org.kde.Solid.PowerManagement",
-                                                 "suspendToDisk");
+           call = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement"),
+                                                 QStringLiteral("/org/freedesktop/PowerManagement"),
+                                                 QStringLiteral("org.freedesktop.PowerManagement"),
+                                                 QStringLiteral("Hibernate"));
            QDBusConnection::sessionBus().asyncCall(call);
             break;
         }
