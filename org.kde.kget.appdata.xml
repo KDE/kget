@@ -15,6 +15,7 @@
   <name xml:lang="sv">Kget</name>
   <name xml:lang="uk">KGet</name>
   <name xml:lang="x-test">xxKGetxx</name>
+  <name xml:lang="zh-CN">KGet</name>
   <summary>Download Manager</summary>
   <summary xml:lang="ca">Gestor de baixades</summary>
   <summary xml:lang="ca-valencia">Gestor de baixades</summary>
@@ -27,6 +28,7 @@
   <summary xml:lang="sv">Nerladdningshanterare</summary>
   <summary xml:lang="uk">Керування отриманням даних</summary>
   <summary xml:lang="x-test">xxDownload Managerxx</summary>
+  <summary xml:lang="zh-CN">下载管理器</summary>
   <description>
     <p>
      KGet is a versatile and user-friendly download manager.
@@ -51,6 +53,7 @@
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
+    <p xml:lang="zh-CN">功能：</p>
     <ul>
       <li>Downloading files from FTP and HTTP(S) sources.</li>
       <li xml:lang="ca">Baixa fitxers des de fonts FTP i HTTP/S.</li>
@@ -88,6 +91,7 @@
       <li xml:lang="sv">Inbäddning i systembrickan.</li>
       <li xml:lang="uk">Можливість вбудовування до лотка системи.</li>
       <li xml:lang="x-test">xxEmbedding into system tray.xx</li>
+      <li xml:lang="zh-CN">嵌入到系统托盘。</li>
       <li>Integration with the Konqueror web browser.</li>
       <li xml:lang="ca">S'integra amb el navegador web Konqueror.</li>
       <li xml:lang="ca-valencia">S'integra amb el navegador web Konqueror.</li>
@@ -97,6 +101,7 @@
       <li xml:lang="sv">Integrering i webbläsaren Konqueror.</li>
       <li xml:lang="uk">Інтеграція із програмою для перегляду сторінок інтернету Konqueror.</li>
       <li xml:lang="x-test">xxIntegration with the Konqueror web browser.xx</li>
+      <li xml:lang="zh-CN">Konqueror 网页浏览器集成。</li>
       <li>Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
       <li xml:lang="ca">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
       <li xml:lang="ca-valencia">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
@@ -106,6 +111,7 @@
       <li xml:lang="sv">Stör för metalänkar som innehåller flera webbadresser för nerladdning, tillsammans med checksummor och annan information.</li>
       <li xml:lang="uk">Підтримка метапосилань, які містять декілька адрес даних, а також контрольні суми та інші відомості.</li>
       <li xml:lang="x-test">xxMetalink support which contain multiple URLs for downloads, along with checksums and other information.xx</li>
+      <li xml:lang="zh-CN">支持 Metalink ，包含多个下载连接，校验和和其他信息。</li>
     </ul>
   </description>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kget</url>
