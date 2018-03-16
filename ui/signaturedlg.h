@@ -20,6 +20,7 @@
 #ifndef SIGNATUREDLG_H
 #define SIGNATUREDLG_H
 
+#include <QModelIndex>
 #include "ui_signaturedlg.h"
 #include "../core/basedialog.h"
 

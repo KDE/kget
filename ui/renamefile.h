@@ -21,6 +21,7 @@
 #define RENAMEFILE_H
 
 #include <QDialog>
+#include <QModelIndex>
 #include <QUrl>
 
 #include "ui_renamefile.h"
