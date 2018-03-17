@@ -41,6 +41,7 @@
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
     <p xml:lang="uk">KGet — гнучка і зручна програма для отримання даних з мережі.</p>
     <p xml:lang="x-test">xxKGet is a versatile and user-friendly download manager.xx</p>
+    <p xml:lang="zh-CN">KGet 是一个功能多样且用户友好的下载管理器。</p>
     <p>Features:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
@@ -64,6 +65,7 @@
       <li xml:lang="sv">Nerladdning av filer från FTP- och HTTP(S)-källor.</li>
       <li xml:lang="uk">Отримання файлів з джерел FTP та HTTP(S).</li>
       <li xml:lang="x-test">xxDownloading files from FTP and HTTP(S) sources.xx</li>
+      <li xml:lang="zh-CN">从 FTP 和 HTTP(S) 源下载文件。</li>
       <li>Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
       <li xml:lang="ca">Pausa i reprèn la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="ca-valencia">Pausa i reprén la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
@@ -73,6 +75,7 @@
       <li xml:lang="sv">Pausa och återuppta nerladdning av filer, samt möjlighet att starta om en nerladdning.</li>
       <li xml:lang="uk">Можливість призупинення та відновлення отримання файлів, а також можливість перезапустити отримання.</li>
       <li xml:lang="x-test">xxPausing and resuming of downloading files, as well as the ability to restart a download.xx</li>
+      <li xml:lang="zh-CN">暂停和继续文件下载，还能够重新开始下载。</li>
       <li>Tells lots of information about current and pending downloads.</li>
       <li xml:lang="ca">Dóna molta informació sobre les baixades actuals i pendents.</li>
       <li xml:lang="ca-valencia">Dóna molta informació sobre les baixades actuals i pendents.</li>
@@ -82,6 +85,7 @@
       <li xml:lang="sv">Ger mängder av information om aktuella och väntande nerladdningar.</li>
       <li xml:lang="uk">Можливість отримання широкого спектра даних щодо поточного сеансу отримання та завдань з отримання даних з черги.</li>
       <li xml:lang="x-test">xxTells lots of information about current and pending downloads.xx</li>
+      <li xml:lang="zh-CN">显示当前和队列下载的许多信息。</li>
       <li>Embedding into system tray.</li>
       <li xml:lang="ca">Està incrustat a la safata del sistema.</li>
       <li xml:lang="ca-valencia">Està incrustat a la safata del sistema.</li>
