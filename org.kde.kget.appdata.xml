@@ -11,6 +11,7 @@
   <name xml:lang="en-GB">KGet</name>
   <name xml:lang="es">KGet</name>
   <name xml:lang="fr">KGet</name>
+  <name xml:lang="it">KGet</name>
   <name xml:lang="nl">KGet</name>
   <name xml:lang="pt">KGet</name>
   <name xml:lang="sk">KGet</name>
@@ -26,6 +27,7 @@
   <summary xml:lang="en-GB">Download Manager</summary>
   <summary xml:lang="es">Gestor de descargas</summary>
   <summary xml:lang="fr">Gestionnaire de téléchargement</summary>
+  <summary xml:lang="it">Gestore degli scaricamenti</summary>
   <summary xml:lang="nl">Downloadbeheerder</summary>
   <summary xml:lang="pt">Gestor de Transferências</summary>
   <summary xml:lang="sk">Správca sťahovania</summary>
@@ -41,6 +43,7 @@
     <p xml:lang="ca-valencia">El KGet és un gestor de baixades de fitxers versàtil i fàcil d'utilitzar.</p>
     <p xml:lang="en-GB">KGet is a versatile and user-friendly download manager.</p>
     <p xml:lang="es">KGet es un gestor de descargas versátil y amigable.</p>
+    <p xml:lang="it">KGet è un gestore degli scaricamenti versatile e facile da usare.</p>
     <p xml:lang="nl">KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder.</p>
     <p xml:lang="pt">O KGet é um gestor de transferências versátil e amigável.</p>
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
@@ -55,6 +58,7 @@
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
+    <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="sk">Funkcie:</p>
@@ -68,6 +72,7 @@
       <li xml:lang="ca-valencia">Baixa fitxers des de fonts FTP i HTTP/S.</li>
       <li xml:lang="en-GB">Downloading files from FTP and HTTP(S) sources.</li>
       <li xml:lang="es">Descarga de archivos de fuentes FTP y HTTP(S).</li>
+      <li xml:lang="it">Scaricamento di file da fonti FTP e HTTP(S).</li>
       <li xml:lang="nl">Downloaden van bestanden uit FTP en HTTP(S) bronnen.</li>
       <li xml:lang="pt">Transferência de ficheiros de fontes em FTP ou HTTP(S).</li>
       <li xml:lang="sv">Nerladdning av filer från FTP- och HTTP(S)-källor.</li>
@@ -79,6 +84,7 @@
       <li xml:lang="ca-valencia">Pausa i reprén la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="en-GB">Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
       <li xml:lang="es">Pausa y reanudación de los archivos en descarga, así como la posibilidad de reiniciar descargas.</li>
+      <li xml:lang="it">Interruzione e ripresa dello scaricamento dei file, oltre alla capacità di riavviare uno scaricamento.</li>
       <li xml:lang="nl">Pauzeren en hervatten van downloaden van bestanden, evenals de mogelijkheid om een download opnieuw te starten.</li>
       <li xml:lang="pt">Pausa e continuação dos ficheiros transferidos, assim como a capacidade de reiniciar uma transferência.</li>
       <li xml:lang="sv">Pausa och återuppta nerladdning av filer, samt möjlighet att starta om en nerladdning.</li>
@@ -90,6 +96,7 @@
       <li xml:lang="ca-valencia">Dóna molta informació sobre les baixades actuals i pendents.</li>
       <li xml:lang="en-GB">Tells lots of information about current and pending downloads.</li>
       <li xml:lang="es">Muestra gran cantidad de información sobre las descargas actuales y pendientes.</li>
+      <li xml:lang="it">Fornisce molte informazioni sugli scaricamenti in corso e in attesa.</li>
       <li xml:lang="nl">Vertelt veel informatie over huidige en in behandeling zijnde downloads.</li>
       <li xml:lang="pt">Devolve bastantes informações sobre as transferências actuais e pendentes.</li>
       <li xml:lang="sv">Ger mängder av information om aktuella och väntande nerladdningar.</li>
@@ -101,6 +108,7 @@
       <li xml:lang="ca-valencia">Està incrustat a la safata del sistema.</li>
       <li xml:lang="en-GB">Embedding into system tray.</li>
       <li xml:lang="es">Se puede empotrar en la bandeja del sistema.</li>
+      <li xml:lang="it">Integrato nel vassoio di sistema.</li>
       <li xml:lang="nl">Ingebed in het systeemvak.</li>
       <li xml:lang="pt">Incorporação na bandeja do sistema.</li>
       <li xml:lang="sv">Inbäddning i systembrickan.</li>
@@ -112,6 +120,7 @@
       <li xml:lang="ca-valencia">S'integra amb el navegador web Konqueror.</li>
       <li xml:lang="en-GB">Integration with the Konqueror web browser.</li>
       <li xml:lang="es">Integración con el navegador web Konqueror.</li>
+      <li xml:lang="it">Integrazione con il browser web Konqueror.</li>
       <li xml:lang="nl">Integratie met de webbrowser Konqueror.</li>
       <li xml:lang="pt">Integração com o navegador Web Konqueror.</li>
       <li xml:lang="sv">Integrering i webbläsaren Konqueror.</li>
@@ -123,6 +132,7 @@
       <li xml:lang="ca-valencia">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
       <li xml:lang="en-GB">Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
       <li xml:lang="es">Permite usar Metalink, que contiene múltiples URL para las descargas, además de sumas de verificación y otra información.</li>
+      <li xml:lang="it">Supporto per Metalink che contiene diversi URL da scaricare, oltre a codici di controllo ed altre informazioni.</li>
       <li xml:lang="nl">Ondersteuning van Metalink die meerdere URL's voor downloads bevat, samen met controlesommen en andere informatie.</li>
       <li xml:lang="pt">Suporte para 'metalink', o qual contém vários URL's para as transferências, em conjunto com os códigos de validação e outras informações.</li>
       <li xml:lang="sv">Stör för metalänkar som innehåller flera webbadresser för nerladdning, tillsammans med checksummor och annan information.</li>
