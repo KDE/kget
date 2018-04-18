@@ -41,6 +41,7 @@
     </p>
     <p xml:lang="ca">El KGet és un gestor de baixades de fitxers versàtil i fàcil d'utilitzar.</p>
     <p xml:lang="ca-valencia">El KGet és un gestor de baixades de fitxers versàtil i fàcil d'utilitzar.</p>
+    <p xml:lang="de">Ein vielseitiges und einfach zu benutzendes Verwaltungsprogramm zum Herunterladen.</p>
     <p xml:lang="en-GB">KGet is a versatile and user-friendly download manager.</p>
     <p xml:lang="es">KGet es un gestor de descargas versátil y amigable.</p>
     <p xml:lang="it">KGet è un gestore degli scaricamenti versatile e facile da usare.</p>
@@ -70,6 +71,7 @@
       <li>Downloading files from FTP and HTTP(S) sources.</li>
       <li xml:lang="ca">Baixa fitxers des de fonts FTP i HTTP/S.</li>
       <li xml:lang="ca-valencia">Baixa fitxers des de fonts FTP i HTTP/S.</li>
+      <li xml:lang="de">Herunterladen von Dateien aus FTP- und HTTP(s)-Adressen.</li>
       <li xml:lang="en-GB">Downloading files from FTP and HTTP(S) sources.</li>
       <li xml:lang="es">Descarga de archivos de fuentes FTP y HTTP(S).</li>
       <li xml:lang="it">Scaricamento di file da fonti FTP e HTTP(S).</li>
@@ -82,6 +84,7 @@
       <li>Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
       <li xml:lang="ca">Pausa i reprèn la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="ca-valencia">Pausa i reprén la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
+      <li xml:lang="de">Anhalten und Fortsetzen des Herunterladens von Dateien, außerdem gibt es auch die Möglichkeit, das Herunterladen neu zu starten.</li>
       <li xml:lang="en-GB">Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
       <li xml:lang="es">Pausa y reanudación de los archivos en descarga, así como la posibilidad de reiniciar descargas.</li>
       <li xml:lang="it">Interruzione e ripresa dello scaricamento dei file, oltre alla capacità di riavviare uno scaricamento.</li>
@@ -94,6 +97,7 @@
       <li>Tells lots of information about current and pending downloads.</li>
       <li xml:lang="ca">Dóna molta informació sobre les baixades actuals i pendents.</li>
       <li xml:lang="ca-valencia">Dóna molta informació sobre les baixades actuals i pendents.</li>
+      <li xml:lang="de">Viele Informationen über aktuelle und anstehende Downloads.</li>
       <li xml:lang="en-GB">Tells lots of information about current and pending downloads.</li>
       <li xml:lang="es">Muestra gran cantidad de información sobre las descargas actuales y pendientes.</li>
       <li xml:lang="it">Fornisce molte informazioni sugli scaricamenti in corso e in attesa.</li>
@@ -106,6 +110,7 @@
       <li>Embedding into system tray.</li>
       <li xml:lang="ca">Està incrustat a la safata del sistema.</li>
       <li xml:lang="ca-valencia">Està incrustat a la safata del sistema.</li>
+      <li xml:lang="de">Eingebettet in den Systemabschnitt der Kontrollleiste.</li>
       <li xml:lang="en-GB">Embedding into system tray.</li>
       <li xml:lang="es">Se puede empotrar en la bandeja del sistema.</li>
       <li xml:lang="it">Integrato nel vassoio di sistema.</li>
@@ -118,6 +123,7 @@
       <li>Integration with the Konqueror web browser.</li>
       <li xml:lang="ca">S'integra amb el navegador web Konqueror.</li>
       <li xml:lang="ca-valencia">S'integra amb el navegador web Konqueror.</li>
+      <li xml:lang="de">Integration mit dem Internet-Browser Konqueror.</li>
       <li xml:lang="en-GB">Integration with the Konqueror web browser.</li>
       <li xml:lang="es">Integración con el navegador web Konqueror.</li>
       <li xml:lang="it">Integrazione con il browser web Konqueror.</li>
@@ -130,6 +136,7 @@
       <li>Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
       <li xml:lang="ca">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
       <li xml:lang="ca-valencia">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
+      <li xml:lang="de">Unterstützung für Metalinks, die mehrere Adressen (Urls) zum Herunterladen enthalten, zusammen mit Prüfsummen und weiteren Informationen.</li>
       <li xml:lang="en-GB">Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
       <li xml:lang="es">Permite usar Metalink, que contiene múltiples URL para las descargas, además de sumas de verificación y otra información.</li>
       <li xml:lang="it">Supporto per Metalink che contiene diversi URL da scaricare, oltre a codici di controllo ed altre informazioni.</li>
