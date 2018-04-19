@@ -11,6 +11,7 @@
   <name xml:lang="en-GB">KGet</name>
   <name xml:lang="es">KGet</name>
   <name xml:lang="fr">KGet</name>
+  <name xml:lang="ia">KGet</name>
   <name xml:lang="it">KGet</name>
   <name xml:lang="nl">KGet</name>
   <name xml:lang="pt">KGet</name>
@@ -27,6 +28,7 @@
   <summary xml:lang="en-GB">Download Manager</summary>
   <summary xml:lang="es">Gestor de descargas</summary>
   <summary xml:lang="fr">Gestionnaire de téléchargement</summary>
+  <summary xml:lang="ia">Gerente del discargamento</summary>
   <summary xml:lang="it">Gestore degli scaricamenti</summary>
   <summary xml:lang="nl">Downloadbeheerder</summary>
   <summary xml:lang="pt">Gestor de Transferências</summary>
@@ -59,6 +61,7 @@
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
+    <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
