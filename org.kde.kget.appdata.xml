@@ -4,6 +4,7 @@
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>KGet</name>
+  <name xml:lang="ast">KGet</name>
   <name xml:lang="ca">KGet</name>
   <name xml:lang="ca-valencia">KGet</name>
   <name xml:lang="cs">KGet</name>
@@ -17,6 +18,7 @@
   <name xml:lang="id">KGet</name>
   <name xml:lang="it">KGet</name>
   <name xml:lang="nl">KGet</name>
+  <name xml:lang="pl">KGet</name>
   <name xml:lang="pt">KGet</name>
   <name xml:lang="sk">KGet</name>
   <name xml:lang="sv">Kget</name>
@@ -37,6 +39,7 @@
   <summary xml:lang="id">Download Manager</summary>
   <summary xml:lang="it">Gestore degli scaricamenti</summary>
   <summary xml:lang="nl">Downloadbeheerder</summary>
+  <summary xml:lang="pl">Zarządzanie pobieraniem</summary>
   <summary xml:lang="pt">Gestor de Transferências</summary>
   <summary xml:lang="sk">Správca sťahovania</summary>
   <summary xml:lang="sv">Nerladdningshanterare</summary>
@@ -53,10 +56,12 @@
     <p xml:lang="en-GB">KGet is a versatile and user-friendly download manager.</p>
     <p xml:lang="es">KGet es un gestor de descargas versátil y amigable.</p>
     <p xml:lang="fi">KGet on monipuolinen ja käyttäjäystävällinen lataustenhallintaohjelma.</p>
+    <p xml:lang="fr">KGet est un gestionnaire de téléchargements intuitif et polyvalent</p>
     <p xml:lang="gl">KGet é un xestor de descargar versátil e fácil de usar.</p>
     <p xml:lang="id">KGet adalah download manager yang serbaguna dan mudah digunakan.</p>
     <p xml:lang="it">KGet è un gestore degli scaricamenti versatile e facile da usare.</p>
     <p xml:lang="nl">KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder.</p>
+    <p xml:lang="pl">KGet jest wszechstronnym i przyjaznym użytkownikowi programem do zarządzania pobieraniem.</p>
     <p xml:lang="pt">O KGet é um gestor de transferências versátil e amigável.</p>
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
     <p xml:lang="uk">KGet — гнучка і зручна програма для отримання даних з мережі.</p>
@@ -76,6 +81,7 @@
     <p xml:lang="id">Fitur-fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
+    <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sv">Funktioner:</p>
@@ -94,6 +100,7 @@
       <li xml:lang="id">Mendownload file dari sumber-sumber FTP dan HTTP(S)</li>
       <li xml:lang="it">Scaricamento di file da fonti FTP e HTTP(S).</li>
       <li xml:lang="nl">Downloaden van bestanden uit FTP en HTTP(S) bronnen.</li>
+      <li xml:lang="pl">Pobieranie plików ze źródeł FTP oraz HTTP(S)</li>
       <li xml:lang="pt">Transferência de ficheiros de fontes em FTP ou HTTP(S).</li>
       <li xml:lang="sv">Nerladdning av filer från FTP- och HTTP(S)-källor.</li>
       <li xml:lang="uk">Отримання файлів з джерел FTP та HTTP(S).</li>
@@ -110,6 +117,7 @@
       <li xml:lang="id">Berhenti sejenak dan melanjutkan dari mendownload file-file, begitu pula kemampuan untuk memulai kembali sebuah download-an.</li>
       <li xml:lang="it">Interruzione e ripresa dello scaricamento dei file, oltre alla capacità di riavviare uno scaricamento.</li>
       <li xml:lang="nl">Pauzeren en hervatten van downloaden van bestanden, evenals de mogelijkheid om een download opnieuw te starten.</li>
+      <li xml:lang="pl">Wstrzymywanie i wznawianie pobieranych plików, a także możliwość pobrania ich na nowo.</li>
       <li xml:lang="pt">Pausa e continuação dos ficheiros transferidos, assim como a capacidade de reiniciar uma transferência.</li>
       <li xml:lang="sv">Pausa och återuppta nerladdning av filer, samt möjlighet att starta om en nerladdning.</li>
       <li xml:lang="uk">Можливість призупинення та відновлення отримання файлів, а також можливість перезапустити отримання.</li>
@@ -126,6 +134,7 @@
       <li xml:lang="id">Memberikan banyak informasi tentang download-an yang ada sekarang dan yang sedang dihentikan.</li>
       <li xml:lang="it">Fornisce molte informazioni sugli scaricamenti in corso e in attesa.</li>
       <li xml:lang="nl">Vertelt veel informatie over huidige en in behandeling zijnde downloads.</li>
+      <li xml:lang="pl">Mówi wiele informacji o obecnych i oczekujących pobieraniach.</li>
       <li xml:lang="pt">Devolve bastantes informações sobre as transferências actuais e pendentes.</li>
       <li xml:lang="sv">Ger mängder av information om aktuella och väntande nerladdningar.</li>
       <li xml:lang="uk">Можливість отримання широкого спектра даних щодо поточного сеансу отримання та завдань з отримання даних з черги.</li>
@@ -142,6 +151,7 @@
       <li xml:lang="id">Membubuhkan kedalam system tray.</li>
       <li xml:lang="it">Integrato nel vassoio di sistema.</li>
       <li xml:lang="nl">Ingebed in het systeemvak.</li>
+      <li xml:lang="pl">Osadzanie na tacce systemowej.</li>
       <li xml:lang="pt">Incorporação na bandeja do sistema.</li>
       <li xml:lang="sv">Inbäddning i systembrickan.</li>
       <li xml:lang="uk">Можливість вбудовування до лотка системи.</li>
@@ -158,6 +168,7 @@
       <li xml:lang="id">Integrasi dengan web browser Konqueror.</li>
       <li xml:lang="it">Integrazione con il browser web Konqueror.</li>
       <li xml:lang="nl">Integratie met de webbrowser Konqueror.</li>
+      <li xml:lang="pl">Integracja z przeglądarką internetową Konqueror</li>
       <li xml:lang="pt">Integração com o navegador Web Konqueror.</li>
       <li xml:lang="sv">Integrering i webbläsaren Konqueror.</li>
       <li xml:lang="uk">Інтеграція із програмою для перегляду сторінок інтернету Konqueror.</li>
@@ -174,6 +185,7 @@
       <li xml:lang="id">Dukungan Metalink yang terdiri dari banyak bagian URL untuk download-an, bersamaan dengan checksums dan informasi lain.</li>
       <li xml:lang="it">Supporto per Metalink che contiene diversi URL da scaricare, oltre a codici di controllo ed altre informazioni.</li>
       <li xml:lang="nl">Ondersteuning van Metalink die meerdere URL's voor downloads bevat, samen met controlesommen en andere informatie.</li>
+      <li xml:lang="pl">Obsługa metałączy, które zawierają wiele adresów URL do pobrania, wraz z sumami sprawdzającymi i innymi informacjami.</li>
       <li xml:lang="pt">Suporte para 'metalink', o qual contém vários URL's para as transferências, em conjunto com os códigos de validação e outras informações.</li>
       <li xml:lang="sv">Stör för metalänkar som innehåller flera webbadresser för nerladdning, tillsammans med checksummor och annan information.</li>
       <li xml:lang="uk">Підтримка метапосилань, які містять декілька адрес даних, а також контрольні суми та інші відомості.</li>
