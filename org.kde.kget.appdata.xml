@@ -96,6 +96,7 @@
       <li xml:lang="en-GB">Downloading files from FTP and HTTP(S) sources.</li>
       <li xml:lang="es">Descarga de archivos de fuentes FTP y HTTP(S).</li>
       <li xml:lang="fi">Tiedostojen lataus FTP- ja HTTP(S)-lähteistä.</li>
+      <li xml:lang="fr">Téléchargement de fichiers depuis des sources FTP et HTTP(S).</li>
       <li xml:lang="gl">Descargar ficheiros de fontes FTP, HTTP e HTTPS.</li>
       <li xml:lang="id">Mendownload file dari sumber-sumber FTP dan HTTP(S)</li>
       <li xml:lang="it">Scaricamento di file da fonti FTP e HTTP(S).</li>
@@ -113,6 +114,7 @@
       <li xml:lang="en-GB">Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
       <li xml:lang="es">Pausa y reanudación de los archivos en descarga, así como la posibilidad de reiniciar descargas.</li>
       <li xml:lang="fi">Tiedostojen latauksen keskeytys ja jatkaminen kuten myös latauksen uudelleenkäynnistys.</li>
+      <li xml:lang="fr">Mise en pause et reprise du téléchargement de fichiers, possibilité de relancer un téléchargement.</li>
       <li xml:lang="gl">Pausa e continuación de descargas de ficheiros, así como a posibilidade de reiniciar a descarga.</li>
       <li xml:lang="id">Berhenti sejenak dan melanjutkan dari mendownload file-file, begitu pula kemampuan untuk memulai kembali sebuah download-an.</li>
       <li xml:lang="it">Interruzione e ripresa dello scaricamento dei file, oltre alla capacità di riavviare uno scaricamento.</li>
@@ -130,6 +132,7 @@
       <li xml:lang="en-GB">Tells lots of information about current and pending downloads.</li>
       <li xml:lang="es">Muestra gran cantidad de información sobre las descargas actuales y pendientes.</li>
       <li xml:lang="fi">Antaa runsaasti tietoa käynnistä olevasta ja odottavista latauksista.</li>
+      <li xml:lang="fr">Affichage de nombreuses informations relatives aux téléchargements en cours et en attente.</li>
       <li xml:lang="gl">Fornece unha morea de información sobre as descargas actuais e pendentes.</li>
       <li xml:lang="id">Memberikan banyak informasi tentang download-an yang ada sekarang dan yang sedang dihentikan.</li>
       <li xml:lang="it">Fornisce molte informazioni sugli scaricamenti in corso e in attesa.</li>
@@ -147,6 +150,7 @@
       <li xml:lang="en-GB">Embedding into system tray.</li>
       <li xml:lang="es">Se puede empotrar en la bandeja del sistema.</li>
       <li xml:lang="fi">Upotus järjestelmän ilmoitusalueelle.</li>
+      <li xml:lang="fr">Intégration dans la boîte à miniatures.</li>
       <li xml:lang="gl">Integración coa zona de notificacións.</li>
       <li xml:lang="id">Membubuhkan kedalam system tray.</li>
       <li xml:lang="it">Integrato nel vassoio di sistema.</li>
@@ -164,6 +168,7 @@
       <li xml:lang="en-GB">Integration with the Konqueror web browser.</li>
       <li xml:lang="es">Integración con el navegador web Konqueror.</li>
       <li xml:lang="fi">Yhdistyy Konqueror-verkkoselaimeen.</li>
+      <li xml:lang="fr">Intégration avec le navigateur Internet Konqueror.</li>
       <li xml:lang="gl">Integración co navegador web Konqueror.</li>
       <li xml:lang="id">Integrasi dengan web browser Konqueror.</li>
       <li xml:lang="it">Integrazione con il browser web Konqueror.</li>
@@ -181,6 +186,7 @@
       <li xml:lang="en-GB">Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
       <li xml:lang="es">Permite usar Metalink, que contiene múltiples URL para las descargas, además de sumas de verificación y otra información.</li>
       <li xml:lang="fi">Tukee metalinkkejä, jotka sisältävät useampia latauslinkkejä tarkistussummineen ja muine tietoineen.</li>
+      <li xml:lang="fr">Prise en charge des méta-liens contenant plusieurs URL de téléchargement, des sommes de contrôle et d'autres informations.</li>
       <li xml:lang="gl">Compatibilidade con metaligazóns que conteñen varios enderezos URL de descarga, xunto con sumas de comprobación e outra información.</li>
       <li xml:lang="id">Dukungan Metalink yang terdiri dari banyak bagian URL untuk download-an, bersamaan dengan checksums dan informasi lain.</li>
       <li xml:lang="it">Supporto per Metalink che contiene diversi URL da scaricare, oltre a codici di controllo ed altre informazioni.</li>
