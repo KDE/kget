@@ -403,7 +403,7 @@ You will need to enter the username and password to get access.
   </screenshot>
 
 <para>Using the two methods <guilabel>Automatic checksums verification</guilabel> and <guilabel>Signature</guilabel> 
-you can verify your downloads. You just have to tick the Automatic verification check box.</para>
+you can verify your downloads. You just have to tick the <guilabel>Automatic verification</guilabel> check box.</para>
 </sect1>
 
 <sect1 id="Integration">
