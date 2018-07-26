@@ -27,13 +27,13 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 
-#include <kdeversion.h>
+#include "kget_version.h"
 #include <KDebug>
 #include <KLocalizedString>
 #include <KSystemTimeZone>
 
 
-const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QString(QString("KGet/") + "2." + QString::number(KDE_VERSION_MINOR) + '.' + QString::number(KDE_VERSION_RELEASE));
+const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QStringLiteral("KGet/" KGET_VERSION_STRING);
 const uint KGetMetalink::Metalink::MAX_URL_PRIORITY = 999999;
 const uint KGetMetalink::Metalink_v3::MAX_PREFERENCE = 100;//as defined in Metalink specification 3.0 2nd edition
 
