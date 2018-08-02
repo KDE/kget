@@ -107,7 +107,9 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     connect(ui.add_hash, &QPushButton::clicked, this, &FileDlg::slotAddHash);
     connect(ui.remove_hash, &QPushButton::clicked, this, &FileDlg::slotRemoveHash);
     connect(ui.name, &KLineEdit::textEdited, this, &FileDlg::slotUpdateOkButton);
-    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &FileDlg::slotOkClicked);
+    connect(this, &QDialog::accepted, this, &FileDlg::slotOkClicked);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     slotUpdateOkButton();
 
