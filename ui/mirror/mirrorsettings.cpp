@@ -66,8 +66,7 @@ void MirrorAddDlg::init()
     updateButton();
 
     connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(updateButton(QString)));
-    connect(this, &QDialog::accepted, this, &MirrorAddDlg::addMirror);
-    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &MirrorAddDlg::addMirror);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
@@ -117,6 +116,7 @@ void MirrorAddDlg::addMirror()
     {
         ui.location->setCurrentIndex(-1);
     }
+    this->accept();
 }
 
 MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const QUrl &file)
