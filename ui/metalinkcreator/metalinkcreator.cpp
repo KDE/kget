@@ -30,6 +30,7 @@
 #include <QStandardItemModel>
 
 #include <QFileDialog>
+#include <KLocale>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QPushButton>
@@ -107,9 +108,9 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
     }
     uiFiles.infoWidget->setVisible(!m_filesModel->rowCount() || m_needUrlCount);
 
-    //only enable finish then the metalink is valid (i.e. no required data missing)
+    //only enable finish when the metalink is valid (i.e. no required data missing)
     //and the thread is not running
-    //enableButton(KDialog::User1, metalink.isValid() && !m_thread.isRunning());
+    finishButton()->setEnabled(metalink.isValid() && !m_thread.isRunning());
 }
 
 void MetalinkCreator::create()
@@ -123,13 +124,13 @@ void MetalinkCreator::create()
 void MetalinkCreator::slotDelayedCreation()
 {
     CountryModel *countryModel = new CountryModel(this);
-    //countryModel->setupModelData(QLocale()->allCountriesList());//TODO:Port these 2
+    countryModel->setupModelData(KLocale::global()->allCountriesList());
     m_countrySort = new QSortFilterProxyModel(this);
     m_countrySort->setSourceModel(countryModel);
     m_countrySort->sort(0);
 
     m_languageModel = new LanguageModel(this);
-    //m_languageModel->setupModelData(KLocale::global()->allLanguagesList());
+    m_languageModel->setupModelData(KLocale::global()->allLanguagesList());
     m_languageSort = new QSortFilterProxyModel(this);
     m_languageSort->setSourceModel(m_languageModel);
     m_languageSort->sort(0);
