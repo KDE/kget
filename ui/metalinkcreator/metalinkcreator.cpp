@@ -107,9 +107,9 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
     }
     uiFiles.infoWidget->setVisible(!m_filesModel->rowCount() || m_needUrlCount);
 
-    //only enable finish then the metalink is valid (i.e. no required data missing)
+    //only enable finish when the metalink is valid (i.e. no required data missing)
     //and the thread is not running
-    //enableButton(KDialog::User1, metalink.isValid() && !m_thread.isRunning());
+    finishButton()->setEnabled(metalink.isValid() && !m_thread.isRunning());
 }
 
 void MetalinkCreator::create()
