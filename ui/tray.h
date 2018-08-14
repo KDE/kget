@@ -35,7 +35,6 @@ public:
 
 private slots:
     void slotActivated();
-    void slotRestore(bool active);
 };
 
 #endif

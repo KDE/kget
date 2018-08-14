@@ -52,10 +52,6 @@ Tray::Tray(MainWindow * parent)
 
     // filter middle mouse clicks to ask scheduler to paste URL
     connect(this, &Tray::secondaryActivateRequested, this, &Tray::slotActivated);
-
-    // show/hide the main window if requested
-    // KStatusNotifierItem should handle this, but that apparenly doesn't work on Wayland (bug 389663)
-    connect(this, &Tray::activateRequested, this, &Tray::slotRestore);
 }
 
 
@@ -70,15 +66,6 @@ void Tray::slotActivated()
         NewTransferDialogHandler::showNewTransferDialog(QUrl(newtransfer));
 }
 
-// show/hide the main window if requested
-// KStatusNotifierItem should handle this, but that apparenly doesn't work on Wayland (bug 389663)
-void Tray::slotRestore(bool active)
-{
-    if (active)
-        associatedWidget()->show();
-     else
-        associatedWidget()->hide();
-}
 
 // display a play icon when downloading and
 // switch between Active or Passive state
