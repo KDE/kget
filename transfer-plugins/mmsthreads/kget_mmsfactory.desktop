@@ -5,7 +5,6 @@ Icon=kget
 
 Name=MMS
 Name[ar]=MMS
-Name[ast]=MMS
 Name[bg]=MMS
 Name[bs]=MMS
 Name[ca]=MMS
@@ -66,7 +65,6 @@ Name[zh_CN]=彩信
 Name[zh_TW]=MMS
 Comment=MMS-Transfer plugin for KGet
 Comment[ar]=ملحق محول MMS لـ KGet
-Comment[ast]=Complementu de tresferencies MMS pa KGet
 Comment[bg]=Приставка за пренос MMS в KGet
 Comment[bs]=MMS-Dodatak za prijenos KGet
 Comment[ca]=Connector de transferències d'MMS per al KGet

@@ -5,7 +5,6 @@ Icon=kget
 
 Name=Metalink
 Name[ar]=ميتالينك
-Name[ast]=Enllaz meta
 Name[bg]=Metalink
 Name[bs]=Metalink
 Name[ca]=«Metalink»
@@ -62,7 +61,6 @@ Name[x-test]=xxMetalinkxx
 Name[zh_CN]=元链接
 Name[zh_TW]=Metalink
 Comment=Allows files to be downloaded from Metalink
-Comment[ast]=Permite que los ficheros se baxen d'enllaces meta
 Comment[bg]=Позволява изтегляне на файлове през Metalink
 Comment[bs]=Preuzimanje datoteka sa metalinka
 Comment[ca]=Permet baixar fitxers des d'un «Metalink»
