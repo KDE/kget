@@ -29,7 +29,7 @@
 #include <QPainter>
 #include <QProgressBar>
 
-#include <KDebug>
+#include <QDebug>
 #include <QIcon>
 #include <KIconLoader>
 #include <KLocale>
@@ -98,7 +98,7 @@ void KGetPanelBar::Private::transfersRemoved(const QList<OrgKdeKgetTransferInter
         int index = m_dialogLayout->indexOf(m_transfers[transfer]);
         int row, column, rowSpan, columnSpan;
         m_dialogLayout->getItemPosition(index, &row, &column, &rowSpan, &columnSpan);
-        kDebug() << row;
+        qDebug() << row;
 
         QList<QLayoutItem*> items;
         for (int i = 0; i != 3; i++) {
@@ -208,7 +208,7 @@ void KGetPanelBar::dataUpdated(const QString &source, const Plasma::DataEngine::
     Q_UNUSED(source)
 
     if(data["error"].toBool()) {
-        kDebug() << "Error : " << data["errorMessage"].toString();
+        qDebug() << "Error : " << data["errorMessage"].toString();
         d->clear();
     }
     else if(!data["error"].toBool()) {

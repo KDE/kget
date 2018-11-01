@@ -14,7 +14,6 @@
 
 #include "kget_debug.h"
 
-#include <QDebug>
 #include <KFileDialog>
 
 KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)

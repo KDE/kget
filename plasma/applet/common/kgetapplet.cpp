@@ -162,7 +162,7 @@ void KGetApplet::slotKgetStarted()
 void KGetApplet::dataUpdated(const QString &name, const Plasma::DataEngine::Data &data)
 {
     Q_UNUSED(name)
-    kDebug() << layout()->count();
+    qDebug() << layout()->count();
     if (data["error"].toBool()) {
         if (!m_errorWidget) {
             m_errorWidget = new ErrorWidget(data["errorMessage"].toString(), this);
@@ -299,12 +299,12 @@ void KGetApplet::constraintsEvent(Plasma::Constraints constraints)
             m_icon = icon;
         }
         if (widget == m_proxyWidget && m_globalProgress->isVisible()) {
-            kDebug() << "remove progressbar";
+            qDebug() << "remove progressbar";
             m_globalProgress->hide();
             dynamic_cast<QGraphicsLinearLayout*>(layout())->removeItem(m_globalProgress);
         } else if (m_icon && m_icon->isVisible()) {
             QGraphicsLinearLayout *lay = dynamic_cast<QGraphicsLinearLayout*>(layout());
-            kDebug() << "switch to progressbar";
+            qDebug() << "switch to progressbar";
             m_globalProgress->show();
             m_icon->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
             m_icon->setPreferredSize(size().height(), size().height());
@@ -320,7 +320,7 @@ void KGetApplet::constraintsEvent(Plasma::Constraints constraints)
             qobject_cast<QGraphicsLinearLayout*>(layout())->addItem(m_progressProxy);
             m_progressProxy->show();
         } else if (m_progressProxy.isVisible() && layout->count() == 1) {
-            kDebug();
+            qDebug();
             layout()->removeAt(0);
             m_progressProxy->hide();
         }*/

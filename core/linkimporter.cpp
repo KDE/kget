@@ -19,7 +19,7 @@
 #include <QDir>
 #include <QTextStream>
 
-#include <KDebug>
+#include <QDebug>
 #include <KLocalizedString>
 #include <kio/copyjob.h>
 #include <kio/netaccess.h>

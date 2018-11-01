@@ -18,7 +18,7 @@
 #include "core/job.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+
 #include <QDateTime>
 #include <QFile>
 #include <QFileSystemWatcher>

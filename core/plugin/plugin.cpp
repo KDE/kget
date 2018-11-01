@@ -11,7 +11,7 @@
 
 #include "plugin.h"
 
-#include <kdebug.h>
+#include <QDebug>
 
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList &args)
   : QObject(parent)

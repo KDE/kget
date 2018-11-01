@@ -30,7 +30,6 @@
 #include "core/transferhistorystore.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
 
 #include <iostream>
 #include <qinputdialog.h>
@@ -670,7 +669,7 @@ QList<TransferGroupHandler*> KGet::allTransferGroups()
 
     foreach (TransferGroup *group, KGet::m_transferTreeModel->transferGroups())
     {
-        kDebug() << group->name();
+        qDebug() << group->name();
         transfergroups << group->handler();
     }
     return transfergroups;
@@ -830,7 +829,7 @@ KGet::KGet()
 
 KGet::~KGet()
 {
-    kDebug();
+    qDebug();
     delete m_transferTreeModel;
     delete m_jobManager;  //This one must always be before the scheduler otherwise the job manager can't remove the notifications when deleting.
     delete m_scheduler;
@@ -1071,7 +1070,7 @@ bool KGet::isValidDestDirectory(const QString & destDir)
 
 QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
 {
-    kDebug() << "Source Url" << srcUrl << "Destination" << destDir;
+    qDebug() << "Source Url" << srcUrl << "Destination" << destDir;
     if ( !isValidDestDirectory(destDir.toLocalFile()) )
         return QUrl();
 
@@ -1471,7 +1470,7 @@ void GenericObserver::slotResolveTransferError()
     KNotification * notification = static_cast<KNotification*>(QObject::sender());
     if (notification) {
         TransferHandler * handler = m_notifications[notification];
-        kDebug() << "Resolve error for" << handler->source().toString() << "with id" << handler->error().id;
+        qDebug() << "Resolve error for" << handler->source().toString() << "with id" << handler->error().id;
         handler->resolveError(handler->error().id);
         m_notifications.remove(notification);
     }
@@ -1479,7 +1478,7 @@ void GenericObserver::slotResolveTransferError()
 
 void GenericObserver::slotNotificationClosed()
 {
-    kDebug() << "Remove notification";
+    qDebug() << "Remove notification";
     KNotification * notification = static_cast<KNotification*>(QObject::sender());
     if (notification)
         m_notifications.remove(notification);
@@ -1500,7 +1499,7 @@ void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGro
             break;
         }
     }
-    kDebug() << "Recalculate limits?" << recalculate;
+    qDebug() << "Recalculate limits?" << recalculate;
     if (recalculate)
         KGet::calculateGlobalSpeedLimits();
 }

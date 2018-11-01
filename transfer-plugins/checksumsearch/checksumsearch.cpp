@@ -25,7 +25,6 @@
 #include <QFile>
 #include <QFileInfo>
 
-#include <QDebug>
 #include <KLocalizedString>
 
 const QStringList ChecksumSearch::URLCHANGEMODES = (QStringList() << i18n("Append") << i18n("Replace file") << i18n("Replace file-ending"));

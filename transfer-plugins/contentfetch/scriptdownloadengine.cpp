@@ -10,7 +10,7 @@
 
 #include "scriptdownloadengine.h"
 #include "core/transfergroup.h"
-#include <kdebug.h>
+#include <QDebug>
 
 ScriptDownloadEngine::ScriptDownloadEngine(QObject *parent,
                                            const KUrl &source)
@@ -32,10 +32,10 @@ QString ScriptDownloadEngine::getSourceUrl() const
 bool ScriptDownloadEngine::addTransfer(const QString &url,
                                        const QString &filename)
 {
-    kDebug(5002) << "Url" << url << " file " << filename << " from Script.";
+    qCDebug(KGET_DEBUG) << "Url" << url << " file " << filename << " from Script.";
     // TODO: check url here?
     emit newTransfer(url, filename);
-    kDebug(5002) << "Transfer" << url << " Added to KGet.";
+    qCDebug(KGET_DEBUG) << "Transfer" << url << " Added to KGet.";
     return true;
 }
 

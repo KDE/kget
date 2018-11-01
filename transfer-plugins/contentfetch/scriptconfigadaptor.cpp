@@ -14,7 +14,7 @@
 #include <QString>
 
 #include <KStandardDirs>
-#include <KDebug>
+#include <QDebug>
 
 bool ScriptConfigAdaptor::setFile(const QString &filename,
                                   const QString &path)

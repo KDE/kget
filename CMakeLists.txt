@@ -326,6 +326,7 @@ endif()
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
+install(FILES kget.categories DESTINATION ${KDE_INSTALL_CONFDIR})
 install(FILES org.kde.kget.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR})
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES) 

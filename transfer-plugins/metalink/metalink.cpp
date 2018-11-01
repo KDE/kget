@@ -29,7 +29,7 @@
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KDebug>
+#include <QDebug>
 #include <KDialog>
 #include <KStandardDirs>
 

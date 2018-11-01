@@ -20,7 +20,7 @@
 #include <QRegExp>
 #include <QtGlobal>
 
-#include <KDebug>
+#include <QDebug>
 
 K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_contentfetchfactory.json", registerPlugin<ContentFetchFactory>();)
 

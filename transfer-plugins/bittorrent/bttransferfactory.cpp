@@ -22,8 +22,6 @@
 #include <version.h>
 #include <torrent/job.h>
 
-#include <QDebug>
-
 K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_bittorrentfactory.json", registerPlugin<BTTransferFactory>();)
 
 BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)

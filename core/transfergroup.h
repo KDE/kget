@@ -16,7 +16,7 @@
 #include <QIcon>
 
 #include <kio/netaccess.h>
-#include <KDebug>
+#include <QDebug>
 
 #include "jobqueue.h"
 #include "kget_export.h"

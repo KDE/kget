@@ -28,7 +28,7 @@
 #include <QGraphicsLinearLayout>
 #include <QGraphicsProxyWidget>
 
-#include <KDebug>
+#include <QDebug>
 
 #include <Plasma/ScrollWidget>
 
@@ -62,7 +62,7 @@ void KGetBarApplet::Private::addTransfers(const QList<OrgKdeKgetTransferInterfac
         connect(transfer, SIGNAL(transferChangedEvent(int)), this, SLOT(slotUpdateTransfer(int)));
 
         QString fileName = KUrl(transfer->dest().value()).fileName();
-        kDebug() << fileName;
+        qDebug() << fileName;
 
         Item *item = new Item;
         item->proxy = new QGraphicsProxyWidget();

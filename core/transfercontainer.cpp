@@ -10,7 +10,7 @@
 
 #include "core/transfercontainer.h"
 
-#include <KDebug>
+#include <QDebug>
 
 TransferContainer::TransferContainer()
 {

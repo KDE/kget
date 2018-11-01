@@ -28,7 +28,7 @@
 
 #include <interfaces/torrentinterface.h>
 #include <util/functions.h>
-#include <kdebug.h>
+#include <QDebug>
 
 using namespace bt;
 

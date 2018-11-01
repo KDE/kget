@@ -178,7 +178,7 @@ QVariant GroupModelItem::data(int role) const
 
 TransferGroupHandler * GroupModelItem::groupHandler()
 {
-    //kDebug() << m_groupHandler->name();
+    //qDebug() << m_groupHandler->name();
     return m_groupHandler;
 }
 
@@ -630,7 +630,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         }
 
         if (transfers[i].isNull()) {
-            kWarning() << "The moved transfer has been deleted inbetween.";
+            qWarning() << "The moved transfer has been deleted inbetween.";
         } else {
             moveTransfer(transfers[i].data()->m_transfer, destGroup, after);
         }

@@ -20,7 +20,7 @@
 #include "kget_interface.h"
 
 #include <QDBusConnectionInterface>
-#include <KDebug>
+#include <QDebug>
 
 #include "plasma/datacontainer.h"
 
@@ -57,7 +57,7 @@ bool KGetEngine::sourceRequestEvent(const QString &name)
 
 bool KGetEngine::updateSourceEvent(const QString &name)
 {
-    kDebug();
+    qDebug();
     if (name == "KGet") {
         getKGetData(name);
     }

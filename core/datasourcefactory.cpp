@@ -30,7 +30,6 @@
 #include <kmountpoint.h>
 
 #include "kget_debug.h"
-#include <qdebug.h>
 
 
 #include <kde_file.h>
@@ -659,7 +658,7 @@ void DataSourceFactory::finishedSegment(TransferDataSource *source, int segmentN
     m_finished = m_finishedChunks->allOn();
     if (m_finished)
     {
-        kDebug() << "All segments have been downloaded.";
+        qDebug() << "All segments have been downloaded.";
         return;
     }
 
@@ -1216,7 +1215,7 @@ bool DataSourceFactory::isValid() const
     {
         valid = true;
     }
-    kDebug() << m_size << m_segSize << m_dest.isValid() << !m_sources.isEmpty();
+    qDebug() << m_size << m_segSize << m_dest.isValid() << !m_sources.isEmpty();
     return valid;
 }
 

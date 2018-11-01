@@ -39,7 +39,6 @@
 #include <KStandardDirs>
 #include <KMessageBox>
 
-#include <QDebug>
 #include <QDir>
 #include <QDomElement>
 #include <QFile>
@@ -77,7 +76,7 @@ BTTransfer::~BTTransfer()
 
 void BTTransfer::deinit(Transfer::DeleteOptions options)
 {
-    kDebug() << "****************************DEINIT";
+    qDebug() << "****************************DEINIT";
     if (torrent && (options & Transfer::DeleteFiles)) {//FIXME: Also delete when torrent does not exist
         torrent->deleteDataFiles();
     }
@@ -455,7 +454,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
 
         m_ready = true;
 
-        kDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
+        qDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
         m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
         torrent->init(nullptr, file.readAll(), m_tmp + m_source.fileName().remove(".torrent"), QUrl::fromLocalFile(m_dest.adjusted(QUrl::RemoveFilename).path()).toLocalFile());
 

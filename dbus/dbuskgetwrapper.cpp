@@ -33,7 +33,6 @@
 #include "ui/newtransferdialog.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
 
 DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
   : QObject(parent),
@@ -168,7 +167,7 @@ void DBusKGetWrapper::importLinks(const QList <QString> &links)
 bool DBusKGetWrapper::isSupported(const QString &url) const
 {
     foreach (TransferFactory * factory, KGet::factories()) {
-        kDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(QUrl(url));
+        qDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(QUrl(url));
         if (factory->isSupported(QUrl(url)))
             return true;
     }

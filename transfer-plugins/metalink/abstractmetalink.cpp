@@ -23,14 +23,12 @@
 #include "core/signature.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KDebug>
 #include <KDialog>
 #include <KStandardDirs>
 

@@ -16,7 +16,7 @@
 #include <QSize>
 
 #include <kdialog.h>
-#include <kdebug.h>
+#include <QDebug>
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgContentFetchSettingWidget)
 
@@ -175,7 +175,7 @@ void DlgContentFetchSettingWidget::loadContentFetchSetting()
 
 void DlgContentFetchSettingWidget::saveContentFetchSetting()
 {
-    kDebug(5002);
+    qCDebug(KGET_DEBUG);
     QStringList paths;
     QStringList regexps;
     QStringList descriptions;

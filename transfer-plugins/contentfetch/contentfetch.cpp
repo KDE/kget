@@ -13,7 +13,7 @@
 #include "core/transfergroup.h"
 #include "script.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -73,7 +73,7 @@ void ContentFetch::stop()
 void ContentFetch::slotAddTransfer(const QString &url, const QString &filename)
 {
     // even if filename is empty it's still ok
-    kDebug() << "The whole filename is " << m_destDir + filename;
+    qDebug() << "The whole filename is " << m_destDir + filename;
     KGet::addTransfer(KUrl(url), m_destDir + filename, m_p_group->name(), true);
 }
 

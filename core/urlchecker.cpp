@@ -32,7 +32,7 @@
 #include <boost/bind.hpp>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+
 #include <QFileInfo>
 #include <QCheckBox>
 #include <QHBoxLayout>

@@ -14,7 +14,7 @@
 #include "ui_btdetailswidgetfrm.h"
 
 #include "kget_debug.h"
-#include <QDebug>
+
 #include <KFormat>
 
 BTDetailsWidget::BTDetailsWidget(BTTransferHandler * transfer)

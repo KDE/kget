@@ -12,12 +12,12 @@
 #include "scriptdownloadengine.h"
 #include "scriptconfigadaptor.h"
 #include <QVariant>
-#include <KDebug>
+#include <QDebug>
 
 Script::Script(QObject* parent, const KUrl &source)
     :QThread(parent), m_p_kgetcore(nullptr), m_source(source)
 {
-    kDebug(5002) << "One Script Newed.";
+    qCDebug(KGET_DEBUG) << "One Script Newed.";
     /*
     Use nullptr as parent here because of threading issue, comply to qt manual.
     Adapted below:
@@ -35,7 +35,7 @@ Script::~Script()
 {
     delete m_p_kgetcore;
     delete m_p_action;
-    kDebug(5002) << "m_p_kgetcore & m_p_action is deleted!";
+    qCDebug(KGET_DEBUG) << "m_p_kgetcore & m_p_action is deleted!";
 }
 
 bool Script::setFile(const QString &filename)
@@ -67,7 +67,7 @@ void Script::run()
             m_p_kgetcore, SIGNAL(startDownload(QObject*)));
     m_p_action->setFile(m_fileName);
     // TODO add check
-    kDebug(5002) << "KGetCore Added to script at ThreadId " << QThread::currentThreadId();
+    qCDebug(KGET_DEBUG) << "KGetCore Added to script at ThreadId " << QThread::currentThreadId();
     m_p_action->addObject(m_p_kgetcore, "kgetcore",
                           Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
@@ -75,12 +75,12 @@ void Script::run()
     emit startDownload(&config);
 
     //m_p_action->callFunction("startDownload", QVariantList());
-    kDebug(5002) << "Script Finished!" << QThread::currentThreadId();
+    qCDebug(KGET_DEBUG) << "Script Finished!" << QThread::currentThreadId();
     //delete m_p_kgetcore;
     //delete m_p_action;
     if (m_p_action->hadError())
     {
-        kDebug(5002) << "Error:" << m_p_action->errorMessage() << m_p_action->errorTrace();
+        qCDebug(KGET_DEBUG) << "Error:" << m_p_action->errorMessage() << m_p_action->errorTrace();
     }
     else
     {

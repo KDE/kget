@@ -37,7 +37,7 @@
 #include <QPushButton>
 #include <QProgressBar>
 
-#include <KDebug>
+#include <QDebug>
 #include <QIcon>
 #include <KLocale>
 #include <KGlobal>
@@ -103,7 +103,7 @@ void KGetPieChart::PieChart::paint(QPainter *p, const QStyleOptionGraphicsItem *
 {
     Q_UNUSED(widget)
 
-    kDebug() << "Repaint";
+    qDebug() << "Repaint";
 
     if (m_totalSize && (m_angles.count() != m_data->count())) {
         createAngles();
@@ -223,7 +223,7 @@ void KGetPieChart::Private::addTransfers(const QList<OrgKdeKgetTransferInterface
         connect(transfer, SIGNAL(transferChangedEvent(int)), this, SLOT(slotUpdateTransfer(int)));
 
         QString fileName = KUrl(transfer->dest().value()).fileName();
-        kDebug() << fileName;
+        qDebug() << fileName;
 
         Data data;
         data.name = fileName;

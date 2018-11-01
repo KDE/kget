@@ -25,7 +25,6 @@
 #include "core/signature.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
 
 #include <KIconLoader>
 #include <KIO/DeleteJob>
@@ -33,7 +32,6 @@
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KDebug>
 #include <KDialog>
 #include <KStandardDirs>
 
@@ -120,7 +118,7 @@ void MetalinkHttp::startMetalink()
 
 void MetalinkHttp::start()
 {
-    kDebug() << "metalinkhttp::start";
+    qDebug() << "metalinkhttp::start";
 
     if (!m_ready) {
         setLinks();
@@ -172,10 +170,10 @@ void MetalinkHttp::slotSignatureVerified()
 
 bool MetalinkHttp::metalinkHttpInit()
 {
-    kDebug() << "m_dest = " << m_dest;
+    qDebug() << "m_dest = " << m_dest;
     const QUrl tempDest = QUrl(m_dest.adjusted(QUrl::RemoveFilename));
     QUrl dest = tempDest.toString() + m_dest.fileName();
-    kDebug() << "dest = " << dest;
+    qDebug() << "dest = " << dest;
 
     //sort the urls according to their priority (highest first)
     qStableSort(m_linkheaderList);
@@ -195,7 +193,7 @@ bool MetalinkHttp::metalinkHttpInit()
         const QUrl url = m_linkheaderList[i].url;
         if (url.isValid()) {
             if (m_linkheaderList[i].pref) {
-                kDebug() << "found etag in a mirror" ;
+                qDebug() << "found etag in a mirror" ;
                 KGetMetalink::MetalinkHttpParser* eTagCher = new KGetMetalink::MetalinkHttpParser(url) ;
                 if (eTagCher->getEtag() != m_httpparser->getEtag()) { //There is an ETag mismatch
                     continue ;
@@ -208,13 +206,13 @@ bool MetalinkHttp::metalinkHttpInit()
 
     //no datasource has been created, so remove the datasource factory
     if (dataFactory->mirrors().isEmpty()) {
-        kDebug() << "data source factory being deleted" ;
+        qDebug() << "data source factory being deleted" ;
         delete dataFactory;
     } else {
         QHashIterator<QString, QString> itr(m_DigestList);
         while(itr.hasNext()) {
             itr.next();
-            kDebug() << itr.key() << ":" << itr.value() ;
+            qDebug() << itr.key() << ":" << itr.value() ;
         }
 
         dataFactory->verifier()->addChecksums(m_DigestList);

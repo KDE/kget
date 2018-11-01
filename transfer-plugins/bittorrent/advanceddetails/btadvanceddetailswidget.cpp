@@ -30,7 +30,6 @@
 #include <KTabWidget>
 #include <KTitleWidget>
 
-#include <QDebug>
 #include <QGridLayout>
 
 using namespace kt;

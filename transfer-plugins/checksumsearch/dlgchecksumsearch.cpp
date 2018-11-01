@@ -29,8 +29,6 @@
 #include <QStandardItemModel>
 #include <QStringListModel>
 
-#include <QDebug>
-
 #include <KStandardGuiItem>
 #include <KPluginFactory>
 

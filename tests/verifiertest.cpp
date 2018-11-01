@@ -5,7 +5,7 @@
 
 #include <QtTest>
 
-#include <KDebug>
+#include <QDebug>
 #include <KStandardDirs>
 #include <KTempDir>
 

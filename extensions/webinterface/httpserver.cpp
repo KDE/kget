@@ -17,7 +17,7 @@
 #include "core/kget.h"
 #include "settings.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KGlobalSettings>
 #include <KStandardDirs>
 #include <kwallet.h>

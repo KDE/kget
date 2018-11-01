@@ -24,7 +24,6 @@
 
 #include <QFile>
 
-#include <QDebug>
 #include <KIO/DeleteJob>
 #include <KIO/NetAccess>
 #include <KStandardDirs>

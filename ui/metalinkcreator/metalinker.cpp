@@ -25,10 +25,8 @@
 #include <QDomElement>
 
 #include "kget_debug.h"
-#include <qdebug.h>
 
 #include "kget_version.h"
-#include <KDebug>
 #include <KLocalizedString>
 #include <KSystemTimeZone>
 
@@ -1263,7 +1261,7 @@ QString* KGetMetalink::MetalinkHttpParser::getEtag()
 void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
 {
     if (!m_Url.isValid()) {
-        kDebug() << "Url not valid";
+        qDebug() << "Url not valid";
         return;
     }
 
@@ -1274,13 +1272,13 @@ void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
     connect(job, SIGNAL(result(KJob*)), this, SLOT(slotHeaderResult(KJob*)));  // Finished
     connect(job, SIGNAL(redirection(KIO::Job*,QUrl)), this, SLOT(slotRedirection(KIO::Job*,QUrl))); // Redirection
     connect(job,SIGNAL(mimetype(KIO::Job*,QString)),this,SLOT(detectMime(KIO::Job*,QString))); // Mime detection.
-    kDebug() << " Verifying Metalink/HTTP Status" ;
+    qDebug() << " Verifying Metalink/HTTP Status" ;
     m_loop.exec();
 }
 
 void KGetMetalink::MetalinkHttpParser::detectMime(KIO::Job *job, const QString &type)
 {
-    kDebug() << "Mime Type: " << type ;
+    qDebug() << "Mime Type: " << type ;
     job->kill();
     m_loop.exit();
 }
@@ -1312,10 +1310,10 @@ void KGetMetalink::MetalinkHttpParser::slotRedirection(KIO::Job *job, const QUrl
 bool KGetMetalink::MetalinkHttpParser::isMetalinkHttp()
 {
     if (m_MetalinkHSatus) {
-        kDebug() << "Metalink Http detected" ;
+        qDebug() << "Metalink Http detected" ;
     }
     else {
-        kDebug() << "No Metalink HTTP response found" ;
+        qDebug() << "No Metalink HTTP response found" ;
     }
     return m_MetalinkHSatus;
 }

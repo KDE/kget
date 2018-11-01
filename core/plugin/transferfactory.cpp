@@ -14,7 +14,7 @@
 #include "kget.h"
 
 #include <klocale.h>
-#include <kdebug.h>
+#include <QDebug>
 
 TransferFactory::TransferFactory(QObject *parent, const QVariantList &args)
   : KGetPlugin(parent, args)

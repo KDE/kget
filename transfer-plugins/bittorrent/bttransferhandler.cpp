@@ -18,7 +18,6 @@
 #include "core/scheduler.h"
 
 #include "kget_debug.h"
-#include <QDebug>
 
 BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler)
     : TransferHandler(transfer, scheduler),
