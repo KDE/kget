@@ -224,6 +224,7 @@
   <url type="homepage">https://www.kde.org/applications/internet/kget/</url>
   <screenshots>
     <screenshot type="default">
+      <caption>Downloading files with KGet</caption>
       <image>https://www.kde.org/images/screenshots/kget.png</image>
     </screenshot>
   </screenshots>
