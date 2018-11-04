@@ -225,6 +225,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Downloading files with KGet</caption>
+      <caption xml:lang="ca">Baixada de fitxers amb el KGet</caption>
       <caption xml:lang="gl">Descargando os ficheiros con KGet</caption>
       <caption xml:lang="nl">Bestanden worden gedownload met KGet</caption>
       <caption xml:lang="pt">Transferência de ficheiros com o KGet</caption>
