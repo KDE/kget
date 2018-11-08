@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.0)
 
 # KDE Application Version, managed by release script
 set(KDE_APPLICATIONS_VERSION_MAJOR "18")
@@ -8,11 +8,14 @@ set(KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIO
 
 project(kget VERSION ${KDE_APPLICATIONS_VERSION})
 
-find_package(ECM 5.14.0 REQUIRED NO_MODULE)
+set(KF5_VERSION "5.44.0")
+set(REQUIRED_QT_VERSION "5.7.0")
+
+find_package(ECM ${KF5_VERSION} REQUIRED NO_MODULE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} "${CMAKE_SOURCE_DIR}/cmake")
 
-find_package(Qt5 5.2.0 REQUIRED CONFIG COMPONENTS DBus Gui Network Sql Test Widgets Xml)
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS DBus Gui Network Sql Test Widgets Xml)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
@@ -24,7 +27,7 @@ include(ECMSetupVersion)
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KGET VERSION_HEADER "kget_version.h")
 
-find_package(KF5 REQUIRED
+find_package(KF5 ${KF5_VERSION} REQUIRED
     Completion
     Config
     ConfigWidgets
