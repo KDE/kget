@@ -219,7 +219,7 @@
     </ul>
   </description>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kget</url>
-  <url type="donation">https://www.kde.org/community/donations/</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=kget&amp;source=appdata</url>
   <url type="help">https://docs.kde.org/?application=kget</url>
   <url type="homepage">https://www.kde.org/applications/internet/kget/</url>
   <screenshots>
