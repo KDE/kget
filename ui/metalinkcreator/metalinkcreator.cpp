@@ -34,7 +34,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QPushButton>
-#include <kio_version.h>
 
 //TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
 
@@ -174,11 +173,7 @@ void MetalinkCreator::createIntroduction()
     uiIntroduction.setupUi(widget);
 
     uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 33, 0)
     uiIntroduction.save->setAcceptMode(QFileDialog::AcceptSave);
-#else
-    uiIntroduction.save->fileDialog()->setAcceptMode(QFileDialog::AcceptSave);
-#endif
 
     connect(uiIntroduction.save, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
     connect(uiIntroduction.load, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));

@@ -37,7 +37,6 @@
 #include <KColorScheme>
 #include <KWindowSystem>
 #include <QStandardPaths>
-#include <kio_version.h>
 
 Q_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 
@@ -71,11 +70,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     ui.destRequester->comboBox()->setDuplicatesEnabled(false);
     ui.destRequester->comboBox()->setUrlDropsEnabled(true);
     ui.destRequester->comboBox()->setEditable(true);
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 33, 0)
     ui.destRequester->setAcceptMode(QFileDialog::AcceptSave);
-#else
-    ui.destRequester->fileDialog()->setAcceptMode(QFileDialog::AcceptSave);
-#endif
 
     ui.errorWidget->setCloseButtonVisible(false);
 
@@ -401,12 +396,6 @@ void NewTransferDialog::slotFinished(int resultCode)
 void NewTransferDialog::dialogAccepted()
 {
     qCDebug(KGET_DEBUG) << "Dialog accepted.";
-
-#if KIO_VERSION < QT_VERSION_CHECK(5, 42, 0)
-    // checkInput() shouldn't have to be called here, it should actually be called whenever the text in the input fields changes.
-    // Due to a bug in KUrlRequester (that's fixed in KIO 5.42), this doesn't work for the destination field though, so call it explicitly here, to make the choice be respected. (checkInput() sets m_destination accordingly)
-    checkInput();
-#endif
 
     //an existing transfer has been specified and since ok was clicked, it was chosen to be overwritten
     if (m_existingTransfer) {
