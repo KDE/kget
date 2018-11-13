@@ -235,6 +235,7 @@
       <caption xml:lang="sv">Nerladdning av filer med Kget</caption>
       <caption xml:lang="uk">Отримання файлів за допомогою KGet</caption>
       <caption xml:lang="x-test">xxDownloading files with KGetxx</caption>
+      <caption xml:lang="zh-CN">使用 KGet 下载文件</caption>
       <image>https://www.kde.org/images/screenshots/kget.png</image>
     </screenshot>
   </screenshots>
