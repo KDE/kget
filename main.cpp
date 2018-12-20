@@ -124,6 +124,7 @@ int main(int argc, char *argv[])
     // necessary to make the "Translators" tab appear in the About dialog
     aboutData.setTranslator( i18nc( "NAME OF TRANSLATORS", "Your names" ), i18nc( "EMAIL OF TRANSLATORS", "Your emails" ) );
     KAboutData::setApplicationData(aboutData);
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kget")));
 
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
