@@ -20,7 +20,7 @@
 
 #include <qdebug.h>
 
-K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_checksumsearchfactory.json", registerPlugin<ChecksumSearchFactory>();)
+K_PLUGIN_CLASS_WITH_JSON(ChecksumSearchFactory, "kget_checksumsearchfactory.json")
 
 ChecksumSearchFactory::ChecksumSearchFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

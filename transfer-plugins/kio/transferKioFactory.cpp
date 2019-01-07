@@ -18,7 +18,7 @@
 #include <qdebug.h>
 #include <kpluginfactory.h>
 
-K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_kiofactory.json", registerPlugin<TransferKioFactory>();)
+K_PLUGIN_CLASS_WITH_JSON(TransferKioFactory, "kget_kiofactory.json")
 
 TransferKioFactory::TransferKioFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

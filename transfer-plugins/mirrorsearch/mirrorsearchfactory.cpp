@@ -19,7 +19,7 @@
 
 #include <QDomElement>
 
-K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_mirrorsearchfactory.json", registerPlugin<MirrorSearchFactory>();)
+K_PLUGIN_CLASS_WITH_JSON(MirrorSearchFactory, "kget_mirrorsearchfactory.json")
 
 MirrorSearchFactory::MirrorSearchFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)

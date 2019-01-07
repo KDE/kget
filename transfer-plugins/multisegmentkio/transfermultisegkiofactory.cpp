@@ -23,7 +23,7 @@
 #include <qdebug.h>
 #include "kget_macro.h"
 
-K_PLUGIN_FACTORY_WITH_JSON(KGetFactory, "kget_multisegkiofactory.json", registerPlugin<TransferMultiSegKioFactory>();)
+K_PLUGIN_CLASS_WITH_JSON(TransferMultiSegKioFactory, "kget_multisegkiofactory.json")
 
 TransferMultiSegKioFactory::TransferMultiSegKioFactory(QObject *parent, const QVariantList &args)
   : TransferFactory(parent, args)
