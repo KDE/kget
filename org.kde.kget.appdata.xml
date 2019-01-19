@@ -130,7 +130,7 @@
       <li xml:lang="fi">Tiedostojen latauksen keskeytys ja jatkaminen kuten myös latauksen uudelleenkäynnistys.</li>
       <li xml:lang="fr">Mise en pause et reprise du téléchargement de fichiers, possibilité de relancer un téléchargement.</li>
       <li xml:lang="gl">Pausa e continuación de descargas de ficheiros, así como a posibilidade de reiniciar a descarga.</li>
-      <li xml:lang="id">Berhenti sejenak dan melanjutkan dari mendownload file-file, begitu pula kemampuan untuk memulai kembali sebuah download-an.</li>
+      <li xml:lang="id">Menjeda dan melanjutkan pendownloadan file-file, begitu pula kemampuan untuk memulai kembali sebuah download-an.</li>
       <li xml:lang="it">Interruzione e ripresa dello scaricamento dei file, oltre alla capacità di riavviare uno scaricamento.</li>
       <li xml:lang="ko">파일 다운로드를 일시 정지 및 재시작할 수 있습니다.</li>
       <li xml:lang="nl">Pauzeren en hervatten van downloaden van bestanden, evenals de mogelijkheid om een download opnieuw te starten.</li>
@@ -172,7 +172,7 @@
       <li xml:lang="fi">Upotus järjestelmän ilmoitusalueelle.</li>
       <li xml:lang="fr">Intégration dans la boîte à miniatures.</li>
       <li xml:lang="gl">Integración coa zona de notificacións.</li>
-      <li xml:lang="id">Membubuhkan kedalam system tray.</li>
+      <li xml:lang="id">Membenamkan ke dalam system tray.</li>
       <li xml:lang="it">Integrato nel vassoio di sistema.</li>
       <li xml:lang="ko">시스템 트레이에 통합됩니다.</li>
       <li xml:lang="nl">Ingebed in het systeemvak.</li>
@@ -243,6 +243,7 @@
       <caption xml:lang="fi">Tiedostojen lataaminen KGetillä</caption>
       <caption xml:lang="fr">Téléchargement de fichiers avec KGet</caption>
       <caption xml:lang="gl">Descargando os ficheiros con KGet</caption>
+      <caption xml:lang="id">Mendownload file-file menggunakan KGet</caption>
       <caption xml:lang="it">Scaricamento di file con KGet</caption>
       <caption xml:lang="nl">Bestanden worden gedownload met KGet</caption>
       <caption xml:lang="pl">Pobieranie plików w KGet</caption>
