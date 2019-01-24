@@ -35,7 +35,7 @@ class MetalinkFactory : public TransferFactory
         /**
          * Checks if a URL is supported by this plugin.
          *
-         * @param The Url to be tested
+         * @param url The URL to be tested
          * @return True if the URL is a metalink (xml or http).
          */
         bool isSupported(const QUrl &url) const;

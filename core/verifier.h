@@ -145,7 +145,7 @@ class KGET_EXPORT Verifier : public QObject
         /**
          * Convenience function if only a row of the model should be checked
          * @note only call verify() when this function returns true
-         * @param row the row in the model of the checksum
+         * @param index the row in the model of the checksum
          * @return true if the downloaded file exists and a supported checksum is set
          */
         bool isVerifyable(const QModelIndex &index) const;
@@ -153,7 +153,7 @@ class KGET_EXPORT Verifier : public QObject
         /**
          * Call this method if you want to verify() in its own thread, then signals with
          * the result are emitted
-         * @param row of the model should be checked, if not defined the a checkum defined by
+         * @param index row of the model should be checked, if not defined the a checkum defined by
          * Verifier::ChecksumStrength will be used
          */
         void verify(const QModelIndex &index = QModelIndex());

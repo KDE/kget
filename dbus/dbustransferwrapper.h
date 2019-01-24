@@ -49,7 +49,7 @@ class DBusTransferWrapper : public QObject
 
         /**
          * Move the download to the new destination
-         * @param newDirectory is a directory where the download should be stored
+         * @param directory a directory where the download should be stored
          * @returns true if newDestination can be used
          */
         bool setDirectory(const QString &directory);

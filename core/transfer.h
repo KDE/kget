@@ -193,23 +193,26 @@ class KGET_EXPORT Transfer : public Job
         virtual QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const;
 
         /**
-         * Set the mirrors, int the number of paralell connections to the mirror
+         * Set the mirrors, int the number of parallel connections to the mirror
          * bool if the mirror should be used
          * @param file the file for which the availableMirrors should be set
+         * @param mirrors the mirrors
          */
         virtual void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) {Q_UNUSED(file) Q_UNUSED(mirrors)}
 
         /**
          * Set the Transfer's UploadLimit
          * @note this is not displayed in any GUI, use setVisibleUploadLimit(int) instead
-         * @param visibleUlLimit upload Limit
+         * @param ulLimit upload Limit
+         * @param limit speed limit
          */
         void setUploadLimit(int ulLimit, SpeedLimit limit);
 
         /**
          * Set the Transfer's UploadLimit, which are displayed in the GUI
          * @note this is not displayed in any GUI, use setVisibleDownloadLimit(int) instead
-         * @param visibleUlLimit upload Limit
+         * @param dlLimit upload Limit
+         * @param limit speed limit
          */
         void setDownloadLimit(int dlLimit, SpeedLimit limit);
 
@@ -330,7 +333,8 @@ class KGET_EXPORT Transfer : public Job
          * Makes the TransferHandler associated with this transfer know that
          * a change in this transfer has occurred.
          *
-         * @param change: the TransferChange flags to be set
+         * @param change the TransferChange flags to be set
+         * @param postEvent whether the post event is taken into account
          */
         virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
 

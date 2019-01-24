@@ -153,7 +153,7 @@ class KGET_EXPORT JobQueue : public QObject
          * Moves a job in the queue. Both the given jobs must belong to this queue
          *
          * @param job The job to move
-         * @param position The job after which we have to move the given job
+         * @param after The job after which we have to move the given job
          */
         void move(Job * job, Job * after);
 

@@ -184,7 +184,6 @@ class KGET_EXPORT TransferDataSource : public QObject
 
         /**
          * emitted when there is no more data
-         * @param source the datasource, sending the signal
          */
         void finished();
 

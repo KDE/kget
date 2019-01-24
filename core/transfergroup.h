@@ -80,7 +80,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * Appends new transfers to the list of the transfers
          *
-         * @param transfers to append
+         * @param transfer the transfers to append
          */
         void append(const QList<Transfer*> &transfer);
 
@@ -206,7 +206,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
 
         /**
          * Sets the regular expression of the group
-         * @param regexp the regular expression
+         * @param regExp the regular expression
          */
         void setRegExp(const QRegExp &regExp) {m_regExp = regExp;}
 
@@ -222,7 +222,8 @@ class KGET_EXPORT TransferGroup : public JobQueue
 
         /**
          * Set a Download-Limit for the group
-         * @param limit the new download-limit
+         * @param dlLimit the new download limit
+         * @param limit the speed limit
          * @note if limit is 0, no download-limit is set
          */
         void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit);
@@ -288,14 +289,14 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * Saves this group object to the given QDomNode 
          *
-         * @param n The QDomNode where the group will be saved
+         * @param e The QDomNode where the group will be saved
          */
         void save(QDomElement e);
 
         /**
          * Adds all the groups in the given QDomNode * to the group
          *
-         * @param n The QDomNode where the group will look for the transfers to add
+         * @param e The QDomNode where the group will look for the transfers to add
          */
         void load(const QDomElement & e);
 

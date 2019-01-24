@@ -96,7 +96,8 @@ class KGET_EXPORT KGet
         /**
          * Removes a group from the KGet.
          *
-         * @param groupName The name of the group to be deleted
+         * @param group The name of the group to be deleted
+         * @param askUser Whether to ask user about the deletion
          */
         static void delGroup(TransferGroupHandler * group, bool askUser = true);
         
@@ -104,6 +105,7 @@ class KGET_EXPORT KGet
          * Removes specific groups from the KGet.
          *
          * @param groups The names of the groups to be deleted.
+         * @param askUser Whether to ask user about the deletion
          */
         static void delGroups(QList<TransferGroupHandler*> groups, bool askUser = true);
 
@@ -160,6 +162,7 @@ class KGET_EXPORT KGet
          * Removes a transfer from the KGet
          *
          * @param transfer The transfer to be removed
+         * @param mode The deletion mode
          */
         static bool delTransfer(TransferHandler * transfer, DeleteMode mode = AutoDelete);
 
@@ -305,7 +308,7 @@ class KGET_EXPORT KGet
         static QList<TransferGroupHandler*> groupsFromExceptions(const QUrl &filename);
 
         /**
-         * Returns true if sourceUrl matches any of the patterns
+         * Returns @c true if sourceUrl matches any of the patterns
          */
         static bool matchesExceptions(const QUrl &sourceUrl, const QStringList &patterns);
 
@@ -314,9 +317,10 @@ class KGET_EXPORT KGet
          * transfer DataSource object for transfers Containers
          *
          * @param src Source Url
-         * @param type the type of the DataSource that should be created e.g. <TransferDataSource type="search" />
+         * @param type the type of the DataSource that should be created e.g. \<TransferDataSource type="search" /\>
          * this is only needed when creating a "special" TransferDataSource like the search for Urls
          * you can set additional information and the TransferDataSource will use it if it can
+         * @param parent the parent QObject
          */
         static TransferDataSource * createTransferDataSource(const QUrl &src, const QDomElement &type = QDomElement(), QObject *parent = nullptr);
 
@@ -351,9 +355,11 @@ class KGET_EXPORT KGet
         /**
         * Shows a knotification 
         * @param parent QWidget parent of the notification
-        * @param eventId Notification type
+        * @param eventType Notification type
         * @param text Description of the information showed by the notification
         * @param icon Pixmap showed in the notification, by default 'dialog-error'
+        * @param title Notification window title
+        * @param flags Notification flags
         */
         static KNotification *showNotification(QWidget *parent, const QString &eventType,
                                                const QString &text,

@@ -43,7 +43,7 @@ namespace KGetMetalink
 /**
  * Adapts type to the way the hash is internally stored
  * @param type the hash-type
- * @param load true if the hash has been loaded, false if it should be saved
+ * @param loaded @c true if the hash has been loaded, false if it should be saved
  * @note metalink wants sha1 in the form "sha-1", though
  * the metalinker uses it internally in the form "sha1", this function
  * transforms it to the correct form, it is only needed internally
