@@ -123,13 +123,18 @@ class KGET_EXPORT Verifier : public QObject
         static QString cleanChecksumType(const QString &type);
 
         /**
-         * Creates the checksum type of the file dest
+         * Creates the checksum type of the file @p dest
+         * @param dest the destination
+         * @param type the type of the checksum
          * @param abortPtr makes it possible to abort the calculation of the checksum from another thread
          */
         static QString checksum(const QUrl &dest, const QString &type, bool *abortPtr);
 
         /**
-         * Create partial checksums of type for file dest
+         * Create partial checksums of type for file @p dest
+         * @param dest the destination
+         * @param type the type of the checksum
+         * @param length the file length
          * @param abortPtr makes it possible to abort the calculation of the checksums from another thread
          * @note the length of the partial checksum (if not defined = 0) is not less than 512 kb
          * and there won't be more partial checksums than 101

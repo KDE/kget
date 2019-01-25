@@ -88,6 +88,7 @@ class DBusTransferWrapper : public QObject
          * Set an UploadLimit for the transfer
          * @note this UploadLimit is not visible in the GUI
          * @param ulLimit upload Limit
+         * @param limit the type of the upload limit
          */
         void setUploadLimit(int ulLimit, int limit);
 
@@ -95,6 +96,7 @@ class DBusTransferWrapper : public QObject
          * Set a DownloadLimit for the transfer
          * @note this DownloadLimit is not visible in the GUI
          * @param dlLimit download Limit
+         * @param limit the type of the download limit
          */
         void setDownloadLimit(int dlLimit, int limit);
 

@@ -115,16 +115,17 @@ class KGET_EXPORT TransferHandler : public Handler
 
         /**
          * The mirrors that are available
-         * bool if it is used, int how many paralell connections are allowed
+         * bool if it is used, int how many parallel connections are allowed
          * to the mirror
          * @param file the file for which the availableMirrors should be get
          */
         QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const {return m_transfer->availableMirrors(file);}
 
         /**
-         * Set the mirrors, int the number of paralell connections to the mirror
+         * Set the mirrors, int the number of parallel connections to the mirror
          * bool if the mirror should be used
          * @param file the file for which the availableMirrors should be set
+         * @param mirrors the mirror list
          */
         void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) {m_transfer->setAvailableMirrors(file, mirrors);}
 
@@ -166,14 +167,16 @@ class KGET_EXPORT TransferHandler : public Handler
         /**
          * Set an UploadLimit for the transfer
          * @note this UploadLimit is not visible in the GUI
-         * @param ulLimit upload Limit
+         * @param ulLimit the upload limit
+         * @param limit the type of the upload Limit
          */
         void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) {m_transfer->setUploadLimit(ulLimit, limit);}
 
         /**
          * Set a DownloadLimit for the transfer
          * @note this DownloadLimit is not visible in the GUI
-         * @param dlLimit download Limit
+         * @param dlLimit download limit
+         * @param limit the type of the download Limit
          */
         void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit) {m_transfer->setDownloadLimit(dlLimit, limit);}
 

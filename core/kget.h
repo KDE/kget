@@ -170,6 +170,7 @@ class KGET_EXPORT KGet
          * Removes multiple transfers from the KGet
          *
          * @param transfers The transfers to be removed
+         * @param mode The deletion mode
          */
         static bool delTransfers(const QList<TransferHandler*> &transfers, DeleteMode mode = AutoDelete);
 

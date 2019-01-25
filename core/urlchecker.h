@@ -90,6 +90,7 @@ class KGET_EXPORT UrlChecker
          * Checks if url points to a file (can be non-existent) and if the
          * directory this file is (would) be in is existent and writeable
          *
+         * @param url the URL
          * @param type all types supported here
          * @param showNotification true shows a notification if an error is found
          * @note checkExisting is not done within this method
@@ -101,18 +102,21 @@ class KGET_EXPORT UrlChecker
 
         /**
          * Convenience method of checkUrl
+         * @param source the URL
          * @param showNotification true shows a notification if an error is found
          */
         static UrlError checkSource(const QUrl &source, bool showNotification = false);
 
         /**
          * Convenience method of checkUrl
+         * @param destination the URL
          * @param showNotification true shows a notification if an error is found
          */
         static UrlError checkDestination(const QUrl &destination, bool showNotification = false);
 
         /**
          * Convenience method of checkUrl
+         * @param folder the folder
          * @param showNotification true shows a notification if an error is found
          */
         static UrlError checkFolder(const QUrl &folder, bool showNotification = false);
@@ -130,8 +134,10 @@ class KGET_EXPORT UrlChecker
 
         /**
          * Checks if there is an existing transfer for url with type
-         * @param type *Source checks if there is a transfer with the same source
-         * *Destination checks if there is a transfer with the same destination
+         * @param url the URL
+         * @param type Source checks if there is a transfer with the same source
+         * destination checks if there is a transfer with the same destination
+         * @param warning the warning
          * @return if an existing transfer is found it will be returned,
          * otherwise nullptr will be returned
          * @note checkUrl check is not done and UrlType Folder is not supported
@@ -149,6 +155,8 @@ class KGET_EXPORT UrlChecker
          * Get a describing message for UrlError
          * @param url is only needed here to include it in some error messages,
          * if url is empty, then it won't be used.
+         * @param type the URL type
+         * @param error the error
          * @note this method does no checks, it only creates messages based on the error code
          * @see checkUrl
          */
@@ -179,9 +187,11 @@ class KGET_EXPORT UrlChecker
          * Takes an url to a source and an url to either the destination or a folder
          *  and returns a destination url.
          *
-         * @param destOrFolder *is an existing folder then a file name derived from source
+         * @param destOrFolder An existing folder then a file name derived from source
          * will be appended to it and returned
-         * *otherwise no modification will be done and destOrFolder will be returned
+         * otherwise no modification will be done and destOrFolder will be returned
+         * @param source the source
+         * @param fileName the filename
          * @note no checkUrl check happens!
          * @see checkUrl
          */

@@ -144,7 +144,8 @@ class KGET_EXPORT TransferGroupHandler : public Handler
 
         /**
          * Set a Download-Limit for the group
-         * @param limit the new download-limit
+         * @param dlLimit the new download-limit
+         * @param limit the type of the new download-limit
          * @note if limit is 0, no download-limit is set
          */
          void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit) {m_group->setDownloadLimit(dlLimit, limit);}
@@ -156,7 +157,8 @@ class KGET_EXPORT TransferGroupHandler : public Handler
 
         /**
          * Set a Upload-Limit for the group
-         * @param limit the new upload-limit
+         * @param ulLimit the new upload-limit
+         * @param limit the type of the new upload-limit
          * @note this will not be displayed in the GUI
          */
          void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) {m_group->setUploadLimit(ulLimit, limit);}

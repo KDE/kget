@@ -30,6 +30,10 @@ class KGET_EXPORT TransferDataSource : public QObject
         TransferDataSource(const QUrl &srcUrl, QObject *parent);
         virtual ~TransferDataSource();
 
+        /**
+         * @enum Error
+         * @brief Error type enum
+         */
         enum Error
         {
             Unknown,
@@ -49,7 +53,7 @@ class KGET_EXPORT TransferDataSource : public QObject
          * Tries to find the filesize if this capability is supported,
          * if successful it emits foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)
          * and assigns all segments to itself
-         * if not succesfull it will try to download the file nevertheless
+         * if not successful it will try to download the file nevertheless
          * @note if stop is called and no size is found yet then this is aborted, i.e. needs to be
          * called again if start is later called
          * @param segmentSize the segments should have
@@ -100,7 +104,7 @@ class KGET_EXPORT TransferDataSource : public QObject
          * unfinished segments
          * Each TransferDataSource can have multiple connections and each connection
          * can have multiple segments assigned
-         * @note default implemention returns 0
+         * @note default implementation returns 0
          */
         virtual int countUnfinishedSegments() const;
 
@@ -113,26 +117,26 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual QPair<int, int> split();//TODO should split also take the current running segment into account?
 
 
-        //the following methods are used for managing the number of paralell connections
+        //the following methods are used for managing the number of parallel connections
         //subclasses have to keep track of the currentSegments
         /**
-         * @return the number of paralell segments this DataSource is allowed to use,
+         * @return the number of parallel segments this DataSource is allowed to use,
          * default is 1
          */
         virtual int paralellSegments() const;
 
         /**
-         * Sets the number of paralell segments this DataSource is allowed to use
+         * Sets the number of parallel segments this DataSource is allowed to use
          */
         virtual void setParalellSegments(int paralellSegments);
 
         /**
-         * @return the number of paralell segments this DataSources currently uses
+         * @return the number of parallel segments this DataSources currently uses
          */
         virtual int currentSegments() const;
 
         /**
-         * Returns the missmatch of paralellSegments() and currentSegments()
+         * Returns the mismatch of paralellSegments() and currentSegments()
          * @return the number of segments to add/remove e.g. -1 means one segment to remove
          */
         virtual int changeNeeded() const;
@@ -140,7 +144,7 @@ class KGET_EXPORT TransferDataSource : public QObject
     signals:
         /**
          * Emitted after findFileSize is called successfully
-         * @param source that foudn the filesize
+         * @param source that found the filesize
          * @param fileSize that was found
          * @param segmentRange that was calculated based on the segmentSize and that was assigned to
          * source automatically
@@ -155,7 +159,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         /**
          * Emitted when the TransferDataSource finished the download on its own, e.g. when findFileSize
          * is being called but no fileSize is found and instead the download finishes
-         * @param source the source that emmited this signal
+         * @param source the source that emitted this signal
          * @param fileSize the fileSize of the finished file (calculated by the downloaded bytes)
          */
         void finishedDownload(TransferDataSource *source, KIO::filesize_t fileSize);
@@ -189,22 +193,23 @@ class KGET_EXPORT TransferDataSource : public QObject
 
         /**
          * emitted when an assigned segment finishes
-         * @param source the source that emmited this signal
+         * @param source the source that emitted this signal
          * @param segmentNumber the number of the segment, to identify it
          * @param connectionFinished true if all segments of this connection have been finished,
-         * if one segement (instead of a group of segments) has been asigned this is always true
+         * if one segment (instead of a group of segments) has been assigned this is always true
          */
         void finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished = true);
 
         /**
          * Alert that datasource is no able to send any data
-         *@param source the datasource, sending the signal
+         * @param source the datasource, sending the signal
+         * @param error the error type
          */
         void broken(TransferDataSource *source, TransferDataSource::Error error);
 
         /**
          * emitted when an assigned segment is broken
-         * @param source the source that emmited this signal
+         * @param source the source that emitted this signal
          * @param segmentRange the range of the segments e.g. (1,1,) or (0, 10)
          */
         void brokenSegments(TransferDataSource *source, QPair<int, int> segmentRange);
