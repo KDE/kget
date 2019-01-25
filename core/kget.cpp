@@ -33,7 +33,6 @@
 
 #include <iostream>
 #include <qinputdialog.h>
-#include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
@@ -52,6 +51,7 @@
 #include <QDomElement>
 #include <QApplication>
 #include <QClipboard>
+#include <QFileDialog>
 #include <QAbstractItemView>
 #include <QTimer>
 #include <QTemporaryFile>
@@ -969,7 +969,7 @@ QUrl KGet::urlInputDialog()
 
 QString KGet::destDirInputDialog()
 {
-    QString destDir = KFileDialog::getExistingDirectory(generalDestDir());
+    QString destDir = QFileDialog::getExistingDirectory(nullptr, i18nc("@title:window", "Choose Directory"), generalDestDir(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     Settings::setLastDirectory(destDir);
 
     return destDir;
@@ -988,7 +988,7 @@ QUrl KGet::destFileInputDialog(QString destDir, const QString& suggestedFileName
         startLocation.setPath(destDir);
     }
 
-    QUrl destUrl = KFileDialog::getSaveUrl(startLocation, QString(), m_mainWindow, i18n("Save As"));
+    QUrl destUrl = QFileDialog::getSaveFileUrl(m_mainWindow, i18nc("@title:window", "Save As"), startLocation, QString());
     if (!destUrl.isEmpty()) {
         Settings::setLastDirectory(destUrl.adjusted(QUrl::RemoveFilename).path());
     }

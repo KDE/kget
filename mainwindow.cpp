@@ -46,7 +46,6 @@
 #include <QInputDialog>
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
-#include <kfiledialog.h>
 #include <ktoolinvocation.h>
 #include <kmenubar.h>
 #include <kiconloader.h>
@@ -59,6 +58,7 @@
 #include <kicondialog.h>
 #include "core/verifier.h"
 #include <QClipboard>
+#include <QFileDialog>
 #include <QTimer>
 #include <QKeySequence>
 #ifdef DO_KGET_TEST
@@ -502,9 +502,8 @@ void MainWindow::slotNewTransfer()
 
 void MainWindow::slotImportTransfers()
 {
-    QString filename = KFileDialog::getOpenFileName(QUrl(),
-                                                    "*.kgt *.metalink *.meta4 *.torrent|" + i18n("All Openable Files") +
-                                                    " (*.kgt *.metalink *.meta4 *.torrent)", this, i18n("Open File"));
+    QString filename = QFileDialog::getOpenFileName(nullptr, i18nc("@title:window", "Open File"), QString(),
+                                                    i18n("All Openable Files") + " (*.kgt *.metalink *.meta4 *.torrent)");
 
     if(filename.endsWith(QLatin1String(".kgt")))
     {
@@ -597,11 +596,9 @@ void MainWindow::slotPreferences()
 
 void MainWindow::slotExportTransfers()
 {
-    const QString filename = KFileDialog::getSaveFileName
-        (QUrl(),
-         "*.kgt|" + i18n("KGet Transfer List") + " (*.kgt)\n*.txt|" + i18n("Text File") + " (*.txt)",
-         this,
-         i18n("Export Transfers")
+    const QString filename = QFileDialog::getSaveFileName
+        (this, i18nc("@title:window", "Export Transfers"), QString,
+         i18n("KGet Transfer List") + " (*.kgt);;" + i18n("Text File") + " (*.txt)"
         );
 
     if (!filename.isEmpty()) {
