@@ -597,7 +597,7 @@ void MainWindow::slotPreferences()
 void MainWindow::slotExportTransfers()
 {
     const QString filename = QFileDialog::getSaveFileName
-        (this, i18nc("@title:window", "Export Transfers"), QString,
+        (this, i18nc("@title:window", "Export Transfers"), QString(),
          i18n("KGet Transfer List") + " (*.kgt);;" + i18n("Text File") + " (*.txt)"
         );
 
