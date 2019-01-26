@@ -223,7 +223,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
         /**
          * Set a Download-Limit for the group
          * @param dlLimit the new download limit
-         * @param limit the speed limit
+         * @param limit the type of the new download limit
          * @note if limit is 0, no download-limit is set
          */
         void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit);
@@ -235,7 +235,8 @@ class KGET_EXPORT TransferGroup : public JobQueue
 
         /**
          * Set a Upload-Limit for the group
-         * @param limit the new upload-limit
+         * @param ulLimit the new upload limit
+         * @param limit the type of the new upload-limit
          * @note if limit is 0, no upload-limit is set
          */
         void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit);

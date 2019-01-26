@@ -123,11 +123,11 @@ class KGET_EXPORT UrlChecker
 
         /**
          * Checks if source is local and exists already
-         * @note If both dest and source are the same and local, then false will be returned
+         * @note If both @p dest and @p source are the same and local, then @c false will be returned
          * since it is assumed, that local files are either not handled by any
          * transfer plugin or are e.g. metalink or torrent files otherwise and thus
-         * can have the same source/dest.
-         * Also keep in mind that false will be returned if dest is being removed
+         * can have the same @p source / @p dest.
+         * Also keep in mind that false will be returned if @p dest is being removed
          * at the moment. Avoid to ask a user twice in worst case.
          */
         static bool wouldOverwrite(const QUrl &source, const QUrl &dest);
@@ -137,9 +137,9 @@ class KGET_EXPORT UrlChecker
          * @param url the URL
          * @param type Source checks if there is a transfer with the same source
          * destination checks if there is a transfer with the same destination
-         * @param warning the warning
+         * @param warning the warning type
          * @return if an existing transfer is found it will be returned,
-         * otherwise nullptr will be returned
+         * otherwise @c nullptr will be returned
          * @note checkUrl check is not done and UrlType Folder is not supported
          * Keep in mind, that the same transfers could be found via Source and Destination!
          * @see checkUrl
@@ -156,7 +156,7 @@ class KGET_EXPORT UrlChecker
          * @param url is only needed here to include it in some error messages,
          * if url is empty, then it won't be used.
          * @param type the URL type
-         * @param error the error
+         * @param error the error type
          * @note this method does no checks, it only creates messages based on the error code
          * @see checkUrl
          */
@@ -165,7 +165,9 @@ class KGET_EXPORT UrlChecker
         /**
          * Get a describing message for UrlWarning
          * @param url is only needed here to include it in some error messages,
-         * if url is empty, then it won't be used.
+         * if @p url is empty, then it won't be used.
+         * @param type the URL type
+         * @param warning the warning type
          * @note this method does no checks, it only creates messages based on the warning code
          * @see existingTransfer fileExists
          */
@@ -272,7 +274,7 @@ class KGET_EXPORT UrlChecker
 
         /**
          * Returns all wrong urls 
-         * @note the oder of the urls is not guaranteed to be the same as it initially was
+         * @note the order of the urls is not guaranteed to be the same as it initially was
          * @see urlCollectErrors splitErrorUrls existingTransfers
          */
         QList<QUrl> errorUrls()const;
