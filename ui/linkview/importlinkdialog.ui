@@ -114,7 +114,7 @@
        <property name="toolTip">
         <string>You can use wildcards for filtering.</string>
        </property>
-       <property name="clickMessage" stdset="0">
+       <property name="placeholderText" stdset="0">
         <string>Filter files here....</string>
        </property>
        <property name="showClearButton" stdset="0">

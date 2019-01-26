@@ -113,12 +113,9 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="KRestrictedLine" name="size">
+          <widget class="QLineEdit" name="size">
            <property name="showClearButton" stdset="0">
             <bool>true</bool>
-           </property>
-           <property name="validChars">
-            <string>0123456789</string>
            </property>
           </widget>
          </item>
@@ -229,11 +226,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KRestrictedLine</class>
-   <extends>QLineEdit</extends>
-   <header>krestrictedline.h</header>
-  </customwidget>
   <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>

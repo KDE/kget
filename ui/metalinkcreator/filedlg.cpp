@@ -43,6 +43,9 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
 
     ui.setupUi(this);
 
+    QValidator *validator = new QIntValidator();
+    ui.size->setValidator(validator);
+
     m_urlWidget = new UrlWidget(this);
     m_urlWidget->init(&m_file->resources, countrySort);
     ui.urlLayout->addWidget(m_urlWidget->widget());
