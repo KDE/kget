@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KIntSpinBox" name="numSimultanousFiles">
+      <widget class="QSpinBox" name="numSimultanousFiles">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -41,7 +41,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="KIntSpinBox" name="kcfg_MirrorsPerFile">
+      <widget class="QSpinBox" name="kcfg_MirrorsPerFile">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -58,7 +58,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="KIntSpinBox" name="kcfg_ConnectionsPerUrl">
+      <widget class="QSpinBox" name="kcfg_ConnectionsPerUrl">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -71,13 +71,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

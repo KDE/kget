@@ -24,7 +24,7 @@
 #include <QClipboard>
 
 #include <KConfigGroup>
-#include <KInputDialog>
+#include <QInputDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KUrl>
@@ -84,8 +84,8 @@ namespace kt
 
 		bool ok = false;
 		QClipboard* clipboard = QApplication::clipboard();
-		QString text = KInputDialog::getText(
-				i18n("Add Tracker"),i18n("Enter the URL of the tracker:"),clipboard->text(),&ok,this);
+		QString text = QInputDialog::getText(
+				this, i18n("Add Tracker"), i18n("Enter the URL of the tracker:"), QLineEdit::Normal, clipboard->text(), &ok);
 				
 		if (!ok)
 			return;

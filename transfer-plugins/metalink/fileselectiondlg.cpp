@@ -23,7 +23,6 @@
 
 #include <QSortFilterProxyModel>
 
-#include <KInputDialog>
 #include <KLocalizedString>
 
 FileSelectionDlg::FileSelectionDlg(FileModel *model, QWidget *parent)
