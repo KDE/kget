@@ -27,7 +27,7 @@
 
 #include <KDialog>
 #include <KGlobal>
-#include <KTabWidget>
+#include <QTabWidget>
 #include <KTitleWidget>
 
 #include <QGridLayout>
@@ -57,7 +57,7 @@ void BTAdvancedDetailsWidget::init()
     titleWidget->setText(i18n("Advanced Details for %1", m_transfer->source().fileName()));
     titleWidget->setPixmap(QIcon::fromTheme("dialog-information"));
     layout->addWidget(titleWidget);
-    tabWidget = new KTabWidget(this);
+    tabWidget = new QTabWidget(this);
     layout->addWidget(tabWidget);
     setLayout(layout);
     file_view = new FileView(this);

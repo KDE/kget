@@ -19,7 +19,7 @@
 #include "core/transferhandler.h"
 
 class BTTransferHandler;
-class KTabWidget;
+class QTabWidget;
 
 namespace kt
 {
@@ -51,7 +51,7 @@ class BTAdvancedDetailsWidget : public QWidget
     private:
         void hideEvent(QHideEvent * event);
 
-        KTabWidget *tabWidget;
+        QTabWidget *tabWidget;
 
         BTTransferHandler * m_transfer;
         //kt::PeerView* peer_view;

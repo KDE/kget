@@ -12,7 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KTabWidget" name="ktabwidget">
+    <widget class="QTabWidget" name="ktabwidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -117,15 +117,6 @@
         </widget>
        </item>
       </layout>
-      <zorder>partialChecksums</zorder>
-      <zorder>label</zorder>
-      <zorder>verticalSpacer</zorder>
-      <zorder></zorder>
-      <zorder>label_3</zorder>
-      <zorder>horizontalSpacer</zorder>
-      <zorder>label_4</zorder>
-      <zorder>groupBox</zorder>
-      <zorder>label_2</zorder>
      </widget>
      <widget class="QWidget" name="Seite_2">
       <attribute name="title">
@@ -220,14 +211,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
