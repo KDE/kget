@@ -34,6 +34,7 @@
 #include <interfaces/torrentinterface.h>
 #include <interfaces/trackerslist.h>
 #include <util/log.h>
+#include <KSharedConfig>
 #include "trackermodel.h"
 
 

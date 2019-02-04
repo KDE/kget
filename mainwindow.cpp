@@ -42,7 +42,6 @@
 #include <qdebug.h>
 
 #include <kapplication.h>
-#include <kstandarddirs.h>
 #include <QInputDialog>
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
@@ -61,6 +60,7 @@
 #include <QFileDialog>
 #include <QTimer>
 #include <QKeySequence>
+#include <QStandardPaths>
 #ifdef DO_KGET_TEST
     #include <QtTest>
 #endif
@@ -409,7 +409,7 @@ void MainWindow::slotDownloadFinishedActions()
 void MainWindow::init()
 {
     //Here we import the user's transfers.
-    KGet::load( KStandardDirs::locateLocal("appdata", "transfers.kgt") );
+    KGet::load( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transfers.kgt")) ;
 
     if(Settings::enableSystemTray()) {
         m_dock = new Tray(this);

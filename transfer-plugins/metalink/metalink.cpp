@@ -31,10 +31,11 @@
 #include <KMessageBox>
 #include <QDebug>
 #include <KDialog>
-#include <KStandardDirs>
+
 
 #include <QFile>
 #include <QDomElement>
+#include <QStandardPaths>
 
 Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const QUrl & source, const QUrl & dest,
@@ -78,7 +79,7 @@ void Metalink::downloadMetalink()
 
     setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
     setTransferChange(Tc_Status, true);
-    Download *download = new Download(m_source, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
+    Download *download = new Download(m_source, QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName());
     connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
 }
 

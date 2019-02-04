@@ -19,7 +19,7 @@
 
 #include <QDebug>
 #include <KGlobalSettings>
-#include <KStandardDirs>
+
 #include <kwallet.h>
 
 #include <QTcpServer>
@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QHttpRequestHeader>
 #include <QDateTime>
+#include <QStandardPaths>
 
 HttpServer::HttpServer(QWidget *parent)
     : QObject(parent),
@@ -188,7 +189,7 @@ void HttpServer::handleRequest()
         if (fileName.endsWith('/'))
             fileName = "index.htm";
 
-        QString path = KStandardDirs::locate("data", "kget/www/" + fileName);
+        QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kget/www/" + fileName);
         QFile file(path);
 
         if (path.isEmpty() || !file.open(QIODevice::ReadOnly)) {

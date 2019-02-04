@@ -16,9 +16,10 @@
 #include <klocale.h>
 #include <kaboutdata.h>
 #include <kdbusservice.h>
-#include <kstandarddirs.h>
+
 #include <QCommandLineParser>
 #include <QCommandLineOption>
+#include <QStandardPaths>
 
 #include "core/kget.h"
 #include "dbus/dbuskgetwrapper.h"

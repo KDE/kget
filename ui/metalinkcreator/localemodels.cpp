@@ -20,7 +20,8 @@
 #include "localemodels.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+#include <QStandardPaths>
+
 
 CountryModel::CountryModel(QObject *parent)
   : QAbstractListModel(parent)
@@ -70,7 +71,7 @@ void CountryModel::setupModelData(const QStringList &countryCodes)
             m_countryCodes.append(countryCode);
             m_countryNames.append(countryName);
 
-            QString path = KStandardDirs::locate("locale", QString::fromLatin1("l10n/%1/flag.png").arg(countryCode));
+            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("locale/") + QString::fromLatin1("l10n/%1/flag.png").arg(countryCode));
             if (path.isEmpty())
             {
                 m_countryIcons.append(QIcon());

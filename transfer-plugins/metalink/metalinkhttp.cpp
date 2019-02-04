@@ -33,10 +33,11 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KDialog>
-#include <KStandardDirs>
+
 
 #include <QFile>
 #include <QDomElement>
+#include <QStandardPaths>
 
 /**
 * @return Hex value from a base64 value
@@ -219,7 +220,7 @@ bool MetalinkHttp::metalinkHttpInit()
 
         //Add OpenPGP signatures
         if (m_signatureUrl != QUrl()) {
-            Download *signat_download = new Download(m_signatureUrl, QString(KStandardDirs::locateLocal("appdata", "metalinks/") + m_source.fileName()));
+            Download *signat_download = new Download(m_signatureUrl, QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName());
             connect(signat_download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(setSignature(QUrl,QByteArray)));
         }
         m_dataSourceFactory[dataFactory->dest()] = dataFactory;

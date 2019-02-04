@@ -31,6 +31,7 @@
 #include <KTitleWidget>
 
 #include <QGridLayout>
+#include <KSharedConfig>
 
 using namespace kt;
 

@@ -21,7 +21,7 @@
 #include "peerviewmodel.h"
 
 #include <KLocalizedString>
-#include <KStandardDirs>
+
 
 #include <QIcon>
 #include <QLocale>

@@ -21,7 +21,8 @@
 #include <QThread>
 
 #include <kio/global.h>
-#include <KStandardDirs>
+#include <QStandardPaths>
+
 
 TransferHistoryItem::TransferHistoryItem() : QObject()
 {}
@@ -131,12 +132,12 @@ TransferHistoryStore *TransferHistoryStore::getStore()
     {
         case TransferHistoryStore::SQLite:
 #ifdef HAVE_SQLITE
-            return new SQLiteStore(KStandardDirs::locateLocal("appdata", "transferhistory.db"));
+            return new SQLiteStore(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transferhistory.db"));
             break;
 #endif
         case TransferHistoryStore::Xml:
         default:
-            return new XmlStore(KStandardDirs::locateLocal("appdata", "transferhistory.kgt"));
+            return new XmlStore(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transferhistory.kgt"));
     }
 }
 

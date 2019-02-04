@@ -36,7 +36,7 @@
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIO/CopyJob>
-#include <KStandardDirs>
+
 #include <KMessageBox>
 
 #include <QDir>
@@ -44,6 +44,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QUrl>
+#include <QStandardPaths>
 
 #ifdef ERROR
 #undef ERROR
@@ -54,7 +55,7 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
     torrent(nullptr),
-    m_tmp(KStandardDirs::locateLocal("appdata", "tmp/")),
+    m_tmp(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/")),
     m_ready(false),
     m_downloadFinished(false),
     m_movingFile(false),
@@ -127,13 +128,13 @@ void BTTransfer::start()
         if (!m_source.isLocalFile())
         {
             qCDebug(KGET_DEBUG) << m_dest.path();
-            m_tmpTorrentFile = QString(KStandardDirs::locateLocal("appdata", "tmp/") + m_dest.fileName());
+            m_tmpTorrentFile = QString(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/")) + m_dest.fileName();
             Download *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
 
             setStatus(Job::Stopped, i18n("Downloading Torrent File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
 
-            //m_source = KStandardDirs::locateLocal("appdata", "tmp/") + m_source.fileName();
+            //m_source = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "tmp/") + m_source.fileName(;
             connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(btTransferInit(QUrl,QByteArray)));
         }
         else
@@ -420,7 +421,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
     setStatus(Job::Stopped, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
-    bt::InitLog(KStandardDirs::locateLocal("appdata", "torrentlog.log"), false, false);//initialize the torrent-log
+    bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/torrentlog.log"), false, false);//initialize the torrent-log
 
     bt::SetClientInfo("KGet", KGET_VERSION_MAJOR, KGET_VERSION_MINOR, KGET_VERSION_PATCH, bt::NORMAL, "KG");//Set client info to KGet
 

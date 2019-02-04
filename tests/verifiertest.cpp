@@ -6,7 +6,7 @@
 #include <QtTest>
 
 #include <QDebug>
-#include <KStandardDirs>
+
 #include <KTempDir>
 
 typedef QPair<QString, QString> Checksum;
@@ -23,7 +23,7 @@ VerfierTest::VerfierTest(QObject *parent)
     m_supported(Verifier::supportedVerficationTypes())
 {
     //create a file which will used in the test
-     m_tempDir.reset(new KTempDir(KStandardDirs::locateLocal("tmp", "kget_test")));
+     m_tempDir.reset(new KTempDir(QDir::tempPath() + QStringLiteral("/kget_test")));
      QString path = m_tempDir->name();
      path.append("test.txt");
      QFile file(path);

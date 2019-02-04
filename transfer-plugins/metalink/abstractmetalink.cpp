@@ -30,7 +30,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KDialog>
-#include <KStandardDirs>
+
 
 #include <QFile>
 #include <QDomElement>

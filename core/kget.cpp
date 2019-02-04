@@ -35,7 +35,6 @@
 #include <qinputdialog.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <kstandarddirs.h>
 #include <kservicetypetrader.h>
 #include <kiconloader.h>
 #include <kactioncollection.h>
@@ -53,6 +52,7 @@
 #include <QClipboard>
 #include <QFileDialog>
 #include <QAbstractItemView>
+#include <QStandardPaths>
 #include <QTimer>
 #include <QTemporaryFile>
 
@@ -495,7 +495,7 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     qCDebug(KGET_DEBUG) << "(" << filename << ")";
 
     if(filename.isEmpty())
-        filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
+        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transfers.kgt");
 
     QTemporaryFile tmpFile;
 
@@ -573,7 +573,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
         return;
 
     if(filename.isEmpty())
-        filename = KStandardDirs::locateLocal("appdata", "transfers.kgt");
+        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transfers.kgt");
     
     qCDebug(KGET_DEBUG) << "Save transferlist to " << filename;
 

@@ -30,6 +30,7 @@
 #include <interfaces/chunkdownloadinterface.h>
 #include <util/functions.h>
 #include <util/log.h>
+#include <KSharedConfig>
 #include "chunkdownloadmodel.h"
 
 using namespace bt;

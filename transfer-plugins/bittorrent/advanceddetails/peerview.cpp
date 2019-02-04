@@ -26,11 +26,12 @@
 
 #include <KConfigGroup>
 #include <KLocalizedString>
-#include <KStandardDirs>
+
 
 #include <interfaces/peerinterface.h>
 #include <peer/accessmanager.h>
 #include <util/functions.h>
+#include <KSharedConfig>
 #include "peerviewmodel.h"
 
 using namespace bt;

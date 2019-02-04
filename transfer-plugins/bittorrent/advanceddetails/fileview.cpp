@@ -40,6 +40,7 @@
 #include <interfaces/torrentfileinterface.h>
 #include <util/log.h>
 #include <util/timer.h>
+#include <KSharedConfig>
 #include "iwfiletreemodel.h"
 #include "iwfilelistmodel.h"
 	

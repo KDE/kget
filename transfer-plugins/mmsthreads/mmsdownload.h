@@ -26,7 +26,7 @@
 #include <QMap>
 #include <QFile>
 #include <QDataStream>
-#include <kstandarddirs.h>
+
 
 #include "mmsthread.h"
 

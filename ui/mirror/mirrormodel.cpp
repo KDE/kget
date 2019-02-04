@@ -24,7 +24,8 @@
 #include <KComboBox>
 #include <KLineEdit>
 #include <KLocale>
-#include <KStandardDirs>
+#include <QStandardPaths>
+
 
 MirrorDelegate::MirrorDelegate(QObject *parent)
   : QStyledItemDelegate(parent),
@@ -323,7 +324,7 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
 
         if (!m_countryName.isEmpty())
         {
-            QString path = KStandardDirs::locate("locale", QString::fromLatin1("l10n/%1/flag.png").arg(m_countryCode));
+            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("locale/") + QString::fromLatin1("l10n/%1/flag.png").arg(m_countryCode));
             if (path.isEmpty())
             {
                 m_countryFlag = QIcon();
