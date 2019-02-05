@@ -36,6 +36,7 @@
 #include <QListWidgetItem>
 #include <KColorScheme>
 #include <KWindowSystem>
+#include <LineEditUrlDropEventFilter>
 #include <QStandardPaths>
 
 Q_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
@@ -67,8 +68,9 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
 
     // properties of the m_destRequester combobox
+    LineEditUrlDropEventFilter *dropUrlEventFilter = new LineEditUrlDropEventFilter(this);
+    dropUrlEventFilter->installEventFilter(ui.destRequester->comboBox());
     ui.destRequester->comboBox()->setDuplicatesEnabled(false);
-    ui.destRequester->comboBox()->setUrlDropsEnabled(true);
     ui.destRequester->comboBox()->setEditable(true);
     ui.destRequester->setAcceptMode(QFileDialog::AcceptSave);
 
