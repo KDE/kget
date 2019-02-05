@@ -34,7 +34,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KButtonGroup" name="kcfg_ChecksumStrength">
+       <widget class="QGroupBox" name="kcfg_ChecksumStrength">
         <property name="title">
          <string/>
         </property>
@@ -50,6 +50,9 @@
            <property name="text">
             <string>Weak (fastest)</string>
            </property>
+           <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item>
@@ -57,6 +60,9 @@
            <property name="text">
             <string>Strong (recommended)</string>
            </property>
+           <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item>
@@ -64,6 +70,9 @@
            <property name="text">
             <string>Strongest (slowest)</string>
            </property>
+           <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -130,13 +139,10 @@
    <extends>QGroupBox</extends>
    <header>keditlistwidget.h</header>
   </customwidget>
-  <customwidget>
-   <class>KButtonGroup</class>
-   <extends>QGroupBox</extends>
-   <header>kbuttongroup.h</header>
-   <container>1</container>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>
