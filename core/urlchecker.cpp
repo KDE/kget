@@ -730,7 +730,7 @@ QUrl UrlChecker::checkExistingFile(const QUrl &source, const QUrl &destination)
     }
 
     if (wouldOverwrite(source, destination)) {
-        KIO::RenameDialog_Mode args = static_cast<KIO::RenameDialog_Mode>(KIO::M_MULTI | KIO::M_SKIP | KIO::M_OVERWRITE);
+        KIO::RenameDialog_Options args = KIO::RenameDialog_MultipleItems | KIO::RenameDialog_Skip | KIO::RenameDialog_Overwrite;
         QScopedPointer<KIO::RenameDialog> dlg(new KIO::RenameDialog(KGet::m_mainWindow, i18n("File already exists"), source,
                                     destination, args));
 
