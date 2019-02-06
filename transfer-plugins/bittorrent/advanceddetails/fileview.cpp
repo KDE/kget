@@ -20,13 +20,13 @@
 #include "fileview.h"
 
 #include <QFileInfo>
+#include <QFileDialog>
 #include <QHeaderView>
 #include <QItemSelectionModel>
 #include <QMenu>
 #include <QSortFilterProxyModel>
 
 #include <KConfigGroup>
-#include <KFileDialog>
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -278,8 +278,7 @@ namespace kt
 			QModelIndexList sel = selectionModel()->selectedRows();
 			QMap<bt::TorrentFileInterface*,QString> moves;
 			
-			QString dir = KFileDialog::getExistingDirectory(QUrl("kfiledialog:///saveTorrentData"),
-					this,i18n("Select a directory to move the data to."));
+			QString dir = QFileDialog::getExistingDirectory(this, i18n("Select a directory to move the data to"));
 			if (dir.isNull())
 				return;
 			
@@ -299,8 +298,7 @@ namespace kt
 		}
 		else
 		{
-			QString dir = KFileDialog::getExistingDirectory(QUrl("kfiledialog:///saveTorrentData"),
-					this,i18n("Select a directory to move the data to."));
+			QString dir = QFileDialog::getExistingDirectory(this, i18n("Select a directory to move the data to"));
 			if (dir.isNull())
 				return;
 		
