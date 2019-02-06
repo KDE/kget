@@ -22,12 +22,13 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMenu>
+#include <QMimeDatabase>
+#include <QMimeType>
 #include <QStandardItemModel>
 
 #include <QAction>
 #include <QIcon>
 #include <KLocalizedString>
-#include <KMimeType>
 #include <KWindowSystem>
 
 KGetLinkView::KGetLinkView(QWidget *parent)
@@ -162,7 +163,8 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
     foreach (const QString &linkitem, links)
     {
         QUrl url;
-        KMimeType::Ptr mt;
+        QMimeDatabase db;
+        QMimeType mt;
 
         if (linkitem.contains(QLatin1String("url "), Qt::CaseInsensitive) &&
             linkitem.contains(QLatin1String("type "), Qt::CaseInsensitive)) {
@@ -173,10 +175,10 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
                 url = items.at(index+1);
             index = items.indexOf(QLatin1String("type"));
             if (index > -1 && index+1 < count)
-                mt = KMimeType::mimeType(items.at(index+1));
+                mt = db.mimeTypeForName(items.at(index+1));
         } else {
             url = linkitem;
-            mt = KMimeType::findByUrl(linkitem, 0, true, true);
+            mt = db.mimeTypeForFile(linkitem, QMimeDatabase::MatchExtension);
         }
 
         qCDebug(KGET_DEBUG) << "Adding:" << linkitem;
@@ -186,10 +188,10 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
             file = QString(url.host());
 
         QString mimeTypeName, mimeTypeIcon, mimeTypeComment;
-        if (mt) {
-            mimeTypeName = mt->name();
-            mimeTypeIcon = mt->iconName();
-            mimeTypeComment = mt->comment();
+        if (mt.isValid()) {
+            mimeTypeName = mt.name();
+            mimeTypeIcon = mt.iconName();
+            mimeTypeComment = mt.comment();
         }
 
         QStandardItem *item = new QStandardItem(file);

@@ -26,7 +26,7 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 #include <klocale.h>
-#include <KMimeType>
+#include <KIO/Global>
 
 ItemMimeData::ItemMimeData()
   : QMimeData()
@@ -105,7 +105,7 @@ QVariant TransferModelItem::data(int role) const
                 //store the icon for speed improvements, KIconLoader should make sure, that
                 //the icon data gets shared
                 if (m_mimeType.isNull()) {
-                    m_mimeType = QIcon::fromTheme(KMimeType::iconNameForUrl(m_transferHandler->dest().url()));
+                    m_mimeType = QIcon::fromTheme(KIO::iconNameForUrl(m_transferHandler->dest().url()));
                 }
 
                 return m_mimeType;

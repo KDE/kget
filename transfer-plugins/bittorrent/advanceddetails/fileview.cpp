@@ -30,7 +30,6 @@
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KMimeType>
 #include <KRun>
 
 #include <util/bitset.h>

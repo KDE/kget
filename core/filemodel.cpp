@@ -24,7 +24,7 @@
 
 #include <QIcon>
 #include <KLocalizedString>
-#include <KMimeType>
+#include <KIO/Global>
 
 FileItem::FileItem(const QString &name, FileItem *parent)
   : m_name(name),
@@ -83,7 +83,7 @@ QVariant FileItem::data(int column, int role) const
         {
             if (m_mimeType.isNull()) {
                 if (isFile()) {
-                    m_mimeType = QIcon::fromTheme(KMimeType::iconNameForUrl(QUrl(m_name)));
+                    m_mimeType = QIcon::fromTheme(KIO::iconNameForUrl(QUrl(m_name)));
                 } else {
                     m_mimeType = QIcon::fromTheme("folder");
                 }
