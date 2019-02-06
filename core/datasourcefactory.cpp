@@ -32,7 +32,7 @@
 #include "kget_debug.h"
 
 
-#include <kde_file.h>
+#include <qplatformdefs.h>
 
 const int SPEEDTIMER = 1000;//1 second...
 
@@ -166,15 +166,15 @@ bool DataSourceFactory::checkLocalFile()
     QString dest_orig = m_dest.toLocalFile();
     QString _dest_part(dest_orig);
 
-    KDE_struct_stat buff_part;
-    bool bPartExists = (KDE::stat( _dest_part, &buff_part ) != -1);
+    QT_STATBUF buff_part;
+    bool bPartExists = (QT_STAT( _dest_part.toUtf8().constData(), &buff_part ) != -1);
     if(!bPartExists)
     {
         QString _dest = dest_orig;
         int fd = -1;
         mode_t initialMode = 0666;
 
-        fd = KDE::open(_dest, O_CREAT | O_TRUNC | O_WRONLY, initialMode);
+        fd = QT_OPEN(_dest.toUtf8().constData(), O_CREAT | O_TRUNC | O_WRONLY, initialMode);
         if ( fd < 0 )
         {
             qCDebug(KGET_DEBUG) << " error";
