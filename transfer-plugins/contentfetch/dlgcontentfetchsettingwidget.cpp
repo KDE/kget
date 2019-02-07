@@ -15,8 +15,9 @@
 
 #include <QSize>
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QDebug>
+#include <KConfigGroup>
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgContentFetchSettingWidget)
 
@@ -111,10 +112,10 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
                           Kross::ChildrenInterface::AutoConnectSignals);
     m_p_action->trigger();
 
-    KDialog *dialog = new KDialog(this);
+    QDialog *dialog = new QDialog(this);
     dialog->setObjectName("configure_script");
-    dialog->setCaption(i18nc("Configure script", "Configure script"));
-    dialog->enableButtonOk(false);
+    dialog->setWindowTitle(i18nc("Configure script", "Configure script"));
+    dialog->okButton->setEnabled(false);
     dialog->setModal(true);
 
     SettingWidgetAdaptor *widget = new SettingWidgetAdaptor(dialog);
@@ -123,11 +124,12 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
 
     if (widget->findChild<QWidget*>())
     {
-        dialog->enableButtonOk(true);
+        dialog->okButton->setEnabled(true);
     }
 
-    dialog->setMainWidget(widget);
-    dialog->showButtonSeparator(true);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    dialog->setLayout(mainLayout);
+    mainLayout->addWidget(widget);
     // dirty hack, add the ok/canel button size manually
     dialog->resize(widget->size()+QSize(0,30));
     dialog->show();

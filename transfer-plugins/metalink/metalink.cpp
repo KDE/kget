@@ -30,12 +30,13 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QDebug>
-#include <KDialog>
+#include <QDialog>
 
 
 #include <QFile>
 #include <QDomElement>
 #include <QStandardPaths>
+#include <KConfigGroup>
 
 Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const QUrl & source, const QUrl & dest,
@@ -204,7 +205,7 @@ bool Metalink::metalinkInit(const QUrl &src, const QByteArray &data)
     //the metalink-file has just been downloaded, so ask the user to choose the files that
     // should be downloaded
     if (m_metalinkJustDownloaded) {
-        KDialog *dialog = new FileSelectionDlg(fileModel());
+        QDialog *dialog = new FileSelectionDlg(fileModel());
         dialog->setAttribute(Qt::WA_DeleteOnClose);
         connect(dialog, SIGNAL(finished(int)), this, SLOT(fileDlgFinished(int)));
 

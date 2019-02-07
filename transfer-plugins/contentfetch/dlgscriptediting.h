@@ -15,7 +15,7 @@
 
 #include <QStringList>
 
-class DlgScriptEditing : public KDialog
+class DlgScriptEditing : public QDialog
 {
     Q_OBJECT
 
@@ -31,6 +31,7 @@ class DlgScriptEditing : public KDialog
         void slotChangeText();
     private:
         Ui::DlgScriptEditing ui;
+        QPushButton *okButton;
 };
 
 #endif // DLG_SCRIPT_EDITING_H

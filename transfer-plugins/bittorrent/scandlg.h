@@ -21,9 +21,9 @@
 #ifndef KT_SCANDLG_HH
 #define KT_SCANDLG_HH
 
+#include <QDialog>
 #include <QTimer>
 #include <QMutex>
-#include <KDialog>
 
 #include <version.h>
 #include <torrent/job.h>
@@ -38,7 +38,7 @@ namespace kt
 {
 	class TorrentInterface;
 
-	class ScanDlg : public KDialog
+	class ScanDlg : public QDialog
 	{
 		Q_OBJECT
 	public:

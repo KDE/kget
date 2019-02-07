@@ -20,13 +20,13 @@
 #ifndef FILESELECTIONDLG_H 
 #define FILESELECTIONDLG_H
 
-#include <KDialog>
+#include <QDialog>
 
 #include "ui_fileselection.h"
 
 class FileModel;
 
-class FileSelectionDlg : public KDialog
+class FileSelectionDlg : public QDialog
 {
     Q_OBJECT
 

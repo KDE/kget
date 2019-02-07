@@ -28,19 +28,23 @@
 #include <KStandardGuiItem>
 
 #include <QCloseEvent>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 using namespace bt;
 
 namespace kt
 {
 	ScanDlg::ScanDlg(KJob *job, QWidget* parent)
-    : KDialog(parent), m_job(static_cast<Job*>(job))
+    : QDialog(parent), m_job(static_cast<Job*>(job))
     {
-        setButtons(KDialog::None);
         Ui::ScanDlgBase ui;
         QWidget *widget = new QWidget(this);
+        QVBoxLayout *mainLayout = new QVBoxLayout;
         ui.setupUi(widget);
-        setMainWidget(widget);
+        mainLayout->addWidget(widget);
         m_torrent_label = ui.torrent_label;
         m_chunks_found = ui.chunks_found;
         m_chunks_failed = ui.chunks_failed;
@@ -79,13 +83,13 @@ namespace kt
 			m_job->kill(false);
             m_job = nullptr;
         }
-		KDialog::reject();
+		QDialog::reject();
 		deleteLater();
 	}
 
 	void ScanDlg::accept()
 	{
-		KDialog::accept();
+		QDialog::accept();
 		deleteLater();
 	}
 

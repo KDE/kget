@@ -24,14 +24,20 @@
 #include <QSortFilterProxyModel>
 
 #include <KLocalizedString>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 FileSelectionDlg::FileSelectionDlg(FileModel *model, QWidget *parent)
-  : KDialog(parent)
+  : QDialog(parent)
 {
-    setCaption(i18n("File Selection"));
+    setWindowTitle(i18n("File Selection"));
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
-    setMainWidget(widget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(widget);
     QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
     proxy->setSourceModel(model);
     ui.treeView->setModel(proxy);
@@ -40,5 +46,11 @@ FileSelectionDlg::FileSelectionDlg(FileModel *model, QWidget *parent)
     ui.treeView->hideColumn(FileItem::ChecksumVerified);
     ui.treeView->hideColumn(FileItem::SignatureVerified);
 
-    setButtons(KDialog::Ok | KDialog::Cancel);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &FileSelectionDlg::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &FileSelectionDlg::reject);
+    mainLayout->addWidget(buttonBox);
 }

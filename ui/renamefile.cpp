@@ -31,7 +31,6 @@ RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *pare
     m_index(index)
 {
     setWindowTitle(i18n("Rename File"));
-    //showButtonSeparator(true);
     ui.setupUi(this);
     
     const QString originalName = m_model->data(m_index, Qt::DisplayRole).toString();

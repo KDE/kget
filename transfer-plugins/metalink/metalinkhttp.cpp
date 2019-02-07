@@ -32,12 +32,13 @@
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KDialog>
+#include <QDialog>
 
 
 #include <QFile>
 #include <QDomElement>
 #include <QStandardPaths>
+#include <KConfigGroup>
 
 /**
 * @return Hex value from a base64 value

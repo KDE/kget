@@ -15,9 +15,9 @@
 #include "ui_dlgmirrorsearch.h"
 
 #include <KCModule>
-#include <KDialog>
+#include <QDialog>
 
-class DlgEngineEditing : public KDialog
+class DlgEngineEditing : public QDialog
 {
     Q_OBJECT
 
@@ -32,6 +32,7 @@ private slots:
 
 private:
     Ui::DlgEngineEditing ui;
+    QPushButton *okButton;
 };
 
 class DlgSettingsWidget : public KCModule

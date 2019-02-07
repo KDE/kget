@@ -29,9 +29,8 @@
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KDialog>
 
-
+#include <QDialog>
 #include <QFile>
 #include <QDomElement>
 

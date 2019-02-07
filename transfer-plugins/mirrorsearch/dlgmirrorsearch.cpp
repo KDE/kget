@@ -16,18 +16,29 @@
 #include "kget_debug.h"
 #include <qdebug.h>
 #include <KLocalizedString>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
-    : KDialog(parent)
+    : QDialog(parent)
 {
     QWidget *mainWidget = new QWidget(this);
     ui.setupUi(mainWidget);
-    setMainWidget(mainWidget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
 
     setWindowTitle(i18n("Insert Engine"));
     setModal(true);
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    showButtonSeparator(true);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &DlgEngineEditing::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &DlgEngineEditing::reject);
+    mainLayout->addWidget(buttonBox);
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
     ui.urlLabel->setText(i18n("URL:"));
@@ -42,7 +53,7 @@ DlgEngineEditing::~DlgEngineEditing()
 
 void DlgEngineEditing::slotChangeText()
 {
-  enableButton(KDialog::Ok, !ui.urlEdit->text().isEmpty());
+    okButton->setEnabled(!ui.urlEdit->text().isEmpty());
 }
 
 QString DlgEngineEditing::engineName() const

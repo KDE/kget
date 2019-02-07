@@ -14,13 +14,19 @@
 #include <kross/core/manager.h>
 #include <kross/core/interpreter.h>
 #include <kfiledialog.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 DlgScriptEditing::DlgScriptEditing(QWidget *p_parent)
-    : KDialog(p_parent)
+    : QDialog(p_parent)
 {
     QWidget *mainWidget = new QWidget(this);
     ui.setupUi(mainWidget);
-    setMainWidget(mainWidget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
 
     setWindowTitle(i18n("Add New Script"));
     init();
@@ -28,11 +34,13 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent)
 
 DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
                                    const QStringList &script)
-    : KDialog(p_parent)
+    : QDialog(p_parent)
 {
     QWidget *mainWidget = new QWidget(this);
     ui.setupUi(mainWidget);
-    setMainWidget(mainWidget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
 
     setWindowTitle(i18n("Edit Script"));
     ui.scriptPathRequester->setUrl(QUrl::fromLocalFile(script[0]));
@@ -45,7 +53,7 @@ DlgScriptEditing::DlgScriptEditing(QWidget *p_parent,
 void DlgScriptEditing::init()
 {
     ui.scriptPathRequester->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
-    ui.scriptPathRequester->fileDialog()->setCaption(i18n("Set Script File"));
+    ui.scriptPathRequester->fileDialog()->setWindowTitle(i18n("Set Script File"));
 
     QStringList filter;
     foreach(Kross::InterpreterInfo* info, Kross::Manager::self().interpreterInfos())
@@ -53,8 +61,17 @@ void DlgScriptEditing::init()
     ui.scriptPathRequester->setFilter(filter.join(" "));
 
     setModal(true);
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    showButtonSeparator(true);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QWidget *mainWidget = new QWidget(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(mainWidget);
+    okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &DlgScriptEditing::accept);
+    connect(buttonBox, &QSIGNAL(rejected()), this, &DlgScriptEditing::reject);
+    mainLayout->addWidget(buttonBox);
 
     connect(ui.scriptPathRequester,SIGNAL(textChanged(QString)),
             this, SLOT(slotChangeText()));
@@ -70,7 +87,7 @@ DlgScriptEditing::~DlgScriptEditing()
 
 void DlgScriptEditing::slotChangeText()
 {
-    enableButton(KDialog::Ok, !(ui.scriptPathRequester->url().isEmpty() ||
+    okButton->setEnabled(!(ui.scriptPathRequester->url().isEmpty() ||
                                 ui.scriptUrlRegexpEdit->text().isEmpty()));
 }
 

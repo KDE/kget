@@ -31,7 +31,6 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     m_proxy(nullptr)
 {
     setWindowTitle(i18n("Transfer Settings for %1", m_transfer->source().fileName()));
-    //showButtonSeparator(true);
     
     ui.setupUi(this);
     

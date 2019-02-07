@@ -28,7 +28,7 @@
 #include <QStyledItemDelegate>
 
 #include <KCModule>
-#include <KDialog>
+#include <QDialog>
 
 class QSortFilterProxyModel;
 class QStandardItemModel;

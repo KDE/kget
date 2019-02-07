@@ -21,7 +21,6 @@
 #include "settings.h"
 
 #include <KConfigDialog>
-#include <KDialog>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KUrlRequester>
