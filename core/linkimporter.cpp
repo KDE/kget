@@ -22,7 +22,6 @@
 #include <QDebug>
 #include <KLocalizedString>
 #include <kio/copyjob.h>
-#include <kio/netaccess.h>
 
 //static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
 // static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";
@@ -80,9 +79,7 @@ void LinkImporter::copyRemoteFile()
     QUrl aux(m_tempFile);
     KIO::CopyJob *job = KIO::copy(m_url, aux, KIO::HideProgressInfo);
 
-    QMap<QString, QString> metaData;
-    bool ok = KIO::NetAccess::synchronousRun(job, nullptr, nullptr, nullptr, &metaData);
-    if(!ok) {
+    if(!job->exec()) {
         emit error(ki18n("Error trying to get %1").subs(m_url.url()));
     }
 }

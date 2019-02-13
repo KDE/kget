@@ -22,8 +22,8 @@
 #include "plugin/transferfactory.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <KIO/NetAccess>
+#include <QDebug>
+#include <KIO/StatJob>
 
 QUrl mostLocalUrl(const QUrl &url)
 {
@@ -35,8 +35,12 @@ QUrl mostLocalUrl(const QUrl &url)
         }
     }
 
-    qCDebug(KGET_DEBUG) << "Starting KIO::NetAccess::mostLocalUrl for:" << url;
-    return KIO::NetAccess::mostLocalUrl(url, nullptr);
+    qCDebug(KGET_DEBUG) << "Trying to find the most local URL for:" << url;
+    KIO::StatJob* job = KIO::mostLocalUrl(url, KIO::HideProgressInfo);
+    if (job->exec()) {
+        return job->mostLocalUrl();
+    };
+    return url;
 }
 
 MostLocalUrlJob *mostLocalUrlJob(const QUrl &url)

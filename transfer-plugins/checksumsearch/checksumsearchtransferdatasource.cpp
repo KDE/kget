@@ -25,7 +25,6 @@
 #include <QFile>
 
 #include <KIO/DeleteJob>
-#include <KIO/NetAccess>
 #include <QStandardPaths>
 
 
@@ -63,7 +62,9 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             const QUrl dest = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/checksumsearch/") + QString::number(files++));
             if (QFile::exists(dest.toLocalFile())) {
                 KIO::Job *del = KIO::del(dest, KIO::HideProgressInfo);
-                KIO::NetAccess::synchronousRun(del, nullptr);
+                if (!del->exec()) {
+                    qCDebug(KGET_DEBUG) << "Could not delete " << dest.path();
+                }
             }
 
             if (baseUrl.scheme() != "ftp" && baseUrl.scheme() != "sftp") {

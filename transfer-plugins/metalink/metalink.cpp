@@ -25,7 +25,6 @@
 
 #include <KIconLoader>
 #include <KIO/DeleteJob>
-#include <KIO/NetAccess>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -290,7 +289,9 @@ void Metalink::deinit(Transfer::DeleteOptions options)
     if ((options & Transfer::DeleteTemporaryFiles) && m_localMetalinkLocation.isLocalFile())
     {
         KIO::Job *del = KIO::del(m_localMetalinkLocation, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, nullptr);
+        if (!del->exec()) {
+            qCDebug(KGET_DEBUG) << "Could not delete " << m_localMetalinkLocation.path();
+        }
     }
 
 }

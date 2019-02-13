@@ -24,7 +24,6 @@
 #include <QDate>
 
 #include <QDebug>
-#include <kio/netaccess.h>
 #include <kio/global.h>
 #include <kio/pixmaploader.h>
 #include <KIconLoader>

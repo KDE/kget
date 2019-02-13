@@ -28,7 +28,6 @@
 
 #include <KIconLoader>
 #include <KIO/DeleteJob>
-#include <KIO/NetAccess>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>

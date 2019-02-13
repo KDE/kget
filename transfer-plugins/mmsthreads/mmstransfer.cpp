@@ -103,9 +103,13 @@ void MmsTransfer::deinit(Transfer::DeleteOptions options)
     /** Deleting the temporary file and the unfinish file*/
     if (options & Transfer::DeleteFiles) {
         KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_fileTemp), KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, nullptr);
+        if (!del->exec()) {
+            qCDebug(KGET_DEBUG) << "Could not delete " << m_fileTemp;
+        }
         del = KIO::del(m_dest, KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, nullptr);
+        if (!del->exec()) {
+            qCDebug(KGET_DEBUG) << "Could not delete " << m_dest.path();
+        }
     }
 }
 
@@ -126,7 +130,9 @@ void MmsTransfer::slotResult()
         m_downloadSpeed = 0;
         setTransferChange(Tc_Status | Tc_Percent | Tc_DownloadSpeed, true);
         KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_fileTemp), KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, nullptr);
+        if (!del->exec()) {
+            qCDebug(KGET_DEBUG) << "Could not delete " << m_fileTemp;
+        }
     }
      
     /** If m_retryDownload == true then some threads has fail to connect, so the download was
@@ -137,7 +143,9 @@ void MmsTransfer::slotResult()
     if (m_retryDownload) {
         m_retryDownload = false;
         KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_fileTemp), KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, nullptr);
+        if (!del->exec()) {
+            qCDebug(KGET_DEBUG) << "Could not delete " << m_fileTemp;
+        }
         start();
     }
 }

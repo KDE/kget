@@ -23,7 +23,6 @@
 #include <kio/scheduler.h>
 #include <KIO/DeleteJob>
 #include <KIO/CopyJob>
-#include <KIO/NetAccess>
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -125,7 +124,9 @@ void TransferKio::deinit(Transfer::DeleteOptions options)
     if (options & DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
         KIO::Job *del = KIO::del(QString(m_dest.path() + ".part"), KIO::HideProgressInfo);
-        KIO::NetAccess::synchronousRun(del, nullptr);
+        if (!del->exec()) {
+            qCDebug(KGET_DEBUG) << "Could not delete part " << QString(m_dest.path() + ".part");
+        }
     }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 

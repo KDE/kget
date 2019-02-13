@@ -15,7 +15,6 @@
 #include <QRegExp>
 #include <QIcon>
 
-#include <kio/netaccess.h>
 #include <QDebug>
 
 #include "jobqueue.h"

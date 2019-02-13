@@ -25,7 +25,6 @@
 
 #include <KIconLoader>
 #include <KIO/CopyJob>
-#include <KIO/NetAccess>
 #include <KLocalizedString>
 #include <KMessageBox>
 
