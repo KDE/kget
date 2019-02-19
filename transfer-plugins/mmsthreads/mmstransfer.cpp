@@ -32,6 +32,10 @@ MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
     m_amountThreads(MmsSettings::threads()),
     m_retryDownload(false)
 {
+    // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
+    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
+        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    }
     m_fileTemp = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dest.fileName();
     qCDebug(KGET_DEBUG) << "Mms transfer initialized: " + m_source.toString();
 }

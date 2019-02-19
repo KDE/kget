@@ -128,13 +128,19 @@ void BTTransfer::start()
         if (!m_source.isLocalFile())
         {
             qCDebug(KGET_DEBUG) << m_dest.path();
-            m_tmpTorrentFile = QString(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/")) + m_dest.fileName();
+            QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/");
+            // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
+            if (!QFileInfo::exists(tmpDirName))
+            {
+                QDir().mkpath(tmpDirName);
+            }
+            m_tmpTorrentFile = tmpDirName + m_dest.fileName();
             Download *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
 
             setStatus(Job::Stopped, i18n("Downloading Torrent File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);
 
-            //m_source = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "tmp/") + m_source.fileName(;
+            //m_source = tmpDirName + m_source.fileName();
             connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(btTransferInit(QUrl,QByteArray)));
         }
         else

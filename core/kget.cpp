@@ -494,8 +494,14 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
 {
     qCDebug(KGET_DEBUG) << "(" << filename << ")";
 
-    if(filename.isEmpty())
-        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transfers.kgt");
+    if(filename.isEmpty()) {
+        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+        // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
+        if (!QFileInfo::exists(filename)) {
+            QDir().mkpath(filename);
+        }
+        filename += QStringLiteral("/transfers.kgt");
+    }
 
     QTemporaryFile tmpFile;
 
@@ -572,8 +578,14 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
                 != KMessageBox::Yes) )
         return;
 
-    if(filename.isEmpty())
-        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transfers.kgt");
+    if(filename.isEmpty()) {
+        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+        // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
+        if (!QFileInfo::exists(filename)) {
+            QDir().mkpath(filename);
+        }
+        filename += QStringLiteral("/transfers.kgt");
+    }
     
     qCDebug(KGET_DEBUG) << "Save transferlist to " << filename;
 

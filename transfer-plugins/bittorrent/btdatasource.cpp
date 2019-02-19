@@ -35,6 +35,11 @@ BTDataSource::BTDataSource(const QUrl &srcUrl, QObject *parent)
     m_bytes(0),
     m_torrentSource(QUrl())
 {
+    // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
+    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
+        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    }
+
     bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/torrentlog.log"));//initialize the torrent-log
 
     bt::SetClientInfo("KGet",2,1,0,bt::NORMAL,"KG");//Set client info to KGet, WARNING: Pls change this for every release
@@ -80,7 +85,12 @@ void BTDataSource::start()
 {
     if (m_torrentSource.isEmpty())
     {
-        Download *download = new Download(m_source, QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/")) + m_source.fileName();
+        QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/");
+        // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
+        if (!QFileInfo::exists(tmpDirName)) {
+            QDir().mkpath(tmpDirName);
+        }
+        Download *download = new Download(m_source, tmpDirName + m_source.fileName());
         connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(init(QUrl,QByteArray)));
     }
     else 

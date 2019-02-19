@@ -17,6 +17,7 @@
 #include "settings.h"
 
 #include <QDateTime>
+#include <QDir>
 #include <QList>
 #include <QThread>
 
@@ -128,6 +129,10 @@ QList <TransferHistoryItem> TransferHistoryStore::items() const
 
 TransferHistoryStore *TransferHistoryStore::getStore()
 {
+    // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
+    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
+        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    }
     switch(Settings::historyBackend())
     {
         case TransferHistoryStore::SQLite:

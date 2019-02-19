@@ -36,6 +36,7 @@
 
 
 #include <QFile>
+#include <QDir>
 #include <QDomElement>
 #include <QStandardPaths>
 #include <KConfigGroup>
@@ -221,6 +222,10 @@ bool MetalinkHttp::metalinkHttpInit()
 
         //Add OpenPGP signatures
         if (m_signatureUrl != QUrl()) {
+            // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
+            if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
+                QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+            }
             Download *signat_download = new Download(m_signatureUrl, QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName());
             connect(signat_download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(setSignature(QUrl,QByteArray)));
         }
