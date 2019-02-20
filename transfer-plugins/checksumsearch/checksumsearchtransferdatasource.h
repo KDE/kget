@@ -72,9 +72,9 @@ class ChecksumSearchTransferDataSource : public TransferDataSource
         ChecksumSearchTransferDataSource(const QUrl &srcUrl, QObject *parent);
         virtual ~ChecksumSearchTransferDataSource();
 
-        void start();
-        void stop();
-        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
+        void start() override;
+        void stop() override;
+        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) override;
 
     private:
         void gotBaseUrl(const QUrl &urlToFile);

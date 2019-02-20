@@ -32,7 +32,7 @@ class BTDetailsWidget : public QWidget, public Ui::BTDetailsWidgetFrm
         void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
         
     protected:
-        virtual void showEvent(QShowEvent * event);
+        virtual void showEvent(QShowEvent * event) override;
 
     private:
         BTTransferHandler * m_transfer;

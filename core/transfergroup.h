@@ -68,7 +68,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
          *
          * @param queueStatus the new JobQueue status
          */
-        void setStatus(Status queueStatus);
+        void setStatus(Status queueStatus) override;
 
         /**
          * Appends a new transfer to the list of the transfers

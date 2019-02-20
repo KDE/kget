@@ -38,7 +38,7 @@ public:
     /**
     * Start reading the url contents
     */
-    void run();
+    void run() override;
 
     /**
     * copy the remote file out of the thread

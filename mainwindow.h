@@ -59,16 +59,16 @@ public slots:
 
 protected:
     // ignore/accept quit events
-    virtual void closeEvent(QCloseEvent *);
-    virtual void hideEvent(QHideEvent *);
-    virtual void showEvent(QShowEvent *);
+    virtual void closeEvent(QCloseEvent *) override;
+    virtual void hideEvent(QHideEvent *) override;
+    virtual void showEvent(QShowEvent *) override;
 
     // drag and drop
-    virtual void dragEnterEvent(QDragEnterEvent *);
-    virtual void dropEvent(QDropEvent *);
+    virtual void dragEnterEvent(QDragEnterEvent *) override;
+    virtual void dropEvent(QDropEvent *) override;
 
     // set sensitive initial size
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const override;
 
 private slots:
     // slots connected to actions

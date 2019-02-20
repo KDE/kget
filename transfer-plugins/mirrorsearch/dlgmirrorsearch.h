@@ -44,8 +44,8 @@ public:
     ~DlgSettingsWidget();
 
 public slots:
-    void save();
-    void load();
+    void save() override;
+    void load() override;
 
 private slots:
     void slotNewEngine();

@@ -35,11 +35,11 @@ class MetalinkHttp : public AbstractMetalink
     public Q_SLOTS:
 
     // --- Job virtual functions ---
-        void start();
-        void save(const QDomElement &element);
-        void load(const QDomElement *element);
-        void deinit(Transfer::DeleteOptions options);
-        void slotSignatureVerified();
+        void start() override;
+        void save(const QDomElement &element) override;
+        void load(const QDomElement *element) override;
+        void deinit(Transfer::DeleteOptions options) override;
+        void slotSignatureVerified() override;
 
     private Q_SLOTS:
         /**
@@ -70,7 +70,7 @@ class MetalinkHttp : public AbstractMetalink
     private:
         QUrl m_signatureUrl;
         QUrl m_metalinkxmlUrl ;
-        void startMetalink();
+        void startMetalink() override;
         KGetMetalink::MetalinkHttpParser *m_httpparser;
         QList<KGetMetalink::HttpLinkHeader> m_linkheaderList;
         QHash<QString, QString> m_DigestList;

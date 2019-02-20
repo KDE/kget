@@ -188,7 +188,7 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          * @returns the data associated to this TransferGroup item. This is
          * necessary to make the interview model/view work
          */
-        QVariant data(int column);
+        QVariant data(int column) override;
 
         /**
          * @returns the number of columns associated to the group's data
@@ -232,8 +232,8 @@ class KGET_EXPORT TransferGroupHandler : public Handler
         /**
          * These are all JobQueue-related functions
          */
-        void start();
-        void stop();
+        void start() override;
+        void stop() override;
         
     signals:
         void groupChangedEvent(TransferGroupHandler * transfer, TransferGroupHandler::ChangesFlags flags);

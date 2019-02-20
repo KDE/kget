@@ -31,11 +31,11 @@ class GroupStatusButton : public QToolButton
         GroupStatusButton(const QModelIndex &index, QWidget *parent);
 
     protected:
-        void checkStateSet();
-        void enterEvent(QEvent * event);
-        void leaveEvent(QEvent * event);
-        void paintEvent(QPaintEvent * event);
-        void timerEvent(QTimerEvent *event);
+        void checkStateSet() override;
+        void enterEvent(QEvent * event) override;
+        void leaveEvent(QEvent * event) override;
+        void paintEvent(QPaintEvent * event) override;
+        void timerEvent(QTimerEvent *event) override;
 
     private:
         enum {None, Selecting, Deselecting, Blinking, BlinkingExiting} m_status;
@@ -83,9 +83,9 @@ class BasicTransfersViewDelegate : public KExtendableItemDelegate
     public:
         BasicTransfersViewDelegate(QAbstractItemView *parent);
 
-        virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-        virtual void setEditorData(QWidget *editor, const QModelIndex &index) const;
-        virtual void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
+        virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+        virtual void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+        virtual void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 
     private slots:
         virtual void slotGroupStatusChanged(GroupStatusEditor *editor);
@@ -98,13 +98,13 @@ class TransfersViewDelegate : public BasicTransfersViewDelegate
     public:
         TransfersViewDelegate(QAbstractItemView *parent);
 
-        void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+        void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override;
 
         void drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect) const;
 
-        QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index) const;
+        QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index) const override;
 
-        bool editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index);
+        bool editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index) override;
 };
 
 #endif

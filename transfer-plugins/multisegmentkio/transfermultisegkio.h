@@ -34,43 +34,43 @@ class TransferMultiSegKio : public Transfer
                     Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                     const QDomElement * e = nullptr);
 
-        bool repair(const QUrl &file = QUrl());
+        bool repair(const QUrl &file = QUrl()) override;
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory) override;
 
-        virtual void init();
-        virtual void deinit(Transfer::DeleteOptions options);
+        virtual void init() override;
+        virtual void deinit(Transfer::DeleteOptions options) override;
 
-        QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const;
-        void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors);
+        QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const override;
+        void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) override;
 
         /**
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier *verifier(const QUrl &file = QUrl());
+        virtual Verifier *verifier(const QUrl &file = QUrl()) override;
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature *signature(const QUrl &file = QUrl());
+        virtual Signature *signature(const QUrl &file = QUrl()) override;
 
-        FileModel *fileModel();
+        FileModel *fileModel() override;
 
     public slots:
         bool setNewDestination(const QUrl &newDestination);
         // --- Job virtual functions ---
-        void start();
-        void stop();
+        void start() override;
+        void stop() override;
 
-        void save(const QDomElement &element);
-        void load(const QDomElement *e);
+        void save(const QDomElement &element) override;
+        void load(const QDomElement *e) override;
         void slotChecksumFound(QString type, QString checksum);
 
     private:

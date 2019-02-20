@@ -27,11 +27,11 @@ public:
     ~SQLiteStore();
 
 public slots:
-    void load();
-    void clear();
-    void saveItem(const TransferHistoryItem &item);
-    void saveItems(const QList<TransferHistoryItem> &items);
-    void deleteItem(const TransferHistoryItem &item);
+    void load() override;
+    void clear() override;
+    void saveItem(const TransferHistoryItem &item) override;
+    void saveItems(const QList<TransferHistoryItem> &items) override;
+    void deleteItem(const TransferHistoryItem &item) override;
 
 private:
     QSqlDatabase sql();

@@ -62,7 +62,7 @@ class VerificationThread : public QThread
         void brokenPieces(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
     protected:
-        void run();
+        void run() override;
 
     private:
         QMutex m_mutex;

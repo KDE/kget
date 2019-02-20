@@ -27,12 +27,12 @@ class TransferKioFactory : public TransferFactory
     public slots:
         virtual Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = nullptr );
+                                   const QDomElement * e = nullptr ) override;
 
-        virtual QString displayName() const {return "HTTP(s) / FTP(s)";}
+        virtual QString displayName() const override {return "HTTP(s) / FTP(s)";}
         
-        virtual bool isSupported(const QUrl &url) const;
-        QStringList addsProtocols() const;
+        virtual bool isSupported(const QUrl &url) const override;
+        QStringList addsProtocols() const override;
 };
 
 #endif

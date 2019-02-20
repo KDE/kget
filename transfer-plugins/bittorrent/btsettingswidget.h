@@ -22,9 +22,9 @@ class BTSettingsWidget : public KCModule, public Ui::BTSettingsWidget
         BTSettingsWidget(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
 
     public slots:
-        virtual void load();
-        virtual void save();
-        virtual void defaults();
+        virtual void load() override;
+        virtual void save() override;
+        virtual void defaults() override;
 };
 
 #endif

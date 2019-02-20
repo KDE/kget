@@ -47,11 +47,11 @@ namespace kt
 
 	protected:
 		/// Handle the close event
-		virtual void closeEvent(QCloseEvent* e);
+		virtual void closeEvent(QCloseEvent* e) override;
      
 	protected slots:
-		virtual void reject();
-		virtual void accept();
+		virtual void reject() override;
+		virtual void accept() override;
 		
 	private slots:
 	        void description(KJob *job, const QString &title, const QPair<QString, QString > &field1, const QPair< QString, QString > &field2);

@@ -33,14 +33,14 @@ class MetalinkXml : public AbstractMetalink
 
         ~MetalinkXml();
 
-        void save(const QDomElement &element);
-        void load(const QDomElement *e);
+        void save(const QDomElement &element) override;
+        void load(const QDomElement *e) override;
 
     public Q_SLOTS:
         // --- Job virtual functions ---
-        void start();
+        void start() override;
 
-        void deinit(Transfer::DeleteOptions options);
+        void deinit(Transfer::DeleteOptions options) override;
 
     protected Q_SLOTS:
         /**
@@ -55,7 +55,7 @@ class MetalinkXml : public AbstractMetalink
          * @note downloads the metalink file, then starts the download
          */
         void downloadMetalink();
-        void startMetalink();
+        void startMetalink() override;
         void untickAllFiles();
 
     private:

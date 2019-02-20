@@ -162,7 +162,7 @@ class KGET_EXPORT Scheduler : public QObject
 
     private:
         //Virtual QObject method
-        void timerEvent(QTimerEvent * event);
+        void timerEvent(QTimerEvent * event) override;
 
         /**
          * Calls updateQueue for all queues

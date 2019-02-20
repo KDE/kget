@@ -30,7 +30,7 @@ class PreferencesDialog : public KConfigDialog
         void slotToggleAfterFinishAction(int state);
         void disableApplyButton();
         void enableApplyButton();
-        virtual void updateWidgetsDefault();
+        virtual void updateWidgetsDefault() override;
 
     private:
         Ui::DlgAdvanced dlgAdv;

@@ -29,16 +29,16 @@ class MetalinkFactory : public TransferFactory
 
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = nullptr );
+                                   const QDomElement * e = nullptr ) override;
 
-        QString displayName() const { return "MetaLink"; }
+        QString displayName() const override { return "MetaLink"; }
         /**
          * Checks if a URL is supported by this plugin.
          *
          * @param url The URL to be tested
          * @return True if the URL is a metalink (xml or http).
          */
-        bool isSupported(const QUrl &url) const;
+        bool isSupported(const QUrl &url) const override;
 };
 
 #endif

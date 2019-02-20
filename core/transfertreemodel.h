@@ -61,7 +61,7 @@ class KGET_EXPORT ModelItem : public QStandardItem
         ModelItem(Handler * handler);
         virtual ~ModelItem();
 
-        virtual QVariant data(int role = Qt::UserRole + 1) const = 0;
+        virtual QVariant data(int role = Qt::UserRole + 1) const override = 0;
         void emitDataChanged();
         Handler * handler();
         virtual bool isGroup();
@@ -79,7 +79,7 @@ class KGET_EXPORT TransferModelItem : public ModelItem
         TransferModelItem(TransferHandler *handler);
         virtual ~TransferModelItem();
 
-        virtual QVariant data(int role = Qt::UserRole + 1) const;
+        virtual QVariant data(int role = Qt::UserRole + 1) const override;
 
         TransferHandler * transferHandler();
 
@@ -94,11 +94,11 @@ class KGET_EXPORT GroupModelItem : public ModelItem
         GroupModelItem(TransferGroupHandler *handler);
         virtual ~GroupModelItem();
         
-        virtual QVariant data(int role = Qt::UserRole + 1) const;
+        virtual QVariant data(int role = Qt::UserRole + 1) const override;
         
         TransferGroupHandler * groupHandler();
         
-        virtual bool isGroup();
+        virtual bool isGroup() override;
         
     private:
         TransferGroupHandler * m_groupHandler;
@@ -150,17 +150,17 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
         void postDataChangedEvent(TransferHandler * transfer);
         void postDataChangedEvent(TransferGroupHandler * group);
 
-        Qt::ItemFlags flags (const QModelIndex & index) const;
+        Qt::ItemFlags flags (const QModelIndex & index) const override;
         QVariant headerData(int section, Qt::Orientation orientation,
-                            int role = Qt::DisplayRole) const;
+                            int role = Qt::DisplayRole) const override;
 
         //Drag & drop functions
-        Qt::DropActions supportedDropActions() const;
-        QStringList mimeTypes() const;
-        QMimeData * mimeData(const QModelIndexList &indexes) const;
+        Qt::DropActions supportedDropActions() const override;
+        QStringList mimeTypes() const override;
+        QMimeData * mimeData(const QModelIndexList &indexes) const override;
         bool dropMimeData(const QMimeData *mdata,
                           Qt::DropAction action, int row, int column, 
-                          const QModelIndex &parent);
+                          const QModelIndex &parent) override;
 
         static QString columnName(int column);
         static int column(Transfer::TransferChange flag);
@@ -177,7 +177,7 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
         void transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>);
 
     private:
-        void timerEvent(QTimerEvent *event);
+        void timerEvent(QTimerEvent *event) override;
 
         Scheduler * m_scheduler;
 

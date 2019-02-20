@@ -40,13 +40,13 @@ class KGET_EXPORT VerificationModel : public QAbstractTableModel
             Verified
         };
 
-        QVariant data(const QModelIndex &index, int role) const;
-        Qt::ItemFlags flags(const QModelIndex &index) const;
-        bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
-        QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-        int rowCount(const QModelIndex &parent = QModelIndex()) const;
-        int columnCount(const QModelIndex &parent = QModelIndex()) const;
-        bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
+        QVariant data(const QModelIndex &index, int role) const override;
+        Qt::ItemFlags flags(const QModelIndex &index) const override;
+        bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+        QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+        int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+        int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+        bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
         /**
          * Add a checksum that is later used in the verification process

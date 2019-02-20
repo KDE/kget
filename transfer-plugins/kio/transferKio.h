@@ -38,21 +38,21 @@ class TransferKio : public Transfer
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory) override;
 
-        bool repair(const QUrl &file = QUrl());
+        bool repair(const QUrl &file = QUrl()) override;
 
-        Verifier *verifier(const QUrl &file = QUrl());
-        Signature *signature(const QUrl &file = QUrl());
+        Verifier *verifier(const QUrl &file = QUrl()) override;
+        Signature *signature(const QUrl &file = QUrl()) override;
 
     public slots:
         bool setNewDestination(const QUrl &newDestination);
 
         // --- Job virtual functions ---
-        void start();
-        void stop();
+        void start() override;
+        void stop() override;
 
-        void deinit(Transfer::DeleteOptions options);
+        void deinit(Transfer::DeleteOptions options) override;
 
     private:
         void createJob();

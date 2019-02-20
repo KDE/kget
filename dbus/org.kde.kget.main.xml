@@ -28,7 +28,7 @@
       <arg name="urls" type="as" direction="in"/>
     </method>
     <method name="transfers">
-       <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMap"/> 
+       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVariantMap"/> 
        <arg name="out" type="a{ss}" direction="out"/>
     </method>
     <method name="transfersSpeed">

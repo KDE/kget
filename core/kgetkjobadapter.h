@@ -27,7 +27,7 @@ public:
     KGetKJobAdapter(QObject *parent, TransferHandler *transfer);
     ~KGetKJobAdapter();
 
-    void start() {};
+    void start() override {};
 
     qulonglong processedAmount(Unit unit) const;
     qulonglong totalAmount(Unit unit) const;
@@ -47,9 +47,9 @@ signals:
     void requestResume(KJob *job, TransferHandler *handler);
 
 protected:
-    virtual bool doKill();
-    virtual bool doSuspend();
-    virtual bool doResume();
+    virtual bool doKill() override;
+    virtual bool doSuspend() override;
+    virtual bool doResume() override;
 
 private:
     TransferHandler *m_transferHandler;

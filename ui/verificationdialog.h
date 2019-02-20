@@ -39,7 +39,7 @@ class VerificationAddDlg : public QDialog
     public:
         explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = nullptr, Qt::WFlags flags = 0);
         
-        virtual QSize sizeHint() const;
+        virtual QSize sizeHint() const override;
 
     private slots:
         void addChecksum();
@@ -58,7 +58,7 @@ class VerificationDialog : public KGetSaveSizeDialog
     public:
         VerificationDialog(QWidget *parent, TransferHandler *transfer, const QUrl &file);
         
-        virtual QSize sizeHint() const;
+        virtual QSize sizeHint() const override;
 
     private slots:
         void fileFinished(const QUrl &file);

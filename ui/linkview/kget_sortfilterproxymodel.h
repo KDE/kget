@@ -53,7 +53,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
         void setShowWebContent(int show);
 
     protected:
-        virtual bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+        virtual bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
     private:
         /**

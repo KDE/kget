@@ -25,10 +25,10 @@ public:
     ~XmlStore();
 
 public slots:
-    void load();
-    void clear();
-    void saveItem(const TransferHistoryItem &item);
-    void deleteItem(const TransferHistoryItem &item);
+    void load() override;
+    void clear() override;
+    void saveItem(const TransferHistoryItem &item) override;
+    void deleteItem(const TransferHistoryItem &item) override;
 
     void slotLoadElement(int number, int total, const TransferHistoryItem &item);
 
@@ -55,7 +55,7 @@ class XmlStore::LoadThread : public QThread
 public:
     LoadThread(QObject *parent, const QString &url);
 
-    void run();
+    void run() override;
 
 signals:
     void elementLoaded(int number, int total, const TransferHistoryItem &item);
@@ -71,7 +71,7 @@ public:
     SaveThread(QObject *parent, const QString &url, const QList<TransferHistoryItem> &list);
     SaveThread(QObject *parent, const QString &url, const TransferHistoryItem &item);
 
-    void run();
+    void run() override;
 
 signals:
     void elementLoaded(int number, int total, const TransferHistoryItem &item);
@@ -88,7 +88,7 @@ class XmlStore::DeleteThread : public QThread
 public:
     DeleteThread(QObject *parent, const QString &url, const TransferHistoryItem &item);
 
-    void run();
+    void run() override;
     QList <TransferHistoryItem> items() const
     {
         return m_items;

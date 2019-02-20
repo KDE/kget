@@ -31,7 +31,7 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
         TransferHistory(QWidget *parent = nullptr);
         ~TransferHistory();
         
-        virtual QSize sizeHint() const;
+        virtual QSize sizeHint() const override;
 
     private:
         enum RangeType {
@@ -39,7 +39,7 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
             Size = 1,
             Host = 2
         };
-        void hideEvent(QHideEvent *event);
+        void hideEvent(QHideEvent *event) override;
         QString statusText(int status) const;
 
         bool save;
@@ -71,7 +71,7 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
         void slotWriteDefault();
         void slotDownload();
         void slotOpenFile(const QModelIndex &index = QModelIndex());
-        void contextMenuEvent(QContextMenuEvent *event);
+        void contextMenuEvent(QContextMenuEvent *event) override;
         void slotLoadRangeType(int type);
         void slotSetListMode();
         void slotSetIconMode();

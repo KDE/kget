@@ -39,8 +39,8 @@ class CountryModel : public QAbstractListModel
     public:
         CountryModel(QObject *parent = nullptr);
 
-        int rowCount (const QModelIndex &parent = QModelIndex()) const;
-        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+        int rowCount (const QModelIndex &parent = QModelIndex()) const override;
+        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
         void setupModelData(const QStringList &countryCodes);
 
@@ -60,8 +60,8 @@ class LanguageModel : public QAbstractListModel
     public:
         LanguageModel(QObject *parent = nullptr);
 
-        int rowCount (const QModelIndex &parent = QModelIndex()) const;
-        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+        int rowCount (const QModelIndex &parent = QModelIndex()) const override;
+        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
         void setupModelData(const QStringList &languageCodes);
 

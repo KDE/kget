@@ -29,41 +29,41 @@ class AbstractMetalink : public Transfer
                          const QDomElement * e = nullptr);
         virtual ~AbstractMetalink();
 
-        int remainingTime() const;
+        int remainingTime() const override;
 
-        bool repair(const QUrl &file = QUrl());
+        bool repair(const QUrl &file = QUrl()) override;
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory) override;
 
-        QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const;
-        void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors);
+        QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const override;
+        void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) override;
 
         /**
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier *verifier(const QUrl &file);
+        virtual Verifier *verifier(const QUrl &file) override;
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature *signature(const QUrl &file);
+        virtual Signature *signature(const QUrl &file) override;
 
-        virtual QList<QUrl> files() const;
+        virtual QList<QUrl> files() const override;
 
-        FileModel *fileModel();
+        FileModel *fileModel() override;
 
     public Q_SLOTS:
         // --- Job virtual functions ---
-        virtual void start() = 0;
-        virtual void stop();
-        virtual void deinit(Transfer::DeleteOptions options) = 0;
+        virtual void start() override = 0;
+        virtual void stop() override;
+        virtual void deinit(Transfer::DeleteOptions options) override = 0;
 
     protected Q_SLOTS:
         /**

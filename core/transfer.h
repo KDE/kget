@@ -179,10 +179,10 @@ class KGET_EXPORT Transfer : public Job
         int downloadSpeed() const              {return m_downloadSpeed;}
         int averageDownloadSpeed() const;
         int uploadSpeed() const                {return m_uploadSpeed;}
-        virtual int remainingTime() const      {return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());}
-        virtual int elapsedTime() const;
-        virtual bool isStalled() const         {return (status() == Job::Running && downloadSpeed() == 0);}
-        virtual bool isWorking() const         {return downloadSpeed() > 0;}
+        virtual int remainingTime() const override {return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());}
+        virtual int elapsedTime() const override;
+        virtual bool isStalled() const override {return (status() == Job::Running && downloadSpeed() == 0);}
+        virtual bool isWorking() const override {return downloadSpeed() > 0;}
 
         /**
          * The mirrors that are available

@@ -49,7 +49,7 @@ class BTAdvancedDetailsWidget : public QWidget
 
 
     private:
-        void hideEvent(QHideEvent * event);
+        void hideEvent(QHideEvent * event) override;
 
         QTabWidget *tabWidget;
 

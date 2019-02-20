@@ -36,11 +36,11 @@ class MirrorDelegate : public QStyledItemDelegate
         MirrorDelegate(QObject *parent = nullptr);
         explicit MirrorDelegate(QSortFilterProxyModel *countrySort, QObject *parent = nullptr);
 
-        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-        void setEditorData(QWidget *editor, const QModelIndex &index) const;
-        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
-        void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-        QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+        void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+        void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+        QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     private:
         QSortFilterProxyModel *m_countrySort;
@@ -54,7 +54,7 @@ class MirrorProxyModel : public QSortFilterProxyModel
         MirrorProxyModel(QObject *parent = 0);
 
     protected:
-        bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+        bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 };
 
 class MirrorItem
@@ -93,13 +93,13 @@ class MirrorModel : public QAbstractTableModel
         MirrorModel(QObject *parent);
         ~MirrorModel();
 
-        int rowCount(const QModelIndex &index = QModelIndex()) const;
-        int columnCount(const QModelIndex &index = QModelIndex()) const;
-        QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-        Qt::ItemFlags flags(const QModelIndex &index) const;
-        bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
-        bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
+        int rowCount(const QModelIndex &index = QModelIndex()) const override;
+        int columnCount(const QModelIndex &index = QModelIndex()) const override;
+        QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+        Qt::ItemFlags flags(const QModelIndex &index) const override;
+        bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+        bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
         void addMirror(const QUrl &url, int numConnections = 0, int priority = 0, const QString &countryCode = QString());
         void setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors);

@@ -41,21 +41,21 @@ public:
     
 protected:
     // drag and drop
-    void dragEnterEvent(QDragEnterEvent *);
-    void dropEvent(QDropEvent *);
+    void dragEnterEvent(QDragEnterEvent *) override;
+    void dropEvent(QDropEvent *) override;
 
     // handle quit events as hide events
-    void closeEvent( QCloseEvent * );
+    void closeEvent( QCloseEvent * ) override;
 
-    void mousePressEvent(QMouseEvent * e);
-    void mouseReleaseEvent(QMouseEvent * e);
-    void mouseDoubleClickEvent(QMouseEvent * e);
-    void mouseMoveEvent(QMouseEvent * e);
-    void enterEvent(QEvent * event);
-    void leaveEvent(QEvent * event);
+    void mousePressEvent(QMouseEvent * e) override;
+    void mouseReleaseEvent(QMouseEvent * e) override;
+    void mouseDoubleClickEvent(QMouseEvent * e) override;
+    void mouseMoveEvent(QMouseEvent * e) override;
+    void enterEvent(QEvent * event) override;
+    void leaveEvent(QEvent * event) override;
 
     // paint the drop target
-    void paintEvent(QPaintEvent*);
+    void paintEvent(QPaintEvent*) override;
     
 private slots:
     void toggleSticky();

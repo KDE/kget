@@ -24,7 +24,7 @@ public:
 
     void update();    
     
-    void start() {};
+    void start() override {};
 
 signals:
     /**
@@ -37,7 +37,7 @@ signals:
     void requestStop(KJob *job, TransferHandler *handler);
 
 protected:
-    virtual bool doKill();
+    virtual bool doKill() override;
 };
 
 #endif

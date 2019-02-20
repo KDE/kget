@@ -19,17 +19,17 @@ class BTTransferFactory : public TransferFactory
         BTTransferFactory(QObject *parent, const QVariantList &args);
         ~BTTransferFactory();
 
-        Transfer * createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup * parent, Scheduler * scheduler, const QDomElement * e = nullptr);
+        Transfer * createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup * parent, Scheduler * scheduler, const QDomElement * e = nullptr) override;
 
-        TransferHandler * createTransferHandler(Transfer * transfer, Scheduler * scheduler);
+        TransferHandler * createTransferHandler(Transfer * transfer, Scheduler * scheduler) override;
 
-        QWidget * createDetailsWidget(TransferHandler * transfer);
+        QWidget * createDetailsWidget(TransferHandler * transfer) override;
 
-        const QList<QAction *> actions(TransferHandler * handler = nullptr);
+        const QList<QAction *> actions(TransferHandler * handler = nullptr) override;
 
-        TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent);
+        TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent) override;
 
-        bool isSupported(const QUrl &url) const;
+        bool isSupported(const QUrl &url) const override;
 };
 
 #endif

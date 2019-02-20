@@ -24,21 +24,21 @@ class MultiSegKioDataSource : public TransferDataSource
         MultiSegKioDataSource(const QUrl &srcUrl, QObject *parent);
         ~MultiSegKioDataSource();
 
-        void start();
-        void stop();
+        void start() override;
+        void stop() override;
 
-        void findFileSize(KIO::fileoffset_t segmentSize);
-        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
-        QPair<int, int> removeConnection();
-        QList<QPair<int, int> > assignedSegments() const;
-        int countUnfinishedSegments() const;
-        QPair<int, int> split();
+        void findFileSize(KIO::fileoffset_t segmentSize) override;
+        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) override;
+        QPair<int, int> removeConnection() override;
+        QList<QPair<int, int> > assignedSegments() const override;
+        int countUnfinishedSegments() const override;
+        QPair<int, int> split() override;
 
-        void setSupposedSize(KIO::filesize_t supposedSize);
-        int currentSegments() const;
+        void setSupposedSize(KIO::filesize_t supposedSize) override;
+        int currentSegments() const override;
 
     private Q_SLOTS:
-        void slotSpeed(ulong speed);
+        void slotSpeed(ulong speed) override;
         void slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished);
         void slotRestartBrokenSegment();
 

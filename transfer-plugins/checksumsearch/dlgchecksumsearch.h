@@ -76,10 +76,10 @@ class ChecksumDelegate : public QStyledItemDelegate
         ChecksumDelegate(QObject *parent = nullptr);
         ChecksumDelegate(QStringListModel *modesModel, QStringListModel *typesModel, QObject *parent = nullptr);
 
-        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-        void setEditorData(QWidget *editor, const QModelIndex &index) const;
-        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
-        void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+        void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+        void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     private:
         QStringListModel *m_modesModel;
@@ -95,8 +95,8 @@ class DlgChecksumSettingsWidget : public KCModule
         ~DlgChecksumSettingsWidget();
 
     public slots:
-        void save();
-        void load();
+        void save() override;
+        void load() override;
 
     private slots:
         /**

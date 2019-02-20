@@ -42,7 +42,7 @@ public:
     DateCategorizedDelegate();
     ~DateCategorizedDelegate();
 
-    void categorizeItem(QStandardItem *item);
+    void categorizeItem(QStandardItem *item) override;
 };
 
 /** Categorzes the transfers in size ranges **/
@@ -52,7 +52,7 @@ public:
     SizeCategorizedDelegate();
     ~SizeCategorizedDelegate();
 
-    void categorizeItem(QStandardItem *item);
+    void categorizeItem(QStandardItem *item) override;
 };
 
 /** Categorizes the transfer by source host **/
@@ -62,7 +62,7 @@ public:
     HostCategorizedDelegate();
     ~HostCategorizedDelegate();
 
-    void categorizeItem(QStandardItem *item);
+    void categorizeItem(QStandardItem *item) override;
 };
 
 #endif

@@ -54,7 +54,7 @@ class SignatureThread : public QThread
 #endif //HAVE_QGPGME
 
     protected:
-        void run();
+        void run() override;
 
     private:
         QMutex m_mutex;

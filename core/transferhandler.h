@@ -220,7 +220,7 @@ class KGET_EXPORT TransferHandler : public Handler
          * @returns the data associated to this Transfer item. This is
          * necessary to make the interview model/view work
          */
-        QVariant data(int column);
+        QVariant data(int column) override;
 
         /**
          * @returns the number of columns associated to the transfer's data
@@ -289,8 +289,8 @@ class KGET_EXPORT TransferHandler : public Handler
         /**
          * These are all Job-related functions
          */
-        virtual void start();
-        virtual void stop();
+        virtual void start() override;
+        virtual void stop() override;
 
     signals:
         /**

@@ -21,9 +21,9 @@ class MirrorSearchTransferDataSource : public TransferDataSource
     public:
         MirrorSearchTransferDataSource(const QUrl &srcUrl, QObject *parent);
 
-        void start();
-        void stop();
-        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange);
+        void start() override;
+        void stop() override;
+        void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) override;
 
     private Q_SLOTS:
         void slotSearchUrls(QList<QUrl>& Urls);

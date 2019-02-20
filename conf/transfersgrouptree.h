@@ -27,9 +27,9 @@ class TransfersGroupDelegate : public BasicTransfersViewDelegate
     public:
         TransfersGroupDelegate(QAbstractItemView *parent);
 
-        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-        void setEditorData(QWidget *editor, const QModelIndex &index) const;
-        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
+        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+        void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 };
 
 class TransfersGroupTree : public QTreeView
@@ -37,7 +37,7 @@ class TransfersGroupTree : public QTreeView
     Q_OBJECT
     public:
         TransfersGroupTree(QWidget *parent = nullptr);
-        void setModel(QAbstractItemModel *model);
+        void setModel(QAbstractItemModel *model) override;
 
     public slots:
         void editCurrent();
@@ -47,7 +47,7 @@ class TransfersGroupTree : public QTreeView
         void changeIcon(const QString &icon);
 
     private:
-        void rowsInserted(const QModelIndex &index, int start, int end);
+        void rowsInserted(const QModelIndex &index, int start, int end) override;
 };
 
 #endif

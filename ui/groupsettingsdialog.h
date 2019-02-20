@@ -23,7 +23,7 @@ class GroupSettingsDialog : public KGetSaveSizeDialog
         GroupSettingsDialog(QWidget *parent, TransferGroupHandler *group);
         ~GroupSettingsDialog();
 
-        QSize sizeHint() const;
+        QSize sizeHint() const override;
 
     private slots:
         void save();

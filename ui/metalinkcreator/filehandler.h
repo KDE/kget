@@ -49,7 +49,7 @@ class FileHandlerThread : public QThread
         void fileResult(const KGetMetalink::File file);
 
     protected:
-        void run();
+        void run() override;
 
     private:
         QMutex mutex;

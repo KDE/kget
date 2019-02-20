@@ -55,31 +55,31 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
                     const QDomElement * e = 0);
         ~BTTransfer();
 
-        void deinit(Transfer::DeleteOptions options);
+        void deinit(Transfer::DeleteOptions options) override;
 
         //Job virtual functions        
-        void start();
-        void stop();
-        virtual int elapsedTime() const;
-        virtual int remainingTime() const;
-        virtual bool isStalled() const;
-        virtual bool isWorking() const;
+        void start() override;
+        void stop() override;
+        virtual int elapsedTime() const override;
+        virtual int remainingTime() const override;
+        virtual bool isStalled() const override;
+        virtual bool isWorking() const override;
 
         /**
          * @returns the directory the Transfer will be stored to
          */
-        virtual QUrl directory() const {return m_directory;}
+        virtual QUrl directory() const override {return m_directory;}
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory);
+        virtual bool setDirectory(const QUrl &newDirectory) override;
 
-        virtual QList<QUrl> files() const;
+        virtual QList<QUrl> files() const override;
 
-        FileModel *fileModel();
+        FileModel *fileModel() override;
 
         //Bittorrent specific functions (connected with TransferFlags
         int chunksTotal() const;
@@ -103,8 +103,8 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         bool ready();
 
     protected:
-        void load(const QDomElement *element);
-        void setSpeedLimits(int ulLimit, int dlLimit);
+        void load(const QDomElement *element) override;
+        void setSpeedLimits(int ulLimit, int dlLimit) override;
 
     private slots:
         void btTransferInit(const QUrl &src = QUrl(), const QByteArray &data = QByteArray());
@@ -121,14 +121,14 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void updateFilesStatus();
 
         // bt::MonitorInterface functions
-        virtual void downloadRemoved(bt::ChunkDownloadInterface* cd);
-        virtual void downloadStarted(bt::ChunkDownloadInterface* cd);
-        virtual void peerAdded(bt::PeerInterface* peer);
-        virtual void peerRemoved(bt::PeerInterface* peer);
-        virtual void stopped();
-        virtual void destroyed();
-        virtual void filePercentageChanged(bt::TorrentFileInterface*, float) {}
-        virtual void filePreviewChanged(bt::TorrentFileInterface*, bool) {}
+        virtual void downloadRemoved(bt::ChunkDownloadInterface* cd) override;
+        virtual void downloadStarted(bt::ChunkDownloadInterface* cd) override;
+        virtual void peerAdded(bt::PeerInterface* peer) override;
+        virtual void peerRemoved(bt::PeerInterface* peer) override;
+        virtual void stopped() override;
+        virtual void destroyed() override;
+        virtual void filePercentageChanged(bt::TorrentFileInterface*, float) override {}
+        virtual void filePreviewChanged(bt::TorrentFileInterface*, bool) override {}
 
         bt::TorrentControl *torrent;
         QUrl m_directory;

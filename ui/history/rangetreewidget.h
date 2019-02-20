@@ -34,7 +34,7 @@ public:
     ~RangeSortFilterProxyModel();
 
 protected:
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 };
 
 class RangeTreeWidget : public QTreeView
@@ -117,7 +117,7 @@ Q_OBJECT
         HostRangeDelegate(QObject *parent = nullptr);
         ~HostRangeDelegate();
 
-        QVariant getRangeData(const QVariant &data);
+        QVariant getRangeData(const QVariant &data) override;
 };
 
 class RangeTreeWidgetItemDelegate : public QStyledItemDelegate
@@ -125,7 +125,7 @@ class RangeTreeWidgetItemDelegate : public QStyledItemDelegate
 public:
     RangeTreeWidgetItemDelegate(QAbstractItemView *parent);
 
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    QSize sizeHint (const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize sizeHint (const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 #endif

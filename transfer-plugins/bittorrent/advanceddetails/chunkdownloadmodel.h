@@ -59,16 +59,16 @@ namespace kt
 		
 		void clear();
 
-		virtual int rowCount(const QModelIndex & parent) const;
-		virtual int columnCount(const QModelIndex & parent) const;
-		virtual QVariant headerData(int section, Qt::Orientation orientation,int role) const;
-		virtual QVariant data(const QModelIndex & index,int role) const;
-		virtual bool removeRows(int row,int count,const QModelIndex & parent);
-		virtual bool insertRows(int row,int count,const QModelIndex & parent);
-		virtual QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const;
+		virtual int rowCount(const QModelIndex & parent) const override;
+		virtual int columnCount(const QModelIndex & parent) const override;
+		virtual QVariant headerData(int section, Qt::Orientation orientation,int role) const override;
+		virtual QVariant data(const QModelIndex & index,int role) const override;
+		virtual bool removeRows(int row,int count,const QModelIndex & parent) override;
+		virtual bool insertRows(int row,int count,const QModelIndex & parent) override;
+		virtual QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const override;
 		
 	public slots:
-		void sort(int col, Qt::SortOrder order);
+		void sort(int col, Qt::SortOrder order) override;
 		
 	public:
 		struct Item

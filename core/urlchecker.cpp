@@ -594,6 +594,7 @@ QList<QUrl> UrlChecker::hasExistingTransferMessages(const QList<QUrl> &urls, con
                 switch (result) {
                     case ExistingTransferDialog::ExistingDialogReturn::YesAll:
                         isYesAll = true;
+                        // fallthrough
                     case ExistingTransferDialog::ExistingDialogReturn::Yes:
                         urlsToDownload << it->first;
                         toDelete << it->second;
