@@ -22,6 +22,7 @@
 
 #include "kget_debug.h"
 #include <qdebug.h>
+#include <QDir>
 #include <QStandardPaths>
 
 MmsTransfer::MmsTransfer(TransferGroup * parent, TransferFactory * factory,
