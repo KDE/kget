@@ -21,6 +21,7 @@
   <name xml:lang="pl">KGet</name>
   <name xml:lang="pt">KGet</name>
   <name xml:lang="pt-BR">KGet</name>
+  <name xml:lang="ru">KGet</name>
   <name xml:lang="sk">KGet</name>
   <name xml:lang="sv">Kget</name>
   <name xml:lang="uk">KGet</name>
@@ -45,6 +46,7 @@
   <summary xml:lang="pl">Zarządzanie pobieraniem</summary>
   <summary xml:lang="pt">Gestor de Transferências</summary>
   <summary xml:lang="pt-BR">Gerenciador de downloads</summary>
+  <summary xml:lang="ru">Диспетчер загрузок</summary>
   <summary xml:lang="sk">Správca sťahovania</summary>
   <summary xml:lang="sv">Nerladdningshanterare</summary>
   <summary xml:lang="uk">Керування отриманням даних</summary>
