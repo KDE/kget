@@ -62,6 +62,11 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
     m_fileModel(nullptr),
     m_updateCounter(0)
 {
+    QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/");
+        // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
+        if (!QFileInfo::exists(tmpDirName)) {
+            QDir().mkpath(tmpDirName);
+        }
     m_directory = KIO::upUrl(m_dest);//FIXME test
 
     setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming | Transfer::Cap_SpeedLimit);
@@ -129,11 +134,6 @@ void BTTransfer::start()
         {
             qCDebug(KGET_DEBUG) << m_dest.path();
             QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/");
-            // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
-            if (!QFileInfo::exists(tmpDirName))
-            {
-                QDir().mkpath(tmpDirName);
-            }
             m_tmpTorrentFile = tmpDirName + m_dest.fileName();
             Download *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
 
