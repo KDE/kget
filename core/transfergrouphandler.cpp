@@ -18,9 +18,8 @@
 #include "core/kget.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <QAction>
-#include <kactioncollection.h>
 #include <KLocalizedString>
 #include <QIcon>
 

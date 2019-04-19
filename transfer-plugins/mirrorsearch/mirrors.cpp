@@ -12,7 +12,7 @@
 #include "mirrorsearchsettings.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 mirror::mirror()
 {

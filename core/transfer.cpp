@@ -17,7 +17,7 @@
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
 
-#include <kiconloader.h>
+#include <KIconLoader>
 #include <KLocalizedString>
 
 #include <QDomElement>

@@ -11,7 +11,7 @@
 #include "transferdatasource.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 TransferDataSource::TransferDataSource(const QUrl &srcUrl, QObject *parent)
   : QObject(parent),

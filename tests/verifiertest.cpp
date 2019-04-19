@@ -4,10 +4,8 @@
 #include "../core/verifier.h"
 
 #include <QtTest>
-
 #include <QDebug>
-
-#include <KTempDir>
+#include <QTemporaryDir>
 
 typedef QPair<QString, QString> Checksum;
 typedef QPair<QString, PartialChecksums> Checksums;
@@ -23,7 +21,7 @@ VerfierTest::VerfierTest(QObject *parent)
     m_supported(Verifier::supportedVerficationTypes())
 {
     //create a file which will used in the test
-     m_tempDir.reset(new KTempDir(QDir::tempPath() + QStringLiteral("/kget_test")));
+     m_tempDir.reset(new QTemporaryDir(QDir::tempPath() + QStringLiteral("/kget_test")));
      QString path = m_tempDir->name();
      path.append("test.txt");
      QFile file(path);
@@ -31,7 +29,7 @@ VerfierTest::VerfierTest(QObject *parent)
          qCCritical(KGET_DEBUG) << "Creating file failed:" << path;
          abort();
      }
-     m_file = KUrl(path);
+     m_file = QUrl::fromLocalFile(path);
 
     const QByteArray data("This is a test for the KGet Verifier class.\n");
     const qint64 size = data.size();
@@ -43,9 +41,6 @@ VerfierTest::VerfierTest(QObject *parent)
     }
 
     qCDebug(KGET_DEBUG) << "Supported types:" << m_supported;
-
-    //Otherwise testVerify fails
-    qRegisterMetaType<KUrl>("KUrl");
 }
 
 void VerfierTest::testChecksum()

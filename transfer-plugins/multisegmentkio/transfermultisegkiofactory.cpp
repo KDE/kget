@@ -20,7 +20,7 @@
 #include <QDomElement>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include "kget_macro.h"
 
 K_PLUGIN_CLASS_WITH_JSON(TransferMultiSegKioFactory, "kget_multisegkiofactory.json")

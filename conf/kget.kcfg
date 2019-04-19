@@ -4,8 +4,6 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 
-  <include>KGlobalSettings</include>
-
   <kcfgfile name="kgetrc"/>
 
   <group name="Appearance">

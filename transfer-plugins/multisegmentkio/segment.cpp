@@ -15,7 +15,7 @@
 #include <cmath>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <KLocalizedString>
 
 #include <QTimer>

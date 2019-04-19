@@ -17,10 +17,10 @@
 #include <utime.h>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
-#include <kiconloader.h>
-#include <kio/scheduler.h>
+#include <KIconLoader>
+#include <KIO/Scheduler>
 #include <KIO/DeleteJob>
 #include <KIO/CopyJob>
 #include <KLocalizedString>

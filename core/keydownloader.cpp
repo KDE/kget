@@ -22,7 +22,7 @@
 #include "signature_p.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <KIO/Job>
 #include <KLocalizedString>
 #include <KMessageBox>

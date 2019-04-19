@@ -21,7 +21,7 @@
 #include "metalinktest.h"
 #include "../ui/metalinkcreator/metalinker.h"
 
-#include <KUrl>
+#include <QUrl>
 #include <QtTest>
 
 void MetalinkTest::testFilePath()
@@ -50,7 +50,7 @@ void MetalinkTest::testFilePath_data()
 
 void MetalinkTest::testUrl()
 {
-    QFETCH(KUrl, url);
+    QFETCH(QUrl, url);
     QFETCH(bool, result);
 
     KGetMetalink::Url data;
@@ -61,18 +61,18 @@ void MetalinkTest::testUrl()
 
 void MetalinkTest::testUrl_data()
 {
-    QTest::addColumn<KUrl>("url");
+    QTest::addColumn<QUrl>("url");
     QTest::addColumn<bool>("result");
 
-    QTest::newRow("empty url") << KUrl() << false;
-    QTest::newRow("no host") << KUrl("http://") << false;
-    QTest::newRow("empty protocol") << KUrl("www.example.com") << false;
-    QTest::newRow("valid url") << KUrl("http://www.example.com") << true;
+    QTest::newRow("empty url") << QUrl() << false;
+    QTest::newRow("no host") << QUrl("http://") << false;
+    QTest::newRow("empty protocol") << QUrl("www.example.com") << false;
+    QTest::newRow("valid url") << QUrl("http://www.example.com") << true;
 }
 
 void MetalinkTest::testMetaUrl()
 {
-    QFETCH(KUrl, url);
+    QFETCH(QUrl, url);
     QFETCH(QString, type);
     QFETCH(bool, result);
 
@@ -85,15 +85,15 @@ void MetalinkTest::testMetaUrl()
 
 void MetalinkTest::testMetaUrl_data()
 {
-    QTest::addColumn<KUrl>("url");
+    QTest::addColumn<QUrl>("url");
     QTest::addColumn<QString>("type");
     QTest::addColumn<bool>("result");
 
-    QTest::newRow("empty url") << KUrl() << "torrent" << false;
-    QTest::newRow("no host") << KUrl("http://") << "torrent" << false;
-    QTest::newRow("empty protocol") << KUrl("www.example.com") << "torrent" << false;
-    QTest::newRow("empty type") << KUrl("http://www.example.com") << QString() << false;
-    QTest::newRow("valid url") << KUrl("http://www.example.com") << "torrent" << true;
+    QTest::newRow("empty url") << QUrl() << "torrent" << false;
+    QTest::newRow("no host") << QUrl("http://") << "torrent" << false;
+    QTest::newRow("empty protocol") << QUrl("www.example.com") << "torrent" << false;
+    QTest::newRow("empty type") << QUrl("http://www.example.com") << QString() << false;
+    QTest::newRow("valid url") << QUrl("http://www.example.com") << "torrent" << true;
 }
 
 QTEST_MAIN(MetalinkTest)

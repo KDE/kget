@@ -21,7 +21,7 @@
 #include <QList>
 #include <QThread>
 
-#include <kio/global.h>
+#include <KIO/Global>
 #include <QStandardPaths>
 
 

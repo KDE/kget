@@ -13,7 +13,7 @@
 
 #include "kget.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 TransferFactory::TransferFactory(QObject *parent, const QVariantList &args)

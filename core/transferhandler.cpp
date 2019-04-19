@@ -21,7 +21,7 @@
 #include "kgetkjobadapter.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <KLocalizedString>
 #include <QAction>
 #include <QVariant>

@@ -19,12 +19,12 @@
 
 #include "mirrormodel.h"
 
+#include <QComboBox>
 #include <QSpinBox>
-
-#include <KComboBox>
-#include <KLineEdit>
-#include <KLocale>
 #include <QStandardPaths>
+
+#include <KLineEdit>
+#include <KLocalizedString>
 
 
 MirrorDelegate::MirrorDelegate(QObject *parent)
@@ -70,7 +70,7 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         {
             if (m_countrySort)
             {
-                KComboBox *countrySort = new KComboBox(parent);
+                QComboBox *countrySort = new QComboBox(parent);
                 countrySort->setModel(m_countrySort);
 
                 return countrySort;
@@ -97,7 +97,7 @@ void MirrorDelegate::setEditorData(QWidget *editor, const QModelIndex &index) co
             const int num = index.data(Qt::EditRole).toInt();
             priority->setValue(num);
         } else if (index.column() == MirrorItem::Country) {
-            KComboBox *countrySort = static_cast<KComboBox*>(editor);
+            QComboBox *countrySort = static_cast<QComboBox*>(editor);
             const QString countryCode = index.data(Qt::EditRole).toString();
             const int indexCountrySort = countrySort->findData(countryCode);
             countrySort->setCurrentIndex(indexCountrySort);
@@ -129,7 +129,7 @@ void MirrorDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, co
         }
         else if (index.column() == MirrorItem::Country)
         {
-            KComboBox *countrySort = static_cast<KComboBox*>(editor);
+            QComboBox *countrySort = static_cast<QComboBox*>(editor);
             const QString countryCode = countrySort->itemData(countrySort->currentIndex()).toString();
             model->setData(index, countryCode);
         }
@@ -320,8 +320,8 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
     else if ((column == MirrorItem::Country) && (role == Qt::EditRole))
     {
         m_countryCode = value.toString();
-        m_countryName = KLocale::global()->countryCodeToName(m_countryCode);
-
+//         m_countryName = KLocale::global()->countryCodeToName(m_countryCode);
+/*
         if (!m_countryName.isEmpty())
         {
             QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("locale/") + QString::fromLatin1("l10n/%1/flag.png").arg(m_countryCode));
@@ -338,7 +338,7 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
         {
             m_countryFlag = QIcon();
         }
-        return true;
+        return true;*/
     }
 
     return false;

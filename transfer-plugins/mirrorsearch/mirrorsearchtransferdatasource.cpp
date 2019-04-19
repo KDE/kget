@@ -12,7 +12,7 @@
 #include "mirrors.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const QUrl &srcUrl, QObject *parent)
   : TransferDataSource(srcUrl, parent)

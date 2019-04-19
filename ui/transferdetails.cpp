@@ -12,12 +12,12 @@
 
 #include "core/kget.h"
 
-#include <klocale.h>
-#include <kio/global.h>
+#include <KLocalizedString>
+#include <KIO/Global>
 
 #include "kget_debug.h"
-#include <qdebug.h>
 
+#include <QDebug>
 #include <QVBoxLayout>
 
 TransferDetails::TransferDetails(TransferHandler * transfer)

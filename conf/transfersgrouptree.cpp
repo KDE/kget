@@ -19,7 +19,7 @@
 #include "core/transfertreeselectionmodel.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 #include <QHeaderView>
 

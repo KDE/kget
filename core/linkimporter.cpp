@@ -12,6 +12,7 @@
 */
 #include "linkimporter.h"
 
+#include <QDebug>
 #include <QFile>
 #include <QIODevice>
 #include <QMap>
@@ -19,9 +20,8 @@
 #include <QDir>
 #include <QTextStream>
 
-#include <QDebug>
 #include <KLocalizedString>
-#include <kio/copyjob.h>
+#include <KIO/CopyJob>
 
 //static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
 // static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";

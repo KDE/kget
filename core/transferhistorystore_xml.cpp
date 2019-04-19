@@ -15,7 +15,7 @@
 #include <QTextStream>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 XmlStore::SaveThread::SaveThread(QObject *parent, const QString &url, const QList<TransferHistoryItem> &list) : QThread(parent),
     m_url(url),

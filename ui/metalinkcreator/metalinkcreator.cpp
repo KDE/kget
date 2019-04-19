@@ -23,17 +23,17 @@
 #include "localemodels.h"
 #include "generalwidget.h"
 
-#include <QTimer>
-#include <QDragEnterEvent>
-#include <QSortFilterProxyModel>
-#include <QMimeData>
-#include <QStandardItemModel>
-
 #include <QFileDialog>
+#include <QDragEnterEvent>
+#include <QMimeData>
+#include <QPushButton>
+#include <QSortFilterProxyModel>
+#include <QStandardItemModel>
+#include <QTimer>
+
 #include <KLocale>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <QPushButton>
 
 //TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
 

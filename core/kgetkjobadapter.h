@@ -15,7 +15,7 @@
 
 #include "transferhandler.h"
 
-#include <kio/job.h>
+#include <KIO/Job>
 
 /**
 * Allows kget to register all transfers in kuiserver as kjobs

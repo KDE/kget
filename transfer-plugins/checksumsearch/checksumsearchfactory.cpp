@@ -16,9 +16,8 @@
 
 #include "kget_debug.h"
 
+#include <QDebug>
 #include <QDomElement>
-
-#include <qdebug.h>
 
 K_PLUGIN_CLASS_WITH_JSON(ChecksumSearchFactory, "kget_checksumsearchfactory.json")
 

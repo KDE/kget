@@ -31,7 +31,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
         add_test(verifiertest verifiertest)
         ecm_mark_as_test(verifiertest)
 
-        target_link_libraries(verifiertest Qt5::Test KF5::KDELibs4Support ${QCA2_LIBRARIES} kgetcore)
+        target_link_libraries(verifiertest Qt5::Test ${QCA2_LIBRARIES} kgetcore)
     endif (QCA2_FOUND)
 
 
@@ -40,7 +40,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     add_test(schedulertest schedulertest ) 
     ecm_mark_as_test(schedulertest)
 
-    target_link_libraries(schedulertest Qt5::Test Qt5::Gui KF5::KDELibs4Support kgetcore)
+    target_link_libraries(schedulertest Qt5::Test Qt5::Gui kgetcore)
 
 
     #===========Metalinker===========
@@ -54,7 +54,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     add_test(metalinktest metalinktest)
     ecm_mark_as_test(metalinktest)
 
-    target_link_libraries(metalinktest KF5::KDELibs4Support KF5::KIOCore Qt5::Test)
+    target_link_libraries(metalinktest Qt5::Xml KF5::I18n KF5::KIOCore Qt5::Test)
 
     #===========FileDeleter===========
     set(filedeletertest_SRCS
@@ -66,6 +66,6 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_test(filedeletertest filedeletertest)
      ecm_mark_as_test(filedeletertest)
 
-    target_link_libraries(filedeletertest KF5::KIOCore Qt5::Test KF5::KDELibs4Support)
+    target_link_libraries(filedeletertest KF5::KIOCore Qt5::Test)
 
 endif(CMAKE_BUILD_TYPE MATCHES debugfull)

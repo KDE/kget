@@ -21,10 +21,10 @@
 #include "mmssettings.h"
 #include "mmstransfer.h"
 
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 K_PLUGIN_CLASS_WITH_JSON(MmsTransferFactory, "kget_mmsfactory.json")
 

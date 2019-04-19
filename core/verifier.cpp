@@ -27,7 +27,7 @@
 #include <QDomElement>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 #ifdef HAVE_QCA2
 #include <qca_basic.h>

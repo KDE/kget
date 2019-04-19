@@ -11,12 +11,13 @@
 #include "dlgmirrorsearch.h"
 
 #include "kget_macro.h"
+#include "kget_debug.h"
 #include "mirrorsearchsettings.h"
 
-#include "kget_debug.h"
-#include <qdebug.h>
 #include <KLocalizedString>
 #include <KConfigGroup>
+
+#include <QDebug>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

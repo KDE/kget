@@ -89,7 +89,7 @@
        </widget>
       </item>
       <item>
-       <widget class="KTextEdit" name="signature"/>
+       <widget class="QTextEdit" name="signature"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -320,11 +320,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KMessageWidget</class>
    <extends>QWidget</extends>

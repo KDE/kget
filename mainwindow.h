@@ -14,11 +14,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <ktoggleaction.h>
-#include <kxmlguiwindow.h>
-#include <kurl.h>
+#include <KStatusNotifierItem>
+#include <KToggleAction>
+#include <KXmlGuiWindow>
 
-#include <kstatusnotifieritem.h>
 #include "ui/tray.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"

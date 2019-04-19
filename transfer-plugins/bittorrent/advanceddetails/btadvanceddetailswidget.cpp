@@ -26,13 +26,12 @@
 #include "kget_debug.h"
 
 #include <QDialog>
-#include <KGlobal>
-#include <QTabWidget>
-#include <KTitleWidget>
-
 #include <QGridLayout>
-#include <KSharedConfig>
+#include <QTabWidget>
+
 #include <KConfigGroup>
+#include <KSharedConfig>
+#include <KTitleWidget>
 
 using namespace kt;
 

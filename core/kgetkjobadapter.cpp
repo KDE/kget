@@ -11,7 +11,7 @@
 #include "kgetkjobadapter.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <KLocalizedString>
 
 KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer)

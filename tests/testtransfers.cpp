@@ -25,7 +25,7 @@
 #include <QList>
 
 #include <KRun>
-#include <KTempDir>
+#include <QTemporaryDir>
 #include <qtest_kde.h>
 
 //FIXME not working fine if files or transfers are existing already
@@ -544,7 +544,7 @@ TestTransfers::TestTransfers()
         KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", nullptr);
     }
 
-    m_dir.reset(new KTempDir());
+    m_dir.reset(new QTemporaryDir());
     qCDebug(KGET_DEBUG) << "Using temp dir:" << tempDir();
 
 //TODO add a signal to check if the move worked!!

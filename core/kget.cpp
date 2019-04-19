@@ -32,29 +32,30 @@
 #include "kget_debug.h"
 
 #include <iostream>
-#include <qinputdialog.h>
-#include <kmessagebox.h>
-#include <klocale.h>
-#include <kservicetypetrader.h>
-#include <kiconloader.h>
-#include <kactioncollection.h>
-#include <kio/renamedialog.h>
-#include <kio/deletejob.h>
+
+#include <KMessageBox>
+#include <KLocalizedString>
+#include <KServiceTypeTrader>
+#include <KIconLoader>
+#include <KActionCollection>
+#include <KIO/RenameDialog>
+#include <KIO/DeleteJob>
 #include <KSharedConfig>
 #include <KPluginInfo>
 #include <KConfigDialog>
-#include <QSaveFile>
 #include <KPluginMetaData>
 
-#include <QTextStream>
-#include <QDomElement>
+#include <QAbstractItemView>
 #include <QApplication>
+#include <QDomElement>
 #include <QClipboard>
 #include <QFileDialog>
-#include <QAbstractItemView>
+#include <QInputDialog>
+#include <QSaveFile>
 #include <QStandardPaths>
 #include <QTimer>
 #include <QTemporaryFile>
+#include <QTextStream>
 
 #ifdef HAVE_KWORKSPACE
 #include <QDBusConnection>

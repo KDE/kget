@@ -33,13 +33,13 @@
 
 #include "kget_debug.h"
 
-#include <QFileInfo>
 #include <QCheckBox>
+#include <QFileInfo>
+#include <QDialogButtonBox>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 
-#include <KDialogButtonBox>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KSeparator>

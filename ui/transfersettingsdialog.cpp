@@ -20,8 +20,9 @@
 #include "core/verifier.h"
 
 #include <KMessageBox>
-#include <KLineEdit>
 #include <KLocalizedString>
+
+#include <QLineEdit>
 #include <QSortFilterProxyModel>
 
 TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler *transfer)

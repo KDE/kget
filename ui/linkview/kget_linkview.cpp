@@ -18,7 +18,7 @@
 #include "ui/newtransferdialog.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <QApplication>
 #include <QClipboard>
 #include <QMenu>

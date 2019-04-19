@@ -21,7 +21,7 @@
 #include "signature_p.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 SignatureThread::SignatureThread(QObject *parent)
   : QThread(parent),

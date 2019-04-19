@@ -19,7 +19,7 @@
 #include <QTime>
 #include <QUrl>
 
-#include <kio/global.h>
+#include <KIO/Global>
 
 class QDomElement;
 

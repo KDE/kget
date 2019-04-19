@@ -22,12 +22,13 @@
 #include "settings.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <KLocalizedString>
 #include <KMessageBox>
 
 #include <QDomElement>
-#include <KGlobal>
+#include <QGlobalStatic>
+
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>
 #include <gpgme++/data.h>
@@ -37,7 +38,7 @@
 #endif
 
 #ifdef HAVE_QGPGME
-K_GLOBAL_STATIC(KeyDownloader, signatureDownloader)
+Q_GLOBAL_STATIC(KeyDownloader, signatureDownloader)
 #endif //HAVE_QGPGME
 
 SignaturePrivate::SignaturePrivate(Signature *signature)

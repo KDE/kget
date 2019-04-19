@@ -20,21 +20,20 @@
  ***************************************************************************/
 #include "trackerview.h"
 
+#include <QInputDialog>
 #include <QHeaderView>
 #include <QClipboard>
 
 #include <KConfigGroup>
-#include <QInputDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KUrl>
+#include <KSharedConfig>
 
 #include <torrent/globals.h>
 #include <interfaces/trackerinterface.h>
 #include <interfaces/torrentinterface.h>
 #include <interfaces/trackerslist.h>
 #include <util/log.h>
-#include <KSharedConfig>
 #include "trackermodel.h"
 
 
@@ -91,7 +90,7 @@ namespace kt
 		if (!ok)
 			return;
 				
-		KUrl url(text);
+		QUrl url(text);
 		if (!url.isValid())
 		{
 			KMessageBox::error(nullptr, i18n("Malformed URL."));

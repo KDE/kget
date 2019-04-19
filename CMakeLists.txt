@@ -32,27 +32,25 @@ find_package(KF5 ${KF5_VERSION} REQUIRED
     Config
     ConfigWidgets
     CoreAddons
+    Crash
     DBusAddons
     DocTools
     I18n
     IconThemes
     ItemViews
     KCMUtils
-    KDELibs4Support
     KIO
     Notifications
     NotifyConfig
     Parts
     Service
-    Solid
     TextWidgets
     Wallet
     WidgetsAddons
     WindowSystem
     XmlGui
+    KDELibs4Support # KLocale
 )
-
-#TODO: Check if we need all the dependencies
 
 #include(CheckIncludeFile)
 #include(CheckIncludeFiles)
@@ -208,7 +206,7 @@ qt5_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverif
 add_library(kgetcore SHARED ${kgetcore_SRCS})
 generate_export_header(kgetcore BASE_NAME kget)
 
-target_link_libraries(kgetcore Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KDELibs4Support)
+target_link_libraries(kgetcore Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::ConfigGui KF5::CoreAddons KF5::DBusAddons KF5::I18n KF5::IconThemes KF5::KIOCore KF5::KIOWidgets KF5::Notifications KF5::Service KF5::XmlGui)
 
 if(LibKWorkspace_FOUND)
     target_link_libraries(kgetcore PW::KWorkspace)
@@ -315,7 +313,7 @@ ki18n_wrap_ui(kget_SRCS
 
 add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::Wallet KF5::DBusAddons KF5::I18n KF5::CoreAddons KF5::IconThemes KF5::KCMUtils KF5::NotifyConfig KF5::KDELibs4Support kgetcore)
+target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::Crash KF5::Wallet KF5::DBusAddons KF5::I18n KF5::Completion KF5::CoreAddons KF5::IconThemes KF5::ItemViews KF5::KCMUtils KF5::NotifyConfig KF5::WindowSystem KF5::KDELibs4Support kgetcore)
 if(Qca_FOUND)
   target_link_libraries(kget qca)
 endif()

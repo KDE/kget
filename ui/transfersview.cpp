@@ -17,14 +17,15 @@
 #include "core/kget.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <QAction>
+
 #include <KLocalizedString>
-#include <QMenu>
 #include <KRun>
 
+#include <QAction>
+#include <QDebug>
 #include <QDropEvent>
 #include <QHeaderView>
+#include <QMenu>
 #include <QSignalMapper>
 #include <QGroupBox>
 

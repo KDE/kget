@@ -12,14 +12,13 @@
 #include "ui/newtransferdialog.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
-#include <kaboutdata.h>
-#include <kactioncollection.h>
-#include <kapplication.h>
+#include <KAboutData>
+#include <KActionCollection>
+#include <KLocalizedString>
+
 #include <QMenu>
-#include <klocale.h>
-
 #include <QClipboard>
 
 /** class Tray

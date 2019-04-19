@@ -11,7 +11,7 @@
 #ifndef KGETGLOBALJOB_H
 #define KGETGLOBALJOB_H
 
-#include <kio/job.h>
+#include <KIO/Job>
 
 class TransferHandler;
 

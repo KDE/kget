@@ -23,18 +23,18 @@
 #include "settings.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <klocale.h>
-#include <QMenu>
-#include <QIcon>
+#include <KLocalizedString>
 
 #include <QApplication>
-#include <QPainter>
+#include <QAbstractItemView>
+#include <QButtonGroup>
+#include <QDebug>
+#include <QHBoxLayout>
+#include <QIcon>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QModelIndex>
-#include <QButtonGroup>
-#include <QHBoxLayout>
-#include <QAbstractItemView>
+#include <QPainter>
 
 GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)
     : QToolButton(parent),

@@ -18,7 +18,7 @@
 #include <boost/bind.hpp>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 Scheduler::Scheduler(QObject * parent)
   : QObject(parent),

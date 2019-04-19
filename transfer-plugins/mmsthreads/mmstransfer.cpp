@@ -21,7 +21,7 @@
 
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
 

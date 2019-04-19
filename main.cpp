@@ -9,13 +9,13 @@
    version 2 of the License, or (at your option) any later version.
 */
 
+#include <KAboutData>
+#include <KDBusService>
 #include <Kdelibs4ConfigMigrator>
 #include <Kdelibs4Migration>
-#include <kstartupinfo.h>
-#include <kwindowsystem.h>
-#include <klocale.h>
-#include <kaboutdata.h>
-#include <kdbusservice.h>
+#include <KLocalizedString>
+#include <KStartupInfo>
+#include <KWindowSystem>
 
 #include <QCommandLineParser>
 #include <QCommandLineOption>

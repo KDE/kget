@@ -21,6 +21,7 @@
 #include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
+#include "core/verifier.h"
 #include "settings.h"
 #include "conf/autopastemodel.h"
 #include "conf/preferencesdialog.h"
@@ -39,28 +40,27 @@
 #endif
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
-#include <kapplication.h>
-#include <QInputDialog>
-#include <kmessagebox.h>
-#include <knotifyconfigwidget.h>
-#include <ktoolinvocation.h>
-#include <kmenubar.h>
-#include <kiconloader.h>
-#include <kstandardaction.h>
-#include <klocale.h>
-#include <QIcon>
-#include <kactionmenu.h>
-#include <KSelectAction>
+#include <KActionMenu>
+#include <KIconDialog>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KNotifyConfigWidget>
 #include <KRun>
-#include <kicondialog.h>
-#include "core/verifier.h"
+#include <KSelectAction>
+#include <KStandardAction>
+
+#include <QApplication>
 #include <QClipboard>
 #include <QFileDialog>
-#include <QTimer>
+#include <QIcon>
+#include <QInputDialog>
 #include <QKeySequence>
+#include <QMenuBar>
+#include <QSessionManager>
 #include <QStandardPaths>
+#include <QTimer>
 #ifdef DO_KGET_TEST
     #include <QtTest>
 #endif
@@ -422,7 +422,10 @@ void MainWindow::init()
     setStandardToolBarMenuEnabled(true);
 
     // session management stuff
-    connect(kapp, SIGNAL(saveYourself()), SLOT(slotSaveMyself()));
+    auto disableSessionManagement = [](QSessionManager &sm) {
+        sm.setRestartHint(QSessionManager::RestartNever);
+    };
+    QObject::connect(qApp, &QGuiApplication::saveStateRequest, disableSessionManagement);
 
     // set auto-resume in kioslaverc (is there a cleaner way?)
     KConfig cfg("kioslaverc", KConfig::NoGlobals);

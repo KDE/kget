@@ -15,8 +15,8 @@
 #include "core/kget.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <kio/global.h>
+#include <QDebug>
+#include <KIO/Global>
 
 #include <QDomElement>
 

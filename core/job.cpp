@@ -14,7 +14,7 @@
 #include "core/jobqueue.h"
 #include "core/scheduler.h"
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 Job::Job(Scheduler * scheduler, JobQueue * parent)
     : QObject(parent),

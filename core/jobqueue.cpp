@@ -13,7 +13,7 @@
 #include "settings.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 JobQueue::JobQueue(Scheduler * parent)
     : QObject(parent),

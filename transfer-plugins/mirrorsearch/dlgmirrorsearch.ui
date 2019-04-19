@@ -71,7 +71,7 @@
   <customwidget>
    <class>KTitleWidget</class>
    <extends>QWidget</extends>
-   <header>ktitlewidget.h</header>
+   <header>KTitleWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>

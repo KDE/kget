@@ -39,7 +39,7 @@ dlgmetalink.ui
 
 kconfig_add_kcfg_files(kcm_kget_metalinkfactory_PART_SRCS metalinksettings.kcfgc)
 add_library(kcm_kget_metalinkfactory MODULE ${kcm_kget_metalinkfactory_PART_SRCS})
-target_link_libraries(kcm_kget_metalinkfactory KF5::I18n KF5::ConfigGui KF5::KDELibs4Support)
+target_link_libraries(kcm_kget_metalinkfactory KF5::I18n KF5::ConfigGui KF5::ConfigWidgets)
 install(TARGETS kcm_kget_metalinkfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 
 install(FILES kget_metalinkfactory_config.desktop DESTINATION ${SERVICES_INSTALL_DIR})

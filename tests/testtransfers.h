@@ -15,7 +15,7 @@
 #include <QDBusVariant>
 #include <QtTest>
 #include <QDomElement>
-#include <KTempDir>
+#include <QTemporaryDir>
 class OrgKdeKgetTransferInterface;
 class OrgKdeKgetVerifierInterface;
 class TestTransfers;
@@ -101,7 +101,7 @@ class TestTransfers: public QObject
     private:
         QList<OrgKdeKgetTransferInterface *> m_transferIfaces;
         QList<Commands*> m_commands;
-        QScopedPointer<KTempDir> m_dir;
+        QScopedPointer<QTemporaryDir> m_dir;
 };
 
 #endif

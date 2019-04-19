@@ -26,19 +26,18 @@
 
 #include "kget_debug.h"
 
+#include <KConfigGroup>
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
+
 #include <QDialog>
-
-
-#include <QFile>
 #include <QDir>
+#include <QFile>
 #include <QDomElement>
 #include <QStandardPaths>
-#include <KConfigGroup>
 
 MetalinkXml::MetalinkXml(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const QUrl & source, const QUrl & dest,

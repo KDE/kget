@@ -19,8 +19,8 @@
 #include "kget.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <kuiserverjobtracker.h>
+#include <QDebug>
+#include <KUiServerJobTracker>
 
 KUiServerJobs::KUiServerJobs(QObject *parent)
     : QObject(parent), m_globalJob(nullptr)

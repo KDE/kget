@@ -17,7 +17,7 @@
 
 #include <QObject>
 
-#include <kio/job.h>
+#include <KIO/Job>
 
 /**
  * This Class is an interface for inter-plugins data change.

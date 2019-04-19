@@ -14,7 +14,7 @@
 #include "settings.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 TransferGroupScheduler::TransferGroupScheduler(QObject *parent)
   : Scheduler(parent),

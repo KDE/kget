@@ -14,7 +14,7 @@
 #include "core/transfer.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 MultiSegKioDataSource::MultiSegKioDataSource(const QUrl &srcUrl, QObject *parent)
   : TransferDataSource(srcUrl, parent),

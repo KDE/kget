@@ -19,7 +19,7 @@
 
 #include "generalwidget.h"
 
-#include <KSystemTimeZone>
+#include <QTimeZone>
 
 #include "metalinker.h"
 
@@ -47,7 +47,9 @@ void GeneralWidget::load(const KGetMetalink::Metalink &metalink) const
         ui.publishedNegative->setChecked(metalink.published.negativeOffset);
     } else {
         ui.published->setDateTime(QDateTime::currentDateTime());
-        int offset = KSystemTimeZones::local().currentOffset();
+        QDateTime a = QDateTime::currentDateTime();
+        a.setTimeZone(QTimeZone::systemTimeZone());
+        int offset = a.offsetFromUtc();
         const bool negativeOffset = (offset < 0);
         offset = abs(offset);
         QTime time = QTime(0, 0, 0);
@@ -70,7 +72,9 @@ void GeneralWidget::load(const KGetMetalink::Metalink &metalink) const
         ui.updatedNegative->setChecked(metalink.updated.negativeOffset);
     } else {
         ui.updated->setDateTime(QDateTime::currentDateTime());
-        int offset = KSystemTimeZones::local().currentOffset();
+        QDateTime a = QDateTime::currentDateTime();
+        a.setTimeZone(QTimeZone::systemTimeZone());
+        int offset = a.offsetFromUtc();
         const bool negativeOffset = (offset < 0);
         QTime time = QTime(0, 0, 0);
         time = time.addSecs(abs(offset));

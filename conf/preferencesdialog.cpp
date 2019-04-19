@@ -21,9 +21,8 @@
 #include "verificationpreferences.h"
 
 #include <KLocalizedString>
-#include <ktabwidget.h>
-#include <kconfigdialog.h>
-#include <kconfigskeleton.h>
+#include <KConfigDialog>
+#include <KConfigSkeleton>
 
 PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
     : KConfigDialog(parent, "preferences", skeleton)

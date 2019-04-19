@@ -21,13 +21,13 @@
 #define KGET_VERIFIER_TEST_H
 
 #include <QStringList>
-#include <KUrl>
+#include <QUrl>
 
 #ifdef HAVE_QCA2
 #include <QtCrypto>
 #endif
 
-class KTempDir;
+class QTemporaryDir;
 
 class VerfierTest : public QObject
 {
@@ -62,8 +62,8 @@ class VerfierTest : public QObject
 #ifdef HAVE_QCA2
         QCA::Initializer m_qcaInit;
 #endif //HAVE_QCA2
-        QScopedPointer<KTempDir> m_tempDir;
-        KUrl m_file;
+        QScopedPointer<QTemporaryDir> m_tempDir;
+        QUrl m_file;
         const QStringList m_supported;
 };
 

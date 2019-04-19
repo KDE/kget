@@ -12,7 +12,7 @@
 #include <QFile>
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 Download::Download(const QUrl &srcUrl, const QUrl &destUrl)
   : m_srcUrl(srcUrl),

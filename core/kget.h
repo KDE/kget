@@ -18,12 +18,10 @@
 #ifndef KGET_H
 #define KGET_H
 
-#include <kservice.h>
-#include <kurl.h>
-#include <kactioncollection.h>
+#include <KService>
+#include <KActionCollection>
 #include <KNotification>
-#include <ktabwidget.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <KPluginInfo>
 
 #include <QNetworkConfigurationManager>

@@ -26,7 +26,7 @@
 
 
 #include "kget_debug.h"
-#include <qdebug.h>
+#include <QDebug>
 
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>
@@ -57,7 +57,7 @@ SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget 
     if (m_signature) {
         connect(ui.loadSignature, &QPushButton::clicked, this, &SignatureDlg::loadSignatureClicked);
         connect(ui.verify, &QPushButton::clicked, this, &SignatureDlg::verifyClicked);
-        connect(ui.signature, &KTextEdit::textChanged, this, &SignatureDlg::textChanged);
+        connect(ui.signature, &QTextEdit::textChanged, this, &SignatureDlg::textChanged);
         connect(m_signature, &Signature::verified, this, &SignatureDlg::updateData);
 
         if (m_fileModel) {

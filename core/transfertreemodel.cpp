@@ -24,8 +24,9 @@
 #include "transfergroupscheduler.h"
 
 #include "kget_debug.h"
-#include <qdebug.h>
-#include <klocale.h>
+#include <QDebug>
+
+#include <KLocalizedString>
 #include <KIO/Global>
 
 ItemMimeData::ItemMimeData()

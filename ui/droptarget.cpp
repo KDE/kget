@@ -20,21 +20,21 @@
 #include "mainwindow.h"
 #include "ui/newtransferdialog.h"
 
-#include <kwindowsystem.h>
-#include <QMenu>
-#include <kmessagebox.h>
+#include <KMessageBox>
 #include <KPassivePopup>
-#include <kapplication.h>
+#include <KWindowSystem>
 
-#include <QDesktopWidget>
+#include <QGuiApplication>
 #include <QBitmap>
+#include <QClipboard>
+#include <QDesktopWidget>
+#include <QMenu>
 #include <QPainter>
 #include <QTimer>
 #include <QToolTip>
-#include <QClipboard>
 #include <QStringList>
 
-#include <math.h>
+#include <cmath>
 
 #define TARGET_SIZE   64
 #define TARGET_ANI_MS 20
@@ -249,7 +249,7 @@ void DropTarget::dropEvent(QDropEvent * event)
 
 void DropTarget::closeEvent( QCloseEvent * e )
 {
-    if( kapp->sessionSaving() )
+    if( qApp->isSavingSession() )
         e->ignore();
     else
     {

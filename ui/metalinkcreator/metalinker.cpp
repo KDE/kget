@@ -21,14 +21,14 @@
 #include "metalinker.h"
 
 #include <QFile>
-#include <QTextStream>
 #include <QDomElement>
+#include <QTextStream>
+#include <QTimeZone>
+
+#include <KLocalizedString>
 
 #include "kget_debug.h"
-
 #include "kget_version.h"
-#include <KLocalizedString>
-#include <KSystemTimeZone>
 
 
 const QString KGetMetalink::Metalink::KGET_DESCRIPTION = QStringLiteral("KGet/" KGET_VERSION_STRING);
@@ -939,9 +939,11 @@ KGetMetalink::DateConstruct KGetMetalink::Metalink_v3::parseDateConstruct(const 
     bool negativeOffset = false;
 
     if (temp.length() == 3) { //e.g. GMT
-        KTimeZone timeZone = KSystemTimeZones::readZone(temp);
+        const auto timeZone = QTimeZone(temp.toUtf8());
         if (timeZone.isValid()) {
-            int offset = timeZone.currentOffset();
+            QDateTime a = QDateTime::currentDateTime();
+            a.setTimeZone(timeZone);
+            int offset = a.offsetFromUtc();
             negativeOffset = (offset < 0);
             timeZoneOffset = QTime(0, 0, 0);
             timeZoneOffset = timeZoneOffset.addSecs(qAbs(offset));
