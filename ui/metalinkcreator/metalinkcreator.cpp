@@ -117,13 +117,26 @@ void MetalinkCreator::create()
     createIntroduction();
     m_general = new GeneralWidget(this);
     m_generalPage = addPage(m_general, i18n("General optional information for the metalink."));
-    QTimer::singleShot(0, this, SLOT(slotDelayedCreation()));
+    QTimer::singleShot(0, this, &MetalinkCreator::slotDelayedCreation);
 }
 
 void MetalinkCreator::slotDelayedCreation()
 {
+    QStringList allCountries;
+    for (int c = 1; c <= QLocale::LastCountry; c++) {
+        const auto country = static_cast<QLocale::Country>(c);
+        QLocale locale(QLocale::AnyLanguage, country);
+        if (locale.country() == country) {
+            const QString localeName = locale.name();
+            const auto idx = localeName.indexOf(QLatin1Char('_'));
+            if (idx != -1) {
+                const QString countryCode = localeName.mid(idx + 1);
+                allCountries.append(countryCode);
+            }
+        }
+    }
     CountryModel *countryModel = new CountryModel(this);
-    countryModel->setupModelData(KLocale::global()->allCountriesList());
+    countryModel->setupModelData(allCountries);
     m_countrySort = new QSortFilterProxyModel(this);
     m_countrySort->setSourceModel(countryModel);
     m_countrySort->sort(0);

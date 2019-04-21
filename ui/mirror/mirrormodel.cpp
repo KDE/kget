@@ -320,8 +320,8 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
     else if ((column == MirrorItem::Country) && (role == Qt::EditRole))
     {
         m_countryCode = value.toString();
-//         m_countryName = KLocale::global()->countryCodeToName(m_countryCode);
-/*
+        m_countryName = KLocale::global()->countryCodeToName(m_countryCode);
+
         if (!m_countryName.isEmpty())
         {
             QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("locale/") + QString::fromLatin1("l10n/%1/flag.png").arg(m_countryCode));
@@ -338,7 +338,7 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
         {
             m_countryFlag = QIcon();
         }
-        return true;*/
+        return true;
     }
 
     return false;
