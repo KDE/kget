@@ -25,6 +25,7 @@
 
 #include <KLineEdit>
 #include <KLocalizedString>
+#include <KLocale>
 
 
 MirrorDelegate::MirrorDelegate(QObject *parent)
