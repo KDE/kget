@@ -139,12 +139,14 @@ void MetalinkCreator::slotDelayedCreation()
     countryModel->setupModelData(allCountries);
     m_countrySort = new QSortFilterProxyModel(this);
     m_countrySort->setSourceModel(countryModel);
+    m_countrySort->setSortLocaleAware(true);
     m_countrySort->sort(0);
 
     m_languageModel = new LanguageModel(this);
     m_languageModel->setupModelData(KLocale::global()->allLanguagesList());
     m_languageSort = new QSortFilterProxyModel(this);
     m_languageSort->setSourceModel(m_languageModel);
+    m_languageSort->setSortLocaleAware(true);
     m_languageSort->sort(0);
 
     createFiles();
