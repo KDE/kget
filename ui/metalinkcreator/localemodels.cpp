@@ -20,6 +20,7 @@
 #include "localemodels.h"
 
 #include <KLocale>
+#include <QLocale>
 #include <QStandardPaths>
 
 
@@ -61,11 +62,21 @@ int CountryModel::rowCount(const QModelIndex &parent) const
     return m_countryCodes.count();
 }
 
-void CountryModel::setupModelData(const QStringList &countryCodes)
+void CountryModel::setupModelData()
 {
-    foreach (const QString &countryCode, countryCodes)
-    {
+    for (int c = 1; c <= QLocale::LastCountry; c++) {
+        QString countryCode;
+        const auto country = static_cast<QLocale::Country>(c);
+        QLocale locale(QLocale::AnyLanguage, country);
+        if (locale.country() == country) {
+            const QString localeName = locale.name();
+            const auto idx = localeName.indexOf(QLatin1Char('_'));
+            if (idx != -1) {
+                countryCode = localeName.mid(idx + 1);
+            }
+        }
         const QString countryName = KLocale::global()->countryCodeToName(countryCode);
+
         if (!countryName.isEmpty())
         {
             m_countryCodes.append(countryCode);
@@ -121,7 +132,7 @@ int LanguageModel::rowCount(const QModelIndex &parent) const
 
 void LanguageModel::setupModelData(const QStringList &languageCodes)
 {
-    foreach (const QString &languageCode, languageCodes)
+    for (const QString &languageCode : languageCodes)
     {
         //no KDE-custom language-codes
         if (languageCode.contains('@'))

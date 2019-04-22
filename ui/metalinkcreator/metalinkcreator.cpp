@@ -122,21 +122,8 @@ void MetalinkCreator::create()
 
 void MetalinkCreator::slotDelayedCreation()
 {
-    QStringList allCountries;
-    for (int c = 1; c <= QLocale::LastCountry; c++) {
-        const auto country = static_cast<QLocale::Country>(c);
-        QLocale locale(QLocale::AnyLanguage, country);
-        if (locale.country() == country) {
-            const QString localeName = locale.name();
-            const auto idx = localeName.indexOf(QLatin1Char('_'));
-            if (idx != -1) {
-                const QString countryCode = localeName.mid(idx + 1);
-                allCountries.append(countryCode);
-            }
-        }
-    }
     CountryModel *countryModel = new CountryModel(this);
-    countryModel->setupModelData(allCountries);
+    countryModel->setupModelData();
     m_countrySort = new QSortFilterProxyModel(this);
     m_countrySort->setSourceModel(countryModel);
     m_countrySort->setSortLocaleAware(true);
