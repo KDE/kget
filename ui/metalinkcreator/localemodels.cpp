@@ -19,7 +19,9 @@
 
 #include "localemodels.h"
 
+#include <KLanguageName>
 #include <KLocale>
+
 #include <QLocale>
 #include <QStandardPaths>
 
@@ -64,14 +66,17 @@ int CountryModel::rowCount(const QModelIndex &parent) const
 
 void CountryModel::setupModelData()
 {
-    for (int c = 1; c <= QLocale::LastCountry; c++) {
+    for (int c = 1; c <= QLocale::LastCountry; ++c)
+    {
         QString countryCode;
         const auto country = static_cast<QLocale::Country>(c);
         QLocale locale(QLocale::AnyLanguage, country);
-        if (locale.country() == country) {
+        if (locale.country() == country)
+        {
             const QString localeName = locale.name();
             const auto idx = localeName.indexOf(QLatin1Char('_'));
-            if (idx != -1) {
+            if (idx != -1)
+            {
                 countryCode = localeName.mid(idx + 1);
             }
         }
@@ -107,14 +112,9 @@ QVariant LanguageModel::data(const QModelIndex &index, int role) const
     {
         return QVariant();
     }
-
-    if (role == Qt::DisplayRole)
+    else if (role == Qt::DisplayRole)
     {
         return m_languageNames.value(index.row());
-    }
-    else if (role == Qt::UserRole)
-    {
-        return m_languageCodes.value(index.row());
     }
 
     return QVariant();
@@ -127,24 +127,23 @@ int LanguageModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return m_languageCodes.count();
+    return m_languageNames.count();
 }
 
-void LanguageModel::setupModelData(const QStringList &languageCodes)
+void LanguageModel::setupModelData()
 {
-    for (const QString &languageCode : languageCodes)
+    for (int l = 1; l <= QLocale::LastLanguage; ++l)
     {
-        //no KDE-custom language-codes
-        if (languageCode.contains('@'))
+        const auto lang = static_cast<QLocale::Language>(l);
+        QLocale locale(lang);
+        if (locale.language() == lang)
         {
-            continue;
-        }
-
-        QString languageName = KLocale::global()->languageCodeToName(languageCode);
-        if (!languageName.isEmpty())
-        {
-            m_languageCodes.append(languageCode);
-            m_languageNames.append(languageName);
+            const QString localeName = locale.name();
+            const QString languageName = KLanguageName::nameForCode(localeName);
+            if (!languageName.isEmpty())
+            {
+                m_languageNames.append(languageName);
+            }
         }
     }
     reset();

@@ -63,7 +63,7 @@ class LanguageModel : public QAbstractListModel
         int rowCount (const QModelIndex &parent = QModelIndex()) const override;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-        void setupModelData(const QStringList &languageCodes);
+        void setupModelData();
 
     private:
         QStringList m_languageCodes;

@@ -31,7 +31,6 @@
 #include <QStandardItemModel>
 #include <QTimer>
 
-#include <KLocale>
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -130,7 +129,7 @@ void MetalinkCreator::slotDelayedCreation()
     m_countrySort->sort(0);
 
     m_languageModel = new LanguageModel(this);
-    m_languageModel->setupModelData(KLocale::global()->allLanguagesList());
+    m_languageModel->setupModelData();
     m_languageSort = new QSortFilterProxyModel(this);
     m_languageSort->setSourceModel(m_languageModel);
     m_languageSort->setSortLocaleAware(true);
