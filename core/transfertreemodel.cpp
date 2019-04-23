@@ -22,8 +22,10 @@
 #include "dbus/dbustransferwrapper.h"
 #include "settings.h"
 #include "transfergroupscheduler.h"
-
 #include "kget_debug.h"
+
+#include <algorithm>
+
 #include <QDebug>
 
 #include <KLocalizedString>
@@ -576,7 +578,7 @@ QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
     ItemMimeData *mimeData = new ItemMimeData();
 
     QModelIndexList sortedIndexes = indexes;
-    qSort(sortedIndexes.begin(), sortedIndexes.end(), qGreater<QModelIndex>());
+    std::sort(sortedIndexes.begin(), sortedIndexes.end(), [](const QModelIndex &a, const QModelIndex &b) { return b < a; });
     foreach (const QModelIndex &index, sortedIndexes) {
         if (index.isValid() && index.column() == 0 && index.parent().isValid()) {
             ModelItem *item = itemFromIndex(index);

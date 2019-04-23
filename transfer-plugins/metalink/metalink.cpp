@@ -23,19 +23,20 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
+#include <algorithm>
+
+#include <KConfigGroup>
 #include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
+
 #include <QDebug>
 #include <QDialog>
-
-
-#include <QFile>
 #include <QDomElement>
+#include <QFile>
 #include <QStandardPaths>
-#include <KConfigGroup>
 
 Metalink::Metalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const QUrl & source, const QUrl & dest,
@@ -137,7 +138,7 @@ bool Metalink::metalinkInit(const QUrl &src, const QByteArray &data)
 
         QList<KGetMetalink::Url> urlList = (*it).resources.urls;
         //sort the urls according to their priority (highest first)
-        qSort(urlList.begin(), urlList.end(), qGreater<KGetMetalink::Url>());
+        std::sort(urlList.begin(), urlList.end(), [](const KGetMetalink::Url &a, const KGetMetalink::Url &b) { return b < a; });
 
         KIO::filesize_t fileSize = (*it).size;
         m_totalSize += fileSize;

@@ -31,6 +31,7 @@
 
 #include "kget_debug.h"
 
+#include <algorithm>
 #include <iostream>
 
 #include <KMessageBox>
@@ -418,7 +419,7 @@ QList<TransferHandler *> KGet::selectedTransfers()
 
     QModelIndexList selectedIndexes = m_selectionModel->selectedRows();
     //sort the indexes as this can speed up operations like deleting etc.
-    qSort(selectedIndexes.begin(), selectedIndexes.end());
+    std::sort(selectedIndexes.begin(), selectedIndexes.end());
 
     foreach(const QModelIndex &currentIndex, selectedIndexes)
     {

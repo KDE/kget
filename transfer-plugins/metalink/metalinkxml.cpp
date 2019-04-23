@@ -26,6 +26,8 @@
 
 #include "kget_debug.h"
 
+#include <algorithm>
+
 #include <KConfigGroup>
 #include <KIconLoader>
 #include <KIO/DeleteJob>
@@ -133,7 +135,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 
         QList<KGetMetalink::Url> urlList = (*it).resources.urls;
         //sort the urls according to their priority (highest first)
-        qSort(urlList.begin(), urlList.end(), qGreater<KGetMetalink::Url>());
+        std::sort(urlList.begin(), urlList.end(), [](const KGetMetalink::Url &a, const KGetMetalink::Url &b) { return b < a; });
 
         KIO::filesize_t fileSize = (*it).size;
         m_totalSize += fileSize;
