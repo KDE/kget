@@ -534,7 +534,7 @@ void NewTransferDialogHandler::showNewTransferDialog(QList<QUrl> urls)
                 urls.removeLast();
             }
         } else if (!lastUrl.isValid() || (lastUrl.scheme().isEmpty() && lastUrl.adjusted(QUrl::RemoveFilename).isEmpty())) {
-            // Sometimes valid filenames are not recognised by KURL::isLocalFile(), they are marked as invalid then
+            // Sometimes valid filenames are not recognized by KURL::isLocalFile(), they are marked as invalid then
             suggestedFileName = lastUrl.url();
             urls.removeLast();
         }
@@ -544,7 +544,7 @@ void NewTransferDialogHandler::showNewTransferDialog(QList<QUrl> urls)
     if (urls.count() > 2 && urls.last().isLocalFile()) {
         
     /**
-     * FIXME should the code be uncommented again, though then inputing a wrong destination like
+     * FIXME should the code be uncommented again, though then inputting a wrong destination like
      * ~/Downloads/folderNotExisting would result in ~/Downloads/ instead of informing the user
      * and giving them the possibility to improve their mistake
      */

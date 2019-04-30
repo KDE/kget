@@ -106,7 +106,7 @@ void KeyDownloader::downloadKey(QString fingerprint, Signature *sig, bool mirror
         url.setQuery("op=get&options=mr&search=" + fingerprint);
         url.setPort(11371);
 
-        qCDebug(KGET_DEBUG) << "Dowloading:" << url;
+        qCDebug(KGET_DEBUG) << "Downloading:" << url;
 
         KIO::StoredTransferJob *job = KIO::storedGet(url, KIO::Reload, KIO::HideProgressInfo);
         m_jobs[job] = fingerprint;

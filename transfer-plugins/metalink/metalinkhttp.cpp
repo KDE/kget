@@ -99,8 +99,8 @@ void MetalinkHttp::startMetalink()
 {
     if (m_ready) {
         foreach (DataSourceFactory *factory, m_dataSourceFactory) {
-            //specified number of files is downloaded simultanously
-            if (m_currentFiles < MetalinkSettings::simultanousFiles()) {
+            //specified number of files is downloaded simultaneously
+            if (m_currentFiles < MetalinkSettings::simultaneousFiles()) {
                 const Job::Status status = factory->status();
 
                 //only start factories that should be downloaded

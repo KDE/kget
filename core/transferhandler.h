@@ -76,7 +76,7 @@ class KGET_EXPORT TransferHandler : public Handler
         /**
          * Tries to repair file
          * @param file the file of a download that should be repaired,
-         * if not defined all files of a download are going to be repaird
+         * if not defined all files of a download are going to be repaired
          * @return true if a repair started, false if it was not nescessary
          */
         bool repair(const QUrl &file = QUrl()) {return m_transfer->repair(file);}

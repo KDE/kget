@@ -90,29 +90,29 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * @param url the url to the file
          * @param used defines whether the mirror should initially be used for downloading or not,
          * if true m_maxMirrorsUsed might be increased if needed
-         * @param numParalellConnections the number of simultanous connections allowed to that mirror,
+         * @param numParallelConnections the number of simultaneous connections allowed to that mirror,
          * minimum is 1
-         * @note when you add an already existing mirror only the numParalellConnections are adapted
-         * to the new value, so to change the number of paralell connections of a mirror you are already
+         * @note when you add an already existing mirror only the numParallelConnections are adapted
+         * to the new value, so to change the number of parallel connections of a mirror you are already
          * using simply call addMirror again
          */
-        void addMirror(const QUrl &url, bool used, int numParalellConnections = 1);
+        void addMirror(const QUrl &url, bool used, int numParallelConnections = 1);
 
         /**
          * Add a mirror that can be used for downloading, if it will be used depends if maxMirrorsUsed
          * has been reached yet
          * @param url the url to the file
-         * @param numParalellConnections the number of simultanous connections allowed to that mirror,
+         * @param numParallelConnections the number of simultaneous connections allowed to that mirror,
          * minimum is 1
-         * @note when you add an already existing mirror only the numParalellConnections are adapted
-         * to the new value, so to change the number of paralell connections of a mirror you are already
+         * @note when you add an already existing mirror only the numParallelConnections are adapted
+         * to the new value, so to change the number of parallel connections of a mirror you are already
          * using simply call addMirror again
         */
-        void addMirror(const QUrl &url, int numParalellConnections = 1);
+        void addMirror(const QUrl &url, int numParallelConnections = 1);
 
         /**
          * Does not use the specified mirror for downloading the file
-         * @note if the mirror has bee unsed for downloading it will be moved to m_unusedMirrors,
+         * @note if the mirror has been used for downloading it will be moved to m_unusedMirrors,
          * otherwise nohting will happen
          * @param url the mirror that should not be used anymore
          */
@@ -120,7 +120,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         /**
          * Sets the mirrors that should be used/not used for downloading
-         * @param mirrors url of the mirror, if it should be used and its number of paralell connections
+         * @param mirrors url of the mirror, if it should be used and its number of parallel connections
          * (minimum is 1)
          * @note if you want the download to work at least one entry should be set to true
          */
@@ -128,7 +128,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
 
         /**
          * Return all mirrors, where bool defines if the mirror is used,
-         * while in defines the number of paralell connections for that mirror
+         * while in defines the number of parallel connections for that mirror
          */
         QHash<QUrl, QPair<bool, int> > mirrors() const;
 
@@ -231,11 +231,11 @@ class KGET_EXPORT DataSourceFactory : public QObject
          * @param usedDefined true if the user defined used, otherwise false,
          * needed to know if m_maxMirrorsUsed should be changed or not
          */
-        void addMirror(const QUrl &url, bool used, int numParalellConnections, bool usedDefined);
+        void addMirror(const QUrl &url, bool used, int numParallelConnections, bool usedDefined);
 
         /**
          * Checks if an assign is needed, i.e. there are no (running) TransferDataSources,
-         * yet some segements are still not finished
+         * yet some segments are still not finished
          */
         bool assignNeeded() const;
 

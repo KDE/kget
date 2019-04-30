@@ -238,11 +238,11 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
         qCDebug(KGET_DEBUG) << this << "has broken segments.";
         emit brokenSegments(this, range);
     } else {
-        //decrease the number of maximum paralell downloads, maybe the server does not support so many connections
-        if (m_paralellSegments > 1) {
-            --m_paralellSegments;
+        //decrease the number of maximum parallel downloads, maybe the server does not support so many connections
+        if (m_parallelSegments > 1) {
+            --m_parallelSegments;
         }
-        qCDebug(KGET_DEBUG) << this << "reducing connections to" << m_paralellSegments << "and freeing range of semgents" << range;
+        qCDebug(KGET_DEBUG) << this << "reducing connections to" << m_parallelSegments << "and freeing range of segments" << range;
         if (!tryMerge(size, range)) {
             emit freeSegments(this, range);
         }

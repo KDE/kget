@@ -393,7 +393,7 @@ QVariant MirrorModel::headerData(int section, Qt::Orientation orientation, int r
             return QIcon::fromTheme("games-highscores");
         }
     } else if ((section == MirrorItem::Connections) && (role == Qt::DisplayRole)) {
-        return i18nc("Number of paralell connections to the mirror", "Connections");
+        return i18nc("Number of parallel connections to the mirror", "Connections");
     } else if ((section == MirrorItem::Country) && (role == Qt::DisplayRole)) {
         return i18nc("Location = country", "Location");
     }

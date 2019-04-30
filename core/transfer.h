@@ -140,8 +140,8 @@ class KGET_EXPORT Transfer : public Job
         /**
          * Tries to repair file
          * @param file the file of a download that should be repaired,
-         * if not defined all files of a download are going to be repaird
-         * @return true if a repair started, false if it was not nescessary
+         * if not defined all files of a download are going to be repaired
+         * @return true if a repair started, false if it was not necessary
          */
         virtual bool repair(const QUrl &file = QUrl()) {Q_UNUSED(file) return false;}
 
@@ -186,7 +186,7 @@ class KGET_EXPORT Transfer : public Job
 
         /**
          * The mirrors that are available
-         * bool if it is used, int how many paralell connections are allowed
+         * bool if it is used, int how many parallel connections are allowed
          * to the mirror
          * @param file the file for which the availableMirrors should be get
          */

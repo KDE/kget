@@ -46,7 +46,7 @@ class Commands : public QObject
         Repair,         //bool if it works
         SetDirectory,
         Wait,           //int time; waits until time is over and then proceeds to executeCommands
-        RandomAction,  //QList<QVariant> << bool false OR QList<QVariant> << bool true << int timeBetweenActions; chooses automatically periodially Start or Stop
+        RandomAction,  //QList<QVariant> << bool false OR QList<QVariant> << bool true << int timeBetweenActions; chooses automatically periodically Start or Stop
         CustomEvent = 100
     };
 

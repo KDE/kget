@@ -379,7 +379,7 @@ void Verifier::verify(const QModelIndex &index)
         checksum = d->model->index(row, VerificationModel::Checksum).data().toString();
     }
 
-    d->thread.verifiy(type, checksum, d->dest);
+    d->thread.verify(type, checksum, d->dest);
 }
 
 void Verifier::brokenPieces() const

@@ -140,8 +140,8 @@ class DBusTransferWrapper : public QObject
         /**
          * Tries to repair file
          * @param file the file of a download that should be repaired,
-         * if not defined all files of a download are going to be repaird
-         * @return true if a repair started, false if it was not nescessary
+         * if not defined all files of a download are going to be repaired
+         * @return true if a repair started, false if it was not necessary
          */
         bool repair(const QString &file);
 

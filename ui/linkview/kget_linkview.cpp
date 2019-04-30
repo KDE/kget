@@ -319,7 +319,7 @@ void KGetLinkView::selectionChanged()
 
 void KGetLinkView::setTextFilter(const QString &text)
 {
-    // TODO: escape user input for avoding malicious user input! (FiNEX)
+    // TODO: escape user input for avoiding malicious user input! (FiNEX)
     QString temp = text.isEmpty() ? ui.textFilter->text() : text;
     if (Settings::linkViewFilterPatternSyntax() == Wildcard) {
         m_proxyModel->setFilterWildcard(temp);

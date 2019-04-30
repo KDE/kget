@@ -599,7 +599,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
     const ItemMimeData *itemData = qobject_cast<const ItemMimeData*>(mdata);
     if (!itemData) {
-        qCWarning(KGET_DEBUG) << "Unsuported mime data dropped.";
+        qCWarning(KGET_DEBUG) << "Unsupported mime data dropped.";
         return false;
     }
 

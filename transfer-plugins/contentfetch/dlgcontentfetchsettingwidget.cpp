@@ -130,7 +130,7 @@ void DlgContentFetchSettingWidget::slotConfigureScript()
     QVBoxLayout *mainLayout = new QVBoxLayout;
     dialog->setLayout(mainLayout);
     mainLayout->addWidget(widget);
-    // dirty hack, add the ok/canel button size manually
+    // dirty hack, add the ok/cancel button size manually
     dialog->resize(widget->size()+QSize(0,30));
     dialog->show();
 
@@ -168,7 +168,7 @@ void DlgContentFetchSettingWidget::loadContentFetchSetting()
     QStringList regexps = ContentFetchSetting::self()->urlRegexpList();
     QStringList descriptions = ContentFetchSetting::self()->descriptionList();
     QList<int> enables = ContentFetchSetting::self()->enableList();
-    // TODO: add some safety check to avoid crashing when user rc got corrputed.
+    // TODO: add some safety check to avoid crashing when user rc got corrupted.
     for (int i = 0; i < paths.size(); ++i)
     {
         addScriptItem(bool(enables[i]), paths[i], regexps[i], descriptions[i]);
@@ -209,7 +209,7 @@ void DlgContentFetchSettingWidget::saveContentFetchSetting()
 void DlgContentFetchSettingWidget::save()
 {
     saveContentFetchSetting();
-    // NOTICE: clean the last config script, might change in the furture
+    // NOTICE: clean the last config script, might change in the future
     if (m_p_action)
     {
         delete m_p_action;

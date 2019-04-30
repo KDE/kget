@@ -18,7 +18,7 @@ TransferDataSource::TransferDataSource(const QUrl &srcUrl, QObject *parent)
     m_sourceUrl(srcUrl),
     m_speed(0),
     m_supposedSize(0),
-    m_paralellSegments(1),
+    m_parallelSegments(1),
     m_currentSegments(0),
     m_capabilities(0)
 {
@@ -66,14 +66,14 @@ QPair<int, int> TransferDataSource::split()
     return QPair<int, int>(-1, -1);
 }
 
-int TransferDataSource::paralellSegments() const
+int TransferDataSource::parallelSegments() const
 {
-    return m_paralellSegments;
+    return m_parallelSegments;
 }
 
-void TransferDataSource::setParalellSegments(int paralellSegments)
+void TransferDataSource::setParallelSegments(int parallelSegments)
 {
-    m_paralellSegments = paralellSegments;
+    m_parallelSegments = parallelSegments;
 }
 
 int TransferDataSource::currentSegments() const
@@ -83,7 +83,7 @@ int TransferDataSource::currentSegments() const
 
 int TransferDataSource::changeNeeded() const
 {
-    return paralellSegments() - currentSegments();
+    return parallelSegments() - currentSegments();
 }
 
 

@@ -18,7 +18,7 @@
  * @short Declares a class as plugin.
  *
  * Exports a common symbol in a shared library used as an entry point for
- * the creation of an istance of the class.
+ * the creation of an instance of the class.
  *
  * Usage example:
  *     KGET_EXPORT_PLUGIN( CoolKgetPlugin );

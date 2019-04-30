@@ -69,7 +69,7 @@ const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
 {
     qCDebug(KGET_DEBUG);
 
-    //only use this TransferDataSource if no type is specified and the protocolls match
+    //only use this TransferDataSource if no type is specified and the protocols match
     if (!type.attribute("type").isEmpty())
     {
         return nullptr;

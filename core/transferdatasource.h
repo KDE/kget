@@ -71,7 +71,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) = 0;
 
         /**
-         * Removes one connection, useful when setMaximumParalellDownloads was called with a lower number
+         * Removes one connection, useful when setMaximumParallelDownloads was called with a lower number
          * @return the segments that are removed (unassigned) now
          *
          */
@@ -123,12 +123,12 @@ class KGET_EXPORT TransferDataSource : public QObject
          * @return the number of parallel segments this DataSource is allowed to use,
          * default is 1
          */
-        virtual int paralellSegments() const;
+        virtual int parallelSegments() const;
 
         /**
          * Sets the number of parallel segments this DataSource is allowed to use
          */
-        virtual void setParalellSegments(int paralellSegments);
+        virtual void setParallelSegments(int parallelSegments);
 
         /**
          * @return the number of parallel segments this DataSources currently uses
@@ -136,7 +136,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         virtual int currentSegments() const;
 
         /**
-         * Returns the mismatch of paralellSegments() and currentSegments()
+         * Returns the mismatch of parallelSegments() and currentSegments()
          * @return the number of segments to add/remove e.g. -1 means one segment to remove
          */
         virtual int changeNeeded() const;
@@ -246,7 +246,7 @@ class KGET_EXPORT TransferDataSource : public QObject
         QUrl m_sourceUrl;
         ulong m_speed;
         KIO::filesize_t m_supposedSize;
-        int m_paralellSegments;
+        int m_parallelSegments;
         int m_currentSegments;
 
     private:

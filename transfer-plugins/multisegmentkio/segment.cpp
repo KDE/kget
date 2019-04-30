@@ -214,7 +214,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
     m_buffer.append(_data);
     if (!m_findFilesize && m_totalBytesLeft && static_cast<uint>(m_buffer.size()) >= m_totalBytesLeft)
     {
-        qCDebug(KGET_DEBUG) << "Segment::slotData() buffer full. stoping transfer...";//TODO really stop it? is this even needed?
+        qCDebug(KGET_DEBUG) << "Segment::slotData() buffer full. Stopping transfer...";//TODO really stop it? is this even needed?
         if (m_getJob) {
             m_getJob->kill(KJob::Quietly);
             m_getJob = nullptr;

@@ -302,7 +302,7 @@ class KGET_EXPORT UrlChecker
         QList<QUrl> m_nonExistingUrls;
 
         //Existing files stuff
-        bool m_cancle;
+        bool m_cancel;
         bool m_overwriteAll;
         bool m_autoRenameAll;
         bool m_skipAll;

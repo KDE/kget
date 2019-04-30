@@ -45,7 +45,7 @@ public:
     void categorizeItem(QStandardItem *item) override;
 };
 
-/** Categorzes the transfers in size ranges **/
+/** Categorizes the transfers in size ranges **/
 class SizeCategorizedDelegate : public TransferHistoryCategorizedDelegate
 {
 public:

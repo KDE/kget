@@ -85,7 +85,7 @@ class KGET_EXPORT KGet
          *
          * @param groupName The name of the new group
          *
-         * @returns true if the group has been successully added, otherwise
+         * @returns true if the group has been successfully added, otherwise
          *          it returns false, probably because a group with that named
          *          already exists
          */
@@ -136,7 +136,7 @@ class KGET_EXPORT KGet
 
         /**
          * Adds new transfers to the KGet, it is assumed that this takes place because of loading
-         * that results in less checks for loaction etc.
+         * that results in less checks for location etc.
          *
          * @param elements The dom elements of the transfers to add
          * @param groupName The name of the group the new transfer will belong to
@@ -421,7 +421,7 @@ class KGET_EXPORT KGet
          *
          * @param url The file to delete
          *
-         * @return true if the file was successully deleted: if the given url
+         * @return true if the file was successfully deleted: if the given url
          * is a directory or if it is not local it returns false and shows a
          * warning message.
          */

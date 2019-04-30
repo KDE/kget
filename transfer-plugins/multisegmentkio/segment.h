@@ -34,7 +34,7 @@ class Segment : public QObject
          * @param Running The transfer is being executed
          * @param Stopped The transfer is stopped
          * @param Killed The transfer have been killed due unhandled errors 
-         * @param Timeout The transfer is broken because an error ocoured
+         * @param Timeout The transfer is broken because an error occurred
          * @param Finished The transfer exited successfully
          */
         enum Status

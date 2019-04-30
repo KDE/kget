@@ -239,7 +239,7 @@ void BTChunkSelector::dataChecked(const BitSet & ok_chunks)
         }
         else if (!in_chunks && !ok_chunks.get(i))
         {
-            // if we don't have the chunk, add it to the list if it wasn't allrready in there
+            // if we don't have the chunk, add it to the list if it wasn't already in there
             chunks.push_back(i);
         }
     }

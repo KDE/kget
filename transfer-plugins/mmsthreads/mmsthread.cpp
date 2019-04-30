@@ -44,7 +44,7 @@ void MmsThread::run()
         m_locker.lock();
         emit signIsConnected(true);
         m_locker.unlock();
-        /** If the connections result succefull it start the download.*/
+        /** If the connections result successful it start the download.*/
         mmsx_seek(nullptr, mms, m_begin, 0);
         while ((m_begin < m_end) && m_download) {
             if ((m_begin + 1024) > m_end) { 
@@ -74,7 +74,7 @@ void MmsThread::run()
         mmsx_close(mms);
         quit(); // NOTE: Keep "quit()" here, if not then the thread never emit the signal finish.
     } else {
-        /** If the connections not result succefully then stop all the download*/
+        /** If the connections not result successfully then stop all the download*/
         m_locker.lock();
         emit signIsConnected(false);
         m_locker.unlock();

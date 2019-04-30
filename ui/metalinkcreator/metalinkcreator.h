@@ -130,7 +130,7 @@ class MetalinkCreator : public KAssistantDialog
     private:
         /**
          * Opens the dialog to enter data for a file
-         * @param file the file that should be modifed
+         * @param file the file that should be modified
          * @param edit whether an existing file is being edited or a new one being added
          */
         void fileDlg(KGetMetalink::File *file, bool edit = false);

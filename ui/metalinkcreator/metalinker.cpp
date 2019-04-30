@@ -447,9 +447,9 @@ void KGetMetalink::Verification::load(const QDomElement &e)
         if (type == "application/pgp-signature") {//FIXME with 4.5 make it handle signatures by default with mime-type
             type = "pgp";
         }
-        const QString siganture = elem.text();
-        if (!type.isEmpty() && !siganture.isEmpty()) {
-            signatures[type] = siganture;
+        const QString signature = elem.text();
+        if (!type.isEmpty() && !signature.isEmpty()) {
+            signatures[type] = signature;
         }
     }
 }

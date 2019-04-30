@@ -44,7 +44,7 @@ class MultiSegKioDataSource : public TransferDataSource
 
         /**
          * There was an error while downloading segment, the number of connections this
-         * TransferDataSource uses simultanously gets reduced
+         * TransferDataSource uses simultaneously gets reduced
          */
         void slotError(Segment *segment, const QString &errorText, Transfer::LogLevel logLevel);
 

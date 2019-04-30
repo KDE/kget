@@ -42,7 +42,7 @@ VerificationThread::~VerificationThread()
     wait();
 }
 
-void VerificationThread::verifiy(const QString &type, const QString &checksum, const QUrl &file)
+void VerificationThread::verify(const QString &type, const QString &checksum, const QUrl &file)
 {
     QMutexLocker locker(&m_mutex);
     m_types.append(type);

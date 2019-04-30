@@ -224,8 +224,8 @@ void MetalinkXml::startMetalink()
     {
         foreach (DataSourceFactory *factory, m_dataSourceFactory)
         {
-            //specified number of files is downloaded simultanously
-            if (m_currentFiles < MetalinkSettings::simultanousFiles())
+            //specified number of files is downloaded simultaneously
+            if (m_currentFiles < MetalinkSettings::simultaneousFiles())
             {
                 const int status = factory->status();
                 //only start factories that should be downloaded
@@ -303,11 +303,11 @@ void MetalinkXml::load(const QDomElement *element)
 
         //start the DataSourceFactories that were Started when KGet was closed
         if (file->status() == Job::Running) {
-            if (m_currentFiles < MetalinkSettings::simultanousFiles()) {
+            if (m_currentFiles < MetalinkSettings::simultaneousFiles()) {
                 ++m_currentFiles;
                 file->start();
             } else {
-                //enough simultanous files already, so increase the number and set file to stop --> that will decrease the number again
+                //enough simultaneous files already, so increase the number and set file to stop --> that will decrease the number again
                 file->stop();
             }
         }

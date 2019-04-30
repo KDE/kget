@@ -111,7 +111,7 @@ class Metaurl
         }
 
         /**
-         * "smaller" urls are less important than larger, larger urls should be preffered
+         * "smaller" urls are less important than larger, larger urls should be preferred
          */
         bool operator<(const Metaurl &other) const;
 
@@ -147,7 +147,7 @@ class Url
         }
 
         /**
-         * "smaller" urls are less important than larger, larger urls should be preffered
+         * "smaller" urls are less important than larger, larger urls should be preferred
          */
         bool operator<(const Url &other) const;
 
@@ -298,7 +298,7 @@ class Metalink
         Files files;
 
         static const QString KGET_DESCRIPTION;
-        static const uint MAX_URL_PRIORITY; //maximum pirority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
+        static const uint MAX_URL_PRIORITY; //maximum priority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
 };
 
 /**

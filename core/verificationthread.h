@@ -34,7 +34,7 @@ class VerificationThread : public QThread
         VerificationThread(QObject *parent = nullptr);
         ~VerificationThread();
 
-        void verifiy(const QString &type, const QString &checksum, const QUrl &file);
+        void verify(const QString &type, const QString &checksum, const QUrl &file);
 
         void findBrokenPieces(const QString &type, const QList<QString> checksums, KIO::filesize_t length, const QUrl &file);
 

@@ -29,7 +29,7 @@ MmsDownload::MmsDownload(const QString &url, const QString &name, const QString 
   m_fileTemp(temp),
   m_amountThreads(amountsThread),
   m_connectionsFails(0),
-  m_connectionsSuccefully(0),
+  m_connectionsSuccessfully(0),
   m_downloadedSize(0),
   m_mms(NULL)
 {
@@ -186,18 +186,18 @@ void MmsDownload::slotIsThreadConnected(bool connected)
 {
     /** All threads emit a signal connected with this slot, if they get connected successfully
      * the value of "connected" will be true, and will be false if they can't connected. When all
-     * the threads emitted the signal the amount of m_connectionsSuccefully and m_connectionsFails
+     * the threads emitted the signal the amount of m_connectionsSuccefusslly and m_connectionsFails
      * will be equal to m_amountThreads and we emit a signal to restart the download in
-     * mmstransfer using the amount of connections succefully connected.
+     * mmstransfer using the amount of connections succefusslly connected.
      */
     if (connected) {
-        m_connectionsSuccefully++;
+        m_connectionsSuccessfully++;
     } else {
         m_connectionsFails++;
     }
     if ((m_connectionsFails != 0) && 
-        (m_connectionsFails + m_connectionsSuccefully == m_amountThreads)) {
-        emit signRestartDownload(m_connectionsSuccefully);
+        (m_connectionsFails + m_connectionsSuccessfully == m_amountThreads)) {
+        emit signRestartDownload(m_connectionsSuccessfully);
     }
 }
 

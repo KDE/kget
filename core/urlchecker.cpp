@@ -91,7 +91,7 @@ void ExistingTransferDialog::slotCancelClicked()
 
 UrlChecker::UrlChecker(UrlType type)
   : m_type(type),
-    m_cancle(false),
+    m_cancel(false),
     m_overwriteAll(false),
     m_autoRenameAll(false),
     m_skipAll(false)
@@ -140,7 +140,7 @@ bool UrlChecker::wouldOverwrite(const QUrl &source, const QUrl &dest)
 
 UrlChecker::UrlError UrlChecker::checkSource(const QUrl &src, bool showNotification)
 {
-    //NOTE hasPath is not used, as this would dissallow adresses like http://www.kde.org/ as there is no path
+    //NOTE hasPath is not used, as this would disallow addresses like http://www.kde.org/ as there is no path
     UrlError error = NoError;
     if (src.isEmpty()) {
         return Empty;
@@ -668,7 +668,7 @@ void UrlChecker::clear()
 {
     m_correctUrls.clear();
     m_splitErrorUrls.clear();
-    m_cancle = false;
+    m_cancel = false;
     m_overwriteAll = false;
     m_autoRenameAll = false;
     m_skipAll = false;
@@ -720,7 +720,7 @@ QUrl UrlChecker::checkExistingFile(const QUrl &source, const QUrl &destination)
     QUrl newDestination = destination;
 
     //any url is ignored
-    if (m_cancle) {
+    if (m_cancel) {
         return QUrl();
     }
 
@@ -774,7 +774,7 @@ QUrl UrlChecker::checkExistingFile(const QUrl &source, const QUrl &destination)
                 m_skipAll = true;
                 return QUrl();
             case KIO::R_CANCEL:
-                m_cancle = true;
+                m_cancel = true;
                 return QUrl();
             default:
                 return QUrl();

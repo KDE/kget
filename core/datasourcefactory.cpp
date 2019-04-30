@@ -370,26 +370,26 @@ void DataSourceFactory::setDoDownload(bool doDownload)
     }
 }
 
-void DataSourceFactory::addMirror(const QUrl &url, int numParalellConnections)
+void DataSourceFactory::addMirror(const QUrl &url, int numParallelConnections)
 {
-    addMirror(url, true, numParalellConnections, false);
+    addMirror(url, true, numParallelConnections, false);
 }
 
-void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellConnections)
+void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParallelConnections)
 {
-    addMirror(url, used, numParalellConnections, true);
+    addMirror(url, used, numParallelConnections, true);
 }
 
-void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellConnections, bool usedDefined)
+void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParallelConnections, bool usedDefined)
 {
     if (!url.isValid() || url.isEmpty())
     {
-        qCDebug(KGET_DEBUG) << "Url is not useable: " << url.toString();
+        qCDebug(KGET_DEBUG) << "Url is not usable: " << url.toString();
         return;
     }
-    if (numParalellConnections <= 0)
+    if (numParallelConnections <= 0)
     {
-        numParalellConnections = 1;
+        numParallelConnections = 1;
     }
     if (!usedDefined)
     {
@@ -398,11 +398,11 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
 
     if (used)
     {
-        //there is already a TransferDataSource with that url, reuse it and modify numParalellSegments
+        //there is already a TransferDataSource with that url, reuse it and modify numParallelSegments
         if (m_sources.contains(url))
         {
             TransferDataSource *source = m_sources[url];
-            source->setParalellSegments(numParalellConnections);
+            source->setParallelSegments(numParallelConnections);
             if (source->changeNeeded() > 0) {
                 assignSegments(source);
             } else {
@@ -436,7 +436,7 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
                     }
 
                     m_sources[url] = source;
-                    m_sources[url]->setParalellSegments(numParalellConnections);
+                    m_sources[url]->setParallelSegments(numParallelConnections);
                     if (m_sizeInitiallyDefined) {
                         source->setSupposedSize(m_size);
                     }
@@ -467,15 +467,15 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
             }
             else if (usedDefined)
             {
-                //increase the number of alowed mirrors as the user wants to use this one!
+                //increase the number of allowed mirrors as the user wants to use this one!
                 ++m_maxMirrorsUsed;
-                addMirror(url, used, numParalellConnections, usedDefined);
+                addMirror(url, used, numParallelConnections, usedDefined);
                 return;
             }
             else
             {
                 m_unusedUrls.append(url);
-                m_unusedConnections.append(numParalellConnections);
+                m_unusedConnections.append(numParallelConnections);
             }
         }
     }
@@ -488,7 +488,7 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParalellCon
         else
         {
             m_unusedUrls.append(url);
-            m_unusedConnections.append(numParalellConnections);
+            m_unusedConnections.append(numParallelConnections);
         }
     }
 }
@@ -510,7 +510,7 @@ void DataSourceFactory::removeMirror(const QUrl &url)
         const QList<QPair<int, int> > assigned = source->assignedSegments();
         m_sources.remove(url);
         m_unusedUrls.append(url);
-        m_unusedConnections.append(source->paralellSegments());
+        m_unusedConnections.append(source->parallelSegments());
         delete source;
 
         for (int i = 0; i < assigned.count(); ++i)
@@ -569,7 +569,7 @@ QHash<QUrl, QPair<bool, int> > DataSourceFactory::mirrors() const
     QHash<QUrl, TransferDataSource*>::const_iterator it;
     QHash<QUrl, TransferDataSource*>::const_iterator itEnd = m_sources.constEnd();
     for (it = m_sources.constBegin(); it != itEnd; ++it) {
-        mirrors[it.key()] = QPair<bool, int>(true, (*it)->paralellSegments());
+        mirrors[it.key()] = QPair<bool, int>(true, (*it)->parallelSegments());
     }
 
     for (int i = 0; i < m_unusedUrls.count(); ++i) {
@@ -762,7 +762,7 @@ void DataSourceFactory::slotDataWritten(KIO::Job *job, KIO::filesize_t written)
 
     KIO::filesize_t tempSize = static_cast<KIO::filesize_t>(m_tempData.size());
     //the complete data has been written
-    if (written == tempSize)//TODO if not same cache it temporarly!
+    if (written == tempSize)//TODO if not same cache it temporarily!
     {
         m_downloadedSize += written;
         emit dataSourceFactoryChange(Transfer::Tc_DownloadedSize);
@@ -977,7 +977,7 @@ void DataSourceFactory::load(const QDomElement *element)
         m_size = e.attribute("size").toULongLong();
         change |= Transfer::Tc_TotalSize;
     }
-    KIO::fileoffset_t tempSegSize = e.attribute("segementSize").toLongLong();
+    KIO::fileoffset_t tempSegSize = e.attribute("segmentSize").toLongLong();
     if (tempSegSize)
     {
         m_segSize = tempSegSize;
@@ -1046,7 +1046,7 @@ void DataSourceFactory::load(const QDomElement *element)
     {
         const QDomElement urlElement = urls.at(i).toElement();
         const QUrl url = QUrl(urlElement.text());
-        const int connections = urlElement.attribute("numParalellSegments").toInt();
+        const int connections = urlElement.attribute("numParallelSegments").toInt();
         addMirror(url, true, connections, true);
     }
 
@@ -1056,7 +1056,7 @@ void DataSourceFactory::load(const QDomElement *element)
     {
         const QDomElement urlElement = unusedUrls.at(i).toElement();
         const QUrl url = QUrl(urlElement.text());
-        const int connections = urlElement.attribute("numParalellSegments").toInt();
+        const int connections = urlElement.attribute("numParallelSegments").toInt();
         addMirror(url, false, connections, true);
     }
 
@@ -1138,7 +1138,7 @@ void DataSourceFactory::save(const QDomElement &element)
         factory.setAttribute("processedSize", m_downloadedSize);
     }
     factory.setAttribute("size", m_size);
-    factory.setAttribute("segementSize", m_segSize);
+    factory.setAttribute("segmentSize", m_segSize);
     factory.setAttribute("status", m_status);
     factory.setAttribute("doDownload", m_doDownload);
     factory.setAttribute("downloadInitialized", m_downloadInitialized);
@@ -1183,7 +1183,7 @@ void DataSourceFactory::save(const QDomElement &element)
         QDomElement url = doc.createElement("url");
         const QDomText text = doc.createTextNode(it.key().url());
         url.appendChild(text);
-        url.setAttribute("numParalellSegments", (*it)->paralellSegments());
+        url.setAttribute("numParallelSegments", (*it)->parallelSegments());
         urls.appendChild(url);
         factory.appendChild(urls);
     }
@@ -1194,7 +1194,7 @@ void DataSourceFactory::save(const QDomElement &element)
         QDomElement url = doc.createElement("url");
         const QDomText text = doc.createTextNode(m_unusedUrls.at(i).url());
         url.appendChild(text);
-        url.setAttribute("numParalellSegments", m_unusedConnections.at(i));
+        url.setAttribute("numParallelSegments", m_unusedConnections.at(i));
         urls.appendChild(url);
         factory.appendChild(urls);
     }

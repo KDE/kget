@@ -69,7 +69,7 @@ class MmsDownload : public QThread
         QString m_fileTemp;
         int m_amountThreads;
         int m_connectionsFails;
-        int m_connectionsSuccefully;
+        int m_connectionsSuccessfully;
         qulonglong m_downloadedSize;
         QList<qulonglong> m_prevDownloadedSizes;
         mmsx_t* m_mms;

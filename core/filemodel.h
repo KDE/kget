@@ -170,7 +170,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
         void watchCheckState();
 
         /**
-         * Emits checkStateChanged if a CheckState of an entry changend
+         * Emits checkStateChanged if a CheckState of an entry changed
          */
         void stopWatchCheckState();
 

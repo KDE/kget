@@ -21,7 +21,7 @@ DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
 {
     ui.setupUi(this);
 
-    connect(ui.numSimultanousFiles, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(ui.numSimultaneousFiles, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(ui.kcfg_MirrorsPerFile, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(ui.kcfg_ConnectionsPerUrl, SIGNAL(valueChanged(int)), SLOT(changed()));
 }
@@ -32,14 +32,14 @@ DlgSettingsWidget::~DlgSettingsWidget()
 
 void DlgSettingsWidget::load()
 {
-    ui.numSimultanousFiles->setValue(MetalinkSettings::simultanousFiles());
+    ui.numSimultaneousFiles->setValue(MetalinkSettings::simultaneousFiles());
     ui.kcfg_MirrorsPerFile->setValue(MetalinkSettings::mirrorsPerFile());
     ui.kcfg_ConnectionsPerUrl->setValue(MetalinkSettings::connectionsPerUrl());
 }
 
 void DlgSettingsWidget::save()
 {
-    MetalinkSettings::setSimultanousFiles(ui.numSimultanousFiles->value());
+    MetalinkSettings::setSimultaneousFiles(ui.numSimultaneousFiles->value());
     MetalinkSettings::setMirrorsPerFile(ui.kcfg_MirrorsPerFile->value());
     MetalinkSettings::setConnectionsPerUrl(ui.kcfg_ConnectionsPerUrl->value());
 

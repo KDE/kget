@@ -29,7 +29,7 @@ class QObject;
 /**
  * The FileDeleter is a wrapper around KIO ensuring that always
  * just one job is started for deleting a file.
- * Thus deleteFile can be called mutliple times safely and all callees
+ * Thus deleteFile can be called multiple times safely and all callees
  * are informed once the file is actually deleted.
  */
 class KGET_EXPORT FileDeleter

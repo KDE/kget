@@ -57,7 +57,7 @@ public:
     void setLabels(const QStringList &labels);
 
     /**
-    * Set a delegate in case you want to create the ranges dinamically
+    * Set a delegate in case you want to create the ranges dynamically
     * Ej, the host ranges delegate
     */
     void setRangeDelegate(RangeDelegate *delegate);
@@ -92,7 +92,7 @@ private:
 };
 
 /**
-* Creates ranges dinamically, based on the item data
+* Creates ranges dynamically, based on the item data
 */
 class RangeDelegate : public QObject
 {

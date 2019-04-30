@@ -87,7 +87,7 @@ bool Transfer::setDirectory(const QUrl& newDirectory)
 {
     Q_UNUSED(newDirectory)
 
-    //the standard implemention always returns false
+    //the standard implementation always returns false
     return false;
 }
 

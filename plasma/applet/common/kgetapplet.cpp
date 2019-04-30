@@ -227,7 +227,7 @@ void KGetApplet::transferRemoved(const QVariantMap &transfer)
     QHash<OrgKdeKgetTransferInterface*, Data>::iterator itEnd = m_transfers.end();
     for (it = m_transfers.begin(); it != itEnd; ) {
         const KUrl url = KUrl(it.key()->source().value());
-        //if the protocol is empty that means, that the transer does not exist anymore
+        //if the protocol is empty that means, that the transfer does not exist anymore
         if (url.protocol().isEmpty()) {
             removed.append(it.key());
 
