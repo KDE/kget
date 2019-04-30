@@ -1,5 +1,6 @@
 [Global]
 IconName=kget
+DesktopEntry=org.kde.kget
 Comment=KGet Download Manager
 Comment[bg]=Изтегляне на файлове (KGet)
 Comment[bs]=Menadžer preuzimanja KGet
