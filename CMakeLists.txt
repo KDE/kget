@@ -72,7 +72,7 @@ include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 find_package(Sqlite QUIET)
-set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-Database" TYPE RECOMMENDED PURPOSE "Needed for the SQLite-Backend of the KGet-History") 
+set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-Database" TYPE RECOMMENDED PURPOSE "Needed for the SQLite-Backend of the KGet-History")
 
 find_package(Qca-qt5 2.1.0)
 set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
@@ -87,7 +87,7 @@ find_package(KF5Torrent 2.1)
 set_package_properties(KF5Torrent_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.")
 
 find_package(LibMms QUIET)
-set_package_properties(LIBMMS_FOUND PROPERTIES DESCRIPTION "Library to read mms streams" TYPE RECOMMENDED PURPOSE "Needed to build KGet mms support.") 
+set_package_properties(LIBMMS_FOUND PROPERTIES DESCRIPTION "Library to read mms streams" TYPE RECOMMENDED PURPOSE "Needed to build KGet mms support.")
 
 set(kget_adaptor_SRCS
     dbus/dbuskgetwrapper.cpp
@@ -327,7 +327,12 @@ endif()
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-install(FILES kget.categories DESTINATION ${KDE_INSTALL_CONFDIR})
+if (${ECM_VERSION} STRGREATER "5.58.0")
+    install(FILES kget.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
+else()
+    install(FILES kget.categories DESTINATION ${KDE_INSTALL_CONFDIR})
+endif()
+
 install(FILES org.kde.kget.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR})
 
-feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES) 
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
