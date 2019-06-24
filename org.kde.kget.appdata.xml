@@ -41,7 +41,7 @@
   <summary xml:lang="fr">Gestionnaire de téléchargement</summary>
   <summary xml:lang="gl">Xestor de descargas</summary>
   <summary xml:lang="ia">Gerente del discargamento</summary>
-  <summary xml:lang="id">Download Manager</summary>
+  <summary xml:lang="id">Unduh Manager</summary>
   <summary xml:lang="it">Gestore degli scaricamenti</summary>
   <summary xml:lang="ko">다운로드 관리자</summary>
   <summary xml:lang="nl">Downloadbeheerder</summary>
@@ -68,7 +68,7 @@
     <p xml:lang="fi">KGet on monipuolinen ja käyttäjäystävällinen lataustenhallintaohjelma.</p>
     <p xml:lang="fr">KGet est un gestionnaire de téléchargements intuitif et polyvalent</p>
     <p xml:lang="gl">KGet é un xestor de descargar versátil e fácil de usar.</p>
-    <p xml:lang="id">KGet adalah download manager yang serbaguna dan mudah digunakan.</p>
+    <p xml:lang="id">KGet adalah unduh manager yang serbaguna dan mudah digunakan.</p>
     <p xml:lang="it">KGet è un gestore degli scaricamenti versatile e facile da usare.</p>
     <p xml:lang="ko">KGet은 기능이 다양하고 사용하기 편리한 다운로드 관리자입니다.</p>
     <p xml:lang="nl">KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder.</p>
@@ -117,7 +117,7 @@
       <li xml:lang="fi">Tiedostojen lataus FTP- ja HTTP(S)-lähteistä.</li>
       <li xml:lang="fr">Téléchargement de fichiers depuis des sources FTP et HTTP(S).</li>
       <li xml:lang="gl">Descargar ficheiros de fontes FTP, HTTP e HTTPS.</li>
-      <li xml:lang="id">Mendownload file dari sumber-sumber FTP dan HTTP(S)</li>
+      <li xml:lang="id">Mengunduh file dari sumber-sumber FTP dan HTTP(S)</li>
       <li xml:lang="it">Scaricamento di file da fonti FTP e HTTP(S).</li>
       <li xml:lang="ko">FTP, HTTP(S)에서 파일을 다운로드합니다.</li>
       <li xml:lang="nl">Downloaden van bestanden uit FTP en HTTP(S) bronnen.</li>
@@ -139,7 +139,7 @@
       <li xml:lang="fi">Tiedostojen latauksen keskeytys ja jatkaminen kuten myös latauksen uudelleenkäynnistys.</li>
       <li xml:lang="fr">Mise en pause et reprise du téléchargement de fichiers, possibilité de relancer un téléchargement.</li>
       <li xml:lang="gl">Pausa e continuación de descargas de ficheiros, así como a posibilidade de reiniciar a descarga.</li>
-      <li xml:lang="id">Menjeda dan melanjutkan pendownloadan file-file, begitu pula kemampuan untuk memulai kembali sebuah download-an.</li>
+      <li xml:lang="id">Menjeda dan melanjutkan pengunduhan file-file, begitu pula kemampuan untuk memulai kembali sebuah unduh-an.</li>
       <li xml:lang="it">Interruzione e ripresa dello scaricamento dei file, oltre alla capacità di riavviare uno scaricamento.</li>
       <li xml:lang="ko">파일 다운로드를 일시 정지 및 재시작할 수 있습니다.</li>
       <li xml:lang="nl">Pauzeren en hervatten van downloaden van bestanden, evenals de mogelijkheid om een download opnieuw te starten.</li>
@@ -161,7 +161,7 @@
       <li xml:lang="fi">Antaa runsaasti tietoa käynnistä olevasta ja odottavista latauksista.</li>
       <li xml:lang="fr">Affichage de nombreuses informations relatives aux téléchargements en cours et en attente.</li>
       <li xml:lang="gl">Fornece unha morea de información sobre as descargas actuais e pendentes.</li>
-      <li xml:lang="id">Memberikan banyak informasi tentang download-an yang ada sekarang dan yang sedang dihentikan.</li>
+      <li xml:lang="id">Memberikan banyak informasi tentang unduh-an yang ada sekarang dan yang sedang dihentikan.</li>
       <li xml:lang="it">Fornisce molte informazioni sugli scaricamenti in corso e in attesa.</li>
       <li xml:lang="ko">현재 및 진행 예정인 다운로드 항목에 대한 정보를 제공합니다.</li>
       <li xml:lang="nl">Vertelt veel informatie over huidige en in behandeling zijnde downloads.</li>
@@ -183,7 +183,7 @@
       <li xml:lang="fi">Upotus järjestelmän ilmoitusalueelle.</li>
       <li xml:lang="fr">Intégration dans la boîte à miniatures.</li>
       <li xml:lang="gl">Integración coa zona de notificacións.</li>
-      <li xml:lang="id">Membenamkan ke dalam system tray.</li>
+      <li xml:lang="id">Menanamkan ke dalam baki sistem.</li>
       <li xml:lang="it">Integrato nel vassoio di sistema.</li>
       <li xml:lang="ko">시스템 트레이에 통합됩니다.</li>
       <li xml:lang="nl">Ingebed in het systeemvak.</li>
@@ -227,7 +227,7 @@
       <li xml:lang="fi">Tukee metalinkkejä, jotka sisältävät useampia latauslinkkejä tarkistussummineen ja muine tietoineen.</li>
       <li xml:lang="fr">Prise en charge des méta-liens contenant plusieurs URL de téléchargement, des sommes de contrôle et d'autres informations.</li>
       <li xml:lang="gl">Compatibilidade con metaligazóns que conteñen varios enderezos URL de descarga, xunto con sumas de comprobación e outra información.</li>
-      <li xml:lang="id">Dukungan Metalink yang terdiri dari banyak bagian URL untuk download-an, bersamaan dengan checksums dan informasi lain.</li>
+      <li xml:lang="id">Dukungan Metalink yang terdiri dari banyak bagian URL untuk unduh-an, bersamaan dengan checksums dan informasi lain.</li>
       <li xml:lang="it">Supporto per Metalink che contiene diversi URL da scaricare, oltre a codici di controllo ed altre informazioni.</li>
       <li xml:lang="ko">여러 개의 다운로드 URL 및 체크섬 등 정보를 포함하는 Metalink를 지원합니다.</li>
       <li xml:lang="nl">Ondersteuning van Metalink die meerdere URL's voor downloads bevat, samen met controlesommen en andere informatie.</li>
@@ -258,7 +258,7 @@
       <caption xml:lang="fi">Tiedostojen lataaminen KGetillä</caption>
       <caption xml:lang="fr">Téléchargement de fichiers avec KGet</caption>
       <caption xml:lang="gl">Descargando os ficheiros con KGet</caption>
-      <caption xml:lang="id">Mendownload file-file menggunakan KGet</caption>
+      <caption xml:lang="id">Mengunduh file-file menggunakan KGet</caption>
       <caption xml:lang="it">Scaricamento di file con KGet</caption>
       <caption xml:lang="ko">KGet으로 파일 다운로드</caption>
       <caption xml:lang="nl">Bestanden worden gedownload met KGet</caption>
