@@ -10,11 +10,11 @@
     </entry>
     <entry name="SearchEnginesNameList" type="StringList" key="NameItems">
       <label>List of the available search engines</label>
-      <default>FindFiles.com,FileWatcher.com</default>
+      <default></default>
     </entry>
     <entry name="SearchEnginesUrlList" type="StringList" key="UrlItems">
       <label>List of the available search engine URLs</label>
-      <default>http://www.findfiles.com/list.php?db=Mirrors&amp;string=${filename},http://www.filewatcher.com/_/?q=+${filename}</default>
+      <default></default>
     </entry>
   </group>
 </kcfg>
