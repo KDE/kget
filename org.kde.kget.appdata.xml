@@ -78,6 +78,7 @@
     <p xml:lang="pl">KGet jest wszechstronnym i przyjaznym użytkownikowi programem do zarządzania pobieraniem.</p>
     <p xml:lang="pt">O KGet é um gestor de transferências versátil e amigável.</p>
     <p xml:lang="pt-BR">KGet é um gerenciador de downloads versátil e amigável.</p>
+    <p xml:lang="sk">KGet je univerzálny a ľahko použiteľný správca sťahovania.</p>
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
     <p xml:lang="uk">KGet — гнучка і зручна програма для отримання даних з мережі.</p>
     <p xml:lang="x-test">xxKGet is a versatile and user-friendly download manager.xx</p>
@@ -129,6 +130,7 @@
       <li xml:lang="pl">Pobieranie plików ze źródeł FTP oraz HTTP(S)</li>
       <li xml:lang="pt">Transferência de ficheiros de fontes em FTP ou HTTP(S).</li>
       <li xml:lang="pt-BR">Download de arquivos com origem em FTP e HTTP(S).</li>
+      <li xml:lang="sk">Sťahovanie súborov zo zdrojov FTP a HTTP(S).</li>
       <li xml:lang="sv">Nerladdning av filer från FTP- och HTTP(S)-källor.</li>
       <li xml:lang="uk">Отримання файлів з джерел FTP та HTTP(S).</li>
       <li xml:lang="x-test">xxDownloading files from FTP and HTTP(S) sources.xx</li>
@@ -152,6 +154,7 @@
       <li xml:lang="pl">Wstrzymywanie i wznawianie pobieranych plików, a także możliwość pobrania ich na nowo.</li>
       <li xml:lang="pt">Pausa e continuação dos ficheiros transferidos, assim como a capacidade de reiniciar uma transferência.</li>
       <li xml:lang="pt-BR">Pausa e continuação de arquivos durante o download, assim como a capacidade de reiniciar uma transferência.</li>
+      <li xml:lang="sk">Pozastavenie a obnovenie sťahovania súborov, ako aj možnosť reštartovania sťahovania.</li>
       <li xml:lang="sv">Pausa och återuppta nerladdning av filer, samt möjlighet att starta om en nerladdning.</li>
       <li xml:lang="uk">Можливість призупинення та відновлення отримання файлів, а також можливість перезапустити отримання.</li>
       <li xml:lang="x-test">xxPausing and resuming of downloading files, as well as the ability to restart a download.xx</li>
@@ -175,6 +178,7 @@
       <li xml:lang="pl">Mówi wiele informacji o obecnych i oczekujących pobieraniach.</li>
       <li xml:lang="pt">Devolve bastantes informações sobre as transferências actuais e pendentes.</li>
       <li xml:lang="pt-BR">Retorna diversas informações sobre os downloads atuais e pendentes.</li>
+      <li xml:lang="sk">Poskytuje veľa informácií o aktuálnych a čakajúcich stiahnutiach.</li>
       <li xml:lang="sv">Ger mängder av information om aktuella och väntande nerladdningar.</li>
       <li xml:lang="uk">Можливість отримання широкого спектра даних щодо поточного сеансу отримання та завдань з отримання даних з черги.</li>
       <li xml:lang="x-test">xxTells lots of information about current and pending downloads.xx</li>
@@ -198,6 +202,7 @@
       <li xml:lang="pl">Osadzanie na tacce systemowej.</li>
       <li xml:lang="pt">Incorporação na bandeja do sistema.</li>
       <li xml:lang="pt-BR">Incorporação na área de notificação.</li>
+      <li xml:lang="sk">Vloženie do systémovej lišty.</li>
       <li xml:lang="sv">Inbäddning i systembrickan.</li>
       <li xml:lang="uk">Можливість вбудовування до лотка системи.</li>
       <li xml:lang="x-test">xxEmbedding into system tray.xx</li>
@@ -221,6 +226,7 @@
       <li xml:lang="pl">Integracja z przeglądarką internetową Konqueror</li>
       <li xml:lang="pt">Integração com o navegador Web Konqueror.</li>
       <li xml:lang="pt-BR">Integração com o navegador Konqueror.</li>
+      <li xml:lang="sk">Integrácia s webovým prehliadačom Konqueror.</li>
       <li xml:lang="sv">Integrering i webbläsaren Konqueror.</li>
       <li xml:lang="uk">Інтеграція із програмою для перегляду сторінок інтернету Konqueror.</li>
       <li xml:lang="x-test">xxIntegration with the Konqueror web browser.xx</li>
@@ -244,6 +250,7 @@
       <li xml:lang="pl">Obsługa metałączy, które zawierają wiele adresów URL do pobrania, wraz z sumami sprawdzającymi i innymi informacjami.</li>
       <li xml:lang="pt">Suporte para 'metalink', o qual contém vários URL's para as transferências, em conjunto com os códigos de validação e outras informações.</li>
       <li xml:lang="pt-BR">Suporte a metalink, que contém várias URLs para os downloads, em conjunto com os códigos de verificação e outras informações.</li>
+      <li xml:lang="sk">Podpora Metalink, ktorá obsahuje viac URL na stiahnutie, spolu s kontrolnými súčtami a ďalšími informáciami.</li>
       <li xml:lang="sv">Stör för metalänkar som innehåller flera webbadresser för nerladdning, tillsammans med checksummor och annan information.</li>
       <li xml:lang="uk">Підтримка метапосилань, які містять декілька адрес даних, а також контрольні суми та інші відомості.</li>
       <li xml:lang="x-test">xxMetalink support which contain multiple URLs for downloads, along with checksums and other information.xx</li>
@@ -276,6 +283,7 @@
       <caption xml:lang="pl">Pobieranie plików w KGet</caption>
       <caption xml:lang="pt">Transferência de ficheiros com o KGet</caption>
       <caption xml:lang="pt-BR">Baixando arquivos com o KGet</caption>
+      <caption xml:lang="sk">Sťahovanie súborov s KGet</caption>
       <caption xml:lang="sv">Nerladdning av filer med Kget</caption>
       <caption xml:lang="uk">Отримання файлів за допомогою KGet</caption>
       <caption xml:lang="x-test">xxDownloading files with KGetxx</caption>
