@@ -1129,7 +1129,7 @@ QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
     if (dlg) {
         int result = dlg->exec();
 
-        if (result == KIO::R_RENAME || result == KIO::R_OVERWRITE)
+        if (result == KIO::Result_Rename || result == KIO::Result_Overwrite)
             destUrl = dlg->newDestUrl();
         else {
             delete(dlg);

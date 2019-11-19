@@ -749,31 +749,31 @@ QUrl UrlChecker::checkExistingFile(const QUrl &source, const QUrl &destination)
         ///now show the dialog and look at the result
         const int result = dlg->exec();
         switch (result) {
-            case KIO::R_OVERWRITE: {
+            case KIO::Result_Overwrite: {
                 //delete the file, that way it won't show up in future calls of this method
                 FileDeleter::deleteFile(newDestination);
                 return newDestination;
             }
-            case KIO::R_OVERWRITE_ALL: {
+            case KIO::Result_OverwriteAll: {
 
                 //delete the file, that way it won't show up in future calls of this method
                 FileDeleter::deleteFile(newDestination);
                 m_overwriteAll = true;
                 return newDestination;
             }
-            case KIO::R_RENAME:
+            case KIO::Result_Rename:
                 //call it again, as there is no check on the user input
                 return checkExistingFile(source, dlg->newDestUrl());
-            case KIO::R_AUTO_RENAME:
+            case KIO::Result_AutoRename:
                 newDestination = dlg->autoDestUrl();
                 m_autoRenameAll = true;
                 return newDestination;
-            case KIO::R_SKIP:
+            case KIO::Result_Skip:
                 return QUrl();
-            case KIO::R_AUTO_SKIP:
+            case KIO::Result_AutoSkip:
                 m_skipAll = true;
                 return QUrl();
-            case KIO::R_CANCEL:
+            case KIO::Result_Cancel:
                 m_cancel = true;
                 return QUrl();
             default:

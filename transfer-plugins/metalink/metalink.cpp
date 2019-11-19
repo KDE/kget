@@ -717,7 +717,7 @@ void Metalink::filesSelected()
                     KIO::RenameDialog dlg(nullptr, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Options(KIO::RenameDialog_MultipleItems | KIO::RenameDialog_Overwrite | KIO::RenameDialog_Skip));
                     const int result = dlg.exec();
 
-                    if (result == KIO::R_RENAME) {
+                    if (result == KIO::Result_Rename) {
                         //no reason to use FileModel::rename() since the file does not exist yet, so simply skip it
                         //avoids having to deal with signals
                         const QUrl newDest = dlg.newDestUrl();
@@ -729,17 +729,17 @@ void Metalink::filesSelected()
                         m_dataSourceFactory.remove(dest);
                         m_dataSourceFactory[newDest] = factory;
                         continue;
-                    } else if (result == KIO::R_SKIP) {
+                    } else if (result == KIO::Result_Skip) {
                         fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
                         doDownload = false;
-                    } else if (result == KIO::R_CANCEL) {
+                    } else if (result == KIO::Result_Cancel) {
                         cancel = true;
                         break;
-                    } else if (result == KIO::R_AUTO_SKIP) {
+                    } else if (result == KIO:Result_AutoSkip:) {
                         autoSkip = true;
                         fileModel()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
                         doDownload = false;
-                    } else if (result == KIO::R_OVERWRITE_ALL) {
+                    } else if (result == KIO::Result_OverwriteAll) {
                         overwriteAll = true;
                     }
                 }

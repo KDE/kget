@@ -31,12 +31,12 @@ struct StatusStrings
 
 const StatusStrings STATUSTEXTS[] = {
     {"", I18N_NOOP("Downloading....")},
-    {I18N_NOOP2_NOSTRIP("transfer state: delayed", "Delayed")},
-    {I18N_NOOP2_NOSTRIP("transfer state: stopped", "Stopped")},
-    {I18N_NOOP2_NOSTRIP("transfer state: aborted", "Aborted")},
-    {I18N_NOOP2_NOSTRIP("transfer state: finished", "Finished")},
+    {I18NC_NOOP("transfer state: delayed", "Delayed")},
+    {I18NC_NOOP("transfer state: stopped", "Stopped")},
+    {I18NC_NOOP("transfer state: aborted", "Aborted")},
+    {I18NC_NOOP("transfer state: finished", "Finished")},
     {"", ""},//TODO: Add FinishedKeepAlive status
-    {I18N_NOOP2_NOSTRIP("changing the destination of the file", "Changing destination")}
+    {I18NC_NOOP("changing the destination of the file", "Changing destination")}
 };
 const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-start" << "media-playback-pause";
 
