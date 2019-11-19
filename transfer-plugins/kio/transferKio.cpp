@@ -296,7 +296,7 @@ void TransferKio::slotStatResult(KJob* kioJob)
         struct utimbuf time;
 
         time.modtime = entryResult.numberValue(KIO::UDSEntry::UDS_MODIFICATION_TIME);
-        time.actime = QDateTime::currentDateTime().toTime_t();
+        time.actime = QDateTime::currentDateTime().toSecsSinceEpoch();
         utime(m_dest.toLocalFile().toUtf8().constData(), &time);
     }
 

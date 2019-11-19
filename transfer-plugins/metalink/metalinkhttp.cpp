@@ -178,7 +178,7 @@ bool MetalinkHttp::metalinkHttpInit()
     qDebug() << "dest = " << dest;
 
     //sort the urls according to their priority (highest first)
-    qStableSort(m_linkheaderList);
+    std::stable_sort(m_linkheaderList.begin(), m_linkheaderList.end());
 
     DataSourceFactory *dataFactory = new DataSourceFactory(this,dest);
     dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());

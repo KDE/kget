@@ -411,7 +411,7 @@ namespace kt
 		sort_column = col;
 		sort_order = order;
 		emit layoutAboutToBeChanged();
-		qStableSort(items.begin(),items.end(),PeerViewModelItemCmp(col,order));
+		std::stable_sort(items.begin(),items.end(),PeerViewModelItemCmp(col, order));
 		emit layoutChanged();
 	}
 }

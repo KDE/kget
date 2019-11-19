@@ -57,7 +57,7 @@ void XmlStore::SaveThread::run()
 
     e.setAttribute("Source", m_item.source());
     e.setAttribute("Dest", m_item.dest());
-    e.setAttribute("Time", QDateTime::currentDateTime().toTime_t());
+    e.setAttribute("Time", QDateTime::currentDateTime().toSecsSinceEpoch());
     e.setAttribute("Size", QString::number(m_item.size()));
     e.setAttribute("State", QString::number(m_item.state()));
 
@@ -109,7 +109,7 @@ void XmlStore::DeleteThread::run()
             item.setDest(element.attribute("Dest"));
             item.setSource(element.attribute("Source"));
             item.setSize(element.attribute("Size").toInt());
-            item.setDateTime(QDateTime::fromTime_t(element.attribute("Time").toUInt()));
+            item.setDateTime(QDateTime::fromSecsSinceEpoch(element.attribute("Time").toUInt()));
             item.setState(element.attribute("State").toInt());
             m_items << item;
         }
@@ -161,7 +161,7 @@ void XmlStore::LoadThread::run()
         item.setDest(dom.attribute("Dest"));
         item.setSource(dom.attribute("Source"));
         item.setSize(dom.attribute("Size").toInt());
-        item.setDateTime(QDateTime::fromTime_t(dom.attribute("Time").toUInt()));
+        item.setDateTime(QDateTime::fromSecsSinceEpoch(dom.attribute("Time").toUInt()));
         item.setState(dom.attribute("State").toInt());
 
         emit elementLoaded(i, total, item);

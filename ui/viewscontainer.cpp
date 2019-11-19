@@ -26,7 +26,7 @@ ViewsContainer::ViewsContainer(QWidget * parent)
 {
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(1);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     m_transfersView = new TransfersView(this);
     TransfersViewDelegate *transfersViewDelegate = new TransfersViewDelegate(m_transfersView);

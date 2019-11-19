@@ -57,7 +57,8 @@ public:
             QDBusConnection::sessionBus().registerObject("/KGet", wrapper);
         } else {
             // activate window if it is already open
-            KStartupInfo::setNewStartupId(kget, KStartupInfo::startupId());
+            kget->setAttribute(Qt::WA_NativeWindow, true);
+            KStartupInfo::setNewStartupId(kget->windowHandle(), KStartupInfo::startupId());
             KWindowSystem::forceActiveWindow(kget->winId());
         }
 

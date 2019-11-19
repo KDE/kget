@@ -55,7 +55,7 @@ void SQLiteStore::load()
                 item.setDest(query.value(rec.indexOf("dest")).toString());
                 item.setSource(query.value(rec.indexOf("source")).toString());
                 item.setState(query.value(rec.indexOf("state")).toInt());
-                item.setDateTime(QDateTime::fromTime_t(query.value(rec.indexOf("time")).toUInt()));
+                item.setDateTime(QDateTime::fromSecsSinceEpoch(query.value(rec.indexOf("time")).toUInt()));
                 item.setSize(query.value(rec.indexOf("size")).toInt());
 
                 m_items << item;
@@ -94,7 +94,7 @@ void SQLiteStore::saveItems(const QList<TransferHistoryItem> &items)
             QSqlQuery query = sql().exec("insert into transfer_history_item(source, dest, size, time, state)"
                                 "values ('"+item.source()+"', '"+item.dest()+"', "
                                 + QString::number(item.size()) + ", "
-                                + QString::number(item.dateTime().toTime_t()) + ", '"
+                                + QString::number(item.dateTime().toSecsSinceEpoch()) + ", '"
                                 + QString::number(item.state())+"')");
 
             if (query.lastError().isValid()) {

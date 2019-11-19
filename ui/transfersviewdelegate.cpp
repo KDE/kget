@@ -238,7 +238,7 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
     m_stopBt->setChecked(true);
 
     m_layout->addStretch();
-    m_layout->setMargin(1);
+    m_layout->setContentsMargins(1, 1, 1, 1);
 
     connect(m_startBt, &GroupStatusButton::toggled, this, &GroupStatusEditor::slotStatusChanged);
 }

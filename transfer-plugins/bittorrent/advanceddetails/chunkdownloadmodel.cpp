@@ -288,7 +288,7 @@ namespace kt
 		sort_column = col;
 		sort_order = order;
 		emit layoutAboutToBeChanged();
-		qStableSort(items.begin(),items.end(),ChunkDownloadModelItemCmp(col,order));
+		std::stable_sort(items.begin(),items.end(),ChunkDownloadModelItemCmp(col, order));
 		emit layoutChanged();
 	}
 }
