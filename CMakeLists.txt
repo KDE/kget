@@ -76,12 +76,12 @@ set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-D
 
 find_package(Qca-qt5 2.1.0)
 set_package_properties(Qca PROPERTIES DESCRIPTION "Support for encryption"
-                       URL "http://delta.affinix.com/qca"
+                       URL "https://download.kde.org/stable/qca-qt5/"
                        TYPE REQUIRED)
 
 
 find_package(Gpgmepp 1.7.0)
-set_package_properties(Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgME++ library" URL "http://www.gnupg.org" TYPE RECOMMENDED PURPOSE "GpgME++ is required to have signature verifying support in KGet.")
+set_package_properties(Gpgmepp_FOUND PROPERTIES DESCRIPTION "The GpgME++ library" URL "https://www.gnupg.org" TYPE RECOMMENDED PURPOSE "GpgME++ is required to have signature verifying support in KGet.")
 
 find_package(KF5Torrent 2.1)
 set_package_properties(KF5Torrent_FOUND PROPERTIES DESCRIPTION "Backend Library of KTorrent" TYPE RECOMMENDED PURPOSE "Needed to build KGet bittorrent support.")

@@ -26,7 +26,7 @@ Script::Script(QObject* parent, const KUrl &source)
     never pass the QThread object (this) as the parent of an object created
     in the thread (since the QThread object itself was created in another thread)."
 
-     See http://doc.trolltech.com/4.4/threads.html#qobject-reentrancy
+     See https://doc.qt.io/qt-5/threads-qobject.html
     */
     m_p_kgetcore = new ScriptDownloadEngine(nullptr, m_source);
 }

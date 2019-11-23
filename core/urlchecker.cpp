@@ -140,7 +140,7 @@ bool UrlChecker::wouldOverwrite(const QUrl &source, const QUrl &dest)
 
 UrlChecker::UrlError UrlChecker::checkSource(const QUrl &src, bool showNotification)
 {
-    //NOTE hasPath is not used, as this would disallow addresses like http://www.kde.org/ as there is no path
+    //NOTE hasPath is not used, as this would disallow addresses like https://www.kde.org/ as there is no path
     UrlError error = NoError;
     if (src.isEmpty()) {
         return Empty;

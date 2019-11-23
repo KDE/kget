@@ -240,7 +240,7 @@ void HttpServer::handleRequest()
     }
     }
 
-    // for HTTP information see: http://www.jmarshall.com/easy/http/
+    // for HTTP information see: https://www.jmarshall.com/easy/http/
     QByteArray block;
     block.append(QString("HTTP/1.1 %1 %2\r\n").arg(responseCode).arg(responseText).toUtf8());
     block.append(QString("Date: %1 GMT\r\n").arg(QDateTime(QDateTime::currentDateTime())
