@@ -39,7 +39,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
     ui.ratioSpin->setValue(m_transfer->maximumShareRatio());
-    ui.destination->setUrl(m_transfer->directory().toString());
+    ui.destination->setUrl(m_transfer->directory());
     ui.destination->lineEdit()->setReadOnly(true);
     ui.rename->setIcon(QIcon::fromTheme("edit-rename"));
     ui.mirrors->setIcon(QIcon::fromTheme("download"));

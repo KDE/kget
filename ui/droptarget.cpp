@@ -222,7 +222,7 @@ void DropTarget::dropEvent(QDropEvent * event)
                                        KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
-                NewTransferDialogHandler::showNewTransferDialog(list.first().url());
+                NewTransferDialogHandler::showNewTransferDialog(list.first());
             if (msgBoxResult == 4) //Load
                 KGet::load(list.first().url());
         }
@@ -231,7 +231,7 @@ void DropTarget::dropEvent(QDropEvent * event)
             if (list.count() == 1)
             {
                 str = event->mimeData()->text();
-                NewTransferDialogHandler::showNewTransferDialog(str);
+                NewTransferDialogHandler::showNewTransferDialog(QUrl(str));
             }
             else
                 NewTransferDialogHandler::showNewTransferDialog(list);
@@ -335,7 +335,7 @@ void DropTarget::toggleSticky()
     pop_sticky->setChecked(Settings::dropSticky());
 
     if ( Settings::dropSticky() )
-        KWindowSystem::setState(winId(), KWindowSystem::SkipTaskbar | KWindowSystem::StaysOnTop | KWindowSystem::Sticky);
+        KWindowSystem::setState(winId(), KWindowSystem::SkipTaskbar | KWindowSystem::KeepAbove | KWindowSystem::Sticky);
     else
         KWindowSystem::clearState(winId(), KWindowSystem::Sticky);
 }

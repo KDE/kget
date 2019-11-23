@@ -1204,14 +1204,14 @@ void MainWindow::dropEvent(QDropEvent * event)
                                        KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")), KStandardGuiItem::cancel());
 
             if (msgBoxResult == 3) //Download
-                NewTransferDialogHandler::showNewTransferDialog(list.first().url());
+                NewTransferDialogHandler::showNewTransferDialog(list.first());
             if (msgBoxResult == 4) //Load
                 KGet::load(list.first().url());
         }
         else
         {
             if (list.count() == 1)
-                NewTransferDialogHandler::showNewTransferDialog(list.first().url());
+                NewTransferDialogHandler::showNewTransferDialog(list.first());
             else
                 NewTransferDialogHandler::showNewTransferDialog(list);
         }

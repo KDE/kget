@@ -56,8 +56,8 @@ void BTSettingsWidget::defaults()
     portBox->setValue(BittorrentSettings::port());
     uploadBox->setValue(BittorrentSettings::uploadLimit());
     downloadBox->setValue(BittorrentSettings::downloadLimit());
-    torrentEdit->setUrl(BittorrentSettings::torrentDir());
-    tempEdit->setUrl(BittorrentSettings::tmpDir());
+    torrentEdit->setUrl(QUrl::fromLocalFile(BittorrentSettings::torrentDir()));
+    tempEdit->setUrl(QUrl::fromLocalFile(BittorrentSettings::tmpDir()));
     preallocBox->setChecked(BittorrentSettings::preAlloc());
     utpBox->setChecked(BittorrentSettings::enableUTP());
 }

@@ -158,7 +158,7 @@ void TransferHistory::slotWriteDefault()
 void TransferHistory::slotDownload()
 {
     if (!m_iconModeEnabled) {
-        NewTransferDialogHandler::showNewTransferDialog(((RangeTreeWidget *) m_view)->currentItem(0)->text());
+        NewTransferDialogHandler::showNewTransferDialog(QUrl(((RangeTreeWidget *) m_view)->currentItem(0)->text()));
     }
 }
 

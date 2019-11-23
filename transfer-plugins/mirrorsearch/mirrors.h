@@ -42,5 +42,6 @@ class mirror : public QObject
 };
 
 void MirrorSearch ( const QUrl &url, QObject *receiver, const char *member );
+void MirrorSearch ( const QString &fileName, QObject *receiver, const char *member );
 
 #endif // MIRROR_H

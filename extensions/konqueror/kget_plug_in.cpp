@@ -206,7 +206,7 @@ void KGetPlugin::getLinks(bool selectedOnly)
                     attr = QL1S("src");
                 else if (element.hasAttribute(QL1S("data")))
                     attr = QL1S("data");
-                const QUrl resolvedUrl (baseUrl.resolved(element.attribute(attr)));
+                const QUrl resolvedUrl (baseUrl.resolved(QUrl(element.attribute(attr))));
                 // Only select valid and non-local links for download...
                 if (resolvedUrl.isValid() && !resolvedUrl.isLocalFile() && !resolvedUrl.host().isEmpty()) {
                     if (element.hasAttribute(QL1S("type")))

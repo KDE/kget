@@ -51,8 +51,8 @@ bool TransferKio::setDirectory(const QUrl& newDirectory)
 bool TransferKio::setNewDestination(const QUrl &newDestination)
 {
     if (newDestination.isValid() && (newDestination != dest())) {
-        QUrl oldPath = QUrl(m_dest.path() + ".part");
-        if (oldPath.isValid() && QFile::exists(oldPath.toString())) {
+        QString oldPath = m_dest.toLocalFile() + ".part";
+        if (QFile::exists(oldPath)) {
             m_movingFile = true;
             stop();
             setStatus(Job::Moving);
@@ -67,7 +67,7 @@ bool TransferKio::setNewDestination(const QUrl &newDestination)
                 m_signature->setDestination(newDestination);
             }
 
-            KIO::Job *move = KIO::file_move(oldPath, QUrl(newDestination.path() + ".part"), -1, KIO::HideProgressInfo);
+            KIO::Job *move = KIO::file_move(QUrl::fromLocalFile(oldPath), QUrl::fromLocalFile(newDestination.toLocalFile() + ".part"), -1, KIO::HideProgressInfo);
             connect(move, SIGNAL(result(KJob*)), this, SLOT(newDestResult(KJob*)));
             connect(move, SIGNAL(infoMessage(KJob*,QString)), this, SLOT(slotInfoMessage(KJob*,QString)));
             connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
@@ -123,7 +123,7 @@ void TransferKio::deinit(Transfer::DeleteOptions options)
 {
     if (options & DeleteFiles)//if the transfer is not finished, we delete the *.part-file
     {
-        KIO::Job *del = KIO::del(QString(m_dest.path() + ".part"), KIO::HideProgressInfo);
+        KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_dest.path() + ".part"), KIO::HideProgressInfo);
         if (!del->exec()) {
             qCDebug(KGET_DEBUG) << "Could not delete part " << QString(m_dest.path() + ".part");
         }

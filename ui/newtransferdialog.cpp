@@ -155,7 +155,7 @@ void NewTransferDialog::setSource(const QList<QUrl> &sources)
     }
 
     if (sources.count() == 1) {
-        QUrl m_srcUrl = sources.first().url();
+        QUrl m_srcUrl = sources.first();
         ui.urlRequester->clear();
         if (m_srcUrl.isEmpty()) {
             m_srcUrl = QUrl(QApplication::clipboard()->text(QClipboard::Clipboard).trimmed());
@@ -182,7 +182,7 @@ void NewTransferDialog::setSource(const QList<QUrl> &sources)
 
 void NewTransferDialog::setDestinationFileName(const QString &filename)
 {
-    ui.destRequester->setUrl(QString(ui.destRequester->url().adjusted(QUrl::RemoveFilename).toString() + filename));
+    ui.destRequester->setUrl(QUrl(ui.destRequester->url().adjusted(QUrl::RemoveFilename).toString() + filename));
 }
 
 void NewTransferDialog::setDestination()

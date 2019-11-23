@@ -262,12 +262,13 @@ void BTTransfer::addTracker(const QString &url)
         return;
     }
 
-    if(!QUrl(url).isValid()) {
+    QUrl u(url);
+    if(!u.isValid()) {
        KMessageBox::error(nullptr, i18n("Malformed URL."));
        return;
     }
 
-    torrent->getTrackersList()->addTracker(url,true);
+    torrent->getTrackersList()->addTracker(u,true);
 }
 
 /**Private functions**/

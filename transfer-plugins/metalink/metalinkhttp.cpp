@@ -174,7 +174,7 @@ bool MetalinkHttp::metalinkHttpInit()
 {
     qDebug() << "m_dest = " << m_dest;
     const QUrl tempDest = QUrl(m_dest.adjusted(QUrl::RemoveFilename));
-    QUrl dest = tempDest.toString() + m_dest.fileName();
+    QUrl dest = QUrl(tempDest.toString() + m_dest.fileName());
     qDebug() << "dest = " << dest;
 
     //sort the urls according to their priority (highest first)
@@ -225,7 +225,8 @@ bool MetalinkHttp::metalinkHttpInit()
             if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
                 QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
             }
-            Download *signat_download = new Download(m_signatureUrl, QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName());
+            const QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
+            Download *signat_download = new Download(m_signatureUrl, QUrl::fromLocalFile(path));
             connect(signat_download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(setSignature(QUrl,QByteArray)));
         }
         m_dataSourceFactory[dataFactory->dest()] = dataFactory;

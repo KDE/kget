@@ -193,8 +193,8 @@ void TransferHistoryItemDelegate::slotDownload()
 {
    const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
 
-    NewTransferDialogHandler::showNewTransferDialog(model->data(m_selectedIndex,
-                                                    TransferHistoryCategorizedDelegate::RoleUrl).toString());
+    NewTransferDialogHandler::showNewTransferDialog(QUrl(model->data(m_selectedIndex,
+                                                                     TransferHistoryCategorizedDelegate::RoleUrl).toString()));
 }
 
 void TransferHistoryItemDelegate::slotDeleteTransfer()

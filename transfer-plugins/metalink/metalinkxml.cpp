@@ -81,7 +81,8 @@ void MetalinkXml::downloadMetalink()
     if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
         QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     }
-    Download *download = new Download(m_source, QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName());
+    const QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
+    Download *download = new Download(m_source, QUrl::fromLocalFile(path));
     connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
 }
 
@@ -100,7 +101,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 
     //try to parse the locally stored metalink-file
     if (!m_metalink.isValid() && m_localMetalinkLocation.isValid()) {
-        KGetMetalink::HandleMetalink::load(m_localMetalinkLocation.toLocalFile(), &m_metalink);
+        KGetMetalink::HandleMetalink::load(m_localMetalinkLocation, &m_metalink);
     }
 
     if (!m_metalink.isValid()) {

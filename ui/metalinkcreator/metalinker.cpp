@@ -1389,7 +1389,7 @@ bool KGetMetalink::HttpLinkHeader::operator<(const HttpLinkHeader &other) const
 
 void KGetMetalink::HttpLinkHeader::parseHeaderLine(const QString &line)
 {
-    url = line.mid(line.indexOf("<") + 1,line.indexOf(">") -1).trimmed();
+    url = QUrl(line.mid(line.indexOf("<") + 1,line.indexOf(">") -1).trimmed());
     const QList<QString> attribList = line.split(";");
 
     foreach (const QString str, attribList) {

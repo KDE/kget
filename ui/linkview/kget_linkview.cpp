@@ -172,12 +172,12 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
             const int count = items.count();
             int index = items.indexOf(QLatin1String("url"));
             if (index > -1 && index+1 < count)
-                url = items.at(index+1);
+                url = QUrl(items.at(index+1));
             index = items.indexOf(QLatin1String("type"));
             if (index > -1 && index+1 < count)
                 mt = db.mimeTypeForName(items.at(index+1));
         } else {
-            url = linkitem;
+            url = QUrl(linkitem);
             mt = db.mimeTypeForFile(linkitem, QMimeDatabase::MatchExtension);
         }
 

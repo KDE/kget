@@ -25,7 +25,7 @@ GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *
 
     ui.defaultFolderRequester->setMode(KFile::Directory);
     QString path = group->defaultFolder();
-    ui.defaultFolderRequester->setUrl(path);
+    ui.defaultFolderRequester->setUrl(QUrl::fromLocalFile(path));
     ui.defaultFolderRequester->setStartDir(QUrl(KGet::generalDestDir(true)));
 
     ui.regExpEdit->setText(group->regExp().pattern());

@@ -96,8 +96,9 @@ void SignatureDlg::textChanged()
 
 void SignatureDlg::loadSignatureClicked()
 {
-    const QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Load Signature File"), KGet::generalDestDir(), "*.asc|" + i18n("Detached OpenPGP ASCII signature (*.asc)") + '\n' +
-                                             "*.sig|" + i18n("Detached OpenPGP binary signature (*.sig)"));
+    const QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Load Signature File"), QUrl::fromLocalFile(KGet::generalDestDir()),
+                                                 "*.asc|" + i18n("Detached OpenPGP ASCII signature (*.asc)") + '\n' +
+                                                 "*.sig|" + i18n("Detached OpenPGP binary signature (*.sig)"));
     if (url.isEmpty()) {
         return;
     }

@@ -478,7 +478,8 @@ void AbstractMetalink::filesSelected()
                     doDownload = false;
                 //ask the user, unless he has chosen overwriteAll before
                 } else if (!overwriteAll) {
-                    KIO::RenameDialog dlg(0, i18n("File already exists"), index.data().toString(), dest, KIO::RenameDialog_Options(KIO::RenameDialog_MultipleItems | KIO::RenameDialog_Overwrite | KIO::RenameDialog_Skip));
+                    KIO::RenameDialog dlg(0, i18n("File already exists"), QUrl(index.data().toString()), dest,
+                                          KIO::RenameDialog_Options(KIO::RenameDialog_MultipleItems | KIO::RenameDialog_Overwrite | KIO::RenameDialog_Skip));
                     const int result = dlg.exec();
 
                     if (result == KIO::Result_Rename) {
