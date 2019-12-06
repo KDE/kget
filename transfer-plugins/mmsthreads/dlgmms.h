@@ -30,8 +30,8 @@ class DlgMmsSettings : public KCModule
         explicit DlgMmsSettings(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
 
     public slots:
-        virtual void save();
-        virtual void load();
+        void save() override;
+        void load() override;
 
     private:
         Ui::DlgMms ui;

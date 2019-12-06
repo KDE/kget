@@ -39,7 +39,7 @@ class ChecksumSearchAddDlg : public QDialog
     Q_OBJECT
 
     public:
-        ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent = nullptr, Qt::WFlags flags = 0);
+        ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent = nullptr, Qt::WFlags flags = {});
 
     signals:
         /**

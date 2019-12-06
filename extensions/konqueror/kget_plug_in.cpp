@@ -41,7 +41,6 @@
 #define QL1S(x)   QLatin1String(x)
 
 K_PLUGIN_FACTORY(KGetPluginFactory, registerPlugin<KGetPlugin>();)
-K_EXPORT_PLUGIN(KGetPluginFactory("kgetplugin"))
 
 static QWidget* partWidget(QObject* obj)
 {

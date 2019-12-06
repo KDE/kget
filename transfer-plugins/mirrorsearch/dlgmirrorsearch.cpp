@@ -16,6 +16,7 @@
 
 #include <KLocalizedString>
 #include <KConfigGroup>
+#include <kconfigwidgets_version.h>
 
 #include <QDebug>
 #include <QDialogButtonBox>
@@ -89,7 +90,11 @@ void DlgSettingsWidget::slotNewEngine()
     DlgEngineEditing dialog;
     if(dialog.exec()) {
         addSearchEngineItem(dialog.engineName(), dialog.engineUrl());
-        changed();
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 64, 0)
+        emit changed();
+#else
+        emit markAsChanged();
+#endif
     }
 }
 
@@ -99,8 +104,11 @@ void DlgSettingsWidget::slotRemoveEngine()
 
     foreach(QTreeWidgetItem * selectedItem, selectedItems)
         delete(selectedItem);
-
-    changed();
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 64, 0)
+        emit changed();
+#else
+        emit markAsChanged();
+#endif
 }
 
 void DlgSettingsWidget::load()
@@ -111,7 +119,11 @@ void DlgSettingsWidget::load()
 void DlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &url)
 {
     ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << name << url));
-    changed();
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 64, 0)
+        emit changed();
+#else
+        emit markAsChanged();
+#endif
 }
 
 void DlgSettingsWidget::loadSearchEnginesSettings()
