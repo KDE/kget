@@ -20,7 +20,7 @@
 #include "basedialog.h"
 #include "settings.h"
 
-KGetSaveSizeDialog::KGetSaveSizeDialog(const QByteArray &name, QWidget *parent, Qt::WFlags flags)
+KGetSaveSizeDialog::KGetSaveSizeDialog(const QByteArray &name, QWidget *parent, Qt::WindowFlags flags)
   : QDialog(parent, flags),
     m_name("Size" + name)
 {
