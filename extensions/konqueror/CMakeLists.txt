@@ -8,7 +8,7 @@ QT5_ADD_DBUS_INTERFACE(kget_browser_integration_SRCS ../../dbus/org.kde.kget.mai
 
 add_library(kget_browser_integration MODULE ${kget_browser_integration_SRCS})
 
-target_link_libraries(kget_browser_integration ${KDE4_KDECORE_LIBS})
+target_link_libraries(kget_browser_integration KF5::CoreAddons KF5::IconThemes KF5::Parts)
 
 install(TARGETS kget_browser_integration DESTINATION ${PLUGIN_INSTALL_DIR})
 

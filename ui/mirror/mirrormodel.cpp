@@ -486,6 +486,7 @@ void MirrorModel::addMirror(const QUrl &url, int numConnections, int priority, c
 
 void MirrorModel::setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors)
 {
+    beginResetModel();
     removeRows(0, rowCount());
 
     QHash<QUrl, QPair<bool, int> >::const_iterator it;
@@ -500,7 +501,7 @@ void MirrorModel::setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors)
         m_data.append(item);
     }
 
-    emit reset();
+    endResetModel();
 }
 
 QHash<QUrl, QPair<bool, int> > MirrorModel::availableMirrors() const

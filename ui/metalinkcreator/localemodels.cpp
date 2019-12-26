@@ -66,6 +66,7 @@ int CountryModel::rowCount(const QModelIndex &parent) const
 
 void CountryModel::setupModelData()
 {
+    beginResetModel();
     for (int c = 1; c <= QLocale::LastCountry; ++c)
     {
         QString countryCode;
@@ -98,7 +99,7 @@ void CountryModel::setupModelData()
             }
         }
     }
-    reset();
+    endResetModel();
 }
 
 LanguageModel::LanguageModel(QObject *parent)
@@ -132,6 +133,7 @@ int LanguageModel::rowCount(const QModelIndex &parent) const
 
 void LanguageModel::setupModelData()
 {
+    beginResetModel();
     for (int l = 1; l <= QLocale::LastLanguage; ++l)
     {
         const auto lang = static_cast<QLocale::Language>(l);
@@ -146,7 +148,7 @@ void LanguageModel::setupModelData()
             }
         }
     }
-    reset();
+    endResetModel();
 }
 
 

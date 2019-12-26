@@ -12,7 +12,7 @@
 #ifndef KGETPLUGIN_H
 #define KGETPLUGIN_H
 
-#include <KDE/KParts/Plugin>
+#include <KParts/Plugin>
 
 #include <QPointer>
 

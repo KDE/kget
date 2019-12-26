@@ -342,10 +342,11 @@ namespace kt
 	
 	void TorrentFileTreeModel::onCodecChange()
 	{
+		beginResetModel();
 		delete root;
 		root = nullptr;
 		constructTree();
-		reset();
+		endResetModel();
 	}
 
 	int TorrentFileTreeModel::rowCount(const QModelIndex & parent) const

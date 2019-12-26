@@ -16,7 +16,7 @@
 #include <QStandardItemModel>
 #include <QList>
 #include <QMimeData>
-#include <QWeakPointer>
+#include <QPointer>
 #include <QUrl>
 
 #include "kget_export.h"
@@ -41,18 +41,18 @@ class ItemMimeData : public QMimeData
 
         /**
          * Appends a transfer to the list of transfers.
-         * The weakpointer is there to check later on, that the transfer still exists
+         * The pointer is there to check later on, that the transfer still exists
          */
-        void appendTransfer(const QWeakPointer<TransferHandler> &transfer);
+        void appendTransfer(const QPointer<TransferHandler> &transfer);
 
         /**
          * Returns all appended transfers
-         * The weakpointer is there to check later on, that the transfer still exists
+         * The pointer is there to check later on, that the transfer still exists
          */
-        QList<QWeakPointer<TransferHandler> > transfers() const;
+        QList<QPointer<TransferHandler> > transfers() const;
 
     private:
-        QList<QWeakPointer<TransferHandler> > m_transfers;
+        QList<QPointer<TransferHandler> > m_transfers;
 };
 
 class KGET_EXPORT ModelItem : public QStandardItem

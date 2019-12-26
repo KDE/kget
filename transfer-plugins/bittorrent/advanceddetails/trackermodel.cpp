@@ -44,6 +44,7 @@ namespace kt
 
 	void TrackerModel::changeTC(bt::TorrentInterface* tc)
 	{
+		beginResetModel();
 		qDeleteAll(trackers);
 		trackers.clear();
 		this->tc = tc;
@@ -56,7 +57,7 @@ namespace kt
 			}
 		}
 		
-		reset();
+		endResetModel();
 	}
 	
 	void TrackerModel::update() 

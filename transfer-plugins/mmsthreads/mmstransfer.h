@@ -22,7 +22,7 @@
 
 
 #include <QTime>
-#include <kio/deletejob.h>
+#include <KIO/DeleteJob>
 #include "core/kget.h"
 #include "mmsdownload.h"
 #include "mmssettings.h"

@@ -151,17 +151,19 @@ namespace kt
 	
 	void ChunkDownloadModel::changeTC(bt::TorrentInterface* tc)
 	{
+		beginResetModel();
 		qDeleteAll(items);
 		items.clear();
 		this->tc = tc;
-		reset();
+		endResetModel();
 	}
 	
 	void ChunkDownloadModel::clear()
 	{
+		beginResetModel();
 		qDeleteAll(items);
 		items.clear();
-		reset();
+		endResetModel();
 	}
 	
 	void ChunkDownloadModel::update()

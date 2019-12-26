@@ -40,12 +40,12 @@ ItemMimeData::~ItemMimeData()
 {
 }
 
-void ItemMimeData::appendTransfer(const QWeakPointer<TransferHandler> &transfer)
+void ItemMimeData::appendTransfer(const QPointer<TransferHandler> &transfer)
 {
     m_transfers.append(transfer);
 }
 
-QList<QWeakPointer<TransferHandler> > ItemMimeData::transfers() const
+QList<QPointer<TransferHandler> > ItemMimeData::transfers() const
 {
     return m_transfers;
 }
@@ -583,7 +583,7 @@ QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
         if (index.isValid() && index.column() == 0 && index.parent().isValid()) {
             ModelItem *item = itemFromIndex(index);
             if (!item->isGroup()) {
-                mimeData->appendTransfer(QWeakPointer<TransferHandler>(item->asTransfer()->transferHandler()));
+                mimeData->appendTransfer(QPointer<TransferHandler>(item->asTransfer()->transferHandler()));
             }
         }
     }
@@ -613,7 +613,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData" << " " << row << " " 
                                                           << column << endl;
 
-    QList<QWeakPointer<TransferHandler> > transfers = itemData->transfers();
+    QList<QPointer<TransferHandler> > transfers = itemData->transfers();
     qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData:" << transfers.count() << "transfers.";
 
     const bool droppedInsideGroup = parent.isValid();
@@ -635,7 +635,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         if (transfers[i].isNull()) {
             qWarning() << "The moved transfer has been deleted inbetween.";
         } else {
-            moveTransfer(transfers[i].toStrongRef().data()->m_transfer, destGroup, after);
+            moveTransfer(transfers[i].data()->m_transfer, destGroup, after);
         }
     }
     return true;

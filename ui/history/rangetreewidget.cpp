@@ -82,7 +82,7 @@ RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
     setDragEnabled(false);
     setAlternatingRowColors(true);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
-    header()->setMovable(false);
+    header()->setSectionsMovable(false);
 
     // initialize the standard item model of the tree
     m_model = new QStandardItemModel(this);

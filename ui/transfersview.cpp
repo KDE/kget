@@ -39,7 +39,7 @@ TransfersView::TransfersView(QWidget * parent)
     header()->setDefaultAlignment(Qt::AlignCenter);
     header()->setMinimumSectionSize(80);    
     header()->setContextMenuPolicy(Qt::CustomContextMenu);
-    header()->setClickable(true);
+    header()->setSectionsClickable(true);
     m_headerMenu = new QMenu(header());
 
     setSelectionMode(QAbstractItemView::ExtendedSelection);

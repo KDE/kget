@@ -30,7 +30,7 @@ ki18n_wrap_ui(kcm_kget_mmsfactory_PART_SRCS
 )
 kconfig_add_kcfg_files(kcm_kget_mmsfactory_PART_SRCS mmssettings.kcfgc)
 add_library(kcm_kget_mmsfactory MODULE ${kcm_kget_mmsfactory_PART_SRCS})
-target_link_libraries(kcm_kget_mmsfactory ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+target_link_libraries(kcm_kget_mmsfactory KF5::I18n KF5::ConfigWidgets)
 install(TARGETS kcm_kget_mmsfactory DESTINATION ${PLUGIN_INSTALL_DIR})
 
 install(FILES kget_mmsfactory_config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
