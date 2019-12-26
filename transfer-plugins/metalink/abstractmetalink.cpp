@@ -402,7 +402,7 @@ void AbstractMetalink::setAvailableMirrors(const QUrl &file, const QHash<QUrl, Q
 void AbstractMetalink::slotUpdateCapabilities()
 {
     Capabilities oldCap = capabilities();
-    Capabilities newCap = 0;
+    Capabilities newCap = {};
     foreach (DataSourceFactory *file, m_dataSourceFactory) {
         if (file->doDownload()) {//FIXME when a download did not start yet it should be moveable!!//FIXME why not working, when only two connections?
             if (newCap) {

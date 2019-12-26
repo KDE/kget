@@ -37,7 +37,7 @@ class VerificationAddDlg : public QDialog
     Q_OBJECT
 
     public:
-        explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = nullptr, Qt::WFlags flags = {});
+        explicit VerificationAddDlg(VerificationModel *model, QWidget *parent = nullptr, Qt::WindowFlags flags = {});
         
         virtual QSize sizeHint() const override;
 

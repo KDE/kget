@@ -31,7 +31,7 @@
 #include "core/verificationdelegate.h"
 #include "settings.h"
 
-VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent, Qt::WFlags flags)
+VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent, Qt::WindowFlags flags)
   : QDialog(parent, flags),
     m_model(model)
 {
@@ -106,7 +106,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
         ui.usedHashes->setModel(m_proxy);
         ui.usedHashes->setItemDelegate(new VerificationDelegate(this));
 
-        QByteArray loadedState = QByteArray::fromBase64(Settings::verificationHeaderState().toAscii());
+        QByteArray loadedState = QByteArray::fromBase64(Settings::verificationHeaderState().toLatin1());
         if (!loadedState.isEmpty()) {
             ui.usedHashes->header()->restoreState(loadedState);
         }

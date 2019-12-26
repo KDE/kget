@@ -25,7 +25,7 @@
 
 #include <KLocalizedString>
 
-RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent, Qt::WFlags flags)
+RenameFile::RenameFile(FileModel *model, const QModelIndex &index, QWidget *parent, Qt::WindowFlags flags)
   : QDialog(parent, flags),
     m_model(model),
     m_index(index)

@@ -501,7 +501,7 @@ void KGetMetalink::File::load(const QDomElement &e)
 {
     data.load(e);
 
-    name = QUrl::fromPercentEncoding(e.attribute("name").toAscii());
+    name = QUrl::fromPercentEncoding(e.attribute("name").toLatin1());
     size = e.firstChildElement("size").text().toULongLong();
 
     verification.load(e);
@@ -741,7 +741,7 @@ void KGetMetalink::Metalink_v3::parseFiles(const QDomElement &e)
 
     for (QDomElement elem = filesElem.firstChildElement("file"); !elem.isNull(); elem = elem.nextSiblingElement("file")) {
         File file;
-        file.name = QUrl::fromPercentEncoding(elem.attribute("name").toAscii());
+        file.name = QUrl::fromPercentEncoding(elem.attribute("name").toLatin1());
         file.size = elem.firstChildElement("size").text().toULongLong();
 
         file.data = parseCommonData(elem);

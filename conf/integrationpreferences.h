@@ -32,7 +32,7 @@ class IntegrationPreferences : public QWidget
     Q_OBJECT
 
     public:
-        explicit IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f = 0);
+        explicit IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f = Qt::Widget);
         ~IntegrationPreferences();
 
     private slots:

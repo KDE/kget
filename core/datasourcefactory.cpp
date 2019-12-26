@@ -1240,7 +1240,7 @@ Signature *DataSourceFactory::signature()
 void DataSourceFactory::slotUpdateCapabilities()
 {
     const Transfer::Capabilities oldCaps = capabilities();
-    Transfer::Capabilities newCaps = 0;
+    Transfer::Capabilities newCaps = {};
 
     if ((status() == Job::Finished) || (status() == Job::Stopped)) {
         newCaps |= Transfer::Cap_Moving | Transfer::Cap_Renaming;

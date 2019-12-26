@@ -41,7 +41,7 @@
 
 const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
 
-SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget *parent, Qt::WFlags flags)
+SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget *parent, Qt::WindowFlags flags)
   : KGetSaveSizeDialog("SignatureDlg", parent, flags),
     m_signature(transfer->signature(dest)),
     m_fileModel(transfer->fileModel())
@@ -183,7 +183,7 @@ void SignatureDlg::updateData()
         } else if (!context.data()) {
                 qCDebug(KGET_DEBUG) << "Could not create context.";
         } else {
-            QByteArray fingerprint = fingerprintString.toAscii();
+            QByteArray fingerprint = fingerprintString.toLatin1();
             const GpgME::Key key = context->key(fingerprint.constData(), err);
             if (err || key.isNull() || !key.numUserIDs() || !key.numSubkeys()) {
                 qCDebug(KGET_DEBUG) << "There was an error while loading the key:" << err;

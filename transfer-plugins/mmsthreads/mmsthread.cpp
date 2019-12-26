@@ -39,7 +39,7 @@ void MmsThread::run()
     file.seek(m_begin);
     
     /** Connecting to the url*/
-    mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toAscii()) , 1e6);
+    mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toLatin1()) , 1e6);
     if (mms) {
         m_locker.lock();
         emit signIsConnected(true);

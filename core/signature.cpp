@@ -142,7 +142,7 @@ QByteArray Signature::signature()
 
 void Signature::setAsciiDetatchedSignature(const QString &signature)
 {
-    setSignature(signature.toAscii(), AsciiDetached);
+    setSignature(signature.toLatin1(), AsciiDetached);
 }
 
 void Signature::setSignature(const QByteArray &signature, SignatureType type)
@@ -295,10 +295,10 @@ void Signature::load(const QDomElement &e)
     switch (d->type) {
         case NoType:
         case AsciiDetached:
-            d->signature = verification.text().toAscii();
+            d->signature = verification.text().toLatin1();
             break;
         case BinaryDetached:
-            d->signature = QByteArray::fromBase64(verification.text().toAscii());
+            d->signature = QByteArray::fromBase64(verification.text().toLatin1());
     }
 }
 

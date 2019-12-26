@@ -26,7 +26,7 @@
 #include <KLocalizedString>
 #include <KStandardGuiItem>
 
-MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WFlags flags)
+MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WindowFlags flags)
   : QDialog(parent, flags),
     m_model(model),
     m_countryModel(nullptr)
@@ -34,7 +34,7 @@ MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QWidget *parent, Qt::WFlags flags
     init();
 }
 
-MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent, Qt::WFlags flags)
+MirrorAddDlg::MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent, Qt::WindowFlags flags)
   : QDialog(parent, flags),
     m_model(model),
     m_countryModel(countryModel)

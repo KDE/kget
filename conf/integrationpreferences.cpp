@@ -49,7 +49,7 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     AutoPasteDelegate *delegate = new AutoPasteDelegate(ui.type->model(), ui.patternSyntax->model(), this);
     ui.list->setItemDelegate(delegate);
 
-    QByteArray loadedState = QByteArray::fromBase64(Settings::autoPasteHeaderState().toAscii());
+    QByteArray loadedState = QByteArray::fromBase64(Settings::autoPasteHeaderState().toLatin1());
     if (Settings::autoPasteHeaderState().isEmpty()) {
         ui.list->resizeColumnToContents(AutoPasteModel::Type);
     } else if (!loadedState.isNull()) {

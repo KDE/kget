@@ -412,7 +412,7 @@ Qt::ItemFlags FileModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
     {
-        return 0;
+        return Qt::NoItemFlags;
     }
 
     if (index.column() == FileItem::File)

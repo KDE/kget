@@ -37,7 +37,7 @@ const QUrl ChecksumSearchAddDlg::URL = QUrl("http://www.example.com/file.zip");
 
 K_PLUGIN_FACTORY( KGetFactory, registerPlugin<DlgChecksumSettingsWidget>(); )
 
-ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent, Qt::WFlags flags)
+ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent, Qt::WindowFlags flags)
   : QDialog(parent, flags),
     m_modesModel(modesModel),
     m_typesModel(typesModel)

@@ -46,7 +46,7 @@
 */
 QString base64ToHex(const QString& b64)
 {
-     return QString(QByteArray::fromBase64(b64.toAscii()).toHex());
+     return QString(QByteArray::fromBase64(b64.toLatin1()).toHex());
 }
 
 MetalinkHttp::MetalinkHttp(TransferGroup * parent, TransferFactory * factory,

@@ -31,7 +31,7 @@ class VerificationPreferences : public QWidget
     Q_OBJECT
 
     public:
-        explicit VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f = 0);
+        explicit VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f = Qt::Widget);
 
     signals:
         /**

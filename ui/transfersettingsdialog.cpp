@@ -54,7 +54,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
         ui.treeView->setModel(m_proxy);
         ui.treeView->sortByColumn(0, Qt::AscendingOrder);
 
-        QByteArray loadedState = QByteArray::fromBase64(Settings::transferSettingsHeaderState().toAscii());
+        QByteArray loadedState = QByteArray::fromBase64(Settings::transferSettingsHeaderState().toLatin1());
         if (!loadedState.isEmpty()) {
             ui.treeView->header()->restoreState(loadedState);
         } else {

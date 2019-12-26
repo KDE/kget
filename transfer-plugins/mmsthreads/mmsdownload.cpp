@@ -63,7 +63,7 @@ void MmsDownload::run()
 bool MmsDownload::isWorkingUrl()
 {
     /** Check if the URL is working, if it can't connect then not start the download.*/
-    m_mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toAscii()), 1e9);
+    m_mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toLatin1()), 1e9);
     return m_mms;
 }
 

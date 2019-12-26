@@ -81,7 +81,7 @@ QVariant VerificationModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags VerificationModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid()) {
-        return 0;
+        return Qt::NoItemFlags;
     }
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;

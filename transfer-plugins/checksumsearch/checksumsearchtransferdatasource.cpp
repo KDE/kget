@@ -184,7 +184,7 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const QUrl &urlToFile)
     for (int i = 0, k = 0; i < changes.size(); ++i) {
         const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(modes.at(i));
         const QUrl source = ChecksumSearch::createUrl(m_sourceUrl, changes.at(i), mode);
-        if (data.indexOf(source.fileName().toAscii()) != -1) {
+        if (data.indexOf(source.fileName().toLatin1()) != -1) {
             urls.append(source);
             ++k;
         } else {

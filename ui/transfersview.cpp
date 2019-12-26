@@ -76,7 +76,7 @@ void TransfersView::setModel(QAbstractItemModel * model)
         openPersistentEditor(model->index(i, TransferTreeModel::Status, QModelIndex()));
     }
 
-    QByteArray loadedState = QByteArray::fromBase64(Settings::headerState().toAscii());
+    QByteArray loadedState = QByteArray::fromBase64(Settings::headerState().toLatin1());
     if (loadedState.isEmpty()) {
         setColumnWidth(0 , 230);
     } else {

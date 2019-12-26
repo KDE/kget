@@ -635,7 +635,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         if (transfers[i].isNull()) {
             qWarning() << "The moved transfer has been deleted inbetween.";
         } else {
-            moveTransfer(transfers[i].data()->m_transfer, destGroup, after);
+            moveTransfer(transfers[i].toStrongRef().data()->m_transfer, destGroup, after);
         }
     }
     return true;
