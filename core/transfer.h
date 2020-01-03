@@ -29,7 +29,6 @@ class TransferFactory;
 class TransferGroup;
 class Scheduler;
 class TransferTreeModel;
-class NepomukHandler;
 class FileModel;
 class Verifier;
 
@@ -373,9 +372,6 @@ class KGET_EXPORT Transfer : public Job
 
         TransferHandler * m_handler;
         TransferFactory * m_factory;
-#ifdef HAVE_NEPOMUK
-        NepomukHandler * m_nepomukHandler;
-#endif
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Transfer::Capabilities)

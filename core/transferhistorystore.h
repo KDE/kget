@@ -57,7 +57,6 @@ public:
     enum Backend {
         Xml = 0,
         SQLite = 1,
-        Nepomuk = 2
     };
 
     TransferHistoryStore();
