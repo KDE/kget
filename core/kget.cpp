@@ -181,7 +181,7 @@ TransferHandler * KGet::addTransfer(QUrl srcUrl, QString destDir, QString sugges
 {
     srcUrl = mostLocalUrl(srcUrl);
     // Note: destDir may actually be a full path to a file :-(
-    qCDebug(KGET_DEBUG) << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName << endl;
+    qCDebug(KGET_DEBUG) << "Source:" << srcUrl.url() << ", dest: " << destDir << ", sugg file: " << suggestedFileName;
 
     QUrl destUrl; // the final destination, including filename
 
@@ -603,7 +603,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
     if (plain) {
         QTextStream out(&file);
         foreach(TransferHandler *handler, allTransfers()) {
-            out << handler->source().toString() << endl;
+            out << handler->source().toString() << '\n';
         }
     }
     else {
@@ -1163,9 +1163,9 @@ void KGet::loadPlugins()
     for (const KPluginMetaData& md : offers)
     {
         sortedOffers[md.value("X-KDE-KGet-rank").toInt()] = md;
-        qCDebug(KGET_DEBUG) << " TransferFactory plugin found:" << endl <<
-         "  rank = " << md.value("X-KDE-KGet-rank").toInt() << endl <<
-         "  plugintype = " << md.value("X-KDE-KGet-plugintype") << endl;
+        qCDebug(KGET_DEBUG) << " TransferFactory plugin found:\n"<<
+         "  rank = " << md.value("X-KDE-KGet-rank").toInt() << '\n' <<
+         "  plugintype = " << md.value("X-KDE-KGet-plugintype");
     }
 
     //I must fill this pluginList before and my m_transferFactories list after.

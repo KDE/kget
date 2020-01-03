@@ -611,7 +611,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
     if (parent.isValid())
         qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData" << " " << row << " " 
-                                                          << column << endl;
+                                                          << column;
 
     QList<QPointer<TransferHandler> > transfers = itemData->transfers();
     qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData:" << transfers.count() << "transfers.";
