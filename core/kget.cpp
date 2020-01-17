@@ -1095,7 +1095,7 @@ QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
         QString filename = srcUrl.fileName();
         if (filename.isEmpty())
             filename = QUrl::toPercentEncoding( srcUrl.toString(), "/" );
-        destUrl.adjusted( QUrl::RemoveFilename );
+        destUrl = destUrl.adjusted( QUrl::RemoveFilename );
         destUrl.setPath(destUrl.path() + filename);
     }
     
