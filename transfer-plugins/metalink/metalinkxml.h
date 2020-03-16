@@ -31,7 +31,7 @@ class MetalinkXml : public AbstractMetalink
                     Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                     const QDomElement * e = nullptr);
 
-        ~MetalinkXml();
+        ~MetalinkXml() override;
 
         void save(const QDomElement &element) override;
         void load(const QDomElement *e) override;

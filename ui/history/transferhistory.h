@@ -29,9 +29,9 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
 
     public:
         TransferHistory(QWidget *parent = nullptr);
-        ~TransferHistory();
+        ~TransferHistory() override;
         
-        virtual QSize sizeHint() const override;
+        QSize sizeHint() const override;
 
     private:
         enum RangeType {

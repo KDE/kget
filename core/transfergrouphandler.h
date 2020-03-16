@@ -38,7 +38,7 @@ class KGET_EXPORT TransferGroupHandler : public Handler
 
         TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent);
 
-        ~TransferGroupHandler();
+        ~TransferGroupHandler() override;
 
         JobQueue::Status status() const {return m_group->status();}
 

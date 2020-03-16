@@ -28,7 +28,7 @@ class KGET_EXPORT TransferDataSource : public QObject
     Q_OBJECT
     public:
         TransferDataSource(const QUrl &srcUrl, QObject *parent);
-        virtual ~TransferDataSource();
+        ~TransferDataSource() override;
 
         /**
          * @enum Error

@@ -23,7 +23,7 @@ class DlgEngineEditing : public QDialog
 
 public:
     DlgEngineEditing(QWidget *parent = nullptr);
-    ~DlgEngineEditing();
+    ~DlgEngineEditing() override;
 
     QString engineName() const;
     QString engineUrl() const;
@@ -41,7 +41,7 @@ class DlgSettingsWidget : public KCModule
 
 public:
     explicit DlgSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
-    ~DlgSettingsWidget();
+    ~DlgSettingsWidget() override;
 
 public slots:
     void save() override;

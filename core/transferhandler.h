@@ -58,7 +58,7 @@ class KGET_EXPORT TransferHandler : public Handler
 
         TransferHandler(Transfer * parent, Scheduler * scheduler);
 
-        virtual ~TransferHandler();
+        ~TransferHandler() override;
 
         Job::Status status() const {return m_transfer->status();}
         Job::Error error() const {return m_transfer->error();}
@@ -289,8 +289,8 @@ class KGET_EXPORT TransferHandler : public Handler
         /**
          * These are all Job-related functions
          */
-        virtual void start() override;
-        virtual void stop() override;
+        void start() override;
+        void stop() override;
 
     signals:
         /**

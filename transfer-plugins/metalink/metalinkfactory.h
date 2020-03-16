@@ -25,7 +25,7 @@ class MetalinkFactory : public TransferFactory
     Q_OBJECT
     public:
         MetalinkFactory(QObject *parent, const QVariantList &args);
-        ~MetalinkFactory();
+        ~MetalinkFactory() override;
 
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,

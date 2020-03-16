@@ -22,16 +22,16 @@ class TransferKioFactory : public TransferFactory
     Q_OBJECT
     public:
         TransferKioFactory(QObject *parent, const QVariantList &args);
-        ~TransferKioFactory();
+        ~TransferKioFactory() override;
 
     public slots:
-        virtual Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
+        Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = nullptr ) override;
 
-        virtual QString displayName() const override {return "HTTP(s) / FTP(s)";}
+        QString displayName() const override {return "HTTP(s) / FTP(s)";}
         
-        virtual bool isSupported(const QUrl &url) const override;
+        bool isSupported(const QUrl &url) const override;
         QStringList addsProtocols() const override;
 };
 

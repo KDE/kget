@@ -22,7 +22,7 @@ class MultiSegKioDataSource : public TransferDataSource
 
     public:
         MultiSegKioDataSource(const QUrl &srcUrl, QObject *parent);
-        ~MultiSegKioDataSource();
+        ~MultiSegKioDataSource() override;
 
         void start() override;
         void stop() override;

@@ -57,7 +57,7 @@ class KGET_EXPORT MostLocalUrlJob : public KIO::Job
     public:
         MostLocalUrlJob(const QUrl &url);
 
-        virtual void start() override;
+        void start() override;
         QUrl url();
 
         /**
@@ -66,7 +66,7 @@ class KGET_EXPORT MostLocalUrlJob : public KIO::Job
         QUrl mostLocalUrl() const;
 
     protected:
-        virtual void slotResult(KJob *job) override;
+        void slotResult(KJob *job) override;
 
     private:
         QUrl m_url;

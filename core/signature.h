@@ -46,7 +46,7 @@ class KGET_EXPORT Signature : public QObject
 //TODO also support verification and decryption of files that contain the signature?
     public:
         explicit Signature(const QUrl &dest, QObject *object = nullptr);
-        ~Signature();
+        ~Signature() override;
 
         enum SignatureType
         {

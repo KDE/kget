@@ -91,7 +91,7 @@ class MirrorModel : public QAbstractTableModel
 
     public:
         MirrorModel(QObject *parent);
-        ~MirrorModel();
+        ~MirrorModel() override;
 
         int rowCount(const QModelIndex &index = QModelIndex()) const override;
         int columnCount(const QModelIndex &index = QModelIndex()) const override;

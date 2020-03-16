@@ -37,7 +37,7 @@ class KGET_EXPORT KGetSaveSizeDialog : public QDialog
          * Restores the dialog to the size saved for name
          */
         explicit KGetSaveSizeDialog(const QByteArray &name, QWidget *parent = nullptr, Qt::WindowFlags flags = {});
-        virtual ~KGetSaveSizeDialog();
+        ~KGetSaveSizeDialog() override;
         
     private:
         QByteArray m_name;

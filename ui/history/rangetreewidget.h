@@ -31,10 +31,10 @@ class RangeSortFilterProxyModel : public QSortFilterProxyModel
 {
 public:
     RangeSortFilterProxyModel(QObject *parent = nullptr);
-    ~RangeSortFilterProxyModel();
+    ~RangeSortFilterProxyModel() override;
 
 protected:
-    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 };
 
 class RangeTreeWidget : public QTreeView
@@ -43,7 +43,7 @@ Q_OBJECT
 public:
 
     RangeTreeWidget(QWidget *parent = nullptr);
-    ~RangeTreeWidget();
+    ~RangeTreeWidget() override;
 
     /**
     * Creates a range with a title between two values
@@ -99,7 +99,7 @@ class RangeDelegate : public QObject
 Q_OBJECT
     public:
         RangeDelegate(QObject *parent = nullptr);
-        ~RangeDelegate();
+        ~RangeDelegate() override;
 
         /**
         * Returns the current range of the incoming data
@@ -115,7 +115,7 @@ class HostRangeDelegate : public RangeDelegate
 Q_OBJECT
     public:
         HostRangeDelegate(QObject *parent = nullptr);
-        ~HostRangeDelegate();
+        ~HostRangeDelegate() override;
 
         QVariant getRangeData(const QVariant &data) override;
 };

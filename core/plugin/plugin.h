@@ -63,7 +63,7 @@ class KGET_EXPORT KGetPlugin : public QObject
     Q_OBJECT
     public:
         KGetPlugin(QObject *parent, const QVariantList &args);
-        virtual ~KGetPlugin();
+        ~KGetPlugin() override;
 
         /*
         // set and retrieve properties

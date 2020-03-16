@@ -77,7 +77,7 @@ class KGET_EXPORT Job : public QObject
             ErrorType type;
         };
         Job(Scheduler * scheduler, JobQueue * parent);
-        virtual ~Job();
+        ~Job() override;
 
         //Job commands
         virtual void start()=0;

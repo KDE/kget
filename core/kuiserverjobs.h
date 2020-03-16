@@ -30,7 +30,7 @@ class KUiServerJobs : public QObject
     Q_OBJECT
 public:
     KUiServerJobs(QObject *parent = nullptr);
-    ~KUiServerJobs();
+    ~KUiServerJobs() override;
    
     void settingsChanged();
 

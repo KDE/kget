@@ -30,7 +30,7 @@ class DBusVerifierWrapper : public QObject
     Q_OBJECT
     public:
         DBusVerifierWrapper(Verifier *parent);
-        ~DBusVerifierWrapper();
+        ~DBusVerifierWrapper() override;
 
     public slots:
         /**

@@ -92,7 +92,7 @@ class DlgChecksumSettingsWidget : public KCModule
 
     public:
         explicit DlgChecksumSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
-        ~DlgChecksumSettingsWidget();
+        ~DlgChecksumSettingsWidget() override;
 
     public slots:
         void save() override;

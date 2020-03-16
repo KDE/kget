@@ -38,7 +38,7 @@ class TransferKio : public Transfer
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory) override;
+        bool setDirectory(const QUrl &newDirectory) override;
 
         bool repair(const QUrl &file = QUrl()) override;
 

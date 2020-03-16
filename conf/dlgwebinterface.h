@@ -25,7 +25,7 @@ class DlgWebinterface : public QWidget, public Ui::DlgWebinterface
 
 public:
     DlgWebinterface(QDialog *parent = nullptr);
-    ~DlgWebinterface();
+    ~DlgWebinterface() override;
     
 signals:
     void changed();

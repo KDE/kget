@@ -69,7 +69,7 @@ class KGET_EXPORT Verifier : public QObject
 
     public:
         explicit Verifier(const QUrl &dest, QObject *parent = nullptr);
-        ~Verifier();
+        ~Verifier() override;
 
         enum VerificationStatus
         {

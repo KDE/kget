@@ -35,7 +35,7 @@ class SignatureThread : public QThread
 
     public:
         SignatureThread(QObject *parent = nullptr);
-        ~SignatureThread();
+        ~SignatureThread() override;
 
         /**
          * @return true if the thread is valid, i.e. has QGPGME support

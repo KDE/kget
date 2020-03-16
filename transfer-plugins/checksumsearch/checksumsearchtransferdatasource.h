@@ -37,7 +37,7 @@ class ChecksumSearchController : public QObject
     Q_OBJECT
     public:
         ChecksumSearchController(QObject *parent = nullptr);
-        ~ChecksumSearchController();
+        ~ChecksumSearchController() override;
 
         /**
          * Registers a search, downloads baseUrl if that has not be downloaded and then
@@ -70,7 +70,7 @@ class ChecksumSearchTransferDataSource : public TransferDataSource
     Q_OBJECT
     public:
         ChecksumSearchTransferDataSource(const QUrl &srcUrl, QObject *parent);
-        virtual ~ChecksumSearchTransferDataSource();
+        ~ChecksumSearchTransferDataSource() override;
 
         void start() override;
         void stop() override;

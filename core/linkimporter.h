@@ -28,7 +28,7 @@ Q_OBJECT
 public:
     LinkImporter(const QUrl &source, QObject *parent);
     LinkImporter(QObject *parent);
-    ~LinkImporter();
+    ~LinkImporter() override;
 
     /**
     * Check for urls in clipboard

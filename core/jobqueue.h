@@ -38,7 +38,7 @@ class KGET_EXPORT JobQueue : public QObject
         typedef QList<Job *>::iterator iterator;
 
         JobQueue(Scheduler * parent);
-        virtual ~JobQueue();
+        ~JobQueue() override;
 
         /**
          * Sets the JobQueue status

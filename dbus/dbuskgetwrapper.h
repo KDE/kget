@@ -35,7 +35,7 @@ class DBusKGetWrapper : public QObject
 
     public:
         DBusKGetWrapper(MainWindow *parent);
-        ~DBusKGetWrapper();
+        ~DBusKGetWrapper() override;
 
         QStringList addTransfer(const QString& src, const QString& destDir = QString(), bool start = false);
         bool delTransfer(const QString& dbusObjectPath);

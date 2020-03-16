@@ -37,7 +37,7 @@ public:
     {
     }
 
-    ~KGetApp()
+    ~KGetApp() override
     {
         delete kget;
     }

@@ -24,7 +24,7 @@ class SQLiteStore : public TransferHistoryStore
     Q_OBJECT
 public:
     SQLiteStore(const QString &database);
-    ~SQLiteStore();
+    ~SQLiteStore() override;
 
 public slots:
     void load() override;

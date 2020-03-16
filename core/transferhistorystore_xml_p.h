@@ -22,7 +22,7 @@ class XmlStore : public TransferHistoryStore
     Q_OBJECT
 public:
     XmlStore(const QString &url);
-    ~XmlStore();
+    ~XmlStore() override;
 
 public slots:
     void load() override;

@@ -44,7 +44,7 @@ class MainWindow : public KXmlGuiWindow
 Q_OBJECT
 public:
     explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
     virtual void setSystemTrayDownloading(bool running);
 
@@ -58,16 +58,16 @@ public slots:
 
 protected:
     // ignore/accept quit events
-    virtual void closeEvent(QCloseEvent *) override;
-    virtual void hideEvent(QHideEvent *) override;
-    virtual void showEvent(QShowEvent *) override;
+    void closeEvent(QCloseEvent *) override;
+    void hideEvent(QHideEvent *) override;
+    void showEvent(QShowEvent *) override;
 
     // drag and drop
-    virtual void dragEnterEvent(QDragEnterEvent *) override;
-    virtual void dropEvent(QDropEvent *) override;
+    void dragEnterEvent(QDragEnterEvent *) override;
+    void dropEvent(QDropEvent *) override;
 
     // set sensitive initial size
-    virtual QSize sizeHint() const override;
+    QSize sizeHint() const override;
 
 private slots:
     // slots connected to actions

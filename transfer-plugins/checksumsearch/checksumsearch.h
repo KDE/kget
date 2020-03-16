@@ -31,7 +31,7 @@ class ChecksumSearch : public QObject
 
     public:
         ChecksumSearch(const QList<QUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent = nullptr);
-        ~ChecksumSearch();
+        ~ChecksumSearch() override;
 
         /**
          * Used to define in whiche way the url should be changed to try and find

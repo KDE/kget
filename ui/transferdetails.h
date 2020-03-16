@@ -24,7 +24,7 @@ class TransferDetails : public QWidget
     Q_OBJECT
     public:
         TransferDetails(TransferHandler * transfer);
-        ~TransferDetails();
+        ~TransferDetails() override;
 
         // gets the generic details widget if the transfer factory doesn't override it
         static QWidget *detailsWidget(TransferHandler *transfer);

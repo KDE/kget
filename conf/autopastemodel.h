@@ -61,7 +61,7 @@ class AutoPasteModel : public QAbstractTableModel
         };
 
         explicit AutoPasteModel(QObject *parent = 0);
-        ~AutoPasteModel();
+        ~AutoPasteModel() override;
 
         int rowCount(const QModelIndex &index = QModelIndex()) const override;
         int columnCount(const QModelIndex &index = QModelIndex()) const override;

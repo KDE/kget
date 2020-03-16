@@ -37,7 +37,7 @@ class ItemMimeData : public QMimeData
     Q_OBJECT
     public:
         ItemMimeData();
-        ~ItemMimeData();
+        ~ItemMimeData() override;
 
         /**
          * Appends a transfer to the list of transfers.
@@ -59,9 +59,9 @@ class KGET_EXPORT ModelItem : public QStandardItem
 {
     public:
         ModelItem(Handler * handler);
-        virtual ~ModelItem();
+        ~ModelItem() override;
 
-        virtual QVariant data(int role = Qt::UserRole + 1) const override = 0;
+        QVariant data(int role = Qt::UserRole + 1) const override = 0;
         void emitDataChanged();
         Handler * handler();
         virtual bool isGroup();
@@ -77,9 +77,9 @@ class KGET_EXPORT TransferModelItem : public ModelItem
 {
     public:
         TransferModelItem(TransferHandler *handler);
-        virtual ~TransferModelItem();
+        ~TransferModelItem() override;
 
-        virtual QVariant data(int role = Qt::UserRole + 1) const override;
+        QVariant data(int role = Qt::UserRole + 1) const override;
 
         TransferHandler * transferHandler();
 
@@ -92,13 +92,13 @@ class KGET_EXPORT GroupModelItem : public ModelItem
 {
     public:
         GroupModelItem(TransferGroupHandler *handler);
-        virtual ~GroupModelItem();
+        ~GroupModelItem() override;
         
-        virtual QVariant data(int role = Qt::UserRole + 1) const override;
+        QVariant data(int role = Qt::UserRole + 1) const override;
         
         TransferGroupHandler * groupHandler();
         
-        virtual bool isGroup() override;
+        bool isGroup() override;
         
     private:
         TransferGroupHandler * m_groupHandler;
@@ -123,7 +123,7 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
             RemainingTime
         };
         TransferTreeModel(Scheduler * scheduler);
-        ~TransferTreeModel();
+        ~TransferTreeModel() override;
 
         void addGroup(TransferGroup * group);
         void delGroup(TransferGroup * group);

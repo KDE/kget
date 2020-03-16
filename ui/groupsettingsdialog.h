@@ -21,7 +21,7 @@ class GroupSettingsDialog : public KGetSaveSizeDialog
     Q_OBJECT
     public:
         GroupSettingsDialog(QWidget *parent, TransferGroupHandler *group);
-        ~GroupSettingsDialog();
+        ~GroupSettingsDialog() override;
 
         QSize sizeHint() const override;
 

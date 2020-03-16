@@ -33,7 +33,7 @@ class IntegrationPreferences : public QWidget
 
     public:
         explicit IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f = Qt::Widget);
-        ~IntegrationPreferences();
+        ~IntegrationPreferences() override;
 
     private slots:
         void slotUpdateButtons();

@@ -20,7 +20,7 @@ class KGetGlobalJob : public KJob
     Q_OBJECT
 public:
     KGetGlobalJob(QObject *parent = nullptr);
-    ~KGetGlobalJob();
+    ~KGetGlobalJob() override;
 
     void update();    
     
@@ -37,7 +37,7 @@ signals:
     void requestStop(KJob *job, TransferHandler *handler);
 
 protected:
-    virtual bool doKill() override;
+    bool doKill() override;
 };
 
 #endif

@@ -32,7 +32,7 @@ class VerificationThread : public QThread
 
     public:
         VerificationThread(QObject *parent = nullptr);
-        ~VerificationThread();
+        ~VerificationThread() override;
 
         void verify(const QString &type, const QString &checksum, const QUrl &file);
 

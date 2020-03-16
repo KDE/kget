@@ -60,7 +60,7 @@ public:
     };
 
     TransferHistoryStore();
-    ~TransferHistoryStore();
+    ~TransferHistoryStore() override;
 
     QList<TransferHistoryItem> items() const;
 

@@ -24,9 +24,9 @@ class TransferSettingsDialog : public KGetSaveSizeDialog
     Q_OBJECT
     public:
         TransferSettingsDialog(QWidget *parent, TransferHandler *transfer);
-        ~TransferSettingsDialog();
+        ~TransferSettingsDialog() override;
         
-        virtual QSize sizeHint() const override;
+        QSize sizeHint() const override;
 
     private slots:
         void updateCapabilities();

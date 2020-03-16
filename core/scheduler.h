@@ -64,7 +64,7 @@ class KGET_EXPORT Scheduler : public QObject
         };
         
         Scheduler(QObject * parent = nullptr);
-        ~Scheduler();
+        ~Scheduler() override;
 
         /**
          * Starts globally the execution of the jobs

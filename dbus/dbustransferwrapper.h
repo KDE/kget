@@ -22,7 +22,7 @@ class DBusTransferWrapper : public QObject
     Q_OBJECT
     public:
         DBusTransferWrapper(TransferHandler * parent);
-        ~DBusTransferWrapper();
+        ~DBusTransferWrapper() override;
 
     public slots:
         int capabilities() const;

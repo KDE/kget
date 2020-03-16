@@ -31,7 +31,7 @@ class MmsThread : public QThread
     Q_OBJECT
     public:
         MmsThread(const QString& url, const QString& name, int begin, int end);
-        void run();
+        void run() override;
         void stop();
 
     private:

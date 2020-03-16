@@ -41,10 +41,10 @@ class TransferMultiSegKio : public Transfer
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory) override;
+        bool setDirectory(const QUrl &newDirectory) override;
 
-        virtual void init() override;
-        virtual void deinit(Transfer::DeleteOptions options) override;
+        void init() override;
+        void deinit(Transfer::DeleteOptions options) override;
 
         QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const override;
         void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) override;
@@ -53,13 +53,13 @@ class TransferMultiSegKio : public Transfer
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier *verifier(const QUrl &file = QUrl()) override;
+        Verifier *verifier(const QUrl &file = QUrl()) override;
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature *signature(const QUrl &file = QUrl()) override;
+        Signature *signature(const QUrl &file = QUrl()) override;
 
         FileModel *fileModel() override;
 

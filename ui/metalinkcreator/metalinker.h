@@ -388,7 +388,7 @@ class MetalinkHttpParser : public QObject
             checkMetalinkHttp();
         }
 
-        ~MetalinkHttpParser();
+        ~MetalinkHttpParser() override;
 
         /**
          * @return true if m_Url is a metalink/http supported URL.

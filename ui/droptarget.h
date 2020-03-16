@@ -32,7 +32,7 @@ Q_OBJECT
 
 public:
     DropTarget(MainWindow * parent);
-    ~DropTarget();
+    ~DropTarget() override;
 
     void playAnimationShow();
     void playAnimationHide();

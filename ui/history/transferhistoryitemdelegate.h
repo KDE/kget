@@ -24,7 +24,7 @@ class TransferHistoryItemDelegate : public QStyledItemDelegate
 Q_OBJECT
 public:
     TransferHistoryItemDelegate(QWidget *parent);
-    ~TransferHistoryItemDelegate();
+    ~TransferHistoryItemDelegate() override;
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option,
                                   const QModelIndex &index) const override;

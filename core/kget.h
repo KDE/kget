@@ -468,7 +468,7 @@ class GenericObserver : public QObject
     Q_OBJECT
     public:
         GenericObserver(QObject *parent = nullptr);
-        virtual ~GenericObserver ();
+        ~GenericObserver () override;
 
     public slots:
         void groupAddedEvent(TransferGroupHandler *handler);

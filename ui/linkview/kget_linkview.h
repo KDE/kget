@@ -27,7 +27,7 @@ class KGetLinkView : public KGetSaveSizeDialog
 
 public:
     KGetLinkView(QWidget *parent = nullptr);
-    ~KGetLinkView();
+    ~KGetLinkView() override;
 
     // void setLinks( QList<LinkItem*>& links );
     void setLinks(const QStringList &links);

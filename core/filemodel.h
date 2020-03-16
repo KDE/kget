@@ -106,7 +106,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
 
     public:
         FileModel(const QList<QUrl> &files, const QUrl &destDirectory, QObject *parent = nullptr);
-        ~FileModel();
+        ~FileModel() override;
 
         QVariant data(const QModelIndex &index, int role) const override;
         bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;

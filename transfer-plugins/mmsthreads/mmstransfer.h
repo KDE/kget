@@ -36,12 +36,12 @@ class MmsTransfer : public Transfer
         MmsTransfer(TransferGroup * parent, TransferFactory * factory,
                     Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                     const QDomElement * e = nullptr);
-        ~MmsTransfer();
+        ~MmsTransfer() override;
 
     public slots:
-        void start();
-        void stop();
-        void deinit(Transfer::DeleteOptions options);
+        void start() override;
+        void stop() override;
+        void deinit(Transfer::DeleteOptions options) override;
 
     private slots:
         void slotResult();

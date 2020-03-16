@@ -28,7 +28,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
 
     public:
         explicit KGetSortFilterProxyModel(int sortColumn, QObject *parent = nullptr);
-        virtual ~KGetSortFilterProxyModel();
+        ~KGetSortFilterProxyModel() override;
 
         enum DownloadFilterType {
             NoFilter,
@@ -53,7 +53,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
         void setShowWebContent(int show);
 
     protected:
-        virtual bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
+        bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
 
     private:
         /**

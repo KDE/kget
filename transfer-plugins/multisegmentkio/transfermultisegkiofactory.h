@@ -22,7 +22,7 @@ class TransferMultiSegKioFactory : public TransferFactory
     Q_OBJECT
     public:
         TransferMultiSegKioFactory(QObject *parent, const QVariantList &args);
-        ~TransferMultiSegKioFactory();
+        ~TransferMultiSegKioFactory() override;
 
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                  TransferGroup * parent, Scheduler * scheduler,

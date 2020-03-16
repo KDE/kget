@@ -60,7 +60,7 @@ class MetalinkCreator : public KAssistantDialog
 
     public:
         MetalinkCreator(QWidget *parent = nullptr);
-        ~MetalinkCreator();
+        ~MetalinkCreator() override;
 
     public slots:
         /**

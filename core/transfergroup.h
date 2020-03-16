@@ -60,7 +60,7 @@ class KGET_EXPORT TransferGroup : public JobQueue
 
         TransferGroup(TransferTreeModel * model, Scheduler * parent, const QString & name=QString());
 
-        virtual ~TransferGroup();
+        ~TransferGroup() override;
 
         /**
          * This function is reimplemented by JobQueue::setStatus

@@ -37,8 +37,8 @@ class MmsDownload : public QThread
     public:
         MmsDownload(const QString& url, const QString& name, const QString& temp,
                     int amountsThread);
-        ~MmsDownload();
-        void run();
+        ~MmsDownload() override;
+        void run() override;
         void stopTransfer();
         int threadsAlive();
         

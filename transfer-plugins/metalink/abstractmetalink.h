@@ -27,7 +27,7 @@ class AbstractMetalink : public Transfer
         AbstractMetalink(TransferGroup * parent, TransferFactory * factory,
                          Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                          const QDomElement * e = nullptr);
-        virtual ~AbstractMetalink();
+        ~AbstractMetalink() override;
 
         int remainingTime() const override;
 
@@ -38,7 +38,7 @@ class AbstractMetalink : public Transfer
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory) override;
+        bool setDirectory(const QUrl &newDirectory) override;
 
         QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const override;
         void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) override;
@@ -47,23 +47,23 @@ class AbstractMetalink : public Transfer
          * @param file for which to get the verifier
          * @return Verifier that allows you to add checksums manually verify a file etc.
          */
-        virtual Verifier *verifier(const QUrl &file) override;
+        Verifier *verifier(const QUrl &file) override;
 
         /**
          * @param file for which to get the signature
          * @return Signature that allows you to add signatures and verify them
          */
-        virtual Signature *signature(const QUrl &file) override;
+        Signature *signature(const QUrl &file) override;
 
-        virtual QList<QUrl> files() const override;
+        QList<QUrl> files() const override;
 
         FileModel *fileModel() override;
 
     public Q_SLOTS:
         // --- Job virtual functions ---
-        virtual void start() override = 0;
-        virtual void stop() override;
-        virtual void deinit(Transfer::DeleteOptions options) override = 0;
+        void start() override = 0;
+        void stop() override;
+        void deinit(Transfer::DeleteOptions options) override = 0;
 
     protected Q_SLOTS:
         /**

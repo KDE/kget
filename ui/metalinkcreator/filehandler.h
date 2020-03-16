@@ -41,7 +41,7 @@ class FileHandlerThread : public QThread
 
     public:
         FileHandlerThread(QObject *parent = nullptr);
-        ~FileHandlerThread();
+        ~FileHandlerThread() override;
 
         void setData(const QList<FileData> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData);
 
@@ -71,7 +71,7 @@ class DirectoryHandler : public QObject
 
     public:
         DirectoryHandler(QObject *parent);
-        ~DirectoryHandler();
+        ~DirectoryHandler() override;
 
         /**
          * Returns the handled files and clears the member, call this after finished is emitted

@@ -19,7 +19,7 @@ class PluginSelector : public KPluginSelector
     Q_OBJECT
     public:
         PluginSelector(QDialog * parent);
-        ~PluginSelector();
+        ~PluginSelector() override;
 
     private slots:
         void saveState();

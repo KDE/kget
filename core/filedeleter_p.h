@@ -33,7 +33,7 @@ class FileDeleter::Private : QObject
     Q_OBJECT
     public:
         Private();
-        ~Private();
+        ~Private() override;
 
         KJob *deleteFile(const QUrl &dest, QObject *receiver, const char *method);
 

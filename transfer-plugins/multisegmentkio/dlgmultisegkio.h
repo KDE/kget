@@ -20,11 +20,11 @@ class DlgSettingsWidget : public KCModule
     Q_OBJECT
 public:
     explicit DlgSettingsWidget(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
-    ~DlgSettingsWidget();
+    ~DlgSettingsWidget() override;
 
 public slots:
-    virtual void save() override;
-    virtual void load() override;
+    void save() override;
+    void load() override;
 
 private:
     Ui::DlgMultiSeg ui;

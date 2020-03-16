@@ -19,7 +19,7 @@ class TransferTreeSelectionModel : public QItemSelectionModel
 
     public:
         TransferTreeSelectionModel(QAbstractItemModel * model);
-        virtual ~TransferTreeSelectionModel();
+        ~TransferTreeSelectionModel() override;
 };
 
 #endif

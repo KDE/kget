@@ -27,7 +27,7 @@ public:
     };
 
     TransferHistoryCategorizedDelegate();
-    ~TransferHistoryCategorizedDelegate();
+    ~TransferHistoryCategorizedDelegate() override;
 
     virtual void categorizeItem(QStandardItem *item)
     {
@@ -40,7 +40,7 @@ class DateCategorizedDelegate : public TransferHistoryCategorizedDelegate
 {
 public:
     DateCategorizedDelegate();
-    ~DateCategorizedDelegate();
+    ~DateCategorizedDelegate() override;
 
     void categorizeItem(QStandardItem *item) override;
 };
@@ -50,7 +50,7 @@ class SizeCategorizedDelegate : public TransferHistoryCategorizedDelegate
 {
 public:
     SizeCategorizedDelegate();
-    ~SizeCategorizedDelegate();
+    ~SizeCategorizedDelegate() override;
 
     void categorizeItem(QStandardItem *item) override;
 };
@@ -60,7 +60,7 @@ class HostCategorizedDelegate : public TransferHistoryCategorizedDelegate
 {
 public:
     HostCategorizedDelegate();
-    ~HostCategorizedDelegate();
+    ~HostCategorizedDelegate() override;
 
     void categorizeItem(QStandardItem *item) override;
 };

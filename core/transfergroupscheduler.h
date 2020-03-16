@@ -25,7 +25,7 @@ class TransferGroupScheduler : public Scheduler
     Q_OBJECT
     public:
         explicit TransferGroupScheduler(QObject *parent = nullptr);
-        ~TransferGroupScheduler();
+        ~TransferGroupScheduler() override;
 
         /**
          * Calculates the whole SpeedLimits

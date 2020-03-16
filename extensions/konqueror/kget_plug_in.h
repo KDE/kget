@@ -23,7 +23,7 @@ class KGetPlugin : public KParts::Plugin
     Q_OBJECT
 public:
     KGetPlugin(QObject* parent, const QVariantList&);
-    virtual ~KGetPlugin();
+    ~KGetPlugin() override;
 
 private Q_SLOTS:
     void slotShowDrop();

@@ -28,7 +28,7 @@ Q_OBJECT
 public:
 
     TransferHistoryCategorizedView(QWidget *parent = nullptr);
-    ~TransferHistoryCategorizedView();
+    ~TransferHistoryCategorizedView() override;
 
     void addData(const QDate &date, const QString &url, const QString &dest, int size);
     QVariant data(const QModelIndex &index, TransferHistoryCategorizedDelegate::AlternativeRoles role) const;

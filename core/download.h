@@ -25,7 +25,7 @@ class KGET_EXPORT Download : public QObject
     Q_OBJECT
     public:
         Download(const QUrl &srcUrl, const QUrl &destUrl);
-        ~Download();
+        ~Download() override;
 
     Q_SIGNALS:
         void finishedSuccessfully(QUrl dest, QByteArray data);

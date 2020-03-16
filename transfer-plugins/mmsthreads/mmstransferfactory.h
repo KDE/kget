@@ -32,21 +32,21 @@ class MmsTransferFactory : public TransferFactory
     Q_OBJECT
     public:
         MmsTransferFactory(QObject *parent, const QVariantList &args);
-        ~MmsTransferFactory();
+        ~MmsTransferFactory() override;
 
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = nullptr );
+                                   const QDomElement * e = nullptr ) override;
 
         TransferHandler * createTransferHandler(Transfer * transfer,
-                                                Scheduler * scheduler) {return new TransferHandler(transfer, scheduler);}
-        QWidget * createDetailsWidget( TransferHandler * transfer );
+                                                Scheduler * scheduler) override {return new TransferHandler(transfer, scheduler);}
+        QWidget * createDetailsWidget( TransferHandler * transfer ) override;
 
-        const QList<QAction *> actions(TransferHandler *handler = nullptr);
+        const QList<QAction *> actions(TransferHandler *handler = nullptr) override;
 
-        bool isSupported(const QUrl &url) const;
+        bool isSupported(const QUrl &url) const override;
 
-        QString displayName() const {return "mms";}
+        QString displayName() const override {return "mms";}
 
 };
 

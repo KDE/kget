@@ -39,7 +39,7 @@ class NewTransferDialog : public QDialog
     friend class NewTransferDialogHandler;
 
     public:
-        ~NewTransferDialog();
+        ~NewTransferDialog() override;
 
     public slots:
         /**
@@ -107,7 +107,7 @@ class NewTransferDialogHandler : public QObject
 
     public:
         explicit NewTransferDialogHandler(QObject *parent = nullptr);
-        ~NewTransferDialogHandler();
+        ~NewTransferDialogHandler() override;
 
         /**
          * @see showNewTransferDialog(QList<QUrl>)

@@ -48,7 +48,7 @@ class Segment : public QObject
 
         Segment(const QUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent);
 
-        ~Segment();
+        ~Segment() override;
 
         /**
          * Create the segment transfer

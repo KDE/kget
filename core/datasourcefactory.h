@@ -46,7 +46,7 @@ class KGET_EXPORT DataSourceFactory : public QObject
          */
         explicit DataSourceFactory(QObject *parent, const QUrl &dest = QUrl(), KIO::filesize_t size = 0, KIO::fileoffset_t segSize = 512000);
 
-        ~DataSourceFactory();
+        ~DataSourceFactory() override;
 
         /**
          * The capabilities the DataSourceFactory supports

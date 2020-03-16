@@ -25,7 +25,7 @@ class KGetKJobAdapter : public KJob
     Q_OBJECT
 public:
     KGetKJobAdapter(QObject *parent, TransferHandler *transfer);
-    ~KGetKJobAdapter();
+    ~KGetKJobAdapter() override;
 
     void start() override {};
 
@@ -47,9 +47,9 @@ signals:
     void requestResume(KJob *job, TransferHandler *handler);
 
 protected:
-    virtual bool doKill() override;
-    virtual bool doSuspend() override;
-    virtual bool doResume() override;
+    bool doKill() override;
+    bool doSuspend() override;
+    bool doResume() override;
 
 private:
     TransferHandler *m_transferHandler;

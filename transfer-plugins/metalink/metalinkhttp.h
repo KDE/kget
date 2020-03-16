@@ -30,7 +30,7 @@ class MetalinkHttp : public AbstractMetalink
     MetalinkHttp(TransferGroup * parent, TransferFactory * factory,
                 Scheduler * scheduler, const QUrl & src, const QUrl & dest,
                 KGetMetalink::MetalinkHttpParser *httpParser, const QDomElement * e = nullptr );
-    ~MetalinkHttp();
+    ~MetalinkHttp() override;
 
     public Q_SLOTS:
 

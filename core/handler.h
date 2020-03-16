@@ -19,7 +19,7 @@ class Handler : public QObject
     Q_OBJECT
     public:
         Handler(Scheduler * scheduler, QObject * parent);
-        virtual ~Handler();
+        ~Handler() override;
 
         virtual void start() = 0;
         virtual void stop() = 0;

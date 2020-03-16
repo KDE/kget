@@ -38,7 +38,7 @@ class MirrorAddDlg : public QDialog
         explicit MirrorAddDlg(MirrorModel *model, QWidget *parent = nullptr, Qt::WindowFlags flags = {});
         explicit MirrorAddDlg(MirrorModel *model, QSortFilterProxyModel *countryModel, QWidget *parent = nullptr, Qt::WindowFlags flags = {});
         
-        virtual QSize sizeHint() const override;
+        QSize sizeHint() const override;
 
         /**
          * Shows or hides elements, by default all (expect MirrorItem::Used) are shown
@@ -68,7 +68,7 @@ class MirrorSettings : public KGetSaveSizeDialog
     public:
         MirrorSettings(QWidget *parent, TransferHandler *handler, const QUrl &file);
 
-        virtual QSize sizeHint() const override;
+        QSize sizeHint() const override;
 
     private slots:
         void updateButton();

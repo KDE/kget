@@ -25,7 +25,7 @@ class HttpServer : public QObject
 
 public:
     HttpServer(QWidget *parent = nullptr);
-    ~HttpServer();
+    ~HttpServer() override;
     
     void settingsChanged();
 
