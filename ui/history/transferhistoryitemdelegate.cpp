@@ -22,6 +22,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QDate>
+#include <QPainterPath>
 
 #include <QDebug>
 #include <kio/global.h>
