@@ -19,14 +19,16 @@
 #include "transfer_interface.h"
 #include "verifier_interface.h"
 
+#include <KIO/CommandLauncherJob>
+#include <KDialogJobUiDelegate>
+
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
 #include <QDBusPendingReply>
 #include <QList>
 
-#include <KRun>
 #include <QTemporaryDir>
-#include <qtest_kde.h>
+#include <QTest>
 
 //FIXME not working fine if files or transfers are existing already
 QHash<QString, int> Commands::s_stringCommands;
@@ -541,7 +543,11 @@ void Commands::slotBrokenPieces(const QStringList &offsets, qulonglong length)
 TestTransfers::TestTransfers()
 {
     if(!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
-        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", nullptr);
+        const QString command = QStringLiteral("kget --showDropTarget --hideMainWindow");
+        auto *job = new KIO::CommandLauncherJob(command);
+        job->setDesktopName(QStringLiteral("org.kde.kget"));
+        job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
+        job->start();
     }
 
     m_dir.reset(new QTemporaryDir());
@@ -584,22 +590,20 @@ TestTransfers::TestTransfers()
 
 QString TestTransfers::tempDir() const
 {
-    return m_dir->name();
+    return m_dir->path();
 }
 
 void TestTransfers::parseFile()
 {
-    QFile file(QString::fromLocal8Bit(KDESRCDIR) + "/kget-test.xml");
-    if (!file.open(QIODevice::ReadOnly)) {
-        QFAIL("XML file not found.");
-    }
+    const QString xmlFile = QFINDTESTDATA("kget-test.xml");
+    QVERIFY(!xmlFile.isEmpty());
+    QFile file(xmlFile);
+    QVERIFY(file.open(QIODevice::ReadOnly));
 
     QDomDocument doc;
     if (!doc.setContent(&file)) {
-        file.close();
         QFAIL("Not able to set content.");
     }
-    file.close();
 
     for (QDomElement elem = doc.firstChildElement("tests").firstChildElement("transfer"); !elem.isNull(); elem = elem.nextSiblingElement("transfer")) {
         const QString source = elem.attribute("source");
@@ -630,7 +634,7 @@ void TestTransfers::createTransfer()
     OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
 
     foreach (Commands *command, m_commands) {
-        QDBusPendingReply<QStringList> reply = kgetInterface.addTransfer(command->source(), tempDir() + KUrl(command->source()).fileName(), false);
+        QDBusPendingReply<QStringList> reply = kgetInterface.addTransfer(command->source(), tempDir() + QUrl::fromLocalFile(command->source()).fileName(), false);
         reply.waitForFinished();
 
         if (reply.value().size()) {
@@ -647,8 +651,6 @@ void TestTransfers::createTransfer()
 
 void TestTransfers::simpleTest()
 {
-    QVERIFY(1 == 1);
-
     parseFile();
     createTransfer();
 
@@ -669,7 +671,5 @@ void TestTransfers::simpleTest()
     }
 }
 
-QTEST_KDEMAIN(TestTransfers, GUI)
-
-
+QTEST_MAIN(TestTransfers)
 

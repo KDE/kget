@@ -3,9 +3,7 @@ include_directories(
 )
 
 #===========KGet===========
-if(CMAKE_BUILD_TYPE MATCHES debugfull)
-    ENABLE_TESTING()
-
+if(BUILD_TESTING)
     add_definitions(-DDO_KGET_TEST)
     set(kget_test_transfers_SRCS
         testkget.cpp
@@ -17,12 +15,11 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
     qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.transfer.xml transfer_interface)
     qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.verifier.xml verifier_interface)
 
-    #REACTIVATE
-    #add_executable(kget_test_transfers ${kget_test_transfers_SRCS})
-    #add_test(kget_test_transfers kget_test_transfers)
+    add_executable(kget_test_transfers ${kget_test_transfers_SRCS})
+    # TODO enable it in ctest once it's fixed to not popup a "first run" messagebox on first start.
+    # This probably needs a --testmode command-line argument (and QStandardPaths::setTestModeEnabled(true) on both sides)
     #ecm_mark_as_test(kget_test_transfers)
-
-    #target_link_libraries(kget_test_transfers Qt5::Test KF5::KIOCore kgetcore)
+    target_link_libraries(kget_test_transfers Qt5::Test KF5::KIOCore kgetcore)
 
 
 #===========Verifier===========
@@ -68,4 +65,4 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
 
     target_link_libraries(filedeletertest KF5::KIOCore Qt5::Test)
 
-endif(CMAKE_BUILD_TYPE MATCHES debugfull)
+endif()

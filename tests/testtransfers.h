@@ -61,9 +61,9 @@ class Commands : public QObject
     };
 
     protected:
-        void timerEvent(QTimerEvent *event);
+        void timerEvent(QTimerEvent *event) override;
 
-    private slots:
+    private Q_SLOTS:
         void slotVerified(bool verified);
         void slotBrokenPieces(const QStringList &offsets, qulonglong length);
         void slotChangedEvent(int event);
@@ -89,10 +89,10 @@ class TestTransfers: public QObject
 
         QString tempDir() const;
 
-    public slots:
+    public Q_SLOTS:
         void createTransfer();
 
-    private slots:
+    private Q_SLOTS:
         void simpleTest();
 
     private:

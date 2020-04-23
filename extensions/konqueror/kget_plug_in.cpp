@@ -22,8 +22,10 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KDialogJobUiDelegate>
 #include <KFileItem>
 #include <KIconLoader>
+#include <KIO/CommandLauncherJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPluginFactory>
@@ -34,7 +36,6 @@
 #include <KParts/PartManager>
 #include <KParts/ReadOnlyPart>
 #include <KParts/SelectorInterface>
-#include <KRun>
 #include <KToggleAction>
 #include <KToolInvocation>
 
@@ -144,7 +145,11 @@ void KGetPlugin::showPopup()
 void KGetPlugin::slotShowDrop()
 {
     if (!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
-        KRun::runCommand("kget --showDropTarget --hideMainWindow", "kget", "kget", partWidget(parent()));
+        const QString command = QStringLiteral("kget --showDropTarget --hideMainWindow");
+        auto *job = new KIO::CommandLauncherJob(command);
+        job->setDesktopName(QStringLiteral("org.kde.kget"));
+        job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, partWidget(parent())));
+        job->start();
     } else {
         OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
         kgetInterface.setDropTargetVisible(m_dropTargetAction->isChecked());
