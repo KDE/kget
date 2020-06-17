@@ -57,7 +57,6 @@ Name[th]=รับเนื้อหา
 Name[tr]=İçerik Getir
 Name[ug]=مەزمۇنغا ئېرىشكۈچ
 Name[uk]=Отримання вмісту
-Name[x-test]=xxContent Fetchxx
 Name[zh_CN]=内容获取
 Name[zh_TW]=內容擷取
 Comment=Fetch contents with custom scripts.
@@ -111,7 +110,6 @@ Comment[sv]=Hämta innehåll med egna skript.
 Comment[tr]=Özel betiklerle içerik getir.
 Comment[ug]=مەزمۇنغا ئېرىشىدىغان ئىختىيارىي قوليازما.
 Comment[uk]=Отримайте вміст за допомогою нетипових скриптів.
-Comment[x-test]=xxFetch contents with custom scripts.xx
 Comment[zh_CN]=使用自定义脚本获取内容。
 Comment[zh_TW]=使用自訂的文稿抓取內容。
 
