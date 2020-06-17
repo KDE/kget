@@ -57,7 +57,6 @@ Name[tr]=Yansı Arama
 Name[ug]=تەسۋىر ئىزدەش
 Name[uk]=Пошук дзеркал
 Name[wa]=Cweraedje e muroe
-Name[x-test]=xxMirror Searchxx
 Name[zh_CN]=镜像搜索
 Name[zh_TW]=映射搜尋
 
@@ -110,7 +109,6 @@ Comment[sv]=Gör det möjligt för Kget att söka efter filen via spegelsöktjä
 Comment[tr]=KGet uygulamasının yansı motorlarında arama yapmasını sağlar
 Comment[ug]=KGet نىڭ ھۆججەتلەرنى تەسۋىر ئىزدەش موتورلىتىدىن ئىزدىشىگە يول قويىدۇ
 Comment[uk]=Вмикає у KGet можливість пошуку за допомогою рушіїв пошуку дзеркал
-Comment[x-test]=xxAllows KGet to search through mirror search engines for filesxx
 Comment[zh_CN]=允许 KGet 通过镜像搜索引擎查找文件
 Comment[zh_TW]=允許 KGet 透過鏡射搜尋引擎來搜尋檔案
 

@@ -58,7 +58,6 @@ Name[tr]=KGet Eklentisi
 Name[ug]=KGet قىستۇرما
 Name[uk]=Додаток KGet
 Name[wa]=Tchôke-divins po KGet
-Name[x-test]=xxKGet Pluginxx
 Name[zh_CN]=KGet 插件
 Name[zh_TW]=KGet 外掛程式
 Comment=Plugin for KGet
@@ -121,7 +120,6 @@ Comment[tr]=KGet için eklenti
 Comment[ug]=KGet قىستۇرمىسى
 Comment[uk]=Додаток для KGet
 Comment[vi]=Phần bổ sung cho KGet
-Comment[x-test]=xxPlugin for KGetxx
 Comment[zh_CN]=用于 KGet 的插件
 Comment[zh_TW]=KGet 外掛程式
 
