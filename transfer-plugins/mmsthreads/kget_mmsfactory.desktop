@@ -60,6 +60,7 @@ Name[tr]=MMS
 Name[ug]=MMS
 Name[uk]=MMS
 Name[wa]=MMS
+Name[x-test]=xxMMSxx
 Name[zh_CN]=彩信
 Name[zh_TW]=MMS
 Comment=MMS-Transfer plugin for KGet
@@ -116,6 +117,7 @@ Comment[sv]=MMS-överföringsinsticksprogram för Kget
 Comment[tr]=MMS- KGet için aktarım eklentisi
 Comment[ug]=KGet نىڭ MMS يوللاش قىستۇرمىسى
 Comment[uk]=Додаток перенесення MMS для KGet
+Comment[x-test]=xxMMS-Transfer plugin for KGetxx
 Comment[zh_CN]=KGet 彩信传输插件
 Comment[zh_TW]=KGet 的 MMS 傳輸外掛程式
 

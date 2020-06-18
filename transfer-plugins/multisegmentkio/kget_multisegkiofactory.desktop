@@ -56,6 +56,7 @@ Name[sv]=Flersegments-KIO
 Name[tr]=Çok Parçalı KIO
 Name[ug]=كۆپ بۆلەك KIO
 Name[uk]=Багатосегментний KIO
+Name[x-test]=xxMulti Segment KIOxx
 Name[zh_CN]=多段式 KIO
 Name[zh_TW]=多段式 KIO
 Comment=Multithreaded file download plugin
@@ -111,6 +112,7 @@ Comment[sv]=Flertrådat insticksprogram för filnerladdning
 Comment[tr]=Çoklu işleyebilen indirme eklentisi
 Comment[ug]=كۆپ يوللۇق ھۆججەت چۈشۈرۈش قىستۇرمىسى
 Comment[uk]=Додаток отримання файлів у декілька потоків
+Comment[x-test]=xxMultithreaded file download pluginxx
 Comment[zh_CN]=多线程文件下载插件
 Comment[zh_TW]=多緒檔案下載外掛程式
 
