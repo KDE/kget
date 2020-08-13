@@ -24,45 +24,46 @@ if(BUILD_TESTING)
 
 #===========Verifier===========
     if (QCA2_FOUND)
-        add_executable(verifiertest verifiertest.cpp)
-        add_test(verifiertest verifiertest)
-        ecm_mark_as_test(verifiertest)
-
-        target_link_libraries(verifiertest Qt5::Test ${QCA2_LIBRARIES} kgetcore)
+        ecm_add_test(
+                verifiertest.cpp
+            LINK_LIBRARIES
+                Qt5::Test
+                ${QCA2_LIBRARIES}
+                kgetcore
+            TEST_NAME verifiertest)
     endif (QCA2_FOUND)
 
 
     #===========Scheduler===========
-    add_executable(schedulertest schedulertest.cpp)
-    add_test(schedulertest schedulertest ) 
-    ecm_mark_as_test(schedulertest)
-
-    target_link_libraries(schedulertest Qt5::Test Qt5::Gui kgetcore)
-
+    ecm_add_test(
+            schedulertest.cpp
+        LINK_LIBRARIES
+            Qt5::Test
+            Qt5::Gui
+            kgetcore
+        TEST_NAME schedulertest)
 
     #===========Metalinker===========
-    set(metalinktest_SRCS
-        metalinktest.cpp
-        ../ui/metalinkcreator/metalinker.cpp
-        ../kget_debug.cpp
+    ecm_add_test(
+            metalinktest.cpp
+            ../ui/metalinkcreator/metalinker.cpp
+            ../kget_debug.cpp
+        LINK_LIBRARIES
+            Qt5::Xml
+            KF5::I18n
+            KF5::KIOCore
+            Qt5::Test
+        TEST_NAME metalinktest
     )
-
-    add_executable( metalinktest ${metalinktest_SRCS})
-    add_test(metalinktest metalinktest)
-    ecm_mark_as_test(metalinktest)
-
-    target_link_libraries(metalinktest Qt5::Xml KF5::I18n KF5::KIOCore Qt5::Test)
 
     #===========FileDeleter===========
-    set(filedeletertest_SRCS
-        filedeletertest.cpp
-        ../core/filedeleter.cpp
+    ecm_add_test(
+            filedeletertest.cpp
+            ../core/filedeleter.cpp
+        LINK_LIBRARIES
+            KF5::KIOCore
+            Qt5::Test
+        TEST_NAME filedeletertest
     )
-
-    add_executable(filedeletertest ${filedeletertest_SRCS})
-     add_test(filedeletertest filedeletertest)
-     ecm_mark_as_test(filedeletertest)
-
-    target_link_libraries(filedeletertest KF5::KIOCore Qt5::Test)
 
 endif()
