@@ -178,14 +178,6 @@ void KGetPlugin::slotImportLinks()
     // Remove any duplicates links from the list...
     m_linkList.removeDuplicates();
 
-    if (!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget") &&
-        KToolInvocation::kdeinitExecWait("kget") != 0) {
-        KMessageBox::sorry(partWidget(parent()),
-                           i18n("Unable to communicate with the KGet download manager."),
-                           i18n("Communication Error"));
-        return;
-    }
-
     OrgKdeKgetMainInterface kgetInterface("org.kde.kget", "/KGet", QDBusConnection::sessionBus());
     kgetInterface.importLinks(m_linkList);
 }
