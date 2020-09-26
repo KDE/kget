@@ -79,9 +79,9 @@ DropTarget::DropTarget(MainWindow * mw)
     popupMenu->addAction( downloadAction );
     connect(downloadAction, &QAction::toggled, this, &DropTarget::slotStartStopToggled);
     popupMenu->addSeparator();
-    pop_show = popupMenu->addAction( QString(), this, SLOT(toggleMinimizeRestore()) );
+    pop_show = popupMenu->addAction( QString(), this, &DropTarget::toggleMinimizeRestore );
     popupMenu->addAction(parentWidget->actionCollection()->action("show_drop_target"));
-    pop_sticky = popupMenu->addAction(i18nc("fix position for droptarget", "Sticky"), this, SLOT(toggleSticky()));
+    pop_sticky = popupMenu->addAction(i18nc("fix position for droptarget", "Sticky"), this, &DropTarget::toggleSticky);
     pop_sticky->setCheckable(true);
     pop_sticky->setChecked(Settings::dropSticky());
     popupMenu->addSeparator();
@@ -107,8 +107,8 @@ DropTarget::DropTarget(MainWindow * mw)
     
     setMouseTracking(true);
     
-    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
-            this,          SLOT(slotToolTipUpdate()));
+    connect(KGet::model(), &TransferTreeModel::transfersChangedEvent,
+            this,          &DropTarget::slotToolTipUpdate);
             
     connect(popupTimer, &QTimer::timeout, this, &DropTarget::slotToolTipTimer);
 }

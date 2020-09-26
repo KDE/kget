@@ -63,8 +63,8 @@ TransferHistory::TransferHistory(QWidget *parent)
     listView->setIcon(QIcon::fromTheme("view-list-details"));
     iconView->setIcon(QIcon::fromTheme("view-list-icons"));
 
-    connect(listView, SIGNAL(clicked()), SLOT(slotSetListMode()));
-    connect(iconView, SIGNAL(clicked()), SLOT(slotSetIconMode()));
+    connect(listView, &QAbstractButton::clicked, this, &TransferHistory::slotSetListMode);
+    connect(iconView, &QAbstractButton::clicked, this, &TransferHistory::slotSetIconMode);
 
     clearButton->setIcon(QIcon::fromTheme("edit-clear-history"));
     actionDelete_Selected->setIcon(QIcon::fromTheme("edit-delete"));
@@ -88,16 +88,16 @@ TransferHistory::TransferHistory(QWidget *parent)
     m_store = TransferHistoryStore::getStore();
 
     connect(actionDelete_Selected, SIGNAL(triggered()), this, SLOT(slotDeleteTransfer()));
-    connect(actionDownload, SIGNAL(triggered()), this, SLOT(slotDownload()));
+    connect(actionDownload, &QAction::triggered, this, &TransferHistory::slotDownload);
     connect(m_openFile, SIGNAL(triggered()), this, SLOT(slotOpenFile()));
-    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClear()));
+    connect(clearButton, &QAbstractButton::clicked, this, &TransferHistory::slotClear);
     connect(rangeType, SIGNAL(activated(int)), this, SLOT(slotLoadRangeType(int)));
     connect(m_view, SIGNAL(deletedTransfer(QString,QModelIndex)),
                     SLOT(slotDeleteTransfer(QString,QModelIndex)));
     connect(m_view, SIGNAL(doubleClicked(QModelIndex)), SLOT(slotOpenFile(QModelIndex)));
-    connect(m_store, SIGNAL(loadFinished()), SLOT(slotLoadFinished()));
-    connect(m_store, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
-                     SLOT(slotElementLoaded(int,int,TransferHistoryItem)));
+    connect(m_store, &TransferHistoryStore::loadFinished, this, &TransferHistory::slotLoadFinished);
+    connect(m_store, &TransferHistoryStore::elementLoaded,
+                     this, &TransferHistory::slotElementLoaded);
     connect(searchBar, SIGNAL(textChanged(QString)), m_view, SLOT(setFilterRegExp(QString)));
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
@@ -202,7 +202,7 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
 void TransferHistory::hideEvent(QHideEvent *event)
 {
     Q_UNUSED(event)
-    disconnect(watcher, SIGNAL(directoryChanged(QString)), this, SLOT(slotAddTransfers()));//Prevent reloading of TransferHistory when saving
+    disconnect(watcher, &QFileSystemWatcher::directoryChanged, this, &TransferHistory::slotAddTransfers);//Prevent reloading of TransferHistory when saving
     deleteLater();
 }
 

@@ -17,8 +17,8 @@ TestKGet::TestKGet()
     : QObject(nullptr),
       m_addedGH(nullptr)
 {
-    connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(addedTransferGroupEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(removedTransferGroupEvent(TransferGroupHandler*)));
+    connect(KGet::model(), &TransferTreeModel::groupAddedEvent, this, &TestKGet::addedTransferGroupEvent);
+    connect(KGet::model(), &TransferTreeModel::groupRemovedEvent, this, &TestKGet::removedTransferGroupEvent);
 }
 
 void TestKGet::addedTransferGroupEvent(TransferGroupHandler * group)

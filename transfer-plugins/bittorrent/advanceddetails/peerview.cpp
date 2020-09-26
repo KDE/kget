@@ -52,10 +52,10 @@ namespace kt
 		setModel(model);
 		
 		context_menu = new QMenu(this);
-		context_menu->addAction(QIcon::fromTheme("list-remove-user"),i18n("Kick Peer"),this,SLOT(kickPeer()));
-		context_menu->addAction(QIcon::fromTheme("view-filter"),i18n("Ban Peer"),this,SLOT(banPeer()));
-		connect(this,SIGNAL(customContextMenuRequested(QPoint)),
-				this,SLOT(showContextMenu(QPoint)));
+		context_menu->addAction(QIcon::fromTheme("list-remove-user"),i18n("Kick Peer"),this,&PeerView::kickPeer);
+		context_menu->addAction(QIcon::fromTheme("view-filter"),i18n("Ban Peer"),this,&PeerView::banPeer);
+		connect(this,&QWidget::customContextMenuRequested,
+				this,&PeerView::showContextMenu);
 	}
 
 	PeerView::~PeerView()

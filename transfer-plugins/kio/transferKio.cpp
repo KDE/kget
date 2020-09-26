@@ -68,8 +68,8 @@ bool TransferKio::setNewDestination(const QUrl &newDestination)
             }
 
             KIO::Job *move = KIO::file_move(QUrl::fromLocalFile(oldPath), QUrl::fromLocalFile(newDestination.toLocalFile() + ".part"), -1, KIO::HideProgressInfo);
-            connect(move, SIGNAL(result(KJob*)), this, SLOT(newDestResult(KJob*)));
-            connect(move, SIGNAL(infoMessage(KJob*,QString)), this, SLOT(slotInfoMessage(KJob*,QString)));
+            connect(move, &KJob::result, this, &TransferKio::newDestResult);
+            connect(move, &KJob::infoMessage, this, &TransferKio::slotInfoMessage);
             connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
 
             return true;
@@ -139,18 +139,18 @@ void TransferKio::createJob()
         KIO::Scheduler::checkSlaveOnHold(true);
         m_copyjob = KIO::file_copy(m_source, m_dest, -1, KIO::HideProgressInfo);
 
-        connect(m_copyjob, SIGNAL(result(KJob*)), 
-                this, SLOT(slotResult(KJob*)));
-        connect(m_copyjob, SIGNAL(infoMessage(KJob*,QString)), 
-                this, SLOT(slotInfoMessage(KJob*,QString)));
+        connect(m_copyjob, &KJob::result, 
+                this, &TransferKio::slotResult);
+        connect(m_copyjob, &KJob::infoMessage, 
+                this, &TransferKio::slotInfoMessage);
         connect(m_copyjob, SIGNAL(percent(KJob*,ulong)), 
                 this, SLOT(slotPercent(KJob*,ulong)));
-        connect(m_copyjob, SIGNAL(totalSize(KJob*,qulonglong)), 
-                this, SLOT(slotTotalSize(KJob*,qulonglong)));
-        connect(m_copyjob, SIGNAL(processedSize(KJob*,qulonglong)), 
-                this, SLOT(slotProcessedSize(KJob*,qulonglong)));
-        connect(m_copyjob, SIGNAL(speed(KJob*,ulong)), 
-                this, SLOT(slotSpeed(KJob*,ulong)));
+        connect(m_copyjob, &KJob::totalSize, 
+                this, &TransferKio::slotTotalSize);
+        connect(m_copyjob, &KJob::processedSize, 
+                this, &TransferKio::slotProcessedSize);
+        connect(m_copyjob, &KJob::speed, 
+                this, &TransferKio::slotSpeed);
     }
 }
 
@@ -203,7 +203,7 @@ void TransferKio::slotResult( KJob * kioJob )
 
     if (m_source.scheme() == "ftp") {
         KIO::StatJob * statJob = KIO::stat(m_source);
-        connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
+        connect(statJob, &KJob::result, this, &TransferKio::slotStatResult);
         statJob->start();
     }
 
@@ -335,7 +335,7 @@ Verifier *TransferKio::verifier(const QUrl &file)
     if (!m_verifier)
     {
         m_verifier = new Verifier(m_dest, this);
-        connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+        connect(m_verifier, &Verifier::verified, this, &TransferKio::slotVerified);
     }
 
     return m_verifier;

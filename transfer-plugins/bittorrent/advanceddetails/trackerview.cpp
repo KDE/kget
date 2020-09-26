@@ -56,13 +56,13 @@ namespace kt
 		m_tracker_list->setRootIsDecorated(false);
 		m_tracker_list->setAlternatingRowColors(true);
 		m_tracker_list->setSortingEnabled(true);
-		connect(m_add_tracker,SIGNAL(clicked()),this,SLOT(addClicked()));
-		connect(m_remove_tracker,SIGNAL(clicked()),this,SLOT(removeClicked()));
-		connect(m_change_tracker,SIGNAL(clicked()),this,SLOT(changeClicked()));
-		connect(m_restore_defaults,SIGNAL(clicked()),this,SLOT(restoreClicked()));
-		connect(m_tracker_list->selectionModel(),SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-				this,SLOT(currentChanged(QModelIndex,QModelIndex)));
-		connect(m_scrape,SIGNAL(clicked()),this,SLOT(scrapeClicked()));
+		connect(m_add_tracker,&QAbstractButton::clicked,this,&TrackerView::addClicked);
+		connect(m_remove_tracker,&QAbstractButton::clicked,this,&TrackerView::removeClicked);
+		connect(m_change_tracker,&QAbstractButton::clicked,this,&TrackerView::changeClicked);
+		connect(m_restore_defaults,&QAbstractButton::clicked,this,&TrackerView::restoreClicked);
+		connect(m_tracker_list->selectionModel(),&QItemSelectionModel::currentChanged,
+				this,&TrackerView::currentChanged);
+		connect(m_scrape,&QAbstractButton::clicked,this,&TrackerView::scrapeClicked);
 		
 		m_add_tracker->setIcon(QIcon::fromTheme("list-add"));
 		m_remove_tracker->setIcon(QIcon::fromTheme("list-remove"));

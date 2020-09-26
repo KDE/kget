@@ -39,10 +39,10 @@ void mirror::search(const QString &fileName, QObject *receiver, const char *memb
 
     QUrl search(m_search_engine.replace("${filename}",fileName));
     m_job = KIO::get(search, KIO::NoReload, KIO::HideProgressInfo);
-    connect(m_job,SIGNAL(data(KIO::Job*,QByteArray)),
-               SLOT(slotData(KIO::Job*,QByteArray)));
-    connect(m_job,SIGNAL(result(KJob*)),
-               SLOT(slotResult(KJob*)));
+    connect(m_job,&KIO::TransferJob::data,
+               this, &mirror::slotData);
+    connect(m_job,&KJob::result,
+               this, &mirror::slotResult);
     connect(this,SIGNAL(urls(QList<QUrl>&)),receiver,member);
 }
 

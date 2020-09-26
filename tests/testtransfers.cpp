@@ -281,9 +281,9 @@ void Commands::associateTransfer(OrgKdeKgetTransferInterface *transfer)
     reply = m_transfer->verifier(dest);
     m_verifier = new OrgKdeKgetVerifierInterface("org.kde.kget", reply.value(), QDBusConnection::sessionBus(), this);
 
-    connect(m_verifier, SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+    connect(m_verifier, &OrgKdeKgetVerifierInterface::verified, this, &Commands::slotVerified);
     connect(m_verifier, SIGNAL(brokenPieces(QStringList,qulonglong)), this, SLOT(slotBrokenPieces(QStringList,qulonglong)));
-    connect(m_transfer, SIGNAL(transferChangedEvent(int)), this, SLOT(slotChangedEvent(int)));
+    connect(m_transfer, &OrgKdeKgetTransferInterface::transferChangedEvent, this, &Commands::slotChangedEvent);
 }
 
 bool Commands::hasCommands() const
@@ -404,7 +404,7 @@ void Commands::executeCommands()
             case Wait: {
                 const int time = command.toInt();
                 qCDebug(KGET_DEBUG) << this << "waiting for" << time << "msecs" << m_transfer;
-                QTimer::singleShot(time, this, SLOT(slotWaitEvent()));
+                QTimer::singleShot(time, this, &Commands::slotWaitEvent);
                 return;
                 break;
             }
@@ -626,7 +626,7 @@ void TestTransfers::createTransfer()
 
     if (!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget")) {
         qCDebug(KGET_DEBUG) << "Service not registered yet, retrying.";
-        QTimer::singleShot(500, this, SLOT(createTransfer()));
+        QTimer::singleShot(500, this, &TestTransfers::createTransfer);
         return;
     }
     QVERIFY(QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.kget"));

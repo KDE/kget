@@ -122,9 +122,9 @@ void KUiServerJobs::registerJob(KGetKJobAdapter *job, TransferHandler *transfer)
      if (m_registeredJobs.contains(transfer) || !job) {
          return;
      }
-     connect(job, SIGNAL(requestStop(KJob*,TransferHandler*)), this, SLOT(slotRequestStop(KJob*,TransferHandler*)));
-     connect(job, SIGNAL(requestSuspend(KJob*,TransferHandler*)), this, SLOT(slotRequestSuspend(KJob*,TransferHandler*)));
-     connect(job, SIGNAL(requestResume(KJob*,TransferHandler*)), this, SLOT(slotRequestResume(KJob*,TransferHandler*)));
+     connect(job, &KGetKJobAdapter::requestStop, this, &KUiServerJobs::slotRequestStop);
+     connect(job, &KGetKJobAdapter::requestSuspend, this, &KUiServerJobs::slotRequestSuspend);
+     connect(job, &KGetKJobAdapter::requestResume, this, &KUiServerJobs::slotRequestResume);
 
      KJob *j = job;
      registerJob(j, transfer);
@@ -203,7 +203,7 @@ KGetGlobalJob * KUiServerJobs::globalJob()
 {
     if (!m_globalJob) {
         m_globalJob = new KGetGlobalJob();
-        connect(m_globalJob, SIGNAL(requestStop(KJob*,TransferHandler*)), this, SLOT(slotRequestStop(KJob*,TransferHandler*)));
+        connect(m_globalJob, &KGetGlobalJob::requestStop, this, &KUiServerJobs::slotRequestStop);
     }
     return m_globalJob;
 }

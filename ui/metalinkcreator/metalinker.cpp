@@ -1271,8 +1271,8 @@ void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
     job = KIO::get(m_Url, KIO::NoReload, KIO::HideProgressInfo);
     job->addMetaData("PropagateHttpHeader", "true");
     job->setRedirectionHandlingEnabled(false);
-    connect(job, SIGNAL(result(KJob*)), this, SLOT(slotHeaderResult(KJob*)));  // Finished
-    connect(job, SIGNAL(redirection(KIO::Job*,QUrl)), this, SLOT(slotRedirection(KIO::Job*,QUrl))); // Redirection
+    connect(job, &KJob::result, this, &MetalinkHttpParser::slotHeaderResult);  // Finished
+    connect(job, &KIO::TransferJob::redirection, this, &MetalinkHttpParser::slotRedirection); // Redirection
     connect(job,SIGNAL(mimetype(KIO::Job*,QString)),this,SLOT(detectMime(KIO::Job*,QString))); // Mime detection.
     qDebug() << " Verifying Metalink/HTTP Status" ;
     m_loop.exec();

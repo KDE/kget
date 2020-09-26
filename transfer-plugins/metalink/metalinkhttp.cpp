@@ -73,11 +73,11 @@ void MetalinkHttp::load(const QDomElement *element)
     DataSourceFactory * fac = new DataSourceFactory(this, m_dest);
     m_dataSourceFactory.insert(m_dest, fac);
 
-    connect(fac, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-    connect(fac, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
-    connect(fac->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+    connect(fac, &DataSourceFactory::capabilitiesChanged, this, &MetalinkHttp::slotUpdateCapabilities);
+    connect(fac, &DataSourceFactory::dataSourceFactoryChange, this, &MetalinkHttp::slotDataSourceFactoryChange);
+    connect(fac->verifier(), &Verifier::verified, this, &MetalinkHttp::slotVerified);
     connect(fac->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
-    connect(fac, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
+    connect(fac, &DataSourceFactory::log, this, &Transfer::setLog);
 
     fac->load(element);
 
@@ -183,11 +183,11 @@ bool MetalinkHttp::metalinkHttpInit()
     DataSourceFactory *dataFactory = new DataSourceFactory(this,dest);
     dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
-    connect(dataFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-    connect(dataFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
-    connect(dataFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
+    connect(dataFactory, &DataSourceFactory::capabilitiesChanged, this, &MetalinkHttp::slotUpdateCapabilities);
+    connect(dataFactory, &DataSourceFactory::dataSourceFactoryChange, this, &MetalinkHttp::slotDataSourceFactoryChange);
+    connect(dataFactory->verifier(), &Verifier::verified, this, &MetalinkHttp::slotVerified);
     connect(dataFactory->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
-    connect(dataFactory, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
+    connect(dataFactory, &DataSourceFactory::log, this, &Transfer::setLog);
 
     //add the Mirrors Sources
 

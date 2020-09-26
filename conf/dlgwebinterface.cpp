@@ -24,7 +24,7 @@ DlgWebinterface::DlgWebinterface(QDialog *parent)
 
     readConfig();
     
-    connect(parent, SIGNAL(accepted()), SLOT(saveSettings()));
+    connect(parent, &QDialog::accepted, this, &DlgWebinterface::saveSettings);
     connect(webinterfacePwd, &KLineEdit::textChanged, this, &DlgWebinterface::changed);
 }
 

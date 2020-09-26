@@ -71,13 +71,13 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
                 qCDebug(KGET_DEBUG) << "Downloading" << baseUrl;
                 KIO::FileCopyJob *job = KIO::file_copy(baseUrl, dest, -1, KIO::HideProgressInfo);
                 job->addMetaData("errorPage", "false");
-                connect(job, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
+                connect(job, &KJob::result, this, &ChecksumSearchController::slotResult);
                 m_jobs[job] = qMakePair(baseUrl, dest);
             } else {
                 qCDebug(KGET_DEBUG) << "ftp, doing a listjob";
                 KIO::ListJob *job = KIO::listDir(baseUrl, KIO::HideProgressInfo);
-                connect(job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)), this, SLOT(slotEntries(KIO::Job*,KIO::UDSEntryList)));
-                connect(job, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
+                connect(job, &KIO::ListJob::entries, this, &ChecksumSearchController::slotEntries);
+                connect(job, &KJob::result, this, &ChecksumSearchController::slotResult);
                 m_jobs[job] = qMakePair(baseUrl, dest);
             }
         }

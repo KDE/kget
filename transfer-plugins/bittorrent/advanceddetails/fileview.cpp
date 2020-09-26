@@ -63,24 +63,24 @@ namespace kt
 		setModel(proxy_model);
 		
 		context_menu = new QMenu(this);
-		open_action = context_menu->addAction(QIcon::fromTheme("document-open"),i18nc("Open file", "Open"),this,SLOT(open()));
+		open_action = context_menu->addAction(QIcon::fromTheme("document-open"),i18nc("Open file", "Open"),this,&FileView::open);
 		context_menu->addSeparator();
-		download_first_action = context_menu->addAction(i18n("Download first"),this,SLOT(downloadFirst()));
-		download_normal_action = context_menu->addAction(i18n("Download normally"),this,SLOT(downloadNormal()));
-		download_last_action = context_menu->addAction(i18n("Download last"),this,SLOT(downloadLast()));
+		download_first_action = context_menu->addAction(i18n("Download first"),this,&FileView::downloadFirst);
+		download_normal_action = context_menu->addAction(i18n("Download normally"),this,&FileView::downloadNormal);
+		download_last_action = context_menu->addAction(i18n("Download last"),this,&FileView::downloadLast);
 		context_menu->addSeparator();
-		dnd_action = context_menu->addAction(i18n("Do Not Download"),this,SLOT(doNotDownload()));
-		delete_action = context_menu->addAction(i18n("Delete File(s)"),this,SLOT(deleteFiles()));
+		dnd_action = context_menu->addAction(i18n("Do Not Download"),this,&FileView::doNotDownload);
+		delete_action = context_menu->addAction(i18n("Delete File(s)"),this,&FileView::deleteFiles);
 		context_menu->addSeparator();
-		move_files_action = context_menu->addAction(i18n("Move File"),this,SLOT(moveFiles()));
+		move_files_action = context_menu->addAction(i18n("Move File"),this,&FileView::moveFiles);
 		context_menu->addSeparator();
-		collapse_action = context_menu->addAction(i18n("Collapse Folder Tree"),this,SLOT(collapseTree()));
-		expand_action = context_menu->addAction(i18n("Expand Folder Tree"),this,SLOT(expandTree()));
+		collapse_action = context_menu->addAction(i18n("Collapse Folder Tree"),this,&FileView::collapseTree);
+		expand_action = context_menu->addAction(i18n("Expand Folder Tree"),this,&FileView::expandTree);
 		
-		connect(this,SIGNAL(customContextMenuRequested(QPoint)),
-				this,SLOT(showContextMenu(QPoint)));
-		connect(this,SIGNAL(doubleClicked(QModelIndex)),
-				this,SLOT(onDoubleClicked(QModelIndex)));
+		connect(this,&QWidget::customContextMenuRequested,
+				this,&FileView::showContextMenu);
+		connect(this,&QAbstractItemView::doubleClicked,
+				this,&FileView::onDoubleClicked);
 		
 		setEnabled(false);
 		show_list_of_files = false;
@@ -109,8 +109,8 @@ namespace kt
 		setEnabled(tc != nullptr);
 		if (tc)
 		{
-			connect(tc,SIGNAL(missingFilesMarkedDND(bt::TorrentInterface*)),
-					this,SLOT(onMissingFileMarkedDND(bt::TorrentInterface*)));
+			connect(tc,&TorrentInterface::missingFilesMarkedDND,
+					this,&FileView::onMissingFileMarkedDND);
 			
 			if (show_list_of_files)
 				model = new IWFileListModel(tc,this);

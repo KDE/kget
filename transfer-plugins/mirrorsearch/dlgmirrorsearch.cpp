@@ -44,8 +44,8 @@ DlgEngineEditing::DlgEngineEditing(QWidget *parent)
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
     ui.urlLabel->setText(i18n("URL:"));
-    connect(ui.urlEdit,SIGNAL(textChanged(QString)), SLOT(slotChangeText()));
-    connect(ui.engineNameEdit,SIGNAL(textChanged(QString)),SLOT(slotChangeText()));
+    connect(ui.urlEdit,&QLineEdit::textChanged, this, &DlgEngineEditing::slotChangeText);
+    connect(ui.engineNameEdit,&QLineEdit::textChanged,this, &DlgEngineEditing::slotChangeText);
     slotChangeText();
 }
 
@@ -77,8 +77,8 @@ DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
     ui.newEngineBt->setIcon(QIcon::fromTheme("list-add"));
     ui.removeEngineBt->setIcon(QIcon::fromTheme("list-remove"));
 
-    connect(ui.newEngineBt, SIGNAL(clicked()), SLOT(slotNewEngine()));
-    connect(ui.removeEngineBt, SIGNAL(clicked()), SLOT(slotRemoveEngine()));
+    connect(ui.newEngineBt, &QAbstractButton::clicked, this, &DlgSettingsWidget::slotNewEngine);
+    connect(ui.removeEngineBt, &QAbstractButton::clicked, this, &DlgSettingsWidget::slotRemoveEngine);
 }
 
 DlgSettingsWidget::~DlgSettingsWidget()

@@ -46,7 +46,7 @@ UrlWidget::UrlWidget(QObject *parent)
     KGuiItem::assign(ui.add_mirror, KStandardGuiItem::add());
     KGuiItem::assign(ui.remove_mirror, KStandardGuiItem::remove());
     ui.remove_mirror->setEnabled(false);
-    connect(ui.used_mirrors->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUrlClicked()));
+    connect(ui.used_mirrors->selectionModel(), &QItemSelectionModel::selectionChanged, this, &UrlWidget::slotUrlClicked);
     connect(ui.add_mirror, &QPushButton::clicked, this, &UrlWidget::slotAddMirror);
     connect(ui.remove_mirror, &QPushButton::clicked, this, &UrlWidget::slotRemoveMirror);
     connect(m_mirrorModel, &MirrorModel::dataChanged, this, &UrlWidget::urlsChanged);

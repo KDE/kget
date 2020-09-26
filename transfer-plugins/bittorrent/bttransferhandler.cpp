@@ -44,7 +44,7 @@ void BTTransferHandler::createAdvancedDetails()
         qCDebug(KGET_DEBUG) << "Going to create AdvancedDetails";
         advancedDetails = new BTAdvancedDetailsWidget(this);
         advancedDetails->show();
-        connect(advancedDetails, SIGNAL(aboutToClose()), SLOT(removeAdvancedDetails()));
+        connect(advancedDetails, &BTAdvancedDetailsWidget::aboutToClose, this, &BTTransferHandler::removeAdvancedDetails);
         if (m_transfer->torrentControl())
         {
             m_transfer->torrentControl()->setMonitor(nullptr);

@@ -75,11 +75,11 @@ MetalinkCreator::MetalinkCreator(QWidget *parent)
     create();
 
     connect(finishButton(), &QPushButton::clicked, this, &MetalinkCreator::slotSave);
-    connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)), this, SLOT(slotUpdateAssistantButtons(KPageWidgetItem*,KPageWidgetItem*)));
+    connect(this, &KPageDialog::currentPageChanged, this, &MetalinkCreator::slotUpdateAssistantButtons);
 
     qRegisterMetaType<KGetMetalink::File>("KGetMetalink::File");
     connect(&m_thread, SIGNAL(fileResult(KGetMetalink::File)), this, SLOT(slotAddFile(KGetMetalink::File)));
-    connect(&m_thread, SIGNAL(finished()), this, SLOT(slotThreadFinished()));
+    connect(&m_thread, &QThread::finished, this, &MetalinkCreator::slotThreadFinished);
 
     setWindowTitle(i18n("Create a Metalink"));
 }
@@ -176,9 +176,9 @@ void MetalinkCreator::createIntroduction()
     uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
     uiIntroduction.save->setAcceptMode(QFileDialog::AcceptSave);
 
-    connect(uiIntroduction.save, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
-    connect(uiIntroduction.load, SIGNAL(textChanged(QString)), this, SLOT(slotUpdateIntroductionNextButton()));
-    connect(uiIntroduction.loadButton, SIGNAL(toggled(bool)), this, SLOT(slotUpdateIntroductionNextButton()));
+    connect(uiIntroduction.save, &KUrlRequester::textChanged, this, &MetalinkCreator::slotUpdateIntroductionNextButton);
+    connect(uiIntroduction.load, &KUrlRequester::textChanged, this, &MetalinkCreator::slotUpdateIntroductionNextButton);
+    connect(uiIntroduction.loadButton, &QAbstractButton::toggled, this, &MetalinkCreator::slotUpdateIntroductionNextButton);
 
     m_introduction = addPage(widget, i18n("Define the saving location."));
 
@@ -201,7 +201,7 @@ void MetalinkCreator::slotUpdateIntroductionNextButton()
 void MetalinkCreator::createFiles()
 {
     m_handler = new DirectoryHandler(this);
-    connect(m_handler, SIGNAL(finished()), this, SLOT(slotOpenDragDlg()));
+    connect(m_handler, &DirectoryHandler::finished, this, &MetalinkCreator::slotOpenDragDlg);
 
     FileWidget *widget = new FileWidget(this);
     uiFiles.setupUi(widget);
@@ -219,12 +219,12 @@ void MetalinkCreator::createFiles()
     uiFiles.remove_file->setEnabled(false);
     uiFiles.dragDrop->hide();
 
-    connect(uiFiles.add_local_file, SIGNAL(clicked(bool)), this, SLOT(slotAddLocalFilesClicked()));
-    connect(uiFiles.add_file, SIGNAL(clicked(bool)), this, SLOT(slotAddClicked()));
-    connect(uiFiles.remove_file, SIGNAL(clicked(bool)), this, SLOT(slotRemoveFile()));
-    connect(uiFiles.properties_file, SIGNAL(clicked(bool)), this, SLOT(slotFileProperties()));
-    connect(uiFiles.files->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateFilesButtons()));
-    connect(widget, SIGNAL(urlsDropped(QList<QUrl>)), m_handler, SLOT(slotFiles(QList<QUrl>)));
+    connect(uiFiles.add_local_file, &QAbstractButton::clicked, this, &MetalinkCreator::slotAddLocalFilesClicked);
+    connect(uiFiles.add_file, &QAbstractButton::clicked, this, &MetalinkCreator::slotAddClicked);
+    connect(uiFiles.remove_file, &QAbstractButton::clicked, this, &MetalinkCreator::slotRemoveFile);
+    connect(uiFiles.properties_file, &QAbstractButton::clicked, this, &MetalinkCreator::slotFileProperties);
+    connect(uiFiles.files->selectionModel(), &QItemSelectionModel::selectionChanged, this, &MetalinkCreator::slotUpdateFilesButtons);
+    connect(widget, &FileWidget::urlsDropped, m_handler, &DirectoryHandler::slotFiles);
 
     addPage(widget, i18nc("file as in file on hard drive", "Files"));
 }
@@ -351,7 +351,7 @@ void MetalinkCreator::fileDlg(KGetMetalink::File *file, bool edit)
     fileDlg->show();
 
     connect(fileDlg, SIGNAL(addFile()), this, SLOT(slotAddFile()));
-    connect(fileDlg, SIGNAL(fileEdited(QString,QString)), this, SLOT(slotFileEdited(QString,QString)));
+    connect(fileDlg, &FileDlg::fileEdited, this, &MetalinkCreator::slotFileEdited);
 }
 
 void MetalinkCreator::slotFileProperties()
@@ -377,7 +377,7 @@ void MetalinkCreator::slotOpenDragDlg()
     dragDlg->setAttribute(Qt::WA_DeleteOnClose);
     dragDlg->show();
 
-    connect(dragDlg, SIGNAL(usedTypes(QStringList,bool)), this, SLOT(slotHandleDropped(QStringList,bool)));
+    connect(dragDlg, &DragDlg::usedTypes, this, &MetalinkCreator::slotHandleDropped);
 }
 void MetalinkCreator::slotHandleDropped(const QStringList &types, bool createPartial)
 {

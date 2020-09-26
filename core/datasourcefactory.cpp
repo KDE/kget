@@ -91,7 +91,7 @@ void DataSourceFactory::init()
     {
         m_speedTimer = new QTimer(this);
         m_speedTimer->setInterval(SPEEDTIMER);
-        connect(m_speedTimer, SIGNAL(timeout()), this, SLOT(speedChanged()));
+        connect(m_speedTimer, &QTimer::timeout, this, &DataSourceFactory::speedChanged);
     }
 
     if (m_segSize && m_size)
@@ -122,8 +122,8 @@ void DataSourceFactory::findFileSize()
     if (!m_size && !m_dest.isEmpty() && !m_sources.isEmpty()) {
         foreach (TransferDataSource *source, m_sources) {
             if (source->capabilities() & Transfer::Cap_FindFilesize) {
-                connect(source, SIGNAL(foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)), this, SLOT(slotFoundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)));
-                connect(source, SIGNAL(finishedDownload(TransferDataSource*,KIO::filesize_t)), this, SLOT(slotFinishedDownload(TransferDataSource*,KIO::filesize_t)));
+                connect(source, &TransferDataSource::foundFileSize, this, &DataSourceFactory::slotFoundFileSize);
+                connect(source, &TransferDataSource::finishedDownload, this, &DataSourceFactory::slotFinishedDownload);
 
                 m_speedTimer->start();
                 source->findFileSize(m_segSize);
@@ -220,8 +220,8 @@ void DataSourceFactory::start()
     if (checkLocalFile()) {
         if (!m_putJob) {
             m_putJob = KIO::open(m_dest, QIODevice::WriteOnly | QIODevice::ReadOnly);
-            connect(m_putJob, SIGNAL(open(KIO::Job*)), this, SLOT(slotOpen(KIO::Job*)));
-            connect(m_putJob, SIGNAL(destroyed(QObject*)), this, SLOT(slotPutJobDestroyed(QObject*)));
+            connect(m_putJob, &KIO::FileJob::open, this, &DataSourceFactory::slotOpen);
+            connect(m_putJob, &QObject::destroyed, this, &DataSourceFactory::slotPutJobDestroyed);
             m_startTried = true;
             return;
         }
@@ -314,8 +314,8 @@ void DataSourceFactory::slotOpen(KIO::Job *job)
         init();
     }
 
-    connect(m_putJob, SIGNAL(position(KIO::Job*,KIO::filesize_t)), this, SLOT(slotOffset(KIO::Job*,KIO::filesize_t)));
-    connect(m_putJob, SIGNAL(written(KIO::Job*,KIO::filesize_t)), this, SLOT(slotDataWritten(KIO::Job*,KIO::filesize_t)));
+    connect(m_putJob, &KIO::FileJob::position, this, &DataSourceFactory::slotOffset);
+    connect(m_putJob, &KIO::FileJob::written, this, &DataSourceFactory::slotDataWritten);
     m_open = true;
 
     if (m_startTried)
@@ -441,14 +441,14 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParallelCon
                         source->setSupposedSize(m_size);
                     }
 
-                    connect(source, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
+                    connect(source, &TransferDataSource::capabilitiesChanged, this, &DataSourceFactory::slotUpdateCapabilities);
                     connect(source, SIGNAL(brokenSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(brokenSegments(TransferDataSource*,QPair<int,int>)));
-                    connect(source, SIGNAL(broken(TransferDataSource*,TransferDataSource::Error)), this, SLOT(broken(TransferDataSource*,TransferDataSource::Error)));
-                    connect(source, SIGNAL(finishedSegment(TransferDataSource*,int,bool)), this, SLOT(finishedSegment(TransferDataSource*,int,bool)));
+                    connect(source, &TransferDataSource::broken, this, &DataSourceFactory::broken);
+                    connect(source, &TransferDataSource::finishedSegment, this, &DataSourceFactory::finishedSegment);
                     connect(source, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SLOT(slotWriteData(KIO::fileoffset_t,QByteArray,bool&)));
                     connect(source, SIGNAL(freeSegments(TransferDataSource*,QPair<int,int>)), this, SLOT(slotFreeSegments(TransferDataSource*,QPair<int,int>)));
-                    connect(source, SIGNAL(log(QString,Transfer::LogLevel)), this, SIGNAL(log(QString,Transfer::LogLevel)));
-                    connect(source, SIGNAL(urlChanged(QUrl, QUrl)), this, SLOT(slotUrlChanged(QUrl, QUrl)));
+                    connect(source, &TransferDataSource::log, this, &DataSourceFactory::log);
+                    connect(source, &TransferDataSource::urlChanged, this, &DataSourceFactory::slotUrlChanged);
 
                     slotUpdateCapabilities();
 
@@ -849,7 +849,7 @@ bool DataSourceFactory::setNewDestination(const QUrl &newDestination)
             //still a write in progress
             if (m_blocked)
             {
-                QTimer::singleShot(1000, this, SLOT(startMove()));
+                QTimer::singleShot(1000, this, &DataSourceFactory::startMove);
             }
             else
             {
@@ -866,7 +866,7 @@ void DataSourceFactory::startMove()
     killPutJob();
 
     KIO::Job *move = KIO::file_move(m_dest, m_newDest, -1, KIO::HideProgressInfo);
-    connect(move, SIGNAL(result(KJob*)), this, SLOT(newDestResult(KJob*)));
+    connect(move, &KJob::result, this, &DataSourceFactory::newDestResult);
     connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
 
     m_dest = m_newDest;

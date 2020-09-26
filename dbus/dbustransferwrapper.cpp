@@ -16,8 +16,8 @@ DBusTransferWrapper::DBusTransferWrapper(TransferHandler *parent)
   : QObject(parent),
     m_transfer(parent)
 {
-    connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler*,TransferHandler::ChangesFlags)), this, SLOT(slotTransferChanged(TransferHandler*,TransferHandler::ChangesFlags)));
-    connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SIGNAL(capabilitiesChanged()));
+    connect(m_transfer, &TransferHandler::transferChangedEvent, this, &DBusTransferWrapper::slotTransferChanged);
+    connect(m_transfer, &TransferHandler::capabilitiesChanged, this, &DBusTransferWrapper::capabilitiesChanged);
 }
 
 DBusTransferWrapper::~DBusTransferWrapper()

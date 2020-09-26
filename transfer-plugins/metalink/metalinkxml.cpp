@@ -83,7 +83,7 @@ void MetalinkXml::downloadMetalink()
     }
     const QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
     Download *download = new Download(m_source, QUrl::fromLocalFile(path));
-    connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(metalinkInit(QUrl,QByteArray)));
+    connect(download, &Download::finishedSuccessfully, this, &MetalinkXml::metalinkInit);
 }
 
 bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
@@ -147,11 +147,11 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
 
-        connect(dataFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-        connect(dataFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
-        connect(dataFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
-        connect(dataFactory->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
-        connect(dataFactory, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
+        connect(dataFactory, &DataSourceFactory::capabilitiesChanged, this, &MetalinkXml::slotUpdateCapabilities);
+        connect(dataFactory, &DataSourceFactory::dataSourceFactoryChange, this, &MetalinkXml::slotDataSourceFactoryChange);
+        connect(dataFactory->verifier(), &Verifier::verified, this, &MetalinkXml::slotVerified);
+        connect(dataFactory->signature(), &Signature::verified, this, &MetalinkXml::slotSignatureVerified);
+        connect(dataFactory, &DataSourceFactory::log, this, &Transfer::setLog);
 
         //add the DataSources
         for (int i = 0; i < urlList.size(); ++i)
@@ -211,7 +211,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     if (m_metalinkJustDownloaded) {
         QDialog *dialog = new FileSelectionDlg(fileModel());
         dialog->setAttribute(Qt::WA_DeleteOnClose);
-        connect(dialog, SIGNAL(finished(int)), this, SLOT(fileDlgFinished(int)));
+        connect(dialog, &QDialog::finished, this, &MetalinkXml::fileDlgFinished);
 
         dialog->show();
     }
@@ -295,12 +295,12 @@ void MetalinkXml::load(const QDomElement *element)
 
         DataSourceFactory *file = new DataSourceFactory(this);
         file->load(&factory);
-        connect(file, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-        connect(file, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
+        connect(file, &DataSourceFactory::capabilitiesChanged, this, &MetalinkXml::slotUpdateCapabilities);
+        connect(file, &DataSourceFactory::dataSourceFactoryChange, this, &MetalinkXml::slotDataSourceFactoryChange);
         m_dataSourceFactory[file->dest()] = file;
-        connect(file->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
-        connect(file->signature(), SIGNAL(verified(int)), this, SLOT(slotSignatureVerified()));
-        connect(file, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
+        connect(file->verifier(), &Verifier::verified, this, &MetalinkXml::slotVerified);
+        connect(file->signature(), &Signature::verified, this, &MetalinkXml::slotSignatureVerified);
+        connect(file, &DataSourceFactory::log, this, &Transfer::setLog);
 
         //start the DataSourceFactories that were Started when KGet was closed
         if (file->status() == Job::Running) {

@@ -56,8 +56,8 @@ namespace kt
         connect(m_cancel,SIGNAL(clicked()),this,SLOT(reject()));
         m_progress->setMaximum(100);
         m_progress->setValue(0);
-        connect(m_job, SIGNAL(description(KJob*,QString,QPair<QString,QString>,QPair<QString,QString>)),
-                       SLOT(description(KJob*,QString,QPair<QString,QString>,QPair<QString,QString>)));
+        connect(m_job, &KJob::description,
+                       this, &ScanDlg::description);
         connect(m_job, SIGNAL(result(KJob*)),
                        SLOT(result(KJob*)));
         connect(m_job, SIGNAL(percent(KJob*,ulong)),

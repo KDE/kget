@@ -57,9 +57,9 @@ ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QString
 
     slotUpdate();
 
-    connect(ui.change, SIGNAL(textChanged(QString)), this, SLOT(slotUpdate()));
+    connect(ui.change, &QLineEdit::textChanged, this, &ChecksumSearchAddDlg::slotUpdate);
     connect(ui.mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdate()));
-    connect(this, SIGNAL(accepted()), this, SLOT(slotAccpeted()));
+    connect(this, &QDialog::accepted, this, &ChecksumSearchAddDlg::slotAccpeted);
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
@@ -208,9 +208,9 @@ DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVar
     KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     slotUpdate();
 
-    connect(ui.add, SIGNAL(clicked()), this, SLOT(slotAdd()));
-    connect(ui.remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
-    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdate()));
+    connect(ui.add, &QAbstractButton::clicked, this, &DlgChecksumSettingsWidget::slotAdd);
+    connect(ui.remove, &QAbstractButton::clicked, this, &DlgChecksumSettingsWidget::slotRemove);
+    connect(ui.treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DlgChecksumSettingsWidget::slotUpdate);
     connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(changed()));
     connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(changed()));
     connect(m_model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(changed()));
@@ -223,7 +223,7 @@ DlgChecksumSettingsWidget::~DlgChecksumSettingsWidget()
 void DlgChecksumSettingsWidget::slotAdd()
 {
     ChecksumSearchAddDlg *dialog = new ChecksumSearchAddDlg(m_modesModel, m_typesModel, this);
-    connect(dialog, SIGNAL(addItem(QString,int,QString)), this, SLOT(slotAddItem(QString,int,QString)));
+    connect(dialog, &ChecksumSearchAddDlg::addItem, this, &DlgChecksumSettingsWidget::slotAddItem);
 
     dialog->show();
 }

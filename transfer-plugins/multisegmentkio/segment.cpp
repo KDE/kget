@@ -79,8 +79,8 @@ bool Segment::createTransfer()
     {
         m_canResume = false;//FIXME set m_canResume to false by default!!
         m_getJob->addMetaData( "resume", KIO::number(m_offset) );
-        connect(m_getJob, SIGNAL(canResume(KIO::Job*,KIO::filesize_t)),
-                 SLOT(slotCanResume(KIO::Job*,KIO::filesize_t)));
+        connect(m_getJob, &KIO::TransferJob::canResume,
+                 this, &Segment::slotCanResume);
     }
     #if 0 //TODO: we disable that code till it's implemented in kdelibs, also we need to think, which settings we should use
     if (Settings::speedLimit())
@@ -88,11 +88,11 @@ bool Segment::createTransfer()
         m_getJob->addMetaData( "speed-limit", KIO::number(Settings::transferSpeedLimit() * 1024) );
     }
     #endif
-    connect(m_getJob, SIGNAL(totalSize(KJob*,qulonglong)), this, SLOT(slotTotalSize(KJob*,qulonglong)));
-    connect(m_getJob, SIGNAL(data(KIO::Job*,QByteArray)),
-                 SLOT(slotData(KIO::Job*,QByteArray)));
-    connect(m_getJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
-    connect(m_getJob, SIGNAL(redirection(KIO::Job *,const QUrl &)), SLOT(slotRedirection(KIO::Job *, const QUrl &))); 
+    connect(m_getJob, &KJob::totalSize, this, &Segment::slotTotalSize);
+    connect(m_getJob, &KIO::TransferJob::data,
+                 this, &Segment::slotData);
+    connect(m_getJob, &KJob::result, this, &Segment::slotResult);
+    connect(m_getJob, &KIO::TransferJob::redirection, this, &Segment::slotRedirection); 
     return true;
 }
 
@@ -296,7 +296,7 @@ void Segment::slotWriteRest()
         emit error(this, i18n("Failed to write to the file."), Transfer::Log_Error);
     } else {
         qCDebug(KGET_DEBUG) << "Wait 50 msec:" << this;
-        QTimer::singleShot(50, this, SLOT(slotWriteRest()));
+        QTimer::singleShot(50, this, &Segment::slotWriteRest);
     }
 }
 

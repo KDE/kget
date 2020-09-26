@@ -58,8 +58,8 @@ void ChecksumSearch::createDownload()
 
         m_copyJob = KIO::get(m_src, KIO::Reload, KIO::HideProgressInfo);
         m_copyJob->addMetaData("errorPage", "false");
-        connect(m_copyJob, SIGNAL(data(KIO::Job*,QByteArray)), SLOT(slotData(KIO::Job*,QByteArray)));
-        connect(m_copyJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
+        connect(m_copyJob, &KIO::TransferJob::data, this, &ChecksumSearch::slotData);
+        connect(m_copyJob, &KJob::result, this, &ChecksumSearch::slotResult);
     }
 }
 

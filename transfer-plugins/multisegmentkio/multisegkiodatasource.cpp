@@ -75,13 +75,13 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
     Segment *segment = new Segment(m_sourceUrl, segmentSize, segmentRange, this);
     m_segments.append(segment);
 
-    connect(segment, SIGNAL(canResume()), this, SLOT(slotCanResume()));
+    connect(segment, &Segment::canResume, this, &MultiSegKioDataSource::slotCanResume);
     connect(segment, SIGNAL(totalSize(KIO::filesize_t,QPair<int,int>)), this, SLOT(slotTotalSize(KIO::filesize_t,QPair<int,int>)));
     connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
-    connect(segment, SIGNAL(finishedSegment(Segment*,int,bool)), this, SLOT(slotFinishedSegment(Segment*,int,bool)));
-    connect(segment, SIGNAL(error(Segment*,QString,Transfer::LogLevel)), this, SLOT(slotError(Segment*,QString,Transfer::LogLevel)));
-    connect(segment, SIGNAL(finishedDownload(KIO::filesize_t)), this, SLOT(slotFinishedDownload(KIO::filesize_t)));
-    connect(segment, SIGNAL(urlChanged(QUrl)), this, SLOT(slotUrlChanged(QUrl)));
+    connect(segment, &Segment::finishedSegment, this, &MultiSegKioDataSource::slotFinishedSegment);
+    connect(segment, &Segment::error, this, &MultiSegKioDataSource::slotError);
+    connect(segment, &Segment::finishedDownload, this, &MultiSegKioDataSource::slotFinishedDownload);
+    connect(segment, &Segment::urlChanged, this, &MultiSegKioDataSource::slotUrlChanged);
 
     if (m_started) {
         segment->startTransfer();

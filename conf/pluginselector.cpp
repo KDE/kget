@@ -30,8 +30,8 @@ PluginSelector::PluginSelector(QDialog * parent)
     
     load();
 
-    connect(parent, SIGNAL(accepted()), SLOT(saveState()));
-    connect(parent, SIGNAL(rejected()), SLOT(loadDefaults()));
+    connect(parent, &QDialog::accepted, this, &PluginSelector::saveState);
+    connect(parent, &QDialog::rejected, this, &PluginSelector::loadDefaults);
 }
 
 PluginSelector::~PluginSelector()

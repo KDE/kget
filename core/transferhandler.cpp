@@ -36,7 +36,7 @@ TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
 
     m_kjobAdapter = new KGetKJobAdapter(this, this);
 
-    connect(m_transfer, SIGNAL(capabilitiesChanged()), this, SIGNAL(capabilitiesChanged()));
+    connect(m_transfer, &Transfer::capabilitiesChanged, this, &TransferHandler::capabilitiesChanged);
 }
 
 TransferHandler::~TransferHandler()

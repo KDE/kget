@@ -110,7 +110,7 @@ void KeyDownloader::downloadKey(QString fingerprint, Signature *sig, bool mirror
 
         KIO::StoredTransferJob *job = KIO::storedGet(url, KIO::Reload, KIO::HideProgressInfo);
         m_jobs[job] = fingerprint;
-        connect(job, SIGNAL(finished(KJob*)), this, SLOT(slotDownloaded(KJob*)));
+        connect(job, &KJob::finished, this, &KeyDownloader::slotDownloaded);
     }
 }
 

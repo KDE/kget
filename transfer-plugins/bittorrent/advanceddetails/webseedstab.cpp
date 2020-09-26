@@ -39,8 +39,8 @@ namespace kt
 			: QWidget(parent),curr_tc(nullptr)
 	{
 		setupUi(this);
-		connect(m_add,SIGNAL(clicked()),this,SLOT(addWebSeed()));
-		connect(m_remove,SIGNAL(clicked()),this,SLOT(removeWebSeed()));
+		connect(m_add,&QAbstractButton::clicked,this,&WebSeedsTab::addWebSeed);
+		connect(m_remove,&QAbstractButton::clicked,this,&WebSeedsTab::removeWebSeed);
 		m_add->setIcon(QIcon::fromTheme("list-add"));
 		m_remove->setIcon(QIcon::fromTheme("list-remove"));
 		m_add->setEnabled(false);
@@ -56,7 +56,7 @@ namespace kt
 		connect(m_webseed_list->selectionModel(),SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
 				this,SLOT(selectionChanged(QItemSelection,QItemSelection)));
 		
-		connect(m_webseed,SIGNAL(textChanged(QString)),this,SLOT(onWebSeedTextChanged(QString)));
+		connect(m_webseed,&QLineEdit::textChanged,this,&WebSeedsTab::onWebSeedTextChanged);
 	}
 
 

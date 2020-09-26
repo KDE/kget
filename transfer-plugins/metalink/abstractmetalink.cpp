@@ -313,7 +313,7 @@ FileModel *AbstractMetalink::fileModel()
     if (!m_fileModel) {
         m_fileModel = new FileModel(files(), directory(), this);
         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
-        connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
+        connect(m_fileModel, &FileModel::checkStateChanged, this, &AbstractMetalink::filesSelected);
 
         foreach (DataSourceFactory *factory, m_dataSourceFactory) {
             const QUrl dest = factory->dest();

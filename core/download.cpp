@@ -20,8 +20,8 @@ Download::Download(const QUrl &srcUrl, const QUrl &destUrl)
 {
     qCDebug(KGET_DEBUG) << "DownloadFile: " << m_srcUrl.url() << " to dest: " << m_destUrl.url();
     m_copyJob = KIO::get(m_srcUrl, KIO::NoReload, KIO::HideProgressInfo);
-    connect(m_copyJob, SIGNAL(data(KIO::Job*,QByteArray)), SLOT(slotData(KIO::Job*,QByteArray)));
-    connect(m_copyJob, SIGNAL(result(KJob*)), SLOT(slotResult(KJob*)));
+    connect(m_copyJob, &KIO::TransferJob::data, this, &Download::slotData);
+    connect(m_copyJob, &KJob::result, this, &Download::slotResult);
 }
 
 Download::~Download()

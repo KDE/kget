@@ -104,7 +104,7 @@ Signature::Signature(const QUrl &dest, QObject *object)
     d->dest = dest;
 #ifdef HAVE_QGPGME
     qRegisterMetaType<GpgME::VerificationResult>("GpgME::VerificationResult");
-    connect(&d->thread, SIGNAL(verified(GpgME::VerificationResult)), this, SLOT(slotVerified(GpgME::VerificationResult)));
+    connect(&d->thread, &SignatureThread::verified, this, &Signature::slotVerified);
 #endif //HAVE_QGPGME
 }
 

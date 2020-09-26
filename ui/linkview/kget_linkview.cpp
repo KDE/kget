@@ -91,28 +91,28 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     m_urlAction->setCheckable(true);
     columnGroup->addAction(m_nameAction);
     columnGroup->addAction(m_urlAction);
-    connect(columnGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotFilterColumn(QAction*)));
+    connect(columnGroup, &QActionGroup::triggered, this, &KGetLinkView::slotFilterColumn);
 
-    connect(wildcardAction, SIGNAL(toggled(bool)), this, SLOT(wildcardPatternToggled(bool)));
-    connect(ui.treeView, SIGNAL(doubleClicked(QModelIndex)),
-            this, SLOT(uncheckItem(QModelIndex)));
-    connect(ui.textFilter, SIGNAL(textChanged(QString)), SLOT(setTextFilter(QString)));
-    connect(ui.textFilter, SIGNAL(aboutToShowContextMenu(QMenu*)), this, SLOT(contextMenuDisplayed(QMenu*)));
+    connect(wildcardAction, &QAction::toggled, this, &KGetLinkView::wildcardPatternToggled);
+    connect(ui.treeView, &QAbstractItemView::doubleClicked,
+            this, &KGetLinkView::uncheckItem);
+    connect(ui.textFilter, &QLineEdit::textChanged, this, &KGetLinkView::setTextFilter);
+    connect(ui.textFilter, &KLineEdit::aboutToShowContextMenu, this, &KGetLinkView::contextMenuDisplayed);
     connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotFilterModeChanged(int)));
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMimeTypeChanged(int)));
     connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectionButtons()));
-    connect(ui.urlRequester, SIGNAL(textChanged(QString)), SLOT(updateImportButtonStatus(QString)));
-    connect(ui.urlRequester, SIGNAL(urlSelected(QUrl)), SLOT(slotStartImport()));
-    connect(ui.selectAll, SIGNAL(clicked()), this, SLOT(checkAll()));
-    connect(ui.deselectAll, SIGNAL(clicked()), this, SLOT(uncheckAll()));
-    connect(ui.invertSelection, SIGNAL(clicked()), this, SLOT(slotInvertSelection()));
-    connect(this, SIGNAL(accepted()), this, SLOT(slotStartLeech()));
+    connect(ui.urlRequester, &KUrlRequester::textChanged, this, &KGetLinkView::updateImportButtonStatus);
+    connect(ui.urlRequester, &KUrlRequester::urlSelected, this, &KGetLinkView::slotStartImport);
+    connect(ui.selectAll, &QAbstractButton::clicked, this, &KGetLinkView::checkAll);
+    connect(ui.deselectAll, &QAbstractButton::clicked, this, &KGetLinkView::uncheckAll);
+    connect(ui.invertSelection, &QAbstractButton::clicked, this, &KGetLinkView::slotInvertSelection);
+    connect(this, &QDialog::accepted, this, &KGetLinkView::slotStartLeech);
     connect(ui.showWebContent, SIGNAL(stateChanged(int)), m_proxyModel, SLOT(setShowWebContent(int)));
-    connect(ui.importLinks, SIGNAL(clicked()), this, SLOT(slotStartImport()));
-    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            SLOT(selectionChanged()));
-    connect(ui.dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
-    connect(ui.dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
+    connect(ui.importLinks, &QAbstractButton::clicked, this, &KGetLinkView::slotStartImport);
+    connect(ui.treeView->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &KGetLinkView::selectionChanged);
+    connect(ui.dialogButtonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(ui.dialogButtonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 
     m_downloadButton = ui.dialogButtonBox->addButton(i18nc("Download the items which have been selected","&Download"),
                                                           QDialogButtonBox::AcceptRole);
@@ -213,7 +213,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         model->insertRow(model->rowCount(), items);
     }
 
-    connect(model, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(selectionChanged()));
+    connect(model, &QStandardItemModel::itemChanged, this, &KGetLinkView::selectionChanged);
     m_proxyModel->setSourceModel(model);
     m_proxyModel->setFilterKeyColumn(1);
     m_proxyModel->sort(0);
@@ -416,8 +416,8 @@ void KGetLinkView::slotStartImport()
 
     m_linkImporter = new LinkImporter(ui.urlRequester->url(), this);
 
-    connect(m_linkImporter, SIGNAL(progress(int)), SLOT(slotImportProgress(int)));
-    connect(m_linkImporter, SIGNAL(finished()), SLOT(slotImportFinished()));
+    connect(m_linkImporter, &LinkImporter::progress, this, &KGetLinkView::slotImportProgress);
+    connect(m_linkImporter, &QThread::finished, this, &KGetLinkView::slotImportFinished);
 
     if (!ui.urlRequester->url().isLocalFile())
     {

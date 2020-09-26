@@ -47,11 +47,11 @@ void FileDeleterTest::fileDeleterTest()
 
     //create two QObjects that will receive the result signal
     SignalReceiver receiver1;
-    QSignalSpy spy1(&receiver1, SIGNAL(result()));
+    QSignalSpy spy1(&receiver1, &SignalReceiver::result);
     QVERIFY(spy1.isEmpty());
 
     SignalReceiver receiver2;
-    QSignalSpy spy2(&receiver1, SIGNAL(result()));
+    QSignalSpy spy2(&receiver1, &SignalReceiver::result);
     QVERIFY(spy2.isEmpty());
 
     //delete the file
@@ -62,7 +62,7 @@ void FileDeleterTest::fileDeleterTest()
     FileDeleter::deleteFile(QUrl::fromLocalFile(fileUrl1), &receiver1, SIGNAL(result()));
 
     KJob *job = FileDeleter::deleteFile(QUrl::fromLocalFile(fileUrl1));
-    connect(job, SIGNAL(result(KJob*)), &receiver2, SIGNAL(result()));
+    connect(job, &KJob::result, &receiver2, &SignalReceiver::result);
 
     //removal should be done by now
     QTest::qWait(5000);

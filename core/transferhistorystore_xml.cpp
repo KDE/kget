@@ -203,11 +203,11 @@ void XmlStore::load()
     // TODO: only load if necessary
     m_loadThread = new XmlStore::LoadThread(this, m_storeUrl);
 
-    connect(m_loadThread, SIGNAL(finished()), SIGNAL(loadFinished()));
-    connect(m_loadThread, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
-                        SIGNAL(elementLoaded(int,int,TransferHistoryItem)));
-    connect(m_loadThread, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
-                        SLOT(slotLoadElement(int,int,TransferHistoryItem)));
+    connect(m_loadThread, &QThread::finished, this, &TransferHistoryStore::loadFinished);
+    connect(m_loadThread, &LoadThread::elementLoaded,
+                        this, &TransferHistoryStore::elementLoaded);
+    connect(m_loadThread, &LoadThread::elementLoaded,
+                        this, &XmlStore::slotLoadElement);
     m_loadThread->start();
 }
 
@@ -220,9 +220,9 @@ void XmlStore::saveItem(const TransferHistoryItem &item)
 {
     m_saveThread = new XmlStore::SaveThread(this, m_storeUrl, item);
 
-    connect(m_saveThread, SIGNAL(finished()), SIGNAL(saveFinished()));
-    connect(m_saveThread, SIGNAL(elementLoaded(int,int,TransferHistoryItem)),
-                        SIGNAL(elementLoaded(int,int,TransferHistoryItem)));
+    connect(m_saveThread, &QThread::finished, this, &TransferHistoryStore::saveFinished);
+    connect(m_saveThread, &SaveThread::elementLoaded,
+                        this, &TransferHistoryStore::elementLoaded);
     m_saveThread->start();
 }
 
@@ -232,7 +232,7 @@ void XmlStore::deleteItem(const TransferHistoryItem &item)
 
     m_deleteThread = new XmlStore::DeleteThread(this, m_storeUrl, item);
 
-    connect(m_deleteThread, SIGNAL(finished()), SLOT(slotDeleteElement()));
+    connect(m_deleteThread, &QThread::finished, this, &XmlStore::slotDeleteElement);
 
     m_deleteThread->start();
 }

@@ -65,7 +65,7 @@ void MirrorAddDlg::init()
 
     updateButton();
 
-    connect(ui.url, SIGNAL(textChanged(QString)), this, SLOT(updateButton(QString)));
+    connect(ui.url, &QLineEdit::textChanged, this, &MirrorAddDlg::updateButton);
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &MirrorAddDlg::addMirror);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
@@ -141,7 +141,7 @@ MirrorSettings::MirrorSettings(QWidget *parent, TransferHandler *handler, const 
 
     updateButton();
 
-    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateButton()));
+    connect(ui.treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &MirrorSettings::updateButton);
     connect(ui.add, &QPushButton::clicked, this, &MirrorSettings::addClicked);
     connect(ui.remove, &QPushButton::clicked, this, &MirrorSettings::removeMirror);
     connect(this, &MirrorSettings::finished, this, &MirrorSettings::save);

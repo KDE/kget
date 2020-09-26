@@ -141,7 +141,7 @@ void BTTransfer::start()
             setTransferChange(Tc_Status, true);
 
             //m_source = tmpDirName + m_source.fileName();
-            connect(download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(btTransferInit(QUrl,QByteArray)));
+            connect(download, &Download::finishedSuccessfully, this, &BTTransfer::btTransferInit);
         }
         else
             btTransferInit();
@@ -160,7 +160,7 @@ bool BTTransfer::setDirectory(const QUrl &newDirectory)
     {
         if (torrent->changeOutputDir(newDirectory.url(QUrl::PreferLocalFile), bt::TorrentInterface::MOVE_FILES))
         {
-            connect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*,bool&)), this, SLOT(newDestResult()));
+            connect(torrent, &bt::TorrentInterface::aboutToBeStarted, this, &BTTransfer::newDestResult);
             m_movingFile = true;
             m_directory = newDirectory;
             m_dest = m_directory;
@@ -178,7 +178,7 @@ bool BTTransfer::setDirectory(const QUrl &newDirectory)
 
 void BTTransfer::newDestResult()
 {
-    disconnect(torrent, SIGNAL(aboutToBeStarted(bt::TorrentInterface*,bool&)), this, SLOT(newDestResult()));
+    disconnect(torrent, &bt::TorrentInterface::aboutToBeStarted, this, &BTTransfer::newDestResult);
     m_movingFile = false;
 
     setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
@@ -478,7 +478,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
         connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*,QString)), SLOT(slotStoppedByError(bt::TorrentInterface*,QString)));
-        connect(torrent, SIGNAL(finished(bt::TorrentInterface*)), this, SLOT(slotDownloadFinished(bt::TorrentInterface*)));
+        connect(torrent, &bt::TorrentInterface::finished, this, &BTTransfer::slotDownloadFinished);
         //FIXME connect(tc,SIGNAL(corruptedDataFound(bt::TorrentInterface*)), this, SLOT(emitCorruptedData(bt::TorrentInterface*)));//TODO: Fix it
     }
     catch (bt::Error &err)
@@ -491,7 +491,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
         return;
     }
     startTorrent();
-    connect(&timer, SIGNAL(timeout()), SLOT(update()));
+    connect(&timer, &QTimer::timeout, this, &BTTransfer::update);
 }
 
 void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg)
@@ -761,7 +761,7 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
             }
             m_fileModel = new FileModel(m_files.keys(), directory(), this);
     //         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
-            connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
+            connect(m_fileModel, &FileModel::checkStateChanged, this, &BTTransfer::filesSelected);
 
             //set the checkstate, the status and the size of the model items
             QHash<QUrl, bt::TorrentFileInterface*>::const_iterator it;
@@ -807,7 +807,7 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
 
             m_fileModel = new FileModel(urls, directory(), this);
             //         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
-            connect(m_fileModel, SIGNAL(checkStateChanged()), this, SLOT(filesSelected()));
+            connect(m_fileModel, &FileModel::checkStateChanged, this, &BTTransfer::filesSelected);
 
             QModelIndex size = m_fileModel->index(url, FileItem::Size);
             m_fileModel->setData(size, static_cast<qlonglong>(torrent->getStats().total_bytes));

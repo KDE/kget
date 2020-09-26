@@ -60,7 +60,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     m_timer = new QTimer(this);
     m_timer->setInterval(350);
     m_timer->setSingleShot(true);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(checkInput()));
+    connect(m_timer, &QTimer::timeout, this, &NewTransferDialog::checkInput);
 
     const KColorScheme scheme = KColorScheme(QPalette::Active, KColorScheme::View);
     m_existingFileBackground = scheme.background(KColorScheme::NeutralBackground);
@@ -78,11 +78,11 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
     connect(ui.groupComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setDefaultDestination()));
 
-    connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(setDefaultDestination()));
-    connect(ui.destRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
-    connect(ui.urlRequester, SIGNAL(textChanged(QString)), this, SLOT(inputTimer()));
-    connect(ui.listWidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(inputTimer()));
-    connect(this, SIGNAL(finished(int)), this, SLOT(slotFinished(int)));
+    connect(ui.urlRequester, &QLineEdit::textChanged, this, &NewTransferDialog::setDefaultDestination);
+    connect(ui.destRequester, &KUrlRequester::textChanged, this, &NewTransferDialog::inputTimer);
+    connect(ui.urlRequester, &QLineEdit::textChanged, this, &NewTransferDialog::inputTimer);
+    connect(ui.listWidget, &QListWidget::itemChanged, this, &NewTransferDialog::inputTimer);
+    connect(this, &QDialog::finished, this, &NewTransferDialog::slotFinished);
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }

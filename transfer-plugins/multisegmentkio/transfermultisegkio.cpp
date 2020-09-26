@@ -50,10 +50,10 @@ void TransferMultiSegKio::init()
 
     if (!m_dataSourceFactory) {
         m_dataSourceFactory = new DataSourceFactory(this, m_dest);
-        connect(m_dataSourceFactory, SIGNAL(capabilitiesChanged()), this, SLOT(slotUpdateCapabilities()));
-        connect(m_dataSourceFactory, SIGNAL(dataSourceFactoryChange(Transfer::ChangesFlags)), this, SLOT(slotDataSourceFactoryChange(Transfer::ChangesFlags)));
-        connect(m_dataSourceFactory->verifier(), SIGNAL(verified(bool)), this, SLOT(slotVerified(bool)));
-        connect(m_dataSourceFactory, SIGNAL(log(QString,Transfer::LogLevel)), this, SLOT(setLog(QString,Transfer::LogLevel)));
+        connect(m_dataSourceFactory, &DataSourceFactory::capabilitiesChanged, this, &TransferMultiSegKio::slotUpdateCapabilities);
+        connect(m_dataSourceFactory, &DataSourceFactory::dataSourceFactoryChange, this, &TransferMultiSegKio::slotDataSourceFactoryChange);
+        connect(m_dataSourceFactory->verifier(), &Verifier::verified, this, &TransferMultiSegKio::slotVerified);
+        connect(m_dataSourceFactory, &DataSourceFactory::log, this, &Transfer::setLog);
 
         m_dataSourceFactory->addMirror(m_source, MultiSegKioSettings::segments());
 
@@ -194,7 +194,7 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
     if (change & Tc_Status) {
         if ((m_dataSourceFactory->status() == Job::Finished) && m_source.scheme() == "ftp") {
             KIO::StatJob * statJob = KIO::stat(m_source);
-            connect(statJob, SIGNAL(result(KJob*)), this, SLOT(slotStatResult(KJob*)));
+            connect(statJob, &KJob::result, this, &TransferMultiSegKio::slotStatResult);
             statJob->start();
         } else {
             setStatus(m_dataSourceFactory->status());  

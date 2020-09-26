@@ -56,22 +56,22 @@ KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)
     actionCollection()->addAction("kget_menu", menu);
 
     menu->setDelayed( false );
-    connect( menu->menu(), SIGNAL(aboutToShow()), SLOT(showPopup()));
+    connect( menu->menu(), &QMenu::aboutToShow, this, &KGetPlugin::showPopup);
 
     m_dropTargetAction = new KToggleAction(i18n("Show Drop Target"), actionCollection());
 
-    connect(m_dropTargetAction, SIGNAL(triggered()), this, SLOT(slotShowDrop()));
+    connect(m_dropTargetAction, &QAction::triggered, this, &KGetPlugin::slotShowDrop);
     actionCollection()->addAction(QL1S("show_drop"), m_dropTargetAction);
     menu->addAction(m_dropTargetAction);
 
     QAction *showLinksAction = actionCollection()->addAction(QL1S("show_links"));
     showLinksAction->setText(i18n("List All Links"));
-    connect(showLinksAction, SIGNAL(triggered()), SLOT(slotShowLinks()));
+    connect(showLinksAction, &QAction::triggered, this, &KGetPlugin::slotShowLinks);
     menu->addAction(showLinksAction);
 
     QAction *showSelectedLinksAction = actionCollection()->addAction(QL1S("show_selected_links"));
     showSelectedLinksAction->setText(i18n("List Selected Links"));
-    connect(showSelectedLinksAction, SIGNAL(triggered()), SLOT(slotShowSelectedLinks()));
+    connect(showSelectedLinksAction, &QAction::triggered, this, &KGetPlugin::slotShowSelectedLinks);
     menu->addAction(showSelectedLinksAction);
 
     // Hide this plugin if the parent part does not support either

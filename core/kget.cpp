@@ -832,8 +832,8 @@ KGet::KGet()
 
     QObject::connect(m_transferTreeModel, SIGNAL(transfersAddedEvent(QList<TransferHandler*>)),
                      m_jobManager,        SLOT(slotTransfersAdded(QList<TransferHandler*>)));
-    QObject::connect(m_transferTreeModel, SIGNAL(transfersAboutToBeRemovedEvent(QList<TransferHandler*>)),
-                     m_jobManager,        SLOT(slotTransfersAboutToBeRemoved(QList<TransferHandler*>)));
+    QObject::connect(m_transferTreeModel, &TransferTreeModel::transfersAboutToBeRemovedEvent,
+                     m_jobManager,        &KUiServerJobs::slotTransfersAboutToBeRemoved);
     QObject::connect(m_transferTreeModel, SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)),
                      m_jobManager,        SLOT(slotTransfersChanged(QMap<TransferHandler*,Transfer::ChangesFlags>)));
             
@@ -1175,7 +1175,7 @@ void KGet::loadPlugins()
 
     const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), "Plugins");
 
-    for (const KPluginMetaData& md : sortedOffers)
+    for (const KPluginMetaData& md : qAsConst(sortedOffers))
     {
         KPluginInfo info(md);
         info.load(plugins);
@@ -1290,20 +1290,20 @@ GenericObserver::GenericObserver(QObject *parent)
     //check if there is a connection
     KGet::setHasNetworkConnection(m_networkConfig.isOnline());
     
-    connect(KGet::model(), SIGNAL(groupRemovedEvent(TransferGroupHandler*)), SLOT(groupRemovedEvent(TransferGroupHandler*)));
+    connect(KGet::model(), &TransferTreeModel::groupRemovedEvent, this, &GenericObserver::groupRemovedEvent);
     connect(KGet::model(), SIGNAL(transfersAddedEvent(QList<TransferHandler*>)),
                            SLOT(transfersAddedEvent(QList<TransferHandler*>)));
-    connect(KGet::model(), SIGNAL(groupAddedEvent(TransferGroupHandler*)), SLOT(groupAddedEvent(TransferGroupHandler*)));
-    connect(KGet::model(), SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)),
-                           SLOT(transfersRemovedEvent(QList<TransferHandler*>)));
+    connect(KGet::model(), &TransferTreeModel::groupAddedEvent, this, &GenericObserver::groupAddedEvent);
+    connect(KGet::model(), &TransferTreeModel::transfersRemovedEvent,
+                           this, &GenericObserver::transfersRemovedEvent);
     connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)), 
                            SLOT(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)));
     connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)), 
                            SLOT(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)));
-    connect(KGet::model(), SIGNAL(transferMovedEvent(TransferHandler*,TransferGroupHandler*)),
-                           SLOT(transferMovedEvent(TransferHandler*,TransferGroupHandler*)));
-    connect(&m_networkConfig, SIGNAL(onlineStateChanged(bool)),
-                         this, SLOT(slotNetworkStatusChanged(bool)));
+    connect(KGet::model(), &TransferTreeModel::transferMovedEvent,
+                           this, &GenericObserver::transferMovedEvent);
+    connect(&m_networkConfig, &QNetworkConfigurationManager::onlineStateChanged,
+                         this, &GenericObserver::slotNetworkStatusChanged);
 
 }
 
@@ -1352,7 +1352,7 @@ void GenericObserver::requestSave()
     if (!m_save) {
         m_save = new QTimer(this);
         m_save->setInterval(5000);
-        connect(m_save, SIGNAL(timeout()), this, SLOT(slotSave()));
+        connect(m_save, &QTimer::timeout, this, &GenericObserver::slotSave);
     }
 
     //save regularly if there are running jobs
@@ -1395,8 +1395,8 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
                 if (transfer->error().type == Job::ManualSolve) {
                     m_notifications.insert(notification, transfer);
                     notification->setActions(QStringList() << i18n("Resolve"));
-                    connect(notification, SIGNAL(action1Activated()), SLOT(slotResolveTransferError()));
-                    connect(notification, SIGNAL(closed()), SLOT(slotNotificationClosed()));
+                    connect(notification, &KNotification::action1Activated, this, &GenericObserver::slotResolveTransferError);
+                    connect(notification, &KNotification::closed, this, &GenericObserver::slotNotificationClosed);
                 }
             }
         }
@@ -1465,8 +1465,8 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
 
         if (notification) {
             notification->setActions(QStringList() << i18nc("abort the proposed action", "Abort"));
-            connect(notification, SIGNAL(action1Activated()), this, SLOT(slotAbortAfterFinishAction()));
-            connect(m_finishAction, SIGNAL(timeout()), notification, SLOT(close()));
+            connect(notification, &KNotification::action1Activated, this, &GenericObserver::slotAbortAfterFinishAction);
+            connect(m_finishAction, &QTimer::timeout, notification, &KNotification::close);
 
             if (!m_finishAction->isActive()) {
                 m_finishAction->start();

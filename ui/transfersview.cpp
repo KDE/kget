@@ -50,11 +50,11 @@ TransfersView::TransfersView(QWidget * parent)
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 
-    connect(header(), SIGNAL(customContextMenuRequested(QPoint)),
-                      SLOT(slotShowHeaderMenu(QPoint)));
-    connect(header(), SIGNAL(sectionCountChanged(int,int)), this, SLOT(populateHeaderActions()));
-    connect(header(), SIGNAL(sectionMoved(int,int,int)), this, SLOT(slotSectionMoved(int,int,int)));
-    connect(header(), SIGNAL(sectionResized(int,int,int)), this, SLOT(slotSaveHeader()));
+    connect(header(), &QWidget::customContextMenuRequested,
+                      this, &TransfersView::slotShowHeaderMenu);
+    connect(header(), &QHeaderView::sectionCountChanged, this, &TransfersView::populateHeaderActions);
+    connect(header(), &QHeaderView::sectionMoved, this, &TransfersView::slotSectionMoved);
+    connect(header(), &QHeaderView::sectionResized, this, &TransfersView::slotSaveHeader);
     connect(this, &TransfersView::doubleClicked, this, &TransfersView::slotItemActivated);
     connect(this, &TransfersView::collapsed, this, &TransfersView::slotItemCollapsed);
     connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex,int,int)), 
@@ -88,7 +88,7 @@ void TransfersView::setModel(QAbstractItemModel * model)
 
     populateHeaderActions();
     toggleMainGroup();
-    connect(model, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT (toggleMainGroup()));
+    connect(model, &QAbstractItemModel::rowsRemoved, this, &TransfersView::toggleMainGroup);
 }
 
 void TransfersView::dropEvent(QDropEvent * event)

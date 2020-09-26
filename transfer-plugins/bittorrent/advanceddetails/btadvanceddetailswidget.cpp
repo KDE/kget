@@ -45,8 +45,8 @@ BTAdvancedDetailsWidget::BTAdvancedDetailsWidget(BTTransferHandler * transfer)
     //This updates the widget with the right values
     slotTransferChanged(transfer, 0xFFFFFFFF);
     
-    connect(m_transfer, SIGNAL(transferChangedEvent(TransferHandler*,TransferHandler::ChangesFlags)),
-            this,       SLOT(slotTransferChanged(TransferHandler*,TransferHandler::ChangesFlags)));
+    connect(m_transfer, &TransferHandler::transferChangedEvent,
+            this,       &BTAdvancedDetailsWidget::slotTransferChanged);
 }
 
 void BTAdvancedDetailsWidget::init()

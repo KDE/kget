@@ -45,7 +45,7 @@ DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
     TransferTreeModel *model = KGet::model();
 
     connect(model, SIGNAL(transfersAddedEvent(QList<TransferHandler*>)), this, SLOT(slotTransfersAdded(QList<TransferHandler*>)));
-    connect(model, SIGNAL(transfersRemovedEvent(QList<TransferHandler*>)), this, SLOT(slotTransfersRemoved(QList<TransferHandler*>)));
+    connect(model, &TransferTreeModel::transfersRemovedEvent, this, &DBusKGetWrapper::slotTransfersRemoved);
 }
 
 DBusKGetWrapper::~DBusKGetWrapper()

@@ -81,13 +81,13 @@ const QList<QAction *> BTTransferFactory::actions(TransferHandler *handler)
      {
          QAction *openAdvancedDetailsAction = new QAction(QIcon::fromTheme("document-open"), i18n("&Advanced Details"), this);
  
-         connect(openAdvancedDetailsAction, SIGNAL(triggered()), bttransfer, SLOT(createAdvancedDetails()));
+         connect(openAdvancedDetailsAction, &QAction::triggered, bttransfer, &BTTransferHandler::createAdvancedDetails);
  
          actions.append(openAdvancedDetailsAction);
 
          QAction *openScanDlg = new QAction(QIcon::fromTheme("document-open"), i18n("&Scan Files"), this);
  
-         connect(openScanDlg, SIGNAL(triggered()), bttransfer, SLOT(createScanDlg()));
+         connect(openScanDlg, &QAction::triggered, bttransfer, &BTTransferHandler::createScanDlg);
  
          actions.append(openScanDlg);
      }

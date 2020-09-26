@@ -26,7 +26,7 @@ DBusVerifierWrapper::DBusVerifierWrapper(Verifier *verifier)
     m_verifier(verifier)
 {
     connect(m_verifier, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)), this, SLOT(slotBrokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)));
-    connect(m_verifier, SIGNAL(verified(bool)), this, SIGNAL(verified(bool)));
+    connect(m_verifier, &Verifier::verified, this, &DBusVerifierWrapper::verified);
 }
 
 DBusVerifierWrapper::~DBusVerifierWrapper()
