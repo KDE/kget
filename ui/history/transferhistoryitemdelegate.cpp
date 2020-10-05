@@ -90,7 +90,7 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
     const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (index.model());
     QUrl url(model->data(index, TransferHistoryCategorizedDelegate::RoleUrl).toString());
     QString name = url.path().mid(url.path().lastIndexOf("/") + 1);
-    const QString iconName = KIO::iconNameForUrl(model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toUrl());
+    const QString iconName = KIO::iconNameForUrl(QUrl::fromLocalFile(model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString()));
     QIcon icon = QIcon::fromTheme(iconName, QIcon::fromTheme("application-octet-stream"));
     QString size = KIO::convertSize(model->data(index, TransferHistoryCategorizedDelegate::RoleSize).toInt());
     QString date = model->data(index, TransferHistoryCategorizedDelegate::RoleDate).toDate().toString("dd.MM.yyyy");
