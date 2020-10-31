@@ -55,14 +55,14 @@ BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
                const QDomElement * e)
   : Transfer(parent, factory, scheduler, src, dest, e),
     torrent(nullptr),
-    m_tmp(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/")),
+    m_tmp(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/")),
     m_ready(false),
     m_downloadFinished(false),
     m_movingFile(false),
     m_fileModel(nullptr),
     m_updateCounter(0)
 {
-    QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/");
+    QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/");
         // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
         if (!QFileInfo::exists(tmpDirName)) {
             QDir().mkpath(tmpDirName);
@@ -133,7 +133,7 @@ void BTTransfer::start()
         if (!m_source.isLocalFile())
         {
             qCDebug(KGET_DEBUG) << m_dest.path();
-            QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/");
+            QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/");
             m_tmpTorrentFile = tmpDirName + m_dest.fileName();
             Download *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
 
@@ -428,7 +428,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
     setStatus(Job::Stopped, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
-    bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/torrentlog.log"), false, false);//initialize the torrent-log
+    bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/torrentlog.log"), false, false);//initialize the torrent-log
 
     bt::SetClientInfo("KGet", KGET_VERSION_MAJOR, KGET_VERSION_MINOR, KGET_VERSION_PATCH, bt::NORMAL, "KG");//Set client info to KGet
 

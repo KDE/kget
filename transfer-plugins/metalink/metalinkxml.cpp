@@ -78,10 +78,10 @@ void MetalinkXml::downloadMetalink()
     setStatus(Job::Running, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
     setTransferChange(Tc_Status, true);
     // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
-    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
-        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))) {
+        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     }
-    const QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
+    const QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
     Download *download = new Download(m_source, QUrl::fromLocalFile(path));
     connect(download, &Download::finishedSuccessfully, this, &MetalinkXml::metalinkInit);
 }

@@ -36,11 +36,11 @@ BTDataSource::BTDataSource(const QUrl &srcUrl, QObject *parent)
     m_torrentSource(QUrl())
 {
     // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
-    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
-        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))) {
+        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     }
 
-    bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/torrentlog.log"));//initialize the torrent-log
+    bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/torrentlog.log"));//initialize the torrent-log
 
     bt::SetClientInfo("KGet",2,1,0,bt::NORMAL,"KG");//Set client info to KGet, WARNING: Pls change this for every release
 
@@ -85,7 +85,7 @@ void BTDataSource::start()
 {
     if (m_torrentSource.isEmpty())
     {
-        QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/tmp/");
+        QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/");
         // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
         if (!QFileInfo::exists(tmpDirName)) {
             QDir().mkpath(tmpDirName);

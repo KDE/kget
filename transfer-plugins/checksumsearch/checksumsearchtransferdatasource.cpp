@@ -59,7 +59,7 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             qCDebug(KGET_DEBUG) << "Creating download for" << baseUrl;
             static int files = 0;
 
-            const QUrl dest = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/checksumsearch/") + QString::number(files++));
+            const QUrl dest = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/checksumsearch/") + QString::number(files++));
             if (QFile::exists(dest.toLocalFile())) {
                 KIO::Job *del = KIO::del(dest, KIO::HideProgressInfo);
                 if (!del->exec()) {

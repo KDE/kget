@@ -497,7 +497,7 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
     qCDebug(KGET_DEBUG) << "(" << filename << ")";
 
     if(filename.isEmpty()) {
-        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+        filename = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
         // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
         if (!QFileInfo::exists(filename)) {
             QDir().mkpath(filename);
@@ -581,7 +581,7 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
         return;
 
     if(filename.isEmpty()) {
-        filename = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+        filename = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
         // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
         if (!QFileInfo::exists(filename)) {
             QDir().mkpath(filename);

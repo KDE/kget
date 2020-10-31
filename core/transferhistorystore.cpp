@@ -130,19 +130,19 @@ QList <TransferHistoryItem> TransferHistoryStore::items() const
 TransferHistoryStore *TransferHistoryStore::getStore()
 {
     // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
-    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
-        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))) {
+        QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     }
     switch(Settings::historyBackend())
     {
         case TransferHistoryStore::SQLite:
 #ifdef HAVE_SQLITE
-            return new SQLiteStore(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transferhistory.db"));
+            return new SQLiteStore(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transferhistory.db"));
             break;
 #endif
         case TransferHistoryStore::Xml:
         default:
-            return new XmlStore(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transferhistory.kgt"));
+            return new XmlStore(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transferhistory.kgt"));
     }
 }
 

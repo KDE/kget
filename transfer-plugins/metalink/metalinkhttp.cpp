@@ -222,10 +222,10 @@ bool MetalinkHttp::metalinkHttpInit()
         //Add OpenPGP signatures
         if (m_signatureUrl != QUrl()) {
             // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
-            if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation))) {
-                QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+            if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))) {
+                QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
             }
-            const QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
+            const QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
             Download *signat_download = new Download(m_signatureUrl, QUrl::fromLocalFile(path));
             connect(signat_download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(setSignature(QUrl,QByteArray)));
         }

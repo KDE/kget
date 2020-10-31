@@ -48,7 +48,7 @@ bool ScriptConfigAdaptor::setFile(const QString &filename,
             QString default_path;
             // put the config file in default user directory
             // like ~/.kde4/share/app/kget/content_scrips_setting/
-            default_path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/contentfetch_scripts_setting/");
+            default_path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/contentfetch_scripts_setting/");
             m_config = new KConfig(default_path + filename);
             return true;
         }

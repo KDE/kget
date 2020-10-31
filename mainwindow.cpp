@@ -409,7 +409,7 @@ void MainWindow::slotDownloadFinishedActions()
 void MainWindow::init()
 {
     //Here we import the user's transfers.
-    KGet::load( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/transfers.kgt")) ;
+    KGet::load( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transfers.kgt")) ;
 
     if(Settings::enableSystemTray()) {
         m_dock = new Tray(this);

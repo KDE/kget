@@ -82,7 +82,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     setLayout(vboxLayout);
 
     watcher = new QFileSystemWatcher();
-    watcher->addPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString());
+    watcher->addPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/') + QString());
     qCDebug(KGET_DEBUG) << watcher->directories();
 
     m_store = TransferHistoryStore::getStore();
