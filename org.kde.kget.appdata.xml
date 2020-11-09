@@ -4,6 +4,7 @@
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>KGet</name>
+  <name xml:lang="ast">KGet</name>
   <name xml:lang="ca">KGet</name>
   <name xml:lang="ca-valencia">KGet</name>
   <name xml:lang="cs">KGet</name>
@@ -34,6 +35,7 @@
   <name xml:lang="zh-CN">KGet</name>
   <name xml:lang="zh-TW">KGet</name>
   <summary>Download Manager</summary>
+  <summary xml:lang="ast">Xestor de descargues</summary>
   <summary xml:lang="ca">Gestor de baixades</summary>
   <summary xml:lang="ca-valencia">Gestor de baixades</summary>
   <summary xml:lang="cs">Správce stahování</summary>
@@ -67,6 +69,7 @@
     <p>
      KGet is a versatile and user-friendly download manager.
     </p>
+    <p xml:lang="ast">KGet ye un xestor de descargues versátil y amañosu.</p>
     <p xml:lang="ca">El KGet és un gestor de baixades de fitxers versàtil i fàcil d'utilitzar.</p>
     <p xml:lang="ca-valencia">El KGet és un gestor de baixades de fitxers versàtil i fàcil d'utilitzar.</p>
     <p xml:lang="da">KGet er en alsidig og brugervenlig downloadhåndtering.</p>
@@ -95,6 +98,7 @@
     <p xml:lang="zh-CN">KGet 是一个功能多样且用户友好的下载管理器。</p>
     <p xml:lang="zh-TW">KGet 是款多功能且使用者友善的下載管理器。</p>
     <p>Features:</p>
+    <p xml:lang="ast">Carauterístiques:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
@@ -126,6 +130,7 @@
     <p xml:lang="zh-TW">功能：</p>
     <ul>
       <li>Downloading files from FTP and HTTP(S) sources.</li>
+      <li xml:lang="ast">Descarga de ficheros dende oríxenes FTP, HTTP y HTTPS.</li>
       <li xml:lang="ca">Baixa fitxers des de fonts FTP i HTTP/S.</li>
       <li xml:lang="ca-valencia">Baixa fitxers des de fonts FTP i HTTP/S.</li>
       <li xml:lang="da">Download af filer fra FTP- og HTTP(S)-kilder.</li>
@@ -154,6 +159,7 @@
       <li xml:lang="zh-CN">从 FTP 和 HTTP(S) 源下载文件。</li>
       <li xml:lang="zh-TW">從 FTP 和 HTTP(S) 來源下載檔案。</li>
       <li>Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
+      <li xml:lang="ast">Posa y sigue colos ficheros de descarga, amás de poder reaniciar les descargues.</li>
       <li xml:lang="ca">Fa pausa i reprèn la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="ca-valencia">Fa pausa i reprén la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="da">Sæt downloadede filer på pause og genoptag dem, og muligheden for at genstarte en download.</li>
@@ -182,6 +188,7 @@
       <li xml:lang="zh-CN">暂停和继续文件下载，还能够重新开始下载。</li>
       <li xml:lang="zh-TW">暫停及繼續下載檔案，以及重新開始下載的能力。</li>
       <li>Tells lots of information about current and pending downloads.</li>
+      <li xml:lang="ast">Diz muncha información tocante a les descargues actuales y pendientes.</li>
       <li xml:lang="ca">Dóna molta informació sobre les baixades actuals i pendents.</li>
       <li xml:lang="ca-valencia">Dóna molta informació sobre les baixades actuals i pendents.</li>
       <li xml:lang="da">Viser massere af information om nuværende og afventende downloads.</li>
@@ -210,6 +217,7 @@
       <li xml:lang="zh-CN">显示当前和队列下载的许多信息。</li>
       <li xml:lang="zh-TW">顯示關於目前和待下載項目的詳細資訊。</li>
       <li>Embedding into system tray.</li>
+      <li xml:lang="ast">Incrustación na bandexa del sistema.</li>
       <li xml:lang="ca">Està incrustat a la safata del sistema.</li>
       <li xml:lang="ca-valencia">Està incrustat a la safata del sistema.</li>
       <li xml:lang="da">Indlejring i systembakken.</li>
@@ -238,6 +246,7 @@
       <li xml:lang="zh-CN">嵌入到系统托盘。</li>
       <li xml:lang="zh-TW">嵌入到系統通知區塊。</li>
       <li>Integration with the Konqueror web browser.</li>
+      <li xml:lang="ast">Integración col restolador web Konqueror.</li>
       <li xml:lang="ca">S'integra amb el navegador web Konqueror.</li>
       <li xml:lang="ca-valencia">S'integra amb el navegador web Konqueror.</li>
       <li xml:lang="da">Integration med Konqueror-webbrowseren.</li>
@@ -266,6 +275,7 @@
       <li xml:lang="zh-CN">Konqueror 网页浏览器集成。</li>
       <li xml:lang="zh-TW">能與 Konqueror 網頁瀏覽器整合。</li>
       <li>Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
+      <li xml:lang="ast">Sofitu pa metaenllaces que contienen munches URLs pa descargues, xunto coles sumes de comprobación y otra información.</li>
       <li xml:lang="ca">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
       <li xml:lang="ca-valencia">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
       <li xml:lang="da">Understøttelse af metalink med flere URL'er til downloads, samt checksumme og andre informationer.</li>
@@ -302,6 +312,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Downloading files with KGet</caption>
+      <caption xml:lang="ast">Descarga de ficheros con KGet</caption>
       <caption xml:lang="ca">Baixada de fitxers amb el KGet</caption>
       <caption xml:lang="ca-valencia">Baixada de fitxers amb el KGet</caption>
       <caption xml:lang="cs">Stahuji soubory KGet</caption>
