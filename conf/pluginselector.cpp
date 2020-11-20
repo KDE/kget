@@ -11,12 +11,9 @@
 
 #include "core/kget.h"
 
-#include <KServiceTypeTrader>
-#include <KService>
 #include <KLocalizedString>
 #include <KPluginInfo>
 #include <KSharedConfig>
-#include <KPluginTrader>
 #include <QDialog>
 
 PluginSelector::PluginSelector(QDialog * parent)

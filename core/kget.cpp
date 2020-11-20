@@ -36,7 +36,6 @@
 
 #include <KMessageBox>
 #include <KLocalizedString>
-#include <KServiceTypeTrader>
 #include <KIconLoader>
 #include <KActionCollection>
 #include <KIO/RenameDialog>
