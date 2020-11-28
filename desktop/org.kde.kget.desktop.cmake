@@ -157,6 +157,7 @@ GenericName[x-test]=xxDownload Managerxx
 GenericName[zh_CN]=下载管理器
 GenericName[zh_HK]=下載管理員
 GenericName[zh_TW]=下載管理員
+Comment=KGet is a versatile and user-friendly download manager
 Categories=Qt;KDE;Network;FileTransfer;
 X-DBUS-ServiceType=Unique
 X-DocPath=kget/index.html
