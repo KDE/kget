@@ -38,7 +38,7 @@ const int SPEEDTIMER = 1000;//1 second...
 
 DataSourceFactory::DataSourceFactory(QObject *parent, const QUrl &dest, KIO::filesize_t size, KIO::fileoffset_t segSize)
   : QObject(parent),
-    m_capabilities(0),
+    m_capabilities(),
     m_dest(dest),
     m_size(size),
     m_downloadedSize(0),
@@ -46,8 +46,8 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const QUrl &dest, KIO::fil
     m_speed(0),
     m_percent(0),
     m_tempOffset(0),
-    m_startedChunks(0),
-    m_finishedChunks(0),
+    m_startedChunks(nullptr),
+    m_finishedChunks(nullptr),
     m_putJob(nullptr),
     m_doDownload(true),
     m_open(false),
@@ -61,7 +61,7 @@ DataSourceFactory::DataSourceFactory(QObject *parent, const QUrl &dest, KIO::fil
     m_sizeInitiallyDefined(m_size),
     m_sizeFoundOnFinish(false),
     m_maxMirrorsUsed(3),
-    m_speedTimer(0),
+    m_speedTimer(nullptr),
     m_status(Job::Stopped),
     m_statusBeforeMove(m_status),
     m_verifier(nullptr),

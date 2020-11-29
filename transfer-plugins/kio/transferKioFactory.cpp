@@ -41,7 +41,7 @@ Transfer * TransferKioFactory::createTransfer( const QUrl &srcUrl, const QUrl &d
     {
         return new TransferKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
-    return 0;
+    return nullptr;
 }
 
 bool TransferKioFactory::isSupported(const QUrl &url) const

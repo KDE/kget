@@ -60,7 +60,7 @@ class AutoPasteModel : public QAbstractTableModel
             RegExp
         };
 
-        explicit AutoPasteModel(QObject *parent = 0);
+        explicit AutoPasteModel(QObject *parent = nullptr);
         ~AutoPasteModel() override;
 
         int rowCount(const QModelIndex &index = QModelIndex()) const override;

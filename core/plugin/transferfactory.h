@@ -59,16 +59,16 @@ class KGET_EXPORT TransferFactory : public KGetPlugin
         virtual Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                            TransferGroup * parent,
                                            Scheduler * scheduler,
-                                           const QDomElement * n = 0 );
+                                           const QDomElement * n = nullptr );
 
         virtual TransferHandler * createTransferHandler(Transfer * transfer,
                                                         Scheduler * scheduler);
 
         virtual QWidget * createDetailsWidget(TransferHandler * transfer);
 
-        virtual QDialog * createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = 0);
+        virtual QDialog * createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName = QString(), TransferGroupHandler * defaultGroup = nullptr);
 
-        virtual const QList<QAction *> actions(TransferHandler *handler = 0);
+        virtual const QList<QAction *> actions(TransferHandler *handler = nullptr);
 
         virtual void settingsChanged() {}
         

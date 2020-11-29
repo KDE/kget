@@ -264,11 +264,11 @@ namespace kt
 	bt::TorrentFileInterface* TorrentFileListModel::indexToFile(const QModelIndex & idx)
 	{
 		if (!idx.isValid())
-			return 0;
+			return nullptr;
 		
 		int r = idx.row();
 		if (r < 0 || r >= rowCount(QModelIndex()))
-			return 0;
+			return nullptr;
 		else
 			return &tc->getTorrentFile(r);
 	}

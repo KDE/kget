@@ -52,7 +52,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
 
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
                     Scheduler* scheduler, const QUrl &src, const QUrl& dest,
-                    const QDomElement * e = 0);
+                    const QDomElement * e = nullptr);
         ~BTTransfer();
 
         void deinit(Transfer::DeleteOptions options) override;

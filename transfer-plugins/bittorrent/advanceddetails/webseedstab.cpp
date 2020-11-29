@@ -85,7 +85,7 @@ namespace kt
 			return;
 		
 		QUrl url(m_webseed->text());
-		if (curr_tc != 0 && url.isValid() && url.scheme() == "http")
+		if (curr_tc != nullptr && url.isValid() && url.scheme() == "http")
 		{
 			if (curr_tc->addWebSeed(url))
 			{

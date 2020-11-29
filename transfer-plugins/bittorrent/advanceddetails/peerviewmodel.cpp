@@ -384,7 +384,7 @@ namespace kt
 	bt::PeerInterface* PeerViewModel::indexToPeer(const QModelIndex & index)
 	{
 		if (!index.isValid() || index.row() >= items.count() || index.row() < 0)
-			return 0; 
+			return nullptr; 
 		else
 			return ((Item*)index.internalPointer())->peer;
 	}

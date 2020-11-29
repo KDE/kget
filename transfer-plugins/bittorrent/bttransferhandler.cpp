@@ -64,7 +64,7 @@ kt::Monitor* BTTransferHandler::torrentMonitor() const
     if (advancedDetails)
         return advancedDetails->torrentMonitor();
     else
-        return 0;
+        return nullptr;
 }
 
 void BTTransferHandler::createScanDlg()

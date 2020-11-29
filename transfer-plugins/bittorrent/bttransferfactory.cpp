@@ -49,7 +49,7 @@ Transfer * BTTransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &des
     {
         return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
-    return 0;
+    return nullptr;
 }
 
 TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
@@ -59,7 +59,7 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
     if (!bttransfer)
     {
         qCCritical(KGET_DEBUG) << "WARNING! passing a non-BTTransfer pointer!!";
-        return 0;
+        return nullptr;
     }
 
     return new BTTransferHandler(bttransfer, scheduler);
@@ -105,7 +105,7 @@ TransferDataSource * BTTransferFactory::createTransferDataSource(const QUrl &src
     Q_UNUSED(parent)
     /*if (srcUrl.fileName().endsWith(".torrent"))
         return new BTDataSource();*/
-    return 0;
+    return nullptr;
 }
 
 bool BTTransferFactory::isSupported(const QUrl &url) const

@@ -748,7 +748,7 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
     {
         if (!torrent)
         {
-            return 0;
+            return nullptr;
         }
 
         //multiple files

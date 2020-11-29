@@ -20,7 +20,7 @@ TransferDataSource::TransferDataSource(const QUrl &srcUrl, QObject *parent)
     m_supposedSize(0),
     m_parallelSegments(1),
     m_currentSegments(0),
-    m_capabilities(0)
+    m_capabilities()
 {
     qCDebug(KGET_DEBUG) ;
 }

@@ -673,11 +673,11 @@ namespace kt
 	bt::TorrentFileInterface* TorrentFileTreeModel::indexToFile(const QModelIndex & idx)
 	{
 		if (!idx.isValid())
-			return 0;
+			return nullptr;
 		
 		Node* n = (Node*)idx.internalPointer();
 		if (!n)
-			return 0;
+			return nullptr;
 		
 		return n->file;
 	}

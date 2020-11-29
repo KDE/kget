@@ -54,7 +54,7 @@ void Download::slotResult(KJob * job)
             torrentFile.write(m_data);
             torrentFile.close();
             emit finishedSuccessfully(m_destUrl, m_data);
-            m_data = 0;
+            m_data = nullptr;
             break;
         }
         case KIO::ERR_FILE_ALREADY_EXIST:
@@ -62,12 +62,12 @@ void Download::slotResult(KJob * job)
             qCDebug(KGET_DEBUG) << "ERROR - File already exists";
             QFile file(m_destUrl.toLocalFile());
             emit finishedSuccessfully(m_destUrl, file.readAll());
-            m_data = 0;
+            m_data = nullptr;
             break;
         }
         default:
             qCDebug(KGET_DEBUG) << "We are sorry to say you, that there were errors while downloading :(";
-            m_data = 0;
+            m_data = nullptr;
             emit finishedWithError();
             break;
     }

@@ -609,7 +609,7 @@ FileItem *FileModel::getItem(const QUrl &file)
 
     if (item == m_rootItem)
     {
-        item = 0;
+        item = nullptr;
     }
     else
     {

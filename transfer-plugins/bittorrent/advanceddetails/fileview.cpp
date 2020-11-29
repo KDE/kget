@@ -48,7 +48,7 @@ using namespace bt;
 namespace kt
 {
 
-	FileView::FileView(QWidget *parent) : QTreeView(parent),curr_tc(0),model(0)
+	FileView::FileView(QWidget *parent) : QTreeView(parent),curr_tc(nullptr),model(nullptr)
 	{
 		setContextMenuPolicy(Qt::CustomContextMenu);
 		setRootIsDecorated(false);
@@ -102,7 +102,7 @@ namespace kt
 			if (curr_tc)
 				expanded_state_map[curr_tc] = model->saveExpandedState(proxy_model,this);
 		}
-		proxy_model->setSourceModel(0);
+		proxy_model->setSourceModel(nullptr);
 		delete model;
 		model = nullptr;
 		curr_tc = tc;
@@ -128,7 +128,7 @@ namespace kt
 		}
 		else
 		{
-			proxy_model->setSourceModel(0);
+			proxy_model->setSourceModel(nullptr);
 			model = nullptr;
 		}
 	}
@@ -415,7 +415,7 @@ namespace kt
 		saveState(cfg);
 		expanded_state_map[curr_tc] = model->saveExpandedState(proxy_model,this);
 		
-		proxy_model->setSourceModel(0);
+		proxy_model->setSourceModel(nullptr);
 		delete model;
 		model = nullptr;
 			

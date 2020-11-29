@@ -43,7 +43,7 @@ namespace kt
 	Monitor::~Monitor()
 	{
 		if (tc)
-			tc->setMonitor(0);
+			tc->setMonitor(nullptr);
 	}
 	
 	

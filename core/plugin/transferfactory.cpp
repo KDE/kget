@@ -32,7 +32,7 @@ Transfer * TransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destU
     Q_UNUSED(parent)
     Q_UNUSED(scheduler)
     Q_UNUSED(n)
-    return 0;
+    return nullptr;
 }
 
 TransferHandler * TransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
@@ -43,7 +43,7 @@ TransferHandler * TransferFactory::createTransferHandler(Transfer * transfer, Sc
 QWidget * TransferFactory::createDetailsWidget(TransferHandler * transfer)
 {
     Q_UNUSED(transfer)
-    return 0;
+    return nullptr;
 }
         
 QDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
@@ -51,7 +51,7 @@ QDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QSt
     Q_UNUSED(srcUrl)
     Q_UNUSED(suggestedFileName)
     Q_UNUSED(defaultGroup)
-    return 0;
+    return nullptr;
 }
 
 const QList<QAction *> TransferFactory::actions(TransferHandler *handler)
@@ -65,7 +65,7 @@ TransferDataSource * TransferFactory::createTransferDataSource(const QUrl &srcUr
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)
     Q_UNUSED(parent)
-    return 0;
+    return nullptr;
 }
 
 bool TransferFactory::isSupported(const QUrl &url) const

@@ -90,7 +90,7 @@ void KeyDownloader::downloadKey(QString fingerprint, Signature *sig, bool mirror
         }
 
         if (mirror.isEmpty()) {
-            KMessageBox::error(0,
+            KMessageBox::error(nullptr,
                                i18n("No useful key server found, key not downloaded. Add more servers to the settings or restart KGet and retry downloading."),
                                i18n("No key server"));
            return;
@@ -126,7 +126,7 @@ void KeyDownloader::slotDownloaded(KJob *job)
 
     if (transferJob->isErrorPage()) {
         qCDebug(KGET_DEBUG) << "Mirror did not work, try another one.";
-        downloadKey(fingerprint, 0, true);
+        downloadKey(fingerprint, nullptr, true);
         return;
     }
 
@@ -134,7 +134,7 @@ void KeyDownloader::slotDownloaded(KJob *job)
     QByteArray data = transferJob->data();
     if (data.isEmpty()) {
         qCDebug(KGET_DEBUG) << "Downloaded data is empty.";
-        downloadKey(fingerprint, 0, true);
+        downloadKey(fingerprint, nullptr, true);
         return;
     }
 
@@ -142,7 +142,7 @@ void KeyDownloader::slotDownloaded(KJob *job)
     const int indexEnd = data.indexOf("</pre>", indexStart);
     if ((indexStart == -1) || (indexEnd == -1)) {
         qCDebug(KGET_DEBUG) << "Could not find a key.";
-        downloadKey(fingerprint, 0, true);
+        downloadKey(fingerprint, nullptr, true);
         return;
     }
 

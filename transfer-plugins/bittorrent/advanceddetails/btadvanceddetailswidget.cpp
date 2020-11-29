@@ -83,7 +83,7 @@ void BTAdvancedDetailsWidget::hideEvent(QHideEvent * event)
     Q_UNUSED(event)
 
     if (tc)
-        tc->setMonitor(0);
+        tc->setMonitor(nullptr);
     emit aboutToClose();
     deleteLater();
 }
