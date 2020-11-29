@@ -24,6 +24,7 @@ include(ECMAddTests)
 include(GenerateExportHeader)
 include(ECMQtDeclareLoggingCategory)
 include(ECMSetupVersion)
+include(ECMSetupQtPluginMacroNames)
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KGET VERSION_HEADER "kget_version.h")
 
@@ -116,6 +117,8 @@ if(Gpgmepp_FOUND)
 endif()
 
 set (KGET_PLUGIN_INSTALL_DIR ${PLUGIN_INSTALL_DIR}/kget)
+
+ecm_setup_qtplugin_macro_names(JSON_NONE KGET_EXPORT_PLUGIN KGET_EXPORT_PLUGIN_CONFIG)
 
 add_subdirectory(conf)
 add_subdirectory(core)
