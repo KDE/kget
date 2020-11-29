@@ -26,13 +26,13 @@ class BTDetailsWidget : public QWidget, public Ui::BTDetailsWidgetFrm
     Q_OBJECT
     public:
         BTDetailsWidget(BTTransferHandler * transfer);
-        ~BTDetailsWidget();
+        ~BTDetailsWidget() override;
 
     public slots:
         void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
         
     protected:
-        virtual void showEvent(QShowEvent * event) override;
+        void showEvent(QShowEvent * event) override;
 
     private:
         BTTransferHandler * m_transfer;

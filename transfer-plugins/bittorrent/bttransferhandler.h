@@ -31,7 +31,7 @@ class BTTransferHandler : public TransferHandler
     Q_OBJECT
     public:
         BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler);
-        virtual ~BTTransferHandler();
+        ~BTTransferHandler() override;
 
         int chunksTotal() const                         {return m_transfer->chunksTotal();}
         int chunksDownloaded() const                    {return m_transfer->chunksDownloaded();}

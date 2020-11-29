@@ -43,15 +43,15 @@ namespace kt
 		Q_OBJECT
 	public:
 		ScanDlg(KJob *job, QWidget* parent);
-		virtual ~ScanDlg();
+		~ScanDlg() override;
 
 	protected:
 		/// Handle the close event
-		virtual void closeEvent(QCloseEvent* e) override;
+		void closeEvent(QCloseEvent* e) override;
      
 	protected slots:
-		virtual void reject() override;
-		virtual void accept() override;
+		void reject() override;
+		void accept() override;
 		
 	private slots:
 	        void description(KJob *job, const QString &title, const QPair<QString, QString > &field1, const QPair< QString, QString > &field2);

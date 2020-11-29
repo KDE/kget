@@ -46,7 +46,7 @@ namespace kt
 		Q_OBJECT
 	public:
 		FileView(QWidget *parent);
-		virtual ~FileView();
+		~FileView() override;
 
 		void changeTC(bt::TorrentInterface* tc,KSharedConfigPtr cfg);
 		void setShowListOfFiles(bool on,KSharedConfigPtr cfg);
@@ -68,7 +68,7 @@ namespace kt
 		void changePriority(bt::Priority newpriority);
 		void expandCollapseTree(const QModelIndex& idx, bool expand);
 		void expandCollapseSelected(bool expand);
-		virtual bool viewportEvent(QEvent *event) override;
+		bool viewportEvent(QEvent *event) override;
 		virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
 
 	private slots:

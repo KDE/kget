@@ -32,7 +32,7 @@ class BTDataSource : public TransferDataSource
     Q_OBJECT
     public:
         BTDataSource(const QUrl &srcUrl, QObject *parent);
-        ~BTDataSource();
+        ~BTDataSource() override;
 
         void start() override;
         void stop() override;

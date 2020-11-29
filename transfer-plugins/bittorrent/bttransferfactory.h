@@ -17,7 +17,7 @@ class BTTransferFactory : public TransferFactory
     Q_OBJECT
     public:
         BTTransferFactory(QObject *parent, const QVariantList &args);
-        ~BTTransferFactory();
+        ~BTTransferFactory() override;
 
         Transfer * createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup * parent, Scheduler * scheduler, const QDomElement * e = nullptr) override;
 

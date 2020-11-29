@@ -52,12 +52,12 @@ class TestJob : public Job
     public:
         TestJob(Scheduler *scheduler, JobQueue *parent);
 
-        virtual void start();
-        virtual void stop();
-        virtual int elapsedTime() const;
-        virtual int remainingTime() const;
-        virtual bool isStalled() const;
-        virtual bool isWorking() const;
+        void start() override;
+        void stop() override;
+        int elapsedTime() const override;
+        int remainingTime() const override;
+        bool isStalled() const override;
+        bool isWorking() const override;
 
     signals:
         void statusChanged();

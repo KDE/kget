@@ -53,31 +53,31 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         BTTransfer(TransferGroup* parent, TransferFactory* factory,
                     Scheduler* scheduler, const QUrl &src, const QUrl& dest,
                     const QDomElement * e = nullptr);
-        ~BTTransfer();
+        ~BTTransfer() override;
 
         void deinit(Transfer::DeleteOptions options) override;
 
         //Job virtual functions        
         void start() override;
         void stop() override;
-        virtual int elapsedTime() const override;
-        virtual int remainingTime() const override;
-        virtual bool isStalled() const override;
-        virtual bool isWorking() const override;
+        int elapsedTime() const override;
+        int remainingTime() const override;
+        bool isStalled() const override;
+        bool isWorking() const override;
 
         /**
          * @returns the directory the Transfer will be stored to
          */
-        virtual QUrl directory() const override {return m_directory;}
+        QUrl directory() const override {return m_directory;}
 
         /**
          * Move the download to the new destination
          * @param newDirectory is a directory where the download should be stored
          * @returns true if newDestination can be used
          */
-        virtual bool setDirectory(const QUrl &newDirectory) override;
+        bool setDirectory(const QUrl &newDirectory) override;
 
-        virtual QList<QUrl> files() const override;
+        QList<QUrl> files() const override;
 
         FileModel *fileModel() override;
 
@@ -121,14 +121,14 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void updateFilesStatus();
 
         // bt::MonitorInterface functions
-        virtual void downloadRemoved(bt::ChunkDownloadInterface* cd) override;
-        virtual void downloadStarted(bt::ChunkDownloadInterface* cd) override;
-        virtual void peerAdded(bt::PeerInterface* peer) override;
-        virtual void peerRemoved(bt::PeerInterface* peer) override;
-        virtual void stopped() override;
-        virtual void destroyed() override;
-        virtual void filePercentageChanged(bt::TorrentFileInterface*, float) override {}
-        virtual void filePreviewChanged(bt::TorrentFileInterface*, bool) override {}
+        void downloadRemoved(bt::ChunkDownloadInterface* cd) override;
+        void downloadStarted(bt::ChunkDownloadInterface* cd) override;
+        void peerAdded(bt::PeerInterface* peer) override;
+        void peerRemoved(bt::PeerInterface* peer) override;
+        void stopped() override;
+        void destroyed() override;
+        void filePercentageChanged(bt::TorrentFileInterface*, float) override {}
+        void filePreviewChanged(bt::TorrentFileInterface*, bool) override {}
 
         bt::TorrentControl *torrent;
         QUrl m_directory;

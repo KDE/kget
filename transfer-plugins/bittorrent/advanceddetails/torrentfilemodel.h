@@ -46,7 +46,7 @@ namespace kt
 			KEEP_FILES,DELETE_FILES
 		};
 		TorrentFileModel(bt::TorrentInterface* tc,DeselectMode mode,QObject* parent);
-		virtual ~TorrentFileModel();
+		~TorrentFileModel() override;
 
 		
 		/**
@@ -128,7 +128,7 @@ namespace kt
 		/// Are the file names editable
 		bool fileNamesEditable() const {return file_names_editable;}
 		
-		virtual Qt::ItemFlags flags(const QModelIndex & index) const override;
+		Qt::ItemFlags flags(const QModelIndex & index) const override;
 		
 		virtual void filePercentageChanged(bt::TorrentFileInterface* file,float percentage);
 		virtual void filePreviewChanged(bt::TorrentFileInterface* file,bool preview);

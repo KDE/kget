@@ -41,7 +41,7 @@ namespace kt
 		Q_OBJECT
 	public:
 		ChunkDownloadModel(QObject* parent);
-		virtual ~ChunkDownloadModel();
+		~ChunkDownloadModel() override;
 
 		/// A peer has been added
 		void downloadAdded(bt::ChunkDownloadInterface* cd);
@@ -59,13 +59,13 @@ namespace kt
 		
 		void clear();
 
-		virtual int rowCount(const QModelIndex & parent) const override;
-		virtual int columnCount(const QModelIndex & parent) const override;
-		virtual QVariant headerData(int section, Qt::Orientation orientation,int role) const override;
-		virtual QVariant data(const QModelIndex & index,int role) const override;
-		virtual bool removeRows(int row,int count,const QModelIndex & parent) override;
-		virtual bool insertRows(int row,int count,const QModelIndex & parent) override;
-		virtual QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const override;
+		int rowCount(const QModelIndex & parent) const override;
+		int columnCount(const QModelIndex & parent) const override;
+		QVariant headerData(int section, Qt::Orientation orientation,int role) const override;
+		QVariant data(const QModelIndex & index,int role) const override;
+		bool removeRows(int row,int count,const QModelIndex & parent) override;
+		bool insertRows(int row,int count,const QModelIndex & parent) override;
+		QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const override;
 		
 	public slots:
 		void sort(int col, Qt::SortOrder order) override;
