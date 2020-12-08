@@ -163,6 +163,7 @@ Comment[ca@valencia]=El KGet és un gestor de baixades versàtil i fàcil d'empr
 Comment[es]=KGet es un versátil y amigable gestor de descargas
 Comment[ia]=KGet es un gerente per discargar versatile e amical
 Comment[nl]=KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder
+Comment[pt]=O KGet é um gestor de transferências de ficheiros simples e versátil de usar
 Comment[sl]=KGet je vsestranski in uporabniku prijazen upravitelj prenosov
 Comment[sv]=Kget är en mångsidig och lättanvänd nerladdningshanterare
 Comment[uk]=KGet — гнучка і зручна програма для отримання даних з мережі
