@@ -428,7 +428,7 @@ void NewTransferDialog::dialogAccepted()
         //sourceUrl is valid, has been checked before
         const QUrl sourceUrl = QUrl(ui.urlRequester->text().trimmed());
         qCDebug(KGET_DEBUG) << "Downloading" << sourceUrl << "to" << m_destination;
-        data << KGet::TransferData(sourceUrl, m_destination, group);
+        data << KGet::TransferData(sourceUrl, m_destination, group, true);
     } else {
         QList<QUrl> list;
         for (int i = 0; i != ui.listWidget->count(); ++i) {
@@ -449,7 +449,7 @@ void NewTransferDialog::dialogAccepted()
                     FileDeleter::deleteFile(destUrl);
                 }
 
-                data << KGet::TransferData(sourceUrl, destUrl, group);
+                data << KGet::TransferData(sourceUrl, destUrl, group, true);
             }
         }
     }
