@@ -162,6 +162,7 @@ Comment[ca]=El KGet és un gestor de baixades versàtil i fàcil d'emprar
 Comment[ca@valencia]=El KGet és un gestor de baixades versàtil i fàcil d'emprar
 Comment[en_GB]=KGet is a versatile and user-friendly download manager
 Comment[es]=KGet es un versátil y amigable gestor de descargas
+Comment[fr]=KGet est un gestionnaire de téléchargement intuitif et polyvalent.
 Comment[ia]=KGet es un gerente per discargar versatile e amical
 Comment[it]=KGet è un gestore di scaricamenti versatile e facile da utilizzare
 Comment[nl]=KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder
