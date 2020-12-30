@@ -182,8 +182,9 @@ void TransferMultiSegKio::slotDataSourceFactoryChange(Transfer::ChangesFlags cha
     }
     if (change & Tc_Source) {
         m_source = QUrl();
-        QHash< QUrl, QPair<bool, int> >::const_iterator it = m_dataSourceFactory->mirrors().constBegin();
-        QHash< QUrl, QPair<bool, int> >::const_iterator end = m_dataSourceFactory->mirrors().constEnd();
+        QHash< QUrl, QPair<bool, int> > mirrors = m_dataSourceFactory->mirrors();
+        QHash< QUrl, QPair<bool, int> >::const_iterator it = mirrors.constBegin();
+        QHash< QUrl, QPair<bool, int> >::const_iterator end = mirrors.constEnd();
         for (; it != end; it++) {
             if (it.value().first) {
                 m_source = it.key();
