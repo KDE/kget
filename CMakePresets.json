@@ -1,0 +1,43 @@
+{
+    "version": 1,
+    "configurePresets": [
+        {
+            "name": "dev",
+            "displayName": "Build as debug",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "asan",
+            "displayName": "Build with Asan support.",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build-asan",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ECM_ENABLE_SANITIZERS" : "'address;undefined'"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Build as release mode.",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "profile",
+            "displayName": "profile",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build-profile",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        }
+    ]
+}
