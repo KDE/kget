@@ -51,10 +51,10 @@ ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QStrin
     setWindowTitle(caption.isEmpty() ? i18n("Question") : caption);
     setModal(true);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    QHBoxLayout *bottomLayout = new QHBoxLayout;
+    auto *layout = new QVBoxLayout;
+    auto *bottomLayout = new QHBoxLayout;
 
-    QLabel *label = new QLabel(text, this);
+    auto *label = new QLabel(text, this);
     layout->addWidget(label);
     layout->addWidget(new KSeparator(Qt::Horizontal, this));
 
@@ -62,7 +62,7 @@ ExistingTransferDialog::ExistingTransferDialog(const QString &text, const QStrin
     bottomLayout->addStretch(1);
     bottomLayout->addWidget(m_applyAll);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
+    auto *buttonBox = new QDialogButtonBox(this);
     buttonBox->setStandardButtons(QDialogButtonBox::Yes | QDialogButtonBox::No | QDialogButtonBox::Cancel);
     connect(buttonBox->button(QDialogButtonBox::Yes), &QPushButton::clicked, this, &ExistingTransferDialog::slotYesClicked);
     connect(buttonBox->button(QDialogButtonBox::No), &QPushButton::clicked, this, &ExistingTransferDialog::slotNoClicked);

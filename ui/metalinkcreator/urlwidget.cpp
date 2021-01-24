@@ -79,7 +79,7 @@ void UrlWidget::init(KGetMetalink::Resources *resources, QSortFilterProxyModel *
         m_mirrorModel->addMirror(url.url, 0, url.priority, url.location);
     }
 
-    MirrorDelegate *delegate = new MirrorDelegate(m_countrySort, this);
+    auto *delegate = new MirrorDelegate(m_countrySort, this);
     ui.used_mirrors->setItemDelegate(delegate);
 }
 
@@ -96,7 +96,7 @@ void UrlWidget::slotUrlClicked()
 
 void UrlWidget::slotAddMirror()
 {
-    MirrorAddDlg *dialog = new MirrorAddDlg(m_mirrorModel, m_countrySort, m_widget);
+    auto *dialog = new MirrorAddDlg(m_mirrorModel, m_countrySort, m_widget);
     dialog->showItem(MirrorItem::Connections, false);
     dialog->show();
 }

@@ -163,7 +163,7 @@ void MirrorSettings::updateButton()
 
 void MirrorSettings::addClicked()
 {
-    MirrorAddDlg *dialog = new MirrorAddDlg(m_model, this);
+    auto *dialog = new MirrorAddDlg(m_model, this);
     dialog->showItem(MirrorItem::Priority, false);
     dialog->showItem(MirrorItem::Country, false);
     dialog->show();

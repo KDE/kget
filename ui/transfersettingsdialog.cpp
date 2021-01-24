@@ -118,7 +118,7 @@ void TransferSettingsDialog::slotMirrors()
 void TransferSettingsDialog::slotRename()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
-    RenameFile *renameDlg = new RenameFile(m_model, index, this);
+    auto *renameDlg = new RenameFile(m_model, index, this);
     renameDlg->setAttribute(Qt::WA_DeleteOnClose);
     renameDlg->show();
 }
@@ -135,7 +135,7 @@ void TransferSettingsDialog::slotSignature()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
 
-    SignatureDlg *signature = new SignatureDlg(m_transfer, m_model->getUrl(index), this);
+    auto *signature = new SignatureDlg(m_transfer, m_model->getUrl(index), this);
     signature->setAttribute(Qt::WA_DeleteOnClose);
     signature->show();
 }

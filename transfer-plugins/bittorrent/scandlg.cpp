@@ -41,8 +41,8 @@ namespace kt
     : QDialog(parent), m_job(static_cast<Job*>(job))
     {
         Ui::ScanDlgBase ui;
-        QWidget *widget = new QWidget(this);
-        QVBoxLayout *mainLayout = new QVBoxLayout;
+        auto *widget = new QWidget(this);
+        auto *mainLayout = new QVBoxLayout;
         ui.setupUi(widget);
         mainLayout->addWidget(widget);
         m_torrent_label = ui.torrent_label;

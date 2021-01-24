@@ -70,7 +70,7 @@ void MetalinkHttp::load(const QDomElement *element)
 {
     qCDebug(KGET_DEBUG);
     Transfer::load(element);
-    DataSourceFactory * fac = new DataSourceFactory(this, m_dest);
+    auto * fac = new DataSourceFactory(this, m_dest);
     m_dataSourceFactory.insert(m_dest, fac);
 
     connect(fac, &DataSourceFactory::capabilitiesChanged, this, &MetalinkHttp::slotUpdateCapabilities);
@@ -180,7 +180,7 @@ bool MetalinkHttp::metalinkHttpInit()
     //sort the urls according to their priority (highest first)
     std::stable_sort(m_linkheaderList.begin(), m_linkheaderList.end());
 
-    DataSourceFactory *dataFactory = new DataSourceFactory(this,dest);
+    auto *dataFactory = new DataSourceFactory(this,dest);
     dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
     connect(dataFactory, &DataSourceFactory::capabilitiesChanged, this, &MetalinkHttp::slotUpdateCapabilities);
@@ -196,7 +196,7 @@ bool MetalinkHttp::metalinkHttpInit()
         if (url.isValid()) {
             if (m_linkheaderList[i].pref) {
                 qDebug() << "found etag in a mirror" ;
-                KGetMetalink::MetalinkHttpParser* eTagCher = new KGetMetalink::MetalinkHttpParser(url) ;
+                auto* eTagCher = new KGetMetalink::MetalinkHttpParser(url) ;
                 if (eTagCher->getEtag() != m_httpparser->getEtag()) { //There is an ETag mismatch
                     continue ;
                 }
@@ -226,7 +226,7 @@ bool MetalinkHttp::metalinkHttpInit()
                 QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
             }
             const QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
-            Download *signat_download = new Download(m_signatureUrl, QUrl::fromLocalFile(path));
+            auto *signat_download = new Download(m_signatureUrl, QUrl::fromLocalFile(path));
             connect(signat_download, SIGNAL(finishedSuccessfully(QUrl,QByteArray)), SLOT(setSignature(QUrl,QByteArray)));
         }
         m_dataSourceFactory[dataFactory->dest()] = dataFactory;

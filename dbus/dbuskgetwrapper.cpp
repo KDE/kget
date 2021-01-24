@@ -160,7 +160,7 @@ int DBusKGetWrapper::transfersSpeed() const
 
 void DBusKGetWrapper::importLinks(const QList <QString> &links)
 {
-    KGetLinkView *link_view = new KGetLinkView(m_mainWindow);
+    auto *link_view = new KGetLinkView(m_mainWindow);
     link_view->setLinks(links);
     link_view->show();
 }

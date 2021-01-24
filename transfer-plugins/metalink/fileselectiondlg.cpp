@@ -33,12 +33,12 @@ FileSelectionDlg::FileSelectionDlg(FileModel *model, QWidget *parent)
   : QDialog(parent)
 {
     setWindowTitle(i18n("File Selection"));
-    QWidget *widget = new QWidget(this);
+    auto *widget = new QWidget(this);
     ui.setupUi(widget);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
     mainLayout->addWidget(widget);
-    QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
+    auto *proxy = new QSortFilterProxyModel(this);
     proxy->setSourceModel(model);
     ui.treeView->setModel(proxy);
     ui.treeView->sortByColumn(0, Qt::AscendingOrder);
@@ -46,7 +46,7 @@ FileSelectionDlg::FileSelectionDlg(FileModel *model, QWidget *parent)
     ui.treeView->hideColumn(FileItem::ChecksumVerified);
     ui.treeView->hideColumn(FileItem::SignatureVerified);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
     QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);

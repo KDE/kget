@@ -252,7 +252,7 @@ namespace kt
 		else
 		{
 			bt::TorrentFileInterface* file = n->file;
-			Priority prio = (bt::Priority)value.toInt();
+			auto prio = (bt::Priority)value.toInt();
 			Priority old = file->getPriority();
 			
 			if (prio != old)

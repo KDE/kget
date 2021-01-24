@@ -39,18 +39,18 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
     m_urlWidget->init(m_resources, countrySort);
     ui.urlLayout->addWidget(m_urlWidget->widget());
 
-    QWidget *data = new QWidget(this);
+    auto *data = new QWidget(this);
     uiData.setupUi(data);
     ui.dataLayout->addWidget(data);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto *layout = new QVBoxLayout;
     QStringList verifierTypes = Verifier::supportedVerficationTypes();
     verifierTypes.sort();
 
     //NOTE only supports the types that are supported by the Metalink 4.0 specification -- "Hash Function Textual Names"
     foreach (const QString &type, verifierTypes) {
         if (type.contains("sha", Qt::CaseInsensitive) || type.contains("md5", Qt::CaseInsensitive)) {
-            QCheckBox *checkBox = new QCheckBox(type, this);
+            auto *checkBox = new QCheckBox(type, this);
             layout->addWidget(checkBox);
             m_checkBoxes.append(checkBox);
         }

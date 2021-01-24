@@ -121,7 +121,7 @@ void MetalinkCreator::create()
 
 void MetalinkCreator::slotDelayedCreation()
 {
-    CountryModel *countryModel = new CountryModel(this);
+    auto *countryModel = new CountryModel(this);
     countryModel->setupModelData();
     m_countrySort = new QSortFilterProxyModel(this);
     m_countrySort->setSourceModel(countryModel);
@@ -170,7 +170,7 @@ void MetalinkCreator::slotSave()
 
 void MetalinkCreator::createIntroduction()
 {
-    QWidget *widget = new QWidget(this);
+    auto *widget = new QWidget(this);
     uiIntroduction.setupUi(widget);
 
     uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
@@ -203,7 +203,7 @@ void MetalinkCreator::createFiles()
     m_handler = new DirectoryHandler(this);
     connect(m_handler, &DirectoryHandler::finished, this, &MetalinkCreator::slotOpenDragDlg);
 
-    FileWidget *widget = new FileWidget(this);
+    auto *widget = new FileWidget(this);
     uiFiles.setupUi(widget);
 
     m_filesModel = new QStandardItemModel(0, 1, this);
@@ -233,7 +233,7 @@ void MetalinkCreator::loadFiles()
 {
     foreach (const KGetMetalink::File &file, metalink.files.files)
     {
-        QStandardItem *item = new QStandardItem(file.name);
+        auto *item = new QStandardItem(file.name);
         if (!file.resources.isValid())
         {
             ++m_needUrlCount;
@@ -264,7 +264,7 @@ void MetalinkCreator::slotAddLocalFilesClicked()
 
 void MetalinkCreator::slotAddFile()
 {
-    QStandardItem *item = new QStandardItem(m_tempFile.name);
+    auto *item = new QStandardItem(m_tempFile.name);
     m_filesModel->insertRow(m_filesModel->rowCount(), item);
     metalink.files.files.append(m_tempFile);
     m_tempFile.clear();
@@ -274,7 +274,7 @@ void MetalinkCreator::slotAddFile()
 
 void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
 {
-    QStandardItem *item = new QStandardItem(file.name);
+    auto *item = new QStandardItem(file.name);
     if (!file.resources.isValid())
     {
         ++m_needUrlCount;
@@ -345,7 +345,7 @@ void MetalinkCreator::fileDlg(KGetMetalink::File *file, bool edit)
         currentNames.append(m_filesModel->index(i, 0).data().toString());
     }
 
-    FileDlg *fileDlg = new FileDlg(file, currentNames, m_countrySort, m_languageSort, this, edit);
+    auto *fileDlg = new FileDlg(file, currentNames, m_countrySort, m_languageSort, this, edit);
     fileDlg->setAttribute(Qt::WA_DeleteOnClose);
     fileDlg->setWindowModality(Qt::ApplicationModal);
     fileDlg->show();
@@ -373,7 +373,7 @@ void MetalinkCreator::slotOpenDragDlg()
 {
     m_tempResources.clear();
     m_tempCommonData.clear();
-    DragDlg *dragDlg = new DragDlg(&m_tempResources, &m_tempCommonData, m_countrySort, m_languageSort, this);
+    auto *dragDlg = new DragDlg(&m_tempResources, &m_tempCommonData, m_countrySort, m_languageSort, this);
     dragDlg->setAttribute(Qt::WA_DeleteOnClose);
     dragDlg->show();
 

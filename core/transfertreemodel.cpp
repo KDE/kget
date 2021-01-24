@@ -273,7 +273,7 @@ void TransferTreeModel::addTransfers(const QList<Transfer*> &transfers, Transfer
 
         m_transfers.append(static_cast<TransferModelItem*>(items.first()));
 
-        DBusTransferWrapper * wrapper = new DBusTransferWrapper(handler);
+        auto * wrapper = new DBusTransferWrapper(handler);
         new TransferAdaptor(wrapper);
         QDBusConnection::sessionBus().registerObject(handler->dBusObjectPath(), wrapper);
     }
@@ -384,7 +384,7 @@ GroupModelItem * TransferTreeModel::itemFromTransferGroupHandler(TransferGroupHa
     
 ModelItem * TransferTreeModel::itemFromHandler(Handler * handler)
 {
-    TransferHandler *transfer = qobject_cast<TransferHandler*>(handler);
+    auto *transfer = qobject_cast<TransferHandler*>(handler);
     if (transfer) {
         return itemFromTransferHandler(transfer);
     }
@@ -575,7 +575,7 @@ QStringList TransferTreeModel::mimeTypes() const
 
 QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
 {
-    ItemMimeData *mimeData = new ItemMimeData();
+    auto *mimeData = new ItemMimeData();
 
     QModelIndexList sortedIndexes = indexes;
     std::sort(sortedIndexes.begin(), sortedIndexes.end(), [](const QModelIndex &a, const QModelIndex &b) { return b < a; });
@@ -597,7 +597,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     if (action == Qt::IgnoreAction)
         return true;
 
-    const ItemMimeData *itemData = qobject_cast<const ItemMimeData*>(mdata);
+    const auto *itemData = qobject_cast<const ItemMimeData*>(mdata);
     if (!itemData) {
         qCWarning(KGET_DEBUG) << "Unsupported mime data dropped.";
         return false;

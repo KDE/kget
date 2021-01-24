@@ -36,7 +36,7 @@ class KGET_EXPORT Download : public QObject
         void slotData(KIO::Job *job, const QByteArray& data);
 
     private:
-        KIO::TransferJob *m_copyJob;
+        KIO::TransferJob *m_copyJob = nullptr;
         QUrl m_srcUrl;
         QUrl m_destUrl;
         QUrl m_destFile;

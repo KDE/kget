@@ -165,7 +165,7 @@ namespace kt
 		
 		if (role == Qt::CheckStateRole)
 		{
-			Qt::CheckState newState = static_cast<Qt::CheckState>(value.toInt());
+			auto newState = static_cast<Qt::CheckState>(value.toInt());
 			bt::TorrentFileInterface & file = tc->getTorrentFile(index.row());
 			if (newState == Qt::Checked)
 			{

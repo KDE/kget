@@ -611,7 +611,7 @@ void TestTransfers::parseFile()
             QFAIL("One transfer does not have an source attribute.");
             return;
         }
-        Commands *transfer = new Commands(source, this);
+        auto *transfer = new Commands(source, this);
         transfer->setCommands(Commands::parseCommands(elem, this));
         m_commands.append(transfer);
     }
@@ -639,7 +639,7 @@ void TestTransfers::createTransfer()
 
         if (reply.value().size()) {
             qCDebug(KGET_DEBUG) << "TestTransfers::createTransfer -> transfer = " << reply.value();
-            OrgKdeKgetTransferInterface *transfer = new OrgKdeKgetTransferInterface("org.kde.kget", reply.value().first(), QDBusConnection::sessionBus(), this);
+            auto *transfer = new OrgKdeKgetTransferInterface("org.kde.kget", reply.value().first(), QDBusConnection::sessionBus(), this);
 
             command->associateTransfer(transfer);
             command->executeCommands();

@@ -37,7 +37,7 @@ Transfer * MetalinkFactory::createTransfer( const QUrl &srcUrl, const QUrl &dest
                                                const QDomElement * e )
 {
     qCDebug(KGET_DEBUG) << "metalinkFactory::createTransfer";
-    KGetMetalink::MetalinkHttpParser *metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
+    auto *metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
 
     if (metalinkHttpChecker->isMetalinkHttp()) {
         qCDebug(KGET_DEBUG) << "Create MetalinkHTTP";

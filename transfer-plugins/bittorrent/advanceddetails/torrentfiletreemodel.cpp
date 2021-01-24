@@ -280,7 +280,7 @@ namespace kt
 		if (file)
 			return;
 		
-		BDictNode* dict = dynamic_cast<BDictNode*>(n);
+		auto* dict = dynamic_cast<BDictNode*>(n);
 		if (!dict)
 			return;
 		

@@ -182,7 +182,7 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const QUrl &urlToFile)
     QList<QUrl> urls;
 
     for (int i = 0, k = 0; i < changes.size(); ++i) {
-        const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(modes.at(i));
+        const auto mode = static_cast<ChecksumSearch::UrlChangeMode>(modes.at(i));
         const QUrl source = ChecksumSearch::createUrl(m_sourceUrl, changes.at(i), mode);
         if (data.indexOf(source.fileName().toLatin1()) != -1) {
             urls.append(source);
@@ -195,7 +195,7 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const QUrl &urlToFile)
     qCDebug(KGET_DEBUG) << "Creating Checksumsearch for" << urls.count() << "urls.";
 
     if (urls.count() && types.count()) {
-        ChecksumSearch *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
+        auto *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
 
         connect(search, SIGNAL(data(QString,QString)), this, SIGNAL(data(QString,QString)));
     }

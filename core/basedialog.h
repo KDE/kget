@@ -40,7 +40,7 @@ class KGET_EXPORT KGetSaveSizeDialog : public QDialog
         ~KGetSaveSizeDialog() override;
         
     private:
-        QByteArray m_name;
+        const QByteArray m_name;
 };
 
 #endif

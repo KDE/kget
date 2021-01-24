@@ -68,7 +68,7 @@ void ChecksumSearchAddDlg::slotUpdate()
 {
     ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!ui.change->text().isEmpty());
 
-    const ChecksumSearch::UrlChangeMode mode = static_cast<ChecksumSearch::UrlChangeMode>(ui.mode->currentIndex());
+    const auto mode = static_cast<ChecksumSearch::UrlChangeMode>(ui.mode->currentIndex());
     const QUrl modifiedUrl = ChecksumSearch::createUrl(URL, ui.change->text(), mode);
     const QString text = i18n("%1 would become %2", URL.toDisplayString(), modifiedUrl.toDisplayString());
     ui.label->setText(text);
@@ -101,7 +101,7 @@ QWidget *ChecksumDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
     {
         if (index.column() == 0l)
         {
-            KLineEdit *line = new KLineEdit(parent);
+            auto *line = new KLineEdit(parent);
 
             return line;
         }
@@ -109,7 +109,7 @@ QWidget *ChecksumDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
         {
             if (m_modesModel)
             {
-                KComboBox *modesBox = new KComboBox(parent);
+                auto *modesBox = new KComboBox(parent);
                 modesBox->setModel(m_modesModel);
 
                 return modesBox;
@@ -119,7 +119,7 @@ QWidget *ChecksumDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
         {
             if (m_typesModel)
             {
-                KComboBox *typesBox = new KComboBox(parent);
+                auto *typesBox = new KComboBox(parent);
                 typesBox->setModel(m_typesModel);
 
                 return typesBox;
@@ -134,14 +134,14 @@ void ChecksumDelegate::setEditorData(QWidget *editor, const QModelIndex &index) 
 {
     if (index.isValid() && editor) {
         if (index.column() == 0) {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             line->setText(index.data(Qt::EditRole).toString());
         } else if (index.column() == 1) {
-            KComboBox *modesBox = static_cast<KComboBox*>(editor);
+            auto *modesBox = static_cast<KComboBox*>(editor);
             const QString mode = index.data(Qt::EditRole).toString();
             modesBox->setCurrentIndex(modesBox->findText(mode));
         } else if (index.column() == 2) {
-            KComboBox *typesBox = static_cast<KComboBox*>(editor);
+            auto *typesBox = static_cast<KComboBox*>(editor);
             const QString type = index.data(Qt::EditRole).toString();
             typesBox->setCurrentIndex(typesBox->findText(type));
         }
@@ -154,7 +154,7 @@ void ChecksumDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, 
     {
         if (index.column() == 0)
         {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             if (!line->text().isEmpty())
             {
                 model->setData(index, line->text());
@@ -162,13 +162,13 @@ void ChecksumDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, 
         }
         else if (index.column() == 1)
         {
-            KComboBox *modesBox = static_cast<KComboBox*>(editor);
+            auto *modesBox = static_cast<KComboBox*>(editor);
             model->setData(index, modesBox->currentText());
             model->setData(index, modesBox->currentIndex(), Qt::UserRole);
         }
         else if (index.column() == 2)
         {
-            KComboBox *typesBox = static_cast<KComboBox*>(editor);
+            auto *typesBox = static_cast<KComboBox*>(editor);
             model->setData(index, typesBox->currentText());
         }
     }
@@ -201,7 +201,7 @@ DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVar
     m_proxy->setSortCaseSensitivity(Qt::CaseInsensitive);
 
     ui.treeView->setModel(m_proxy);
-    ChecksumDelegate *delegate = new ChecksumDelegate(m_modesModel, m_typesModel, this);
+    auto *delegate = new ChecksumDelegate(m_modesModel, m_typesModel, this);
     ui.treeView->setItemDelegate(delegate);
     ui.treeView->sortByColumn(2, Qt::AscendingOrder);
     KGuiItem::assign(ui.add, KStandardGuiItem::add());
@@ -222,7 +222,7 @@ DlgChecksumSettingsWidget::~DlgChecksumSettingsWidget()
 
 void DlgChecksumSettingsWidget::slotAdd()
 {
-    ChecksumSearchAddDlg *dialog = new ChecksumSearchAddDlg(m_modesModel, m_typesModel, this);
+    auto *dialog = new ChecksumSearchAddDlg(m_modesModel, m_typesModel, this);
     connect(dialog, &ChecksumSearchAddDlg::addItem, this, &DlgChecksumSettingsWidget::slotAddItem);
 
     dialog->show();
@@ -238,7 +238,7 @@ void DlgChecksumSettingsWidget::slotRemove()
 
 void DlgChecksumSettingsWidget::slotAddItem(const QString &change, int mode, const QString &type)
 {
-    QStandardItem *item = new QStandardItem(m_modes.value(mode));
+    auto *item = new QStandardItem(m_modes.value(mode));
     item->setData(QVariant(mode), Qt::UserRole);
 
     QList<QStandardItem*> items;

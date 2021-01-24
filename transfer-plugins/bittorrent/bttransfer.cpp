@@ -135,7 +135,7 @@ void BTTransfer::start()
             qCDebug(KGET_DEBUG) << m_dest.path();
             QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/");
             m_tmpTorrentFile = tmpDirName + m_dest.fileName();
-            Download *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
+            auto *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
 
             setStatus(Job::Stopped, i18n("Downloading Torrent File...."), SmallIcon("document-save"));
             setTransferChange(Tc_Status, true);

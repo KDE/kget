@@ -71,19 +71,19 @@ KGetLinkView::KGetLinkView(QWidget *parent)
 
     //creates pattern syntax menu for the text filter
     m_patternSyntaxMenu = new QMenu(i18nc("of a filter, e.g. RegExp or Wildcard", "Pattern Syntax"), this);
-    QAction *wildcardAction = new QAction(i18n("Escape Sequences"), this);
+    auto *wildcardAction = new QAction(i18n("Escape Sequences"), this);
     wildcardAction->setCheckable(true);
     wildcardAction->setChecked(Settings::linkViewFilterPatternSyntax() == Wildcard);
-    QAction *regExpAction = new QAction(i18n("Regular Expression"), this);
+    auto *regExpAction = new QAction(i18n("Regular Expression"), this);
     regExpAction->setCheckable(true);
     regExpAction->setChecked(Settings::linkViewFilterPatternSyntax() == RegExp);
-    QActionGroup *actionGroup = new QActionGroup(this);
+    auto *actionGroup = new QActionGroup(this);
     actionGroup->addAction(wildcardAction);
     actionGroup->addAction(regExpAction);
     m_patternSyntaxMenu->addActions(actionGroup->actions());
 
     //Filter for name/url actions
-    QActionGroup *columnGroup = new QActionGroup(this);
+    auto *columnGroup = new QActionGroup(this);
     m_nameAction = new QAction(i18nc("name of a file", "Name"), this);
     m_nameAction->setCheckable(true);
     m_nameAction->setChecked(true);
@@ -152,7 +152,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
 {
     ui.importWidget->setVisible(urlRequestVisible);
 
-    QStandardItemModel *model = new QStandardItemModel(0, 5, this);
+    auto *model = new QStandardItemModel(0, 5, this);
 
     model->setHeaderData(0, Qt::Horizontal, i18n("Auxiliary header"));
     model->setHeaderData(1, Qt::Horizontal, i18n("File Name"));
@@ -194,7 +194,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
             mimeTypeComment = mt.comment();
         }
 
-        QStandardItem *item = new QStandardItem(file);
+        auto *item = new QStandardItem(file);
         item->setIcon(QIcon::fromTheme(mimeTypeIcon));
         item->setCheckable(true);
         item->setCheckState(Qt::Checked);
@@ -202,7 +202,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
         item->setData(QVariant(mimeTypeName), Qt::UserRole); // used for filtering DownloadFilterType
 
         QList<QStandardItem*> items;
-        QStandardItem *number = new QStandardItem();
+        auto *number = new QStandardItem();
         number->setData(model->rowCount(), Qt::DisplayRole);//used for initial sorting
         items << number;
         items << item;
@@ -242,7 +242,7 @@ void KGetLinkView::slotFilterColumn(QAction *action)
 
 void KGetLinkView::slotStartLeech()
 {
-    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    auto *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (model)
     {
         QList<QUrl> urls;
@@ -287,7 +287,7 @@ void KGetLinkView::importUrl(const QString &url)
 
 void KGetLinkView::selectionChanged()
 {
-    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    auto *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (model)
     {
         const int modelRowCount = model->rowCount();
@@ -342,7 +342,7 @@ void KGetLinkView::updateSelectionButtons()
 
 void KGetLinkView::checkAll()
 {
-    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    auto *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (itemsModel)
     {
         for (int row = 0; row < m_proxyModel->rowCount(); row++)
@@ -356,7 +356,7 @@ void KGetLinkView::checkAll()
 
 void KGetLinkView::uncheckAll()
 {
-    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    auto *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (itemsModel)
     {
         for (int row = 0; row < m_proxyModel->rowCount(); row++)
@@ -370,7 +370,7 @@ void KGetLinkView::uncheckAll()
 
 void KGetLinkView::uncheckItem(const QModelIndex &index)
 {
-    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    auto *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (model)
     {
         if (index.column() != 0)
@@ -383,7 +383,7 @@ void KGetLinkView::uncheckItem(const QModelIndex &index)
 
 void KGetLinkView::slotCheckSelected()
 {
-    QStandardItemModel *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    auto *model = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (model)
     {
         foreach(const QModelIndex &index, ui.treeView->selectionModel()->selectedIndexes())
@@ -398,7 +398,7 @@ void KGetLinkView::slotCheckSelected()
 
 void KGetLinkView::slotInvertSelection()
 {
-    QStandardItemModel *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
+    auto *itemsModel  = qobject_cast<QStandardItemModel *>(m_proxyModel->sourceModel());
     if (itemsModel)
     {
         for (int row = 0; row < m_proxyModel->rowCount(); row++)

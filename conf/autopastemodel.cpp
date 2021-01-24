@@ -42,16 +42,16 @@ QWidget *AutoPasteDelegate::createEditor(QWidget *parent, const QStyleOptionView
 
     switch(index.column()) {
         case AutoPasteModel::Type: {
-            KComboBox *types = new KComboBox(parent);
+            auto *types = new KComboBox(parent);
             types->setModel(m_types);
             return types;
         }
         case AutoPasteModel::Pattern: {
-            KLineEdit *pattern = new KLineEdit(parent);
+            auto *pattern = new KLineEdit(parent);
             return pattern;
         }
         case AutoPasteModel::PatternSyntax: {
-            KComboBox *syntaxes = new KComboBox(parent);
+            auto *syntaxes = new KComboBox(parent);
             syntaxes->setModel(m_syntaxes);
             return syntaxes;
         }
@@ -68,18 +68,18 @@ void AutoPasteDelegate::setEditorData(QWidget *editor, const QModelIndex &index)
 
     switch (index.column()) {
         case AutoPasteModel::Type: {
-            KComboBox *type = static_cast<KComboBox*>(editor);
+            auto *type = static_cast<KComboBox*>(editor);
             const int row = type->findData(index.data(Qt::EditRole));
             type->setCurrentIndex(row);
             break;
         }
         case AutoPasteModel::Pattern: {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             line->setText(index.data(Qt::EditRole).toString());
             break;
         }
         case AutoPasteModel::PatternSyntax: {
-            KComboBox *syntax = static_cast<KComboBox*>(editor);
+            auto *syntax = static_cast<KComboBox*>(editor);
             const int row = syntax->findData(index.data(Qt::EditRole));
             syntax->setCurrentIndex(row);
             break;
@@ -97,13 +97,13 @@ void AutoPasteDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 
     switch (index.column()) {
         case AutoPasteModel::Type: {
-            KComboBox *typeBox = static_cast<KComboBox*>(editor);
+            auto *typeBox = static_cast<KComboBox*>(editor);
             const int type = typeBox->itemData(typeBox->currentIndex()).toInt();
             model->setData(index, type);
             break;
         }
         case AutoPasteModel::Pattern: {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             const QString text = line->text();
             if (!text.isEmpty()) {
                 model->setData(index, text);
@@ -111,7 +111,7 @@ void AutoPasteDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
             break;
         }
         case AutoPasteModel::PatternSyntax: {
-            KComboBox *syntaxBox = static_cast<KComboBox*>(editor);
+            auto *syntaxBox = static_cast<KComboBox*>(editor);
             const int syntax = syntaxBox->itemData(syntaxBox->currentIndex()).toInt();
             model->setData(index, syntax);
             break;

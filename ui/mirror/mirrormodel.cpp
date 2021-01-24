@@ -49,20 +49,20 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
     {
         if (index.column() == MirrorItem::Url)
         {
-            KLineEdit *line = new KLineEdit(parent);
+            auto *line = new KLineEdit(parent);
 
             return line;
         }
         else if (index.column() == MirrorItem::Connections)
         {
-            QSpinBox *numConnections = new QSpinBox(parent);
+            auto *numConnections = new QSpinBox(parent);
             numConnections->setRange(0, 20);
 
             return numConnections;
         }
         else if (index.column() == MirrorItem::Priority)
         {
-            QSpinBox *priority = new QSpinBox(parent);
+            auto *priority = new QSpinBox(parent);
             priority->setRange(0, 999999);
 
             return priority;
@@ -71,7 +71,7 @@ QWidget *MirrorDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         {
             if (m_countrySort)
             {
-                QComboBox *countrySort = new QComboBox(parent);
+                auto *countrySort = new QComboBox(parent);
                 countrySort->setModel(m_countrySort);
 
                 return countrySort;
@@ -86,19 +86,19 @@ void MirrorDelegate::setEditorData(QWidget *editor, const QModelIndex &index) co
 {
     if (index.isValid() && editor) {
         if (index.column() == MirrorItem::Url) {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             const QUrl url = index.data(Qt::EditRole).toUrl();
             line->setUrl(url);
         } else if (index.column() == MirrorItem::Connections) {
-            QSpinBox *numConnections = static_cast<QSpinBox*>(editor);
+            auto *numConnections = static_cast<QSpinBox*>(editor);
             const int num = index.data(Qt::EditRole).toInt();
             numConnections->setValue(num);
         } else if (index.column() == MirrorItem::Priority) {
-            QSpinBox *priority = static_cast<QSpinBox*>(editor);
+            auto *priority = static_cast<QSpinBox*>(editor);
             const int num = index.data(Qt::EditRole).toInt();
             priority->setValue(num);
         } else if (index.column() == MirrorItem::Country) {
-            QComboBox *countrySort = static_cast<QComboBox*>(editor);
+            auto *countrySort = static_cast<QComboBox*>(editor);
             const QString countryCode = index.data(Qt::EditRole).toString();
             const int indexCountrySort = countrySort->findData(countryCode);
             countrySort->setCurrentIndex(indexCountrySort);
@@ -112,7 +112,7 @@ void MirrorDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, co
     {
         if (index.column() == MirrorItem::Url)
         {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             if (!line->text().isEmpty())
             {
                 model->setData(index, line->text());
@@ -120,17 +120,17 @@ void MirrorDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, co
         }
         else if (index.column() == MirrorItem::Connections)
         {
-            QSpinBox *numConnections = static_cast<QSpinBox*>(editor);
+            auto *numConnections = static_cast<QSpinBox*>(editor);
             model->setData(index, numConnections->value());
         }
         else if (index.column() == MirrorItem::Priority)
         {
-            QSpinBox *priority = static_cast<QSpinBox*>(editor);
+            auto *priority = static_cast<QSpinBox*>(editor);
             model->setData(index, priority->value());
         }
         else if (index.column() == MirrorItem::Country)
         {
-            QComboBox *countrySort = static_cast<QComboBox*>(editor);
+            auto *countrySort = static_cast<QComboBox*>(editor);
             const QString countryCode = countrySort->itemData(countrySort->currentIndex()).toString();
             model->setData(index, countryCode);
         }
@@ -473,7 +473,7 @@ void MirrorModel::addMirror(const QUrl &url, int numConnections, int priority, c
     int index = rowCount();
     Q_EMIT beginInsertRows(QModelIndex(), index, index);
 
-    MirrorItem *item = new MirrorItem;
+    auto *item = new MirrorItem;
     m_data.append(item);
     item->setData(MirrorItem::Used, Qt::Checked, Qt::CheckStateRole);//every newly added mirror is set to checked automatically
     item->setData(MirrorItem::Url, QVariant(url));
@@ -493,7 +493,7 @@ void MirrorModel::setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors)
     QHash<QUrl, QPair<bool, int> >::const_iterator itEnd = mirrors.constEnd();
     for (it = mirrors.constBegin(); it != itEnd; ++it)
     {
-        MirrorItem *item = new MirrorItem;
+        auto *item = new MirrorItem;
         item->setData(MirrorItem::Url, QVariant(it.key()));
         Qt::CheckState state = (*it).first ? Qt::Checked : Qt::Unchecked;
         item->setData(MirrorItem::Used, state, Qt::CheckStateRole);

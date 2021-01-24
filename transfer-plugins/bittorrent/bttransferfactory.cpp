@@ -54,7 +54,7 @@ Transfer * BTTransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &des
 
 TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
 {
-    BTTransfer * bttransfer = qobject_cast<BTTransfer *>(transfer);
+    auto * bttransfer = qobject_cast<BTTransfer *>(transfer);
 
     if (!bttransfer)
     {
@@ -67,25 +67,25 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
 
 QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
 {
-    BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(transfer);
+    auto * bttransfer = static_cast<BTTransferHandler *>(transfer);
 
     return new BTDetailsWidget(bttransfer);
 }
 
 const QList<QAction *> BTTransferFactory::actions(TransferHandler *handler)
 {
-     BTTransferHandler * bttransfer = static_cast<BTTransferHandler *>(handler);
+     auto * bttransfer = static_cast<BTTransferHandler *>(handler);
 
      QList<QAction *> actions;
      if (bttransfer && bttransfer->torrentControl())
      {
-         QAction *openAdvancedDetailsAction = new QAction(QIcon::fromTheme("document-open"), i18n("&Advanced Details"), this);
+         auto *openAdvancedDetailsAction = new QAction(QIcon::fromTheme("document-open"), i18n("&Advanced Details"), this);
  
          connect(openAdvancedDetailsAction, &QAction::triggered, bttransfer, &BTTransferHandler::createAdvancedDetails);
  
          actions.append(openAdvancedDetailsAction);
 
-         QAction *openScanDlg = new QAction(QIcon::fromTheme("document-open"), i18n("&Scan Files"), this);
+         auto *openScanDlg = new QAction(QIcon::fromTheme("document-open"), i18n("&Scan Files"), this);
  
          connect(openScanDlg, &QAction::triggered, bttransfer, &BTTransferHandler::createScanDlg);
  

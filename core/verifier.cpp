@@ -169,7 +169,7 @@ Verifier::Verifier(const QUrl &dest, QObject *parent)
     static int dBusObjIdx = 0;
     d->dBusObjectPath = "/KGet/Verifiers/" + QString::number(dBusObjIdx++);
 
-    DBusVerifierWrapper *wrapper = new DBusVerifierWrapper(this);
+    auto *wrapper = new DBusVerifierWrapper(this);
     new VerifierAdaptor(wrapper);
     QDBusConnection::sessionBus().registerObject(d->dBusObjectPath, wrapper);
 

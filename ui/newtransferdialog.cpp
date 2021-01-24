@@ -68,7 +68,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
 
     // properties of the m_destRequester combobox
-    LineEditUrlDropEventFilter *dropUrlEventFilter = new LineEditUrlDropEventFilter(this);
+    auto *dropUrlEventFilter = new LineEditUrlDropEventFilter(this);
     dropUrlEventFilter->installEventFilter(ui.destRequester->comboBox());
     ui.destRequester->comboBox()->setDuplicatesEnabled(false);
     ui.destRequester->comboBox()->setEditable(true);
@@ -168,7 +168,7 @@ void NewTransferDialog::setSource(const QList<QUrl> &sources)
         foreach (const QUrl &sourceUrl, sources) {
             if (sourceUrl.url() != QUrl(sourceUrl.url()).fileName()) {//TODO simplify, whatfor is this check anyway, shouldn't the sources be checked already and if not add this to UrlChecker
                 qCDebug(KGET_DEBUG) << "Insert" << sourceUrl;
-                QListWidgetItem *newItem = new QListWidgetItem(sourceUrl.toString(), ui.listWidget);
+                auto *newItem = new QListWidgetItem(sourceUrl.toString(), ui.listWidget);
                 newItem->setCheckState(Qt::Checked);
             }
         }
@@ -578,7 +578,7 @@ void NewTransferDialogHandler::showNewTransferDialog(QList<QUrl> urls)
 
 void NewTransferDialogHandler::slotMostLocalUrlResult(KJob *j)
 {
-    MostLocalUrlJob *job = static_cast<MostLocalUrlJob*>(j);
+    auto *job = static_cast<MostLocalUrlJob*>(j);
     const int jobId = job->property("jobId").toInt();
 
     if (job->error()) {

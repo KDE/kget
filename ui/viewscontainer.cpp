@@ -24,12 +24,12 @@
 ViewsContainer::ViewsContainer(QWidget * parent)
     : QWidget(parent)
 {
-    QVBoxLayout *layout = new QVBoxLayout();
+    auto *layout = new QVBoxLayout();
     layout->setSpacing(1);
     layout->setContentsMargins(0, 0, 0, 0);
 
     m_transfersView = new TransfersView(this);
-    TransfersViewDelegate *transfersViewDelegate = new TransfersViewDelegate(m_transfersView);
+    auto *transfersViewDelegate = new TransfersViewDelegate(m_transfersView);
     m_transfersView->setItemDelegate(transfersViewDelegate);
     m_transfersView->setModel(KGet::model());
     m_transfersView->setSelectionModel(KGet::selectionModel());

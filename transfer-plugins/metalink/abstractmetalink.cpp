@@ -53,7 +53,7 @@ AbstractMetalink::~AbstractMetalink()
 void AbstractMetalink::slotDataSourceFactoryChange(Transfer::ChangesFlags change)
 {
     if ((change & Tc_Status) | (change & Tc_TotalSize)) {
-        DataSourceFactory *factory = qobject_cast<DataSourceFactory*>(sender());
+        auto *factory = qobject_cast<DataSourceFactory*>(sender());
         if (change & Tc_Status) {
             bool changeStatus;
             updateStatus(factory, &changeStatus);

@@ -294,7 +294,7 @@ void MainWindow::setupActions()
     //stopSelectedAction->setHelpText(i18n("Pauses selected transfer"));
     connect(stopSelectedAction, &QAction::triggered, this, &MainWindow::slotStopSelectedDownload);
 
-    KActionMenu *startActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-start"), i18n("Start"),
+    auto *startActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-start"), i18n("Start"),
                                                      actionCollection());
     actionCollection()->addAction("start_menu", startActionMenu);
     startActionMenu->setDelayed(true);
@@ -302,7 +302,7 @@ void MainWindow::setupActions()
     startActionMenu->addAction(startAllAction);
     connect(startActionMenu, &QAction::triggered, this, &MainWindow::slotStartDownload);
 
-    KActionMenu *stopActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-pause"), i18n("Pause"),
+    auto *stopActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-pause"), i18n("Pause"),
                                                     actionCollection());
     actionCollection()->addAction("stop_menu", stopActionMenu);
     stopActionMenu->setDelayed(true);
@@ -354,7 +354,7 @@ void MainWindow::setupActions()
     connect(listLinksAction, &QAction::triggered, this, &MainWindow::slotShowListLinks);
 
     //create the download finished actions which can be displayed in the toolbar
-    KSelectAction *downloadFinishedActions = new KSelectAction(i18n("After downloads finished action"), this);//TODO maybe with name??
+    auto *downloadFinishedActions = new KSelectAction(i18n("After downloads finished action"), this);//TODO maybe with name??
     actionCollection()->addAction("download_finished_actions", downloadFinishedActions);
     //downloadFinishedActions->setHelpText(i18n("Choose an action that is executed after all downloads have been finished."));
 
@@ -393,7 +393,7 @@ void MainWindow::setupActions()
 
 void MainWindow::slotDownloadFinishedActions()
 {
-    QAction *action = static_cast<QAction*>(QObject::sender());
+    auto *action = static_cast<QAction*>(QObject::sender());
     bool ok;
     const int type = action->data().toInt(&ok);
     if (ok) {
@@ -587,7 +587,7 @@ void MainWindow::slotQuit()
 void MainWindow::slotPreferences()
 {
     //never reuse the preference dialog, to make sure its settings are always reloaded
-    PreferencesDialog * dialog = new PreferencesDialog( this, Settings::self() );
+    auto * dialog = new PreferencesDialog( this, Settings::self() );
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     // keep us informed when the user changes settings
@@ -612,7 +612,7 @@ void MainWindow::slotExportTransfers()
 
 void MainWindow::slotCreateMetalink()
 {
-    MetalinkCreator *dialog = new MetalinkCreator(this);
+    auto *dialog = new MetalinkCreator(this);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->show();
 }
@@ -1119,7 +1119,7 @@ void MainWindow::setSystemTrayDownloading(bool running)
 
 void MainWindow::slotTransferHistory()
 {
-    TransferHistory *history = new TransferHistory();
+    auto *history = new TransferHistory();
     history->exec();
 }
 
@@ -1150,14 +1150,14 @@ void MainWindow::slotTransferSettings()
 /** slots for link list **/
 void MainWindow::slotShowListLinks()
 {
-    KGetLinkView *link_view = new KGetLinkView(this);
+    auto *link_view = new KGetLinkView(this);
     link_view->importUrl();
     link_view->show();
 }
 
 void MainWindow::slotImportUrl(const QString &url)
 {
-    KGetLinkView *link_view = new KGetLinkView(this);
+    auto *link_view = new KGetLinkView(this);
     link_view->importUrl(url);
     link_view->show();
 }

@@ -26,13 +26,13 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     : QWidget(parent)
 {
     // the widget layout
-    QGridLayout *layout = new QGridLayout(this);
+    auto *layout = new QGridLayout(this);
 
     // initialize the model
     m_model = new QStandardItemModel();
 
     // the kcategoryizedview list
-    TransferHistoryItemDelegate *item_delegate = new TransferHistoryItemDelegate(this);
+    auto *item_delegate = new TransferHistoryItemDelegate(this);
     m_view = new KCategorizedView(this);
     m_drawer = new KCategoryDrawer(m_view);
     m_view->setCategoryDrawer(m_drawer);
@@ -62,7 +62,7 @@ TransferHistoryCategorizedView::~TransferHistoryCategorizedView()
 
 void TransferHistoryCategorizedView::addData(const QDate &date, const QString &url, const QString &dest, int size)
 {
-    QStandardItem *item = new QStandardItem(url);
+    auto *item = new QStandardItem(url);
     item->setData(QVariant(size), TransferHistoryCategorizedDelegate::RoleSize);
     item->setData(QVariant(url), TransferHistoryCategorizedDelegate::RoleUrl);
     item->setData(QVariant(dest), TransferHistoryCategorizedDelegate::RoleDest);

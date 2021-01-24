@@ -760,7 +760,7 @@ void DataSourceFactory::slotDataWritten(KIO::Job *job, KIO::filesize_t written)
 {
     Q_UNUSED(job)
 
-    KIO::filesize_t tempSize = static_cast<KIO::filesize_t>(m_tempData.size());
+    auto tempSize = static_cast<KIO::filesize_t>(m_tempData.size());
     //the complete data has been written
     if (written == tempSize)//TODO if not same cache it temporarily!
     {

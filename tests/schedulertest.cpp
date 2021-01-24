@@ -101,13 +101,13 @@ void SchedulerTest::testAppendJobs()
     SettingsHelper helper(limit);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
 
     //uses an own list instead of the iterators to make sure that the order stays the same
     QList<TestJob*> jobs;
     for (int i = 0; i < status.size(); ++i) {
-        TestJob *job = new TestJob(&scheduler, queue);
+        auto *job = new TestJob(&scheduler, queue);
         job->setStatus(status[i]);
         queue->appendPub(job);
         jobs << job;
@@ -142,12 +142,12 @@ void SchedulerTest::testCountRunningJobs()
     SettingsHelper helper(limit);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
 
     //uses an own list instead of the iterators to make sure that the order stays the same
     for (int i = 0; i < status.size(); ++i) {
-        TestJob *job = new TestJob(&scheduler, queue);
+        auto *job = new TestJob(&scheduler, queue);
         job->setStatus(status[i]);
         queue->appendPub(job);
     }
@@ -181,12 +181,12 @@ void SchedulerTest::testStopScheduler()
     SettingsHelper helper(limit);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
 
     //uses an own list instead of the iterators to make sure that the order stays the same
     for (int i = 0; i < status.size(); ++i) {
-        TestJob *job = new TestJob(&scheduler, queue);
+        auto *job = new TestJob(&scheduler, queue);
         job->setStatus(status[i]);
         queue->appendPub(job);
     }
@@ -220,13 +220,13 @@ void SchedulerTest::testSchedulerStopStart()
     SettingsHelper helper(limit);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
 
     //uses an own list instead of the iterators to make sure that the order stays the same
     QList<TestJob*> jobs;
     for (int i = 0; i < status.size(); ++i) {
-        TestJob *job = new TestJob(&scheduler, queue);
+        auto *job = new TestJob(&scheduler, queue);
         job->setStatus(status[i]);
         queue->appendPub(job);
         jobs << job;
@@ -264,14 +264,14 @@ void SchedulerTest::testSuspendScheduler()
     SettingsHelper helper(limit);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
     scheduler.setIsSuspended(true);
 
     //uses an own list instead of the iterators to make sure that the order stays the same
     QList<TestJob*> jobs;
     for (int i = 0; i < status.size(); ++i) {
-        TestJob *job = new TestJob(&scheduler, queue);
+        auto *job = new TestJob(&scheduler, queue);
         job->setStatus(status[i]);
         queue->appendPub(job);
         jobs << job;
@@ -314,14 +314,14 @@ void SchedulerTest::testJobQueueStopPolicy()
     SettingsHelper helper(limit);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     queue->setStatus(JobQueue::Stopped);
     scheduler.addQueue(queue);
 
     //uses an own list instead of the iterators to make sure that the order stays the same
     QList<TestJob*> jobs;
     for (int i = 0; i < status.size(); ++i) {
-        TestJob *job = new TestJob(&scheduler, queue);
+        auto *job = new TestJob(&scheduler, queue);
         job->setStatus(status[i]);
         job->setPolicy(policy[i]);
         queue->appendPub(job);
@@ -358,14 +358,14 @@ void SchedulerTest::testJobQueueStopStartPolicy()
     SettingsHelper helper(limit);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     queue->setStatus(JobQueue::Stopped);
     scheduler.addQueue(queue);
 
     //uses an own list instead of the iterators to make sure that the order stays the same
     QList<TestJob*> jobs;
     for (int i = 0; i < status.size(); ++i) {
-        TestJob *job = new TestJob(&scheduler, queue);
+        auto *job = new TestJob(&scheduler, queue);
         job->setStatus(status[i]);
         job->setPolicy(policy[i]);
         queue->appendPub(job);
@@ -409,11 +409,11 @@ void SchedulerTest::testJobErrorType()
     SettingsHelper helper(NO_LIMIT);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     queue->setStatus(jobQueueRunning ? JobQueue::Running : JobQueue::Stopped);
     scheduler.addQueue(queue);
 
-    TestJob *job = new TestJob(&scheduler, queue);
+    auto *job = new TestJob(&scheduler, queue);
     job->setPolicy(policy);
     job->setError(QString(), QPixmap(), errorType);
     queue->appendPub(job);
@@ -456,11 +456,11 @@ void SchedulerTest::testGettingNetworkConnection()
     SettingsHelper helper(NO_LIMIT);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
     scheduler.setHasNetworkConnection(false);
 
-    TestJob *job = new TestJob(&scheduler, queue);
+    auto *job = new TestJob(&scheduler, queue);
     job->setPolicy(policy);
     queue->appendPub(job);
 
@@ -487,11 +487,11 @@ void SchedulerTest::testLosingNetworkConnection()
     SettingsHelper helper(NO_LIMIT);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
     scheduler.setHasNetworkConnection(true);
 
-    TestJob *job = new TestJob(&scheduler, queue);
+    auto *job = new TestJob(&scheduler, queue);
     job->setPolicy(policy);
     queue->appendPub(job);
 
@@ -519,7 +519,7 @@ void SchedulerTest::testShouldUpdate()
     SettingsHelper helper(NO_LIMIT);
 
     Scheduler scheduler;
-    TestQueue *queue = new TestQueue(&scheduler);
+    auto *queue = new TestQueue(&scheduler);
     scheduler.addQueue(queue);
 
     QVERIFY(scheduler.shouldUpdate());//should be true by default

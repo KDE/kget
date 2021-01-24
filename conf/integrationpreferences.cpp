@@ -46,7 +46,7 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     m_model = new AutoPasteModel(this);
     m_model->load();
     ui.list->setModel(m_model);
-    AutoPasteDelegate *delegate = new AutoPasteDelegate(ui.type->model(), ui.patternSyntax->model(), this);
+    auto *delegate = new AutoPasteDelegate(ui.type->model(), ui.patternSyntax->model(), this);
     ui.list->setItemDelegate(delegate);
 
     QByteArray loadedState = QByteArray::fromBase64(Settings::autoPasteHeaderState().toLatin1());

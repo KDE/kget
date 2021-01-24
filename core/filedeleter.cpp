@@ -56,7 +56,7 @@ KJob *FileDeleter::Private::deleteFile(const QUrl &dest, QObject *receiver, cons
 
 void FileDeleter::Private::slotResult(KJob *job)
 {
-    KIO::DeleteJob *deleteJob = static_cast<KIO::DeleteJob*>(job);
+    auto *deleteJob = static_cast<KIO::DeleteJob*>(job);
     m_jobs.remove(deleteJob->urls().first());
 }
 

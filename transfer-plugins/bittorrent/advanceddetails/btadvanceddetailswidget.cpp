@@ -53,8 +53,8 @@ void BTAdvancedDetailsWidget::init()
 {
     setWindowTitle(i18n("Advanced Details for %1", m_transfer->source().fileName()));
     resize(500, 400);
-    QGridLayout *layout = new QGridLayout();
-    KTitleWidget *titleWidget = new KTitleWidget(this);
+    auto *layout = new QGridLayout();
+    auto *titleWidget = new KTitleWidget(this);
     titleWidget->setText(i18n("Advanced Details for %1", m_transfer->source().fileName()));
     titleWidget->setPixmap(QIcon::fromTheme("dialog-information"));
     layout->addWidget(titleWidget);

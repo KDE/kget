@@ -45,14 +45,14 @@ K_PLUGIN_FACTORY(KGetPluginFactory, registerPlugin<KGetPlugin>();)
 
 static QWidget* partWidget(QObject* obj)
 {
-    KParts::ReadOnlyPart* part = qobject_cast<KParts::ReadOnlyPart*>(obj);
+    auto* part = qobject_cast<KParts::ReadOnlyPart*>(obj);
     return part ? part->widget() : nullptr;
 }
 
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList&)
            :KParts::Plugin(parent)
 {
-    KActionMenu *menu = new KActionMenu(QIcon::fromTheme("kget"), i18n("Download Manager"), actionCollection());
+    auto *menu = new KActionMenu(QIcon::fromTheme("kget"), i18n("Download Manager"), actionCollection());
     actionCollection()->addAction("kget_menu", menu);
 
     menu->setDelayed( false );

@@ -177,7 +177,7 @@ void VerificationDialog::removeClicked()
 
 void VerificationDialog::addClicked()
 {
-    VerificationAddDlg *dialog = new VerificationAddDlg(m_model, this);
+    auto *dialog = new VerificationAddDlg(m_model, this);
     dialog->show();
 }
 

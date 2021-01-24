@@ -273,7 +273,7 @@ BasicTransfersViewDelegate::BasicTransfersViewDelegate(QAbstractItemView *parent
 QWidget *BasicTransfersViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Status) {
-        GroupStatusEditor *qroupStatusEditor = new GroupStatusEditor(index, parent);
+        auto *qroupStatusEditor = new GroupStatusEditor(index, parent);
         connect(qroupStatusEditor, &GroupStatusEditor::changedStatus, this, &BasicTransfersViewDelegate::slotGroupStatusChanged);
         return qroupStatusEditor;
     } else {
@@ -289,7 +289,7 @@ void BasicTransfersViewDelegate::slotGroupStatusChanged(GroupStatusEditor *edito
 void BasicTransfersViewDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Status) {
-        GroupStatusEditor *groupEditor = static_cast<GroupStatusEditor*>(editor);
+        auto *groupEditor = static_cast<GroupStatusEditor*>(editor);
         groupEditor->setRunning(KGet::model()->itemFromIndex(index)->asGroup()->groupHandler()->status() == JobQueue::Running);
     } else {
         KExtendableItemDelegate::setEditorData(editor, index);
@@ -299,7 +299,7 @@ void BasicTransfersViewDelegate::setEditorData(QWidget *editor, const QModelInde
 void BasicTransfersViewDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Status) {
-        GroupStatusEditor *groupEditor = static_cast<GroupStatusEditor *>(editor);
+        auto *groupEditor = static_cast<GroupStatusEditor *>(editor);
         TransferGroupHandler *groupHandler = KGet::model()->itemFromIndex(index)->asGroup()->groupHandler();
 
         if (groupEditor->isRunning()) {
@@ -450,7 +450,7 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 
     if (event->type() == QEvent::MouseButtonRelease)
     {
-        QMouseEvent * mouseEvent = static_cast<QMouseEvent *>(event);
+        auto * mouseEvent = static_cast<QMouseEvent *>(event);
         if (mouseEvent->button() == Qt::RightButton)
         {
 //             qCDebug(KGET_DEBUG) << "TransfersViewDelegate::editorEvent() -> rightClick";

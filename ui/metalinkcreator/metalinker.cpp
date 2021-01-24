@@ -1287,7 +1287,7 @@ void KGetMetalink::MetalinkHttpParser::detectMime(KIO::Job *job, const QString &
 
 void KGetMetalink::MetalinkHttpParser::slotHeaderResult(KJob* kjob)
 {
-    KIO::Job* job = qobject_cast<KIO::Job*>(kjob);
+    auto* job = qobject_cast<KIO::Job*>(kjob);
     const QString httpHeaders = job ? job->queryMetaData("HTTP-Headers") : QString();
     parseHeaders(httpHeaders);
     setMetalinkHSatus();

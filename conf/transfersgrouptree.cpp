@@ -42,7 +42,7 @@ QWidget *TransfersGroupDelegate::createEditor(QWidget *parent, const QStyleOptio
 void TransfersGroupDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Name) {
-        KLineEdit *groupEditor = static_cast<KLineEdit*>(editor);
+        auto *groupEditor = static_cast<KLineEdit*>(editor);
         groupEditor->setText(index.data().toString());
     } else {
         BasicTransfersViewDelegate::setEditorData(editor, index);
@@ -52,7 +52,7 @@ void TransfersGroupDelegate::setEditorData(QWidget *editor, const QModelIndex &i
 void TransfersGroupDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Name) {
-        KLineEdit *groupEditor = static_cast<KLineEdit*>(editor);
+        auto *groupEditor = static_cast<KLineEdit*>(editor);
         const QString newName = groupEditor->text();
         const QString oldName = index.data().toString();
 

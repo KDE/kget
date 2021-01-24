@@ -26,15 +26,15 @@
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
     : QDialog(parent)
 {
-    QWidget *mainWidget = new QWidget(this);
+    auto *mainWidget = new QWidget(this);
     ui.setupUi(mainWidget);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
     mainLayout->addWidget(mainWidget);
 
     setWindowTitle(i18n("Insert Engine"));
     setModal(true);
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
     okButton = buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);

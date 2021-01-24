@@ -87,7 +87,7 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
-    const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (index.model());
+    const auto *model = static_cast <const QAbstractItemModel *> (index.model());
     QUrl url(model->data(index, TransferHistoryCategorizedDelegate::RoleUrl).toString());
     QString name = url.path().mid(url.path().lastIndexOf("/") + 1);
     const QString iconName = KIO::iconNameForUrl(QUrl::fromLocalFile(model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString()));
@@ -163,13 +163,13 @@ bool TransferHistoryItemDelegate::editorEvent(QEvent * event, QAbstractItemModel
     Q_UNUSED(option)
     Q_UNUSED(model)
 
-    QMouseEvent * mouseEvent = dynamic_cast<QMouseEvent *>(event);
+    auto * mouseEvent = dynamic_cast<QMouseEvent *>(event);
 
     if(mouseEvent && index.isValid()) {
         if(mouseEvent->button() == Qt::RightButton) {
             m_selectedIndex = index;
 
-            QMenu *contextMenu = new QMenu();
+            auto *contextMenu = new QMenu();
             contextMenu->addAction(m_actionDownload);
             contextMenu->addAction(m_actionDelete_Selected);
             contextMenu->addAction(m_openFile);
@@ -184,14 +184,14 @@ bool TransferHistoryItemDelegate::editorEvent(QEvent * event, QAbstractItemModel
 
 void TransferHistoryItemDelegate::slotOpenFile()
 {
-    const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
+    const auto *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
 
     new KRun(QUrl::fromLocalFile(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString()), m_view, true);
 }
 
 void TransferHistoryItemDelegate::slotDownload()
 {
-   const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
+   const auto *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
 
     NewTransferDialogHandler::showNewTransferDialog(QUrl(model->data(m_selectedIndex,
                                                                      TransferHistoryCategorizedDelegate::RoleUrl).toString()));
@@ -199,7 +199,7 @@ void TransferHistoryItemDelegate::slotDownload()
 
 void TransferHistoryItemDelegate::slotDeleteTransfer()
 {
-    const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
+    const auto *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
 
     Q_EMIT deletedTransfer(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString(), m_selectedIndex);
 }

@@ -50,7 +50,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(i18n("Transfer History"));
     //Setup Ui-Parts from Designer
-    QWidget *mainWidget = new QWidget(this);
+    auto *mainWidget = new QWidget(this);
 
     setupUi(mainWidget);
 
@@ -74,7 +74,7 @@ TransferHistory::TransferHistory(QWidget *parent)
     vboxLayout->addWidget(m_view);
     vboxLayout->addWidget(m_progressBar);
 
-    QDialogButtonBox * buttonBox = new QDialogButtonBox(mainWidget);
+    auto * buttonBox = new QDialogButtonBox(mainWidget);
     buttonBox->clear();
     buttonBox->addButton(QDialogButtonBox::Close);
     vboxLayout->addWidget(buttonBox);
@@ -118,7 +118,7 @@ QSize TransferHistory::sizeHint() const
 void TransferHistory::slotDeleteTransfer()
 {
     if (!m_iconModeEnabled) {
-        RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
+        auto *range_view = qobject_cast <RangeTreeWidget *> (m_view);
 
         slotDeleteTransfer(range_view->currentItem(0)->text());
 
@@ -167,9 +167,9 @@ void TransferHistory::contextMenuEvent(QContextMenuEvent *event)
     Q_UNUSED(event)
 
     if (!m_iconModeEnabled) {
-        RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
+        auto *range_view = qobject_cast <RangeTreeWidget *> (m_view);
         if(range_view->currentIndex().parent().isValid()) {
-            QMenu *contextMenu = new QMenu(this);
+            auto *contextMenu = new QMenu(this);
             contextMenu->addAction(actionDownload);
             contextMenu->addAction(actionDelete_Selected);
 
@@ -185,11 +185,11 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
     QString file;
 
     if (!m_iconModeEnabled) {
-        RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
+        auto *range_view = qobject_cast <RangeTreeWidget *> (m_view);
         file = range_view->currentItem(1)->text();
     }
     else {
-        TransferHistoryCategorizedView *categorized_view = qobject_cast <TransferHistoryCategorizedView *> (m_view);
+        auto *categorized_view = qobject_cast <TransferHistoryCategorizedView *> (m_view);
         file = categorized_view->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString();
     }
 
@@ -227,7 +227,7 @@ void TransferHistory::slotLoadRangeType(int type)
 {
     m_rangeType = type;
     if (m_iconModeEnabled) {
-        TransferHistoryCategorizedView *cat_view = qobject_cast <TransferHistoryCategorizedView *> (m_view);
+        auto *cat_view = qobject_cast <TransferHistoryCategorizedView *> (m_view);
         cat_view->clear();
         switch(type)
         {
@@ -241,8 +241,8 @@ void TransferHistory::slotLoadRangeType(int type)
                 cat_view->setCategorizedDelegate(new HostCategorizedDelegate());
         }
     } else {
-        RangeTreeWidget *range_view = qobject_cast <RangeTreeWidget *> (m_view);
-        QFontMetrics *font = new QFontMetrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
+        auto *range_view = qobject_cast <RangeTreeWidget *> (m_view);
+        auto *font = new QFontMetrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
         range_view->clear();
 
         range_view->setLabels(QStringList() << i18n("Source File") << i18n("Destination") << i18n("Time") << i18n("File Size") << i18n("Status"));

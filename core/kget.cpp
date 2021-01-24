@@ -105,7 +105,7 @@ bool KGet::addGroup(const QString& groupName)
     if (m_transferTreeModel->findGroup(groupName))
         return false;
 
-    TransferGroup * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
+    auto * group = new TransferGroup(m_transferTreeModel, m_scheduler, groupName);
     m_transferTreeModel->addGroup(group);
 
     return true;
@@ -541,7 +541,7 @@ void KGet::load( QString filename ) // krazy:exclude=passbyvalue
             {
                 qCDebug(KGET_DEBUG) << "KGet::load  -> group not found";
 
-                TransferGroup * newGroup = new TransferGroup(m_transferTreeModel, m_scheduler);
+                auto * newGroup = new TransferGroup(m_transferTreeModel, m_scheduler);
 
                 m_transferTreeModel->addGroup(newGroup);
 
@@ -1480,7 +1480,7 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
 
 void GenericObserver::slotResolveTransferError()
 {
-    KNotification * notification = static_cast<KNotification*>(QObject::sender());
+    auto * notification = static_cast<KNotification*>(QObject::sender());
     if (notification) {
         TransferHandler * handler = m_notifications[notification];
         qDebug() << "Resolve error for" << handler->source().toString() << "with id" << handler->error().id;
@@ -1492,7 +1492,7 @@ void GenericObserver::slotResolveTransferError()
 void GenericObserver::slotNotificationClosed()
 {
     qDebug() << "Remove notification";
-    KNotification * notification = static_cast<KNotification*>(QObject::sender());
+    auto * notification = static_cast<KNotification*>(QObject::sender());
     if (notification)
         m_notifications.remove(notification);
 }

@@ -52,7 +52,7 @@ QWidget *VerificationDelegate::createEditor(QWidget *parent, const QStyleOptionV
     if (index.isValid()) {
         if (index.column() == VerificationModel::Type) {
             if (d->hashTypes.count()) {
-                KComboBox *hashTypes = new KComboBox(parent);
+                auto *hashTypes = new KComboBox(parent);
                 hashTypes->addItems(d->hashTypes);
 
                 return hashTypes;
@@ -69,11 +69,11 @@ void VerificationDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 {
     if (index.isValid() && editor) {
         if (index.column() == VerificationModel::Type) {
-            KComboBox *hashTypes = static_cast<KComboBox*>(editor);
+            auto *hashTypes = static_cast<KComboBox*>(editor);
             const QString hashType = index.data().toString();
             hashTypes->setCurrentItem(hashType);
         } else if (index.column() == VerificationModel::Checksum) {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             const QString checksum = index.data().toString();
             line->setText(checksum);
         }
@@ -84,10 +84,10 @@ void VerificationDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 {
     if (index.isValid() && editor && model) {
         if (index.column() == VerificationModel::Type) {
-            KComboBox *hashTypes = static_cast<KComboBox*>(editor);
+            auto *hashTypes = static_cast<KComboBox*>(editor);
             model->setData(index, hashTypes->currentText());
         } else if (index.column() == VerificationModel::Checksum) {
-            KLineEdit *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit*>(editor);
             model->setData(index, line->text());
         }
     }

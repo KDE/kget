@@ -105,7 +105,7 @@ void MmsDownload::startTransfer()
     m_speedTimer->start();
     QMap<int, int>::const_iterator iterator = m_mapEndIni.constBegin();
     while (iterator != m_mapEndIni.constEnd()) {
-        MmsThread* thread = new MmsThread(m_sourceUrl, m_fileName,
+        auto* thread = new MmsThread(m_sourceUrl, m_fileName,
                                           iterator.value(), iterator.key());
         m_threadList.append(thread);
         connect(thread, SIGNAL(finished()), this, SLOT(slotThreadFinish()));
@@ -158,7 +158,7 @@ int MmsDownload::threadsAlive()
 
 void MmsDownload::slotThreadFinish()
 {
-    MmsThread* thread = qobject_cast<MmsThread*>(QObject::sender());
+    auto* thread = qobject_cast<MmsThread*>(QObject::sender());
     m_threadList.removeAll(thread);
     thread->deleteLater();
 

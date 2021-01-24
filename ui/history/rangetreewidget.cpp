@@ -92,7 +92,7 @@ RangeTreeWidget::RangeTreeWidget(QWidget *parent) : QTreeView(parent),
     setModel(m_proxyModel);
 
     // delegate for the range title
-    RangeTreeWidgetItemDelegate *delegate = new RangeTreeWidgetItemDelegate(this);
+    auto *delegate = new RangeTreeWidgetItemDelegate(this);
     setItemDelegate(delegate); 
 }
 
@@ -292,8 +292,8 @@ void RangeTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionVie
         QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
         style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
-        const QSortFilterProxyModel *model = static_cast <const QSortFilterProxyModel *>(index.model());
-        const QStandardItemModel *s_model  = static_cast <const QStandardItemModel *>(model->sourceModel());
+        const auto *model = static_cast <const QSortFilterProxyModel *>(index.model());
+        const auto *s_model  = static_cast <const QStandardItemModel *>(model->sourceModel());
         QStandardItem *item = s_model->itemFromIndex(model->mapToSource(index));
         // draw the range title
         painter->save();

@@ -122,7 +122,7 @@ void KeyDownloader::slotDownloaded(KJob *job)
     }
 
     const QString fingerprint = m_jobs[job];
-    KIO::StoredTransferJob *transferJob = static_cast<KIO::StoredTransferJob*>(job);
+    auto *transferJob = static_cast<KIO::StoredTransferJob*>(job);
 
     if (transferJob->isErrorPage()) {
         qCDebug(KGET_DEBUG) << "Mirror did not work, try another one.";

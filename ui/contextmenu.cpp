@@ -40,7 +40,7 @@ QMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers
          //               transfers.first()->m_transfer->factory() );
     }*/
 
-    QMenu *popup = new QMenu(parent);
+    auto *popup = new QMenu(parent);
     popup->addSection(transfers.first()->dest().fileName());
     //Get the transfer factory actions
     QList<QAction*> actionList = transfers.first()->factoryActions();
@@ -101,7 +101,7 @@ QMenu * ContextMenu::createTransferGroupContextMenu(TransferGroupHandler *handle
     if (!handler)
         return nullptr;
 
-    QMenu * popup = new QMenu(parent);
+    auto * popup = new QMenu(parent);
     popup->addSection(handler->name());
 
     popup->addActions(handler->actions());

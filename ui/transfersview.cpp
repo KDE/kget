@@ -125,13 +125,13 @@ void TransfersView::populateHeaderActions()
     m_headerMenu->clear();
     m_headerMenu->addSection(i18n("Select columns"));
 
-    QSignalMapper *columnMapper = new QSignalMapper(this);
+    auto *columnMapper = new QSignalMapper(this);
     connect(columnMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &TransfersView::slotHideSection);
 
     //Create for each column an action with the column-header as name
     QVector<QAction *> orderedMenuItems(header()->count());
     for (int i = 0; i < header()->count(); ++i) {
-        QAction *action = new QAction(this);
+        auto *action = new QAction(this);
         action->setText(model()->headerData(i, Qt::Horizontal).toString());
         action->setCheckable(true);
         action->setChecked(!header()->isSectionHidden(i));
@@ -199,7 +199,7 @@ void TransfersView::slotItemActivated(const QModelIndex & index)
 
     TransferTreeModel * transferTreeModel = KGet::model();
     ModelItem * item = transferTreeModel->itemFromIndex(index);
-    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+    auto *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
 
     if(!item)
         return;
@@ -229,7 +229,7 @@ void TransfersView::slotItemCollapsed(const QModelIndex & index)
 
     TransferTreeModel * transferTreeModel = KGet::model();
     ModelItem * item = transferTreeModel->itemFromIndex(index);
-    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+    auto *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
 
     if(!item)
         return;
@@ -275,7 +275,7 @@ void TransfersView::slotShowHeaderMenu(const QPoint &point)
 
 void TransfersView::closeExpandableDetails(const QModelIndex &transferIndex)
 {
-    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+    auto *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
     
     if(transferIndex.isValid()) {
         view_delegate->contractItem(transferIndex);
@@ -290,7 +290,7 @@ void TransfersView::selectionChanged(const QItemSelection & selected, const QIte
 {
     Q_UNUSED(deselected)
     if (!selected.indexes().isEmpty()) {
-        TransfersViewDelegate *view_delegate = static_cast<TransfersViewDelegate *>(itemDelegate());
+        auto *view_delegate = static_cast<TransfersViewDelegate *>(itemDelegate());
         KGet::actionCollection()->action("transfer_show_details")->setChecked(view_delegate->isExtended(selected.indexes().first()));
     }
 
@@ -303,7 +303,7 @@ void TransfersView::closeExpandableDetails(const QModelIndex &parent, int rowSta
     Q_UNUSED(rowStart)
     Q_UNUSED(rowEnd)
 
-    TransfersViewDelegate *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
+    auto *view_delegate = static_cast <TransfersViewDelegate *> (itemDelegate());
 
     view_delegate->contractAll();
     m_editingIndexes.clear();
@@ -311,9 +311,9 @@ void TransfersView::closeExpandableDetails(const QModelIndex &parent, int rowSta
 
 QWidget *TransfersView::getDetailsWidgetForTransfer(TransferHandler *handler)
 {
-    QGroupBox *groupBox = new QGroupBox(i18n("Transfer Details"));
+    auto *groupBox = new QGroupBox(i18n("Transfer Details"));
 
-    QVBoxLayout *layout = new QVBoxLayout(groupBox);
+    auto *layout = new QVBoxLayout(groupBox);
     QWidget *detailsWidget = TransferDetails::detailsWidget(handler);
     layout->addWidget(detailsWidget);
 

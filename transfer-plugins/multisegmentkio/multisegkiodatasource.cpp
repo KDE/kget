@@ -72,7 +72,7 @@ QList<QPair<int, int> > MultiSegKioDataSource::assignedSegments() const
 
 void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange)
 {
-    Segment *segment = new Segment(m_sourceUrl, segmentSize, segmentRange, this);
+    auto *segment = new Segment(m_sourceUrl, segmentSize, segmentRange, this);
     m_segments.append(segment);
 
     connect(segment, &Segment::canResume, this, &MultiSegKioDataSource::slotCanResume);

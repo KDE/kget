@@ -266,7 +266,7 @@ void TransferMultiSegKio::slotVerified(bool isVerified)
 
 void TransferMultiSegKio::slotStatResult(KJob* kioJob)
 {
-    KIO::StatJob * statJob = qobject_cast<KIO::StatJob *>(kioJob);
+    auto * statJob = qobject_cast<KIO::StatJob *>(kioJob);
 
     if (!statJob->error()) {
         const KIO::UDSEntry entryResult = statJob->statResult();

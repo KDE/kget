@@ -87,7 +87,7 @@ DropTarget::DropTarget(MainWindow * mw)
     popupMenu->addSeparator();
     popupMenu->addAction( mw->actionCollection()->action("preferences") );
 
-    QAction *quitAction = new QAction(this);
+    auto *quitAction = new QAction(this);
     quitAction->setText(i18n("Quit KGet"));
     quitAction->setIcon(QIcon::fromTheme("system-shutdown"));
     connect(quitAction, SIGNAL(triggered()), mw, SLOT(slotQuit()));

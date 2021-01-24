@@ -82,7 +82,7 @@ void MetalinkXml::downloadMetalink()
         QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     }
     const QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/metalinks/") + m_source.fileName();
-    Download *download = new Download(m_source, QUrl::fromLocalFile(path));
+    auto *download = new Download(m_source, QUrl::fromLocalFile(path));
     connect(download, &Download::finishedSuccessfully, this, &MetalinkXml::metalinkInit);
 }
 
@@ -142,7 +142,7 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
         m_totalSize += fileSize;
 
         //create a DataSourceFactory for each separate file
-        DataSourceFactory *dataFactory = new DataSourceFactory(this, dest, fileSize, segSize);
+        auto *dataFactory = new DataSourceFactory(this, dest, fileSize, segSize);
         dataFactory->setMaxMirrorsUsed(MetalinkSettings::mirrorsPerFile());
 
 //TODO compare available file size (<size>) with the sizes of the server while downloading?
@@ -293,7 +293,7 @@ void MetalinkXml::load(const QDomElement *element)
         factory.appendChild(factories.item(0).toElement());
         doc.appendChild(factory);
 
-        DataSourceFactory *file = new DataSourceFactory(this);
+        auto *file = new DataSourceFactory(this);
         file->load(&factory);
         connect(file, &DataSourceFactory::capabilitiesChanged, this, &MetalinkXml::slotUpdateCapabilities);
         connect(file, &DataSourceFactory::dataSourceFactoryChange, this, &MetalinkXml::slotDataSourceFactoryChange);

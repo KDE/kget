@@ -90,13 +90,13 @@ void mirror::slotResult( KJob *job )
 
 void MirrorSearch ( const QUrl &url, QObject *receiver, const char *member )
 {
-    mirror *searcher = new mirror();
+    auto *searcher = new mirror();
     searcher->search(url, receiver, member);
 }
 
 void MirrorSearch ( const QString &fileName, QObject *receiver, const char *member )
 {
-    mirror *searcher = new mirror();
+    auto *searcher = new mirror();
     searcher->search(fileName, receiver, member);
 }
 

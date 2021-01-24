@@ -51,7 +51,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.urlLayout->addWidget(m_urlWidget->widget());
     connect(m_urlWidget, &UrlWidget::urlsChanged, this, &FileDlg::slotUpdateOkButton);
 
-    QWidget *data = new QWidget(this);
+    auto *data = new QWidget(this);
     uiData.setupUi(data);
     ui.dataLayout->addWidget(data);
 
@@ -158,7 +158,7 @@ void FileDlg::slotRemoveHash()
 
 void FileDlg::slotAddHash()
 {
-    VerificationAddDlg *dialog = new VerificationAddDlg(m_verificationModel, this);
+    auto *dialog = new VerificationAddDlg(m_verificationModel, this);
     dialog->show();
 }
 

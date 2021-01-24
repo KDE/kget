@@ -349,13 +349,13 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
     }
 
 
-    FileItem *item = static_cast<FileItem*>(index.internalPointer());
+    auto *item = static_cast<FileItem*>(index.internalPointer());
     const QVariant data = item->data(index.column(), role);
 
     //get the status icon as well as status text
     if (index.column() == FileItem::Status)
     {
-        const Job::Status status = static_cast<Job::Status>(data.toInt());
+        const auto status = static_cast<Job::Status>(data.toInt());
         if (item->isFile()) {
             if (role == Qt::DisplayRole)
             {
@@ -394,7 +394,7 @@ bool FileModel::setData(const QModelIndex &index, const QVariant &value, int rol
         return false;
     }
 
-    FileItem *item = static_cast<FileItem*>(index.internalPointer());
+    auto *item = static_cast<FileItem*>(index.internalPointer());
 
     if ((index.column() == FileItem::File) && (role == Qt::CheckStateRole)) {
         const bool worked = item->setData(index.column(), value, this, role);
@@ -491,7 +491,7 @@ QModelIndex FileModel::parent(const QModelIndex &index) const
         return QModelIndex();
     }
 
-    FileItem *childItem = static_cast<FileItem*>(index.internalPointer());
+    auto *childItem = static_cast<FileItem*>(index.internalPointer());
     FileItem *parentItem = childItem->parent();
     if ((parentItem == m_rootItem) || (!parentItem))
     {
@@ -640,7 +640,7 @@ bool FileModel::isFile(const QModelIndex &index) const
         return false;
     }
 
-    FileItem *item = static_cast<FileItem*>(index.internalPointer());
+    auto *item = static_cast<FileItem*>(index.internalPointer());
 
     //only files can be renamed, no folders
     return item->isFile();
@@ -653,7 +653,7 @@ void FileModel::rename(const QModelIndex &file, const QString &newName)
         return;
     }
 
-    FileItem *item = static_cast<FileItem*>(file.internalPointer());
+    auto *item = static_cast<FileItem*>(file.internalPointer());
     //only files can be renamed, no folders
     if (!item->isFile()) {
         return;

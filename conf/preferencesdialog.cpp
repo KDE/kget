@@ -27,18 +27,18 @@
 PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
     : KConfigDialog(parent, "preferences", skeleton)
 {
-    QWidget *appearance = new QWidget(this);
-    TransfersGroupWidget *groups = new TransfersGroupWidget(this);
-    DlgWebinterface *webinterface = new DlgWebinterface(this);
+    auto *appearance = new QWidget(this);
+    auto *groups = new TransfersGroupWidget(this);
+    auto *webinterface = new DlgWebinterface(this);
     connect(webinterface, &DlgWebinterface::changed, this, &PreferencesDialog::enableApplyButton);
     connect(webinterface, &DlgWebinterface::saved, this, &PreferencesDialog::settingsChangedSlot);
-    QWidget *network = new QWidget(this);
-    QWidget *advanced = new QWidget(this);
-    IntegrationPreferences *integration = new IntegrationPreferences(this);
+    auto *network = new QWidget(this);
+    auto *advanced = new QWidget(this);
+    auto *integration = new IntegrationPreferences(this);
     connect(integration, &IntegrationPreferences::changed, this, &PreferencesDialog::enableApplyButton);
-    VerificationPreferences *verification = new VerificationPreferences(this);
+    auto *verification = new VerificationPreferences(this);
     connect(verification, &VerificationPreferences::changed, this, &PreferencesDialog::enableApplyButton);
-    PluginSelector * pluginSelector = new PluginSelector(this);
+    auto * pluginSelector = new PluginSelector(this);
     connect(pluginSelector, &PluginSelector::changed, this, &PreferencesDialog::enableApplyButton);
 
     Ui::DlgAppearance dlgApp;
