@@ -37,7 +37,7 @@ private Q_SLOTS:
     void walletOpened(bool);
     
 private:
-    KWallet::Wallet *m_wallet;
+    KWallet::Wallet *m_wallet = nullptr;
 };
 
 #endif
