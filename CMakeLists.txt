@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 # KDE Application Version, managed by release script
 set(RELEASE_SERVICE_VERSION_MAJOR "21")
@@ -8,8 +8,8 @@ set(RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_
 
 project(kget VERSION ${RELEASE_SERVICE_VERSION})
 
-set(KF5_VERSION "5.55.0")
-set(REQUIRED_QT_VERSION "5.7.0")
+set(KF5_VERSION "5.68.0")
+set(REQUIRED_QT_VERSION "5.12.0")
 
 find_package(ECM ${KF5_VERSION} REQUIRED NO_MODULE)
 
@@ -330,11 +330,7 @@ endif()
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-if (${ECM_VERSION} STRGREATER "5.58.0")
-    install(FILES kget.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
-else()
-    install(FILES kget.categories DESTINATION ${KDE_INSTALL_CONFDIR})
-endif()
+install(FILES kget.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
 install(FILES org.kde.kget.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR})
 
