@@ -99,7 +99,7 @@ bool Segment::createTransfer()
 void Segment::slotRedirection(KIO::Job* , const QUrl &url)
 {
     m_url = url;
-    emit urlChanged(url);
+    Q_EMIT urlChanged(url);
 }
 
 void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
@@ -108,7 +108,7 @@ void Segment::slotCanResume( KIO::Job* job, KIO::filesize_t offset )
     Q_UNUSED(offset)
     qCDebug(KGET_DEBUG);
     m_canResume = true;
-    emit canResume();
+    Q_EMIT canResume();
 }
 
 void Segment::slotTotalSize(KJob *job, qulonglong size)
@@ -130,10 +130,10 @@ void Segment::slotTotalSize(KJob *job, qulonglong size)
         m_currentSegSize = (numSegments == 1 ? m_segSize.second : m_segSize.first);
         m_totalBytesLeft = size;
 
-        emit totalSize(size, qMakePair(m_currentSegment, m_endSegment));
+        Q_EMIT totalSize(size, qMakePair(m_currentSegment, m_endSegment));
         m_findFilesize = false;
     } else {
-        emit totalSize(size, qMakePair(-1, -1));
+        Q_EMIT totalSize(size, qMakePair(-1, -1));
     }
 }
 
@@ -194,7 +194,7 @@ void Segment::slotResult( KJob *job )
         return;
     }
     if (job->error() && (m_status == Running)) {
-        emit error(this, job->errorString(), Transfer::Log_Error);
+        Q_EMIT error(this, job->errorString(), Transfer::Log_Error);
     }
 }
 
@@ -207,7 +207,7 @@ void Segment::slotData(KIO::Job *, const QByteArray& _data)
         stopTransfer();
         setStatus(Killed, false );
         const QString errorText = KIO::buildErrorString(KIO::ERR_CANNOT_RESUME, m_url.toString());
-        emit error(this, errorText, Transfer::Log_Warning);
+        Q_EMIT error(this, errorText, Transfer::Log_Warning);
         return;
     }
 
@@ -242,7 +242,7 @@ bool Segment::writeBuffer()
     }
 
     bool worked = false;
-    emit data(m_offset, m_buffer, worked);
+    Q_EMIT data(m_offset, m_buffer, worked);
 
     if (worked) {
         m_currentSegSize -= m_buffer.size();
@@ -265,7 +265,7 @@ bool Segment::writeBuffer()
     //m_currentSegSize being smaller than 1 means that at least one segment has been finished
     while (m_currentSegSize <= 0 && !finished) {
         finished = (m_currentSegment == m_endSegment);
-        emit finishedSegment(this, m_currentSegment, finished);
+        Q_EMIT finishedSegment(this, m_currentSegment, finished);
 
         if (!finished) {
             ++m_currentSegment;
@@ -286,14 +286,14 @@ void Segment::slotWriteRest()
     if (writeBuffer()) {
         m_errorCount = 0;
         if (m_findFilesize) {
-            emit finishedDownload(m_bytesWritten);
+            Q_EMIT finishedDownload(m_bytesWritten);
         }
         return;
     }
 
     if (++m_errorCount >= 100) {
         qWarning() << "Failed to write to the file:" << m_url << this;
-        emit error(this, i18n("Failed to write to the file."), Transfer::Log_Error);
+        Q_EMIT error(this, i18n("Failed to write to the file."), Transfer::Log_Error);
     } else {
         qCDebug(KGET_DEBUG) << "Wait 50 msec:" << this;
         QTimer::singleShot(50, this, &Segment::slotWriteRest);
@@ -304,7 +304,7 @@ void Segment::setStatus(Status stat, bool doEmit)
 {
     m_status = stat;
     if (doEmit)
-        emit statusChanged(this);
+        Q_EMIT statusChanged(this);
 }
 
 QPair<int, int> Segment::assignedSegments() const

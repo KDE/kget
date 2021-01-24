@@ -76,7 +76,7 @@ void ChecksumSearchAddDlg::slotUpdate()
 
 void ChecksumSearchAddDlg::slotAccpeted()
 {
-    emit addItem(ui.change->text(), ui.mode->currentIndex(), ui.type->currentText());
+    Q_EMIT addItem(ui.change->text(), ui.mode->currentIndex(), ui.type->currentText());
 }
 
 ChecksumDelegate::ChecksumDelegate(QObject *parent)

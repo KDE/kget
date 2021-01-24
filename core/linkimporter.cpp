@@ -80,7 +80,7 @@ void LinkImporter::copyRemoteFile()
     KIO::CopyJob *job = KIO::copy(m_url, aux, KIO::HideProgressInfo);
 
     if(!job->exec()) {
-        emit error(ki18n("Error trying to get %1").subs(m_url.url()));
+        Q_EMIT error(ki18n("Error trying to get %1").subs(m_url.url()));
     }
 }
 
@@ -109,12 +109,12 @@ void LinkImporter::slotReadFile(const QUrl &url)
             regexPos += rx.matchedLength();
             position = lastPosition + regexPos;
 
-            emit progress(position * 100 / size);
+            Q_EMIT progress(position * 100 / size);
         }
 
         position += line.size();
 
-        emit progress(position * 100 / size);
+        Q_EMIT progress(position * 100 / size);
     }
 
     if(!m_url.isLocalFile()) {

@@ -91,9 +91,9 @@ void DlgSettingsWidget::slotNewEngine()
     if(dialog.exec()) {
         addSearchEngineItem(dialog.engineName(), dialog.engineUrl());
 #if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 64, 0)
-        emit changed();
+        Q_EMIT changed();
 #else
-        emit markAsChanged();
+        Q_EMIT markAsChanged();
 #endif
     }
 }
@@ -105,9 +105,9 @@ void DlgSettingsWidget::slotRemoveEngine()
     foreach(QTreeWidgetItem * selectedItem, selectedItems)
         delete(selectedItem);
 #if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 64, 0)
-        emit changed();
+        Q_EMIT changed();
 #else
-        emit markAsChanged();
+        Q_EMIT markAsChanged();
 #endif
 }
 
@@ -120,9 +120,9 @@ void DlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &
 {
     ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << name << url));
 #if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 64, 0)
-        emit changed();
+        Q_EMIT changed();
 #else
-        emit markAsChanged();
+        Q_EMIT markAsChanged();
 #endif
 }
 

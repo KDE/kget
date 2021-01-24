@@ -126,7 +126,7 @@ void ChecksumSearch::parseDownload()
                 hash = rxChecksum.cap(0).toLower();
                 if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
                     qCDebug(KGET_DEBUG) << "Found hash: " << hash;
-                    emit data(m_type, hash);
+                    Q_EMIT data(m_type, hash);
                 }
             }
         }
@@ -137,7 +137,7 @@ void ChecksumSearch::parseDownload()
         QString hash = rxChecksum.cap(0);
         if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
             qCDebug(KGET_DEBUG) << "Found hash:" << hash;
-            emit data(m_type, hash);
+            Q_EMIT data(m_type, hash);
         }
     }
 

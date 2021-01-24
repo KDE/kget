@@ -98,7 +98,7 @@ void PreferencesDialog::slotToggleAfterFinishAction(int state)
 
 void PreferencesDialog::updateWidgetsDefault()
 {
-    emit resetDefaults();
+    Q_EMIT resetDefaults();
     KConfigDialog::updateWidgetsDefault();
 }
 

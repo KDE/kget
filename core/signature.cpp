@@ -163,7 +163,7 @@ void Signature::setSignature(const QByteArray &signature, SignatureType type)
     d->verificationResult = GpgME::VerificationResult();
 #endif //HAVE_QGPGME
 
-    emit verified(d->status);//FIXME
+    Q_EMIT verified(d->status);//FIXME
 }
 
 Signature::SignatureType Signature::type() const
@@ -210,7 +210,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
 
     if (!d->verificationResult.numSignatures()) {
         qCDebug(KGET_DEBUG) << "No signatures\n";
-        emit verified(d->status);
+        Q_EMIT verified(d->status);
         return;
     }
 
@@ -230,7 +230,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
              i18n("The key to verify the signature is missing, do you want to download it?")) == KMessageBox::Yes)) {
             d->verifyTried = true;
             downloadKey(d->fingerprint);
-            emit verified(d->status);
+            Q_EMIT verified(d->status);
             return;
         }
     }
@@ -254,7 +254,7 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
         }
     }
 
-    emit verified(d->status);
+    Q_EMIT verified(d->status);
 }
 #endif //HAVE_QGPGME
 

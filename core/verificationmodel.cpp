@@ -107,7 +107,7 @@ bool VerificationModel::setData(const QModelIndex &index, const QVariant &value,
         const QString type = value.toString();
         if (Verifier::supportedVerficationTypes().contains(type) && !d->types.contains(type)) {
             d->types[index.row()] = type;
-            emit dataChanged(index, index);
+            Q_EMIT dataChanged(index, index);
             return true;
         }
     } else if ((index.column() == VerificationModel::Checksum) && role == Qt::EditRole) {
@@ -116,12 +116,12 @@ bool VerificationModel::setData(const QModelIndex &index, const QVariant &value,
         const QString checksum = value.toString();
         if (Verifier::isChecksum(type, checksum)) {
             d->checksums[index.row()] = checksum;
-            emit dataChanged(index, index);
+            Q_EMIT dataChanged(index, index);
             return true;
         }
     } else if (index.column() == VerificationModel::Verified && role == Qt::EditRole) {
         d->verificationStatus[index.row()] = value.toInt();
-        emit dataChanged(index, index);
+        Q_EMIT dataChanged(index, index);
         return true;
     }
 
@@ -189,7 +189,7 @@ void VerificationModel::addChecksum(const QString &type, const QString &checksum
     if (position > -1) {
         d->checksums[position] = checksum;
         const QModelIndex index = this->index(position, VerificationModel::Checksum, QModelIndex());
-        emit dataChanged(index, index);
+        Q_EMIT dataChanged(index, index);
         return;
     }
 
@@ -216,6 +216,6 @@ void VerificationModel::setVerificationStatus(const QString &type, int verified)
     if (position > -1) {
         d->verificationStatus[position] = verified;
         const QModelIndex index = this->index(position, VerificationModel::Verified, QModelIndex());
-        emit dataChanged(index, index);
+        Q_EMIT dataChanged(index, index);
     }
 }

@@ -428,7 +428,7 @@ bool MirrorModel::setData(const QModelIndex &index, const QVariant &value, int r
     const bool changed = m_data.at(index.row())->setData(index.column(), value, role);
     if (changed)
     {
-        emit dataChanged(index, index);
+        Q_EMIT dataChanged(index, index);
     }
     return changed;
 }
@@ -471,7 +471,7 @@ void MirrorModel::addMirror(const QUrl &url, int numConnections, int priority, c
     }
 
     int index = rowCount();
-    emit beginInsertRows(QModelIndex(), index, index);
+    Q_EMIT beginInsertRows(QModelIndex(), index, index);
 
     MirrorItem *item = new MirrorItem;
     m_data.append(item);
@@ -481,7 +481,7 @@ void MirrorModel::addMirror(const QUrl &url, int numConnections, int priority, c
     item->setData(MirrorItem::Priority, priority);
     item->setData(MirrorItem::Country, countryCode);
 
-    emit endInsertRows();
+    Q_EMIT endInsertRows();
 }
 
 void MirrorModel::setMirrors(const QHash<QUrl, QPair<bool, int> > &mirrors)

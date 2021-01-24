@@ -124,8 +124,8 @@ void VerificationThread::doVerify()
         m_mutex.lock();
         if (!m_abort)
         {
-            emit verified(type, fileVerified, url);
-            emit verified(fileVerified);
+            Q_EMIT verified(type, fileVerified, url);
+            Q_EMIT verified(fileVerified);
         }
         run = m_files.count();
         m_mutex.unlock();
@@ -149,28 +149,28 @@ void VerificationThread::doBrokenPieces()
         QFile file(url.toString());
         if (!file.open(QIODevice::ReadOnly))
         {
-            emit brokenPieces(broken, length);
+            Q_EMIT brokenPieces(broken, length);
             return;
         }
 
         const KIO::filesize_t fileSize = file.size();
         if (!length || !fileSize)
         {
-            emit brokenPieces(broken, length);
+            Q_EMIT brokenPieces(broken, length);
             return;
         }
 
         const QStringList fileChecksums = Verifier::partialChecksums(url, type, length, &m_abort).checksums();
         if (m_abort)
         {
-            emit brokenPieces(broken, length);
+            Q_EMIT brokenPieces(broken, length);
             return;
         }
 
         if (fileChecksums.size() != checksums.size())
         {
             qCDebug(KGET_DEBUG) << "Number of checksums differs!";
-            emit brokenPieces(broken, length);
+            Q_EMIT brokenPieces(broken, length);
             return;
         }
 
@@ -185,5 +185,5 @@ void VerificationThread::doBrokenPieces()
         }
     }
 
-    emit brokenPieces(broken, length);
+    Q_EMIT brokenPieces(broken, length);
 }

@@ -196,10 +196,10 @@ void FileDlg::slotOkClicked()
 
     if (m_edit) {
         //the file has been edited
-        emit fileEdited(m_initialFileName, m_file->name);
+        Q_EMIT fileEdited(m_initialFileName, m_file->name);
     } else {
         //a new file should be added, not edited
-        emit addFile();
+        Q_EMIT addFile();
     }
 }
 

@@ -177,7 +177,7 @@ namespace kt
 				resort = true;
 			
 			if (modified && !resort)
-				emit dataChanged(index(idx,1),index(idx,3));
+				Q_EMIT dataChanged(index(idx,1),index(idx,3));
 			idx++;
 		}
 	
@@ -289,8 +289,8 @@ namespace kt
 	{
 		sort_column = col;
 		sort_order = order;
-		emit layoutAboutToBeChanged();
+		Q_EMIT layoutAboutToBeChanged();
 		std::stable_sort(items.begin(),items.end(),ChunkDownloadModelItemCmp(col, order));
-		emit layoutChanged();
+		Q_EMIT layoutChanged();
 	}
 }

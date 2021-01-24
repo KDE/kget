@@ -62,7 +62,7 @@ void Transfer::setCapabilities(Capabilities capabilities)
 {
     if (m_capabilities != capabilities) {
         m_capabilities = capabilities;
-        emit capabilitiesChanged();
+        Q_EMIT capabilitiesChanged();
     }
 }
 

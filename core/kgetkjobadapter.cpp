@@ -44,7 +44,7 @@ unsigned long KGetKJobAdapter::percent() const
 
 void KGetKJobAdapter::slotUpdateDescription()
 {
-    emit description(this, i18n("KGet Transfer"), 
+    Q_EMIT description(this, i18n("KGet Transfer"), 
                     qMakePair(QString("source"), m_transferHandler->source().toString()),
                     qMakePair(QString("destination"), m_transferHandler->dest().toString()));
 
@@ -57,14 +57,14 @@ void KGetKJobAdapter::slotUpdateDescription()
 bool KGetKJobAdapter::doKill()
 {
     qCDebug(KGET_DEBUG) << "Kill of job adapter called:" << this << m_transferHandler->dest();
-    emit requestStop(this, m_transferHandler);
+    Q_EMIT requestStop(this, m_transferHandler);
     return KJob::doKill();
 }
 
 bool KGetKJobAdapter::doSuspend()
 {
     if (m_transferHandler->capabilities() & Transfer::Cap_Resuming) {
-        emit requestSuspend(this, m_transferHandler);
+        Q_EMIT requestSuspend(this, m_transferHandler);
         return true;
     }
 
@@ -73,6 +73,6 @@ bool KGetKJobAdapter::doSuspend()
 
 bool KGetKJobAdapter::doResume()
 {
-    emit requestResume(this, m_transferHandler);
+    Q_EMIT requestResume(this, m_transferHandler);
     return true;
 }

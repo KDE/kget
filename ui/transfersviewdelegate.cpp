@@ -261,7 +261,7 @@ bool GroupStatusEditor::isRunning()
 
 void GroupStatusEditor::slotStatusChanged()
 {
-    emit changedStatus(this);
+    Q_EMIT changedStatus(this);
 }
 
 

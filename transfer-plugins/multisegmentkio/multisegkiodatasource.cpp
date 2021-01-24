@@ -91,7 +91,7 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
 void MultiSegKioDataSource::slotUrlChanged(const QUrl &url)
 {
     if (m_sourceUrl != url) {
-        emit urlChanged(m_sourceUrl, url);
+        Q_EMIT urlChanged(m_sourceUrl, url);
         m_sourceUrl = url;
     }
 }
@@ -106,7 +106,7 @@ void MultiSegKioDataSource::findFileSize(KIO::fileoffset_t segmentSize)
 void MultiSegKioDataSource::slotSpeed(ulong downloadSpeed)
 {
     m_speed = downloadSpeed;
-    emit speed(m_speed);
+    Q_EMIT speed(m_speed);
 }
 
 void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum, bool connectionFinished)
@@ -115,7 +115,7 @@ void MultiSegKioDataSource::slotFinishedSegment(Segment *segment, int segmentNum
         m_segments.removeAll(segment);
         segment->deleteLater();
     }
-    emit finishedSegment(this, segmentNum, connectionFinished);
+    Q_EMIT finishedSegment(this, segmentNum, connectionFinished);
 }
 
 void MultiSegKioDataSource::setSupposedSize(KIO::filesize_t supposedSize)
@@ -134,14 +134,14 @@ void MultiSegKioDataSource::slotTotalSize(KIO::filesize_t size, const QPair<int,
 
     //findFileSize was called
     if ((range.first != -1) && (range.second != -1)) {
-        emit foundFileSize(this, size, range);
+        Q_EMIT foundFileSize(this, size, range);
     }
 
     //the filesize is not what it should be, maybe using a wrong mirror
     if (m_size && m_supposedSize && (m_size != m_supposedSize))
     {
         qCDebug(KGET_DEBUG) << "Size does not match for" << m_sourceUrl << this;
-        emit broken(this, WrongDownloadSize);
+        Q_EMIT broken(this, WrongDownloadSize);
     }
 }
 
@@ -233,10 +233,10 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
     m_segments.removeAll(segment);
     segment->deleteLater();
 
-    emit log(errorText, logLevel);
+    Q_EMIT log(errorText, logLevel);
     if (m_segments.isEmpty()) {
         qCDebug(KGET_DEBUG) << this << "has broken segments.";
-        emit brokenSegments(this, range);
+        Q_EMIT brokenSegments(this, range);
     } else {
         //decrease the number of maximum parallel downloads, maybe the server does not support so many connections
         if (m_parallelSegments > 1) {
@@ -244,7 +244,7 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
         }
         qCDebug(KGET_DEBUG) << this << "reducing connections to" << m_parallelSegments << "and freeing range of segments" << range;
         if (!tryMerge(size, range)) {
-            emit freeSegments(this, range);
+            Q_EMIT freeSegments(this, range);
         }
     }
 }
@@ -252,7 +252,7 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
 void MultiSegKioDataSource::slotFinishedDownload(KIO::filesize_t size)
 {
     stop();
-    emit finishedDownload(this, size);
+    Q_EMIT finishedDownload(this, size);
 }
 
 void MultiSegKioDataSource::slotRestartBrokenSegment()

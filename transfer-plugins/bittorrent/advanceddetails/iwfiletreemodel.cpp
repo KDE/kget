@@ -286,7 +286,7 @@ namespace kt
 		if (n->file && n->file == file)
 		{
 			QModelIndex i = createIndex(idx.row(),col,n);
-			emit dataChanged(i,i);
+			Q_EMIT dataChanged(i,i);
 			if(col == 4)
 			{
 				// update percentages along the tree
@@ -296,13 +296,13 @@ namespace kt
 				d -= tc->onlySeedChunksBitSet();
 				n->updatePercentage(d);
 				
-				// emit necessary signals
+				// Q_EMIT necessary signals
 				QModelIndex parent = idx.parent();
 				while (parent.isValid())
 				{
 					Node* nd = (Node*)parent.internalPointer();
 					i = createIndex(parent.row(),4,nd);
-					emit dataChanged(i,i);
+					Q_EMIT dataChanged(i,i);
 					parent = parent.parent();
 				}
 			}

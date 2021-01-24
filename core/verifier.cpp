@@ -357,7 +357,7 @@ void Verifier::changeStatus(const QString &type, bool isVerified)
     qCDebug(KGET_DEBUG) << "Verified:" << isVerified;
     d->status = isVerified ? Verifier::Verified : Verifier::NotVerified;
     d->model->setVerificationStatus(type, d->status);
-    emit verified(isVerified);
+    Q_EMIT verified(isVerified);
 }
 
 void Verifier::verify(const QModelIndex &index)

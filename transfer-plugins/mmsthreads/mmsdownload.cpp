@@ -53,7 +53,7 @@ void MmsDownload::run()
         splitTransfer();
         startTransfer();
     } else {
-        emit signBrokenUrl();
+        Q_EMIT signBrokenUrl();
         quit();
     }
     exec();
@@ -76,12 +76,12 @@ void MmsDownload::splitTransfer()
     m_amountThreads = mmsx_get_seekable(m_mms) ? m_amountThreads : 0;
     if (m_amountThreads == 0) {
         m_amountThreads = 1;
-        emit signNotAllowMultiDownload();
+        Q_EMIT signNotAllowMultiDownload();
         QFile::remove(m_fileTemp);
     }
 
     const qulonglong total = mmsx_get_length(m_mms);
-    emit signTotalSize(total);
+    Q_EMIT signTotalSize(total);
     
     if (QFile::exists(m_fileTemp)) {
         unSerialization();
@@ -133,14 +133,14 @@ void MmsDownload::slotSpeedChanged()
     if(m_prevDownloadedSizes.size() > 10)
         m_prevDownloadedSizes.removeFirst();
     
-    emit signSpeed(speed);
+    Q_EMIT signSpeed(speed);
     serialization();
 }
 
 
 void MmsDownload::stopTransfer()
 {   
-    /** Here only is called thread->stop() because when the thread finish it emit a signal
+    /** Here only is called thread->stop() because when the thread finish it Q_EMIT a signal
      * and slotThreadFinish(); is called where the thread is delete calling deleteLater(); and
      * m_threadList is cleaning using removeAll().
      */
@@ -170,7 +170,7 @@ void MmsDownload::slotThreadFinish()
 
 void MmsDownload::slotRead(int reading, int thread_end, int thread_in)
 {
-    /** We update the status of the thread in the map and emit a signal for update the download
+    /** We update the status of the thread in the map and Q_EMIT a signal for update the download
      * speed.
      */
     if (thread_in == thread_end) {
@@ -179,15 +179,15 @@ void MmsDownload::slotRead(int reading, int thread_end, int thread_in)
         m_mapEndIni[thread_end] = thread_in;
     }
     m_downloadedSize += reading;
-    emit signDownloaded(m_downloadedSize); 
+    Q_EMIT signDownloaded(m_downloadedSize); 
 }
 
 void MmsDownload::slotIsThreadConnected(bool connected)
 {
-    /** All threads emit a signal connected with this slot, if they get connected successfully
+    /** All threads Q_EMIT a signal connected with this slot, if they get connected successfully
      * the value of "connected" will be true, and will be false if they can't connected. When all
      * the threads emitted the signal the amount of m_connectionsSuccefusslly and m_connectionsFails
-     * will be equal to m_amountThreads and we emit a signal to restart the download in
+     * will be equal to m_amountThreads and we Q_EMIT a signal to restart the download in
      * mmstransfer using the amount of connections succefusslly connected.
      */
     if (connected) {
@@ -197,7 +197,7 @@ void MmsDownload::slotIsThreadConnected(bool connected)
     }
     if ((m_connectionsFails != 0) && 
         (m_connectionsFails + m_connectionsSuccessfully == m_amountThreads)) {
-        emit signRestartDownload(m_connectionsSuccessfully);
+        Q_EMIT signRestartDownload(m_connectionsSuccessfully);
     }
 }
 

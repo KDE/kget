@@ -201,7 +201,7 @@ void TransferHistoryItemDelegate::slotDeleteTransfer()
 {
     const QAbstractItemModel *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
 
-    emit deletedTransfer(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString(), m_selectedIndex);
+    Q_EMIT deletedTransfer(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString(), m_selectedIndex);
 }
 
 

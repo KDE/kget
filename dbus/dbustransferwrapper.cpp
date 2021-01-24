@@ -148,7 +148,7 @@ void DBusTransferWrapper::slotTransferChanged(TransferHandler *transfer, Transfe
 {
     Q_UNUSED(transfer)
 
-    emit transferChangedEvent(changeFlags);
+    Q_EMIT transferChangedEvent(changeFlags);
 }
 
 QString DBusTransferWrapper::verifier(const QString &file)

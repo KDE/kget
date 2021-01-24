@@ -53,7 +53,7 @@ void KGetGlobalJob::update()
     else
         percent =  0;
   
-    emit description(this, "KGet global information", 
+    Q_EMIT description(this, "KGet global information", 
                       qMakePair(QString("source"), i18np("KGet is downloading %1 file", "KGet is downloading %1 files", runningTransfers)));
 
     emitSpeed(speed);
@@ -66,7 +66,7 @@ void KGetGlobalJob::update()
 bool KGetGlobalJob::doKill()
 {
     qCDebug(KGET_DEBUG) << "Kill of global job called:" << this;
-    emit requestStop(this, nullptr);
+    Q_EMIT requestStop(this, nullptr);
     return KJob::doKill();
 }
 

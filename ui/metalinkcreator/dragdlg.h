@@ -50,7 +50,7 @@ class DragDlg : public KGetSaveSizeDialog
 
     private slots:
         /**
-         * Called when the dialog is finished, to emit usedTypes
+         * Called when the dialog is finished, to Q_EMIT usedTypes
          */
         void slotFinished();
 

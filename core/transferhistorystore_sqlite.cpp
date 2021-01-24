@@ -59,14 +59,14 @@ void SQLiteStore::load()
                 item.setSize(query.value(rec.indexOf("size")).toInt());
 
                 m_items << item;
-                emit elementLoaded(query.at(), query.size(), item);
+                Q_EMIT elementLoaded(query.at(), query.size(), item);
             }
         }
     }
 
     sql().close();
 
-    emit loadFinished();
+    Q_EMIT loadFinished();
 }
 
 void SQLiteStore::clear()
@@ -109,7 +109,7 @@ void SQLiteStore::saveItems(const QList<TransferHistoryItem> &items)
     }
     sql().close();
 
-    emit saveFinished();
+    Q_EMIT saveFinished();
 }
 
 void SQLiteStore::deleteItem(const TransferHistoryItem &item)
@@ -131,7 +131,7 @@ void SQLiteStore::deleteItem(const TransferHistoryItem &item)
     }
     sql().close();
 
-    emit deleteFinished();
+    Q_EMIT deleteFinished();
 }
 
 QSqlDatabase SQLiteStore::sql()

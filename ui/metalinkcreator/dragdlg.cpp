@@ -96,7 +96,7 @@ void DragDlg::slotFinished()
     m_commonData->publisher.url = QUrl(uiData.pub_url->text());
     m_commonData->languages << uiData.language->itemData(uiData.language->currentIndex()).toString();
 
-    emit usedTypes(used, ui.partialChecksums->isChecked());
+    Q_EMIT usedTypes(used, ui.partialChecksums->isChecked());
 }
 
 

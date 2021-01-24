@@ -42,7 +42,7 @@ void MmsThread::run()
     mms = mmsx_connect(NULL, NULL, qstrdup(m_sourceUrl.toLatin1()) , 1e6);
     if (mms) {
         m_locker.lock();
-        emit signIsConnected(true);
+        Q_EMIT signIsConnected(true);
         m_locker.unlock();
         /** If the connections result successful it start the download.*/
         mmsx_seek(nullptr, mms, m_begin, 0);
@@ -52,7 +52,7 @@ void MmsThread::run()
                 char data[var];
                 readed = mmsx_read(nullptr, mms, data, var);
                 m_locker.lock();
-                emit signReading(var, m_end, m_begin = m_end);
+                Q_EMIT signReading(var, m_end, m_begin = m_end);
                 /** Writing the readed to the file */
                 if (readed) {
                     file.write(data, readed);
@@ -62,7 +62,7 @@ void MmsThread::run()
                 char data[1024];
                 readed = mmsx_read(nullptr, mms, data, 1024);
                 m_locker.lock();
-                emit signReading(1024, m_end, m_begin += 1024);
+                Q_EMIT signReading(1024, m_end, m_begin += 1024);
                 /** Writing the readed to the file */
                 if (readed) {
                     file.write(data, readed);
@@ -72,13 +72,13 @@ void MmsThread::run()
         }
         file.close();
         mmsx_close(mms);
-        quit(); // NOTE: Keep "quit()" here, if not then the thread never emit the signal finish.
+        quit(); // NOTE: Keep "quit()" here, if not then the thread never Q_EMIT the signal finish.
     } else {
         /** If the connections not result successfully then stop all the download*/
         m_locker.lock();
-        emit signIsConnected(false);
+        Q_EMIT signIsConnected(false);
         m_locker.unlock();
-        quit(); // NOTE: Keep "quit()" here, if not then the thread never emit the signal finish.
+        quit(); // NOTE: Keep "quit()" here, if not then the thread never Q_EMIT the signal finish.
     }
     exec();
 }

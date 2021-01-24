@@ -526,11 +526,11 @@ int FileModel::rowCount(const QModelIndex &parent) const
 void FileModel::changeData(int row, int column, FileItem *item, bool finished)
 {
     QModelIndex index = createIndex(row, column, item);
-    emit dataChanged(index, index);
+    Q_EMIT dataChanged(index, index);
 
     if (finished) {
         const QUrl file = getUrl(index);
-        emit fileFinished(file);
+        Q_EMIT fileFinished(file);
     }
 }
 
@@ -672,7 +672,7 @@ void FileModel::rename(const QModelIndex &file, const QString &newName)
 
     setData(file, newName);
 
-    emit rename(oldUrl, newUrl);
+    Q_EMIT rename(oldUrl, newUrl);
 }
 
 void FileModel::renameFailed(const QUrl &beforeRename, const QUrl &afterRename)
@@ -690,7 +690,7 @@ void FileModel::stopWatchCheckState()
 {
     if (m_checkStateChanged)
     {
-        emit checkStateChanged();
+        Q_EMIT checkStateChanged();
     }
 
     m_checkStateChanged = false;

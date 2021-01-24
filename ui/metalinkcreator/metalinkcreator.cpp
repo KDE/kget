@@ -58,7 +58,7 @@ void FileWidget::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 
     if (!urls.isEmpty()) {
-        emit urlsDropped(urls);
+        Q_EMIT urlsDropped(urls);
     }
 }
 

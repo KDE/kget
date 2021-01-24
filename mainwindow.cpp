@@ -654,7 +654,7 @@ void MainWindow::slotSetIconGroup()
             group->setIconName(iconName);
         }
     }
-    //emit dataChanged(indexList.first(),indexList.last());
+    //Q_EMIT dataChanged(indexList.first(),indexList.last());
 }
 
 void MainWindow::slotStartDownload()

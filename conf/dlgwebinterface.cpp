@@ -17,8 +17,7 @@
 #include <kwallet.h>
 
 DlgWebinterface::DlgWebinterface(QDialog *parent)
-    : QWidget(parent),
-      m_wallet(nullptr)
+    : QWidget(parent)
 {
     setupUi(this);
 
@@ -66,7 +65,7 @@ void DlgWebinterface::saveSettings()
     if (m_wallet) {
         m_wallet->writePassword("Webinterface", webinterfacePwd->text());
     }
-    emit saved();
+    Q_EMIT saved();
 }
 
 

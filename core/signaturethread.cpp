@@ -70,7 +70,7 @@ void SignatureThread::run()
         GpgME::VerificationResult result = SignaturePrivate::verify(dest, sig);
 
         if (!m_abort) {
-            emit verified(result);
+            Q_EMIT verified(result);
         }
     }
 #else //HAVE_QGPGME

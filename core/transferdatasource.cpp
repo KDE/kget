@@ -38,7 +38,7 @@ Transfer::Capabilities TransferDataSource::capabilities() const
 void TransferDataSource::setCapabilities(Transfer::Capabilities capabilities)
 {
     m_capabilities = capabilities;
-    emit capabilitiesChanged();
+    Q_EMIT capabilitiesChanged();
 }
 
 void TransferDataSource::findFileSize(KIO::fileoffset_t segmentSize)

@@ -57,7 +57,8 @@ QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest
     QStringList dBusPaths;
 
     QList<QUrl> urls;
-    foreach (const QString &s, src.split(";"))
+    const QStringList srcSplit = src.split(";");
+    for (const QString &s : srcSplit)
         urls.append(QUrl(s));
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
     QList<TransferHandler*> addedTransfers = KGet::addTransfer(urls, dest, QString(), start);
@@ -85,7 +86,7 @@ bool DBusKGetWrapper::delTransfer(const QString& dbusObjectPath)
 void DBusKGetWrapper::showNewTransferDialog(const QStringList &urls)
 {
     QList<QUrl> qurls;
-    foreach (const QString &s, urls)
+    for (const QString &s : urls)
         qurls.append(QUrl(s));
     NewTransferDialogHandler::showNewTransferDialog(qurls);
 }
@@ -135,7 +136,7 @@ void DBusKGetWrapper::slotTransfersAdded(const QList<TransferHandler*> &transfer
         m_transfers[transfer] = qMakePair(url, objectPath);
     }
 
-    emit transfersAdded(urls, objectPaths);
+    Q_EMIT transfersAdded(urls, objectPaths);
 }
 
 void DBusKGetWrapper::slotTransfersRemoved(const QList<TransferHandler*> &transfers)
@@ -148,7 +149,7 @@ void DBusKGetWrapper::slotTransfersRemoved(const QList<TransferHandler*> &transf
         objectPaths << removed.second;
     }
 
-    emit transfersRemoved(urls, objectPaths);
+    Q_EMIT transfersRemoved(urls, objectPaths);
 }
 
 int DBusKGetWrapper::transfersSpeed() const

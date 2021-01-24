@@ -164,7 +164,7 @@ void XmlStore::LoadThread::run()
         item.setDateTime(QDateTime::fromSecsSinceEpoch(dom.attribute("Time").toUInt()));
         item.setState(dom.attribute("State").toInt());
 
-        emit elementLoaded(i, total, item);
+        Q_EMIT elementLoaded(i, total, item);
     }
     doc.clear();
     file.close();
@@ -249,7 +249,7 @@ void XmlStore::slotDeleteElement()
     m_items.clear();
     m_items << m_deleteThread->items();
 
-    emit loadFinished();
+    Q_EMIT loadFinished();
 }
 
 

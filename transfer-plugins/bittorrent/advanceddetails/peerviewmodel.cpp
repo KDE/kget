@@ -268,7 +268,7 @@ namespace kt
 				resort = true;
 			
 			if (modified && !resort)
-				emit dataChanged(index(idx,3),index(idx,15));
+				Q_EMIT dataChanged(index(idx,3),index(idx,15));
 			idx++;
 		}
 	
@@ -411,8 +411,8 @@ namespace kt
 	{
 		sort_column = col;
 		sort_order = order;
-		emit layoutAboutToBeChanged();
+		Q_EMIT layoutAboutToBeChanged();
 		std::stable_sort(items.begin(),items.end(),PeerViewModelItemCmp(col, order));
-		emit layoutChanged();
+		Q_EMIT layoutChanged();
 	}
 }

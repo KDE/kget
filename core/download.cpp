@@ -53,7 +53,7 @@ void Download::slotResult(KJob * job)
                 //TODO: Do a Message box here
             torrentFile.write(m_data);
             torrentFile.close();
-            emit finishedSuccessfully(m_destUrl, m_data);
+            Q_EMIT finishedSuccessfully(m_destUrl, m_data);
             m_data = nullptr;
             break;
         }
@@ -61,14 +61,14 @@ void Download::slotResult(KJob * job)
         {
             qCDebug(KGET_DEBUG) << "ERROR - File already exists";
             QFile file(m_destUrl.toLocalFile());
-            emit finishedSuccessfully(m_destUrl, file.readAll());
+            Q_EMIT finishedSuccessfully(m_destUrl, file.readAll());
             m_data = nullptr;
             break;
         }
         default:
             qCDebug(KGET_DEBUG) << "We are sorry to say you, that there were errors while downloading :(";
             m_data = nullptr;
-            emit finishedWithError();
+            Q_EMIT finishedWithError();
             break;
     }
 }

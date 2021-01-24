@@ -60,7 +60,7 @@ class DBusVerifierWrapper : public QObject
 
         /**
          * Call this method after calling verify() with a negative result, it will
-         * emit a list of the broken pieces, if PartialChecksums were defined,
+         * Q_EMIT a list of the broken pieces, if PartialChecksums were defined,
          * otherwise and in case of any error an empty list will be emitted
          */
         void brokenPieces() const;

@@ -69,7 +69,7 @@ namespace kt
 		foreach (Item* t,trackers)
 		{
 			if (t->update())
-				emit dataChanged(index(idx,1),index(idx,5));
+				Q_EMIT dataChanged(index(idx,1),index(idx,5));
 			idx++;
 		}
 		

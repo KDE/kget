@@ -42,7 +42,7 @@ void MirrorSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t, 
 
 void MirrorSearchTransferDataSource::slotSearchUrls(QList<QUrl>& Urls)
 {
-    emit data(Urls);
+    Q_EMIT data(Urls);
 }
 
 

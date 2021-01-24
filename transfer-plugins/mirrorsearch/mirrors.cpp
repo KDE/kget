@@ -84,7 +84,7 @@ void mirror::slotResult( KJob *job )
     }
 
     if (m_Urls.size() > minUrlsNeeded)
-        emit urls(m_Urls);
+        Q_EMIT urls(m_Urls);
     deleteLater();
 }
 

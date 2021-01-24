@@ -215,7 +215,7 @@ void TransferTreeModel::addGroup(TransferGroup * group)
 
     m_transferGroups.append(static_cast<GroupModelItem*>(items.first()));
 
-    emit groupAddedEvent(group->handler());
+    Q_EMIT groupAddedEvent(group->handler());
 
     KGet::m_scheduler->addQueue(group);
 }
@@ -242,7 +242,7 @@ void TransferTreeModel::delGroup(TransferGroup * group)
 
     m_changedGroups.removeAll(group->handler());
 
-    emit groupRemovedEvent(group->handler());
+    Q_EMIT groupRemovedEvent(group->handler());
 
     KGet::m_scheduler->delQueue(group);
 }
@@ -281,7 +281,7 @@ void TransferTreeModel::addTransfers(const QList<Transfer*> &transfers, Transfer
     //notify the rest of the changes
     blockSignals(false);
     endInsertRows();
-    emit transfersAddedEvent(handlers);
+    Q_EMIT transfersAddedEvent(handlers);
 }
 
 void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
@@ -308,7 +308,7 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
         }
     }
 
-    emit transfersAboutToBeRemovedEvent(handlers);
+    Q_EMIT transfersAboutToBeRemovedEvent(handlers);
 
     //remove the items from the model
     {
@@ -359,7 +359,7 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
         }
     }
 
-    emit transfersRemovedEvent(handlers);
+    Q_EMIT transfersRemovedEvent(handlers);
 }
 
 TransferModelItem * TransferTreeModel::itemFromTransferHandler(TransferHandler * handler)
@@ -433,7 +433,7 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
     itemFromHandler(destGroup->handler())->insertRow(destGroup->indexOf(transfer), items);
     
     if (!sameGroup)
-        emit transferMovedEvent(transfer->handler(), destGroup->handler());
+        Q_EMIT transferMovedEvent(transfer->handler(), destGroup->handler());
 
     KGet::selectionModel()->clearSelection();
 }
@@ -715,7 +715,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
             ModelItem * item = itemFromHandler(group);
             Transfer::ChangesFlags changesFlags = transfer->changesFlags();
 
-            emit transfer->transferChangedEvent(transfer, changesFlags);
+            Q_EMIT transfer->transferChangedEvent(transfer, changesFlags);
             
             int row = group->indexOf(transfer);
 
@@ -744,7 +744,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     }
 
     if(!updatedTransfers.isEmpty())
-        emit transfersChangedEvent(updatedTransfers);
+        Q_EMIT transfersChangedEvent(updatedTransfers);
 
     foreach(TransferGroupHandler * group, m_changedGroups)
     {
@@ -752,7 +752,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         {
             TransferGroup::ChangesFlags changesFlags = group->changesFlags();
 
-            emit group->groupChangedEvent(group, changesFlags);
+            Q_EMIT group->groupChangedEvent(group, changesFlags);
             
             int row = itemFromHandler(group)->row();
             
@@ -774,7 +774,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
                     QStandardItem *groupItem = itemFromHandler(group);
                     dynamic_cast<ModelItem*>(invisibleRootItem()->child(groupItem->row(), i))->emitDataChanged();
                     //QModelIndex index = createIndex(m_transferGroups.indexOf(group->m_group), i, group);
-                    //emit dataChanged(index,index);
+                    //Q_EMIT dataChanged(index,index);
                 }
             }*/
 
@@ -784,7 +784,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     }
 
     if(!updatedGroups.isEmpty())
-        emit groupsChangedEvent(updatedGroups);
+        Q_EMIT groupsChangedEvent(updatedGroups);
 
     m_changedTransfers.clear();
     m_changedGroups.clear();

@@ -189,7 +189,7 @@ void MmsTransfer::slotConnectionsErrors(int connections)
 {
     /** Here is called stop() for stop the download, set a new amount of thread
      * and set m_retryDownload = true for restart the download when mmsdownload is finish and 
-     * emit a signal connected with MmsTransfer::slotResult(), see in MmsTransfer::slotResult()
+     * Q_EMIT a signal connected with MmsTransfer::slotResult(), see in MmsTransfer::slotResult()
      * for understand when its started again the download.
      */
     stop();

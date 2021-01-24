@@ -139,7 +139,7 @@ void DataSourceFactory::slotFoundFileSize(TransferDataSource *source, KIO::files
 {
     m_size = fileSize;
     qCDebug(KGET_DEBUG) << source << "found size" << m_size << "and is assigned segments" << segmentRange << this;
-    emit dataSourceFactoryChange(Transfer::Tc_TotalSize);
+    Q_EMIT dataSourceFactoryChange(Transfer::Tc_TotalSize);
 
     init();
 
@@ -497,7 +497,7 @@ void DataSourceFactory::slotUrlChanged(const QUrl &old, const QUrl &newUrl)
 {
     TransferDataSource * ds = m_sources.take(old);
     m_sources[newUrl] = ds;
-    emit dataSourceFactoryChange(Transfer::Tc_Source | Transfer::Tc_FileName);
+    Q_EMIT dataSourceFactoryChange(Transfer::Tc_Source | Transfer::Tc_FileName);
 }
 
 void DataSourceFactory::removeMirror(const QUrl &url)
@@ -765,7 +765,7 @@ void DataSourceFactory::slotDataWritten(KIO::Job *job, KIO::filesize_t written)
     if (written == tempSize)//TODO if not same cache it temporarily!
     {
         m_downloadedSize += written;
-        emit dataSourceFactoryChange(Transfer::Tc_DownloadedSize);
+        Q_EMIT dataSourceFactoryChange(Transfer::Tc_DownloadedSize);
 //             m_tempCache.clear();
     }
 
@@ -783,7 +783,7 @@ void DataSourceFactory::slotPercent(KJob* job, ulong p)
 {
     Q_UNUSED(job)
     m_percent = p;
-    emit dataSourceFactoryChange(Transfer::Tc_Percent);
+    Q_EMIT dataSourceFactoryChange(Transfer::Tc_Percent);
 }
 
 void DataSourceFactory::speedChanged()
@@ -799,7 +799,7 @@ void DataSourceFactory::speedChanged()
     m_percent = percent;
 
     Transfer::ChangesFlags change = (percentChanged ? (Transfer::Tc_DownloadSpeed | Transfer::Tc_Percent) : Transfer::Tc_DownloadSpeed);
-    emit dataSourceFactoryChange(change);
+    Q_EMIT dataSourceFactoryChange(change);
 }
 
 void DataSourceFactory::killPutJob()
@@ -943,7 +943,7 @@ void DataSourceFactory::slotRepair(const QList<KIO::fileoffset_t> &offsets, KIO:
         change |= Transfer::Tc_Percent;
         m_percent = (m_downloadedSize * 100 / m_size);
     }
-    emit dataSourceFactoryChange(change);
+    Q_EMIT dataSourceFactoryChange(change);
     m_status = Job::Stopped;
 
     start();
@@ -1063,7 +1063,7 @@ void DataSourceFactory::load(const QDomElement *element)
     //m_status = static_cast<Job::Status>(e.attribute("status").toInt());
 
     if (change != Transfer::Tc_None) {
-        emit dataSourceFactoryChange(change);
+        Q_EMIT dataSourceFactoryChange(change);
     }
 }
 
@@ -1111,7 +1111,7 @@ void DataSourceFactory::changeStatus(Job::Status status)
             break;
     }
 
-    emit dataSourceFactoryChange(change);
+    Q_EMIT dataSourceFactoryChange(change);
 }
 
 void DataSourceFactory::save(const QDomElement &element)
@@ -1264,7 +1264,7 @@ void DataSourceFactory::slotUpdateCapabilities()
 
     if (oldCaps != newCaps) {
         m_capabilities = newCaps;
-        emit capabilitiesChanged();
+        Q_EMIT capabilitiesChanged();
     }
 }
 

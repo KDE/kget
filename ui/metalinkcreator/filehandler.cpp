@@ -115,7 +115,7 @@ void FileHandlerThread::run()
                 }
             }
             if (!abort) {
-                emit fileResult(file);
+                Q_EMIT fileResult(file);
             }
         }
         mutex.lock();
@@ -209,7 +209,7 @@ void DirectoryHandler::evaluateFileProcess()
 {
     //all jobs finished
     if (m_jobs.isEmpty() && m_allJobsStarted && !m_files.isEmpty()) {
-        emit finished();
+        Q_EMIT finished();
     }
 }
 

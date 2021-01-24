@@ -150,5 +150,5 @@ void TransfersGroupTree::changeIcon(const QString &icon)
             group->setIconName(icon);
         }
     }
-    emit dataChanged(indexList.first(),indexList.last());
+    Q_EMIT dataChanged(indexList.first(),indexList.last());
 }

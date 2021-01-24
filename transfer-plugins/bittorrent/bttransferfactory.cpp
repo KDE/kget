@@ -10,7 +10,7 @@
 
 #include "bttransferfactory.h"
 
-// header inclusion order is crucial because of signal emit clashes
+// header inclusion order is crucial because of signal Q_EMIT clashes
 #include "bttransfer.h"
 #include "btdatasource.h"
 #include "bttransferhandler.h"

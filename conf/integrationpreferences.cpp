@@ -100,7 +100,7 @@ void IntegrationPreferences::slotAddItem()
 
     ui.pattern->clear();
     ui.pattern->setFocus();
-    emit changed();
+    Q_EMIT changed();
 }
 
 void IntegrationPreferences::slotRemoveItem()
@@ -111,7 +111,7 @@ void IntegrationPreferences::slotRemoveItem()
             const QModelIndex index = selection->selectedRows().first();
             m_model->removeRow(index.row());
         }
-        emit changed();
+        Q_EMIT changed();
     }
 }
 
@@ -120,7 +120,7 @@ void IntegrationPreferences::slotIncreasePriority()
     const int row = ui.list->currentIndex().row();
     m_model->moveItem(row, row - 1);
     slotUpdateButtons();
-    emit changed();
+    Q_EMIT changed();
 }
 
 void IntegrationPreferences::slotDecreasePriority()
@@ -128,6 +128,6 @@ void IntegrationPreferences::slotDecreasePriority()
     const int row = ui.list->currentIndex().row();
     m_model->moveItem(row, row + 2);
     slotUpdateButtons();
-    emit changed();
+    Q_EMIT changed();
 }
 

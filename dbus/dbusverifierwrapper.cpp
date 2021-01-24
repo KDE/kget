@@ -73,14 +73,14 @@ void DBusVerifierWrapper::slotBrokenPieces(const QList<KIO::fileoffset_t> &offse
 // 
 //     QDBusVariant dbusBroken;
 //     dbusBroken.setVariant(QVariant(broken));
-//     emit this->brokenPieces(dbusBroken);
+//     Q_EMIT this->brokenPieces(dbusBroken);
 
     QStringList broken;
     for (int i = 0; i < offsets.count(); ++i) {
         broken << QString::number(offsets[i]);
     }
 
-    emit brokenPieces(broken, length);
+    Q_EMIT brokenPieces(broken, length);
 }
 
 
