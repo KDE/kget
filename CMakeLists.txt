@@ -198,7 +198,8 @@ set(kgetcore_SRCS
 ecm_qt_declare_logging_category(kgetcore_SRCS
                                 HEADER kget_debug.h
                                 IDENTIFIER KGET_DEBUG
-                                CATEGORY_NAME kget)
+                                CATEGORY_NAME kget
+                                DESCRIPTION "KGet" EXPORT KGET)
 
 kconfig_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
 
@@ -330,8 +331,11 @@ endif()
 
 install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-install(FILES kget.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
-
+ecm_qt_install_logging_categories(
+        EXPORT KGET
+        FILE kget.categories
+        DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+        )
 install(FILES org.kde.kget.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR})
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
