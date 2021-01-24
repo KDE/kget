@@ -58,10 +58,10 @@ class UrlWidget : public QObject
         void slotRemoveMirror();
 
     private:
-        KGetMetalink::Resources *m_resources;
-        MirrorModel *m_mirrorModel;
-        MirrorProxyModel *m_proxy;
-        QSortFilterProxyModel *m_countrySort;
+        KGetMetalink::Resources *m_resources = nullptr;
+        MirrorModel *m_mirrorModel = nullptr;
+        MirrorProxyModel *m_proxy = nullptr;
+        QSortFilterProxyModel *m_countrySort = nullptr;
         QPointer<QWidget> m_widget;
         Ui::UrlWidget ui;
 };

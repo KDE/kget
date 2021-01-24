@@ -69,14 +69,14 @@ private slots:
     void slotClose();
 
 private:
-    QMenu * popupMenu;
-    MainWindow * parentWidget;
-    QTimer * animTimer;
-    QTimer * popupTimer;
+    QMenu * popupMenu = nullptr;
+    MainWindow * parentWidget = nullptr;
+    QTimer * animTimer = nullptr;
+    QTimer * popupTimer = nullptr;
     QPixmap cachedPixmap;
 
-    QAction * pop_sticky;
-    QAction * pop_show;
+    QAction * pop_sticky = nullptr;
+    QAction * pop_show = nullptr;
 
     QPoint position;
 

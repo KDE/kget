@@ -132,24 +132,24 @@ private:
     // one-time functions
     void setupActions();
     
-    KGet * m_kget;
+    KGet * m_kget = nullptr;
 
     // internal widgets
-    ViewsContainer * m_viewsContainer;
+    ViewsContainer * m_viewsContainer = nullptr;
 
     // separated widgets
-    DropTarget    * m_drop;
-    Tray          * m_dock;
+    DropTarget    * m_drop = nullptr;
+    Tray          * m_dock = nullptr;
 
     // actions
-    KToggleAction * m_autoPasteAction;
-    KToggleAction * m_menubarAction;
-    KToggleAction * m_konquerorIntegration;
+    KToggleAction * m_autoPasteAction = nullptr;
+    KToggleAction * m_menubarAction = nullptr;
+    KToggleAction * m_konquerorIntegration = nullptr;
 
     // for autopaste function
     QString lastClipboard;
     // timer for checking clipboard - autopaste function
-    QTimer *clipboardTimer;
+    QTimer *clipboardTimer = nullptr;
 
     bool m_startWithoutAnimation;
     bool m_doTesting;               // UnitTest flag

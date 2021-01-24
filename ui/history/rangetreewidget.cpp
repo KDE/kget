@@ -32,7 +32,7 @@ class RangeTreeWidget::Range
 public:
     Range()
     {
-    };
+    }
 
     bool check(const QVariant &data) const
     {

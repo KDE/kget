@@ -31,7 +31,7 @@ class ViewsContainer : public QWidget
         void selectAll();
 
     private:
-        TransfersView   * m_transfersView;
+        TransfersView   * m_transfersView = nullptr;
 };
 
 #endif

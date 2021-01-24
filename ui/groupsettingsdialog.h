@@ -29,7 +29,7 @@ class GroupSettingsDialog : public KGetSaveSizeDialog
         void save();
 
     private:
-        TransferGroupHandler* m_group;
+        TransferGroupHandler* m_group = nullptr;
         Ui::GroupSettingsDialog ui;
 
 };

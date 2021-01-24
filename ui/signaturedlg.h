@@ -49,8 +49,8 @@ class SignatureDlg : public KGetSaveSizeDialog
 
     private:
         Ui::SignatureDlg ui;
-        Signature *m_signature;
-        FileModel *m_fileModel;
+        Signature *m_signature = nullptr;
+        FileModel *m_fileModel = nullptr;
         QModelIndex m_file;
         static const QStringList OWNERTRUST;
 };

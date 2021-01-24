@@ -68,7 +68,7 @@ class DateConstruct
 class UrlText
 {
     public:
-        UrlText() {};
+        UrlText() {}
 
         bool isEmpty() const {return name.isEmpty() && url.isEmpty();}
 

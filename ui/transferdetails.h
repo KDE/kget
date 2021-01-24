@@ -33,9 +33,9 @@ class TransferDetails : public QWidget
         void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
         
     private:
-        TransferHandler * m_transfer;
-        QVBoxLayout     * m_layout;
-        QWidget         * m_genericWidget;
+        TransferHandler * m_transfer = nullptr;
+        QVBoxLayout     * m_layout = nullptr;
+        QWidget         * m_genericWidget = nullptr;
 
         Ui::TransferDetailsFrm frm;
 };

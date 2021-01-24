@@ -39,9 +39,9 @@ class TransferSettingsDialog : public KGetSaveSizeDialog
         void save();
 
     private:
-        TransferHandler *m_transfer;
-        FileModel *m_model;
-        QSortFilterProxyModel *m_proxy;
+        TransferHandler *m_transfer = nullptr;
+        FileModel *m_model = nullptr;
+        QSortFilterProxyModel *m_proxy = nullptr;
         Ui::TransferSettingsDialog ui;
 };
 

@@ -43,7 +43,7 @@ class MirrorDelegate : public QStyledItemDelegate
         QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     private:
-        QSortFilterProxyModel *m_countrySort;
+        QSortFilterProxyModel *m_countrySort = nullptr;
 };
 
 class MirrorProxyModel : public QSortFilterProxyModel

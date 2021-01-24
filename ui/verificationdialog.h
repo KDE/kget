@@ -47,7 +47,7 @@ class VerificationAddDlg : public QDialog
 
     private:
         Ui::VerificationAddDlg ui;
-        VerificationModel *m_model;
+        VerificationModel *m_model = nullptr;
         QHash<QString, int> m_diggestLength;
 };
 
@@ -70,11 +70,11 @@ class VerificationDialog : public KGetSaveSizeDialog
         void slotFinished();
 
     private:
-        TransferHandler *m_transfer;
-        Verifier *m_verifier;
-        VerificationModel *m_model;
-        QSortFilterProxyModel *m_proxy;
-        FileModel *m_fileModel;
+        TransferHandler *m_transfer = nullptr;
+        Verifier *m_verifier = nullptr;
+        VerificationModel *m_model = nullptr;
+        QSortFilterProxyModel *m_proxy = nullptr;
+        FileModel *m_fileModel = nullptr;
         QModelIndex m_file;
         Ui::VerificationDialog ui;
 };

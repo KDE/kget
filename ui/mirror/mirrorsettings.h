@@ -57,8 +57,8 @@ class MirrorAddDlg : public QDialog
 
     private:
         Ui::MirrorAddDlg ui;
-        MirrorModel *m_model;
-        QSortFilterProxyModel *m_countryModel;
+        MirrorModel *m_model = nullptr;
+        QSortFilterProxyModel *m_countryModel = nullptr;
 };
 
 class MirrorSettings : public KGetSaveSizeDialog
@@ -77,10 +77,10 @@ class MirrorSettings : public KGetSaveSizeDialog
         void save();
 
     private:
-        TransferHandler *m_transfer;
+        TransferHandler *m_transfer = nullptr;
         QUrl m_file;
-        MirrorModel *m_model;
-        MirrorProxyModel *m_proxy;
+        MirrorModel *m_model = nullptr;
+        MirrorProxyModel *m_proxy = nullptr;
         Ui::MirrorSettings ui;
 };
 

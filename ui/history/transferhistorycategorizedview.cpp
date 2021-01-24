@@ -26,7 +26,7 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     : QWidget(parent)
 {
     // the widget layout
-    QGridLayout *layout = new QGridLayout();
+    QGridLayout *layout = new QGridLayout(this);
 
     // initialize the model
     m_model = new QStandardItemModel();
@@ -54,7 +54,6 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
 
     connect(item_delegate, &TransferHistoryItemDelegate::deletedTransfer, this, &TransferHistoryCategorizedView::deletedTransfer);
     connect(m_view, &KCategorizedView::doubleClicked, this, &TransferHistoryCategorizedView::doubleClicked);
-    setLayout(layout);
 }
 
 TransferHistoryCategorizedView::~TransferHistoryCategorizedView()

@@ -53,7 +53,7 @@ class TransfersView : public QTreeView
         QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
 
         QList<QModelIndex> m_editingIndexes;
-        QMenu *m_headerMenu;
+        QMenu *m_headerMenu = nullptr;
 };
 
 #endif
