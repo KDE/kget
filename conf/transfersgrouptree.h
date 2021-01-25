@@ -39,7 +39,7 @@ class TransfersGroupTree : public QTreeView
         TransfersGroupTree(QWidget *parent = nullptr);
         void setModel(QAbstractItemModel *model) override;
 
-    public slots:
+    public Q_SLOTS:
         void editCurrent();
         void addGroup();
         void deleteSelectedGroup();

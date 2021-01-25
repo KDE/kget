@@ -27,7 +27,7 @@ public:
 
     QString engineName() const;
     QString engineUrl() const;
-private slots:
+private Q_SLOTS:
     void slotChangeText();
 
 private:
@@ -43,11 +43,11 @@ public:
     explicit DlgSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
     ~DlgSettingsWidget() override;
 
-public slots:
+public Q_SLOTS:
     void save() override;
     void load() override;
 
-private slots:
+private Q_SLOTS:
     void slotNewEngine();
     void slotRemoveEngine();
 

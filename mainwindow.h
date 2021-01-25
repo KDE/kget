@@ -51,7 +51,7 @@ public:
     //no slot, to make sure that MainWindow is correctly initialized before any transfers get added
     void init();
 
-public slots:
+public Q_SLOTS:
     void slotQuit();
     void slotImportUrl(const QString &url);
     void slotUpdateTitlePercent();
@@ -69,7 +69,7 @@ protected:
     // set sensitive initial size
     QSize sizeHint() const override;
 
-private slots:
+private Q_SLOTS:
     // slots connected to actions
     void slotToggleDropTarget();
     void slotNewTransfer();

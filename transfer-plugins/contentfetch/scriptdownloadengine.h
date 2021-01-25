@@ -24,14 +24,14 @@ class ScriptDownloadEngine: public QObject
         ScriptDownloadEngine(QObject *parent, const KUrl &source);
         ~ScriptDownloadEngine(){}
         void setSourceUrl(const QString &url);
-    signals:
+    Q_SIGNALS:
         void newTransfer(const QString &url, const QString &filename);
         void startDownload(QObject* configadaptor);
         void percentUpdated(int percent);
         void textStatusUpdated(const QString &text);
         void finished();
         void aborted(const QString& error);
-    public slots:
+    public Q_SLOTS:
         QString getSourceUrl() const;
         bool addTransfer(const QString &url,
                          const QString &filename = QString());

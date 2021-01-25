@@ -34,10 +34,10 @@ public:
     void setPageUrl( const QString& url );
     void importUrl(const QString &url = QString());
 
-signals:
+Q_SIGNALS:
     void leechUrls( const QList<QUrl>& urls );
 
-private slots:
+private Q_SLOTS:
     void slotMimeTypeChanged(int index);
     void slotFilterModeChanged(int index);
     void slotFilterColumn(QAction*);

@@ -34,13 +34,13 @@ class TransfersView : public QTreeView
         void dragMoveEvent ( QDragMoveEvent * event ) override;
         void rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end) override;
 
-    public slots:
+    public Q_SLOTS:
         void closeExpandableDetails(const QModelIndex &index = QModelIndex());
         void closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd);
         void slotItemActivated(const QModelIndex & index);
         void slotItemCollapsed(const QModelIndex & index);
 
-    private slots:
+    private Q_SLOTS:
         void toggleMainGroup();// show or hide the first group header if there's only one download group
         void slotShowHeaderMenu(const QPoint &point);
         void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected) override;

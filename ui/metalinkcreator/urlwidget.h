@@ -49,10 +49,10 @@ class UrlWidget : public QObject
 
         bool hasUrls() const;
 
-    signals:
+    Q_SIGNALS:
         void urlsChanged();
 
-    private slots:
+    private Q_SLOTS:
         void slotUrlClicked();
         void slotAddMirror();
         void slotRemoveMirror();

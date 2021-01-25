@@ -46,7 +46,7 @@ class ExistingTransferDialog : public QDialog
             NoAll
         };
         
-    private slots:
+    private Q_SLOTS:
         void slotYesClicked();
         void slotNoClicked();
         void slotCancelClicked();

@@ -27,7 +27,7 @@ class SignalReceiver : public QObject
 {
     Q_OBJECT
 
-    signals:
+    Q_SIGNALS:
         void result();
 };
 
@@ -35,7 +35,7 @@ class FileDeleterTest : public QObject
 {
     Q_OBJECT
 
-    private slots:
+    private Q_SLOTS:
         void fileDeleterTest();
 };
 

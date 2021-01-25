@@ -24,7 +24,7 @@ public:
     XmlStore(const QString &url);
     ~XmlStore() override;
 
-public slots:
+public Q_SLOTS:
     void load() override;
     void clear() override;
     void saveItem(const TransferHistoryItem &item) override;
@@ -32,7 +32,7 @@ public slots:
 
     void slotLoadElement(int number, int total, const TransferHistoryItem &item);
 
-private slots:
+private Q_SLOTS:
     void slotDeleteElement();
 
 private:
@@ -57,7 +57,7 @@ public:
 
     void run() override;
 
-signals:
+Q_SIGNALS:
     void elementLoaded(int number, int total, const TransferHistoryItem &item);
 
 private:
@@ -73,7 +73,7 @@ public:
 
     void run() override;
 
-signals:
+Q_SIGNALS:
     void elementLoaded(int number, int total, const TransferHistoryItem &item);
 
 private:

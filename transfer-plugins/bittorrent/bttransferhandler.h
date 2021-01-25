@@ -47,11 +47,11 @@ class BTTransferHandler : public TransferHandler
         void addTracker(QString url)                    {m_transfer->addTracker(url);}
         kt::Monitor* torrentMonitor() const;
 
-    public slots:
+    public Q_SLOTS:
         void createAdvancedDetails();
         void createScanDlg();
 
-    private slots:
+    private Q_SLOTS:
         void removeAdvancedDetails();
 
     private:

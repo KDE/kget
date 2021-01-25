@@ -36,7 +36,7 @@ class VerfierTest : public QObject
     public:
         explicit VerfierTest(QObject *parent = nullptr);
 
-    private slots:
+    private Q_SLOTS:
         void testChecksum();
         void testChecksum_data();
         void testPartialChecksums();

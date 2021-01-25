@@ -39,7 +39,7 @@ class BTDataSource : public TransferDataSource
         void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) override;
         void getData(const KIO::fileoffset_t &off, const QByteArray &dataArray);
 
-    private slots:
+    private Q_SLOTS:
         void init(const QUrl &torrentSource, const QByteArray &data);
         void cacheAdded(BTCache *cache);
         void selectorAdded(BTChunkSelector *selector);

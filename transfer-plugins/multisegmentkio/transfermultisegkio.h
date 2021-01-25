@@ -63,7 +63,7 @@ class TransferMultiSegKio : public Transfer
 
         FileModel *fileModel() override;
 
-    public slots:
+    public Q_SLOTS:
         bool setNewDestination(const QUrl &newDestination);
         // --- Job virtual functions ---
         void start() override;
@@ -76,7 +76,7 @@ class TransferMultiSegKio : public Transfer
     private:
         void createJob();
 
-    private slots:
+    private Q_SLOTS:
         void slotDataSourceFactoryChange(Transfer::ChangesFlags change);
         void slotUpdateCapabilities();
         void slotSearchUrls(const QList<QUrl> &urls);

@@ -57,7 +57,7 @@ protected:
     // paint the drop target
     void paintEvent(QPaintEvent*) override;
     
-private slots:
+private Q_SLOTS:
     void toggleSticky();
     void toggleMinimizeRestore();
     void slotStartStopToggled( bool );

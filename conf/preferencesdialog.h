@@ -23,10 +23,10 @@ class PreferencesDialog : public KConfigDialog
     public:
         PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
 
-    signals:
+    Q_SIGNALS:
         void resetDefaults();
 
-    private slots:
+    private Q_SLOTS:
         void slotToggleAfterFinishAction(int state);
         void disableApplyButton();
         void enableApplyButton();

@@ -228,14 +228,14 @@ class KGET_EXPORT TransferGroupHandler : public Handler
          */
         void calculateUploadLimit() {m_group->calculateUploadLimit();}
         
-    public slots:
+    public Q_SLOTS:
         /**
          * These are all JobQueue-related functions
          */
         void start() override;
         void stop() override;
         
-    signals:
+    Q_SIGNALS:
         void groupChangedEvent(TransferGroupHandler * transfer, TransferGroupHandler::ChangesFlags flags);
 
     private:

@@ -82,7 +82,7 @@ public:
         return 0;
     }
 
-public slots:
+public Q_SLOTS:
     void slotActivateRequested (QStringList args, const QString & /*workingDir*/)
     {
         parser->parse(args);

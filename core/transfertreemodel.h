@@ -166,7 +166,7 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
         static int column(Transfer::TransferChange flag);
         static int column(TransferGroup::GroupChange flag);
 
-    signals:
+    Q_SIGNALS:
         void groupAddedEvent(TransferGroupHandler *);
         void groupRemovedEvent(TransferGroupHandler *);
         void groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>);

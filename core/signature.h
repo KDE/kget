@@ -90,10 +90,10 @@ class KGET_EXPORT Signature : public QObject
         void save(const QDomElement &element);
         void load(const QDomElement &e);
 
-    signals:
+    Q_SIGNALS:
         void verified(int verificationStatus);
 
-    private slots:
+    private Q_SLOTS:
 #ifdef HAVE_QGPGME
         void slotVerified(const GpgME::VerificationResult &result);
 #endif //HAVE_QGPGME

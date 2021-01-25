@@ -22,7 +22,7 @@ public:
     explicit DlgSettingsWidget(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
     ~DlgSettingsWidget() override;
 
-public slots:
+public Q_SLOTS:
     void save() override;
     void load() override;
 

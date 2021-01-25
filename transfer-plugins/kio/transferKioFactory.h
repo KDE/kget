@@ -24,7 +24,7 @@ class TransferKioFactory : public TransferFactory
         TransferKioFactory(QObject *parent, const QVariantList &args);
         ~TransferKioFactory() override;
 
-    public slots:
+    public Q_SLOTS:
         Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
                                    TransferGroup * parent, Scheduler * scheduler,
                                    const QDomElement * e = nullptr ) override;

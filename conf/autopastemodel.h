@@ -87,7 +87,7 @@ class AutoPasteModel : public QAbstractTableModel
          */
         bool moveItem(int sourceRow, int destinationRow);
 
-    public slots:
+    public Q_SLOTS:
         /**
          * Loads the stored data
          * @see save()

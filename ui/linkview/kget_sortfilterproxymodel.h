@@ -48,7 +48,7 @@ class KGetSortFilterProxyModel : public QSortFilterProxyModel
         void setFilterColumn(int column);
         bool showWebContent() const;
 
-    public slots:
+    public Q_SLOTS:
         void setShowWebContent(bool show);
         void setShowWebContent(int show);
 

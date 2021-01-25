@@ -41,7 +41,7 @@ class ChecksumSearchAddDlg : public QDialog
     public:
         ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent = nullptr, Qt::WindowFlags flags = {});
 
-    signals:
+    Q_SIGNALS:
         /**
         * Emitted when the dialog gets accepted
         * @param change the string that should change the source url by mode
@@ -50,7 +50,7 @@ class ChecksumSearchAddDlg : public QDialog
         */
         void addItem(const QString &change, int mode, const QString &type);
 
-    private slots:
+    private Q_SLOTS:
         /**
         * Enables or disables buttons depending on if the user entered text or not, also changes
         * the label etc.
@@ -94,11 +94,11 @@ class DlgChecksumSettingsWidget : public KCModule
         explicit DlgChecksumSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
         ~DlgChecksumSettingsWidget() override;
 
-    public slots:
+    public Q_SLOTS:
         void save() override;
         void load() override;
 
-    private slots:
+    private Q_SLOTS:
         /**
          * Oppens the AddDlg
          */

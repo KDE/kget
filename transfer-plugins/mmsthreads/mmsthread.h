@@ -42,7 +42,7 @@ class MmsThread : public QThread
         QMutex m_locker;
         bool m_download;
 
-    signals:
+    Q_SIGNALS:
         void signReading(int data, int m_end, int m_begin);
         void signIsConnected(bool connected);
 };

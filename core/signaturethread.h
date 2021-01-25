@@ -44,7 +44,7 @@ class SignatureThread : public QThread
         void verify(const QUrl &dest, const QByteArray &sig);
 
 #ifdef HAVE_QGPGME
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted when the verification of a file finishes, connect to this signal
          * if you do the verification for one file only and do not want to bother with

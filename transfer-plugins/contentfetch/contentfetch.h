@@ -26,7 +26,7 @@ class ContentFetch : public Transfer
                      const KUrl & dest, const QString &scriptFile,
                      const QDomElement * e = nullptr);
 
-    public slots:
+    public Q_SLOTS:
         void deinit();        
         
         // --- Job virtual functions ---
@@ -42,7 +42,7 @@ class ContentFetch : public Transfer
         TransferGroup *m_p_group;
         QString m_scriptFile;
         QString m_destDir;
-    private slots:
+    private Q_SLOTS:
         void slotFinish();
         void slotAbort(const QString&);
         void slotAddTransfer(const QString &url, const QString &filename);

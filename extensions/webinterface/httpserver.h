@@ -29,7 +29,7 @@ public:
     
     void settingsChanged();
 
-private slots:
+private Q_SLOTS:
     void init(bool);
     void handleRequest();
 

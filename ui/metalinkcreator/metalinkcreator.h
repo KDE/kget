@@ -46,7 +46,7 @@ class FileWidget : public QWidget
     public:
         FileWidget(QWidget *parent = nullptr);
 
-    signals:
+    Q_SIGNALS:
         void urlsDropped(const QList<QUrl> &files);
 
     protected:
@@ -62,7 +62,7 @@ class MetalinkCreator : public KAssistantDialog
         MetalinkCreator(QWidget *parent = nullptr);
         ~MetalinkCreator() override;
 
-    public slots:
+    public Q_SLOTS:
         /**
          * Adds m_tempFile to metalink and clears it for future reuse, also adds the
          * filename to the filemodel
@@ -83,7 +83,7 @@ class MetalinkCreator : public KAssistantDialog
          */
         void slotHandleDropped(const QStringList &types, bool createPartial);
 
-    private slots:
+    private Q_SLOTS:
         /**
          * Creates the parts that take longer
          */

@@ -53,11 +53,11 @@ public:
         return m_transfers;
     };
 
-signals:
+Q_SIGNALS:
     void error(const KLocalizedString &);
     void progress(int progress);
 
-private slots:
+private Q_SLOTS:
     void slotReadFile(const QUrl &url);
 
 private:

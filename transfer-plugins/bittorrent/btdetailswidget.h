@@ -28,7 +28,7 @@ class BTDetailsWidget : public QWidget, public Ui::BTDetailsWidgetFrm
         BTDetailsWidget(BTTransferHandler * transfer);
         ~BTDetailsWidget() override;
 
-    public slots:
+    public Q_SLOTS:
         void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
         
     protected:

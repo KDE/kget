@@ -33,7 +33,7 @@ public:
     void setDownloading(bool downloading);
     bool isDownloading();
 
-private slots:
+private Q_SLOTS:
     void slotActivated();
 };
 

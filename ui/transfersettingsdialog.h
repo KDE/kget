@@ -28,7 +28,7 @@ class TransferSettingsDialog : public KGetSaveSizeDialog
         
         QSize sizeHint() const override;
 
-    private slots:
+    private Q_SLOTS:
         void updateCapabilities();
         void slotMirrors();
         void slotRename();

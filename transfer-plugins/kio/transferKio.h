@@ -45,7 +45,7 @@ class TransferKio : public Transfer
         Verifier *verifier(const QUrl &file = QUrl()) override;
         Signature *signature(const QUrl &file = QUrl()) override;
 
-    public slots:
+    public Q_SLOTS:
         bool setNewDestination(const QUrl &newDestination);
 
         // --- Job virtual functions ---
@@ -61,7 +61,7 @@ class TransferKio : public Transfer
         bool m_stopped;
         bool m_movingFile;
 
-    private slots:
+    private Q_SLOTS:
         void slotResult( KJob * kioJob );
         void slotInfoMessage( KJob * kioJob, const QString & msg );
         void slotPercent( KJob * kioJob, unsigned long percent );

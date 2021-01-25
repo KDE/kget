@@ -304,13 +304,13 @@ class KGET_EXPORT Transfer : public Job
         */
         virtual void load(const QDomElement *element);
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted when the capabilities of the Transfer change
          */
         void capabilitiesChanged();
 
-    public slots:
+    public Q_SLOTS:
          /**
           * Set Transfer history
           */

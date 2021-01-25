@@ -25,7 +25,7 @@ class ViewsContainer : public QWidget
     public:
         ViewsContainer(QWidget * parent = nullptr);
 
-    public slots:
+    public Q_SLOTS:
         void showTransferDetails(TransferHandler * transfer);
         void closeTransferDetails(TransferHandler * transfer);
         void selectAll();

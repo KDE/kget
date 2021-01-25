@@ -33,17 +33,17 @@ public:
     void addData(const QDate &date, const QString &url, const QString &dest, int size);
     QVariant data(const QModelIndex &index, TransferHistoryCategorizedDelegate::AlternativeRoles role) const;
 
-signals:
+Q_SIGNALS:
     void deletedTransfer(const QString &url, const QModelIndex &index);
     void doubleClicked(const QModelIndex &);
 
-public slots:
+public Q_SLOTS:
     void clear();
     void setFilterRegExp(const QString &text);
     void setCategorizedDelegate(TransferHistoryCategorizedDelegate *m_delegate);
     void removeRow(int row, const QModelIndex &parent = QModelIndex());
 
-private slots:
+private Q_SLOTS:
     void update();
 
 private:

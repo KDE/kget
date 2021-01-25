@@ -31,7 +31,7 @@ class KGetEngine : public Plasma::DataEngine
 
     public:
         KGetEngine(QObject* parent, const QVariantList& args);
-        ~KGetEngine();
+        ~KGetEngine() override;
 
         QStringList sources() const;
 
@@ -39,7 +39,7 @@ class KGetEngine : public Plasma::DataEngine
         bool sourceRequestEvent(const QString &name);
         bool updateSourceEvent(const QString& source);
 
-    private slots:
+    private Q_SLOTS:
         void getKGetData(const QString &name);
         void updateData();
         void slotTransfersAdded(const QStringList &urls, const QStringList &dBusObjectPaths);

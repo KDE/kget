@@ -41,14 +41,14 @@ class DragDlg : public KGetSaveSizeDialog
     public:
         DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent = nullptr);
 
-    signals:
+    Q_SIGNALS:
         /**
          * The types the user want to be checked and if partial checksums should be created
          * @note emitted whenever the dialog is closed, so might be empty
          */
         void usedTypes(const QStringList &types, bool createPartial);
 
-    private slots:
+    private Q_SLOTS:
         /**
          * Called when the dialog is finished, to Q_EMIT usedTypes
          */

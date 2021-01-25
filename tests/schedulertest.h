@@ -59,7 +59,7 @@ class TestJob : public Job
         bool isStalled() const override;
         bool isWorking() const override;
 
-    signals:
+    Q_SIGNALS:
         void statusChanged();
 };
 
@@ -79,7 +79,7 @@ class SchedulerTest : public QObject
 {
     Q_OBJECT
 
-    private slots:
+    private Q_SLOTS:
         /**
          * Tests if the scheduler reacts correctly on appending jobs, i.e.
          * start/stop them

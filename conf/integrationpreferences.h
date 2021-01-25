@@ -35,14 +35,14 @@ class IntegrationPreferences : public QWidget
         explicit IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f = Qt::Widget);
         ~IntegrationPreferences() override;
 
-    private slots:
+    private Q_SLOTS:
         void slotUpdateButtons();
         void slotAddItem();
         void slotRemoveItem();
         void slotIncreasePriority();
         void slotDecreasePriority();
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted whenever something changes
          */

@@ -66,7 +66,7 @@ public:
     QStandardItem *currentItem(int column = -1);
     QStandardItem *item(const QModelIndex &index = QModelIndex(), int column = 0);
 
-public slots:
+public Q_SLOTS:
     void removeRow(int row, const QModelIndex &parent = QModelIndex());
     /**
     * Filters the data throws the qsortfilterproxymodel

@@ -34,7 +34,7 @@ class DBusKGetWrapper : public QObject
     Q_OBJECT
 
     public:
-        DBusKGetWrapper(MainWindow *parent);
+        explicit DBusKGetWrapper(MainWindow *parent);
         ~DBusKGetWrapper() override;
 
         QStringList addTransfer(const QString& src, const QString& destDir = QString(), bool start = false);
@@ -49,12 +49,12 @@ class DBusKGetWrapper : public QObject
         void importLinks(const QList <QString> &links);
         bool isSupported(const QString &url) const;
 
-    signals:
+    Q_SIGNALS:
         void transferAddedRemoved();
         void transfersAdded(const QStringList &urls, const QStringList &dBusObjectPaths);
         void transfersRemoved(const QStringList &urls, const QStringList &dbusObjectPaths);
 
-    private slots:
+    private Q_SLOTS:
         void slotTransfersAdded(const QList<TransferHandler*> &transfers);
         void slotTransfersRemoved(const QList<TransferHandler*> &transfers);
 

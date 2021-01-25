@@ -35,7 +35,7 @@ class KGetPieChart : public KGetApplet
     Q_OBJECT
 public:
     KGetPieChart(QObject *parent, const QVariantList &args);
-    ~KGetPieChart();
+    ~KGetPieChart() override;
 
     void init();
 

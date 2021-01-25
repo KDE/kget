@@ -37,17 +37,17 @@ class KGetPanelBar : public KGetApplet
     Q_OBJECT
 public:
     KGetPanelBar(QObject *parent, const QVariantList &args);
-    ~KGetPanelBar();
+    ~KGetPanelBar() override;
 
     void init();
     void paintInterface(QPainter *painter,
                             const QStyleOptionGraphicsItem *option,
                             const QRect &contentsRect);
 
-public slots:
+public Q_SLOTS:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
 
-private slots:
+private Q_SLOTS:
     void showDialog();
 
 private:

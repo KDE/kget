@@ -27,7 +27,7 @@ class Script: public QThread
         Script(QObject* parent, const KUrl &source);
         ~Script();
         bool setFile(const QString &filename);
-    signals:
+    Q_SIGNALS:
         void newTransfer(const QString &url, const QString &filename);
         void startDownload(QObject* configadaptor);
         void percentUpdated(int percent);

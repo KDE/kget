@@ -41,14 +41,14 @@ class NewTransferDialog : public QDialog
     public:
         ~NewTransferDialog() override;
 
-    public slots:
+    public Q_SLOTS:
         /**
         * Called when the transfer group or the urlREquester changed, the dialog sets the default destination
         * for transfers in the new group
         */
         void setDefaultDestination();
 
-    private slots:
+    private Q_SLOTS:
         void inputTimer();
         void checkInput();
         void slotFinished(int resultCode);
@@ -125,7 +125,7 @@ class NewTransferDialogHandler : public QObject
          */
         static void showNewTransferDialog(QList<QUrl> list);
 
-    private slots:
+    private Q_SLOTS:
         void slotMostLocalUrlResult(KJob *job);
 
     private:

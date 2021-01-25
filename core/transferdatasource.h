@@ -141,7 +141,7 @@ class KGET_EXPORT TransferDataSource : public QObject
          */
         virtual int changeNeeded() const;
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted after findFileSize is called successfully
          * @param source that found the filesize

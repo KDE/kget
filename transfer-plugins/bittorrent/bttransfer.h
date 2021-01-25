@@ -106,7 +106,7 @@ class BTTransfer : public Transfer, public bt::MonitorInterface
         void load(const QDomElement *element) override;
         void setSpeedLimits(int ulLimit, int dlLimit) override;
 
-    private slots:
+    private Q_SLOTS:
         void btTransferInit(const QUrl &src = QUrl(), const QByteArray &data = QByteArray());
         void update();
         void slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg);

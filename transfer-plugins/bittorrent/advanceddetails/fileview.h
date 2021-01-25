@@ -56,10 +56,10 @@ namespace kt
 		void filePercentageChanged(bt::TorrentFileInterface* file,float percentage);
 		void filePreviewChanged(bt::TorrentFileInterface* file,bool preview);
 		
-	public slots:
+	public Q_SLOTS:
 		void onTorrentRemoved(bt::TorrentInterface* tc);
 
-	private slots:
+	private Q_SLOTS:
 		void showContextMenu(const QPoint & p);
 		void onDoubleClicked(const QModelIndex & index);
 		void onMissingFileMarkedDND(bt::TorrentInterface* tc);
@@ -71,7 +71,7 @@ namespace kt
 		bool viewportEvent(QEvent *event) override;
 		virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
 
-	private slots:
+	private Q_SLOTS:
 		void open();
 		void downloadFirst();
 		void downloadLast();

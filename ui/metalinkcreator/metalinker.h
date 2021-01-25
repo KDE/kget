@@ -409,7 +409,7 @@ class MetalinkHttpParser : public QObject
 
         QString* getEtag();
 
-    private slots:
+    private Q_SLOTS:
         void slotHeaderResult(KJob* kjob);
         void checkMetalinkHttp();
         void detectMime(KIO::Job *  job, const QString &  type);

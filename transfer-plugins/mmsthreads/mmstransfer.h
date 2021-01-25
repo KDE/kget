@@ -38,12 +38,12 @@ class MmsTransfer : public Transfer
                     const QDomElement * e = nullptr);
         ~MmsTransfer() override;
 
-    public slots:
+    public Q_SLOTS:
         void start() override;
         void stop() override;
         void deinit(Transfer::DeleteOptions options) override;
 
-    private slots:
+    private Q_SLOTS:
         void slotResult();
         void slotTotalSize(qulonglong size);
         void slotProcessedSizeAndPercent(qulonglong size);

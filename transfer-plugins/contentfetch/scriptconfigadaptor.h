@@ -27,7 +27,7 @@ class ScriptConfigAdaptor : public QObject
             delete m_config;
         }
 
-    public slots:
+    public Q_SLOTS:
         bool setFile(const QString &filename, const QString &path = QString());
         void unsetFile();
         QVariant read(const QString &group, const QString &key,

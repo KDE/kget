@@ -32,10 +32,10 @@ public:
     bool editorEvent(QEvent * event, QAbstractItemModel * model,
                     const QStyleOptionViewItem & option, const QModelIndex & index) override;
 
-signals:
+Q_SIGNALS:
     void deletedTransfer(const QString &url, const QModelIndex &index);
 
-private slots:
+private Q_SLOTS:
     void slotOpenFile();
     void slotDownload();
     void slotDeleteTransfer();

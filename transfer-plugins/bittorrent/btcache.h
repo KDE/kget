@@ -147,7 +147,7 @@ class BTCache : public QObject, public bt::Cache
          * */
         virtual Uint64 diskUsage() {return 0;};//We always use 0 Bytes on HDD, cause we don't write to HDD
 
-    signals:
+    Q_SIGNALS:
         void dataArrived(const KIO::fileoffset_t &offset, const QByteArray &data);
 
     private:
@@ -163,7 +163,7 @@ class BTCacheFactory : public QObject, public CacheFactory
 
         virtual Cache* create(Torrent & tor,const QString & tmpdir,const QString & datadir);
 
-    signals:
+    Q_SIGNALS:
         void cacheAdded(BTCache* cache);
 };
 

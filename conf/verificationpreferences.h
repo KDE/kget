@@ -33,13 +33,13 @@ class VerificationPreferences : public QWidget
     public:
         explicit VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f = Qt::Widget);
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted when the mirrors change
          */
         void changed();
 
-    private slots:
+    private Q_SLOTS:
         void slotDefaultClicked();
         void slotAccpeted();
         void slotRejected();

@@ -31,7 +31,7 @@ class KGET_EXPORT Download : public QObject
         void finishedSuccessfully(QUrl dest, QByteArray data);
         void finishedWithError();
 
-    private slots:
+    private Q_SLOTS:
         void slotResult(KJob * job);
         void slotData(KIO::Job *job, const QByteArray& data);
 

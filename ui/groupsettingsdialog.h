@@ -25,7 +25,7 @@ class GroupSettingsDialog : public KGetSaveSizeDialog
 
         QSize sizeHint() const override;
 
-    private slots:
+    private Q_SLOTS:
         void save();
 
     private:

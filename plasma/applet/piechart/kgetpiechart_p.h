@@ -94,11 +94,11 @@ public:
     Private(QGraphicsWidget *parent = 0);
     ~Private();
 
-    public slots:
+    public Q_SLOTS:
         void addTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
         void removeTransfers(const QList<OrgKdeKgetTransferInterface*> &transfers);
 
-    private slots:
+    private Q_SLOTS:
         void slotUpdateTransfer(int transferChange);
 
     private:

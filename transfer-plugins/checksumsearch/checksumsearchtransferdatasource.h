@@ -55,7 +55,7 @@ class ChecksumSearchController : public QObject
          */
         void unregisterSearch(ChecksumSearchTransferDataSource *search, const QUrl &baseUrl = QUrl());
 
-    private slots:
+    private Q_SLOTS:
         void slotEntries(KIO::Job *job, const KIO::UDSEntryList &entries);
         void slotResult(KJob *job);
 

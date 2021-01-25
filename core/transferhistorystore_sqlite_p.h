@@ -26,7 +26,7 @@ public:
     SQLiteStore(const QString &database);
     ~SQLiteStore() override;
 
-public slots:
+public Q_SLOTS:
     void load() override;
     void clear() override;
     void saveItem(const TransferHistoryItem &item) override;

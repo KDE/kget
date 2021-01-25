@@ -26,7 +26,7 @@ public:
     
     void start() override {};
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when doKill is called, e.g. when the gui is closed.
      * Not handling this signal might lead to a crash if something tries to

@@ -470,7 +470,7 @@ class GenericObserver : public QObject
         GenericObserver(QObject *parent = nullptr);
         ~GenericObserver () override;
 
-    public slots:
+    public Q_SLOTS:
         void groupAddedEvent(TransferGroupHandler *handler);
         void groupRemovedEvent(TransferGroupHandler *handler);
         void transfersAddedEvent(const QList<TransferHandler*> &handlers);
@@ -479,7 +479,7 @@ class GenericObserver : public QObject
         void groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
         void transferMovedEvent(TransferHandler *, TransferGroupHandler *);
 
-    private slots:
+    private Q_SLOTS:
         void slotSave();
         void slotAfterFinishAction();
         void slotAbortAfterFinishAction();

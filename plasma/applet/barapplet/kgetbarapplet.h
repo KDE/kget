@@ -35,7 +35,7 @@ class KGetBarApplet : public KGetApplet
     Q_OBJECT
 public:
     KGetBarApplet(QObject *parent, const QVariantList &args);
-    ~KGetBarApplet();
+    ~KGetBarApplet() override;
 
     void init();
 

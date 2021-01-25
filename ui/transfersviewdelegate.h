@@ -57,10 +57,10 @@ class GroupStatusEditor : public QWidget
         void setRunning(bool running);
         bool isRunning();
 
-    private slots:
+    private Q_SLOTS:
         void slotStatusChanged();
 
-    signals:
+    Q_SIGNALS:
         void changedStatus(GroupStatusEditor *editor);
 
     private:
@@ -87,7 +87,7 @@ class BasicTransfersViewDelegate : public KExtendableItemDelegate
         void setEditorData(QWidget *editor, const QModelIndex &index) const override;
         void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 
-    private slots:
+    private Q_SLOTS:
         virtual void slotGroupStatusChanged(GroupStatusEditor *editor);
 };
 

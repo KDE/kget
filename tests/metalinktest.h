@@ -26,7 +26,7 @@ class MetalinkTest : public QObject
 {
     Q_OBJECT
 
-    private slots:
+    private Q_SLOTS:
         void testFilePath();
         void testFilePath_data();
         void testUrl();

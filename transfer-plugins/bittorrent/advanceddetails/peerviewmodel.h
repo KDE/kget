@@ -64,7 +64,7 @@ namespace kt
 		
 		bt::PeerInterface* indexToPeer(const QModelIndex & idx);
 		
-	public slots:
+	public Q_SLOTS:
 		void sort(int col, Qt::SortOrder order) override;
 		
 	

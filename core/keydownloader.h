@@ -50,7 +50,7 @@ class KeyDownloader : public QObject
          */
         void downloadKey(QString fingerprint, Signature *sig);
 
-    private slots:
+    private Q_SLOTS:
         /**
          * Parses the downloaded data and if it is a key tries to add it to GnuPG,
          * if it is not a key try a different server.

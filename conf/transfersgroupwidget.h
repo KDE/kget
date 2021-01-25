@@ -22,7 +22,7 @@ class TransfersGroupWidget : public QWidget
     public:
         TransfersGroupWidget(QWidget *parent = nullptr);
 
-    private slots:
+    private Q_SLOTS:
         void slotSelectionChanged();
 
     private:

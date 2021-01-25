@@ -29,10 +29,10 @@ class DBusVerifierWrapper : public QObject
 {
     Q_OBJECT
     public:
-        DBusVerifierWrapper(Verifier *parent);
+        explicit DBusVerifierWrapper(Verifier *parent);
         ~DBusVerifierWrapper() override;
 
-    public slots:
+    public Q_SLOTS:
         /**
          * @return the dest url
          */
@@ -65,7 +65,7 @@ class DBusVerifierWrapper : public QObject
          */
         void brokenPieces() const;
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted when the verification of a file finishes
          */
@@ -78,7 +78,7 @@ class DBusVerifierWrapper : public QObject
          */
         void brokenPieces(const QStringList &offsets, qulonglong length);
 
-    private slots:
+    private Q_SLOTS:
         void slotBrokenPieces(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
     private:

@@ -172,11 +172,11 @@ class KGET_EXPORT DataSourceFactory : public QObject
         void dataSourceFactoryChange(Transfer::ChangesFlags change);
         void log(const QString &message, Transfer::LogLevel logLevel);
 
-    public slots:
+    public Q_SLOTS:
         void save(const QDomElement &element);
         void load(const QDomElement *e);
 
-    private slots:
+    private Q_SLOTS:
         void slotUpdateCapabilities();
 
         void slotRemovedFile();

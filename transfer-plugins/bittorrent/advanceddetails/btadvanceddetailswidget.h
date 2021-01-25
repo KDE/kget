@@ -41,10 +41,10 @@ class BTAdvancedDetailsWidget : public QWidget
         void init();
         kt::Monitor* torrentMonitor() const;
 
-    public slots:
+    public Q_SLOTS:
         void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
         
-    signals:
+    Q_SIGNALS:
          void aboutToClose();
 
 

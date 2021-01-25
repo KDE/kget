@@ -37,7 +37,7 @@ class RenameFile : public QDialog
 
         void setOriginalName(const QString &originalName);
 
-    private slots:
+    private Q_SLOTS:
         void updateButton();
         void rename();
 

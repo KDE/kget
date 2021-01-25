@@ -66,7 +66,7 @@ public:
 
     static TransferHistoryStore *getStore();
 
-public slots:
+public Q_SLOTS:
     virtual void load() {};
     virtual void clear() {};
     virtual void saveItem(const TransferHistoryItem &item)
@@ -85,7 +85,7 @@ public slots:
         Q_UNUSED(item)
     };
 
-signals:
+Q_SIGNALS:
     void elementLoaded(int number, int total, const TransferHistoryItem &item);
     void loadFinished();
     void saveFinished();

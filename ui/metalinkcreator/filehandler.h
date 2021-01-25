@@ -45,7 +45,7 @@ class FileHandlerThread : public QThread
 
         void setData(const QList<FileData> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData);
 
-    signals:
+    Q_SIGNALS:
         void fileResult(const KGetMetalink::File file);
 
     protected:
@@ -78,17 +78,17 @@ class DirectoryHandler : public QObject
          */
         QList<FileData> takeFiles();
 
-    public slots:
+    public Q_SLOTS:
         /**
          * The files the FileHandler should handle, the urls can also be urls to directories
          * then the files of these directories will be got recursively
          */
         void slotFiles(const QList<QUrl> &files);
 
-    signals:
+    Q_SIGNALS:
         void finished();
 
-     private slots:
+     private Q_SLOTS:
         void slotDirEntries(KIO::Job *job, const KIO::UDSEntryList &entries);
 
         /**

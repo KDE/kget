@@ -21,7 +21,7 @@ Q_OBJECT
 public:
     TestKGet();
 
-private slots:
+private Q_SLOTS:
     void simpleTest();
     void transferGroupTest();
     void transferGroupRepetitiveAddTest();

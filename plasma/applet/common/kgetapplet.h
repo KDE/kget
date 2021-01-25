@@ -43,7 +43,7 @@ class ProxyWidget : public QGraphicsWidget
     Q_OBJECT
     public:
         ProxyWidget(QGraphicsWidget * parent);
-        ~ProxyWidget();
+        ~ProxyWidget() override;
 
         void paint(QPainter * p, const QStyleOptionGraphicsItem * option, QWidget * widget);
 
@@ -51,7 +51,7 @@ class ProxyWidget : public QGraphicsWidget
 
         QGraphicsWidget * dataWidget();
 
-    private slots:
+    private Q_SLOTS:
         void themeChanged();
 
     private:
@@ -75,14 +75,14 @@ public:
     void init();
     void setDataWidget(QGraphicsWidget * widget);
 
-public slots:
+public Q_SLOTS:
     void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
 
-private slots:
+private Q_SLOTS:
     virtual void slotKgetStarted();
     void slotUpdateTransfer(int transferChange);
 
-signals:
+Q_SIGNALS:
     void transfersAdded(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void transfersRemoved(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void update();

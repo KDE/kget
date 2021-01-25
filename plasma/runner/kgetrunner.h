@@ -29,16 +29,16 @@ class KGetRunner
     Q_OBJECT
 
     public:
-        KGetRunner(QObject* parent, const QVariantList& args);
-        ~KGetRunner();
+        explicit KGetRunner(QObject* parent, const QVariantList& args);
+        ~KGetRunner() override;
 
         void match(Plasma::RunnerContext& context);
         void run(const Plasma::RunnerContext& context, const Plasma::QueryMatch& match);
 
-    protected slots:
+    protected Q_SLOTS:
         void init();
 
-    private slots:
+    private Q_SLOTS:
         void showNewTransferDialog();
         void callFinished(QDBusPendingCallWatcher* call);
 

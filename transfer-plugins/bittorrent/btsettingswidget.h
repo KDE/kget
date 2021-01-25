@@ -21,7 +21,7 @@ class BTSettingsWidget : public KCModule, public Ui::BTSettingsWidget
     public:
         BTSettingsWidget(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
 
-    public slots:
+    public Q_SLOTS:
         void load() override;
         void save() override;
         void defaults() override;

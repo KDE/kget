@@ -32,20 +32,20 @@ class KGetPanelBar::Private : public Plasma::Dialog
 {
 Q_OBJECT
 public:
-    Private(QWidget * parent = 0);
+    Private(QWidget * parent = nullptr);
     ~Private();
     
     QGridLayout *dialogLayout() {
         return m_dialogLayout;
     };
 
-public slots:
+public Q_SLOTS:
     void transfersAdded(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void transfersRemoved(const QList<OrgKdeKgetTransferInterface*> &transfers);
     void update();
     void clear();
 
-signals:
+Q_SIGNALS:
     void progressBarChanged(int value);
 
 private:

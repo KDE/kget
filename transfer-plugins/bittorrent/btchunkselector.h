@@ -56,7 +56,7 @@ class BTChunkSelectorFactory : public QObject, public bt::ChunkSelectorFactoryIn
 
         bt::ChunkSelectorInterface* createChunkSelector(bt::ChunkManager & cman, bt::Downloader & downer, bt::PeerManager & pman);
 
-    signals:
+    Q_SIGNALS:
         void selectorAdded(BTChunkSelector *selector);
 };
 

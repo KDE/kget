@@ -24,11 +24,11 @@ class DlgContentFetchSettingWidget : public KCModule
         DlgContentFetchSettingWidget(QWidget * parent, const QVariantList &args);
         ~DlgContentFetchSettingWidget();
 
-    public slots:
+    public Q_SLOTS:
         virtual void save();
         virtual void load();
 
-    private slots:
+    private Q_SLOTS:
         void slotNewScript();
         void slotEditScript();
         void slotConfigureScript();
@@ -38,7 +38,7 @@ class DlgContentFetchSettingWidget : public KCModule
         void slotEnableChanged(QTreeWidgetItem* p_item,
                                int column);
 
-    signals:
+    Q_SIGNALS:
         void configureScript(QWidget* widget, QObject* configadaptor);
         void configurationAccepted(QWidget* widget, QObject* configadaptor);
     private:
@@ -57,7 +57,7 @@ class SettingWidgetAdaptor : public QWidget
     public:
         explicit SettingWidgetAdaptor(QWidget* parent = nullptr) : QWidget(parent) {}
         virtual ~SettingWidgetAdaptor() {}
-    public slots:
+    public Q_SLOTS:
         void setWidget(QWidget* widget)
         {
             widget->setParent(this);

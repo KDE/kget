@@ -48,7 +48,7 @@ class MirrorAddDlg : public QDialog
          */
         void showItem(MirrorItem::DataType type, bool show);
 
-    private slots:
+    private Q_SLOTS:
         void addMirror();
         void updateButton(const QString &text = QString());
 
@@ -70,7 +70,7 @@ class MirrorSettings : public KGetSaveSizeDialog
 
         QSize sizeHint() const override;
 
-    private slots:
+    private Q_SLOTS:
         void updateButton();
         void addClicked();
         void removeMirror();

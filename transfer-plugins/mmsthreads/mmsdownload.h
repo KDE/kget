@@ -42,13 +42,13 @@ class MmsDownload : public QThread
         void stopTransfer();
         int threadsAlive();
         
-    public slots:
+    public Q_SLOTS:
         void slotThreadFinish();
         void slotRead(int reading, int thread_end, int thead_ini);
         void slotSpeedChanged();
         void slotIsThreadConnected(bool connected);
 
-    signals:
+    Q_SIGNALS:
         void signBrokenUrl();
         void signNotAllowMultiDownload();
         void signThreadFinish();

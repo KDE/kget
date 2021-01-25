@@ -45,7 +45,7 @@ class FileDlg : public KGetSaveSizeDialog
         void addFile();
         void fileEdited(const QString &oldFileName, const QString &newFileName);
 
-    private slots:
+    private Q_SLOTS:
         void slotUpdateOkButton();
         void slotOkClicked();
 

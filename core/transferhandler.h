@@ -285,14 +285,14 @@ class KGET_EXPORT TransferHandler : public Handler
          */
         virtual Signature * signature(const QUrl &file) {return m_transfer->signature(file);}
 
-    public slots:
+    public Q_SLOTS:
         /**
          * These are all Job-related functions
          */
         void start() override;
         void stop() override;
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted when the capabilities of the Transfer change
          */

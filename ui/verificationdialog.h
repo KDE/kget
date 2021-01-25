@@ -41,7 +41,7 @@ class VerificationAddDlg : public QDialog
         
         QSize sizeHint() const override;
 
-    private slots:
+    private Q_SLOTS:
         void addChecksum();
         void updateButton();
 
@@ -60,7 +60,7 @@ class VerificationDialog : public KGetSaveSizeDialog
         
         QSize sizeHint() const override;
 
-    private slots:
+    private Q_SLOTS:
         void fileFinished(const QUrl &file);
         void updateButtons();
         void addClicked();

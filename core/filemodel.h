@@ -162,7 +162,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
          */
         bool isFile(const QModelIndex &index) const;
 
-    public slots:
+    public Q_SLOTS:
         /**
          * Watches if the check state changes, the result of that will be emitted
          * when stopWatchCheckState() is being called()
@@ -203,7 +203,7 @@ class KGET_EXPORT FileModel : public QAbstractItemModel
 
         void changeData(int row, int column, FileItem *item, bool fileFinished = false);
 
-    private slots:
+    private Q_SLOTS:
         void renameFailed(const QUrl &beforeRename, const QUrl &afterRename);
 
     private:

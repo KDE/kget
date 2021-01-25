@@ -21,10 +21,10 @@ class DBusTransferWrapper : public QObject
 {
     Q_OBJECT
     public:
-        DBusTransferWrapper(TransferHandler * parent);
+        explicit DBusTransferWrapper(TransferHandler * parent);
         ~DBusTransferWrapper() override;
 
-    public slots:
+    public Q_SLOTS:
         int capabilities() const;
         void start();
         void stop();
@@ -145,7 +145,7 @@ class DBusTransferWrapper : public QObject
          */
         bool repair(const QString &file);
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted when the transfer changes
          */
@@ -156,7 +156,7 @@ class DBusTransferWrapper : public QObject
          */
         void capabilitiesChanged();
 
-    private slots:
+    private Q_SLOTS:
         void slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags changeflags);
 
     private:

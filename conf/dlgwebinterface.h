@@ -27,7 +27,7 @@ public:
     DlgWebinterface(QDialog *parent = nullptr);
     ~DlgWebinterface() override;
     
-signals:
+Q_SIGNALS:
     void changed();
     void saved();
 

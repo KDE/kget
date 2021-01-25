@@ -61,10 +61,10 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
         bool m_iconModeEnabled;
         TransferHistoryStore *m_store;
 
-    public slots:
+    public Q_SLOTS:
         void slotDeleteTransfer(const QString &url, const QModelIndex &index = QModelIndex());
 
-    private slots:
+    private Q_SLOTS:
         void slotDeleteTransfer();
         void slotAddTransfers();
         void slotClear();

@@ -243,7 +243,7 @@ class KGET_EXPORT Verifier : public QObject
         void save(const QDomElement &element);
         void load(const QDomElement &e);
 
-    signals:
+    Q_SIGNALS:
         /**
          * Emitted when the verification of a file finishes
          */
@@ -254,7 +254,7 @@ class KGET_EXPORT Verifier : public QObject
          */
        void brokenPieces(const QList<KIO::fileoffset_t> &offsets, KIO::filesize_t length);
 
-    private slots:
+    private Q_SLOTS:
         void changeStatus(const QString &type, bool verified);
 
     private:

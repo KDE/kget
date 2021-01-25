@@ -54,11 +54,11 @@ public:
     explicit ErrorWidget(const QString &message, QGraphicsWidget *parent = 0);
     ~ErrorWidget();
 
-private slots:
+private Q_SLOTS:
     void launchKGet();
     void checkKGetStatus();
 
-signals:
+Q_SIGNALS:
     void kgetStarted();
 
 private:

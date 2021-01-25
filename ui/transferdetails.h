@@ -29,7 +29,7 @@ class TransferDetails : public QWidget
         // gets the generic details widget if the transfer factory doesn't override it
         static QWidget *detailsWidget(TransferHandler *transfer);
         
-    public slots:
+    public Q_SLOTS:
         void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
         
     private:

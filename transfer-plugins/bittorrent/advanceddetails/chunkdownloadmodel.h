@@ -67,7 +67,7 @@ namespace kt
 		bool insertRows(int row,int count,const QModelIndex & parent) override;
 		QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const override;
 		
-	public slots:
+	public Q_SLOTS:
 		void sort(int col, Qt::SortOrder order) override;
 		
 	public:

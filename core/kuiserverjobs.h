@@ -34,12 +34,12 @@ public:
    
     void settingsChanged();
 
-public slots:
+public Q_SLOTS:
     void slotTransfersAdded(QList<TransferHandler*> transfers);
     void slotTransfersAboutToBeRemoved(const QList<TransferHandler*> &transfer);
     void slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers);
 
-private slots:
+private Q_SLOTS:
     void slotRequestStop(KJob *job, TransferHandler *transfer);
     void slotRequestSuspend(KJob *job, TransferHandler *transfer);
     void slotRequestResume(KJob *job, TransferHandler *transfer);

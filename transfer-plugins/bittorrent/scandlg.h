@@ -49,11 +49,11 @@ namespace kt
 		/// Handle the close event
 		void closeEvent(QCloseEvent* e) override;
      
-	protected slots:
+	protected Q_SLOTS:
 		void reject() override;
 		void accept() override;
 		
-	private slots:
+	private Q_SLOTS:
 	        void description(KJob *job, const QString &title, const QPair<QString, QString > &field1, const QPair< QString, QString > &field2);
 		void result(KJob *job);
 		void percent(KJob *job, unsigned long percent);

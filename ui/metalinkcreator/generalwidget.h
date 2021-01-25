@@ -39,7 +39,7 @@ class GeneralWidget : public QWidget
         void load(const KGetMetalink::Metalink &metalink) const;
         void save(KGetMetalink::Metalink *metalink);
 
-    private slots:
+    private Q_SLOTS:
         /**
          * To correctly enable checkboxes
          */

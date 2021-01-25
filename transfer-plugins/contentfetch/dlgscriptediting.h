@@ -27,7 +27,7 @@ class DlgScriptEditing : public QDialog
         QString scriptPath() const;
         QString scriptUrlRegexp() const;
         QString scriptDescription() const;
-    private slots:
+    private Q_SLOTS:
         void slotChangeText();
     private:
         Ui::DlgScriptEditing ui;
