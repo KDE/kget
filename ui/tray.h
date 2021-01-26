@@ -11,7 +11,7 @@
 #ifndef TRAY_H
 #define TRAY_H
 
-#include <kstatusnotifieritem.h>
+#include <KStatusNotifierItem>
 
 class MainWindow;
 class KGet;

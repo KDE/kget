@@ -15,7 +15,7 @@
 #include "kget_debug.h"
 #include <QDebug>
 #include <KLocalizedString>
-#include <kuiserverjobtracker.h>
+#include <KUiServerJobTracker>
 
 
 KGetGlobalJob::KGetGlobalJob(QObject *parent)

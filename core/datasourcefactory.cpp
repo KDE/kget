@@ -27,7 +27,7 @@
 #include <KIO/FileJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kmountpoint.h>
+#include <KMountPoint>
 
 #include "kget_debug.h"
 

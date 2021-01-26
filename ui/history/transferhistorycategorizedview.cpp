@@ -10,9 +10,9 @@
 #include "transferhistorycategorizedview.h"
 #include "ui/history/transferhistoryitemdelegate.h"
 
-#include <kcategorizedsortfilterproxymodel.h>
-#include <kcategorizedview.h>
-#include <kcategorydrawer.h>
+#include <KCategorizedSortFilterProxyModel>
+#include <KCategorizedView>
+#include <KCategoryDrawer>
 #include <QDebug>
 
 #include <QGridLayout>

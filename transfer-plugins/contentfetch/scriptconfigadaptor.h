@@ -14,8 +14,8 @@
 #include <QString>
 #include <QVariant>
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
+#include <KConfig>
+#include <KConfigGroup>
 
 class ScriptConfigAdaptor : public QObject
 {

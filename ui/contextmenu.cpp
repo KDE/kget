@@ -19,8 +19,8 @@
 #include <QWidgetAction>
 
 #include <KFileItem>
-#include <kfileitemlistproperties.h>
-#include <kfileitemactions.h>
+#include <KFileItemListProperties>
+#include <KFileItemActions>
 
 QMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers, QWidget *parent)
 {

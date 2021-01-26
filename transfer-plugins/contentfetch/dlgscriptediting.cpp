@@ -13,7 +13,7 @@
 
 #include <kross/core/manager.h>
 #include <kross/core/interpreter.h>
-#include <kfiledialog.h>
+#include <KFileDialog>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>

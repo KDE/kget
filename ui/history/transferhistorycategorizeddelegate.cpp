@@ -9,7 +9,7 @@
 */
 #include "transferhistorycategorizeddelegate.h"
 
-#include <kcategorizedsortfilterproxymodel.h>
+#include <KCategorizedSortFilterProxyModel>
 
 #include <QStandardItem>
 #include <QVariant>

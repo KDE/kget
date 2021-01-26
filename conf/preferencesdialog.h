@@ -12,7 +12,7 @@
 
 #include "ui_dlgadvanced.h"
 
-#include <kconfigdialog.h>
+#include <KConfigDialog>
 
 class QWidget;
 class KConfigSkeleton;
