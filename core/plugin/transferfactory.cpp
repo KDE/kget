@@ -81,6 +81,6 @@ QStringList TransferFactory::addsProtocols() const
 
 QString TransferFactory::displayName() const
 {
-    return "Undefined";
+    return QStringLiteral("Undefined");
 }
 
