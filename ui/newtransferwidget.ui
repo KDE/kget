@@ -13,7 +13,6 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="KMessageWidget" name="errorWidget" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout"/>
     </widget>
    </item>
    <item>
