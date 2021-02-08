@@ -116,7 +116,7 @@ if(Gpgmepp_FOUND)
     add_definitions(-DHAVE_QGPGME)
 endif()
 
-set (KGET_PLUGIN_INSTALL_DIR ${PLUGIN_INSTALL_DIR}/kget)
+set (KGET_PLUGIN_INSTALL_DIR ${KDE_INSTALL_PLUGINDIR}/kget)
 
 ecm_setup_qtplugin_macro_names(JSON_NONE KGET_EXPORT_PLUGIN KGET_EXPORT_PLUGIN_CONFIG)
 
@@ -231,7 +231,7 @@ endif()
 
 
 set_target_properties(kgetcore PROPERTIES VERSION 5.0.0 SOVERSION 5 )
-install(TARGETS kgetcore ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kgetcore ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 
 # kget
@@ -329,13 +329,13 @@ if (QGpgme_FOUND)
   target_link_libraries(kget QGpgme)
 endif()
 
-install(TARGETS kget ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kget ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ecm_qt_install_logging_categories(
         EXPORT KGET
         FILE kget.categories
         DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
         )
-install(FILES org.kde.kget.appdata.xml DESTINATION ${CMAKE_INSTALL_METAINFODIR})
+install(FILES org.kde.kget.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

@@ -1,1 +1,1 @@
-install(FILES kget_splash.png DESTINATION ${DATA_INSTALL_DIR}/kget/pics)
+install(FILES kget_splash.png DESTINATION ${KDE_INSTALL_DATADIR}/kget/pics)

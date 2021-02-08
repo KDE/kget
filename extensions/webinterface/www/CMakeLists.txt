@@ -15,4 +15,4 @@ set(www_data
     view-refresh.png
 )
 
-install(FILES ${www_data} DESTINATION ${DATA_INSTALL_DIR}/kget/www)
+install(FILES ${www_data} DESTINATION ${KDE_INSTALL_DATADIR}/kget/www)

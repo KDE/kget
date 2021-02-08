@@ -1,6 +1,6 @@
 
 install(FILES kget.notifyrc
-    DESTINATION ${KNOTIFYRC_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR}
   )
 
 #install(FILES
@@ -8,4 +8,4 @@ install(FILES kget.notifyrc
 #   KGet_Finished.ogg
 #   KGet_Finished_All.ogg
 #   KGet_Started.ogg
-#DESTINATION ${SOUND_INSTALL_DIR})
+#DESTINATION ${KDE_INSTALL_SOUNDDIR})

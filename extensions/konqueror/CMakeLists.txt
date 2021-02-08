@@ -10,9 +10,9 @@ add_library(kget_browser_integration MODULE ${kget_browser_integration_SRCS})
 
 target_link_libraries(kget_browser_integration KF5::CoreAddons KF5::IconThemes KF5::Parts)
 
-install(TARGETS kget_browser_integration DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kget_browser_integration DESTINATION ${KDE_INSTALL_PLUGINDIR})
 
 ########### install files ###############
-install(FILES kget_plug_in.rc kget_plug_in.desktop DESTINATION ${DATA_INSTALL_DIR}/khtml/kpartplugins)
-install(FILES kget_plug_in.rc kget_plug_in.desktop DESTINATION ${DATA_INSTALL_DIR}/dolphinpart/kpartplugins)
-install(FILES kget_plug_in.rc kget_plug_in.desktop DESTINATION ${DATA_INSTALL_DIR}/kwebkitpart/kpartplugins)
+install(FILES kget_plug_in.rc kget_plug_in.desktop DESTINATION ${KDE_INSTALL_DATADIR}/khtml/kpartplugins)
+install(FILES kget_plug_in.rc kget_plug_in.desktop DESTINATION ${KDE_INSTALL_DATADIR}/dolphinpart/kpartplugins)
+install(FILES kget_plug_in.rc kget_plug_in.desktop DESTINATION ${KDE_INSTALL_DATADIR}/kwebkitpart/kpartplugins)

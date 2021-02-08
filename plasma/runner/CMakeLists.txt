@@ -13,9 +13,9 @@ target_link_libraries(krunner_kget
 
 install(TARGETS
     krunner_kget
-    DESTINATION ${PLUGIN_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}
 )
 install(FILES
     plasma-runner-kget.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_KSERVICES5DIR}
 )

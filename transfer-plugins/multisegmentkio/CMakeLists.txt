@@ -17,7 +17,7 @@ kcoreaddons_desktop_to_json(kget_multisegkiofactory kget_multisegkiofactory.desk
 target_link_libraries(kget_multisegkiofactory kgetcore)
 
 install(TARGETS kget_multisegkiofactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
-install(FILES kget_multisegkiofactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES kget_multisegkiofactory.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ###Build KCM-Module
 set(kcm_kget_multisegkiofactory_PART_SRCS
@@ -32,6 +32,6 @@ ki18n_wrap_ui(kcm_kget_multisegkiofactory_PART_SRCS
 kconfig_add_kcfg_files(kcm_kget_multisegkiofactory_PART_SRCS multisegkiosettings.kcfgc)
 add_library(kcm_kget_multisegkiofactory MODULE ${kcm_kget_multisegkiofactory_PART_SRCS})
 target_link_libraries(kcm_kget_multisegkiofactory KF5::I18n KF5::ConfigWidgets)
-install(TARGETS kcm_kget_multisegkiofactory DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kcm_kget_multisegkiofactory DESTINATION ${KDE_INSTALL_PLUGINDIR})
 
-install(FILES kget_multisegkiofactory_config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(FILES kget_multisegkiofactory_config.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})

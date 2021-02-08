@@ -18,7 +18,7 @@ add_library(kget_contentfetchfactory MODULE ${kget_contentfetchfactory_PART_SRCS
 target_link_libraries(kget_contentfetchfactory KF5::KIOCore KF5::KrossCore kgetcore)
 
 install(TARGETS kget_contentfetchfactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
-install(FILES kget_contentfetchfactory.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES kget_contentfetchfactory.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ###Build KCM-Module
 set(kcm_kget_contentfetchfactory_PART_SRCS
@@ -36,6 +36,6 @@ kconfig_add_kcfg_files(kcm_kget_contentfetchfactory_PART_SRCS contentfetchsettin
 add_library(kcm_kget_contentfetchfactory MODULE ${kcm_kget_contentfetchfactory_PART_SRCS})
 target_link_libraries(kcm_kget_contentfetchfactory KF5::KIOCore
 KF5::KrossCore ${KDE4_KROSSUI_LIBS})
-install(TARGETS kcm_kget_contentfetchfactory DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kcm_kget_contentfetchfactory DESTINATION ${KDE_INSTALL_PLUGINDIR})
 
-install(FILES kget_contentfetchfactory_config.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(FILES kget_contentfetchfactory_config.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
