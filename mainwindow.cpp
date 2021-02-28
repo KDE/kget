@@ -201,13 +201,13 @@ void MainWindow::setupActions()
 
     //FIXME: Not needed maybe because the normal delete already deletes groups?
     QAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
-    deleteGroupAction->setText(i18n("Delete Group"));
+    deleteGroupAction->setText(i18nc("@action", "Delete Group"));
     deleteGroupAction->setIcon(QIcon::fromTheme("edit-delete"));
     //deleteGroupAction->setHelpText(i18n("Delete selected group"));
     connect(deleteGroupAction, &QAction::triggered, this, &MainWindow::slotDeleteGroup);
 
     QAction *renameGroupAction = actionCollection()->addAction("rename_groups");
-    renameGroupAction->setText(i18n("Rename Group..."));
+    renameGroupAction->setText(i18nc("@action", "Rename Group..."));
     renameGroupAction->setIcon(QIcon::fromTheme("edit-rename"));
     connect(renameGroupAction, &QAction::triggered, this, &MainWindow::slotRenameGroup);
 
