@@ -36,7 +36,6 @@
 
 #include <KMessageBox>
 #include <KLocalizedString>
-#include <KIconLoader>
 #include <KActionCollection>
 #include <KIO/RenameDialog>
 #include <KIO/DeleteJob>
@@ -1273,7 +1272,7 @@ bool KGet::safeDeleteFile( const QUrl& url )
 KNotification *KGet::showNotification(QWidget *parent, const QString &eventType,
                             const QString &text, const QString &icon, const QString &title, const KNotification::NotificationFlags &flags)
 {
-    return KNotification::event(eventType, title, text, QIcon::fromTheme(icon).pixmap(KIconLoader::SizeMedium), parent, flags);
+    return KNotification::event(eventType, title, text, icon, parent, flags);
 }
 
 GenericObserver::GenericObserver(QObject *parent)

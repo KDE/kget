@@ -370,7 +370,6 @@ target_link_libraries(kget
     KF5::I18n
     KF5::Completion
     KF5::CoreAddons
-    KF5::IconThemes
     KF5::ItemViews
     KF5::KCMUtils
     KF5::NotifyConfig
