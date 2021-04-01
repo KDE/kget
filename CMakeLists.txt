@@ -317,7 +317,7 @@ ki18n_wrap_ui(kget_SRCS
 
 add_executable(kget ${kget_SRCS})
 
-target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::Crash KF5::Wallet KF5::DBusAddons KF5::I18n KF5::Completion KF5::CoreAddons KF5::IconThemes KF5::ItemViews KF5::KCMUtils KF5::NotifyConfig KF5::WindowSystem KF5::KDELibs4Support kgetcore)
+target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::Crash KF5::Wallet KF5::DBusAddons KF5::I18n KF5::Completion KF5::CoreAddons KF5::ItemViews KF5::KCMUtils KF5::NotifyConfig KF5::WindowSystem KF5::KDELibs4Support kgetcore)
 if(Qca_FOUND)
   target_link_libraries(kget qca)
 endif()

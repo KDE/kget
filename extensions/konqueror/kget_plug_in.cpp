@@ -24,7 +24,6 @@
 #include <KActionMenu>
 #include <KDialogJobUiDelegate>
 #include <KFileItem>
-#include <KIconLoader>
 #include <KIO/CommandLauncherJob>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -37,7 +36,6 @@
 #include <KParts/ReadOnlyPart>
 #include <KParts/SelectorInterface>
 #include <KToggleAction>
-#include <KToolInvocation>
 
 #define QL1S(x)   QLatin1String(x)
 
