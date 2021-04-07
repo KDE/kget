@@ -134,3 +134,4 @@ X-KDE-PluginInfo-Category=Service
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-PluginInfo-Name=kget_mms_plugin
+X-KDE-ConfigModule=kget_mmsfactory_config

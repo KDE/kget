@@ -10,11 +10,11 @@
 #ifndef PLUGINSELECTOR_H
 #define PLUGINSELECTOR_H
 
-#include <KPluginSelector>
+#include <KPluginWidget>
 
 class QDialog;
 
-class PluginSelector : public KPluginSelector
+class PluginSelector : public KPluginWidget
 {
     Q_OBJECT
     public:

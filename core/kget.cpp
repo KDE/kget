@@ -41,7 +41,6 @@
 #include <KIO/RenameDialog>
 #include <KIO/DeleteJob>
 #include <KSharedConfig>
-#include <KPluginInfo>
 #include <KConfigDialog>
 #include <KPluginMetaData>
 
@@ -629,9 +628,9 @@ QList<TransferFactory*> KGet::factories()
     return m_transferFactories;
 }
 
-KPluginInfo::List KGet::pluginInfos()
+QVector<KPluginMetaData> KGet::plugins()
 {
-    return m_pluginInfoList;
+    return m_pluginMetaDataList;
 }
 
 TransferFactory * KGet::factory(TransferHandler * transfer)
@@ -815,7 +814,7 @@ void KGet::calculateGlobalUploadLimit()
 TransferTreeModel * KGet::m_transferTreeModel;
 TransferTreeSelectionModel * KGet::m_selectionModel;
 QList<TransferFactory *> KGet::m_transferFactories;
-KPluginInfo::List KGet::m_pluginInfoList;
+QVector<KPluginMetaData> KGet::m_pluginMetaDataList;
 TransferGroupScheduler * KGet::m_scheduler = nullptr;
 MainWindow * KGet::m_mainWindow = nullptr;
 KUiServerJobs * KGet::m_jobManager = nullptr;
@@ -1144,7 +1143,7 @@ QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
 void KGet::loadPlugins()
 {
     m_transferFactories.clear();
-    m_pluginInfoList.clear();
+    m_pluginMetaDataList.clear();
 
     // TransferFactory plugins
     const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData& md) {
@@ -1173,13 +1172,11 @@ void KGet::loadPlugins()
 
     const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), "Plugins");
 
+    m_pluginMetaDataList = offers;
+
     for (const KPluginMetaData& md : qAsConst(sortedOffers))
     {
-        KPluginInfo info(md);
-        info.load(plugins);
-        m_pluginInfoList.prepend(info);
-
-        if (!info.isPluginEnabled())
+        if (!plugins.readEntry(md.pluginId() + QLatin1String("Enabled"), md.isEnabledByDefault()))
         {
             qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << md.fileName()
                              << ") found, but not enabled";
@@ -1189,8 +1186,6 @@ void KGet::loadPlugins()
         KGetPlugin* plugin = loadPlugin(md);
         if (plugin != nullptr)
         {
-            const QString pluginName = info.name();
-
             pluginList.prepend(plugin);
             qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << md.fileName()
                          << ") found and added to the list of available plugins";

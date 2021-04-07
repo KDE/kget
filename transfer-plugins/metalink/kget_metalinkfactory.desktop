@@ -127,3 +127,4 @@ X-KDE-PluginInfo-Category=Service
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-PluginInfo-Name=kget_metalink_plugin
+X-KDE-ConfigModule=kget_metalinkfactory_config

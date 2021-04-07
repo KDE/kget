@@ -22,7 +22,6 @@
 #include <KActionCollection>
 #include <KNotification>
 #include <KLocalizedString>
-#include <KPluginInfo>
 
 #include <QNetworkConfigurationManager>
 #include <QDomElement>
@@ -233,9 +232,9 @@ class KGET_EXPORT KGet
         static QList<TransferFactory*> factories();
 
         /**
-         * @returns a list of pluginInfos associated with all transferFactories
+         * @returns a list of plugins associated with all transferFactories
          */
-        static KPluginInfo::List pluginInfos();
+        static QVector<KPluginMetaData> plugins();
 
         /**
          * @returns The factory of a given transfer
@@ -432,7 +431,7 @@ class KGET_EXPORT KGet
         static TransferTreeSelectionModel * m_selectionModel;
 
         //Lists of available plugins
-        static KPluginInfo::List m_pluginInfoList;
+        static QVector<KPluginMetaData> m_pluginMetaDataList;
         static QList<TransferFactory *> m_transferFactories;
 
         //pointer to the Main window

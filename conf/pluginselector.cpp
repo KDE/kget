@@ -11,21 +11,16 @@
 
 #include "core/kget.h"
 
+#include <KConfigGroup>
 #include <KLocalizedString>
-#include <KPluginInfo>
 #include <KSharedConfig>
 #include <QDialog>
 
 PluginSelector::PluginSelector(QDialog * parent)
-  : KPluginSelector(parent)
+  : KPluginWidget(parent)
 {
-    KPluginInfo::List offers = KGet::self()->pluginInfos();
-
-
-    addPlugins(offers, KPluginSelector::ReadConfigFile, i18n("Plugins"), "Service", KSharedConfig::openConfig());
-
-    
-    load();
+    addPlugins(KGet::self()->plugins(), i18n("Plugins"));
+    setConfig(KSharedConfig::openConfig()->group(QStringLiteral("Plugins")));
 
     connect(parent, &QDialog::accepted, this, &PluginSelector::saveState);
     connect(parent, &QDialog::rejected, this, &PluginSelector::loadDefaults);
