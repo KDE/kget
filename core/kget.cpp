@@ -1148,8 +1148,7 @@ void KGet::loadPlugins()
 
     // TransferFactory plugins
     const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData& md) {
-        return md.serviceTypes().contains(QStringLiteral("KGet/Plugin")) &&
-            md.value(QStringLiteral("X-KDE-KGet-framework-version")) == QString::number(FrameworkVersion) &&
+        return md.value(QStringLiteral("X-KDE-KGet-framework-version")) == QString::number(FrameworkVersion) &&
             md.value(QStringLiteral("X-KDE-KGet-rank")).toInt() > 0 &&
             md.value(QStringLiteral("X-KDE-KGet-plugintype")) == QStringLiteral("TransferFactory");
     });
