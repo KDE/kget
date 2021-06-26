@@ -5,17 +5,19 @@ include_directories(
 #===========KGet===========
 if(BUILD_TESTING)
     add_definitions(-DDO_KGET_TEST)
-    set(kget_test_transfers_SRCS
+    add_executable(kget_test_transfers)
+    set(kget_test_transfers_dbus_SRCS)
+    qt5_add_dbus_interface(kget_test_transfers_dbus_SRCS ../dbus/org.kde.kget.main.xml kget_interface)
+    qt5_add_dbus_interface(kget_test_transfers_dbus_SRCS ../dbus/org.kde.kget.transfer.xml transfer_interface)
+    qt5_add_dbus_interface(kget_test_transfers_dbus_SRCS ../dbus/org.kde.kget.verifier.xml verifier_interface)
+
+    target_sources(kget_test_transfers PRIVATE
+        ${kget_test_transfers_dbus_SRCS}
         testkget.cpp
         testtransfers.cpp
         ../kget_debug.cpp
     )
 
-    qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.main.xml kget_interface)
-    qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.transfer.xml transfer_interface)
-    qt5_add_dbus_interface(kget_test_transfers_SRCS ../dbus/org.kde.kget.verifier.xml verifier_interface)
-
-    add_executable(kget_test_transfers ${kget_test_transfers_SRCS})
     # TODO enable it in ctest once it's fixed to not popup a "first run" messagebox on first start.
     # This probably needs a --testmode command-line argument (and QStandardPaths::setTestModeEnabled(true) on both sides)
     #ecm_mark_as_test(kget_test_transfers)

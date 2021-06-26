@@ -1,12 +1,12 @@
-project (kget_browser_integration)
+add_library(kget_browser_integration MODULE)
 
-set(kget_browser_integration_SRCS
+set(kget_browser_integration_dbus_SRCS)
+qt5_add_dbus_interface(kget_browser_integration_dbus_SRCS ../../dbus/org.kde.kget.main.xml kget_interface )
+
+target_sources(kget_browser_integration PRIVATE
    kget_plug_in.cpp
+   ${kget_browser_integration_dbus_SRCS}
 )
-
-QT5_ADD_DBUS_INTERFACE(kget_browser_integration_SRCS ../../dbus/org.kde.kget.main.xml kget_interface )
-
-add_library(kget_browser_integration MODULE ${kget_browser_integration_SRCS})
 
 target_link_libraries(kget_browser_integration KF5::CoreAddons KF5::I18n KF5::IconThemes KF5::Parts)
 

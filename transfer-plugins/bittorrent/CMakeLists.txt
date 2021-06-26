@@ -3,10 +3,9 @@ SET(SUPPORTED_KGET_MIMETYPES "${SUPPORTED_KGET_MIMETYPES}application/x-bittorren
 
 kde_enable_exceptions()
 
-include_directories(
-    ../../
-)
-set(kget_bittorrentfactory_PART_SRCS
+add_library(kget_bittorrent MODULE)
+
+target_sources(kget_bittorrent PRIVATE
     bttransfer.cpp
     bttransferfactory.cpp
     bttransferhandler.cpp
@@ -34,7 +33,7 @@ set(kget_bittorrentfactory_PART_SRCS
     ../../kget_debug.cpp
     )
 
-ki18n_wrap_ui(kget_bittorrentfactory_PART_SRCS
+ki18n_wrap_ui(kget_bittorrent
     btdetailswidgetfrm.ui
     scandlg.ui
     advanceddetails/chunkdownloadview.ui
@@ -42,25 +41,25 @@ ki18n_wrap_ui(kget_bittorrentfactory_PART_SRCS
     advanceddetails/webseedstab.ui
     )
 
-kconfig_add_kcfg_files(kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
-add_library(kget_bittorrent MODULE ${kget_bittorrentfactory_PART_SRCS})
+kconfig_add_kcfg_files(kget_bittorrent bittorrentsettings.kcfgc)
 kcoreaddons_desktop_to_json(kget_bittorrent kget_bittorrentfactory.desktop)
 
 target_link_libraries(kget_bittorrent KF5::KIOCore KF5::Torrent kgetcore)
 install(TARGETS kget_bittorrent DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})
 
 ###Build KCM-Module
-set(kcm_kget_bittorrentfactory_PART_SRCS
+add_library(kcm_kget_bittorrentfactory MODULE)
+
+target_sources(kcm_kget_bittorrentfactory PRIVATE
     btsettingswidget.cpp
     ../../kget_debug.cpp
     )
 
-ki18n_wrap_ui(kcm_kget_bittorrentfactory_PART_SRCS
+ki18n_wrap_ui(kcm_kget_bittorrentfactory
     btsettingswidget.ui
     )
 
-kconfig_add_kcfg_files(kcm_kget_bittorrentfactory_PART_SRCS bittorrentsettings.kcfgc)
-add_library(kcm_kget_bittorrentfactory MODULE ${kcm_kget_bittorrentfactory_PART_SRCS})
+kconfig_add_kcfg_files(kcm_kget_bittorrentfactory bittorrentsettings.kcfgc)
 target_link_libraries(kcm_kget_bittorrentfactory KF5::ConfigGui KF5::ConfigWidgets KF5::I18n KF5::KIOCore KF5::KIOWidgets)
 install(TARGETS kcm_kget_bittorrentfactory DESTINATION ${KDE_INSTALL_PLUGINDIR})
 

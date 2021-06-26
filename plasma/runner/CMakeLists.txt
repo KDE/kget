@@ -1,12 +1,13 @@
-set(krunner_kget_SRCS
+kcoreaddons_add_plugin(krunner_kget)
+
+set(krunner_kget_dbus_SRCS)
+qt5_add_dbus_interface(krunner_kget_dbus_SRCS ../../dbus/org.kde.kget.main.xml kget_interface)
+
+target_sources(krunner_kget PRIVATE
+    ${krunner_kget_dbus_SRCS}
     kgetrunner.cpp
-    )
-
-qt4_add_dbus_interface(krunner_kget_SRCS ../../dbus/org.kde.kget.main.xml kget_interface)
-
-kde4_add_plugin(krunner_kget
-    ${krunner_kget_SRCS}
 )
+
 target_link_libraries(krunner_kget
     ${KDE4_PLASMA_LIBS}
 )

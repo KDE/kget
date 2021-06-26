@@ -90,14 +90,6 @@ set_package_properties(KF5Torrent_FOUND PROPERTIES DESCRIPTION "Backend Library 
 find_package(LibMms QUIET)
 set_package_properties(LIBMMS_FOUND PROPERTIES DESCRIPTION "Library to read mms streams" TYPE RECOMMENDED PURPOSE "Needed to build KGet mms support.")
 
-set(kget_adaptor_SRCS
-    dbus/dbuskgetwrapper.cpp
-)
-# set(kget_transfer_adaptor_SRCS
-#     core/transferhandler.cpp
-#     core/transfertreemodel.cpp
-# )
-
 #add_definitions(-DKDE_DEFAULT_DEBUG_AREA=5001)  //TODO: PORT THIS!!
 
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
@@ -153,7 +145,18 @@ remove_definitions(-DQT_NO_HTTP)
 
 # kgetcore
 
-set(kgetcore_SRCS
+add_library(kgetcore SHARED)
+set_target_properties(kgetcore PROPERTIES
+    VERSION 5.0.0
+    SOVERSION 5
+)
+
+set(kgetcore_dbus_SRCS)
+qt5_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
+qt5_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
+
+target_sources(kgetcore PRIVATE
+   ${kgetcore_dbus_SRCS}
    core/job.cpp
    core/jobqueue.cpp
    core/kget.cpp
@@ -195,19 +198,14 @@ set(kgetcore_SRCS
    core/filedeleter.cpp
 )
 
-ecm_qt_declare_logging_category(kgetcore_SRCS
+ecm_qt_declare_logging_category(kgetcore
                                 HEADER kget_debug.h
                                 IDENTIFIER KGET_DEBUG
                                 CATEGORY_NAME kget
                                 DESCRIPTION "KGet" EXPORT KGET)
 
-kconfig_add_kcfg_files(kgetcore_SRCS conf/settings.kcfgc)
+kconfig_add_kcfg_files(kgetcore conf/settings.kcfgc)
 
-qt5_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
-qt5_add_dbus_adaptor(kgetcore_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
-
-
-add_library(kgetcore SHARED ${kgetcore_SRCS})
 generate_export_header(kgetcore BASE_NAME kget)
 
 target_link_libraries(kgetcore Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::ConfigGui KF5::CoreAddons KF5::DBusAddons KF5::I18n KF5::IconThemes KF5::KIOCore KF5::KIOWidgets KF5::Notifications KF5::Service KF5::XmlGui)
@@ -229,14 +227,21 @@ if (Gpgmepp_FOUND)
     kde_enable_exceptions()
 endif()
 
-
-set_target_properties(kgetcore PROPERTIES VERSION 5.0.0 SOVERSION 5 )
 install(TARGETS kgetcore ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 
 # kget
 
-set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
+add_executable(kget)
+
+set(kget_dbus_SRCS)
+qt5_add_dbus_adaptor(kget_dbus_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
+
+target_sources(kget PRIVATE
+   ${kget_dbus_SRCS}
+#     core/transferhandler.cpp
+#     core/transfertreemodel.cpp
+   dbus/dbuskgetwrapper.cpp
    kget_debug.cpp
    conf/autopastemodel.cpp
    conf/integrationpreferences.cpp
@@ -282,9 +287,7 @@ set(kget_SRCS ${kget_adaptor_SRCS} ${kget_transfer_adaptor_SRCS}
    #extensions/webinterface/httpserver.cpp
 )
 
-qt5_add_dbus_adaptor(kget_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
-
-ki18n_wrap_ui(kget_SRCS
+ki18n_wrap_ui(kget
    conf/dlgadvanced.ui
    conf/dlgappearance.ui
    conf/dlggroups.ui
@@ -314,8 +317,6 @@ ki18n_wrap_ui(kget_SRCS
 )
 
 #kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
-
-add_executable(kget ${kget_SRCS})
 
 target_link_libraries(kget Qt5::Core Qt5::Widgets Qt5::Sql Qt5::Network Qt5::DBus KF5::Crash KF5::Wallet KF5::DBusAddons KF5::I18n KF5::Completion KF5::CoreAddons KF5::IconThemes KF5::ItemViews KF5::KCMUtils KF5::NotifyConfig KF5::WindowSystem KF5::KDELibs4Support kgetcore)
 if(Qca_FOUND)

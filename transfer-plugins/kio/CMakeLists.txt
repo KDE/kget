@@ -1,15 +1,11 @@
-include_directories(
-   ../../
-    ${CMAKE_CURRENT_BINARY_DIR}/../../
-)
+add_library(kget_kio MODULE)
 
-set(kget_kiofactory_PART_SRCS
+target_sources(kget_kio PRIVATE
   transferKio.cpp
   transferKioFactory.cpp
   ../../kget_debug.cpp
 )
 
-add_library(kget_kio MODULE ${kget_kiofactory_PART_SRCS})
 kcoreaddons_desktop_to_json(kget_kio kget_kiofactory.desktop)
 target_link_libraries(kget_kio kgetcore)
 
