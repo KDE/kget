@@ -14,7 +14,7 @@
 #include <list>
 #include <util/timer.h>
 #include <util/constants.h>
-#include <interfaces/chunkselectorinterface.h>
+#include <download/chunkselector.h>
 
 #include <QObject>
 
@@ -27,24 +27,11 @@ namespace bt
     class PieceDownloader;
 }
 
-class BTChunkSelector : public bt::ChunkSelectorInterface 
+class BTChunkSelector : public bt::ChunkSelector
 {
     public:
         BTChunkSelector(bt::ChunkManager & cman,bt::Downloader & downer,bt::PeerManager & pman);
         ~BTChunkSelector();
-
-        virtual bool select(bt::PieceDownloader* pd,bt::Uint32 & chunk);
-        virtual void dataChecked(const bt::BitSet & ok_chunks);
-        virtual void reincluded(bt::Uint32 from, bt::Uint32 to);
-        virtual void reinsert(bt::Uint32 chunk);
-        virtual void excludeAll();
-        virtual void exclude(bt::Uint32 chunk);
-
-    private:
-        bt::Uint32 leastPeers(const std::list<bt::Uint32> & lp);
-
-        std::list<bt::Uint32> chunks;
-        bt::Timer sort_timer;
 };
 
 class BTChunkSelectorFactory : public QObject, public bt::ChunkSelectorFactoryInterface

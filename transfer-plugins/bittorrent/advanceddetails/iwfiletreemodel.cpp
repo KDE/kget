@@ -79,12 +79,14 @@ namespace kt
 	{
 		switch(file->getPriority())
 		{
+			case FIRST_PREVIEW_PRIORITY:
 			case FIRST_PRIORITY: return i18nc("Download first", "First");
+			case LAST_PREVIEW_PRIORITY:
 			case LAST_PRIORITY:	return i18nc("Download last", "Last");
 			case ONLY_SEED_PRIORITY: 
 			case EXCLUDED: 
-			case PREVIEW_PRIORITY: 
 				return QString();
+			case NORMAL_PREVIEW_PRIORITY:
 			default:return i18nc("Download normally(not as first or last)", "Normal");
 		}
 	}
@@ -103,15 +105,17 @@ namespace kt
 			const bt::TorrentFileInterface* file = n->file;
 			switch (file->getPriority())
 			{
-				/*case FIRST_PRIORITY:
+				/*case FIRST_PREVIEW_PRIORITY:
+				case FIRST_PRIORITY:
 					return InfoWidgetPluginSettings::firstColor();
+				case LAST_PREVIEW_PRIORITY:
 				case LAST_PRIORITY:	
 					return InfoWidgetPluginSettings::lastColor();
+				case NORMAL_PREVIEW_PRIORITY:
 				case NORMAL_PRIORITY:
 					return InfoWidgetPluginSettings::normalColor();
 				case ONLY_SEED_PRIORITY: 
-				case EXCLUDED: 
-				case PREVIEW_PRIORITY:*/ 
+				case EXCLUDED:*/
                 default:
 					return QVariant();
 			}
