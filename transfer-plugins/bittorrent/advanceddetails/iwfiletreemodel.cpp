@@ -101,25 +101,7 @@ namespace kt
 			return QVariant();
 		
 		if (role == Qt::ForegroundRole && index.column() == 2 && tc->getStats().multi_file_torrent && n->file)
-		{
-			const bt::TorrentFileInterface* file = n->file;
-			switch (file->getPriority())
-			{
-				/*case FIRST_PREVIEW_PRIORITY:
-				case FIRST_PRIORITY:
-					return InfoWidgetPluginSettings::firstColor();
-				case LAST_PREVIEW_PRIORITY:
-				case LAST_PRIORITY:	
-					return InfoWidgetPluginSettings::lastColor();
-				case NORMAL_PREVIEW_PRIORITY:
-				case NORMAL_PRIORITY:
-					return InfoWidgetPluginSettings::normalColor();
-				case ONLY_SEED_PRIORITY: 
-				case EXCLUDED:*/
-                default:
-					return QVariant();
-			}
-		}
+			return QVariant();
 			
 		if (role == Qt::DisplayRole)
 			return displayData(n,index);
