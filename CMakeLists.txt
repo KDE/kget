@@ -13,7 +13,7 @@ set(KF5_VERSION "5.83.0")
 
 find_package(ECM ${KF5_VERSION} REQUIRED NO_MODULE)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS DBus Gui Network Sql Test Widgets Xml)
 include(KDEInstallDirs)
@@ -69,8 +69,6 @@ endif(WIN32)
 
 add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
-
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 find_package(Sqlite QUIET)
 set_package_properties(SQLITE_FOUND PROPERTIES DESCRIPTION "SQLite is a Binary-Database" TYPE RECOMMENDED PURPOSE "Needed for the SQLite-Backend of the KGet-History")
