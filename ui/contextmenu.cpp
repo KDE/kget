@@ -22,8 +22,6 @@
 #include <KFileItemListProperties>
 #include <KFileItemActions>
 
-#include <kio_version.h>
-
 QMenu * ContextMenu::createTransferContextMenu(QList<TransferHandler*> transfers, QWidget *parent)
 {
     if (transfers.empty())
@@ -85,13 +83,9 @@ QMenu * ContextMenu::createTransferContextMenu(TransferHandler* handler, QWidget
         menuActions.setItemListProperties(KFileItemListProperties(items));
         menuActions.setParentWidget(parent);
 
-        #if KIO_VERSION >= QT_VERSION_CHECK(5, 82, 0)
-            menuActions.addActionsTo(popup, KFileItemActions::MenuActionSource::Services);
-            menuActions.insertOpenWithActionsTo(nullptr, popup, QStringList("org.kde.kget"));
-        #else
-            menuActions.addServiceActionsTo(popup);
-            menuActions.addOpenWithActionsTo(popup, "DesktopEntryName != 'kget'");
-        #endif
+        menuActions.addActionsTo(popup, KFileItemActions::MenuActionSource::Services);
+        menuActions.insertOpenWithActionsTo(nullptr, popup, QStringList("org.kde.kget"));
+
         // TODO : seems like the popup menu has to be showed while the KonqMenuActions instance exists ?
         popup->exec(QCursor::pos());
         popup->deleteLater();
