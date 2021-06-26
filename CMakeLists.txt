@@ -97,7 +97,7 @@ set_package_properties(Gpgmepp PROPERTIES
     PURPOSE "GpgME++ is required to have signature verifying support in KGet."
 )
 
-find_package(KF5Torrent 2.1)
+find_package(KF5Torrent 21.07.70)
 set_package_properties(KF5Torrent PROPERTIES
     DESCRIPTION "Backend Library of KTorrent"
     TYPE RECOMMENDED
