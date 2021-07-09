@@ -1,7 +1,7 @@
 kcoreaddons_add_plugin(krunner_kget)
 
 set(krunner_kget_dbus_SRCS)
-qt5_add_dbus_interface(krunner_kget_dbus_SRCS ../../dbus/org.kde.kget.main.xml kget_interface)
+qt_add_dbus_interface(krunner_kget_dbus_SRCS ../../dbus/org.kde.kget.main.xml kget_interface)
 
 target_sources(krunner_kget PRIVATE
     ${krunner_kget_dbus_SRCS}

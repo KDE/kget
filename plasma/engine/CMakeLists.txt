@@ -3,7 +3,7 @@ kcoreaddons_add_plugin(plasma_engine_kget)
 target_include_directories(plasma_engine_kget PRIVATE ../../)
 
 set(kget_engine_dbus_SRCS)
-qt5_add_dbus_interface(kget_engine_dbus_SRCS ../../dbus/org.kde.kget.main.xml kget_interface)
+qt_add_dbus_interface(kget_engine_dbus_SRCS ../../dbus/org.kde.kget.main.xml kget_interface)
 
 target_sources(plasma_engine_kget PRIVATE
     kgetengine.cpp

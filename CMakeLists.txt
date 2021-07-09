@@ -179,8 +179,8 @@ set_target_properties(kgetcore PROPERTIES
 )
 
 set(kgetcore_dbus_SRCS)
-qt5_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
-qt5_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
+qt_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
+qt_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
 
 target_sources(kgetcore PRIVATE
     ${kgetcore_dbus_SRCS}
@@ -248,11 +248,11 @@ target_link_libraries(kgetcore
     KF5::Notifications
     KF5::Service
     KF5::XmlGui
-    Qt5::Core
-    Qt5::Widgets
-    Qt5::Sql
-    Qt5::Network
-    Qt5::DBus
+    Qt::Core
+    Qt::Widgets
+    Qt::Sql
+    Qt::Network
+    Qt::DBus
 )
 
 if(LibKWorkspace_FOUND)
@@ -280,7 +280,7 @@ install(TARGETS kgetcore ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 add_executable(kget)
 
 set(kget_dbus_SRCS)
-qt5_add_dbus_adaptor(kget_dbus_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
+qt_add_dbus_adaptor(kget_dbus_SRCS dbus/org.kde.kget.main.xml dbus/dbuskgetwrapper.h DBusKGetWrapper)
 
 target_sources(kget PRIVATE
     ${kget_dbus_SRCS}
@@ -377,17 +377,17 @@ target_link_libraries(kget
     KF5::NotifyConfig
     KF5::WindowSystem
     KF5::KDELibs4Support
-    Qt5::Core
-    Qt5::Widgets
-    Qt5::Sql
-    Qt5::Network
-    Qt5::DBus
+    Qt::Core
+    Qt::Widgets
+    Qt::Sql
+    Qt::Network
+    Qt::DBus
 )
 if(Qca_FOUND)
     target_link_libraries(kget qca)
 endif()
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
-    target_link_libraries(kget Qt5::Test)
+    target_link_libraries(kget Qt::Test)
 endif()
 
 if (QGpgme_FOUND)
