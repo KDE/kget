@@ -75,7 +75,7 @@ class KGET_EXPORT Signature : public QObject
 
         void downloadKey(QString fingerprint);
         QByteArray signature();
-        void setAsciiDetatchedSignature(const QString &signature);
+        void setAsciiDetachedSignature(const QString &signature);
         void setSignature(const QByteArray &signature, SignatureType type);
 
         SignatureType type() const;

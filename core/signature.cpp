@@ -140,7 +140,7 @@ QByteArray Signature::signature()
     return d->signature;
 }
 
-void Signature::setAsciiDetatchedSignature(const QString &signature)
+void Signature::setAsciiDetachedSignature(const QString &signature)
 {
     setSignature(signature.toLatin1(), AsciiDetached);
 }

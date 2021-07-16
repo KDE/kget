@@ -87,7 +87,7 @@ void SignatureDlg::fileFinished(const QUrl &file)
 void SignatureDlg::textChanged()
 {
     if (m_signature) {
-        m_signature->setAsciiDetatchedSignature(ui.signature->toPlainText());
+        m_signature->setAsciiDetachedSignature(ui.signature->toPlainText());
 
         clearData();
         updateButtons();

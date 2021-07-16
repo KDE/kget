@@ -181,7 +181,7 @@ bool Metalink::metalinkInit(const QUrl &src, const QByteArray &data)
             QHash<QString, QString>::const_iterator itEnd = signatures.constEnd();
             for (it = signatures.constBegin(); it != itEnd; ++it) {
                 if (it.key().toLower() == "pgp") {
-                    dataFactory->signature()->setAsciiDetatchedSignature(*it);
+                    dataFactory->signature()->setAsciiDetachedSignature(*it);
                 }
             }
 
