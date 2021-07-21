@@ -181,7 +181,7 @@ void ChecksumDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionV
 }
 
 DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVariantList &args)
-  : KCModule(/*KGetFactory::componentDaa(), */parent, args)
+  : KCModule(parent, args)
 {
     ui.setupUi(this);
 

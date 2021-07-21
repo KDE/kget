@@ -70,7 +70,7 @@ QString DlgEngineEditing::engineUrl() const
 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(/*KGetFactory::componentData(),*/ parent, args)
+    : KCModule(parent, args)
 {
     ui.setupUi(this);
     ui.newEngineBt->setIcon(QIcon::fromTheme("list-add"));
