@@ -132,7 +132,7 @@ add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
-ecm_setup_version(PROJECT
+ecm_setup_version(${kget_VERSION}
     VARIABLE_PREFIX KGET
     VERSION_HEADER "kget_version.h"
 )
