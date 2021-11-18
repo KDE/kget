@@ -126,6 +126,7 @@ X-KDE-Library=kget_mmsfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=80
 X-KDE-KGet-framework-version=2
+X-KDE-ConfigModule=kget/kcms/kcm_kget_mmsfactory
 
 X-KDE-PluginInfo-Author=Ernesto Rodriguez Ortiz
 X-KDE-PluginInfo-Email=eortiz@uci.cu

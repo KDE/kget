@@ -120,6 +120,7 @@ X-KDE-Library=kget_bittorrentfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=200
 X-KDE-KGet-framework-version=2
+X-KDE-ConfigModule=kget/kcms/kcm_kget_bittorrentfactory
 
 X-KDE-PluginInfo-Author=Lukas Appelhans
 X-KDE-PluginInfo-Email=l.appelhans@gmx.de
