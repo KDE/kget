@@ -25,7 +25,7 @@ install(TARGETS kget_metalinkfactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
 
 
 ###Build KCM-Module
-add_library(kcm_kget_metalinkfactory MODULE)
+kcoreaddons_add_plugin(kcm_kget_metalinkfactory INSTALL_NAMESPACE "kget/kcms")
 
 target_sources(kcm_kget_metalinkfactory PRIVATE
     dlgmetalink.cpp
@@ -38,6 +38,3 @@ dlgmetalink.ui
 
 kconfig_add_kcfg_files(kcm_kget_metalinkfactory metalinksettings.kcfgc)
 target_link_libraries(kcm_kget_metalinkfactory KF5::I18n KF5::ConfigGui KF5::ConfigWidgets)
-install(TARGETS kcm_kget_metalinkfactory DESTINATION ${KDE_INSTALL_PLUGINDIR})
-
-install(FILES kget_metalinkfactory_config.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})

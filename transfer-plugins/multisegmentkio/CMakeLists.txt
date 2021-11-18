@@ -17,7 +17,7 @@ install(TARGETS kget_multisegkiofactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
 install(FILES kget_multisegkiofactory.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ###Build KCM-Module
-add_library(kcm_kget_multisegkiofactory MODULE)
+kcoreaddons_add_plugin(kcm_kget_multisegkiofactory INSTALL_NAMESPACE "kget/kcms")
 
 target_sources(kcm_kget_multisegkiofactory PRIVATE
   dlgmultisegkio.cpp
@@ -30,6 +30,3 @@ ki18n_wrap_ui(kcm_kget_multisegkiofactory
 
 kconfig_add_kcfg_files(kcm_kget_multisegkiofactory multisegkiosettings.kcfgc)
 target_link_libraries(kcm_kget_multisegkiofactory KF5::I18n KF5::ConfigWidgets)
-install(TARGETS kcm_kget_multisegkiofactory DESTINATION ${KDE_INSTALL_PLUGINDIR})
-
-install(FILES kget_multisegkiofactory_config.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
