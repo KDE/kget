@@ -53,7 +53,6 @@ find_package(KF5 ${KF5_VERSION} REQUIRED
     Notifications
     NotifyConfig
     Parts
-    Service
     TextWidgets
     Wallet
     WidgetsAddons
@@ -247,7 +246,6 @@ target_link_libraries(kgetcore
     KF5::KIOCore
     KF5::KIOWidgets
     KF5::Notifications
-    KF5::Service
     KF5::XmlGui
     Qt::Core
     Qt::Widgets
