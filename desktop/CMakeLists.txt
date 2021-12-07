@@ -2,8 +2,7 @@
 configure_file(org.kde.kget.desktop.cmake ${CMAKE_CURRENT_BINARY_DIR}/org.kde.kget.desktop)
 
 install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/org.kde.kget.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES kget_download.desktop DESTINATION
-${KDE_INSTALL_KSERVICES5DIR}/ServiceMenus)
+install(PROGRAMS kget_download.desktop DESTINATION ${KDE_INSTALL_DATADIR}/kio/servicemenus)
 
 # For DBus activation:
 configure_file(org.kde.kget.service.in
