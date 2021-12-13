@@ -34,7 +34,6 @@
 #include "ui/transfersettingsdialog.h"
 #include "ui/linkview/kget_linkview.h"
 #include "ui/metalinkcreator/metalinkcreator.h"
-#include "extensions/webinterface/httpserver.h"
 #ifdef DO_KGET_TEST
     #include "tests/testkget.h"
 #endif
