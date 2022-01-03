@@ -272,8 +272,8 @@ void DataSourceFactory::start()
         //check if the filesystem supports a file of m_size
         const static KIO::filesize_t maxFatSize = 4294967295;
         if (m_size > maxFatSize) {
-            KMountPoint::Ptr mountPoint = KMountPoint::currentMountPoints().findByPath(m_dest.adjusted(QUrl::RemoveFilename).toString());
-            if (!mountPoint) {
+            KMountPoint::Ptr mountPoint = KMountPoint::currentMountPoints().findByPath(m_dest.adjusted(QUrl::RemoveFilename).toLocalFile());
+            if (mountPoint) {
                 if (mountPoint->mountType() == "vfat") {//TODO check what is reported on Windows for vfat
                     stop();
                     KMessageBox::error(nullptr, i18n("Filesize is larger than maximum file size supported by VFAT."), i18n("Error"));
@@ -282,7 +282,7 @@ void DataSourceFactory::start()
             }
         }
 
-        QFile::resize(m_dest.toString(), m_size);//TODO should we keep that?
+        QFile::resize(m_dest.toLocalFile(), m_size);//TODO should we keep that?
         m_speedTimer->start();
 
         foreach (TransferDataSource *source, m_sources) {
