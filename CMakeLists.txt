@@ -145,7 +145,6 @@ add_subdirectory(ui)
 add_subdirectory(transfer-plugins)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
-#add_subdirectory(plasma) TODO PORT TO KF5/QML
 add_subdirectory(tests)
 add_subdirectory(doc)
 
