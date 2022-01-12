@@ -23,10 +23,9 @@
 #include <QSpinBox>
 #include <QStandardPaths>
 
+#include <KCountry>
 #include <KLineEdit>
 #include <KLocalizedString>
-#include <KLocale>
-
 
 MirrorDelegate::MirrorDelegate(QObject *parent)
   : QStyledItemDelegate(parent),
@@ -243,10 +242,6 @@ QVariant MirrorItem::data(int column, int role) const
         {
             return m_countryName;
         }
-        else if (role == Qt::DecorationRole)
-        {
-            return m_countryFlag;
-        }
         else if ((role == Qt::UserRole) || (role == Qt::EditRole))
         {
             return m_countryCode;
@@ -321,24 +316,7 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
     else if ((column == MirrorItem::Country) && (role == Qt::EditRole))
     {
         m_countryCode = value.toString();
-        m_countryName = KLocale::global()->countryCodeToName(m_countryCode);
-
-        if (!m_countryName.isEmpty())
-        {
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("locale/") + QString::fromLatin1("l10n/%1/flag.png").arg(m_countryCode));
-            if (path.isEmpty())
-            {
-                m_countryFlag = QIcon();
-            }
-            else
-            {
-                m_countryFlag = QIcon::fromTheme(path);
-            }
-        }
-        else
-        {
-            m_countryFlag = QIcon();
-        }
+        m_countryName = KCountry::fromAlpha2(m_countryCode).name();
         return true;
     }
 

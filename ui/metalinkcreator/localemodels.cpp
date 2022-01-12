@@ -20,7 +20,7 @@
 #include "localemodels.h"
 
 #include <KLanguageName>
-#include <KLocale>
+#include <KCountry>
 
 #include <QLocale>
 #include <QStandardPaths>
@@ -41,10 +41,6 @@ QVariant CountryModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole)
     {
         return m_countryNames.value(index.row());
-    }
-    else if (role == Qt::DecorationRole)
-    {
-        return m_countryIcons.value(index.row());
     }
     else if (role == Qt::UserRole)
     {
@@ -81,22 +77,12 @@ void CountryModel::setupModelData()
                 countryCode = localeName.mid(idx + 1);
             }
         }
-        const QString countryName = KLocale::global()->countryCodeToName(countryCode);
+        const QString countryName = KCountry::fromAlpha2(countryCode).name();
 
         if (!countryName.isEmpty())
         {
             m_countryCodes.append(countryCode);
             m_countryNames.append(countryName);
-
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("locale/") + QString::fromLatin1("l10n/%1/flag.png").arg(countryCode));
-            if (path.isEmpty())
-            {
-                m_countryIcons.append(QIcon());
-            }
-            else
-            {
-                m_countryIcons.append(QIcon::fromTheme(path));
-            }
         }
     }
     endResetModel();

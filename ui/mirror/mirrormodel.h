@@ -82,7 +82,6 @@ class MirrorItem
         int m_priority;
         QString m_countryCode;
         QString m_countryName;
-        QIcon m_countryFlag;
 };
 
 class MirrorModel : public QAbstractTableModel

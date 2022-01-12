@@ -58,7 +58,6 @@ find_package(KF5 ${KF5_VERSION} REQUIRED
     WidgetsAddons
     WindowSystem
     XmlGui
-    KDELibs4Support # KLocale
 )
 
 #include(CheckIncludeFile)
@@ -240,6 +239,7 @@ target_link_libraries(kgetcore
     KF5::CoreAddons
     KF5::DBusAddons
     KF5::I18n
+    KF5::I18nLocaleData
     KF5::IconThemes
     KF5::KIOCore
     KF5::KIOWidgets
@@ -373,7 +373,6 @@ target_link_libraries(kget
     KF5::KCMUtils
     KF5::NotifyConfig
     KF5::WindowSystem
-    KF5::KDELibs4Support
     Qt::Core
     Qt::Widgets
     Qt::Sql
