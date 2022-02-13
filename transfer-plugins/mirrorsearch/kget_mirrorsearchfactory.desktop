@@ -62,6 +62,7 @@ Name[zh_CN]=镜像搜索
 Name[zh_TW]=映射搜尋
 
 Comment=Allows KGet to search through mirror search engines for files
+Comment[ar]=فعل كجت ليبحث عن الملفات بواسطة محركات بحث المرآة
 Comment[bg]=Позволява KGet да търси за файлове в търсачки на огледала
 Comment[bs]=Omogućava KGetu da traži datoteke preko kopiranih pogona za traženje
 Comment[ca]=Permet que el KGet cerqui els fitxers a rèpliques amb els motors de cerca

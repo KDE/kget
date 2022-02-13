@@ -4,6 +4,7 @@ ServiceTypes=KGet/Plugin
 Icon=kget
 
 Name=Checksum Search
+Name[ar]=البحث بالمجموع
 Name[bg]=Търсене на контролна сума
 Name[bs]=Traženje kontrolnih suma
 Name[ca]=Cerca de suma de verificació
@@ -58,6 +59,7 @@ Name[zh_CN]=校验和搜索
 Name[zh_TW]=驗證碼搜尋
 
 Comment=Tries to find checksums for a specified URL
+Comment[ar]=محاولة العثور على المجموع للعنوان المحدد
 Comment[bg]=Търсене на контролни суми за указания URL-адрес
 Comment[bs]=Pokušava da nađe kontrolne sume za navedeni URL
 Comment[ca]=Intenta cercar sumes de verificació per a un URL especificat
