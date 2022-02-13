@@ -2,7 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=KGet/Plugin
 Name=KGet Plugin
-Name[ar]=KGet ملحق
+Name[ar]=كجت ملحق
 Name[bg]=Приставка KGet
 Name[bs]=KGet priključak
 Name[ca]=Connector del KGet
@@ -62,7 +62,7 @@ Name[x-test]=xxKGet Pluginxx
 Name[zh_CN]=KGet 插件
 Name[zh_TW]=KGet 外掛程式
 Comment=Plugin for KGet
-Comment[ar]=ملحق لـ KGet
+Comment[ar]=ملحق لـكجت
 Comment[bg]=Приставка за KGet
 Comment[bs]=Priključak za KGet
 Comment[ca]=Connector per al KGet

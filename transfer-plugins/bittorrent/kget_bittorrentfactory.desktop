@@ -62,6 +62,7 @@ Name[x-test]=xxBittorrentxx
 Name[zh_CN]=BitTorrent
 Name[zh_TW]=Bittorrent
 Comment=Allows files to be downloaded using Bittorrent
+Comment[ar]=السماح بتنزيل الملفات باستعمال بيت تورنت
 Comment[bg]=Позволява изтегляне на файлове през Bittorrent
 Comment[bs]=Preuzimanje datoteka preko bittorenta
 Comment[ca]=Permet baixar fitxers emprant el Bittorrent
