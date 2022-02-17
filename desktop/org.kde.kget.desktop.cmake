@@ -177,6 +177,7 @@ Comment[nl]=KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder
 Comment[pl]=KGet jest wszechstronnym i przyjaznym użytkownikowi programem do zarządzania pobieraniem
 Comment[pt]=O KGet é um gestor de transferências de ficheiros simples e versátil de usar
 Comment[pt_BR]=O KGet é um gerenciador de downloads versátil e amigável
+Comment[ru]=KGet — это гибкий и простой в использовании диспетчер загрузок
 Comment[sl]=KGet je vsestranski in uporabniku prijazen upravitelj prenosov
 Comment[sv]=Kget är en mångsidig och lättanvänd nerladdningshanterare
 Comment[uk]=KGet — гнучка і зручна програма для отримання даних з мережі
