@@ -20,6 +20,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
+include(ECMAddAppIcon)
 include(ECMInstallIcons)
 include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
@@ -358,7 +359,8 @@ ki18n_wrap_ui(kget
     ui/signaturedlg.ui
 )
 
-#kde4_add_app_icon(kget_SRCS "ui/icons/hi*-apps-kget.png")
+file(GLOB ICON_SRCS "ui/icons/*-apps-kget.png")
+ecm_add_app_icon(kget ICONS ${ICON_SRCS})
 
 target_link_libraries(kget
     kgetcore
