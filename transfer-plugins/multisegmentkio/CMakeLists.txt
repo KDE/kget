@@ -29,4 +29,4 @@ ki18n_wrap_ui(kcm_kget_multisegkiofactory
 )
 
 kconfig_add_kcfg_files(kcm_kget_multisegkiofactory multisegkiosettings.kcfgc)
-target_link_libraries(kcm_kget_multisegkiofactory KF5::I18n KF5::ConfigWidgets)
+target_link_libraries(kcm_kget_multisegkiofactory KF5::I18n KF5::ConfigWidgets KF5::CoreAddons)
