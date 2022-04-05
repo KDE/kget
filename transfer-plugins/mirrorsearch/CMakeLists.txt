@@ -29,4 +29,4 @@ ki18n_wrap_ui(kcm_kget_mirrorsearchfactory
 )
 
 kconfig_add_kcfg_files(kcm_kget_mirrorsearchfactory mirrorsearchsettings.kcfgc)
-target_link_libraries(kcm_kget_mirrorsearchfactory KF5::ConfigWidgets KF5::I18n KF5::WidgetsAddons)
+target_link_libraries(kcm_kget_mirrorsearchfactory KF5::ConfigWidgets KF5::CoreAddons KF5::I18n KF5::WidgetsAddons)

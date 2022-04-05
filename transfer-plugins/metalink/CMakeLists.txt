@@ -37,4 +37,4 @@ dlgmetalink.ui
 )
 
 kconfig_add_kcfg_files(kcm_kget_metalinkfactory metalinksettings.kcfgc)
-target_link_libraries(kcm_kget_metalinkfactory KF5::I18n KF5::ConfigGui KF5::ConfigWidgets)
+target_link_libraries(kcm_kget_metalinkfactory KF5::I18n KF5::ConfigGui KF5::CoreAddons KF5::ConfigWidgets)
