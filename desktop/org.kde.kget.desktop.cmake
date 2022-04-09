@@ -180,6 +180,7 @@ Comment[pt_BR]=O KGet é um gerenciador de downloads versátil e amigável
 Comment[ru]=KGet — это гибкий и простой в использовании диспетчер загрузок
 Comment[sl]=KGet je vsestranski in uporabniku prijazen upravitelj prenosov
 Comment[sv]=Kget är en mångsidig och lättanvänd nerladdningshanterare
+Comment[tr]=KGet, çok kapsamlı ve kullanıcı dostu bir indirme yöneticisidir
 Comment[uk]=KGet — гнучка і зручна програма для отримання даних з мережі
 Comment[x-test]=xxKGet is a versatile and user-friendly download managerxx
 Comment[zh_CN]=KGet 是一个功能多样且用户友好的下载管理器
