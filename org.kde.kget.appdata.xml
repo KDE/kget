@@ -31,6 +31,7 @@
   <name xml:lang="sk">KGet</name>
   <name xml:lang="sl">KGet</name>
   <name xml:lang="sv">Kget</name>
+  <name xml:lang="tr">KGet</name>
   <name xml:lang="uk">KGet</name>
   <name xml:lang="x-test">xxKGetxx</name>
   <name xml:lang="zh-CN">KGet</name>
@@ -63,6 +64,7 @@
   <summary xml:lang="sk">Správca sťahovania</summary>
   <summary xml:lang="sl">Upravljalnik prenosov s strežnikov</summary>
   <summary xml:lang="sv">Nerladdningshanterare</summary>
+  <summary xml:lang="tr">İndirme Yöneticisi</summary>
   <summary xml:lang="uk">Керування отриманням даних</summary>
   <summary xml:lang="x-test">xxDownload Managerxx</summary>
   <summary xml:lang="zh-CN">下载管理器</summary>
@@ -97,6 +99,7 @@
     <p xml:lang="sk">KGet je univerzálny a ľahko použiteľný správca sťahovania.</p>
     <p xml:lang="sl">KGet je vsestranski in uporabniku prijazen upravljalnik prenosov datotek.</p>
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
+    <p xml:lang="tr">KGet, geniş kapsamlı ve kullanıcı dostu bir indirme yöneticisidir.</p>
     <p xml:lang="uk">KGet — гнучка і зручна програма для отримання даних з мережі.</p>
     <p xml:lang="x-test">xxKGet is a versatile and user-friendly download manager.xx</p>
     <p xml:lang="zh-CN">KGet 是一个功能多样且用户友好的下载管理器。</p>
@@ -129,6 +132,7 @@
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Možnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
+    <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
@@ -161,6 +165,7 @@
       <li xml:lang="sk">Sťahovanie súborov zo zdrojov FTP a HTTP(S).</li>
       <li xml:lang="sl">Prenos datotek iz virov FTP in HTTP (S).</li>
       <li xml:lang="sv">Nerladdning av filer från FTP- och HTTP(S)-källor.</li>
+      <li xml:lang="tr">FTP ve HTTP(S) kaynaklarından dosya indirme.</li>
       <li xml:lang="uk">Отримання файлів з джерел FTP та HTTP(S).</li>
       <li xml:lang="x-test">xxDownloading files from FTP and HTTP(S) sources.xx</li>
       <li xml:lang="zh-CN">从 FTP 和 HTTP(S) 源下载文件。</li>
@@ -192,6 +197,7 @@
       <li xml:lang="sk">Pozastavenie a obnovenie sťahovania súborov, ako aj možnosť reštartovania sťahovania.</li>
       <li xml:lang="sl">Zaustavitev in nadaljevanje prenosa datotek ter možnost ponovnega zagona prenosa.</li>
       <li xml:lang="sv">Pausa och återuppta nerladdning av filer, samt möjlighet att starta om en nerladdning.</li>
+      <li xml:lang="tr">İndirilen dosyaların duraklatılması ve sürdürülmesi ve aynı zamanda yeniden başlatılması.</li>
       <li xml:lang="uk">Можливість призупинення та відновлення отримання файлів, а також можливість перезапустити отримання.</li>
       <li xml:lang="x-test">xxPausing and resuming of downloading files, as well as the ability to restart a download.xx</li>
       <li xml:lang="zh-CN">暂停和继续文件下载，还能够重新开始下载。</li>
@@ -223,6 +229,7 @@
       <li xml:lang="sk">Poskytuje veľa informácií o aktuálnych a čakajúcich stiahnutiach.</li>
       <li xml:lang="sl">Sporoča veliko informacij o trenutnih in čakajočih prenosih.</li>
       <li xml:lang="sv">Ger mängder av information om aktuella och väntande nerladdningar.</li>
+      <li xml:lang="tr">Geçerli ve bekleyen indirmeler hakkında ek bilgiler.</li>
       <li xml:lang="uk">Можливість отримання широкого спектра даних щодо поточного сеансу отримання та завдань з отримання даних з черги.</li>
       <li xml:lang="x-test">xxTells lots of information about current and pending downloads.xx</li>
       <li xml:lang="zh-CN">显示当前和队列下载的许多信息。</li>
@@ -254,6 +261,7 @@
       <li xml:lang="sk">Vloženie do systémovej lišty.</li>
       <li xml:lang="sl">Vdelan v sistemsko vrstico.</li>
       <li xml:lang="sv">Inbäddning i systembrickan.</li>
+      <li xml:lang="tr">Sistem tepsisinde çalışabilme.</li>
       <li xml:lang="uk">Можливість вбудовування до лотка системи.</li>
       <li xml:lang="x-test">xxEmbedding into system tray.xx</li>
       <li xml:lang="zh-CN">嵌入到系统托盘。</li>
@@ -285,6 +293,7 @@
       <li xml:lang="sk">Integrácia s webovým prehliadačom Konqueror.</li>
       <li xml:lang="sl">Integracija s spletnim brskalnikom Konqueror.</li>
       <li xml:lang="sv">Integrering i webbläsaren Konqueror.</li>
+      <li xml:lang="tr">Konqueror web tarayıcısı ile tümleşme.</li>
       <li xml:lang="uk">Інтеграція із програмою для перегляду сторінок інтернету Konqueror.</li>
       <li xml:lang="x-test">xxIntegration with the Konqueror web browser.xx</li>
       <li xml:lang="zh-CN">Konqueror 网页浏览器集成。</li>
@@ -316,6 +325,7 @@
       <li xml:lang="sk">Podpora Metalink, ktorá obsahuje viac URL na stiahnutie, spolu s kontrolnými súčtami a ďalšími informáciami.</li>
       <li xml:lang="sl">Podpora za Metalink, ki vsebuje več spletnih naslovov za prenos, skupaj s kontrolnimi vsotami in drugimi informacijami.</li>
       <li xml:lang="sv">Stör för metalänkar som innehåller flera webbadresser för nerladdning, tillsammans med checksummor och annan information.</li>
+      <li xml:lang="tr">İndirmeler için birden çok bağlantı ve/veya sağlama toplamları ve başka bilgiler içeren Metalink desteği.</li>
       <li xml:lang="uk">Підтримка метапосилань, які містять декілька адрес даних, а також контрольні суми та інші відомості.</li>
       <li xml:lang="x-test">xxMetalink support which contain multiple URLs for downloads, along with checksums and other information.xx</li>
       <li xml:lang="zh-CN">支持 Metalink ，包含多个下载连接，校验和和其他信息。</li>
@@ -356,6 +366,7 @@
       <caption xml:lang="sk">Sťahovanie súborov s KGet</caption>
       <caption xml:lang="sl">Prenos datotek s programom KGet</caption>
       <caption xml:lang="sv">Nerladdning av filer med Kget</caption>
+      <caption xml:lang="tr">KGet ile dosya indirme</caption>
       <caption xml:lang="uk">Отримання файлів за допомогою KGet</caption>
       <caption xml:lang="x-test">xxDownloading files with KGetxx</caption>
       <caption xml:lang="zh-CN">使用 KGet 下载文件</caption>
