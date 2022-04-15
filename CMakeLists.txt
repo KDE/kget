@@ -9,7 +9,7 @@ set(RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_
 project(kget VERSION ${RELEASE_SERVICE_VERSION})
 
 set(REQUIRED_QT_VERSION "5.15.0")
-set(KF5_VERSION "5.89.0")
+set(KF5_VERSION "5.90.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.82")
 
 find_package(ECM ${KF5_VERSION} REQUIRED NO_MODULE)
@@ -28,7 +28,7 @@ include(ECMSetupVersion)
 include(ECMSetupQtPluginMacroNames)
 include(GenerateExportHeader)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS
     DBus
     Gui
     Network
@@ -81,8 +81,8 @@ set_package_properties(SQLite3 PROPERTIES
     PURPOSE "Needed for the SQLite-Backend of the KGet-History"
 )
 
-find_package(Qca-qt5 2.1.0)
-set_package_properties(Qca-qt5 PROPERTIES
+find_package(Qca-qt${QT_MAJOR_VERSION} 2.1.0)
+set_package_properties(Qca-qt${QT_MAJOR_VERSION} PROPERTIES
     DESCRIPTION "Support for encryption"
     URL "https://download.kde.org/stable/qca-qt5/"
     TYPE REQUIRED
@@ -114,7 +114,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif()
 
-if (Qca-qt5_FOUND)
+if (Qca-qt${QT_MAJOR_VERSION}_FOUND)
     add_definitions(-DHAVE_QCA2)
 MESSAGE(STATUS "QCA found")
 endif()
@@ -261,8 +261,8 @@ if (SQLITE_FOUND)
     target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif()
 
-if (Qca-qt5_FOUND)
-    target_link_libraries(kgetcore qca-qt5)
+if (Qca-qt${QT_MAJOR_VERSION}_FOUND)
+    target_link_libraries(kgetcore qca-qt${QT_MAJOR_VERSION})
 endif ()
 
 if (Gpgmepp_FOUND)
