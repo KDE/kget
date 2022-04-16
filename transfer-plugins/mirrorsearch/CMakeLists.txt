@@ -16,7 +16,7 @@ install(TARGETS kget_mirrorsearchfactory DESTINATION  ${KGET_PLUGIN_INSTALL_DIR}
 install(FILES kget_mirrorsearchfactory.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ###Build KCM-Module
-kcoreaddons_add_plugin(kcm_kget_mirrorsearchfactory INSTALL_NAMESPACE "kget/kcms")
+kcoreaddons_add_plugin(kcm_kget_mirrorsearchfactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_mirrorsearchfactory PRIVATE
   dlgmirrorsearch.cpp

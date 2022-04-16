@@ -48,7 +48,7 @@ target_link_libraries(kget_bittorrent KF5::KIOCore KF5::Torrent kgetcore)
 install(TARGETS kget_bittorrent DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})
 
 ###Build KCM-Module
-kcoreaddons_add_plugin(kcm_kget_bittorrentfactory INSTALL_NAMESPACE "kget/kcms")
+kcoreaddons_add_plugin(kcm_kget_bittorrentfactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_bittorrentfactory PRIVATE
     btsettingswidget.cpp

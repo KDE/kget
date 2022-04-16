@@ -17,7 +17,7 @@ install(TARGETS kget_multisegkiofactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
 install(FILES kget_multisegkiofactory.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ###Build KCM-Module
-kcoreaddons_add_plugin(kcm_kget_multisegkiofactory INSTALL_NAMESPACE "kget/kcms")
+kcoreaddons_add_plugin(kcm_kget_multisegkiofactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_multisegkiofactory PRIVATE
   dlgmultisegkio.cpp

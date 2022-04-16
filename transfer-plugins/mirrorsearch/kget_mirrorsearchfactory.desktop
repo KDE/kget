@@ -120,7 +120,7 @@ X-KDE-Library=kget_mirrorsearchfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=40
 X-KDE-KGet-framework-version=2
-X-KDE-ConfigModule=kget/kcms/kcm_kget_mirrorsearchfactory
+X-KDE-ConfigModule=kget_kcms/kcm_kget_mirrorsearchfactory
 
 X-KDE-PluginInfo-Author=Manolo Valdes
 X-KDE-PluginInfo-Email=nolis71cu@gmail.com

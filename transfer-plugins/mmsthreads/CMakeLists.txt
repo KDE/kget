@@ -20,7 +20,7 @@ install(TARGETS kget_mmsfactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
 install(FILES kget_mmsfactory.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ###Build KCM-Module
-kcoreaddons_add_plugin(kcm_kget_mmsfactory INSTALL_NAMESPACE "kget/kcms")
+kcoreaddons_add_plugin(kcm_kget_mmsfactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_mmsfactory PRIVATE
   dlgmms.cpp

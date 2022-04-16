@@ -117,7 +117,7 @@ X-KDE-Library=kget_checksumsearchfactory
 X-KDE-KGet-plugintype=TransferFactory
 X-KDE-KGet-rank=30
 X-KDE-KGet-framework-version=2
-X-KDE-ConfigModule=kget/kcms/kcm_kget_checksumsearchfactory
+X-KDE-ConfigModule=kget_kcms/kcm_kget_checksumsearchfactory
 
 X-KDE-PluginInfo-Author=Matthias Fuchs
 X-KDE-PluginInfo-Email=mat69@gmx.net
