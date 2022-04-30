@@ -21,7 +21,6 @@
 #include <KActionCollection>
 #include <KNotification>
 #include <KLocalizedString>
-#include <KPluginLoader>
 #include <KPluginFactory>
 
 #include <QNetworkConfigurationManager>

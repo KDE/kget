@@ -12,7 +12,6 @@
 #define KGET_EXPORT_H
 
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 /**
  * @short Declares a class as plugin.

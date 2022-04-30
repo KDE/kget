@@ -1145,7 +1145,7 @@ void KGet::loadPlugins()
     m_pluginList.clear();
 
     // TransferFactory plugins
-    const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData& md) {
+    const QVector<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData& md) {
         return md.value(QStringLiteral("X-KDE-KGet-framework-version")) == QString::number(FrameworkVersion) &&
             md.value(QStringLiteral("X-KDE-KGet-rank")).toInt() > 0 &&
             md.value(QStringLiteral("X-KDE-KGet-plugintype")) == QStringLiteral("TransferFactory");
@@ -1233,14 +1233,15 @@ void KGet::setHasNetworkConnection(bool hasConnection)
 
 KGetPlugin* KGet::loadPlugin(const KPluginMetaData& md)
 {
-    KPluginFactory* factory = KPluginLoader(md.fileName()).factory();
-    if (factory) {
-        return factory->create<TransferFactory>(KGet::m_mainWindow);
+    const KPluginFactory::Result<TransferFactory> result = KPluginFactory::instantiatePlugin<TransferFactory>(md, KGet::m_mainWindow);
+
+    if (result) {
+        return result.plugin;
     } else {
         KGet::showNotification(m_mainWindow, "error",
-                               i18n("Plugin loader could not load the plugin: %1.", md.fileName()),
+                               i18n("Plugin loader could not load the plugin %1: %2.", md.fileName(), result.errorString),
                                "dialog-info");
-        qCCritical(KGET_DEBUG) << "KPluginFactory could not load the plugin:" << md.fileName();
+        qCCritical(KGET_DEBUG) << "KPluginFactory could not load the plugin" << md.fileName() << result.errorText;
         return nullptr;
     }
 }
