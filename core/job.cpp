@@ -38,7 +38,7 @@ void Job::setStatus(Status jobStatus)
     if (m_status == Aborted) {
         m_error.id = -1;
         m_error.text.clear();
-        m_error.pixmap = QPixmap();
+        m_error.iconName = QString();
         m_error.type = AutomaticRetry;
     }
     m_status = jobStatus;
@@ -62,12 +62,12 @@ void Job::setPolicy(Policy jobPolicy)
     m_scheduler->jobChangedEvent(this, m_policy);
 }
 
-void Job::setError(const QString &text, const QPixmap &pixmap, ErrorType type, int errorId)
+void Job::setError(const QString &text, const QString &iconName, ErrorType type, int errorId)
 {
     setStatus(Job::Aborted);
     m_error.id = errorId;
     m_error.text = text;
-    m_error.pixmap = pixmap;
+    m_error.iconName = iconName;
     m_error.type = type;
 }
 

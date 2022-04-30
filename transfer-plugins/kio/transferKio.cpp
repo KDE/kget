@@ -23,7 +23,6 @@
 #include "kget_debug.h"
 #include <QDebug>
 
-#include <KIconLoader>
 #include <KIO/Scheduler>
 #include <KIO/DeleteJob>
 #include <KIO/CopyJob>
@@ -98,7 +97,7 @@ void TransferKio::start()
             createJob();
 
         qCDebug(KGET_DEBUG) << "TransferKio::start";
-        setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), SmallIcon("network-connect")); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+        setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), "network-connect"); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
         setTransferChange(Tc_Status, true);
     }
 }

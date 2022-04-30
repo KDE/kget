@@ -27,7 +27,6 @@
 
 #include "kget_debug.h"
 
-#include <KIconLoader>
 #include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>

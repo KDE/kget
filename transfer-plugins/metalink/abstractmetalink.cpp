@@ -23,7 +23,6 @@
 #include "core/signature.h"
 
 #include "kget_debug.h"
-#include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>

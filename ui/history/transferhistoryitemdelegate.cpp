@@ -26,8 +26,6 @@
 
 #include <QDebug>
 #include <kio/global.h>
-#include <kio/pixmaploader.h>
-#include <KIconLoader>
 #include <QIcon>
 #include <KLocalizedString>
 #include <KRun>

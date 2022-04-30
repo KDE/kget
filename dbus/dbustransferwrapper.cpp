@@ -12,6 +12,9 @@
 #include "transfergrouphandler.h"
 #include "verifier.h"
 
+#include <QApplication>
+#include <QStyle>
+
 DBusTransferWrapper::DBusTransferWrapper(TransferHandler *parent)
   : QObject(parent),
     m_transfer(parent)
@@ -141,7 +144,8 @@ QString DBusTransferWrapper::statusText() const
 
 QDBusVariant DBusTransferWrapper::statusPixmap() const
 {
-    return QDBusVariant(QVariant::fromValue(m_transfer->statusPixmap()));
+    const QPixmap pix = QIcon::fromTheme(m_transfer->statusIconName()).pixmap(qApp->style()->pixelMetric(QStyle::PixelMetric::PM_SmallIconSize));
+    return QDBusVariant(QVariant::fromValue(pix));
 }
 
 void DBusTransferWrapper::slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags changeFlags)

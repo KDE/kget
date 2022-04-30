@@ -1384,7 +1384,7 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
             } else if (transfer->status() == Job::Aborted && transfer->error().type != Job::AutomaticRetry) {
                 KNotification * notification = KNotification::event("error", i18n("Error"), i18n("<p>There has been an error in the following transfer:</p><p style=\"font-size: small;\">%1</p>"
                                             "<p>The error message is:</p><p style=\"font-size: small;\">%2</p>", transfer->source().toString(), transfer->error().text), 
-                                             transfer->error().pixmap, KGet::m_mainWindow, KNotification::CloseOnTimeout);
+                                             transfer->error().iconName, KGet::m_mainWindow, KNotification::CloseOnTimeout);
                 if (transfer->error().type == Job::ManualSolve) {
                     m_notifications.insert(notification, transfer);
                     notification->setActions(QStringList() << i18n("Resolve"));

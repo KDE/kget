@@ -26,7 +26,6 @@
 #include <algorithm>
 
 #include <KConfigGroup>
-#include <KIconLoader>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
@@ -78,7 +77,7 @@ void Metalink::downloadMetalink()
 {
     m_metalinkJustDownloaded = true;
 
-    setStatus(Job::Stopped, i18n("Downloading Metalink File...."), SmallIcon("document-save"));
+    setStatus(Job::Stopped, i18n("Downloading Metalink File...."), "document-save");
     setTransferChange(Tc_Status, true);
     // make sure that the DataLocation directory exists (earlier this used to be handled by KStandardDirs)
     if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))) {

@@ -19,6 +19,7 @@
 
 #include <QDebug>
 #include <QVBoxLayout>
+#include <QStyle>
 
 TransferDetails::TransferDetails(TransferHandler * transfer)
   : QWidget(nullptr),
@@ -64,7 +65,7 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
     Q_UNUSED(transfer)
 
     if(flags & Transfer::Tc_Status) {
-        frm.statusPixmapContentLabel->setPixmap(m_transfer->statusPixmap());
+        frm.statusPixmapContentLabel->setPixmap(QIcon::fromTheme(m_transfer->statusIconName()).pixmap(style()->pixelMetric(QStyle::PixelMetric::PM_SmallIconSize)));
         frm.statusTextContentLabel->setText(m_transfer->statusText());
 
         if (m_transfer->status() == Job::Finished) {

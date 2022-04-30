@@ -34,7 +34,6 @@
 
 #include "kget_debug.h"
 #include <KLocalizedString>
-#include <KIconLoader>
 #include <KIO/CopyJob>
 
 #include <KMessageBox>
@@ -137,7 +136,7 @@ void BTTransfer::start()
             m_tmpTorrentFile = tmpDirName + m_dest.fileName();
             auto *download = new Download(m_source, QUrl::fromLocalFile(m_tmpTorrentFile));
 
-            setStatus(Job::Stopped, i18n("Downloading Torrent File...."), SmallIcon("document-save"));
+            setStatus(Job::Stopped, i18n("Downloading Torrent File...."), "document-save");
             setTransferChange(Tc_Status, true);
 
             //m_source = tmpDirName + m_source.fileName();
@@ -167,7 +166,7 @@ bool BTTransfer::setDirectory(const QUrl &newDirectory)
             m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
             m_dest.setPath(m_dest.path() + '/' + (torrent->getStats().torrent_name));
 
-            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), SmallIcon("media-playback-pause"));
+            setStatus(Job::Stopped, i18nc("changing the destination of the file", "Changing destination"), "media-playback-pause");
             setTransferChange(Tc_Status, true);
             return true;
         }
@@ -181,7 +180,7 @@ void BTTransfer::newDestResult()
     disconnect(torrent, &bt::TorrentInterface::aboutToBeStarted, this, &BTTransfer::newDestResult);
     m_movingFile = false;
 
-    setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
+    setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), "media-playback-start");
     setTransferChange(Tc_FileName | Tc_Status, true);
 }
 
@@ -223,7 +222,7 @@ void BTTransfer::load(const QDomElement *element)
 
     if ((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
     {
-        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), "dialog-ok");
     }
 }
 
@@ -285,7 +284,7 @@ void BTTransfer::startTorrent()
         if (chunksTotal() == chunksDownloaded()/* && !m_downloadFinished*/) {
             slotDownloadFinished(torrent);
         } else {
-            setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), SmallIcon("media-playback-start"));
+            setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), "media-playback-start");
         }
         m_totalSize = torrent->getStats().total_bytes_to_download;
         setTransferChange(Tc_Status | Tc_TrackersList | Tc_TotalSize, true);
@@ -302,11 +301,11 @@ void BTTransfer::stopTorrent()
 
     if (m_downloadFinished)
     {
-        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), SmallIcon("dialog-ok"));
+        setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), "dialog-ok");
     }
     else
     {
-        setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), "process-stop");
     }
     setTransferChange(Tc_Status, true);
 
@@ -420,12 +419,12 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
     QFile file(m_source.toLocalFile());
 
     if (!file.open(QIODevice::ReadOnly)) {
-        setError(i18n("Torrent file does not exist"), SmallIcon("dialog-cancel"), Job::NotSolveable);
+        setError(i18n("Torrent file does not exist"), "dialog-cancel", Job::NotSolveable);
         setTransferChange(Tc_Status, true);
         return;
     }
 
-    setStatus(Job::Stopped, i18n("Analyzing torrent...."), SmallIcon("document-preview")); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
+    setStatus(Job::Stopped, i18n("Analyzing torrent...."), "document-preview"); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
     bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/torrentlog.log"), false, false);//initialize the torrent-log
@@ -437,7 +436,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
         i++;
     
     if (i == 10) {
-        setError(i18n("Cannot initialize port..."), SmallIcon("dialog-cancel"));
+        setError(i18n("Cannot initialize port..."), "dialog-cancel");
         setTransferChange(Tc_Status);
         return;
     }
@@ -486,7 +485,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
         m_ready = false;
         torrent->deleteLater();
         torrent = nullptr;
-        setError(err.toString(), SmallIcon("dialog-cancel"), Job::NotSolveable);
+        setError(err.toString(), "dialog-cancel", Job::NotSolveable);
         setTransferChange(Tc_Status);
         return;
     }
@@ -498,7 +497,7 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
 {
     Q_UNUSED(error)
     stop();
-    setError(errormsg, SmallIcon("dialog-cancel"), Job::NotSolveable);
+    setError(errormsg, "dialog-cancel", Job::NotSolveable);
     setTransferChange(Tc_Status);
 }
 
@@ -508,7 +507,7 @@ void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
     Q_UNUSED(ti)
     m_downloadFinished = true;
     //timer.stop();
-    setStatus(Job::FinishedKeepAlive, i18nc("Transfer status: seeding", "Seeding...."), SmallIcon("media-playback-start"));
+    setStatus(Job::FinishedKeepAlive, i18nc("Transfer status: seeding", "Seeding...."), "media-playback-start");
     setTransferChange(Tc_Status, true);
 }
 

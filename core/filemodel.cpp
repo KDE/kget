@@ -376,7 +376,7 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
                 }
                 else
                 {
-                    return Transfer::statusPixmap(status);
+                    return QIcon::fromTheme(Transfer::statusIconName(status));
                 }
             }
         } else {

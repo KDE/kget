@@ -57,8 +57,7 @@ void MmsTransfer::start()
         return;
     }
 
-    setStatus(Job::Running, i18nc("transfer state: running", "Running...."),
-              QIcon::fromTheme("media-playback-start").pixmap(16));
+    setStatus(Job::Running, i18nc("transfer state: running", "Running...."), "media-playback-start");
     m_mmsdownload = new MmsDownload(m_source.toString(), m_dest.toLocalFile(),
                                     m_fileTemp, m_amountThreads);
     connect(m_mmsdownload, SIGNAL(finished()), this, SLOT(slotResult()));
@@ -92,8 +91,7 @@ void MmsTransfer::stop()
         }
     }
 
-    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"),
-                QIcon::fromTheme("process-stop").pixmap(16));
+    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), "process-stop");
     m_downloadSpeed = 0;
     setTransferChange(Tc_Status | Tc_DownloadSpeed, true);
 }
@@ -124,8 +122,7 @@ void MmsTransfer::slotResult()
      * the temporary file where is saved the status of all threads that download the file.     
      */
     if (m_downloadedSize == m_totalSize && m_totalSize != 0) {
-        setStatus(Job::Finished, i18nc("Transfer State:Finished","Finished"),
-                   QIcon::fromTheme("dialog-ok").pixmap(16));
+        setStatus(Job::Finished, i18nc("Transfer State:Finished","Finished"), "dialog-ok");
         m_percent = 100;
         m_downloadSpeed = 0;
         setTransferChange(Tc_Status | Tc_Percent | Tc_DownloadSpeed, true);
@@ -171,7 +168,7 @@ void MmsTransfer::slotProcessedSizeAndPercent(qulonglong size)
 
 void MmsTransfer::slotBrokenUrl()
 {
-    setError(i18n("Download failed, could not access this URL."), QIcon::fromTheme("dialog-cancel").pixmap(16),
+    setError(i18n("Download failed, could not access this URL."), "dialog-cancel",
             Job::NotSolveable);
     setTransferChange(Tc_Status, true);
 }

@@ -212,9 +212,9 @@ class KGET_EXPORT TransferHandler : public Handler
         QString statusText() const {return m_transfer->statusText();}
 
         /**
-         * @return a pixmap associated with the current transfer status
+         * @return an icon name associated with the current transfer status
          */
-        QPixmap statusPixmap() const {return m_transfer->statusPixmap();}
+        QString statusIconName() const {return m_transfer->statusIconName();}
 
         /**
          * @returns the data associated to this Transfer item. This is

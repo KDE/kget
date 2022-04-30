@@ -15,7 +15,6 @@
 #include "job.h"
 #include "kget_export.h"
 
-#include <QPixmap>
 #include <QTime>
 #include <QUrl>
 
@@ -169,10 +168,10 @@ class KGET_EXPORT Transfer : public Job
         KIO::filesize_t downloadedSize() const {return m_downloadedSize;}
         KIO::filesize_t uploadedSize() const   {return m_uploadedSize;}
         QString statusText() const             {return m_statusText;}
-        QPixmap statusPixmap() const           {return (error().pixmap.isNull() ? m_statusPixmap : error().pixmap);}
+        QString statusIconName() const           {return (error().iconName.isEmpty() ? m_statusIconName : error().iconName);}
 
         static QString statusText(Job::Status status);
-        static QPixmap statusPixmap(Job::Status status);
+        static QString statusIconName(Job::Status status);
 
         int percent() const                    {return m_percent;}
         int downloadSpeed() const              {return m_downloadSpeed;}
@@ -319,9 +318,9 @@ class KGET_EXPORT Transfer : public Job
     protected:
         /**
          * Sets the Job status to jobStatus, the status text to text and
-         * the status pixmap to pix.
+         * the status icon to iconName.
          */
-        void setStatus(Job::Status jobStatus, const QString &text = QString(), const QPixmap &pix = QPixmap());
+        void setStatus(Job::Status jobStatus, const QString &text = QString(), const QString &iconName = QString());
 
         /**
          * Sets the capabilities and automatically emits capabilitiesChanged
@@ -367,7 +366,7 @@ class KGET_EXPORT Transfer : public Job
         double m_ratio;
 
         QString m_statusText;
-        QPixmap m_statusPixmap;
+        QString m_statusIconName;
         QTime m_runningTime;
 
         TransferHandler * m_handler;

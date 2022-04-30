@@ -114,7 +114,7 @@ QVariant TransferModelItem::data(int role) const
                 return m_mimeType;
             }
             case 1:
-                return m_transferHandler->statusPixmap();
+                return QIcon::fromTheme(m_transferHandler->statusIconName());
         }
     }
     if (role == Qt::TextAlignmentRole)

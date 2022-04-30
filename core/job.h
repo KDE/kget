@@ -73,7 +73,7 @@ class KGET_EXPORT Job : public QObject
         struct Error {
             int id;
             QString text;
-            QPixmap pixmap;
+            QString iconName;
             ErrorType type;
         };
         Job(Scheduler * scheduler, JobQueue * parent);
@@ -88,7 +88,7 @@ class KGET_EXPORT Job : public QObject
         //Job properties
         void setStatus(Status jobStatus);
         void setPolicy(Policy jobPolicy);
-        void setError(const QString &text, const QPixmap &pixmap, ErrorType type = AutomaticRetry, int errorId = -1);
+        void setError(const QString &text, const QString &iconName, ErrorType type = AutomaticRetry, int errorId = -1);
 
         Status status() const {return m_status;}
         Status startStatus() const { return m_startStatus;}

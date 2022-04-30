@@ -415,7 +415,7 @@ void SchedulerTest::testJobErrorType()
 
     auto *job = new TestJob(&scheduler, queue);
     job->setPolicy(policy);
-    job->setError(QString(), QPixmap(), errorType);
+    job->setError(QString(), QString(), errorType);
     queue->appendPub(job);
 
     QCOMPARE(job->status(), finalStatus);

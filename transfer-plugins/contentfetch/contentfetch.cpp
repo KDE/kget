@@ -14,7 +14,6 @@
 #include "script.h"
 
 #include <QDebug>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KUrl>
@@ -49,7 +48,7 @@ void ContentFetch::deinit()
 void ContentFetch::start()
 {
     qCDebug(KGET_DEBUG) << "ContentFetch::start";
-    setStatus(Job::Running, i18nc("Transfer state: processing script", "Processing script...."), SmallIcon("media-playback-start"));
+    setStatus(Job::Running, i18nc("Transfer state: processing script", "Processing script...."), "media-playback-start");
     setTransferChange(Tc_Status, true);
     m_p_script->setFile(m_scriptFile);
     m_p_script->start();
@@ -66,7 +65,7 @@ void ContentFetch::stop()
     // kill -9 the script
     m_p_script->terminate();
     // delete m_p_script to avoid crash?
-    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+    setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), "process-stop");
     setTransferChange(Tc_Status, true);
 }
 
@@ -80,7 +79,7 @@ void ContentFetch::slotAddTransfer(const QString &url, const QString &filename)
 void ContentFetch::slotFinish()
 {
     m_percent = 100;
-    setStatus(Job::Finished, i18nc("Transfer State: Finished", "Finished"), SmallIcon("dialog-ok"));
+    setStatus(Job::Finished, i18nc("Transfer State: Finished", "Finished"), "dialog-ok");
     setTransferChange(Tc_Status|Tc_Percent, true);
     //delete m_p_script;
 }
@@ -89,18 +88,18 @@ void ContentFetch::slotAbort(const QString &error)
 {
     if (error.isEmpty())
     {
-        setStatus(Job::Aborted, i18nc("Transfer State: Aborted", "Aborted"), SmallIcon("process-stop"));
+        setStatus(Job::Aborted, i18nc("Transfer State: Aborted", "Aborted"), "process-stop");
     }
     else
     {
-        setStatus(Job::Aborted, error, SmallIcon("process-stop"));
+        setStatus(Job::Aborted, error, "process-stop");
     }
     setTransferChange(Tc_Status, true);
 }
 
 void ContentFetch::slotSetTextStatus(const QString& text)
 {
-    setStatus(Job::Running, text, SmallIcon("media-playback-start"));
+    setStatus(Job::Running, text, "media-playback-start");
     setTransferChange(Tc_Status, true);
 }
 

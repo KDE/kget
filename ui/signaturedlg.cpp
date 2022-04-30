@@ -34,10 +34,10 @@
 #endif
 
 #include <QLayoutItem>
+#include <QStyle>
 
 #include <QFileDialog>
 #include <KLocalizedString>
-#include <KIconLoader>
 
 const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
 
@@ -171,7 +171,7 @@ void SignatureDlg::updateData()
 
     ui.keyGroup->setVisible(!signature.isEmpty());
 
-    const int iconSize = KIconLoader::global()->currentSize(KIconLoader::Small);
+    const int iconSize = style()->pixelMetric(QStyle::PixelMetric::PM_SmallIconSize);
 
 #ifdef HAVE_QGPGME
     if (!fingerprintString.isEmpty()) {

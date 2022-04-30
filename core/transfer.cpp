@@ -17,7 +17,6 @@
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
 
-#include <KIconLoader>
 #include <KLocalizedString>
 
 #include <QDomElement>
@@ -231,7 +230,7 @@ void Transfer::load(const QDomElement *element)
 {
     if (!element)
     {
-        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), "process-stop");
         setStartStatus(status());
         return;
     }
@@ -250,7 +249,7 @@ void Transfer::load(const QDomElement *element)
         setStartStatus(Job::Finished);
         setStatus(startStatus());
     } else {
-        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), SmallIcon("process-stop"));
+        setStatus(status(), i18nc("transfer state: stopped", "Stopped"), "process-stop");
         setStartStatus(status());
     }
     setUploadLimit(e.attribute("UploadLimit").toInt(), Transfer::VisibleSpeedLimit);
@@ -275,7 +274,7 @@ void Transfer::load(const QDomElement *element)
     }
 }
 
-void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixmap &pix)
+void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QString &pix)
 {
     const bool statusChanged = (status() != jobStatus);
     QString statusText = text;
@@ -285,9 +284,9 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QPixm
 
     //always prefer pix, if it is set
     if (!pix.isNull()) {
-        m_statusPixmap = pix;
-    } else if (statusChanged || m_statusPixmap.isNull()) {
-        m_statusPixmap = SmallIcon(STATUSICONS[jobStatus]);
+        m_statusIconName = pix;
+    } else if (statusChanged || m_statusIconName.isNull()) {
+        m_statusIconName = STATUSICONS[jobStatus];
     }
 
     m_statusText = statusText;
@@ -327,7 +326,7 @@ QString Transfer::statusText(Job::Status status)
     return i18nc(STATUSTEXTS[status].context, STATUSTEXTS[status].name);
 }
 
-QPixmap Transfer::statusPixmap(Job::Status status)
+QString Transfer::statusIconName(Job::Status status)
 {
-    return SmallIcon(STATUSICONS[status]);
+    return STATUSICONS[status];
 }
