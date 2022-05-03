@@ -19,7 +19,11 @@
 #include "core/verifier.h"
 #include "core/signature.h"
 
+#ifdef Q_OS_WIN
+#include <sys/utime.h>
+#else
 #include <utime.h>
+#endif
 
 #include "kget_debug.h"
 

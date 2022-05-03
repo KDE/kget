@@ -14,7 +14,11 @@
 #include "core/signature.h"
 #include "settings.h"
 
+#ifdef Q_OS_WIN
+#include <sys/utime.h>
+#else
 #include <utime.h>
+#endif
 
 #include "kget_debug.h"
 #include <QDebug>
