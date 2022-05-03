@@ -251,6 +251,7 @@ target_link_libraries(kgetcore
     Qt::Sql
     Qt::Network
     Qt::DBus
+    Boost::headers
 )
 
 if(LibKWorkspace_FOUND)
