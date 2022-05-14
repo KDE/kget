@@ -14,7 +14,6 @@
 #include <Kdelibs4ConfigMigrator>
 #include <Kdelibs4Migration>
 #include <KLocalizedString>
-#include <KStartupInfo>
 #include <KWindowSystem>
 
 #include <QCommandLineParser>
@@ -58,8 +57,8 @@ public:
         } else {
             // activate window if it is already open
             kget->setAttribute(Qt::WA_NativeWindow, true);
-            KStartupInfo::setNewStartupId(kget->windowHandle(), KStartupInfo::startupId());
-            KWindowSystem::forceActiveWindow(kget->winId());
+            KWindowSystem::updateStartupId(kget->windowHandle());
+            KWindowSystem::activateWindow(kget->windowHandle());
         }
 
         if (parser->isSet("showDropTarget"))
