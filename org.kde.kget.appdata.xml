@@ -142,7 +142,7 @@
       <li xml:lang="ar">تحميل الملفات من مصادر FTP و HTTP(s)</li>
       <li xml:lang="ast">Descarga de ficheros dende oríxenes FTP, HTTP y HTTPS.</li>
       <li xml:lang="ca">Baixa fitxers des de fonts FTP i HTTP/S.</li>
-      <li xml:lang="ca-valencia">Baixa fitxers des de fonts FTP i HTTP/S.</li>
+      <li xml:lang="ca-valencia">Baixa fichers des de fonts FTP i HTTP/S.</li>
       <li xml:lang="da">Download af filer fra FTP- og HTTP(S)-kilder.</li>
       <li xml:lang="de">Herunterladen von Dateien aus FTP- und HTTP(s)-Adressen.</li>
       <li xml:lang="el">Κάνει λήψη αρχείων από ftp και http(s) πηγές.</li>
@@ -174,7 +174,7 @@
       <li xml:lang="ar">إيقاف تنزيل الملفات مؤقتًا واستئنافها ، بالإضافة إلى القدرة على إعادة تشغيل التنزيل.</li>
       <li xml:lang="ast">Posa y sigue colos ficheros de descarga, amás de poder reaniciar les descargues.</li>
       <li xml:lang="ca">Fa pausa i reprèn la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
-      <li xml:lang="ca-valencia">Fa pausa i reprén la baixada de fitxers, aixina com la possibilitat de reiniciar una baixada.</li>
+      <li xml:lang="ca-valencia">Fa pausa i reprén la baixada de fichers, aixina com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="da">Sæt downloadede filer på pause og genoptag dem, og muligheden for at genstarte en download.</li>
       <li xml:lang="de">Anhalten und Fortsetzen des Herunterladens von Dateien, außerdem gibt es auch die Möglichkeit, das Herunterladen neu zu starten.</li>
       <li xml:lang="el">Παύει και συνεχίζει τη λήψη αρχείων, και έχει τη δυνατότητα επανάληψης μιας λήψης.</li>
@@ -342,7 +342,7 @@
       <caption xml:lang="ar">تنزيل الملفات بواسطة </caption>
       <caption xml:lang="ast">Descarga de ficheros con KGet</caption>
       <caption xml:lang="ca">Baixada de fitxers amb el KGet</caption>
-      <caption xml:lang="ca-valencia">Baixada de fitxers amb KGet</caption>
+      <caption xml:lang="ca-valencia">Baixada de fichers amb KGet</caption>
       <caption xml:lang="cs">Stahuji soubory KGet</caption>
       <caption xml:lang="da">Downloader filer med KGet</caption>
       <caption xml:lang="de">Herunterladen von Dateien mit KGet</caption>
