@@ -34,6 +34,7 @@
 #include "scheduler.h"
 #include "kget_export.h"
 #include "transfer.h"
+#include "transferhandler.h"
 #include "transfergrouphandler.h"
 
 class QDomElement;
@@ -41,7 +42,6 @@ class QDomElement;
 
 class TransferDataSource;
 class TransferGroup;
-class TransferHandler;
 class TransferFactory;
 class TransferTreeModel;
 class TransferTreeSelectionModel;
