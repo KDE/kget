@@ -18,24 +18,23 @@
 #include "core/scheduler.h"
 
 #include <KLocalizedString>
-
+#include <KLazyLocalizedString>
 #include <QDomElement>
 #include <QTime>
 
 struct StatusStrings
 {
-    const char * context;
-    const char * name;
+    KLazyLocalizedString name;
 };
 
 const StatusStrings STATUSTEXTS[] = {
-    {"", I18N_NOOP("Downloading....")},
-    {I18NC_NOOP("transfer state: delayed", "Delayed")},
-    {I18NC_NOOP("transfer state: stopped", "Stopped")},
-    {I18NC_NOOP("transfer state: aborted", "Aborted")},
-    {I18NC_NOOP("transfer state: finished", "Finished")},
-    {"", ""},//TODO: Add FinishedKeepAlive status
-    {I18NC_NOOP("changing the destination of the file", "Changing destination")}
+    {kli18n("Downloading....")},
+    {kli18nc("transfer state: delayed", "Delayed")},
+    {kli18nc("transfer state: stopped", "Stopped")},
+    {kli18nc("transfer state: aborted", "Aborted")},
+    {kli18nc("transfer state: finished", "Finished")},
+    {KLazyLocalizedString()},//TODO: Add FinishedKeepAlive status
+    {kli18nc("changing the destination of the file", "Changing destination")}
 };
 const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-start" << "media-playback-pause";
 
@@ -279,7 +278,7 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QStri
     const bool statusChanged = (status() != jobStatus);
     QString statusText = text;
     if (statusText.isEmpty()) {
-        statusText = i18nc(STATUSTEXTS[jobStatus].context, STATUSTEXTS[jobStatus].name);
+        statusText = KLocalizedString(STATUSTEXTS[jobStatus].name).toString();
     }
 
     //always prefer pix, if it is set
@@ -323,7 +322,7 @@ void Transfer::setTransferChange(ChangesFlags change, bool postEvent)
 
 QString Transfer::statusText(Job::Status status)
 {
-    return i18nc(STATUSTEXTS[status].context, STATUSTEXTS[status].name);
+    return STATUSTEXTS[status].name.toString();
 }
 
 QString Transfer::statusIconName(Job::Status status)
