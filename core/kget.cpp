@@ -1281,9 +1281,14 @@ GenericObserver::GenericObserver(QObject *parent)
     m_save(nullptr),
     m_finishAction(nullptr)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QNetworkInformation::load(QNetworkInformation::Feature::Reachability);
+    KGet::setHasNetworkConnection(QNetworkInformation::instance()->reachability() == QNetworkInformation::Reachability::Online);
+#else
     //check if there is a connection
     KGet::setHasNetworkConnection(m_networkConfig.isOnline());
-    
+#endif
+
     connect(KGet::model(), &TransferTreeModel::groupRemovedEvent, this, &GenericObserver::groupRemovedEvent);
     connect(KGet::model(), SIGNAL(transfersAddedEvent(QList<TransferHandler*>)),
                            SLOT(transfersAddedEvent(QList<TransferHandler*>)));
@@ -1296,8 +1301,13 @@ GenericObserver::GenericObserver(QObject *parent)
                            SLOT(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)));
     connect(KGet::model(), &TransferTreeModel::transferMovedEvent,
                            this, &GenericObserver::transferMovedEvent);
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     connect(&m_networkConfig, &QNetworkConfigurationManager::onlineStateChanged,
                          this, &GenericObserver::slotNetworkStatusChanged);
+#else
+    connect(QNetworkInformation::instance(), &QNetworkInformation::reachabilityChanged, this, &GenericObserver::slotNetworkStatusChanged);
+#endif
 
 }
 
@@ -1492,10 +1502,17 @@ void GenericObserver::slotNotificationClosed()
         m_notifications.remove(notification);
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void GenericObserver::slotNetworkStatusChanged(bool online)
 {
     KGet::setHasNetworkConnection(online);
 }
+#else
+void GenericObserver::slotNetworkStatusChanged(QNetworkInformation::Reachability reachability)
+{
+    KGet::setHasNetworkConnection(reachability == QNetworkInformation::Reachability::Online);
+}
+#endif
 
 void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
 {

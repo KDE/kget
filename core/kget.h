@@ -23,7 +23,11 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QNetworkConfigurationManager>
+#else
+#include <QNetworkInformation>
+#endif
 #include <QDomElement>
 
 #include "kuiserverjobs.h"
@@ -466,7 +470,7 @@ class GenericObserver : public QObject
 {
     Q_OBJECT
     public:
-        GenericObserver(QObject *parent = nullptr);
+        explicit GenericObserver(QObject *parent = nullptr);
         ~GenericObserver () override;
 
     public Q_SLOTS:
@@ -484,7 +488,11 @@ class GenericObserver : public QObject
         void slotAbortAfterFinishAction();
         void slotResolveTransferError();
         void slotNotificationClosed();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         void slotNetworkStatusChanged(bool online);
+#else
+        void slotNetworkStatusChanged(QNetworkInformation::Reachability reachability);
+#endif
 
     private:
         bool allTransfersFinished();
@@ -495,6 +503,8 @@ class GenericObserver : public QObject
         QTimer *m_save;
         QTimer *m_finishAction;
         QHash<KNotification*, TransferHandler*> m_notifications;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         QNetworkConfigurationManager m_networkConfig;
+#endif
 };
 #endif
