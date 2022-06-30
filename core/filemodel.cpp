@@ -297,7 +297,7 @@ void FileModel::setupModelData(const QList<QUrl> &files)
     foreach (const QUrl &file, files)
     {
         FileItem *parent = m_rootItem;
-        QStringList directories = file.toLocalFile().remove(destDirectory).split('/', QString::SkipEmptyParts);
+        QStringList directories = file.toLocalFile().remove(destDirectory).split('/', Qt::SkipEmptyParts);
         FileItem *child = nullptr;
         while (directories.count())
         {
@@ -585,7 +585,7 @@ FileItem *FileModel::getItem(const QUrl &file)
     QString destDirectory = m_destDirectory.toLocalFile();
 
     FileItem *item = m_rootItem;
-    QStringList directories = file.toLocalFile().remove(destDirectory).split('/', QString::SkipEmptyParts);
+    QStringList directories = file.toLocalFile().remove(destDirectory).split('/', Qt::SkipEmptyParts);
     while (directories.count())
     {
         QString part = directories.takeFirst();

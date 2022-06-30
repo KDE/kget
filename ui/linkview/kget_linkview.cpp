@@ -168,7 +168,7 @@ void KGetLinkView::showLinks(const QStringList &links, bool urlRequestVisible)
 
         if (linkitem.contains(QLatin1String("url "), Qt::CaseInsensitive) &&
             linkitem.contains(QLatin1String("type "), Qt::CaseInsensitive)) {
-            const QStringList items = linkitem.split(QLatin1Char(' '), QString::SkipEmptyParts);
+            const QStringList items = linkitem.split(QLatin1Char(' '), Qt::SkipEmptyParts);
             const int count = items.count();
             int index = items.indexOf(QLatin1String("url"));
             if (index > -1 && index+1 < count)
