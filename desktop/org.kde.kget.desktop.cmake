@@ -159,6 +159,7 @@ GenericName[zh_HK]=下載管理員
 GenericName[zh_TW]=下載管理員
 Comment=KGet is a versatile and user-friendly download manager
 Comment[ar]=كجت هو مدير تنزيل متعدد الاستخدامات وسهل الاستخدام
+Comment[bg]=KGet е гъвкава и потребителска ориентирана програма за управления на изтегляния
 Comment[ca]=El KGet és un gestor de baixades versàtil i fàcil d'emprar
 Comment[ca@valencia]=KGet és un gestor de baixades versàtil i fàcil d'emprar
 Comment[cs]=KGet je všestranný a jednoduše použitelný správce stahování
