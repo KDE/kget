@@ -160,7 +160,7 @@ QVariant TransferHandler::data(int column)
 
 void TransferHandler::setSelected( bool select )
 {
-    if( (select && !isSelected()) || (!select && isSelected()) )
+    if (select != isSelected())
     {
         m_transfer->m_isSelected = select;
         setTransferChange( Transfer::Tc_Selection, true );

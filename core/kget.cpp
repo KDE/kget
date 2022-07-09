@@ -1403,9 +1403,7 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler*, Transfer::Cha
                     connect(notification, &KNotification::closed, this, &GenericObserver::slotNotificationClosed);
                 }
             }
-        }
 
-        if (transferFlags & Transfer::Tc_Status) {
             checkSysTray = true;
             requestSave();
         }
