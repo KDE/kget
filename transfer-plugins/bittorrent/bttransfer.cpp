@@ -257,7 +257,7 @@ void BTTransfer::addTracker(const QString &url)
 {
     qCDebug(KGET_DEBUG);
     if(torrent->getStats().priv_torrent) {
-        KMessageBox::sorry(nullptr, i18n("Cannot add a tracker to a private torrent."));
+        KMessageBox::error(nullptr, i18n("Cannot add a tracker to a private torrent."));
         return;
     }
 

@@ -100,7 +100,7 @@ namespace kt
 		// check for dupes
 		if (!tc->getTrackersList()->addTracker(url,true))
 		{
-			KMessageBox::sorry(nullptr,i18n("There already is a tracker named <b>%1</b>.",text));
+			KMessageBox::error(nullptr,i18n("There already is a tracker named <b>%1</b>.",text));
 		}
 		else
 		{
