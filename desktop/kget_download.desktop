@@ -4,7 +4,6 @@ Type=Service
 Icon=
 Name=
 X-KDE-ServiceTypes=KonqPopupMenu/Plugin,application/octet-stream
-X-KDE-ExcludeServiceTypes=kdedevice/*
 X-KDE-Protocol=!file
 
 [Desktop Action KGetDownload]
