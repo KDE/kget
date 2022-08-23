@@ -377,7 +377,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
             // Set up a QStyleOptionProgressBar to precisely mimic the
             // environment of a progress bar.
             QStyleOptionProgressBar progressBarOption;
-            progressBarOption.state = QStyle::State_Enabled;
+            progressBarOption.state = QStyle::State_Enabled | QStyle::State_Horizontal;
             progressBarOption.direction = QApplication::layoutDirection();
             progressBarOption.rect = option.rect;
             progressBarOption.fontMetrics = QApplication::fontMetrics();
