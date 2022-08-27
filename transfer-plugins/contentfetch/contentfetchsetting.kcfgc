@@ -1,6 +1,0 @@
-ClassName=ContentFetchSetting
-File=kget_contentfetchfactory.kcfg
-Mutators=true
-Singleton=true
-Visibility=KDE_EXPORT
-IncludeFiles=qstandardpaths.h
