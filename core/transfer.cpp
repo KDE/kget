@@ -176,7 +176,7 @@ void Transfer::checkShareRatio()
     if (m_downloadedSize == 0 || m_ratio == 0)
         return;
 
-    if (m_uploadedSize / m_downloadedSize >= m_ratio)
+    if ((double)m_uploadedSize / m_downloadedSize >= m_ratio)
         setDownloadLimit(1, Transfer::InvisibleSpeedLimit);//If we set it to 0 we would have no limit xD
     else
         setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
