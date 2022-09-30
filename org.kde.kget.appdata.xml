@@ -23,6 +23,7 @@
   <name xml:lang="ia">KGet</name>
   <name xml:lang="id">KGet</name>
   <name xml:lang="it">KGet</name>
+  <name xml:lang="ka">KGet</name>
   <name xml:lang="ko">KGet</name>
   <name xml:lang="nl">KGet</name>
   <name xml:lang="pl">KGet</name>
@@ -57,6 +58,7 @@
   <summary xml:lang="ia">Gerente del discargamento</summary>
   <summary xml:lang="id">Unduh Manager</summary>
   <summary xml:lang="it">Gestore degli scaricamenti</summary>
+  <summary xml:lang="ka">გადმოწერების მმართველი</summary>
   <summary xml:lang="ko">다운로드 관리자</summary>
   <summary xml:lang="nl">Downloadbeheerder</summary>
   <summary xml:lang="pl">Zarządzanie pobieraniem</summary>
@@ -93,6 +95,7 @@
     <p xml:lang="ia">KGet es un gerente per discargar versatile e amical.</p>
     <p xml:lang="id">KGet adalah unduh manager yang serbaguna dan mudah digunakan.</p>
     <p xml:lang="it">KGet è un gestore degli scaricamenti versatile e facile da usare.</p>
+    <p xml:lang="ka">KGet გაფართოებადი და მეგობრული გადმოწერების მმართველია.</p>
     <p xml:lang="ko">KGet은 기능이 다양하고 사용하기 편리한 다운로드 관리자입니다.</p>
     <p xml:lang="nl">KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder.</p>
     <p xml:lang="pl">KGet jest wszechstronnym i przyjaznym użytkownikowi programem do zarządzania pobieraniem.</p>
@@ -127,6 +130,7 @@
     <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="id">Fitur-fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
+    <p xml:lang="ka">ფუნქციები:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pl">Możliwości:</p>
@@ -161,6 +165,7 @@
       <li xml:lang="ia">Discargante files ex fontes FTP e HTTP(S). </li>
       <li xml:lang="id">Mengunduh file dari sumber-sumber FTP dan HTTP(S)</li>
       <li xml:lang="it">Scaricamento di file da fonti FTP e HTTP(S).</li>
+      <li xml:lang="ka">ფაილების გადმოწერა FTP და HTTP(S) წყაროებიდან.</li>
       <li xml:lang="ko">FTP, HTTP(S)에서 파일을 다운로드합니다.</li>
       <li xml:lang="nl">Downloaden van bestanden uit FTP en HTTP(S) bronnen.</li>
       <li xml:lang="pl">Pobieranie plików ze źródeł FTP oraz HTTP(S)</li>
@@ -260,6 +265,7 @@
       <li xml:lang="ia">Incorporate in le tabuliero de systema.</li>
       <li xml:lang="id">Menanamkan ke dalam baki sistem.</li>
       <li xml:lang="it">Integrato nel vassoio di sistema.</li>
+      <li xml:lang="ka">სისტემის კუთხეში ხატულა.</li>
       <li xml:lang="ko">시스템 트레이에 통합됩니다.</li>
       <li xml:lang="nl">Ingebed in het systeemvak.</li>
       <li xml:lang="pl">Osadzanie na tacce systemowej.</li>
@@ -293,6 +299,7 @@
       <li xml:lang="ia">Integration  con le navigator web Konqueror.</li>
       <li xml:lang="id">Integrasi dengan web browser Konqueror.</li>
       <li xml:lang="it">Integrazione con il browser web Konqueror.</li>
+      <li xml:lang="ka">ინტეგრაცია Konqueror ბრაუზერთან.</li>
       <li xml:lang="ko">Konqueror 웹 브라우저에 통합됩니다.</li>
       <li xml:lang="nl">Integratie met de webbrowser Konqueror.</li>
       <li xml:lang="pl">Integracja z przeglądarką internetową Konqueror</li>
@@ -368,6 +375,7 @@
       <caption xml:lang="ia">Discargante files con KGet</caption>
       <caption xml:lang="id">Mengunduh file-file menggunakan KGet</caption>
       <caption xml:lang="it">Scaricamento di file con KGet</caption>
+      <caption xml:lang="ka">გადმოწერეთ ფაილები KGet-ით</caption>
       <caption xml:lang="ko">KGet으로 파일 다운로드</caption>
       <caption xml:lang="nl">Bestanden worden gedownload met KGet</caption>
       <caption xml:lang="pl">Pobieranie plików w KGet</caption>
