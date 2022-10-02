@@ -1,0 +1,5787 @@
+# translation of kget.po to Latvian
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2008, 2010.
+# Viesturs Zariņš <viesturs.zarins@algorego.com>, 2008.
+# Viesturs Zariņš <viesturs.zarins@mii.lu.lv>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kget\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-02 00:45+0000\n"
+"PO-Revision-Date: 2010-01-09 18:49+0200\n"
+"Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
+"Language-Team: Latvian <locale@laka.lv>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Generator: Lokalize 1.0\n"
+
+#: conf/autopastemodel.cpp:174
+#, kde-format
+msgid "Pattern"
+msgstr ""
+
+#: conf/autopastemodel.cpp:176
+#, kde-format
+msgid "Syntax"
+msgstr ""
+
+#: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
+#, kde-format
+msgid "Escape sequences"
+msgstr ""
+
+#: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:39
+#, fuzzy, kde-format
+#| msgid "Regular expression:"
+msgid "Regular expression"
+msgstr "Regulāra izteiksme"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
+#: conf/dlgadvanced.ui:17
+#, kde-format
+msgid "Enable system tray icon"
+msgstr "Rādīt ikonu ikonu joslā"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
+#: conf/dlgadvanced.ui:26
+#, kde-format
+msgid "Execute action after all downloads have been finished:"
+msgstr "Izpildīt darbību pēc visu lejupielāžu pabeigšanas:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:91
+#, kde-format
+msgid "Quit KGet"
+msgstr "Iziet no KGet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: conf/dlgadvanced.ui:42
+#, kde-format
+msgid "At startup:"
+msgstr "Palaižot:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:50
+#, kde-format
+msgid "Restore Download State"
+msgstr "Atjaunot lejupielāžu stāvokli"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:55
+#, kde-format
+msgid "Start All Downloads"
+msgstr "Sākt visas lejupielādes"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:60
+#, kde-format
+msgid "Stop All Downloads"
+msgstr "Apturēt visas lejupielādes"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: conf/dlgadvanced.ui:71
+#, kde-format
+msgid "History backend:"
+msgstr "Vēstures aizmugure:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_EnableKUIServerIntegration)
+#: conf/dlgadvanced.ui:80
+#, fuzzy, kde-format
+#| msgid "Enable KDE global progress tracking"
+msgid "Enable KDE Global Progress Tracking"
+msgstr "Ieslēgt KDE globālo procesu novērošanu"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
+#: conf/dlgadvanced.ui:92
+#, kde-format
+msgid "Show every single download "
+msgstr "Rādīt katru ielādi atsevišķi"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
+#: conf/dlgadvanced.ui:99
+#, kde-format
+msgid "Show overall progress"
+msgstr "Rādīt kopējo progresu"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: conf/dlgadvanced.ui:109
+#, kde-format
+msgid "Handle existing Files/Transfers"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
+#: conf/dlgadvanced.ui:115
+#, kde-format
+msgid "Always ask"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAutomaticRename)
+#: conf/dlgadvanced.ui:122
+#, fuzzy, kde-format
+#| msgid "Automatic verification"
+msgid "Automatic rename"
+msgstr "Automātiska pārbaude"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
+#: conf/dlgadvanced.ui:129
+#, fuzzy, kde-format
+#| msgid "Overwrite destination"
+msgid "Overwrite"
+msgstr "Pārrakstīt mērķi"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowDropTarget)
+#: conf/dlgappearance.ui:17
+#, fuzzy, kde-format
+#| msgid "Drop Target"
+msgid "Use Drop Target"
+msgstr "Nomešanas mērķis"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
+#: conf/dlgappearance.ui:29
+#, kde-format
+msgid "Enable animations"
+msgstr "Ieslēgt animācijas"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DirectoriesAsSuggestion)
+#: conf/dlggroups.ui:17
+#, fuzzy, kde-format
+#| msgid "Use default directories for groups as suggestion"
+msgid "Use default folders for groups as suggestion"
+msgstr "Lietot noklusētās mapes grupu mapju ieteikšanai"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
+#: conf/dlggroups.ui:24
+#, kde-format
+msgid "Ask for destination if there are no default folders"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, rename)
+#: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
+#, kde-format
+msgid "Rename"
+msgstr "Pārdēvēt"
+
+#. i18n: ectx: property (text), widget (KIconButton, selectIcon)
+#: conf/dlggroups.ui:65
+#, kde-format
+msgid "Select Icon..."
+msgstr "Izvēlēties ikonu..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
+#: conf/dlgintegration.ui:17
+#, fuzzy, kde-format
+#| msgid "Use as download manager for Konqueror"
+msgid "Use as download manager for Konqueror"
+msgstr "Pārvaldīt Konqueror lejupielādes"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
+#: conf/dlgintegration.ui:24
+#, fuzzy, kde-format
+#| msgid "Monitor clipboard for files to download"
+msgid "Monitor Clipboard for Files to Download"
+msgstr "Vērot starpliktuvi pēc lejupielādējamiem failiem"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: conf/dlgintegration.ui:36
+#, kde-format
+msgid "Case sensitive:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, increase)
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#, fuzzy, kde-format
+#| msgid "Priority"
+msgid "&Increase Priority"
+msgstr "Prioritāte"
+
+#. i18n: ectx: property (text), widget (QPushButton, decrease)
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#, fuzzy, kde-format
+#| msgid "Priority"
+msgid "&Decrease Priority"
+msgstr "Prioritāte"
+
+#. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
+#: conf/dlgnetwork.ui:19
+#, fuzzy, kde-format
+#| msgid "Limit Maximum Downloads Per Group"
+msgid "Maximum downloads per group:"
+msgstr "Ierobežot maksimālo lejupielāžu skaitu grupā"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_MaxConnections)
+#: conf/dlgnetwork.ui:26
+#, fuzzy, kde-format
+#| msgid "No Limit"
+msgctxt "no limit for maximum downloads has been set"
+msgid "No limit"
+msgstr "Nav ierobežojuma"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_SpeedLimit)
+#: conf/dlgnetwork.ui:35
+#, kde-format
+msgid "Speed Limit"
+msgstr "Ātruma ierobežojums"
+
+#. i18n: ectx: property (text), widget (QLabel, dllimitlb)
+#: conf/dlgnetwork.ui:44
+#, fuzzy, kde-format
+#| msgid "Global download limit:"
+msgid "Global &download limit:"
+msgstr "Globāls lejupielādes ierobežojums:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalDownloadLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalUploadLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_TransferSpeedLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadSpin)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadSpin)
+#: conf/dlgnetwork.ui:54 conf/dlgnetwork.ui:80 conf/dlgnetwork.ui:103
+#: ui/groupsettingsdialog.ui:90 ui/groupsettingsdialog.ui:109
+#: ui/transfersettingsdialog.ui:54 ui/transfersettingsdialog.ui:70
+#, kde-format
+msgid " KiB/s"
+msgstr " KiB/s"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: conf/dlgnetwork.ui:70
+#, fuzzy, kde-format
+#| msgid "Global upload limit:"
+msgid "Global &upload limit:"
+msgstr "Globāls augšupielādes ierobežojums:"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_per_transfer)
+#: conf/dlgnetwork.ui:96
+#, kde-format
+msgid "Per transfer:"
+msgstr "Katrai lejupielādei:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ReconnectOnBroken)
+#: conf/dlgnetwork.ui:119
+#, fuzzy, kde-format
+#| msgid "Reconnect on Error or Broken Connection"
+msgid "Reconnect on Broken Connection"
+msgstr "Pieslēgties vēlreiz kļūdas vai pārtraukta savienojuma gadījumā"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_retries_2)
+#: conf/dlgnetwork.ui:128
+#, kde-format
+msgid "Number of retries:"
+msgstr "Reižu skaits:"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_after_2)
+#: conf/dlgnetwork.ui:142
+#, kde-format
+msgid "Retry after:"
+msgstr "Mēģināt vēlreiz pēc:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ReconnectDelay)
+#: conf/dlgnetwork.ui:149
+#, kde-format
+msgid " sec"
+msgstr " sek"
+
+#: conf/dlgwebinterface.cpp:44 conf/dlgwebinterface.cpp:59
+#, kde-format
+msgid "Could not open KWallet"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
+#: conf/dlgwebinterface.ui:20
+#, kde-format
+msgid "Enable Web Interface"
+msgstr "Ieslēgt tīmekļa saskarni"
+
+#. i18n: ectx: property (text), widget (QLabel, portLabel)
+#: conf/dlgwebinterface.ui:32
+#: transfer-plugins/bittorrent/btsettingswidget.ui:32
+#, kde-format
+msgid "Port:"
+msgstr "Ports:"
+
+#. i18n: ectx: property (text), widget (QLabel, userLabel)
+#: conf/dlgwebinterface.ui:46
+#, kde-format
+msgid "User:"
+msgstr "Lietotājs:"
+
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: conf/dlgwebinterface.ui:60
+#, kde-format
+msgid "Password:"
+msgstr "Parole:"
+
+#: conf/integrationpreferences.cpp:35
+#, fuzzy, kde-format
+#| msgid "Excluded:"
+msgid "Include"
+msgstr "Izlaisti:"
+
+#: conf/integrationpreferences.cpp:36
+#, fuzzy, kde-format
+#| msgid "Excluded:"
+msgid "Exclude"
+msgstr "Izlaisti:"
+
+#. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
+#: conf/kget.kcfg:176
+#, kde-format
+msgid "The width of the columns in the history view"
+msgstr "Vēstures skata kolonu platums"
+
+#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:78
+#, kde-format
+msgid "Plugins"
+msgstr "Spraudņi"
+
+#: conf/preferencesdialog.cpp:52
+#, kde-format
+msgid "Xml"
+msgstr "Xml"
+
+#: conf/preferencesdialog.cpp:54
+#, kde-format
+msgid "Sqlite"
+msgstr "Sqlite"
+
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:370
+#, kde-format
+msgid "Turn Off Computer"
+msgstr "Izslēgt datoru"
+
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:375
+#, fuzzy, kde-format
+#| msgid "Turn Off Computer"
+msgid "Hibernate Computer"
+msgstr "Izslēgt datoru"
+
+#: conf/preferencesdialog.cpp:60 mainwindow.cpp:380
+#, fuzzy, kde-format
+#| msgid "Turn Off Computer"
+msgid "Suspend Computer"
+msgstr "Izslēgt datoru"
+
+#: conf/preferencesdialog.cpp:71
+#, kde-format
+msgid "Appearance"
+msgstr "Izskats"
+
+#: conf/preferencesdialog.cpp:71
+#, kde-format
+msgid "Change appearance settings"
+msgstr "Mainīt izskata iestatījumus"
+
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Groups"
+msgstr "Grupas"
+
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Manage the groups"
+msgstr "Pārvaldīt grupas"
+
+#. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
+#: conf/preferencesdialog.cpp:73
+#: transfer-plugins/bittorrent/btsettingswidget.ui:23
+#, kde-format
+msgid "Network"
+msgstr "Tīkls"
+
+#: conf/preferencesdialog.cpp:73
+#, kde-format
+msgid "Network and Downloads"
+msgstr "Tīkls un lejupielādes"
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Web Interface"
+msgstr "Tīmekļa saskarne"
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Control KGet over a Network or the Internet"
+msgstr "Kontrolē KGet caur tīklu vai Internetu"
+
+#: conf/preferencesdialog.cpp:75
+#, kde-format
+msgid "Verification"
+msgstr "Pārbaude"
+
+#: conf/preferencesdialog.cpp:76
+#, fuzzy, kde-format
+#| msgid "Integration"
+msgctxt "integration of KGet with other applications"
+msgid "Integration"
+msgstr "Integrācija"
+
+#: conf/preferencesdialog.cpp:77
+#, kde-format
+msgctxt "Advanced Options"
+msgid "Advanced"
+msgstr "Paplašināti"
+
+#: conf/preferencesdialog.cpp:77
+#, kde-format
+msgid "Advanced Options"
+msgstr "Paplašinātas opcijas"
+
+#: conf/preferencesdialog.cpp:78
+#, kde-format
+msgid "Transfer Plugins"
+msgstr "Pārsūtīšanas spraudņi"
+
+#: conf/transfersgrouptree.cpp:113 conf/transfersgrouptree.cpp:118
+#, kde-format
+msgid "New Group"
+msgstr "Jauna grupa"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ChecksumAutomaticVerification)
+#: conf/verificationpreferences.ui:17
+#, fuzzy, kde-format
+#| msgid "Automatic verification"
+msgid "Automatic checksums verification"
+msgstr "Automātiska pārbaude"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: conf/verificationpreferences.ui:32
+#, kde-format
+msgid "Used checksum:"
+msgstr "Lietotā kontrolsumma:"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_4)
+#: conf/verificationpreferences.ui:51
+#, kde-format
+msgid "Weak (fastest)"
+msgstr "Vāja (ātrākais)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_5)
+#: conf/verificationpreferences.ui:61
+#, kde-format
+msgid "Strong (recommended)"
+msgstr "Stipra (ieteicams)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_6)
+#: conf/verificationpreferences.ui:71
+#, kde-format
+msgid "Strongest (slowest)"
+msgstr "Stiprākā (lēnākais)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, signatureGroup)
+#. i18n: ectx: property (title), widget (QGroupBox, sigGroup)
+#. i18n: ectx: property (text), widget (QPushButton, signature)
+#: conf/verificationpreferences.ui:87 ui/signaturedlg.ui:20
+#: ui/transfersettingsdialog.ui:172
+#, kde-format
+msgid "Signature"
+msgstr "Paraksts"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticVerification)
+#: conf/verificationpreferences.ui:93
+#, kde-format
+msgid "Automatic verification"
+msgstr "Automātiska pārbaude"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticDownloading)
+#: conf/verificationpreferences.ui:100
+#, kde-format
+msgid "Automatic downloading of missing keys"
+msgstr "Automātiska trūkstošo atslēgu lejupielāde"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: conf/verificationpreferences.ui:123
+#, kde-format
+msgid "Keyservers:"
+msgstr "Atslēgu serveri:"
+
+#: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
+#: core/kget.cpp:1396 transfer-plugins/metalink/metalink.cpp:199
+#: transfer-plugins/metalink/metalinkhttp.cpp:241
+#: transfer-plugins/metalink/metalinkxml.cpp:198
+#: ui/metalinkcreator/metalinkcreator.cpp:149
+#: ui/metalinkcreator/metalinkcreator.cpp:166
+#, kde-format
+msgid "Error"
+msgstr "Kļūda"
+
+#: core/datasourcefactory.cpp:279
+#, kde-format
+msgid "Filesize is larger than maximum file size supported by VFAT."
+msgstr ""
+
+#: core/datasourcefactory.cpp:624
+#, kde-format
+msgctxt "A mirror is removed when the file has the wrong download size"
+msgid "%1 removed as it did report a wrong file size."
+msgstr "%1 izņemts, jo tas ziņoja nepareizu faila izmēru."
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "file in a filesystem"
+msgid "File"
+msgstr "Fails"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "status of the download"
+msgid "Status"
+msgstr "Stāvoklis"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "size of the download"
+msgid "Size"
+msgstr "Izmērs"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "checksum of a file"
+msgid "Checksum"
+msgstr "Kontrolsumma"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "signature of a file"
+msgid "Signature"
+msgstr "Paraksts"
+
+#: core/keydownloader.cpp:74
+#, kde-format
+msgid ""
+"No server for downloading keys is specified in settings. Downloading aborted."
+msgstr ""
+"Iestatījumos nav norādīts neviens serveris atslēgu ielādēšanai. Lejupielāde "
+"pārtraukta."
+
+#: core/keydownloader.cpp:75 core/keydownloader.cpp:95
+#, kde-format
+msgid "No key server"
+msgstr "Nav atslēgu servera"
+
+#: core/keydownloader.cpp:94
+#, kde-format
+msgid ""
+"No useful key server found, key not downloaded. Add more servers to the "
+"settings or restart KGet and retry downloading."
+msgstr ""
+"Netika atrasts derīgs atslēgu serveris, atslēga nav ielādēta. Pievienojiet "
+"citus serverus iestatījumus un pārstartējiet KGet un mēģiniet ielādēt "
+"vēlreiz."
+
+#: core/kget.cpp:119
+#, kde-format
+msgid "Are you sure that you want to remove the group named %1?"
+msgstr "Vai esat pārliecināts ka vēlaties izdzēst grupu vārdā %1?"
+
+#: core/kget.cpp:120
+#, kde-format
+msgid "Remove Group"
+msgstr "Dzēst grupu"
+
+#: core/kget.cpp:144
+#, kde-format
+msgid "Are you sure that you want to remove the following groups?"
+msgstr "Vai esat pārliecināts ka vēlaties dzēst šīs grupas?"
+
+#: core/kget.cpp:146
+#, kde-format
+msgid "Remove groups"
+msgstr "Dzēst grupas"
+
+#: core/kget.cpp:252
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The following file has finished downloading:</p><p style=\"font-size: "
+#| "small;\">                      %1</p>"
+msgid ""
+"<p>The following transfer has been added to the download list:</p><p style="
+"\"font-size: small;\">%1</p>"
+msgstr ""
+"<p>Pabeigta šī faila lejupielāde:</p><p style=\"font-size: small;"
+"\">                      %1</p>"
+
+#: core/kget.cpp:253 core/kget.cpp:350
+#, fuzzy, kde-format
+#| msgid "Downloaded"
+msgid "Download added"
+msgstr "Lejupielādēts"
+
+#: core/kget.cpp:345
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The following file has finished downloading:</p><p style=\"font-size: "
+#| "small;\">                      %1</p>"
+msgid "<p>The following transfer has been added to the download list:</p>"
+msgstr ""
+"<p>Pabeigta šī faila lejupielāde:</p><p style=\"font-size: small;"
+"\">                      %1</p>"
+
+#: core/kget.cpp:347
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The following file has finished downloading:</p><p style=\"font-size: "
+#| "small;\">                      %1</p>"
+msgid "<p>The following transfers have been added to the download list:</p>"
+msgstr ""
+"<p>Pabeigta šī faila lejupielāde:</p><p style=\"font-size: small;"
+"\">                      %1</p>"
+
+#: core/kget.cpp:515 core/kget.cpp:564
+#, kde-format
+msgid "My Downloads"
+msgstr "Manas lejupielādes"
+
+#: core/kget.cpp:574
+#, kde-format
+msgid ""
+"The file %1 already exists.\n"
+"Overwrite?"
+msgstr ""
+"Fails %1 jau pastāv.\n"
+"Pārrakstīt?"
+
+#: core/kget.cpp:575
+#, kde-format
+msgid "Overwrite existing file?"
+msgstr "Pārrakstīt esošu failu?"
+
+#: core/kget.cpp:596 ui/metalinkcreator/metalinkcreator.cpp:166
+#, kde-format
+msgid "Unable to save to: %1"
+msgstr "Nevar saglabāt iekš: %1"
+
+#: core/kget.cpp:899
+#, kde-format
+msgid ""
+"<p>The following URL cannot be downloaded, its protocol is not supported by "
+"KGet:</p>"
+msgid_plural ""
+"<p>The following URLs cannot be downloaded, their protocols are not "
+"supported by KGet:</p>"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: core/kget.cpp:909
+#, kde-format
+msgid "Protocol unsupported"
+msgstr "Neatbalstīts protokols"
+
+#: core/kget.cpp:963 ui/newtransferdialog.cpp:53
+#, kde-format
+msgid "New Download"
+msgstr "Jauna lejupielāde"
+
+#: core/kget.cpp:963
+#, kde-format
+msgid "Enter URL:"
+msgstr "Ievadiet URL:"
+
+#: core/kget.cpp:983
+#, kde-format
+msgctxt "@title:window"
+msgid "Choose Directory"
+msgstr ""
+
+#: core/kget.cpp:1002
+#, fuzzy, kde-format
+#| msgid "Save As"
+msgctxt "@title:window"
+msgid "Save As"
+msgstr "Saglabāt kā"
+
+#: core/kget.cpp:1015 core/urlchecker.cpp:366
+#, kde-format
+msgid ""
+"Malformed URL:\n"
+"%1"
+msgstr ""
+"Kļūdains URL:\n"
+"%1"
+
+#: core/kget.cpp:1022 core/urlchecker.cpp:368
+#, kde-format
+msgid ""
+"Malformed URL, protocol missing:\n"
+"%1"
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/kget.cpp:1033 core/urlchecker.cpp:424
+#, kde-format
+msgid ""
+"You have already completed a download from the location: \n"
+"\n"
+"%1\n"
+"\n"
+"Download it again?"
+msgstr ""
+"Jums jau ir pabeigta lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Lejupielādēt vēlreiz?"
+
+#: core/kget.cpp:1034 core/urlchecker.cpp:641
+#, kde-format
+msgid "Download it again?"
+msgstr "Lejupielādēt vēlreiz?"
+
+#: core/kget.cpp:1046 core/urlchecker.cpp:426
+#, kde-format
+msgid ""
+"You have a download in progress from the location: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete it and download again?"
+msgstr ""
+"Jums jau ir aktīva lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Dzēst un lejupielādēt vēlreiz?"
+
+#: core/kget.cpp:1047 core/urlchecker.cpp:638
+#, kde-format
+msgid "Delete it and download again?"
+msgstr "Dzēst un lejupielādēt vēlreiz?"
+
+#: core/kget.cpp:1070 core/kget.cpp:1077
+#, kde-format
+msgid "Directory is not writable"
+msgstr "Nevar rakstīt mapē"
+
+#: core/kget.cpp:1105
+#, kde-format
+msgid ""
+"You have already downloaded that file from another location.\n"
+"\n"
+"Download and delete the previous one?"
+msgstr ""
+"Jūs jau esat ielādējis šo failu no citas vietas.\n"
+"\n"
+"Vai izdzēst iepriekšējo un ielādēt no jauna?"
+
+#: core/kget.cpp:1106 core/urlchecker.cpp:650
+#, kde-format
+msgid "File already downloaded. Download anyway?"
+msgstr "Fails jau lejupielādēts. Lejupielādēt vēlreiz?"
+
+#: core/kget.cpp:1115
+#, kde-format
+msgid "You are already downloading the same file"
+msgstr "Jūs jau ielādējat šo failu"
+
+#: core/kget.cpp:1119 core/kget.cpp:1122 core/urlchecker.cpp:653
+#: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:480
+#: transfer-plugins/metalink/metalink.cpp:716
+#, kde-format
+msgid "File already exists"
+msgstr "Fails jau pastāv"
+
+#: core/kget.cpp:1223
+#, kde-format
+msgid "Internet connection established, resuming transfers."
+msgstr ""
+
+#: core/kget.cpp:1228
+#, kde-format
+msgid "No internet connection, stopping transfers."
+msgstr ""
+
+#: core/kget.cpp:1242
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html><p>Plugin loader could not load the plugin:<br/><i>%1</i></p></html>"
+msgid "Plugin loader could not load the plugin %1: %2."
+msgstr ""
+"<html><p>Spraudņu ielādētājs nespēja ielādēt spraudni:<br/><i>%1</i></p></"
+"html>"
+
+#: core/kget.cpp:1257
+#, kde-format
+msgid ""
+"Not deleting\n"
+"%1\n"
+"as it is a directory."
+msgstr ""
+"Nevar izdzēst\n"
+"%1\n"
+"jo tā ir mape."
+
+#: core/kget.cpp:1268
+#, kde-format
+msgid ""
+"Not deleting\n"
+"%1\n"
+"as it is not a local file."
+msgstr ""
+"Nevar izdzēst\n"
+"%1\n"
+"jo tas nav lokāls fails."
+
+#: core/kget.cpp:1389
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The following file has finished downloading:</p><p style=\"font-size: "
+#| "small;\">                      %1</p>"
+msgid ""
+"<p>The following file has finished downloading:</p><p style=\"font-size: "
+"small;\">%1</p>"
+msgstr ""
+"<p>Pabeigta šī faila lejupielāde:</p><p style=\"font-size: small;"
+"\">                      %1</p>"
+
+#: core/kget.cpp:1390
+#, kde-format
+msgid "Download completed"
+msgstr "Lejupielāde pabeigta"
+
+#: core/kget.cpp:1393
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The following file has finished downloading:</p><p style=\"font-size: "
+#| "small;\">                      %1</p>"
+msgid ""
+"<p>The following transfer has been started:</p><p style=\"font-size: small;"
+"\">%1</p>"
+msgstr ""
+"<p>Pabeigta šī faila lejupielāde:</p><p style=\"font-size: small;"
+"\">                      %1</p>"
+
+#: core/kget.cpp:1394
+#, fuzzy, kde-format
+#| msgid "Download speed"
+msgid "Download started"
+msgstr "Lejupielādes ātrums"
+
+#: core/kget.cpp:1396
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The following file has finished downloading:</p><p style=\"font-size: "
+#| "small;\">                      %1</p>"
+msgid ""
+"<p>There has been an error in the following transfer:</p><p style=\"font-"
+"size: small;\">%1</p><p>The error message is:</p><p style=\"font-size: small;"
+"\">%2</p>"
+msgstr ""
+"<p>Pabeigta šī faila lejupielāde:</p><p style=\"font-size: small;"
+"\">                      %1</p>"
+
+#: core/kget.cpp:1401
+#, fuzzy, kde-format
+#| msgid "Remove"
+msgid "Resolve"
+msgstr "Izņemt"
+
+#: core/kget.cpp:1451
+#, kde-format
+msgid "KGet is now closing, as all downloads have completed."
+msgstr "KGet beidz darbu, jo visas lejupielādes ir pabeigtas."
+
+#: core/kget.cpp:1455
+#, kde-format
+msgid "The computer will now turn off, as all downloads have completed."
+msgstr "Dators tagad tiks izslēgts, jo visas lejupielādes ir pabeigtas."
+
+#: core/kget.cpp:1455
+#, fuzzy, kde-format
+#| msgid "Auto shutdown"
+msgctxt "Shutting down computer"
+msgid "Shutdown"
+msgstr "Automātiski izslēgt datoru"
+
+#: core/kget.cpp:1458
+#, fuzzy, kde-format
+#| msgid "The computer will now turn off, as all downloads have completed."
+msgid "The computer will now suspend to disk, as all downloads have completed."
+msgstr "Dators tagad tiks izslēgts, jo visas lejupielādes ir pabeigtas."
+
+#: core/kget.cpp:1458
+#, kde-format
+msgctxt "Hibernating computer"
+msgid "Hibernating"
+msgstr ""
+
+#: core/kget.cpp:1461
+#, fuzzy, kde-format
+#| msgid "The computer will now turn off, as all downloads have completed."
+msgid "The computer will now suspend to RAM, as all downloads have completed."
+msgstr "Dators tagad tiks izslēgts, jo visas lejupielādes ir pabeigtas."
+
+#: core/kget.cpp:1461
+#, fuzzy, kde-format
+#| msgctxt "Preview pending"
+#| msgid "Pending"
+msgctxt "Suspending computer"
+msgid "Suspending"
+msgstr "Top"
+
+#: core/kget.cpp:1469
+#, fuzzy, kde-format
+#| msgid "Aborted"
+msgctxt "abort the proposed action"
+msgid "Abort"
+msgstr "Pārtraukts"
+
+#: core/kget.cpp:1479
+#, kde-format
+msgid "<p>All transfers have been finished.</p>"
+msgstr ""
+
+#: core/kget.cpp:1480
+#, kde-format
+msgid "Downloads completed"
+msgstr "Lejupielādes pabeigtas"
+
+#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:526
+#: ui/tray.cpp:44
+#, kde-format
+msgid "KGet"
+msgstr "KGet"
+
+#: core/kgetglobaljob.cpp:57
+#, kde-format
+msgid "KGet is downloading %1 file"
+msgid_plural "KGet is downloading %1 files"
+msgstr[0] "KGet lejupielādē %1 failu"
+msgstr[1] "KGet lejupielādē %1 failus"
+msgstr[2] "KGet lejupielādē %1 failus"
+
+#: core/kgetkjobadapter.cpp:47
+#, kde-format
+msgid "KGet Transfer"
+msgstr "KGet ielādes"
+
+#: core/linkimporter.cpp:83
+#, kde-format
+msgid "Error trying to get %1"
+msgstr "Kļūda mēģinot ielādēt %1"
+
+#: core/signature.cpp:230
+#, kde-format
+msgid "The key to verify the signature is missing, do you want to download it?"
+msgstr "Trūkst atslēgas paraksta pārbaudīšanai, vai vēlaties ielādēt to?"
+
+#: core/signature.cpp:252
+#, kde-format
+msgid ""
+"The signature could not be verified for %1. See transfer settings for more "
+"information."
+msgstr ""
+"%1 paraksta pārbaude neveiksmīga. Vairāk informācijas skatieties ielādes "
+"iestatījumos."
+
+#: core/signature.cpp:253
+#, kde-format
+msgid "Signature not verified"
+msgstr "Paraksts nav apstiprināts"
+
+#: core/transfer.cpp:31
+msgid "Downloading...."
+msgstr "Lejupielādē..."
+
+#: core/transfer.cpp:32
+msgctxt "transfer state: delayed"
+msgid "Delayed"
+msgstr "Novēlots"
+
+#: core/transfer.cpp:33 core/transfer.cpp:232 core/transfer.cpp:251
+#: transfer-plugins/bittorrent/bttransfer.cpp:308
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:94
+#, kde-format
+msgctxt "transfer state: stopped"
+msgid "Stopped"
+msgstr "Apturēts"
+
+#: core/transfer.cpp:34
+msgctxt "transfer state: aborted"
+msgid "Aborted"
+msgstr "Pārtraukts"
+
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:225
+#: transfer-plugins/bittorrent/bttransfer.cpp:304
+#, kde-format
+msgctxt "transfer state: finished"
+msgid "Finished"
+msgstr "Pabeigts"
+
+#: core/transfer.cpp:37 transfer-plugins/bittorrent/bttransfer.cpp:169
+#, kde-format
+msgctxt "changing the destination of the file"
+msgid "Changing destination"
+msgstr "Mainīt mērķi"
+
+#: core/transfergrouphandler.cpp:96
+#, kde-format
+msgid "1 Item"
+msgid_plural "%1 Items"
+msgstr[0] "%1 vienība"
+msgstr[1] "%1 vienības"
+msgstr[2] "%1 vienību"
+
+#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:150
+#: ui/transferdetails.cpp:93
+#, kde-format
+msgid "%1/s"
+msgstr "%1/s"
+
+#: core/transfergrouphandler.cpp:168
+#, kde-format
+msgctxt "start transfergroup downloads"
+msgid "Start"
+msgstr "Sākt"
+
+#: core/transfergrouphandler.cpp:174
+#, kde-format
+msgctxt "stop transfergroup downloads"
+msgid "Stop"
+msgstr "Apturēt"
+
+#: core/transferhandler.cpp:137
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:29
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:30
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:31
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:32
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:33
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:34
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:35
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:36
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:61
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:62
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:65
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:66
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:69
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:72
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:75
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:78
+#: ui/transfersviewdelegate.cpp:395
+#, kde-format
+msgctxt "not available"
+msgid "n/a"
+msgstr "n/p"
+
+#: core/transferhandler.cpp:145 ui/transferdetails.cpp:89
+#, kde-format
+msgid "Stalled"
+msgstr "Apstājies"
+
+#: core/transfertreemodel.cpp:648
+#, kde-format
+msgctxt "name of download"
+msgid "Name"
+msgstr "Nosaukums"
+
+#: core/transfertreemodel.cpp:650
+#, kde-format
+msgctxt "status of download"
+msgid "Status"
+msgstr "Statuss"
+
+#: core/transfertreemodel.cpp:652
+#, kde-format
+msgctxt "size of download"
+msgid "Size"
+msgstr "Izmērs"
+
+#: core/transfertreemodel.cpp:654
+#, kde-format
+msgctxt "progress of download"
+msgid "Progress"
+msgstr "Progress"
+
+#: core/transfertreemodel.cpp:656
+#, kde-format
+msgctxt "speed of download"
+msgid "Speed"
+msgstr "Ātrums"
+
+#: core/transfertreemodel.cpp:658
+#, kde-format
+msgctxt "remaining time of download"
+msgid "Remaining Time"
+msgstr "Atlikušais laiks"
+
+#: core/urlchecker.cpp:51
+#, fuzzy, kde-format
+#| msgid "Description"
+msgid "Question"
+msgstr "Aparaksts"
+
+#: core/urlchecker.cpp:61
+#, kde-format
+msgid "Appl&y to all"
+msgstr ""
+
+#: core/urlchecker.cpp:300 core/urlchecker.cpp:340
+#, kde-format
+msgid "No download directory specified."
+msgstr ""
+
+#: core/urlchecker.cpp:302
+#, kde-format
+msgid "Invalid download directory specified."
+msgstr ""
+
+#: core/urlchecker.cpp:304
+#, fuzzy, kde-format
+#| msgid "Directory is not writable"
+msgid "Download directory is not writeable."
+msgstr "Nevar rakstīt mapē"
+
+#: core/urlchecker.cpp:312 core/urlchecker.cpp:352
+#, fuzzy, kde-format
+#| msgid "Download Destination:"
+msgid "No download destination specified."
+msgstr "Lejupielādes mērķis:"
+
+#: core/urlchecker.cpp:314
+#, fuzzy, kde-format
+#| msgid "Download Destination:"
+msgid "Invalid download destination specified."
+msgstr "Lejupielādes mērķis:"
+
+#: core/urlchecker.cpp:316
+#, fuzzy, kde-format
+#| msgid "Download Destination:"
+msgid "Download destination is not writeable."
+msgstr "Lejupielādes mērķis:"
+
+#: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
+#: core/urlchecker.cpp:468
+#, fuzzy, kde-format
+#| msgid "not specified"
+msgid "No URL specified."
+msgstr "nav norādīts"
+
+#: core/urlchecker.cpp:326
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:96
+#: transfer-plugins/bittorrent/bttransfer.cpp:266
+#, kde-format
+msgid "Malformed URL."
+msgstr "Nekorekts URL."
+
+#: core/urlchecker.cpp:328
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL, protocol missing:\n"
+#| "%1"
+msgid "Malformed URL, protocol missing."
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/urlchecker.cpp:330
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL, protocol missing:\n"
+#| "%1"
+msgid "Malformed URL, host missing."
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/urlchecker.cpp:342
+#, kde-format
+msgid ""
+"Invalid download directory specified:\n"
+"%1"
+msgstr ""
+
+#: core/urlchecker.cpp:344
+#, fuzzy, kde-format
+#| msgid "Directory is not writable"
+msgid ""
+"Download directory is not writeable:\n"
+"%1"
+msgstr "Nevar rakstīt mapē"
+
+#: core/urlchecker.cpp:354
+#, fuzzy, kde-format
+#| msgid "Download Destination:"
+msgid ""
+"Invalid download destination specified:\n"
+"%1"
+msgstr "Lejupielādes mērķis:"
+
+#: core/urlchecker.cpp:356
+#, fuzzy, kde-format
+#| msgid "Download Destination:"
+msgid ""
+"Download destination is not writeable:\n"
+"%1"
+msgstr "Lejupielādes mērķis:"
+
+#: core/urlchecker.cpp:370
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL, protocol missing:\n"
+#| "%1"
+msgid ""
+"Malformed URL, host missing:\n"
+"%1"
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/urlchecker.cpp:386 core/urlchecker.cpp:398
+#, fuzzy, kde-format
+#| msgid ""
+#| "The file %1 already exists.\n"
+#| "Overwrite?"
+msgid "File already exists. Overwrite it?"
+msgstr ""
+"Fails %1 jau pastāv.\n"
+"Pārrakstīt?"
+
+#: core/urlchecker.cpp:388 core/urlchecker.cpp:414
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have already downloaded that file from another location.\n"
+#| "\n"
+#| "Download and delete the previous one?"
+msgid ""
+"You have already downloaded that file from another location.\n"
+"Download and delete the previous one?"
+msgstr ""
+"Jūs jau esat ielādējis šo failu no citas vietas.\n"
+"\n"
+"Vai izdzēst iepriekšējo un ielādēt no jauna?"
+
+#: core/urlchecker.cpp:390 core/urlchecker.cpp:416
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have already downloaded that file from another location.\n"
+#| "\n"
+#| "Download and delete the previous one?"
+msgid ""
+"You are already downloading that file from another location.\n"
+"Download and delete the previous one?"
+msgstr ""
+"Jūs jau esat ielādējis šo failu no citas vietas.\n"
+"\n"
+"Vai izdzēst iepriekšējo un ielādēt no jauna?"
+
+#: core/urlchecker.cpp:400
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have already completed a download from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Download it again?"
+msgid ""
+"You have already completed a download from that location. Download it again?"
+msgstr ""
+"Jums jau ir pabeigta lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:402
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have a download in progress from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Delete it and download again?"
+msgid ""
+"You have a download in progress from that location.\n"
+"Delete it and download again?"
+msgstr ""
+"Jums jau ir aktīva lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Dzēst un lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:412
+#, fuzzy, kde-format
+#| msgid ""
+#| "The file %1 already exists.\n"
+#| "Overwrite?"
+msgid ""
+"File already exists:\n"
+"%1\n"
+"Overwrite it?"
+msgstr ""
+"Fails %1 jau pastāv.\n"
+"Pārrakstīt?"
+
+#: core/urlchecker.cpp:456
+#, fuzzy, kde-format
+#| msgid "Malformed URL."
+msgid "Malformed URLs."
+msgstr "Nekorekts URL."
+
+#: core/urlchecker.cpp:458
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL, protocol missing:\n"
+#| "%1"
+msgid "Malformed URLs, protocol missing."
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/urlchecker.cpp:460
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL, protocol missing:\n"
+#| "%1"
+msgid "Malformed URLs, host missing."
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/urlchecker.cpp:470
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL:\n"
+#| "%1"
+msgid ""
+"Malformed URLs:\n"
+"%1"
+msgstr ""
+"Kļūdains URL:\n"
+"%1"
+
+#: core/urlchecker.cpp:472
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL, protocol missing:\n"
+#| "%1"
+msgid ""
+"Malformed URLs, protocol missing:\n"
+"%1"
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/urlchecker.cpp:474
+#, fuzzy, kde-format
+#| msgid ""
+#| "Malformed URL, protocol missing:\n"
+#| "%1"
+msgid ""
+"Malformed URLs, host missing:\n"
+"%1"
+msgstr ""
+"Kļūdains URL, trūkst protokola:\n"
+"%1"
+
+#: core/urlchecker.cpp:476
+#, fuzzy, kde-format
+#| msgid "Directory is not writable"
+msgid ""
+"Destinations are not writable:\n"
+"%1"
+msgstr "Nevar rakstīt mapē"
+
+#: core/urlchecker.cpp:500
+#, fuzzy, kde-format
+#| msgid ""
+#| "The file %1 already exists.\n"
+#| "Overwrite?"
+msgid "Files exist already. Overwrite them?"
+msgstr ""
+"Fails %1 jau pastāv.\n"
+"Pārrakstīt?"
+
+#: core/urlchecker.cpp:502
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have already completed a download from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Download it again?"
+msgid ""
+"You have already completed downloads at those destinations. Download them "
+"again?"
+msgstr ""
+"Jums jau ir pabeigta lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:504
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have a download in progress from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Delete it and download again?"
+msgid ""
+"You have downloads in progress to these destinations.\n"
+"Delete them and download again?"
+msgstr ""
+"Jums jau ir aktīva lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Dzēst un lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:512
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have already completed a download from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Download it again?"
+msgid ""
+"You have already completed downloads from these locations. Download them "
+"again?"
+msgstr ""
+"Jums jau ir pabeigta lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:514
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have a download in progress from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Delete it and download again?"
+msgid ""
+"You have downloads in progress from these locations.\n"
+"Delete them and download again?"
+msgstr ""
+"Jums jau ir aktīva lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Dzēst un lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:523
+#, kde-format
+msgid ""
+"Files exist already:\n"
+"%1\n"
+"Overwrite them?"
+msgstr ""
+
+#: core/urlchecker.cpp:525
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have already completed a download from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Download it again?"
+msgid ""
+"You have already completed downloads at those destinations: \n"
+"\n"
+"%1\n"
+"\n"
+" Download them again?"
+msgstr ""
+"Jums jau ir pabeigta lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:527
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have a download in progress from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Delete it and download again?"
+msgid ""
+"You have downloads in progress to these destinations: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete them and download again?"
+msgstr ""
+"Jums jau ir aktīva lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Dzēst un lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:535
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have already completed a download from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Download it again?"
+msgid ""
+"You have already completed downloads from these locations: \n"
+"\n"
+"%1\n"
+"\n"
+"Download them again?"
+msgstr ""
+"Jums jau ir pabeigta lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Lejupielādēt vēlreiz?"
+
+#: core/urlchecker.cpp:537
+#, fuzzy, kde-format
+#| msgid ""
+#| "You have a download in progress from the location: \n"
+#| "\n"
+#| "%1\n"
+#| "\n"
+#| "Delete it and download again?"
+msgid ""
+"You have downloads in progress from these locations: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete them and download again?"
+msgstr ""
+"Jums jau ir aktīva lejupielāde no šīs vietas: \n"
+"\n"
+"%1\n"
+"\n"
+"Dzēst un lejupielādēt vēlreiz?"
+
+#: core/verificationmodel.cpp:152
+#, kde-format
+msgctxt "the type of the hash, e.g. MD5"
+msgid "Type"
+msgstr "Tips"
+
+#: core/verificationmodel.cpp:154
+#, kde-format
+msgctxt "the used hash for verification"
+msgid "Hash"
+msgstr "Hešs"
+
+#: core/verificationmodel.cpp:156
+#, kde-format
+msgctxt "verification-result of a file, can be true/false"
+msgid "Verified"
+msgstr "Pārbaudīts"
+
+#: main.cpp:104
+#, fuzzy, kde-format
+#| msgid "An advanced download manager for KDE"
+msgid "An advanced download manager by KDE"
+msgstr "Moderns KDE lepjupielāžu pārvaldnieks"
+
+#: main.cpp:106
+#, fuzzy, kde-format
+#| msgid ""
+#| "(C) 2005 - 2009, The KGet developers\n"
+#| "(C) 2001 - 2002, Patrick Charbonnier\n"
+#| "(C) 2002, Carsten Pfeiffer\n"
+#| "(C) 1998 - 2000, Matej Koss"
+msgid ""
+"(C) 2005 - 2014, The KGet developers\n"
+"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2002, Carsten Pfeiffer\n"
+"(C) 1998 - 2000, Matej Koss"
+msgstr ""
+"(C) 2005 - 2009, KGet izstrādātāji\n"
+"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2002, Carsten Pfeiffer\n"
+"(C) 1998 - 2000, Matej Koss"
+
+#: main.cpp:110
+#, kde-format
+msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
+msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
+
+#: main.cpp:112
+#, kde-format
+msgid "Lukas Appelhans"
+msgstr "Lukas Appelhans"
+
+#: main.cpp:112
+#, kde-format
+msgid "Maintainer, Core Developer, Torrent Plugin Author"
+msgstr "Izstrādātājs, galvenais izstrādātājs, torrent spraudņa autors"
+
+#: main.cpp:113
+#, kde-format
+msgid "Dario Massarin"
+msgstr "Dario Massarin"
+
+#: main.cpp:113 main.cpp:114 main.cpp:116
+#, kde-format
+msgid "Core Developer"
+msgstr "Galvenais izstrādātājs"
+
+#: main.cpp:114
+#, kde-format
+msgid "Urs Wolfer"
+msgstr "Urs Wolfer"
+
+#: main.cpp:115
+#, kde-format
+msgid "Manolo Valdes"
+msgstr "Manolo Valdes"
+
+#: main.cpp:115
+#, kde-format
+msgid "Core Developer, Multithreaded Plugin Author"
+msgstr "Galvenais izstrādātājs, daudzpavedienu spraudņa autors"
+
+#: main.cpp:116
+#, kde-format
+msgid "Matthias Fuchs"
+msgstr "Matthias Fuchs"
+
+#: main.cpp:117
+#, kde-format
+msgid "Javier Goday"
+msgstr "Javier Goday"
+
+#: main.cpp:117
+#, kde-format
+msgid "Developer"
+msgstr "Izstrādātājs"
+
+#: main.cpp:118
+#, kde-format
+msgid "Aish Raj Dahal"
+msgstr ""
+
+#: main.cpp:118
+#, kde-format
+msgid "Google Summer of Code Student"
+msgstr ""
+
+#: main.cpp:119
+#, kde-format
+msgid "Ernesto Rodriguez Ortiz"
+msgstr ""
+
+#: main.cpp:119
+#, kde-format
+msgid "Mms Plugin Author"
+msgstr ""
+
+#: main.cpp:120
+#, kde-format
+msgid "Patrick Charbonnier"
+msgstr "Patrick Charbonnier"
+
+#: main.cpp:120 main.cpp:121 main.cpp:122
+#, kde-format
+msgid "Former Developer"
+msgstr "Bijušais izstrādātājs"
+
+#: main.cpp:121
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "Carsten Pfeiffer"
+
+#: main.cpp:122
+#, kde-format
+msgid "Matej Koss"
+msgstr "Matej Koss"
+
+#: main.cpp:123
+#, kde-format
+msgid "Joris Guisson"
+msgstr "Joris Guisson"
+
+#: main.cpp:123
+#, kde-format
+msgid "BTCore (KTorrent) Developer"
+msgstr "BTCore (KTorrent) izstrādātājs"
+
+#: main.cpp:124
+#, kde-format
+msgid "Mensur Zahirovic (Nookie)"
+msgstr "Mensur Zahirovic (Nookie)"
+
+#: main.cpp:124
+#, kde-format
+msgid "Design of Web Interface"
+msgstr "Tīmekla saskarnes dizains"
+
+#: main.cpp:126
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Viesturs Zariņš"
+
+#: main.cpp:126
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "viesturs.zarins@mi.lu.lv"
+
+#: main.cpp:133
+#, kde-format
+msgid "Start KGet with drop target"
+msgstr "Palaist KGet ar nomešanas mērķi"
+
+#: main.cpp:134
+#, kde-format
+msgid "Start KGet with hidden main window"
+msgstr "Palaist KGet ar noslēptu galveno logu"
+
+#: main.cpp:135
+#, kde-format
+msgid "Start KGet without drop target animation"
+msgstr "Palaist KGet bez nomešanas mērķā animācijas"
+
+#: main.cpp:137
+#, kde-format
+msgid "Execute Unit Testing"
+msgstr "Veikt vienībtestēšanu"
+
+#: main.cpp:139
+#, kde-format
+msgid "URL(s) to download"
+msgstr "Lejupielādējamie URL(i)"
+
+#: mainwindow.cpp:147
+#, kde-format
+msgid "&New Download..."
+msgstr "&Jauna lejupielāde..."
+
+#: mainwindow.cpp:154
+#, kde-format
+msgid "&Import Transfers..."
+msgstr "&Importēt ielādes..."
+
+#: mainwindow.cpp:161
+#, kde-format
+msgid "&Export Transfers List..."
+msgstr "&Eksportēt ielāžu sarakstu..."
+
+#: mainwindow.cpp:168
+#, fuzzy, kde-format
+#| msgid "&Create a Metalink"
+msgid "&Create a Metalink..."
+msgstr "&Izveidot Metalink"
+
+#: mainwindow.cpp:174
+#, fuzzy, kde-format
+#| msgid "Priority"
+msgid "Top Priority"
+msgstr "Prioritāte"
+
+#: mainwindow.cpp:181
+#, fuzzy, kde-format
+#| msgid "Priority"
+msgid "Least Priority"
+msgstr "Prioritāte"
+
+#: mainwindow.cpp:188
+#, fuzzy, kde-format
+#| msgid "Priority"
+msgid "Increase Priority"
+msgstr "Prioritāte"
+
+#: mainwindow.cpp:195
+#, fuzzy, kde-format
+#| msgid "Priority"
+msgid "Decrease Priority"
+msgstr "Prioritāte"
+
+#: mainwindow.cpp:203
+#, fuzzy, kde-format
+#| msgid "Delete Group"
+#| msgid_plural "Delete Groups"
+msgctxt "@action"
+msgid "Delete Group"
+msgstr "Dzēst grupu"
+
+#: mainwindow.cpp:209
+#, fuzzy, kde-format
+#| msgid "Rename Group..."
+#| msgid_plural "Rename Groups..."
+msgctxt "@action"
+msgid "Rename Group..."
+msgstr "Pārdēvēt grupu..."
+
+#: mainwindow.cpp:214
+#, kde-format
+msgid "Set Icon..."
+msgstr "Mainīt ikonu..."
+
+#: mainwindow.cpp:220
+#, kde-format
+msgid "Auto-Paste Mode"
+msgstr "Auto-ielīmēšanas režīms"
+
+#: mainwindow.cpp:223
+#, kde-format
+msgid ""
+"<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
+"When set, KGet will periodically scan the clipboard for URLs and paste them "
+"automatically."
+msgstr ""
+"<b>Auto-ielīmēšanas</b> poga ieslēdz/izslēdz automātiskās ielīmēšanas "
+"režīmu.\n"
+"Kad tas ielsēgts, KGet regulāri pārbaudīs vai starpliktuvē nav kāds URL un "
+"ja ir, tad automātiski to ielīmēs."
+
+#: mainwindow.cpp:229
+#, kde-format
+msgid "Use KGet as Konqueror Download Manager"
+msgstr "Izmantot KGet, lai pārvaldītu Konqueror lejielādes"
+
+#: mainwindow.cpp:247
+#, kde-format
+msgctxt "delete selected transfer item"
+msgid "Remove Selected"
+msgstr "Izņemt izvēlēto"
+
+#: mainwindow.cpp:254
+#, kde-format
+msgctxt "delete all finished transfers"
+msgid "Remove All Finished"
+msgstr "Izņemt visus pabeigtos"
+
+#: mainwindow.cpp:260
+#, fuzzy, kde-format
+#| msgctxt "delete selected transfer item"
+#| msgid "Remove Selected"
+msgctxt "delete selected transfer item and files"
+msgid "Remove Selected and Delete Files"
+msgstr "Izņemt izvēlēto"
+
+#: mainwindow.cpp:266
+#, kde-format
+msgctxt "redownload selected transfer item"
+msgid "Redownload Selected"
+msgstr "Lejupielādēt izvēlētos vēlreiz"
+
+#: mainwindow.cpp:271
+#, fuzzy, kde-format
+#| msgctxt "start transfergroup downloads"
+#| msgid "Start"
+msgid "Start All"
+msgstr "Sākt"
+
+#: mainwindow.cpp:278
+#, fuzzy, kde-format
+#| msgid "Stop Selected"
+msgid "Start Selected"
+msgstr "Apturēt izvēlētos"
+
+#: mainwindow.cpp:284
+#, kde-format
+msgid "Pause All"
+msgstr ""
+
+#: mainwindow.cpp:291
+#, kde-format
+msgid "Stop Selected"
+msgstr "Apturēt izvēlētos"
+
+#: mainwindow.cpp:296
+#, fuzzy, kde-format
+#| msgctxt "start transfergroup downloads"
+#| msgid "Start"
+msgid "Start"
+msgstr "Sākt"
+
+#: mainwindow.cpp:304
+#, kde-format
+msgid "Pause"
+msgstr ""
+
+#: mainwindow.cpp:313
+#, kde-format
+msgid "Open Destination"
+msgstr "Atvērt mērķi"
+
+#: mainwindow.cpp:318
+#, kde-format
+msgid "Open File"
+msgstr "Atvērt failu"
+
+#: mainwindow.cpp:322
+#, kde-format
+msgid "Show Details"
+msgstr "Rādīt detaļas"
+
+#: mainwindow.cpp:327
+#, kde-format
+msgid "Copy URL to Clipboard"
+msgstr "Kopēt URL uz starpliktuvi"
+
+#: mainwindow.cpp:332
+#, kde-format
+msgid "&Transfer History"
+msgstr "Ielāžu &vēsture"
+
+#: mainwindow.cpp:338
+#, kde-format
+msgid "&Group Settings"
+msgstr "&Grupu iestatījumi"
+
+#: mainwindow.cpp:344
+#, kde-format
+msgid "&Transfer Settings"
+msgstr "&Ielādes iestatījumi"
+
+#: mainwindow.cpp:350
+#, kde-format
+msgid "Import &Links..."
+msgstr "Importēt &saites..."
+
+#: mainwindow.cpp:356
+#, kde-format
+msgid "After downloads finished action"
+msgstr ""
+
+#. i18n("Choose an action that is executed after all downloads have been finished."));
+#: mainwindow.cpp:360
+#, fuzzy, kde-format
+#| msgctxt "Location = country"
+#| msgid "Location"
+msgid "No Action"
+msgstr "Atrašanās vieta"
+
+#: mainwindow.cpp:438
+#, kde-format
+msgid ""
+"This is the first time you have run KGet.\n"
+"Would you like to enable KGet as the download manager for Konqueror?"
+msgstr ""
+"Šī ir pirmā KGet darbināšanas reize.\n"
+"Vai vēlaties iestatīt lai GKet pārvalda visas Konqueror lejupielādes?"
+
+#: mainwindow.cpp:440
+#, kde-format
+msgid "Konqueror Integration"
+msgstr "Konqueror integrācija"
+
+#: mainwindow.cpp:440
+#, kde-format
+msgid "Enable"
+msgstr "Iestatīt"
+
+#: mainwindow.cpp:441
+#, kde-format
+msgid "Do Not Enable"
+msgstr "Neiestatīt"
+
+#: mainwindow.cpp:507
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@title:window"
+msgid "Open File"
+msgstr "Atvērt failu"
+
+#: mainwindow.cpp:508
+#, kde-format
+msgid "All Openable Files"
+msgstr "Visi atveramie faili"
+
+#: mainwindow.cpp:524
+#, kde-format
+msgctxt "window title including overall download progress in percent"
+msgid "KGet - %1%"
+msgstr "KGet - %1%"
+
+#: mainwindow.cpp:574
+#, kde-format
+msgid ""
+"Some transfers are still running.\n"
+"Are you sure you want to close KGet?"
+msgstr ""
+"Dažas ielādes vēl tiek veiktas.\n"
+"Vai esat pārliecināts, ka vēlaties aizvērt KGet?"
+
+#: mainwindow.cpp:576
+#, kde-format
+msgid "Confirm Quit"
+msgstr "Aizvēršanas apstiprināšana"
+
+#: mainwindow.cpp:602
+#, fuzzy, kde-format
+#| msgid "Export Transfers"
+msgctxt "@title:window"
+msgid "Export Transfers"
+msgstr "Eksportēt ielādes"
+
+#: mainwindow.cpp:603
+#, kde-format
+msgid "KGet Transfer List"
+msgstr "KGet ielāžu saraksts"
+
+#: mainwindow.cpp:603
+#, fuzzy, kde-format
+#| msgid "Move File"
+msgid "Text File"
+msgstr "Pārvietot failu"
+
+#: mainwindow.cpp:634
+#, kde-format
+msgid "Enter Group Name"
+msgstr "Ievadiet grupas nosaukumu"
+
+#: mainwindow.cpp:635
+#, kde-format
+msgid "Group name:"
+msgstr "Grupas nosaukums:"
+
+#: mainwindow.cpp:722
+#, kde-format
+msgid "Are you sure you want to delete the selected transfer?"
+msgid_plural "Are you sure you want to delete the selected transfers?"
+msgstr[0] "Vai esat pārliecināts ka vēlaties dzēst izvēlēto ielādi?"
+msgstr[1] "Vai esat pārliecināts ka vēlaties dzēst izvēlētās ielādes?"
+msgstr[2] "Vai esat pārliecināts ka vēlaties dzēst izvēlētās ielādes?"
+
+#: mainwindow.cpp:724 mainwindow.cpp:753
+#, kde-format
+msgid "Confirm transfer delete"
+msgstr "Apstiprināt ielādes dzēšanu"
+
+#: mainwindow.cpp:751
+#, fuzzy, kde-format
+#| msgid "Are you sure you want to delete the selected transfer?"
+#| msgid_plural "Are you sure you want to delete the selected transfers?"
+msgid "Are you sure you want to delete the selected transfer including files?"
+msgid_plural ""
+"Are you sure you want to delete the selected transfers including files?"
+msgstr[0] "Vai esat pārliecināts ka vēlaties dzēst izvēlēto ielādi?"
+msgstr[1] "Vai esat pārliecināts ka vēlaties dzēst izvēlētās ielādes?"
+msgstr[2] "Vai esat pārliecināts ka vēlaties dzēst izvēlētās ielādes?"
+
+#: mainwindow.cpp:1082
+#, kde-format
+msgid ""
+"KGet has been temporarily disabled as download manager for Konqueror. If you "
+"want to disable it forever, go to Settings->Advanced and disable \"Use as "
+"download manager for Konqueror\"."
+msgstr ""
+"KGet ir uz brīdi atslēgts no Konqueror lejupielāžu pārvaldīšanas. Ja "
+"vēlaties to atslēgt pavisam, dodieties uz Iestatījumi ->Paplašināti in "
+"atslēdziet \"Pārvaldīt Konqueror lejupielādes\"."
+
+#: mainwindow.cpp:1201 ui/droptarget.cpp:220
+#, kde-format
+msgid "The dropped file is a KGet Transfer List"
+msgstr "Nomestais fails ir KGet lejupielāžu saraksts"
+
+#: mainwindow.cpp:1202 ui/droptarget.cpp:221
+#, kde-format
+msgid "&Download"
+msgstr "&Lejupielādēt"
+
+#: mainwindow.cpp:1203 ui/droptarget.cpp:222
+#, kde-format
+msgid "&Load transfer list"
+msgstr "Ie&lādēt ielāžu sarakstu"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:54
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:58
+#, kde-format
+msgid "Advanced Details for %1"
+msgstr "%1 paplašinātas detaļas"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:66
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:217
+#, kde-format
+msgid "Files"
+msgstr "Faili"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:74
+#, kde-format
+msgid "Trackers"
+msgstr "Trakeri"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:77
+#, kde-format
+msgid "Webseeds"
+msgstr "Tīmekļa devēji"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
+#, kde-format
+msgid "Chunk"
+msgstr "Gabals"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
+#, kde-format
+msgid "Progress"
+msgstr "Progress"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#, kde-format
+msgid "Peer"
+msgstr "Dalībnieks"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
+#, kde-format
+msgid "Down Speed"
+msgstr "Ātrums iekšā"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
+#, kde-format
+msgid "Number of the chunk"
+msgstr "Gabala numurs"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
+#, kde-format
+msgid "Download progress of the chunk"
+msgstr "Gabala lejupielādes progress"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
+#, kde-format
+msgid "Which peer we are downloading it from"
+msgstr "No kura dalībnieka ielādē šo gabalu"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
+#, kde-format
+msgid "Download speed of the chunk"
+msgstr "Gabala lejupielādes ātrums"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:229
+#, kde-format
+msgid "Which files the chunk is located in"
+msgstr "Kuri faili atrodas šajā gabalā"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (windowTitle), widget (QWidget, ChunkDownloadView)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:13
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:154
+#, kde-format
+msgid "Chunks"
+msgstr "Gabali"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:23
+#, kde-format
+msgid "Total:"
+msgstr "Kopā:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel5)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:59
+#, kde-format
+msgid "Currently downloading:"
+msgstr "Šobrīt ielādē:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:95
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:163
+#, kde-format
+msgid "Downloaded:"
+msgstr "Lejupielādēti:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:131
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:205
+#, kde-format
+msgid "Excluded:"
+msgstr "Izlaisti:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4_2)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:167
+#, kde-format
+msgid "Left:"
+msgstr "Palikuši:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:203
+#, kde-format
+msgid "Size:"
+msgstr "Izmērs:"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
+#, kde-format
+msgctxt "Open file"
+msgid "Open"
+msgstr "Atvērt"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
+#, kde-format
+msgid "Download first"
+msgstr "Ielādēt pirmo"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#, kde-format
+msgid "Download normally"
+msgstr "Ielādēt normāli"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#, kde-format
+msgid "Download last"
+msgstr "Ielādēt pēdējo"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#, kde-format
+msgid "Do Not Download"
+msgstr "Nevajag lejupielādēt"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#, kde-format
+msgid "Delete File(s)"
+msgstr "Dzēst failu(s)"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#, kde-format
+msgid "Move File"
+msgstr "Pārvietot failu"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#, kde-format
+msgid "Collapse Folder Tree"
+msgstr "Sakļaut mapju koku"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#, kde-format
+msgid "Expand Folder Tree"
+msgstr "Izvērst mapju koku"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
+#, kde-format
+msgid "You will lose all data in this file, are you sure you want to do this?"
+msgid_plural ""
+"You will lose all data in these files, are you sure you want to do this?"
+msgstr[0] ""
+"Jūs pazaudēsiet visus šī faila datus, vai esat pārliecināts, ka vēlaties to "
+"darīt?"
+msgstr[1] ""
+"Jūs pazaudēsiet visus šo failu datus, vai esat pārliecināts, ka vēlaties to "
+"darīt?"
+msgstr[2] ""
+"Jūs pazaudēsiet visus šo failu datus, vai esat pārliecināts, ka vēlaties to "
+"darīt?"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:279
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:299
+#, fuzzy, kde-format
+#| msgid "Select a directory to move the data to."
+msgid "Select a directory to move the data to"
+msgstr "Izvēlieties mapi, uz kuru pārvietot datus."
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:67
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:70
+#, kde-format
+msgid "Priority"
+msgstr "Prioritāte"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:71
+#, kde-format
+msgid "Preview"
+msgstr "Priekšskatījums"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:73
+#, no-c-format, kde-format
+msgctxt "Percent of File Downloaded"
+msgid "% Complete"
+msgstr "% pabeigts"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:83
+#, kde-format
+msgctxt "Download first"
+msgid "First"
+msgstr "Pirmais"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:82
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:85
+#, kde-format
+msgctxt "Download last"
+msgid "Last"
+msgstr "Pēdējais"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:87
+#, kde-format
+msgctxt "Download Normal (not as first or last)"
+msgid "Normal"
+msgstr "Normāla"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:122
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:145
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:149
+#, kde-format
+msgctxt "Preview available"
+msgid "Available"
+msgstr "Pieejams"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:124
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:147
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:128
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:151
+#, kde-format
+msgctxt "Preview pending"
+msgid "Pending"
+msgstr "Top"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:127
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:150
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:131
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:154
+#, kde-format
+msgctxt "No preview available"
+msgid "No"
+msgstr "Nr."
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:131
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:136
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:162
+#, kde-format
+msgid "%1 %"
+msgstr "%1 %"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:90
+#, kde-format
+msgctxt "Download normally(not as first or last)"
+msgid "Normal"
+msgstr "Normāli"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:126
+#, kde-format
+msgctxt "preview available"
+msgid "Available"
+msgstr "Pieejams"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:55
+#, kde-format
+msgid "Kick Peer"
+msgstr "Padzīt dalībnieku"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:56
+#, kde-format
+msgid "Ban Peer"
+msgstr "Aizliegt dalībnieku"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#, kde-format
+msgctxt "Choked"
+msgid "Yes"
+msgstr "Jā"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#, kde-format
+msgctxt "Not choked"
+msgid "No"
+msgstr "Nē"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#, kde-format
+msgctxt "Snubbed"
+msgid "Yes"
+msgstr "Jā"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#, kde-format
+msgctxt "Not snubbed"
+msgid "No"
+msgstr "Nē"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#, kde-format
+msgctxt "Interested"
+msgid "Yes"
+msgstr "Jā"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#, kde-format
+msgctxt "Not Interested"
+msgid "No"
+msgstr "Nē"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#, kde-format
+msgctxt "Interesting"
+msgid "Yes"
+msgstr "Jā"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#, kde-format
+msgctxt "Not Interesting"
+msgid "No"
+msgstr "Nē"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
+#, kde-format
+msgid "IP Address"
+msgstr "IP adrese"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
+#, kde-format
+msgid "Client"
+msgstr "Programma"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
+#, kde-format
+msgid "Up Speed"
+msgstr "Ātrums ārā"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
+#, kde-format
+msgid "Choked"
+msgstr "Aizņemts"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
+#, kde-format
+msgid "Snubbed"
+msgstr "Noraida"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
+#, kde-format
+msgid "Availability"
+msgstr "Pieejamība"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
+#, kde-format
+msgid "DHT"
+msgstr "DHT"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
+#, kde-format
+msgid "Score"
+msgstr "Punkti"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
+#, kde-format
+msgid "Upload Slot"
+msgstr "Augšupielādes slots"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
+#, kde-format
+msgid "Requests"
+msgstr "Pieprasījumi"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:129
+#, kde-format
+msgid "Downloaded"
+msgstr "Lejupielādēts"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
+#, kde-format
+msgid "Uploaded"
+msgstr "Augšupielādēts"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
+#, kde-format
+msgid "Interested"
+msgstr "Ieinteresēts"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
+#, kde-format
+msgid "Interesting"
+msgstr "Interesants"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
+#, kde-format
+msgid "IP address of the peer"
+msgstr "Dalībnieka IP adrese"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
+#, kde-format
+msgid "Which client the peer is using"
+msgstr "Dalībnieka lietotais klients"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
+#, kde-format
+msgid "Download speed"
+msgstr "Lejupielādes ātrums"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
+#, kde-format
+msgid "Upload speed"
+msgstr "Augšupielādes ātrums"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
+#, fuzzy, kde-format
+#| msgid ""
+#| "Whether or not the peer has choked us.  If we are choked, the peer will "
+#| "not send us any data."
+msgid ""
+"Whether or not the peer has choked us. If we are choked, the peer will not "
+"send us any data."
+msgstr ""
+"Vai dalībnieks ir aizrijies. Aizrijies dalībnieks nesūta mums nekādus datus."
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
+#, kde-format
+msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
+msgstr ""
+"Noraida nozīmē ka dalībnieks nav nosūtījis nekādus datus pēdējās 2 minūtes"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
+#, kde-format
+msgid "How much of the torrent's data the peer has"
+msgstr "Cik daudz no torrenta datiem ir dalībniekam"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
+#, kde-format
+msgid "Whether or not the peer has DHT enabled"
+msgstr "Vai dalībniekam ir ieslēgts DHT"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
+#, kde-format
+msgid ""
+"The score of the peer. KTorrent uses this to determine who to upload to."
+msgstr "Dalībnieka punkti. KTorrent tos izmanto lai noteiktu kam dot datus."
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
+#, kde-format
+msgid "Only peers which have an upload slot will get data from us"
+msgstr "Tikai dalībnieki ar augšupielādes slotu varēs dabūt datus no mums"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
+#, kde-format
+msgid "The number of download and upload requests"
+msgstr "Lejupielādes un augšupielādes pieprasījumu skaits"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
+#, kde-format
+msgid "How much data we have downloaded from this peer"
+msgstr "Cik daudz datu ir lejupielādēts no dalībnieka"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#, kde-format
+msgid "How much data we have uploaded to this peer"
+msgstr "Cik daudz datu ir augšupielādēts dalībniekam"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
+#, kde-format
+msgid "Whether the peer is interested in downloading data from us"
+msgstr "Vai dalībnieks ir ieinteresēts lejupielādēt no mums"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
+#, kde-format
+msgid "Whether we are interested in downloading from this peer"
+msgstr "Vai mums ir interese lejupielādēt no šī dalībnieka"
+
+#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:380
+#, kde-format
+msgid "File"
+msgstr "Fails"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:381
+#: ui/history/transferhistory.ui:90
+#, kde-format
+msgid "Size"
+msgstr "Izmērs"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
+#, kde-format
+msgid "Url"
+msgstr "Url"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:130
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Status"
+msgstr "Statuss"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
+#, kde-format
+msgid "Seeders"
+msgstr "Devēji"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
+#, kde-format
+msgid "Leechers"
+msgstr "Ņēmēji"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:155
+#, kde-format
+msgid "Times Downloaded"
+msgstr "Reizes lejupielādēts"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:156
+#, kde-format
+msgid "Next Update"
+msgstr "Nākamā atjaunošana"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
+#, kde-format
+msgid "Add Tracker"
+msgstr "Pievienot trakeri"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#, kde-format
+msgid "Enter the URL of the tracker:"
+msgstr "Ievadiet trakera URL:"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:103
+#, kde-format
+msgid "There already is a tracker named <b>%1</b>."
+msgstr "Jau ir trakeris ar nosaukumu <b>%1</b>."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
+#, kde-format
+msgid "Remove Tracker"
+msgstr "Izņemt trakeri"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_change_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:35
+#, kde-format
+msgid "Change Tracker"
+msgstr "Izmainīt trakeri"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_scrape)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
+#, kde-format
+msgid "Update Trackers"
+msgstr "Atjaunot trakerus"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_restore_defaults)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
+#, kde-format
+msgid "Restore Defaults"
+msgstr "Atjaunot noklusēto"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:127
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:32
+#: ui/linkview/kget_linkview.cpp:90
+#, kde-format
+msgid "URL"
+msgstr "URL"
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:128
+#, kde-format
+msgid "Speed"
+msgstr "Ātrums"
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:97
+#, kde-format
+msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
+msgstr "Nevar pievienot tīmekļa devēju %1, jo tas jau ir devēju sarakstā."
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:114
+#, kde-format
+msgid "Cannot remove webseed %1, it is part of the torrent."
+msgstr "Nevar aizvākt tīmekļa devēju %1, tas ir daļa no torrenta."
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
+#, kde-format
+msgid ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Webseed to add to the "
+"torrent.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
+"html>"
+msgstr ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Torrentam pievienojamais "
+"tīmekļa devējs.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Piezīme: </span>Ir atbalstīti tikai HTTP tīmekļa devēji.</p></"
+"body></html>"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_add)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
+#, kde-format
+msgid "Add Webseed"
+msgstr "Pievienot tīmekļa devēju"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_remove)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
+#, kde-format
+msgid "Remove Webseed"
+msgstr "Aizvākt tīmekļa devēju"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:29
+#, kde-format
+msgid "Stats"
+msgstr "Statistika"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:47
+#, kde-format
+msgid "Seeders:"
+msgstr "Devēji:"
+
+#. i18n: ectx: property (text), widget (QLabel, seederLabel)
+#. i18n: ectx: property (text), widget (QLabel, dlSpeedLabel)
+#. i18n: ectx: property (text), widget (QLabel, leecherLabel)
+#. i18n: ectx: property (text), widget (QLabel, ulSpeedLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksDownloadedLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksLeftLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksAllLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksExcludedLabel)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:60
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:86
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:112
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:138
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:170
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:184
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:198
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:212
+#, kde-format
+msgid "<n>"
+msgstr "<n>"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:73
+#, kde-format
+msgid "Download speed:"
+msgstr "Lejupielādes ātrums:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:99
+#, kde-format
+msgid "Leechers:"
+msgstr "Ņēmēji:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:125
+#, kde-format
+msgid "Upload speed:"
+msgstr "Augšupielādes ātrums:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:177
+#, kde-format
+msgctxt "chunks left"
+msgid "Left:"
+msgstr "Palikuši:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:191
+#, kde-format
+msgctxt "all chunks"
+msgid "All:"
+msgstr "Kopā:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:240
+#, kde-format
+msgctxt "source-file"
+msgid "Source:"
+msgstr "Avots:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, destLabel)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:247
+#: ui/transferdetailsfrm.ui:44
+#, kde-format
+msgid "Saving to:"
+msgstr "Saglabā iekš:"
+
+#. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:49
+#, kde-format
+msgid "Upload limit per transfer:"
+msgstr "Augšupielādes ierobežojums vienai ielādei:"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:56
+#: transfer-plugins/bittorrent/btsettingswidget.ui:76
+#, kde-format
+msgid "No Limit"
+msgstr "Nav ierobežojuma"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:59
+#: transfer-plugins/bittorrent/btsettingswidget.ui:79
+#, kde-format
+msgid "KiB"
+msgstr "KiB"
+
+#. i18n: ectx: property (text), widget (QLabel, downloadLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:69
+#, kde-format
+msgid "Download limit per transfer:"
+msgstr "Lejupielādes ierobežojums vienai ielādei:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, utpBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:89
+#, fuzzy, kde-format
+#| msgid "Enable popup tooltip"
+msgid "Enable UTP protocol"
+msgstr "Rādīt uznirstošo paskaidri"
+
+#. i18n: ectx: property (title), widget (QGroupBox, folderGroupBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:105
+#, kde-format
+msgid "Folders"
+msgstr "Mapes"
+
+#. i18n: ectx: property (text), widget (QLabel, torrentFolderLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:117
+#, kde-format
+msgid "Default torrent folder:"
+msgstr "Noklusējuma torrentu mape:"
+
+#. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:137
+#, fuzzy, kde-format
+#| msgid "Default temporary folder"
+msgid "Default temporary folder:"
+msgstr "Noklusētā pagaidu mape"
+
+#. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:154
+#, kde-format
+msgid "Pre-allocate disk space"
+msgstr "Iepriekš izdalīt vietu uz diska"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:139
+#, kde-format
+msgid "Downloading Torrent File...."
+msgstr "Lejupielādē torrent failu..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:183
+#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#, kde-format
+msgctxt "transfer state: downloading"
+msgid "Downloading...."
+msgstr "Lejupielādē..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:260
+#, kde-format
+msgid "Cannot add a tracker to a private torrent."
+msgstr "Privātam torrentam nevar pievienot papildus trakeri."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:422
+#, fuzzy, kde-format
+#| msgid "The directory %1 does not exist"
+msgid "Torrent file does not exist"
+msgstr "Mape %1 nepastāv"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:427
+#, kde-format
+msgid "Analyzing torrent...."
+msgstr "Analizē torrentu..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:439
+#, kde-format
+msgid "Cannot initialize port..."
+msgstr ""
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:510
+#, kde-format
+msgctxt "Transfer status: seeding"
+msgid "Seeding...."
+msgstr "Piedāvā..."
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:33
+#, kde-format
+msgid "Cannot initialize libktorrent. Torrent support might not work."
+msgstr ""
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:82
+#, kde-format
+msgid "&Advanced Details"
+msgstr "&Paplašinātas detaļas"
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:88
+#, kde-format
+msgid "&Scan Files"
+msgstr "&Pārbaudīt failus"
+
+#: transfer-plugins/bittorrent/scandlg.cpp:107
+#, kde-format
+msgid "Error scanning data: %1"
+msgstr "Kļūda datu skenēšanā: %1"
+
+#. i18n: ectx: property (text), widget (QLabel, torrent_label)
+#: transfer-plugins/bittorrent/scandlg.ui:16
+#, kde-format
+msgid "Scanning data of torrent:"
+msgstr "Skenē torrenta datus:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: transfer-plugins/bittorrent/scandlg.ui:30
+#, kde-format
+msgid "Number of chunks found:"
+msgstr "Atrasti gabali:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: transfer-plugins/bittorrent/scandlg.ui:40
+#, kde-format
+msgid "Number of chunks failed:"
+msgstr "Bojāti gabali:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/bittorrent/scandlg.ui:50
+#, kde-format
+msgid "Number of chunks not downloaded:"
+msgstr "Nav ielādēti gabali:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/bittorrent/scandlg.ui:57
+#, kde-format
+msgid "Number of chunks downloaded:"
+msgstr "Ielādēti galabi:"
+
+#. i18n: ectx: property (text), widget (QLabel, chunks_found)
+#. i18n: ectx: property (text), widget (QLabel, chunks_failed)
+#. i18n: ectx: property (text), widget (QLabel, chunks_not_downloaded)
+#. i18n: ectx: property (text), widget (QLabel, chunks_downloaded)
+#: transfer-plugins/bittorrent/scandlg.ui:77
+#: transfer-plugins/bittorrent/scandlg.ui:102
+#: transfer-plugins/bittorrent/scandlg.ui:124
+#: transfer-plugins/bittorrent/scandlg.ui:137
+#, kde-format
+msgid "0"
+msgstr "0"
+
+#. i18n: ectx: property (text), widget (QPushButton, cancel)
+#: transfer-plugins/bittorrent/scandlg.ui:183
+#, kde-format
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Append"
+msgstr "Pievienot"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Replace file"
+msgstr "Aizvietot failu"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Replace file-ending"
+msgstr "Aizvietot faila nobeigumu"
+
+#. i18n: ectx: property (text), widget (QLabel, label_1)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
+#, kde-format
+msgid "Change string:"
+msgstr "Izmaiņu teksts:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
+#, kde-format
+msgid "Mode:"
+msgstr "Režīms:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:43
+#, kde-format
+msgid "Checksum type:"
+msgstr "Kontrolsummas tips:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:77
+#, kde-format
+msgid "Result:"
+msgstr "Rezultāts:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:84
+#, kde-format
+msgid "label"
+msgstr "Etiķete"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:45
+#, kde-format
+msgid "Add item"
+msgstr "Pievienot ierakstu"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:73
+#, kde-format
+msgid "%1 would become %2"
+msgstr "%1 klūs par %2"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:195
+#, kde-format
+msgctxt "the string that is used to modify an url"
+msgid "Change string"
+msgstr "Mainīt virkni"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:196
+#, kde-format
+msgctxt "the mode defines how the url should be changed"
+msgid "Change mode"
+msgstr "Mainīšanas režīms"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:197
+#, kde-format
+msgctxt "the type of the checksum e.g. md5"
+msgid "Checksum type"
+msgstr "Kontrolsummas tips"
+
+#. i18n: ectx: label, entry (SearchStrings), group (ChecksumSearch)
+#. i18n: ectx: label, entry (SearchEnginesNameList), group (SearchEngines)
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:9
+#: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:12
+#, kde-format
+msgid "List of the available search engines"
+msgstr "Pieejamo meklēšanas dzinēju saraksts"
+
+#. i18n: ectx: label, entry (UrlChangeModeList), group (ChecksumSearch)
+#. i18n: ectx: label, entry (ChecksumTypeList), group (ChecksumSearch)
+#. i18n: ectx: label, entry (SearchEnginesUrlList), group (SearchEngines)
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:13
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:17
+#: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
+#, kde-format
+msgid "List of the available search engine URLs"
+msgstr "Pieejamo meklēšanas dzinēju URLu saraksts"
+
+#: transfer-plugins/kio/transferKio.cpp:100
+#, kde-format
+msgctxt "transfer state: connecting"
+msgid "Connecting...."
+msgstr "Pieslēdzas..."
+
+#: transfer-plugins/kio/transferKio.cpp:280
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:257
+#, kde-format
+msgid "The download (%1) could not be verified. Do you want to repair it?"
+msgstr "Lejupielādes (%1) pārbaude neveiksmīga. Vai vēlaties to izlabot?"
+
+#: transfer-plugins/kio/transferKio.cpp:283
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
+#, kde-format
+msgid "The download (%1) could not be verified. Do you want to redownload it?"
+msgstr ""
+"Lejupielādes (%1) pārbaude neveiksmīga. Vai vēlaties to ielādēt atkārtoti?"
+
+#: transfer-plugins/kio/transferKio.cpp:287
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#, kde-format
+msgid "Verification failed."
+msgstr "Pārbaude neveiksmīga."
+
+#: transfer-plugins/metalink/abstractmetalink.cpp:216
+#: transfer-plugins/metalink/metalink.cpp:489
+#, kde-format
+msgid ""
+"The download could not be verified, do you want to repair (if repairing does "
+"not work the download would be restarted) it?"
+msgstr ""
+"Lejupielādes pārbaude neveiksmīga, vai vēlaties to izlabot (ja labošana "
+"nepalīdz, lejupielādi vajadzētu sākt no jauna)?"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/metalink/dlgmetalink.ui:22
+#, kde-format
+msgid "Number of simultaneous file downloads:"
+msgstr "Paralēlo savienojumu skaits failam:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/metalink/dlgmetalink.ui:39
+#, kde-format
+msgid "Number of mirrors per file:"
+msgstr "Spoguļu skaits vienam failam:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: transfer-plugins/metalink/dlgmetalink.ui:56
+#: transfer-plugins/mmsthreads/dlgmms.ui:22
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:22
+#, kde-format
+msgid "Number of connections per URL:"
+msgstr "Savienojumu skaits uz URL:"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: transfer-plugins/metalink/fileselection.ui:17
+#, kde-format
+msgid "Select the files you want to be downloaded."
+msgstr "Izvēlieties lejupielādējamos failus."
+
+#: transfer-plugins/metalink/fileselectiondlg.cpp:35
+#, kde-format
+msgid "File Selection"
+msgstr "Failu izvēle"
+
+#: transfer-plugins/metalink/metalink.cpp:80
+#: transfer-plugins/metalink/metalinkxml.cpp:77
+#, kde-format
+msgid "Downloading Metalink File...."
+msgstr "Lejupielādē Metalink failu..."
+
+#: transfer-plugins/metalink/metalink.cpp:118
+#: transfer-plugins/metalink/metalinkxml.cpp:116
+#, fuzzy, kde-format
+#| msgid ""
+#| "The key to verify the signature is missing, do you want to download it?"
+msgid ""
+"A newer version of this Metalink might exist, do you want to download it?"
+msgstr "Trūkst atslēgas paraksta pārbaudīšanai, vai vēlaties ielādēt to?"
+
+#: transfer-plugins/metalink/metalink.cpp:119
+#: transfer-plugins/metalink/metalinkxml.cpp:117
+#, fuzzy, kde-format
+#| msgctxt "redownload selected transfer item"
+#| msgid "Redownload Selected"
+msgid "Redownload Metalink"
+msgstr "Lejupielādēt izvēlētos vēlreiz"
+
+#: transfer-plugins/metalink/metalink.cpp:199
+#: transfer-plugins/metalink/metalinkhttp.cpp:241
+#: transfer-plugins/metalink/metalinkxml.cpp:198
+#, kde-format
+msgid "Download failed, no working URLs were found."
+msgstr "Lejupielāde neveiksmīga, netika atrasts neviens strādājošs URLs."
+
+#: transfer-plugins/metalink/metalinkhttp.cpp:160
+#, fuzzy, kde-format
+#| msgid "The download (%1) could not be verified. Do you want to repair it?"
+msgid "The download could not be verified, try to repair it?"
+msgstr "Lejupielādes (%1) pārbaude neveiksmīga. Vai vēlaties to izlabot?"
+
+#. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
+#: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
+#, kde-format
+msgid "Engine name:"
+msgstr "Meklētāja nosaukums:"
+
+#. i18n: ectx: property (text), widget (QLabel, urlLabel)
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
+#, kde-format
+msgid "URL:"
+msgstr "URL:"
+
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
+#, kde-format
+msgid "Insert Engine"
+msgstr "Pievienot meklētāju"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:16
+#, kde-format
+msgid "Search Engines"
+msgstr "Meklēšanas dzinēji"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:27
+#, kde-format
+msgid "Engine Name"
+msgstr "Meklētāja nosaukums"
+
+#. i18n: ectx: property (text), widget (QPushButton, newEngineBt)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
+#, kde-format
+msgid "New Engine..."
+msgstr "Jauns meklētājs..."
+
+#. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
+#, kde-format
+msgid "Remove"
+msgstr "Izņemt"
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:60
+#, kde-format
+msgctxt "transfer state: running"
+msgid "Running...."
+msgstr "Darbojas..."
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:125
+#, fuzzy, kde-format
+#| msgctxt "transfer state: finished"
+#| msgid "Finished"
+msgctxt "Transfer State:Finished"
+msgid "Finished"
+msgstr "Pabeigts"
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:171
+#, kde-format
+msgid "Download failed, could not access this URL."
+msgstr ""
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:181
+#, kde-format
+msgid ""
+"This URL does not allow multiple connections,\n"
+"the download will take longer."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, enginesCheckBox)
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
+#, kde-format
+msgid "Use search engines"
+msgstr "Lietot meklēšanas dzinējus"
+
+#. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
+#, kde-format
+msgid "Search for verification information"
+msgstr "Meklēt pārbaudīšanas informāciju"
+
+#: transfer-plugins/multisegmentkio/segment.cpp:296
+#, fuzzy, kde-format
+#| msgid "Failed to write to file %1 : %2"
+msgid "Failed to write to the file."
+msgstr "Neizdevās ierakstīt failā %1: %2"
+
+#: ui/contextmenu.cpp:116
+#, kde-format
+msgid "Delete Group"
+msgid_plural "Delete Groups"
+msgstr[0] "Dzēst grupu"
+msgstr[1] "Dzēst grupas"
+msgstr[2] "Dzēst grupas"
+
+#: ui/contextmenu.cpp:120
+#, kde-format
+msgid "Rename Group..."
+msgid_plural "Rename Groups..."
+msgstr[0] "Pārdēvēt grupu..."
+msgstr[1] "Pārdēvēt grupas..."
+msgstr[2] "Pārdēvēt grupas..."
+
+#: ui/droptarget.cpp:84
+#, kde-format
+msgctxt "fix position for droptarget"
+msgid "Sticky"
+msgstr "Lipīgs"
+
+#: ui/droptarget.cpp:278
+#, kde-format
+msgid "Show Main Window"
+msgstr "Rādīt galveno logu"
+
+#: ui/droptarget.cpp:279
+#, kde-format
+msgid "Hide Main Window"
+msgstr "Slēpt galveno logu"
+
+#: ui/droptarget.cpp:370
+#, kde-format
+msgid "Drop Target"
+msgstr "Nomešanas mērķis"
+
+#: ui/droptarget.cpp:371
+#, kde-format
+msgid "You can drag download links into the drop target."
+msgstr "Jūs varat uzvilkt lejupielādes saites uz nomešanas mērķa."
+
+#: ui/droptarget.cpp:416
+#, kde-format
+msgctxt "%1 filename, %2 total size, %3 status"
+msgid "%1(%2) %3"
+msgstr "%1(%2) %3"
+
+#: ui/droptarget.cpp:422
+#, kde-format
+msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
+msgid "%1(%2% %3/%4) Speed:%5/s"
+msgstr "%1(%2% %3/%4) Ātrums:%5/s"
+
+#: ui/droptarget.cpp:430
+#, kde-format
+msgctxt ""
+"%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
+"status"
+msgid "%1(%2% %3/%4) %5"
+msgstr "%1(%2% %3/%4) %5"
+
+#: ui/droptarget.cpp:444
+#, kde-format
+msgid "Ready"
+msgstr "Pabeigts"
+
+#: ui/groupsettingsdialog.cpp:19
+#, kde-format
+msgid "Group Settings for %1"
+msgstr "Grupas %1 iestatījumi"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: ui/groupsettingsdialog.ui:32
+#, kde-format
+msgid "Group Settings"
+msgstr "Grupas iestatījumi"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/groupsettingsdialog.ui:44
+#, fuzzy, kde-format
+#| msgid "Default folder:"
+msgid "Defau&lt folder:"
+msgstr "Noklusējuma mape:"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label_2)
+#: ui/groupsettingsdialog.ui:61
+#, kde-format
+msgid "Moves all transfers with the regular expression to this group"
+msgstr "Pārvieto visus failus, kas atbilst regulārai izteiksmei uz šo grupu"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/groupsettingsdialog.ui:64
+#, fuzzy, kde-format
+#| msgid "Regular expression:"
+msgid "Re&gular expression:"
+msgstr "Regulāra izteiksme"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, regExpEdit)
+#: ui/groupsettingsdialog.ui:74
+#, kde-format
+msgid "*movies*"
+msgstr "*filmas*"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadSpin)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadSpin)
+#. i18n: ectx: property (specialValueText), widget (QDoubleSpinBox, ratioSpin)
+#: ui/groupsettingsdialog.ui:87 ui/groupsettingsdialog.ui:106
+#: ui/transfersettingsdialog.ui:51 ui/transfersettingsdialog.ui:67
+#: ui/transfersettingsdialog.ui:83
+#, kde-format
+msgctxt "No value has been set"
+msgid "Not set"
+msgstr "Nav iestatīts"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/groupsettingsdialog.ui:119
+#, fuzzy, kde-format
+#| msgid "Maximum download speed:"
+msgid "Ma&ximum download speed:"
+msgstr "Maksimālais lejupielādes ātrums:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/groupsettingsdialog.ui:129
+#, fuzzy, kde-format
+#| msgid "Maximum upload speed:"
+msgid "Maximum &upload speed:"
+msgstr "Maksimālais augšupielādes ātrums:"
+
+#: ui/history/transferhistory.cpp:51
+#, kde-format
+msgid "Transfer History"
+msgstr "Lejupielāžu vēsture"
+
+#: ui/history/transferhistory.cpp:72
+#, kde-format
+msgid "&Open File"
+msgstr "&Atvērt failu"
+
+#: ui/history/transferhistory.cpp:214
+#, kde-format
+msgctxt "The transfer is running"
+msgid "Running"
+msgstr "Darbojas"
+
+#: ui/history/transferhistory.cpp:216
+#, kde-format
+msgctxt "The transfer is stopped"
+msgid "Stopped"
+msgstr "Apturēts"
+
+#: ui/history/transferhistory.cpp:218
+#, kde-format
+msgctxt "The transfer is aborted"
+msgid "Aborted"
+msgstr "Pārtraukts"
+
+#: ui/history/transferhistory.cpp:220
+#, kde-format
+msgctxt "The transfer is finished"
+msgid "Finished"
+msgstr "Pabeigts"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Source File"
+msgstr "Avota fails"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Destination"
+msgstr "Mērķis"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Time"
+msgstr "Laiks"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "File Size"
+msgstr "Faila izmērs"
+
+#: ui/history/transferhistory.cpp:258
+#, kde-format
+msgid "Less than 1MiB"
+msgstr "Mazāks par 1 MiB"
+
+#: ui/history/transferhistory.cpp:260
+#, kde-format
+msgid "Between 1MiB-10MiB"
+msgstr "No 1 līdz 10 MiB"
+
+#: ui/history/transferhistory.cpp:262
+#, kde-format
+msgid "Between 10MiB-100MiB"
+msgstr "No 10 līdz 100 MiB"
+
+#: ui/history/transferhistory.cpp:264
+#, kde-format
+msgid "Between 100MiB-1GiB"
+msgstr "No 100 MiB līdz 1 GiB"
+
+#: ui/history/transferhistory.cpp:266
+#, kde-format
+msgid "More than 1GiB"
+msgstr "Vairāk par 1 GiB"
+
+#: ui/history/transferhistory.cpp:269
+#: ui/history/transferhistorycategorizeddelegate.cpp:45
+#, kde-format
+msgid "Today"
+msgstr "Šodien"
+
+#: ui/history/transferhistory.cpp:270
+#: ui/history/transferhistorycategorizeddelegate.cpp:49
+#, kde-format
+msgid "Last week"
+msgstr "Pēdējā nedēļā"
+
+#: ui/history/transferhistory.cpp:271
+#, kde-format
+msgid "Last month"
+msgstr "Pēdējā mēnesī"
+
+#: ui/history/transferhistory.cpp:272
+#: ui/history/transferhistorycategorizeddelegate.cpp:57
+#, kde-format
+msgid "A long time ago"
+msgstr "Senāk"
+
+#: ui/history/transferhistory.cpp:292
+#, kde-format
+msgctxt "the transfer has been finished"
+msgid "Finished"
+msgstr "Pabeigts"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearButton)
+#: ui/history/transferhistory.ui:27
+#, kde-format
+msgid "Clear History"
+msgstr "Tīrīt vēsturi"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/history/transferhistory.ui:47
+#, fuzzy, kde-format
+#| msgctxt "View modes"
+#| msgid "View Modes"
+msgid "View Modes:"
+msgstr "Skata režīmi"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/history/transferhistory.ui:77
+#, fuzzy, kde-format
+#| msgid "Select Ranges"
+msgid "Select Ranges:"
+msgstr "Izvēlieties diapazonu"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: ui/history/transferhistory.ui:85
+#, kde-format
+msgid "Date"
+msgstr "Datums"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: ui/history/transferhistory.ui:95
+#, kde-format
+msgid "Host"
+msgstr "Resursdators"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:106
+#, fuzzy, kde-format
+#| msgid "Filter History"
+msgid "Filter history"
+msgstr "Filtrēt vēsturi"
+
+#. i18n: ectx: property (text), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:120
+#, kde-format
+msgctxt "delete selected transfer"
+msgid "Delete Selected"
+msgstr "Dzēst izvēlētos"
+
+#. i18n: ectx: property (text), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:125
+#, kde-format
+msgid "Download"
+msgstr "Lejuplādēt"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:53
+#, kde-format
+msgid "Last Month"
+msgstr "Pēdējā mēnesī"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:77
+#, kde-format
+msgid "Under 10MiB"
+msgstr "Mazāk par 10Mib"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:80
+#, kde-format
+msgid "Between 10MiB and 50MiB"
+msgstr "No 10 līdz 50 MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:84
+#, kde-format
+msgid "Between 50MiB and 100MiB"
+msgstr "No 50 līdz 100 MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:89
+#, kde-format
+msgid "More than 100MiB"
+msgstr "Vairāk par 100MiB"
+
+#: ui/history/transferhistoryitemdelegate.cpp:40
+#, kde-format
+msgid "Download again"
+msgstr "Lejupielādēt vēlreiz"
+
+#: ui/history/transferhistoryitemdelegate.cpp:45
+#, kde-format
+msgctxt "Delete selected history-item"
+msgid "Delete selected"
+msgstr "Dzēst izvēlētos"
+
+#: ui/history/transferhistoryitemdelegate.cpp:50
+#, kde-format
+msgid "Open file"
+msgstr "Atvērt failu"
+
+#. i18n: ectx: Menu (file)
+#: ui/kgetui.rc:5
+#, kde-format
+msgid "&File"
+msgstr "&Fails"
+
+#. i18n: ectx: Menu (Downloads)
+#: ui/kgetui.rc:17
+#, kde-format
+msgid "&Downloads"
+msgstr "&Lejupielādes"
+
+#. i18n: ectx: Menu (settings)
+#: ui/kgetui.rc:34
+#, kde-format
+msgid "&Settings"
+msgstr "Ie&statījumi"
+
+#. i18n: ectx: Menu (help)
+#: ui/kgetui.rc:37
+#, kde-format
+msgid "&Help"
+msgstr "&Palīdzība"
+
+#. i18n: ectx: ToolBar (kget_toolbar)
+#: ui/kgetui.rc:40
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Galvenā rīkjosla "
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/linkview/importlinkdialog.ui:34
+#, fuzzy, kde-format
+#| msgid "&File with links to import:"
+msgid "File with &links to import:"
+msgstr "Importējamais saišu &fails:"
+
+#. i18n: ectx: property (text), widget (QPushButton, importLinks)
+#: ui/linkview/importlinkdialog.ui:50
+#, kde-format
+msgid "&Import Links"
+msgstr "&Importēt saites"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/linkview/importlinkdialog.ui:67
+#, kde-format
+msgid "Show:"
+msgstr "Rādīt:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, showWebContent)
+#: ui/linkview/importlinkdialog.ui:77
+#, kde-format
+msgid "Show &web content"
+msgstr "Rādīt &tīmekļa saturu"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, textFilter)
+#: ui/linkview/importlinkdialog.ui:115
+#, kde-format
+msgid "You can use wildcards for filtering."
+msgstr "Filtrēšanai varat izmantot aizstājējzīmes."
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, textFilter)
+#: ui/linkview/importlinkdialog.ui:118
+#, kde-format
+msgid "Filter files here...."
+msgstr "Ievadiet failu filtru..."
+
+#. i18n: ectx: property (text), widget (QPushButton, selectAll)
+#: ui/linkview/importlinkdialog.ui:189 ui/linkview/kget_linkview.cpp:337
+#, kde-format
+msgid "&Select All"
+msgstr "&Izvēlēties visus"
+
+#. i18n: ectx: property (text), widget (QPushButton, deselectAll)
+#: ui/linkview/importlinkdialog.ui:205 ui/linkview/kget_linkview.cpp:338
+#, kde-format
+msgid "D&eselect All"
+msgstr "Noņ&emt izvēli visiem"
+
+#. i18n: ectx: property (text), widget (QPushButton, invertSelection)
+#: ui/linkview/importlinkdialog.ui:221
+#, kde-format
+msgid "Inver&t Selection"
+msgstr "Inver&tēt izvēli"
+
+#: ui/linkview/kget_linkview.cpp:41
+#, kde-format
+msgid "Import Links"
+msgstr "Importēt saites"
+
+#: ui/linkview/kget_linkview.cpp:58
+#, kde-format
+msgid "Contains"
+msgstr "Satur"
+
+#: ui/linkview/kget_linkview.cpp:59
+#, kde-format
+msgid "Does Not Contain"
+msgstr "Nesatur"
+
+#: ui/linkview/kget_linkview.cpp:63
+#, fuzzy, kde-format
+#| msgctxt "all chunks"
+#| msgid "All:"
+msgid "All"
+msgstr "Kopā:"
+
+#: ui/linkview/kget_linkview.cpp:64
+#, fuzzy, kde-format
+#| msgid "&Videos"
+msgid "Videos"
+msgstr "&Video"
+
+#: ui/linkview/kget_linkview.cpp:65
+#, kde-format
+msgid "Images"
+msgstr ""
+
+#: ui/linkview/kget_linkview.cpp:66
+#, fuzzy, kde-format
+#| msgid "A&udio"
+msgid "Audio"
+msgstr "&Mūziku"
+
+#: ui/linkview/kget_linkview.cpp:67
+#, fuzzy, kde-format
+#| msgid "A&rchives"
+msgid "Archives"
+msgstr "A&rhīvus"
+
+#: ui/linkview/kget_linkview.cpp:73
+#, kde-format
+msgctxt "of a filter, e.g. RegExp or Wildcard"
+msgid "Pattern Syntax"
+msgstr ""
+
+#: ui/linkview/kget_linkview.cpp:74
+#, kde-format
+msgid "Escape Sequences"
+msgstr ""
+
+#: ui/linkview/kget_linkview.cpp:77
+#, fuzzy, kde-format
+#| msgid "Regular expression:"
+msgid "Regular Expression"
+msgstr "Regulāra izteiksme"
+
+#: ui/linkview/kget_linkview.cpp:87
+#, fuzzy, kde-format
+#| msgctxt "name of download"
+#| msgid "Name"
+msgctxt "name of a file"
+msgid "Name"
+msgstr "Nosaukums"
+
+#: ui/linkview/kget_linkview.cpp:117
+#, fuzzy, kde-format
+#| msgid "&Download"
+msgctxt "Download the items which have been selected"
+msgid "&Download"
+msgstr "&Lejupielādēt"
+
+#: ui/linkview/kget_linkview.cpp:157
+#, kde-format
+msgid "Auxiliary header"
+msgstr "Papildus galvene"
+
+#: ui/linkview/kget_linkview.cpp:158
+#, kde-format
+msgid "File Name"
+msgstr "Faila nosaukums"
+
+#: ui/linkview/kget_linkview.cpp:159
+#, kde-format
+msgid "Description"
+msgstr "Aparaksts"
+
+#: ui/linkview/kget_linkview.cpp:160
+#, kde-format
+msgctxt "list header: type of file"
+msgid "File Type"
+msgstr "Faila tips"
+
+#: ui/linkview/kget_linkview.cpp:161
+#, kde-format
+msgid "Location (URL)"
+msgstr "Atrašanās vieta (URL)"
+
+#: ui/linkview/kget_linkview.cpp:266
+#, kde-format
+msgid "Links in: %1 - KGet"
+msgstr "Saites iekš: %1 - KGet"
+
+#: ui/linkview/kget_linkview.cpp:337
+#, kde-format
+msgid "&Select All Filtered"
+msgstr "&Izvēlēties visus filtrētos"
+
+#: ui/linkview/kget_linkview.cpp:338
+#, kde-format
+msgid "D&eselect All Filtered"
+msgstr "Noņ&emt izvēli filtrētajiem"
+
+#: ui/linkview/kget_linkview.cpp:461
+#, kde-format
+msgid "Filter Column"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/commondata.ui:22
+#, kde-format
+msgid "Identity"
+msgstr "Identitāte"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: ui/metalinkcreator/commondata.ui:32
+#, kde-format
+msgid "Description:"
+msgstr "Apraksts:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/commondata.ui:46
+#, kde-format
+msgid "Version:"
+msgstr "Versija:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: ui/metalinkcreator/commondata.ui:56
+#, kde-format
+msgid "Logo:"
+msgstr "Logo:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, logo)
+#: ui/metalinkcreator/commondata.ui:63
+#, kde-format
+msgid "URL to the logo"
+msgstr "Logo URL"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label_13)
+#: ui/metalinkcreator/commondata.ui:73
+#, kde-format
+msgid "The language of the file"
+msgstr "Faila valoda"
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: ui/metalinkcreator/commondata.ui:76
+#, kde-format
+msgid "Language:"
+msgstr "Valoda:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: ui/metalinkcreator/commondata.ui:86
+#, kde-format
+msgid "Operating systems:"
+msgstr "Operāciju sistēmas:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, os)
+#: ui/metalinkcreator/commondata.ui:93
+#, kde-format
+msgid "Supported OSes, separated with commas"
+msgstr "Atblastītās operētājsistēmas, atdalītas ar komatiem"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: ui/metalinkcreator/commondata.ui:103
+#, kde-format
+msgid "Copyright:"
+msgstr "Autortiesības:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_20)
+#: ui/metalinkcreator/commondata.ui:141
+#, kde-format
+msgid "Publisher:"
+msgstr "Publicētājs:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: ui/metalinkcreator/commondata.ui:150
+#, kde-format
+msgid "Name:"
+msgstr "Nosaukums:"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, pub_name)
+#. i18n: ectx: property (toolTip), widget (KLineEdit, pub_url)
+#: ui/metalinkcreator/commondata.ui:157 ui/metalinkcreator/commondata.ui:177
+#, kde-format
+msgid "publisher"
+msgstr "publicētājs"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_name)
+#: ui/metalinkcreator/commondata.ui:160
+#, kde-format
+msgid "Name of the publisher"
+msgstr "Publicētāja vārds"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_url)
+#: ui/metalinkcreator/commondata.ui:180
+#, kde-format
+msgid "URL to the publisher"
+msgstr "Publicētāja URL"
+
+#: ui/metalinkcreator/dragdlg.cpp:69
+#, kde-format
+msgid "Import dropped files"
+msgstr "Importēt nomestos failus"
+
+#: ui/metalinkcreator/dragdlg.cpp:92 ui/metalinkcreator/filedlg.cpp:68
+#: ui/metalinkcreator/filedlg.cpp:178
+#, fuzzy, kde-format
+#| msgctxt "comma, to seperate members of a list"
+#| msgid ","
+msgctxt "comma, to separate members of a list"
+msgid ","
+msgstr ","
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite)
+#: ui/metalinkcreator/dragdlg.ui:21
+#, kde-format
+msgctxt "General options."
+msgid "General"
+msgstr "Pamata"
+
+#. i18n: ectx: property (text), widget (QCheckBox, partialChecksums)
+#: ui/metalinkcreator/dragdlg.ui:27
+#, kde-format
+msgid "Create partial checksums"
+msgstr "Izveidot daļējas kontrolsummas"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/dragdlg.ui:40
+#, kde-format
+msgid "General URL:"
+msgstr "Pamata URL:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/metalinkcreator/dragdlg.ui:66
+#, kde-format
+msgid ""
+"Automatically create checksums for the selected types. Keep in mind that "
+"this might take a while."
+msgstr ""
+"Automātiski izveidot kontrolsummas izvēlētajiem failu tipiem. Atcerities ka "
+"kontrolsummu veidošana aizņem kādu brīdi."
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/metalinkcreator/dragdlg.ui:92
+#, kde-format
+msgid ""
+"Enter URLs here if all the dropped files are on that server and in the same "
+"directory. For each dropped file the URL would consist of the entered part "
+"and the filename."
+msgstr ""
+"Šeit ievadiet URLus, ja visi nomestie failu atrodas uz norādītā servera "
+"vienā mapē. Katram nomestajam failam URLs sastāvēs no ievadītās daļas un "
+"faila nosaukuma."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: ui/metalinkcreator/dragdlg.ui:102
+#, kde-format
+msgid "Types of the checksums:"
+msgstr "Kontrolsummu veidi:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/dragdlg.ui:115
+#, kde-format
+msgid "Create checksums:"
+msgstr "Izveidot kontrolsummas:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
+#: ui/metalinkcreator/dragdlg.ui:123
+#, kde-format
+msgctxt "These entries are optional."
+msgid "Optional"
+msgstr "Papildus"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/metalinkcreator/dragdlg.ui:135
+#, kde-format
+msgid "Optional data:"
+msgstr "Papildus dati:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/metalinkcreator/dragdlg.ui:160
+#, kde-format
+msgid "Enter information that all chosen files share."
+msgstr "Ievadiet izvēlētajiem failiem kopīgo informāciju."
+
+#: ui/metalinkcreator/filedlg.cpp:119
+#, kde-format
+msgid "File Properties"
+msgstr "Faila īpašības"
+
+#: ui/metalinkcreator/filedlg.cpp:131
+#, kde-format
+msgid "Enter a filename."
+msgstr "Ievadiet faila nosaukumu."
+
+#: ui/metalinkcreator/filedlg.cpp:134
+#, kde-format
+msgid "The filename exists already, choose a different one."
+msgstr "Fails ar šādu nosaukumu jau pastāv, izvēlieties citu nosaukumu."
+
+#: ui/metalinkcreator/filedlg.cpp:137
+#, kde-format
+msgid "Enter at least one URL."
+msgstr "Ievadiet vismaz vienu URL."
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: ui/metalinkcreator/filedlg.ui:24
+#, kde-format
+msgid "Required"
+msgstr "Nepieciešams"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: ui/metalinkcreator/filedlg.ui:54
+#, kde-format
+msgid "Filename:"
+msgstr "Faila nosaukums:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: ui/metalinkcreator/filedlg.ui:95
+#, kde-format
+msgid "Used Mirrors:"
+msgstr "Izmantotie spoguļi:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: ui/metalinkcreator/filedlg.ui:103
+#, kde-format
+msgid "Recommended"
+msgstr "Rekomendētais"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: ui/metalinkcreator/filedlg.ui:111
+#, kde-format
+msgid "File size (in bytes):"
+msgstr "Faila izmērs (baitos):"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/filedlg.ui:149 ui/signaturedlg.ui:34
+#, kde-format
+msgid "Verification:"
+msgstr "Pārbaude:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite)
+#: ui/metalinkcreator/filedlg.ui:196
+#, kde-format
+msgid "Optional"
+msgstr "Papildus"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, add_local_file)
+#: ui/metalinkcreator/files.ui:26
+#, fuzzy, kde-format
+#| msgid ""
+#| "Add at least one file. Adding local files adds a lot of information "
+#| "automatically."
+msgid "Adds local files adding a lot information automatically."
+msgstr ""
+"Pievienojiet vismaz vienu failu. Lokālo failu pievienošana automātiski "
+"pievieno daudz informācijas."
+
+#. i18n: ectx: property (text), widget (QPushButton, add_local_file)
+#: ui/metalinkcreator/files.ui:29
+#, kde-format
+msgid "Add local files"
+msgstr "Pievienot lokālos failus"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/metalinkcreator/files.ui:66
+#, kde-format
+msgid "Adding local files..."
+msgstr "Pievieno lokālos failus..."
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/metalinkcreator/generalwidget.ui:23
+#, kde-format
+msgid "General information:"
+msgstr "Vispārēja informācija:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: ui/metalinkcreator/generalwidget.ui:30
+#, kde-format
+msgid "Here you can enter optional general information on the metalink."
+msgstr "Šeit varat ievadīt papildus vispārēju informāciju par metalinku:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/generalwidget.ui:61
+#, kde-format
+msgid "Origin:"
+msgstr "Avots:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, origin)
+#: ui/metalinkcreator/generalwidget.ui:68
+#, kde-format
+msgid "Web URL to the metalink"
+msgstr "Metalink tīmekļā URL"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
+#: ui/metalinkcreator/generalwidget.ui:75
+#, kde-format
+msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
+msgstr ""
+"Dinamsisks nozīmē ka augšupielādētie metalinki ir atrodami iekš \"Avots\"."
+
+#. i18n: ectx: property (text), widget (QLabel, labelDynamic)
+#: ui/metalinkcreator/generalwidget.ui:78
+#, kde-format
+msgid "Dynamic:"
+msgstr "Dinamisks:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, publishedGroupBox)
+#: ui/metalinkcreator/generalwidget.ui:110
+#, kde-format
+msgid "Metalink published"
+msgstr "Metalink publicēts"
+
+#. i18n: ectx: property (text), widget (QLabel, label_30)
+#. i18n: ectx: property (text), widget (QLabel, label_29)
+#: ui/metalinkcreator/generalwidget.ui:122
+#: ui/metalinkcreator/generalwidget.ui:231
+#, kde-format
+msgid "Date and time:"
+msgstr "Datums un laiks:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, use_publishedtimeoffset)
+#. i18n: ectx: property (text), widget (QCheckBox, use_updatedtimeoffset)
+#: ui/metalinkcreator/generalwidget.ui:136
+#: ui/metalinkcreator/generalwidget.ui:217
+#, kde-format
+msgid "Timezone offset:"
+msgstr "Laika joslas nobīde:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: ui/metalinkcreator/generalwidget.ui:153
+#: ui/metalinkcreator/generalwidget.ui:210
+#, kde-format
+msgid "Negative offset:"
+msgstr "Negatīvā nobīde:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, updatedGroupBox)
+#: ui/metalinkcreator/generalwidget.ui:182
+#, kde-format
+msgid "Metalink updated"
+msgstr "Metalink atjaunināts"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/introduction.ui:17
+#, kde-format
+msgid ""
+"This assistant allows you to create metalinks from scratch or base them on "
+"existing metalinks. A lot of the fields are optional or recommended, so "
+"enter them if desired. The minimum is a save location, at least one file and "
+"one URL."
+msgstr ""
+"Šis palīgs ļaujs jums izveidot jaunus metalinkus vai adaptēt esošus "
+"metalinkus. Vairums lauku ir  papildinoši vai tikai rekomentēti, tāpēc "
+"aizpidiet tikai ko vēlaties. Obligātie ir tikai saglabāšanas vieta un vismaz "
+"viens fails un viens URL."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/introduction.ui:48
+#, kde-format
+msgid "Save created Metalink at:"
+msgstr "Saglabāt izvēlēto Metalink uz:"
+
+#. i18n: ectx: property (text), widget (QRadioButton, createButton)
+#: ui/metalinkcreator/introduction.ui:78
+#, kde-format
+msgid "Create new Metalink"
+msgstr "Izveidot jaunu Metalink"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadButton)
+#: ui/metalinkcreator/introduction.ui:88
+#, kde-format
+msgid "Load existing Metalink:"
+msgstr "Ielādēt esošu Metalink:"
+
+#. i18n: ectx: property (filter), widget (KUrlRequester, load)
+#: ui/metalinkcreator/introduction.ui:98
+#, kde-format
+msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+msgstr "*.metalink *.meta4|Metalink fails(*.metalink *.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:84
+#, kde-format
+msgid "Create a Metalink"
+msgstr "Izveidot Metalink"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:103
+#, fuzzy, kde-format
+#| msgctxt "file as in file on hard drive"
+#| msgid "Enter at least one file."
+msgid "Add at least one file."
+msgstr "Ievadiet vismaz vienu failu."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:105
+#, kde-format
+msgid "You need to set mirrors for the entries with an icon."
+msgstr "Nepieciešams iestatīt spoguļus ierakstiem ar ikonu."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:118
+#, kde-format
+msgid "General optional information for the metalink."
+msgstr "Vispārēja metalink papildus informācija."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:149
+#, kde-format
+msgid "Unable to load: %1"
+msgstr "Neizdevās ielādēt: %1"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, kde-format
+msgid "Metalink Version 4.0 file (*.meta4)"
+msgstr "Metalink versijas 4.0 fails (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, kde-format
+msgid "Metalink Version 3.0 file (*.metalink)"
+msgstr "Metalink versijas 3.0 fails (*.metalink)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:183
+#, kde-format
+msgid "Define the saving location."
+msgstr "Definējiet saglabāšanas vietu."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:229
+#, fuzzy, kde-format
+#| msgid "Files"
+msgctxt "file as in file on hard drive"
+msgid "Files"
+msgstr "Faili"
+
+#. i18n: ectx: property (text), widget (QLabel, labelMirror)
+#: ui/mirror/mirroradddlg.ui:19
+#, kde-format
+msgid "Mirror:"
+msgstr "Spoguļserveris:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelConnections)
+#: ui/mirror/mirroradddlg.ui:26
+#, kde-format
+msgid "Number of connections:"
+msgstr "Savienojumu skaits:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, url)
+#: ui/mirror/mirroradddlg.ui:33
+#, kde-format
+msgid "Enter a URL"
+msgstr "Ievadiet URL"
+
+#. i18n: ectx: property (text), widget (QLabel, labelPriority)
+#: ui/mirror/mirroradddlg.ui:53
+#, fuzzy, kde-format
+#| msgid "Priority"
+msgid "Priority:"
+msgstr "Prioritāte"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, priority)
+#: ui/mirror/mirroradddlg.ui:60
+#, fuzzy, kde-format
+#| msgid "Optional: The preference of the mirror, 1 lowest 100 highest."
+msgid "Optional: The priority of the mirror, 1 highest 999999 lowest."
+msgstr "Papildus: Spoguļservera vēlamība, 1 zemākais, 100 augstākais."
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, priority)
+#: ui/mirror/mirroradddlg.ui:72 ui/mirror/mirrormodel.cpp:213
+#: ui/mirror/mirrormodel.cpp:231
+#, kde-format
+msgid "not specified"
+msgstr "nav norādīts"
+
+#. i18n: ectx: property (text), widget (QLabel, labelLocation)
+#: ui/mirror/mirroradddlg.ui:79
+#, kde-format
+msgid "Location:"
+msgstr "Vieta:"
+
+#: ui/mirror/mirrormodel.cpp:366
+#, kde-format
+msgctxt "Mirror as in server, in url"
+msgid "Mirror"
+msgstr "Spogulis"
+
+#: ui/mirror/mirrormodel.cpp:369
+#, kde-format
+msgctxt "The priority of the mirror"
+msgid "Priority"
+msgstr "Prioritāte"
+
+#: ui/mirror/mirrormodel.cpp:374
+#, fuzzy, kde-format
+#| msgid "Connections"
+msgctxt "Number of parallel connections to the mirror"
+msgid "Connections"
+msgstr "Savienojumi"
+
+#: ui/mirror/mirrormodel.cpp:376
+#, kde-format
+msgctxt "Location = country"
+msgid "Location"
+msgstr "Atrašanās vieta"
+
+#: ui/mirror/mirrorsettings.cpp:55
+#, kde-format
+msgid "Add mirror"
+msgstr "Pievienot spoguli"
+
+#: ui/mirror/mirrorsettings.cpp:149
+#, fuzzy, kde-format
+#| msgid "Modify the used mirrors."
+msgid "Modify the used mirrors"
+msgstr "Mainīt lejupielādes spoguļserverus."
+
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: ui/mirror/mirrorsettings.ui:36
+#, kde-format
+msgid "PushButton"
+msgstr ""
+
+#: ui/newtransferdialog.cpp:322
+#, fuzzy, kde-format
+#| msgctxt "file as in file on hard drive"
+#| msgid "Enter at least one file."
+msgid "Select at least one source url."
+msgstr "Ievadiet vismaz vienu failu."
+
+#: ui/newtransferdialog.cpp:340
+#, kde-format
+msgid "Files that exist already in the current folder have been marked."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/newtransferwidget.ui:30
+#, kde-format
+msgid "Destination:"
+msgstr "Mērķis:"
+
+#. i18n: ectx: property (text), widget (QLabel, groupLabel)
+#: ui/newtransferwidget.ui:40
+#, kde-format
+msgid "Transfer group:"
+msgstr "Ielādes grupa:"
+
+#: ui/renamefile.cpp:33
+#, kde-format
+msgid "Rename File"
+msgstr "Pārdēvēt failu"
+
+#: ui/renamefile.cpp:39
+#, kde-format
+msgid "Rename %1 to:"
+msgstr "Pārdēvēt %1 par:"
+
+#: ui/renamefile.cpp:42
+#, kde-format
+msgid "&Rename"
+msgstr "Pā&rdēvēt"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Nezināms"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "Nedefinēts"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Nekad"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "Minimāls"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "Pilns"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "Absolūts"
+
+#: ui/signaturedlg.cpp:49
+#, kde-format
+msgctxt ""
+"Signature here is meant in cryptographic terms, so the signature of a file."
+msgid "Signature of %1."
+msgstr "%1 paraksts."
+
+#: ui/signaturedlg.cpp:72
+#, kde-format
+msgid "This option is not supported for the current transfer."
+msgstr "Šī lejupielāde neatbalsta šo iespēju."
+
+#: ui/signaturedlg.cpp:99
+#, fuzzy, kde-format
+#| msgid "Signature"
+msgid "Load Signature File"
+msgstr "Paraksts"
+
+#: ui/signaturedlg.cpp:100
+#, kde-format
+msgid "Detached OpenPGP ASCII signature (*.asc)"
+msgstr ""
+
+#: ui/signaturedlg.cpp:101
+#, kde-format
+msgid "Detached OpenPGP binary signature (*.sig)"
+msgstr ""
+
+#: ui/signaturedlg.cpp:154
+#, kde-format
+msgid "You need to define a signature."
+msgstr "Jums jānorāda paraksts."
+
+#: ui/signaturedlg.cpp:158
+#, kde-format
+msgid ""
+"No fingerprint could be found, check if the signature is correct or verify "
+"the download."
+msgstr ""
+"Neizdevās atrast pirkstu nosaukumu, pārbaudiet vai paraksts ir korekts vai "
+"pārbaudiet lejupielādi."
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgid "The key has been revoked."
+msgstr "Atslēga ir anulēta."
+
+#: ui/signaturedlg.cpp:196
+#, kde-format
+msgid "The key is disabled."
+msgstr "Atslēga ir atslēgta."
+
+#: ui/signaturedlg.cpp:200
+#, kde-format
+msgid "The key is invalid."
+msgstr "Atslēga ir nederīga."
+
+#: ui/signaturedlg.cpp:205
+#, kde-format
+msgid "The key is expired."
+msgstr "Atslēgai beidzies derīgums."
+
+#: ui/signaturedlg.cpp:220
+#, kde-format
+msgid "The key is not to be trusted."
+msgstr "Atslēga nav uzticama."
+
+#: ui/signaturedlg.cpp:225
+#, kde-format
+msgid "The key is to be trusted marginally."
+msgstr "Atslēga ir minimāli uzticama."
+
+#: ui/signaturedlg.cpp:238
+#, kde-format
+msgid "Trust level of the key is unclear."
+msgstr "Atslēgas uzticamība nav zināma."
+
+#: ui/signaturedlg.cpp:267
+#, kde-format
+msgid "Unlimited"
+msgstr "Neierobežots"
+
+#: ui/signaturedlg.cpp:285
+#, kde-format
+msgctxt "pgp signature is verified"
+msgid "Verified"
+msgstr "Pārbaudīts"
+
+#: ui/signaturedlg.cpp:288
+#, kde-format
+msgctxt "pgp signature is not verified"
+msgid "Failed"
+msgstr "Neveiksmīga"
+
+#: ui/signaturedlg.cpp:291
+#, kde-format
+msgid ""
+"Caution: Verification failed. Either you entered the wrong signature, or the "
+"data has been modified."
+msgstr ""
+"Uzmanību: Pārbaude neveiksmīga. Vai nu ievadījāt nepareizu parakstu, vai "
+"dati ir bojāti."
+
+#: ui/signaturedlg.cpp:296
+#, kde-format
+msgid ""
+"Verification not possible. Check the entered data, whether gpg-agent is "
+"running, or whether you have an Internet connection (for retrieving keys.)"
+msgstr ""
+"Pārbaude nav iespējama. Pārbaudiet ievadītos datus, vai gpg-agent darbojas, "
+"vai jums ir Interneta pieslēgums (atslēgu ielādei)."
+
+#: ui/signaturedlg.cpp:313
+#, kde-format
+msgid "Feature is not supported, as KGet is not compiled with QPGME support."
+msgstr "Ieslēja nav atbalstīta, jo KGet nav kompilēts ar QPGME atbalstu."
+
+#. i18n: ectx: property (text), widget (QLabel, binaryLabel)
+#: ui/signaturedlg.ui:80
+#, fuzzy, kde-format
+#| msgid "PGP signature:"
+msgid "Has binary PGP signature."
+msgstr "PGP paraksts:"
+
+#. i18n: ectx: property (text), widget (QLabel, asciiLabel)
+#: ui/signaturedlg.ui:87
+#, fuzzy, kde-format
+#| msgid "PGP signature:"
+msgid "Ascii PGP signature:"
+msgstr "PGP paraksts:"
+
+#. i18n: ectx: property (text), widget (QPushButton, loadSignature)
+#: ui/signaturedlg.ui:112
+#, fuzzy, kde-format
+#| msgid "Signature"
+msgid "Load Signature"
+msgstr "Paraksts"
+
+#. i18n: ectx: property (text), widget (QPushButton, verify)
+#: ui/signaturedlg.ui:119
+#, kde-format
+msgid "Verify"
+msgstr "Pārbaudīt"
+
+#. i18n: ectx: property (title), widget (QGroupBox, keyGroup)
+#: ui/signaturedlg.ui:131
+#, kde-format
+msgid "Key"
+msgstr "Atslēga"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/signaturedlg.ui:143
+#, kde-format
+msgid "Issuer:"
+msgstr "Izdevējs:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/signaturedlg.ui:166
+#, kde-format
+msgid "E-Mail:"
+msgstr "E-pasts:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: ui/signaturedlg.ui:183
+#, kde-format
+msgid "Comment:"
+msgstr "Komentārs:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/signaturedlg.ui:197
+#, kde-format
+msgid "Creation:"
+msgstr "Izveidots:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/signaturedlg.ui:214
+#, kde-format
+msgid "Expiration:"
+msgstr "Beigu datums:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/signaturedlg.ui:255
+#, kde-format
+msgid "Trust:"
+msgstr "Uzticība:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/signaturedlg.ui:296
+#, kde-format
+msgid "Fingerprint:"
+msgstr "Nospiedums:"
+
+#: ui/transferdetails.cpp:72
+#, kde-format
+msgid "Average speed: %1/s"
+msgstr "Vidējais ātrums: %1/s"
+
+#: ui/transferdetails.cpp:77
+#, kde-format
+msgid "%1 of %2"
+msgstr "%1 no %2"
+
+#. i18n: ectx: property (text), widget (QLabel, sourceLabel)
+#: ui/transferdetailsfrm.ui:51
+#, kde-format
+msgctxt "@label transfer source"
+msgid "Source:"
+msgstr "Avots:"
+
+#. i18n: ectx: property (text), widget (QLabel, statusLabel)
+#: ui/transferdetailsfrm.ui:114
+#, kde-format
+msgid "Status:"
+msgstr "Statuss:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/transferdetailsfrm.ui:165
+#, kde-format
+msgid "Remaining Time:"
+msgstr "Atlikušais laiks:"
+
+#: ui/transfersettingsdialog.cpp:33
+#, kde-format
+msgid "Transfer Settings for %1"
+msgstr "Ielādes %1 iestatījumi"
+
+#: ui/transfersettingsdialog.cpp:167
+#, kde-format
+msgid ""
+"Changing the destination did not work, the destination stays unmodified."
+msgstr "Mērķa mainīšana nenostrādāja, tas paliek nemainīts."
+
+#: ui/transfersettingsdialog.cpp:167
+#, kde-format
+msgid "Destination unmodified"
+msgstr "Mērķis nav mainīts"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: ui/transfersettingsdialog.ui:23
+#, kde-format
+msgid "Transfer Settings"
+msgstr "Ielādes iestatījumi"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/transfersettingsdialog.ui:35
+#, fuzzy, kde-format
+#| msgid "Download Destination:"
+msgid "Download des&tination:"
+msgstr "Lejupielādes mērķis:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelUpload)
+#: ui/transfersettingsdialog.ui:90
+#, fuzzy, kde-format
+#| msgid "Upload Limit:"
+msgid "&Upload limit:"
+msgstr "Augšupielādes ierobežojums:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelDownload)
+#: ui/transfersettingsdialog.ui:100
+#, fuzzy, kde-format
+#| msgid "Download Limit:"
+msgid "Download &limit:"
+msgstr "Lejupielādes ierobežojums:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
+#: ui/transfersettingsdialog.ui:110
+#, fuzzy, kde-format
+#| msgid "Maximum Share Ratio:"
+msgid "Ma&ximum share ratio:"
+msgstr "Maksimālā došanas attiecība:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, mirrors)
+#: ui/transfersettingsdialog.ui:139
+#, kde-format
+msgid "Modify the mirrors used for downloading."
+msgstr "Mainīt lejupielādes spoguļserverus."
+
+#. i18n: ectx: property (text), widget (QPushButton, mirrors)
+#: ui/transfersettingsdialog.ui:142
+#, kde-format
+msgctxt "The available mirrors (servers) for downloading"
+msgid "Mirrors"
+msgstr "Spoguļserveri"
+
+#. i18n: ectx: property (text), widget (QPushButton, verification)
+#: ui/transfersettingsdialog.ui:162
+#, kde-format
+msgctxt "verification of the download (e.g. by using MD5)"
+msgid "Verification"
+msgstr "Pārbaude"
+
+#: ui/transfersview.cpp:126
+#, kde-format
+msgid "Select columns"
+msgstr "Izvēlieties kolonas"
+
+#: ui/transfersview.cpp:314
+#, kde-format
+msgid "Transfer Details"
+msgstr "Ielādes detaļas"
+
+#: ui/tray.cpp:48
+#, kde-format
+msgid "Download Manager"
+msgstr "Lejupielāžu pārvaldnieks"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/verificationadddlg.ui:19
+#, kde-format
+msgctxt "hash type as in md5t, sha1 etc."
+msgid "Hash type:"
+msgstr "Heša tips:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/verificationadddlg.ui:26
+#, kde-format
+msgctxt "hash as a hash of type md5, sha1 etc."
+msgid "Hash:"
+msgstr "Hešs:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, newHash)
+#: ui/verificationadddlg.ui:33
+#, kde-format
+msgid "Enter a hash key"
+msgstr "Ievadiet heša atslēgu"
+
+#: ui/verificationdialog.cpp:38
+#, kde-format
+msgid "Add checksum"
+msgstr "Pievienot kontrolsummu"
+
+#: ui/verificationdialog.cpp:94
+#, kde-format
+msgid "Transfer Verification for %1"
+msgstr "Ielādes %1 pārbaude"
+
+#: ui/verificationdialog.cpp:206
+#, kde-format
+msgid "%1 was successfully verified."
+msgstr "%1 ir veiksmīgi pārbaudīts."
+
+#: ui/verificationdialog.cpp:207
+#, kde-format
+msgid "Verification successful"
+msgstr "Pārbaude veiksmīga"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/verificationdialog.ui:65
+#, kde-format
+msgid "Verifying:"
+msgstr "Pārbauda:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, verify)
+#: ui/verificationdialog.ui:118
+#, kde-format
+msgid "Verify the finished download with the selected checksum."
+msgstr "Pārbaudīt pabeigto lejupielādi pret izvēlēto kontrolsummu"
+
+#. i18n: ectx: property (text), widget (QPushButton, verify)
+#: ui/verificationdialog.ui:121
+#, kde-format
+msgid "&Verify"
+msgstr "Pārbaudī&t"
+
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: ui/verificationdialog.ui:147
+#, kde-format
+msgid "Close"
+msgstr ""
+
+#~ msgctxt "Transfer state: processing script"
+#~ msgid "Processing script...."
+#~ msgstr "Darbina skriptu..."
+
+#~ msgctxt "Transfer State: Finished"
+#~ msgid "Finished"
+#~ msgstr "Pabeigts"
+
+#~ msgctxt "Transfer State: Aborted"
+#~ msgid "Aborted"
+#~ msgstr "Pārtraukts"
+
+#~ msgctxt "Configure script"
+#~ msgid "Configure script"
+#~ msgstr "Konfigurēt skriptu"
+
+#~ msgid "User Scripts"
+#~ msgstr "Lietotāja skripti"
+
+#~ msgid "Path"
+#~ msgstr "Ceļš"
+
+#~ msgid "RegExp"
+#~ msgstr "Regexp"
+
+#~ msgid "New Script...."
+#~ msgstr "Jauns skripts..."
+
+#~ msgid "Edit...."
+#~ msgstr "Rediģēt...."
+
+#~ msgid "Configure...."
+#~ msgstr "Konfigurēt..."
+
+#~ msgid "Add New Script"
+#~ msgstr "Pievienot jaunu skriptu"
+
+#~ msgid "Edit Script"
+#~ msgstr "Rediģēt skriptu"
+
+#~ msgid "Set Script File"
+#~ msgstr "Iesatīt skripta failu"
+
+#~ msgid "Regexp:"
+#~ msgstr "Regexp:"
+
+#~ msgid "Path:"
+#~ msgstr "Ceļš:"
+
+#~ msgid "List of the Regexp to match input URL"
+#~ msgstr "Regulāro izteiksmju saraskts, ko pielietot URL"
+
+#~ msgid "List of descriptions for user scripts"
+#~ msgstr "Skriptu apraksti"
+
+#~ msgid "List of whether the script is enabled"
+#~ msgstr "Vai skripts ir ieslēgts"
+
+#~ msgid "File Settings"
+#~ msgstr "Faila iestatījumi"
+
+#~ msgid "Use Normalized Name"
+#~ msgstr "Lietot normalizētu nosaukumu"
+
+#~ msgid "Use Literal Name"
+#~ msgstr "Lietot literāļa nosaukumu"
+
+#~ msgid "Quality:"
+#~ msgstr "Kvalitāte:"
+
+#~ msgid "Best Quality (.mp4)"
+#~ msgstr "Labākā kvalitāte (.mp4)"
+
+#~ msgid "Normal Quality (.flv)"
+#~ msgstr "Normāla kvalitāte (.flv)"
+
+#~ msgid ""
+#~ "Provide login info of your YouTube account in order to access restricted "
+#~ "media."
+#~ msgstr ""
+#~ "Ievadiet pieteikšanās informāciju jūsu Youtube kontam, lai varētu piekļūt "
+#~ "aizsargātiem failiem."
+
+#~ msgid "Login Info"
+#~ msgstr "Pieteikšanās informācija"
+
+#~ msgid "Username:"
+#~ msgstr "Lietotājs:"
+
+#~ msgid ".netrc must have a hostname called 'youtube'."
+#~ msgstr ".netrc jāsatur resursdatora nosaukums 'youtube'."
+
+#~ msgid "User .netrc file"
+#~ msgstr "Lietotāja .netrc fails"
+
+#, fuzzy
+#~| msgctxt "@info"
+#~| msgid "Unable to start the server: %1."
+#~ msgctxt "@info"
+#~ msgid "Unable to start WebInterface: %1"
+#~ msgstr "Neizdevās palaist serveri: %1"
+
+#~ msgctxt "@item speed of transfer per seconds"
+#~ msgid "%1/s"
+#~ msgstr "%1/s"
+
+#~ msgctxt "@label"
+#~ msgid "KGet Web Interface"
+#~ msgstr "KGet tīmekļa saskarne"
+
+#~ msgctxt "@label number"
+#~ msgid "Nr"
+#~ msgstr "Nr"
+
+#~ msgctxt "@label"
+#~ msgid "File name"
+#~ msgstr "Faila nosaukums"
+
+#~ msgctxt "@label Progress of transfer"
+#~ msgid "Finished"
+#~ msgstr "Pabeigts"
+
+#~ msgctxt "@label Speed of transfer"
+#~ msgid "Speed"
+#~ msgstr "Ātrums"
+
+#~ msgctxt "@label Status of transfer"
+#~ msgid "Status"
+#~ msgstr "Statuss"
+
+#~ msgctxt "@action:button start a transfer"
+#~ msgid "Start"
+#~ msgstr "Sākt"
+
+#~ msgctxt "@action:button"
+#~ msgid "Stop"
+#~ msgstr "Apturēt"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Aizvākt"
+
+#~ msgctxt "@label Download from"
+#~ msgid "Source:"
+#~ msgstr "Avots:"
+
+#~ msgctxt "@label Save download to"
+#~ msgid "Saving to:"
+#~ msgstr "Saglabā iekš:"
+
+#~ msgctxt "@label Title in header"
+#~ msgid "Web Interface"
+#~ msgstr "Tīmekļa saskarne"
+
+#~ msgctxt "@action"
+#~ msgid "Settings"
+#~ msgstr "Iestatījumi"
+
+#~ msgctxt "@action"
+#~ msgid "Refresh"
+#~ msgstr "Atsvaidzināt"
+
+#~ msgctxt "@action"
+#~ msgid "Enter URL: "
+#~ msgstr "Ievadiet URL: "
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "Labi"
+
+#~ msgctxt "@action Refresh download list every x (seconds)"
+#~ msgid "Refresh download list every"
+#~ msgstr "Atsvaidzināt sarakstu ik pēc"
+
+#~ msgctxt "@action (Refresh very x )seconds"
+#~ msgid "seconds"
+#~ msgstr " sekundēm"
+
+#~ msgctxt "@action:button"
+#~ msgid "Save Settings"
+#~ msgstr "Saglabāt iestatījumus"
+
+#~ msgctxt "@title"
+#~ msgid "Downloads"
+#~ msgstr "Lejupielādes"
+
+#~ msgctxt "@label text in footer"
+#~ msgid "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS"
+#~ msgstr "KGet tīmekļa saskarne | Atbilst XHTML 1.0 Strict &amp; CSS"
+
+#~ msgctxt "Number of paralell connections to the mirror"
+#~ msgid "Connections"
+#~ msgstr "Savienojumi"
+
+#~ msgid "Select a default torrent folder"
+#~ msgstr "Iestatīt par noklusēto torrentu mapi"
+
+#~ msgid "Select a default temporary folder"
+#~ msgstr "Iestatīt par noklusēto pagaidu mapi"
+
+#~ msgid "0123456789"
+#~ msgstr "0123456789"
+
+#~ msgid "Nepomuk"
+#~ msgstr "Nepomuk"
+
+#, fuzzy
+#~| msgid "Upload limit per transfer:"
+#~ msgid "Imports a list of transfers"
+#~ msgstr "Augšupielādes ierobežojums vienai ielādei:"
+
+#, fuzzy
+#~| msgid "Download limit per transfer:"
+#~ msgid "Download selected transfer first"
+#~ msgstr "Lejupielādes ierobežojums vienai ielādei:"
+
+#, fuzzy
+#~| msgid "Download limit per transfer:"
+#~ msgid "Download selected transfer last"
+#~ msgstr "Lejupielādes ierobežojums vienai ielādei:"
+
+#, fuzzy
+#~| msgctxt "Delete selected history-item"
+#~| msgid "Delete selected"
+#~ msgid "Delete selected group"
+#~ msgstr "Dzēst izvēlētos"
+
+#, fuzzy
+#~| msgid "Start / Resume All"
+#~ msgid "Starts / resumes all transfers"
+#~ msgstr "Sākt / Turpināt visus"
+
+#, fuzzy
+#~| msgid "Start / Resume Selected"
+#~ msgid "Starts / resumes selected transfer"
+#~ msgstr "Sākt / Turpināt izvēlētos"
+
+#, fuzzy
+#~| msgid "Per transfer:"
+#~ msgid "Pauses all transfers"
+#~ msgstr "Katrai lejupielādei:"
+
+#, fuzzy
+#~| msgid "Execute action after all downloads have been finished:"
+#~ msgid ""
+#~ "Choose an action that is executed after all downloads have been finished."
+#~ msgstr "Izpildīt darbību pēc visu lejupielāžu pabeigšanas:"
+
+#~ msgid "Scanning data of <b>%1</b> :"
+#~ msgstr "Skenē datus no  <b>%1</b> :"
+
+#~ msgid "Semantic Desktop"
+#~ msgstr "Semantiskā darbvirsma"
+
+#, fuzzy
+#~| msgctxt "Download normally(not as first or last)"
+#~| msgid "Normal"
+#~ msgctxt "on a question"
+#~ msgid "No all"
+#~ msgstr "Normāli"
+
+#~ msgctxt "Download the items which have been selected"
+#~ msgid "&Download Checked"
+#~ msgstr "&Lejupielādēt atzīmētos"
+
+#~ msgid ""
+#~ "Drop target has been hidden. If you want to show it again, go to Settings-"
+#~ ">Configure KGet->Look & Feel."
+#~ msgstr ""
+#~ "Nomenšanas mērķis tika paslēpts. Ja vēlaties to atkal padarīt redzamu, "
+#~ "dodieties uz Iestatījumi->Konfikurēt KGet->Izskats un sajūtas."
+
+#~ msgid "Hiding drop target"
+#~ msgstr "Noslēpj nomešanas mērķi"
+
+#~ msgid "&Export Transfers as Plain Text..."
+#~ msgstr "&Eksportēt ielāžu sarakstu kā vienkāršu tekstu..."
+
+#~ msgid "Stop All"
+#~ msgstr "Apturēt visus"
+
+#~ msgid "Start / Resume"
+#~ msgstr "Sākt / Turpināt"
+
+#~ msgid "Stop"
+#~ msgstr "Apturēt"
+
+#~ msgid "Checksums"
+#~ msgstr "Kontrolsummas"
+
+#~ msgid "Automatic verification:"
+#~ msgstr "Automātiska pārbaude:"
+
+#~ msgid "Move &Up"
+#~ msgstr "Pārvietot augš&up"
+
+#~ msgid "Move &Down"
+#~ msgstr "Pārvietot &lejup"
+
+#~ msgid "Number of downloads:"
+#~ msgstr "Lejupielāžu skaits:"
+
+#~ msgid "Downloads from the same server:"
+#~ msgstr "Lejupielādes no viena un tā paša servera:"
+
+#~ msgid "After Completing Downloads"
+#~ msgstr "Pēc lejupielādes pabeigšanas"
+
+#~ msgid "Auto shutdown"
+#~ msgstr "Automātiski izslēgt datoru"
+
+#~ msgid "Auto disconnect"
+#~ msgstr "Automātiski atvienoties"
+
+#~ msgid "Startup"
+#~ msgstr "Palaišana"
+
+#~ msgid "Show splashscreen"
+#~ msgstr "Rādīt šļaksta ekrānu"
+
+#~ msgid "Enable popup tooltip"
+#~ msgstr "Rādīt uznirstošo paskaidri"
+
+#~ msgid "Show drop target"
+#~ msgstr "Rādīt nomešanas mērķi"
+
+#~ msgid "Disable confirmation dialogs (less verbosity)"
+#~ msgstr "Atslēgt apstiprināšanas dialogus (mazāk uzbāzīgi)"
+
+#~ msgid "History"
+#~ msgstr "Vēsture"
+
+#~ msgctxt "filter: show all file types"
+#~ msgid "&All"
+#~ msgstr "V&isus"
+
+#~ msgid "Ima&ges"
+#~ msgstr "Attē&lus"
+
+#~ msgctxt "Check as in mark, not as in verify"
+#~ msgid "Chec&k Selected"
+#~ msgstr "&Pārbaudīt izvēlētos"
+
+#~ msgid " KiB"
+#~ msgstr " KiB"
+
+#~ msgid "Sets to show the splashscreen while KGet is loading"
+#~ msgstr "Iestata vai rādīt šļaksta ekrānu KGet ielādes laikā"
+
+#~ msgid "The key is to be trusted fully."
+#~ msgstr "Atslēga ir pilnībā uzticama."
+
+#~ msgid "The key is to be trusted ultimately."
+#~ msgstr "Atslēga ir absolūti uzticama."
+
+#~ msgid "The signature has been verified successfully."
+#~ msgstr "Paraksts veiksmīgi pārbaudīts."
+
+#~ msgid "The signature has been verified successfully:"
+#~ msgstr "Paraksts veiksmīgi pārbaudīts."
+
+#~ msgid "Error:"
+#~ msgstr "Kļūda:"
+
+#~ msgid "Problems:"
+#~ msgstr "Problēmas:"
+
+#~ msgid "Information:"
+#~ msgstr "Informācija:"
+
+#~ msgid ""
+#~ "Required data entered; also consider entering additional information."
+#~ msgstr ""
+#~ "Obligātie dati ievadīti; varbūt pievienojiet arī papildus informāciju."
+
+#, fuzzy
+#~| msgid "Error:"
+#~ msgctxt "an error happened in connection with the user input"
+#~ msgid "Error:"
+#~ msgstr "Kļūda:"
+
+#~ msgctxt "Files as in files on a server"
+#~ msgid "Files:"
+#~ msgstr "Faili:"
+
+#~ msgctxt "Adds the item and reopens the dialog to add a further item"
+#~ msgid "Add more"
+#~ msgstr "Pievienot vēl"
+
+#~ msgid "%1 has been successfully added."
+#~ msgstr "%1 veiksmīgi pievienots."
+
+#~ msgid "%1 %2 has been successfully added."
+#~ msgstr "%1 %2 ir veiksmīgi pievienots."
+
+#~ msgid "TextLabel"
+#~ msgstr "TextLabel"
+
+#~ msgid "Show Drop Target"
+#~ msgstr "Rādīt nomešanas mērķi"
+
+#~ msgid "List All Links"
+#~ msgstr "Rādīt visas saites"
+
+#~ msgid "List Selected Links"
+#~ msgstr "Rādīt izvēlētās saites"
+
+#, fuzzy
+#~| msgid "Download failed, no working URLs were found."
+#~ msgid "No downloadable links were found."
+#~ msgstr "Lejupielāde neveiksmīga, netika atrasts neviens strādājošs URLs."
+
+#~ msgid "No Links"
+#~ msgstr "Nav saišu"
+
+#, fuzzy
+#~| msgid "Unable to continue: KGet cannot download using this protocol."
+#~ msgid "Unable to communicate with the KGet download manager."
+#~ msgstr "Nevar turpināt: KGet nespēj lejupielādēt no šī protokola."
+
+#~ msgid "&Tools"
+#~ msgstr "&Rīki"
+
+#~ msgid "Unable to continue: KGet cannot download using this protocol."
+#~ msgstr "Nevar turpināt: KGet nespēj lejupielādēt no šī protokola."
+
+#~ msgid "An error occurred...."
+#~ msgstr "Gadījās kļūda..."
+
+#~ msgid "There are no links in the active frame of the current HTML page."
+#~ msgstr "Šīs HTML lapas aktīvajā rāmī nav nevienas saites."
+
+#~ msgid "Remove Tag"
+#~ msgstr "Noņemt tagu"
+
+#~ msgid "Add Tag"
+#~ msgstr "Pievienot tagu"
+
+#~ msgid "Tag Settings for the groups"
+#~ msgstr "Grupu tagu iestatījumi"
+
+#~ msgid "Tag Settings"
+#~ msgstr "Tagu iestatījumi"
+
+#~ msgid "Available tags:"
+#~ msgstr "Pieejamie tagi:"
+
+#~ msgid "Used tags:"
+#~ msgstr "Lietotie tagi:"
+
+#~ msgid "Enter a new Tag"
+#~ msgstr "Ievadiet jaunu tagu"
+
+#~ msgid "Enter a new tag"
+#~ msgstr "Ievadiet jaunu tagu"
+
+#~ msgid "Modify Tags..."
+#~ msgstr "Izmainīt tagus..."
+
+#~ msgid ""
+#~ "Another group with this name already exists. Please select a different "
+#~ "name."
+#~ msgstr ""
+#~ "Jau pastāv cita grupa ar šādu nosaukumu. Lūdzu lietojiet citu nosaukumu."
+
+#~ msgid "Group Name Already in Use"
+#~ msgstr "Grupas nosaukums ir aizņemts"
+
+#~ msgid "Add"
+#~ msgstr "Pievienot"
+
+#~ msgid "Delete"
+#~ msgstr "Izdzēst"
+
+#~ msgid "Configure..."
+#~ msgstr "Konfigurēt..."
+
+#~ msgid "Illegal token: %1"
+#~ msgstr "Nederīga iezīme: %1"
+
+#~ msgid "Decode error"
+#~ msgstr "Atkodēšanas kļūda"
+
+#~ msgid "Unexpected end of input"
+#~ msgstr "Negaidītas ievada beigas"
+
+#~ msgid "Cannot convert %1 to an int"
+#~ msgstr "Neizdevās pārveidot %1 par int"
+
+#~ msgid "Torrent is incomplete."
+#~ msgstr "Torrents ir nepilnīgs."
+
+#~ msgid "Cannot open %1 : %2"
+#~ msgstr "Neizdevās atvērt %1 : %2"
+
+#~ msgid "Cannot open %1 for writing : readonly filesystem"
+#~ msgstr ""
+#~ "Neizdevās atvērt failu %1 rakstīšanas režīmā : failu sistēma neatbalsta "
+#~ "rakstīšanu"
+
+#~ msgid "Cannot expand file %1 : %2"
+#~ msgstr "Nevar paplašināt failu %1: %2"
+
+#~ msgid "Error : Reading past the end of the file %1"
+#~ msgstr "Kļūda : Lasīts ārpus faila %1beigām"
+
+#~ msgid "Failed to seek file %1 : %2"
+#~ msgstr "Neizdevās uzstādīt pozīciju failā %1: %2"
+
+#~ msgid "Error reading from %1"
+#~ msgstr "Kļūda lasot no %1"
+
+#~ msgid "Cannot preallocate diskspace : %1"
+#~ msgstr "Neizdevās rezervēt vietu uz diska : %1"
+
+#~ msgid "Cannot open index file %1 : %2"
+#~ msgstr "Neizdevās atvērt indeksa failu %1 : %2"
+
+#~ msgid "Failed to open %1 : %2"
+#~ msgstr "Neizdevās atvērt %1 : %2"
+
+#~ msgid "Failed to create %1 : %2"
+#~ msgstr "Neizdevās izveidot %1: %2"
+
+#~ msgid "Cannot create file %1 : %2"
+#~ msgstr "Neizdevās izveidot failu %1 : %2"
+
+#~ msgid "Failed to write first chunk to DND file : %1"
+#~ msgstr "Neizdevās ierakstīt pirmo gabalu DND failā : %1"
+
+#~ msgid "Failed to write last chunk to DND file : %1"
+#~ msgstr "Neizdevās ierakstīt pēdējo gabalu DND failā : %1"
+
+#~ msgid "Cannot open file %1 : %2"
+#~ msgstr "Neizdevās atvērt failu %1 : %2"
+
+#~ msgid "OK"
+#~ msgstr "Labi"
+
+#~ msgid "Announcing"
+#~ msgstr "Paziņo"
+
+#~ msgid "Error: %1"
+#~ msgstr "Kļūda: %1"
+
+#~ msgid "Redirect without a redirect location"
+#~ msgstr "Pārvirzīts bez jaunas vietas."
+
+#~ msgid "Timeout contacting tracker %1"
+#~ msgstr "Noildze sazinoties ar trakeri %1"
+
+#~ msgid "Unable to resolve hostname %1"
+#~ msgstr "Neizdevās sameklēt datora nosaukumu %1"
+
+#~ msgid "Invalid response from tracker"
+#~ msgstr "Nepareiza atbilde no trakera"
+
+#~ msgid "Invalid data from tracker"
+#~ msgstr "Nederīgi dati no trakera"
+
+#~ msgid "Invalid tracker URL"
+#~ msgstr "Nederīgs trakera URL"
+
+#~ msgid "Cannot bind to udp port %1 or the 10 following ports."
+#~ msgstr "Neizdevās pieslēgties ne UDP portam %1, ne kādam no 10 nākamajiem."
+
+#~ msgid "Unknown client"
+#~ msgstr "Nepazīstama programma"
+
+#~ msgid ""
+#~ "An error occurred while loading the torrent <b>%1</b>:<br/><b>%2</b><br/"
+#~ ">The torrent is probably corrupt or is not a valid torrent file."
+#~ msgstr ""
+#~ "Gadījās kļūda ielādējot torrentu <b>%1</b>>:<br/><b>%2</b><br/>Tas droši "
+#~ "vien ir bojāts vai nav torrent fails."
+
+#~ msgid ""
+#~ "An error occurred while loading the torrent:<br/><b>%1</b><br/>The "
+#~ "torrent is probably corrupt or is not a valid torrent file."
+#~ msgstr ""
+#~ "Gadījās kļūda ielādējot torrentu:<br/><b>%1</b><br/>Tas droši vien ir "
+#~ "bojāts vai nav torrent fails."
+
+#~ msgid "Unable to create %1 : %2"
+#~ msgstr "Neizdevās izveidot %1 ; %2"
+
+#~ msgid ""
+#~ "You are already downloading this torrent %1, the list of trackers of both "
+#~ "torrents has been merged."
+#~ msgstr ""
+#~ "Jūs jau ielādējat šo torrentu %1, esošā torrenta trakeru saraksts tika "
+#~ "papildināts no jaunā."
+
+#~ msgid "You are already downloading the torrent %1"
+#~ msgstr "Jūs jau ielādējat šo torrentu %1"
+
+#~ msgid "Not started"
+#~ msgstr "Nav sākts"
+
+#~ msgid "Seeding completed"
+#~ msgstr "Piedāvāšana pabeigta"
+
+#~ msgctxt "Status of a torrent file"
+#~ msgid "Seeding"
+#~ msgstr "Piedāvā"
+
+#~ msgid "Downloading"
+#~ msgstr "Lejuplādē"
+
+#~ msgid "Stopped"
+#~ msgstr "Apturēts"
+
+#~ msgid "Allocating diskspace"
+#~ msgstr "Rezervē viedu uz diska"
+
+#~ msgid "Queued for seeding"
+#~ msgstr "Ierindots piedāvāšanai"
+
+#~ msgid "Queued for downloading"
+#~ msgstr "Ierindots lejupielādei"
+
+#~ msgid "Checking data"
+#~ msgstr "Pārbauda datus"
+
+#~ msgid "Stopped. No space left on device."
+#~ msgstr "Apturēts. Vairs nav vietas uz diska."
+
+#~ msgid "Cannot open file %1: %2"
+#~ msgstr "Neizdevās atvērt failu %1: %2"
+
+#~ msgid "Cannot create index file: %1"
+#~ msgstr "Nevar izveidot indeksa failu: %1"
+
+#~ msgid "Corrupted torrent."
+#~ msgstr "Bojāts torrents."
+
+#~ msgid " Unable to open torrent file %1 : %2"
+#~ msgstr " Neizdevās atvērt torrenta failu %1 : %2"
+
+#~ msgid "Parse Error"
+#~ msgstr "Parsēšanas kļūda"
+
+#~ msgid "Cannot open file : %1 : %2"
+#~ msgstr "Nevar atvērt failu: %1 : %2"
+
+#~ msgid "Not connected"
+#~ msgstr "Nav savienots"
+
+#~ msgid "Resolving proxy %1:%2"
+#~ msgstr "Atrod starpniekserveri %1:%2"
+
+#~ msgid "Resolving hostname %1"
+#~ msgstr "Atrod datoru %1"
+
+#~ msgid "Connection closed"
+#~ msgstr "Savienojums tika slēgts"
+
+#~ msgid "Error: request failed: %1"
+#~ msgstr "Kļūda: neveiksmīgs pieprasījums: %1"
+
+#~ msgid "Connected"
+#~ msgstr "Savienots"
+
+#~ msgid "Error: Failed to connect to webseed"
+#~ msgstr "Kļūda: neizdevās pieslēgties tīmekļa devējam"
+
+#~ msgid "Connecting"
+#~ msgstr "Pieslēdzas"
+
+#~ msgid "Failed to connect to webseed"
+#~ msgstr "Neizdevās pieslēgties tīmekļa devējam"
+
+#~ msgid "Failed to resolve hostname of webseed"
+#~ msgstr "Neizdevās atpazīt tīmekļa devēja datora nosaukumu"
+
+#~ msgid "Error: failed to connect, server not responding"
+#~ msgstr "Kļūda: neizdevās pieslēgties, serveris neatbild"
+
+#~ msgid "Error: request timed out"
+#~ msgstr "Kļūda: pieprasījuma noildze"
+
+#~ msgid "Redirected without a new location."
+#~ msgstr "Pārvirzīts bez jaunas vietas."
+
+#~ msgid "1 peer"
+#~ msgid_plural "%1 peers"
+#~ msgstr[0] "%1 dalībnieks"
+#~ msgstr[1] "%1 dalībnieki"
+#~ msgstr[2] "%1 dalībnieku"
+
+#~ msgid "Not in use"
+#~ msgstr "Nav lietošanā"
+
+#~ msgid "Cannot write to %1 : %2"
+#~ msgstr "Neizdevās ierakstīt failā %1 : %2"
+
+#~ msgid "Cannot read from %1"
+#~ msgstr "Neizdevās nolasīt no %1"
+
+#~ msgid "Cannot open log file %1 : %2"
+#~ msgstr "Neizdevās atvērt žurnāla failu %1 : %2"
+
+#~ msgid "Cannot create directory %1"
+#~ msgstr "Neizdevās izveidot mapi %1"
+
+#~ msgid "Cannot symlink %1 to %2: %3"
+#~ msgstr "Neizdevās saitēt %1 uz %2: %3"
+
+#~ msgid "Cannot move %1 to %2: %3"
+#~ msgstr "Neizdevās pārvietot %1 uz %2: %3"
+
+#~ msgid "Cannot copy %1 to %2: %3"
+#~ msgstr "Neizdevās nokopēt %1 uz %2: %3"
+
+#~ msgid "Cannot delete %1: %2"
+#~ msgstr "Neizdevās izdzēst %1: %2"
+
+#~ msgid "Cannot create %1: %2"
+#~ msgstr "Neizdevās izveidot %1: %2"
+
+#~ msgid "Cannot calculate the filesize of %1: %2"
+#~ msgstr "Neizdevās aprēķināt izmēru failam %1 : %2"
+
+#~ msgid "Cannot calculate the filesize : %1"
+#~ msgstr "Neizdevās aprēķināt faila izmēru : %1"
+
+#~ msgid "Cannot expand file: %1"
+#~ msgstr "Neizdevās paplašināt failu: %1"
+
+#~ msgid "Cannot seek in file : %1"
+#~ msgstr "Neizdevās seek failā : %1"
+
+#~ msgid "1 day "
+#~ msgid_plural "%1 days "
+#~ msgstr[0] "%1 diena"
+#~ msgstr[1] "%1 dienas"
+#~ msgstr[2] "%1 dienu"
+
+#~ msgid "General"
+#~ msgstr "Pamata"
+
+#~ msgid "Tracker"
+#~ msgstr "Trakeris"
+
+#~ msgid "Disk Input/Output"
+#~ msgstr "Diska lasīšana/rakstīšana"
+
+#~ msgid "Details for: %1"
+#~ msgstr "%1 detaļas"
+
+#~ msgid "All downloads"
+#~ msgstr "Visas lejupielādes"
+
+#~ msgid "Finished downloads"
+#~ msgstr "Pabeigtās lejupielādes"
+
+#~ msgid "Transfers:"
+#~ msgstr "Ielādes:"
+
+#~ msgid "Downloads"
+#~ msgstr "Lejupielādes"
+
+#~ msgid "Transfer details:"
+#~ msgstr "Ielādes detaļas:"
+
+#~ msgid "Form"
+#~ msgstr "Forma"
+
+#~ msgid "Transfer List"
+#~ msgstr "Ielāžu saraksts"
+
+#~ msgid "Expandable transfer details instead of separate tabs"
+#~ msgstr "Rādīt izvēršamas ielāžu detaļas nevis atsevišķas cilnes"
+
+#~ msgid "Threads"
+#~ msgstr "Pavedieni"
+
+#~ msgid "Number of threads:"
+#~ msgstr "Pavedienu skaits:"
+
+#~ msgid "Preference:"
+#~ msgstr "Iestatījums:"
+
+#~ msgid "The width of the columns in the main view"
+#~ msgstr "Galvenā skata kolonu platums"
+
+#~ msgid "License:"
+#~ msgstr "Licence:"
+
+#, fuzzy
+#~| msgid "Number of the chunk"
+#~ msgid "Name of the license"
+#~ msgstr "Gabala numurs"
+
+#~ msgctxt "The transfer is delayed"
+#~ msgid "Delayed"
+#~ msgstr "Novēlots"
+
+#~ msgid ""
+#~ "Destination file \n"
+#~ "%1\n"
+#~ "already exists.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Mērķa fails \n"
+#~ "%1\n"
+#~ "jau pastāv.\n"
+#~ "Vai vēlaties to pārrakstīt?"
+
+#~ msgid "Are you sure that you want to remove all selected groups?"
+#~ msgstr "Vai esat pārliecināts ka vēlaties izdzēst visas izvēlētās grupas?"
+
+#~ msgid "Rename transfer"
+#~ msgstr "Pārdēvēt ielādi"
+
+#~ msgid "Download URL again?"
+#~ msgstr "Lejupielādēt vēlreiz URL?"
+
+#~ msgid "Url:"
+#~ msgstr "Url:"
+
+#~ msgid ""
+#~ "You will lose all data in these files, are you sure you want to do this?"
+#~ msgstr ""
+#~ "Jūs pazaudēsiet visus šo failu datus, vai esat pārliecināts, ka vēlaties "
+#~ "to darīt?"
+
+#~ msgid "Cannot remove torrent default tracker."
+#~ msgstr "Nevar izņemt torrenta noklusēto trakeri."
+
+#~ msgid "You cannot add trackers to a private torrent"
+#~ msgstr "Privātam torrentam nevar pievienot papildus trakerus."
+
+#~ msgid "Cannot migrate %1 : %2"
+#~ msgstr "Nevar pārveidot %1 : %2"
+
+#~ msgid ""
+#~ "The torrent %1 was started with a previous version of KTorrent. To make "
+#~ "sure this torrent still works with this version of KTorrent, we will "
+#~ "migrate this torrent. You will be asked for a location to save the "
+#~ "torrent to. If you press cancel, we will select your home directory."
+#~ msgstr ""
+#~ "Torrents %1 tika sākts ar vecāku KTorrent versiju. Lai nodrošinātu, ka "
+#~ "tas joprojām darbojas ar veco versiju, tas tiks pārcelts uz jaunu vietu. "
+#~ "Jums jautās kur to saglabāt. Ja nospiedīsiet Atcelt, tas tiks saglabāts "
+#~ "jūsu mājas mapē."
+
+#~ msgid "Select Folder to Save To"
+#~ msgstr "Izvēlieties saglabāšanas mapi"
+
+#~ msgid "Queued"
+#~ msgstr "Rindā"
+
+#~ msgid "Maintainer, Core Developer"
+#~ msgstr "Uzturētājs, galvenais izstrādātājs"
+
+#~ msgctxt "delete selected transfer item"
+#~ msgid "Delete Selected"
+#~ msgstr "Dzēst izvēlēto"
+
+#~ msgid "Minimal segment size:"
+#~ msgstr "Minimālais segmenta izmērs:"
+
+#~ msgid "kBi"
+#~ msgstr "kBi"
+
+#~ msgid "Save data every:"
+#~ msgstr "Saglabāt datus ik:"
+
+#~ msgid "Current Tracker"
+#~ msgstr "Aktīvais trakeris"
+
+#~ msgid "Manual Announce"
+#~ msgstr "Pašrocīga izziņošana"
+
+#~ msgid "Scrape"
+#~ msgstr "Īsā paziņošana (scrape)"
+
+#~ msgid "Available Trackers"
+#~ msgstr "Pieejamie trakeri"
+
+#~ msgid "Urls list of the available search engines"
+#~ msgstr "Pieejamo meklēšanas dzinēju URLi"
+
+#~ msgid "Cannot expand file : %1"
+#~ msgstr "Neizdevās paplašināt failu : %1"
+
+#~ msgid "filterButtonGroup"
+#~ msgstr "filterButtonGroup"
+
+#~ msgid "Peers"
+#~ msgstr "Dalībnieki"
+
+#~ msgid "Torrent has no announce or nodes field"
+#~ msgstr "Torrents nesatur ne paziņošanas, ne mezglu ierakstus"
+
+#~| msgid ""
+#~| "An error occurred while loading the torrent.<br/>The torrent is probably "
+#~| "corrupt or is not a torrent file."
+#~ msgid ""
+#~ "An error occurred while loading the torrent.\n"
+#~ "The torrent is probably corrupt or is not a torrent file."
+#~ msgstr ""
+#~ "Gadījās kļūda ielādējot torrentu.\n"
+#~ "Tas droši vien ir bojāts vai nav torrent fails."
+
+#~ msgid "The group name is empty"
+#~ msgstr "Grupas nosaukums ir tukšs"
+
+#~ msgid ""
+#~ "A group can not have an empty name\n"
+#~ "Please select a new one"
+#~ msgstr ""
+#~ "Grupai nevar būt tukšs nosauku,s\n"
+#~ "Lūdzu ievadiet nosaukumu"
+
+#~ msgid "You can not delete this group!"
+#~ msgstr "Jūs nevarat izdzēst šo grupu!"
+
+#~ msgid "Default Download Folders"
+#~ msgstr "Noklusējuma lejupielādes mapes"
+
+#~ msgid "Folder and extension can not be empty."
+#~ msgstr "Mape un paplašinājums nevar būt tukši."
+
+#~ msgid "Downloading.."
+#~ msgstr "Lejupielādē.."
+
+#~ msgid "Advanced-Details for %1"
+#~ msgstr "%1 paplašinātas detaļas"
+
+#~ msgid "Assigned Peers"
+#~ msgstr "Iesaistīti dalībnieki"
+
+#~ msgctxt "transfer state: downloading"
+#~ msgid "Downloading.."
+#~ msgstr "Lejupielādē.."
+
+#~ msgid "%1 GB"
+#~ msgstr "%1 GB"
+
+#~ msgid "%1 MB"
+#~ msgstr " %1 MB"
+
+#~ msgid "%1 KB"
+#~ msgstr "%1 KB"
+
+#~ msgid "%1 B"
+#~ msgstr "%1 B"
+
+#~ msgid "%1 KB/s"
+#~ msgstr "%1 KB/s"
+
+#~ msgid "Import links"
+#~ msgstr "Importēt saites"
+
+#~ msgctxt "@label Title in header"
+#~ msgid "Webinterface"
+#~ msgstr "Tīmekļa saskarne"
+
+#~ msgid "&Transfer History..."
+#~ msgstr "Lejupielāžu &vēsture..."
+
+#~ msgid "Downloads number:"
+#~ msgstr "Lejupielāžu skaits:"
+
+#~ msgid "Ask save location for every new download"
+#~ msgstr "Vaicāt saglabāšanas vietu katrai jaunai lejupielādei "
+
+#~ msgid "Place new downloads inside default folder:"
+#~ msgstr "Saglabāt lejupielādes noklusētajā mapē:"
+
+#~ msgid "Except for specific file types"
+#~ msgstr "Izņemot failiem ar norādītajiem tipiem"
+
+#~ msgid "Specify extension and target folder:"
+#~ msgstr "Norādiet paplašinājumu un mērķa mapi:"
+
+#~ msgid "File-Extension"
+#~ msgstr "Paplašinājums"
+
+#~ msgid "Default Folder"
+#~ msgstr "Noklusējuma mape"
+
+#~ msgid "Edit"
+#~ msgstr "Rediģēt"
+
+#~ msgid ""
+#~ "Use a regular expression for the extension. \n"
+#~ "Examples: *.tar.gz or *movies*.zip"
+#~ msgstr ""
+#~ "Paplašinājumam lietojiet regulāru izteiksmi. \n"
+#~ "Piemēram: *.tar.gz, vai *filmas*.zip"
+
+#~ msgid "Set as default folder"
+#~ msgstr "Iestatīt par noklusēto mapi"
+
+#~ msgid "Not Deleted"
+#~ msgstr "Nav izdzēsts"
+
+#, fuzzy
+#~| msgctxt "transfer state: delayed"
+#~| msgid "Delayed"
+#~ msgid "Delayed"
+#~ msgstr "Novēlots"
+
+#, fuzzy
+#~| msgid "Import Links"
+#~ msgid "Import &Links"
+#~ msgstr "Importēt saites"
+
+#~ msgid "Konqueror Integration disabled"
+#~ msgstr "Konqueror integrācija atslēgta"
+
+#~ msgid "Start downloading files immediately after startup"
+#~ msgstr "Sākt liejupielādes uzreiz pēc palaišanas"
+
+#~ msgid "kBi/s"
+#~ msgstr "kBi/s"
+
+#~ msgid "Show main window at startup"
+#~ msgstr "Rādīt galveno logu"
+
+#~ msgid "Maximum Shared Ration: (0 if no limit)"
+#~ msgstr "Maksimālā došanas attiecība (0 nav ierobežojuma)"
+
+#~ msgid "More than 50MiB and 100MiB"
+#~ msgstr "No 50 līdz 100 MiB"

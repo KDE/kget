@@ -1,0 +1,5483 @@
+# translation of kget.po to
+# Danish translation of kget
+# Copyright (C)
+#
+# Erik Kjær Pedersen <erik@binghamton.edu>, 2002, 2003, 2004, 2005, 2006.
+# Martin Schlander <mschlander@opensuse.org>, 2008.
+# Martin Schlander <mschlander@opensuse.org>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2018, 2020, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kget\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-02 00:45+0000\n"
+"PO-Revision-Date: 2022-08-08 17:28+0200\n"
+"Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
+"Language-Team: Danish <kde-i18n-doc@kde.org>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 21.12.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: conf/autopastemodel.cpp:174
+#, kde-format
+msgid "Pattern"
+msgstr "Mønster"
+
+#: conf/autopastemodel.cpp:176
+#, kde-format
+msgid "Syntax"
+msgstr "Syntaks"
+
+#: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
+#, kde-format
+msgid "Escape sequences"
+msgstr "Undvigesekvenser"
+
+#: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:39
+#, kde-format
+msgid "Regular expression"
+msgstr "Regulært udtryk"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
+#: conf/dlgadvanced.ui:17
+#, kde-format
+msgid "Enable system tray icon"
+msgstr "Aktivér statusikon"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
+#: conf/dlgadvanced.ui:26
+#, kde-format
+msgid "Execute action after all downloads have been finished:"
+msgstr "Udfør handling når alle downloads er færdige:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:91
+#, kde-format
+msgid "Quit KGet"
+msgstr "Afslut KGet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: conf/dlgadvanced.ui:42
+#, kde-format
+msgid "At startup:"
+msgstr "Ved opstart:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:50
+#, kde-format
+msgid "Restore Download State"
+msgstr "Gendan download-tilstand"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:55
+#, kde-format
+msgid "Start All Downloads"
+msgstr "Start alle downloads"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:60
+#, kde-format
+msgid "Stop All Downloads"
+msgstr "Stop alle downloads"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: conf/dlgadvanced.ui:71
+#, kde-format
+msgid "History backend:"
+msgstr "Historikmotor:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_EnableKUIServerIntegration)
+#: conf/dlgadvanced.ui:80
+#, kde-format
+msgid "Enable KDE Global Progress Tracking"
+msgstr "Aktivér KDE's globale fremgangsovervågning"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
+#: conf/dlgadvanced.ui:92
+#, kde-format
+msgid "Show every single download "
+msgstr "Vis hvert enkelt download "
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
+#: conf/dlgadvanced.ui:99
+#, kde-format
+msgid "Show overall progress"
+msgstr "Vis samlet fremgang"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: conf/dlgadvanced.ui:109
+#, kde-format
+msgid "Handle existing Files/Transfers"
+msgstr "Håndtér eksisterende filer/overførsler"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
+#: conf/dlgadvanced.ui:115
+#, kde-format
+msgid "Always ask"
+msgstr "Spørg altid"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAutomaticRename)
+#: conf/dlgadvanced.ui:122
+#, kde-format
+msgid "Automatic rename"
+msgstr "Omdøb automatisk"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
+#: conf/dlgadvanced.ui:129
+#, kde-format
+msgid "Overwrite"
+msgstr "Overskriv"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowDropTarget)
+#: conf/dlgappearance.ui:17
+#, kde-format
+msgid "Use Drop Target"
+msgstr "Brug dropmål"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
+#: conf/dlgappearance.ui:29
+#, kde-format
+msgid "Enable animations"
+msgstr "Aktivér animationer"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DirectoriesAsSuggestion)
+#: conf/dlggroups.ui:17
+#, kde-format
+msgid "Use default folders for groups as suggestion"
+msgstr "Brug standardmapper for grupper som foreslag"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
+#: conf/dlggroups.ui:24
+#, kde-format
+msgid "Ask for destination if there are no default folders"
+msgstr "Spørg om destination hvis der ikke er nogen standardmapper"
+
+#. i18n: ectx: property (text), widget (QPushButton, rename)
+#: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
+#, kde-format
+msgid "Rename"
+msgstr "Omdøb"
+
+#. i18n: ectx: property (text), widget (KIconButton, selectIcon)
+#: conf/dlggroups.ui:65
+#, kde-format
+msgid "Select Icon..."
+msgstr "Vælg ikon..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
+#: conf/dlgintegration.ui:17
+#, kde-format
+msgid "Use as download manager for Konqueror"
+msgstr "Brug til downloadhåndtering i Konqueror"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
+#: conf/dlgintegration.ui:24
+#, kde-format
+msgid "Monitor Clipboard for Files to Download"
+msgstr "Overvåg udklipsholderen for filer at downloade"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: conf/dlgintegration.ui:36
+#, kde-format
+msgid "Case sensitive:"
+msgstr "Versalfølsom:"
+
+#. i18n: ectx: property (text), widget (QPushButton, increase)
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#, kde-format
+msgid "&Increase Priority"
+msgstr "&Hæv prioritet"
+
+#. i18n: ectx: property (text), widget (QPushButton, decrease)
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#, kde-format
+msgid "&Decrease Priority"
+msgstr "&Sænk prioritet"
+
+#. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
+#: conf/dlgnetwork.ui:19
+#, kde-format
+msgid "Maximum downloads per group:"
+msgstr "Maksimalt antal downloads pr. gruppe:"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_MaxConnections)
+#: conf/dlgnetwork.ui:26
+#, kde-format
+msgctxt "no limit for maximum downloads has been set"
+msgid "No limit"
+msgstr "Ingen grænse"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_SpeedLimit)
+#: conf/dlgnetwork.ui:35
+#, kde-format
+msgid "Speed Limit"
+msgstr "Hastighedsgrænse"
+
+#. i18n: ectx: property (text), widget (QLabel, dllimitlb)
+#: conf/dlgnetwork.ui:44
+#, kde-format
+msgid "Global &download limit:"
+msgstr "Global &downloadgrænse:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalDownloadLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalUploadLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_TransferSpeedLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadSpin)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadSpin)
+#: conf/dlgnetwork.ui:54 conf/dlgnetwork.ui:80 conf/dlgnetwork.ui:103
+#: ui/groupsettingsdialog.ui:90 ui/groupsettingsdialog.ui:109
+#: ui/transfersettingsdialog.ui:54 ui/transfersettingsdialog.ui:70
+#, kde-format
+msgid " KiB/s"
+msgstr " KiB/s"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: conf/dlgnetwork.ui:70
+#, kde-format
+msgid "Global &upload limit:"
+msgstr "Global &uploadgrænse:"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_per_transfer)
+#: conf/dlgnetwork.ui:96
+#, kde-format
+msgid "Per transfer:"
+msgstr "Pr. overførsel:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ReconnectOnBroken)
+#: conf/dlgnetwork.ui:119
+#, kde-format
+msgid "Reconnect on Broken Connection"
+msgstr "Forbind igen ved afbrudt forbindelse"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_retries_2)
+#: conf/dlgnetwork.ui:128
+#, kde-format
+msgid "Number of retries:"
+msgstr "Antal gentagne forsøg:"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_after_2)
+#: conf/dlgnetwork.ui:142
+#, kde-format
+msgid "Retry after:"
+msgstr "Forsøg igen efter:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ReconnectDelay)
+#: conf/dlgnetwork.ui:149
+#, kde-format
+msgid " sec"
+msgstr " sek."
+
+#: conf/dlgwebinterface.cpp:44 conf/dlgwebinterface.cpp:59
+#, kde-format
+msgid "Could not open KWallet"
+msgstr "Kunne ikke åbne KWallet"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
+#: conf/dlgwebinterface.ui:20
+#, kde-format
+msgid "Enable Web Interface"
+msgstr "Aktivér webgrænseflade"
+
+#. i18n: ectx: property (text), widget (QLabel, portLabel)
+#: conf/dlgwebinterface.ui:32
+#: transfer-plugins/bittorrent/btsettingswidget.ui:32
+#, kde-format
+msgid "Port:"
+msgstr "Port:"
+
+#. i18n: ectx: property (text), widget (QLabel, userLabel)
+#: conf/dlgwebinterface.ui:46
+#, kde-format
+msgid "User:"
+msgstr "Bruger:"
+
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: conf/dlgwebinterface.ui:60
+#, kde-format
+msgid "Password:"
+msgstr "Adgangskode:"
+
+#: conf/integrationpreferences.cpp:35
+#, kde-format
+msgid "Include"
+msgstr "Inkludér"
+
+#: conf/integrationpreferences.cpp:36
+#, kde-format
+msgid "Exclude"
+msgstr "Ekskludér"
+
+#. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
+#: conf/kget.kcfg:176
+#, kde-format
+msgid "The width of the columns in the history view"
+msgstr "Bredden på kolonnerne i historikvisningen"
+
+#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:78
+#, kde-format
+msgid "Plugins"
+msgstr "Plugins"
+
+#: conf/preferencesdialog.cpp:52
+#, kde-format
+msgid "Xml"
+msgstr "Xml"
+
+#: conf/preferencesdialog.cpp:54
+#, kde-format
+msgid "Sqlite"
+msgstr "Sqlite"
+
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:370
+#, kde-format
+msgid "Turn Off Computer"
+msgstr "Sluk computeren"
+
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:375
+#, kde-format
+msgid "Hibernate Computer"
+msgstr "Sæt computeren i dvale"
+
+#: conf/preferencesdialog.cpp:60 mainwindow.cpp:380
+#, kde-format
+msgid "Suspend Computer"
+msgstr "Suspendér computeren"
+
+#: conf/preferencesdialog.cpp:71
+#, kde-format
+msgid "Appearance"
+msgstr "Udseende"
+
+#: conf/preferencesdialog.cpp:71
+#, kde-format
+msgid "Change appearance settings"
+msgstr "Ændr indstillinger for udseende"
+
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Groups"
+msgstr "Grupper"
+
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Manage the groups"
+msgstr "Håndtér grupperne"
+
+#. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
+#: conf/preferencesdialog.cpp:73
+#: transfer-plugins/bittorrent/btsettingswidget.ui:23
+#, kde-format
+msgid "Network"
+msgstr "Netværk"
+
+#: conf/preferencesdialog.cpp:73
+#, kde-format
+msgid "Network and Downloads"
+msgstr "Netværk og downloads"
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Web Interface"
+msgstr "Webgrænseflade"
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Control KGet over a Network or the Internet"
+msgstr "Betjen KGet via netværk eller internettet"
+
+#: conf/preferencesdialog.cpp:75
+#, kde-format
+msgid "Verification"
+msgstr "Verificering"
+
+#: conf/preferencesdialog.cpp:76
+#, kde-format
+msgctxt "integration of KGet with other applications"
+msgid "Integration"
+msgstr "Integration"
+
+#: conf/preferencesdialog.cpp:77
+#, kde-format
+msgctxt "Advanced Options"
+msgid "Advanced"
+msgstr "Avanceret"
+
+#: conf/preferencesdialog.cpp:77
+#, kde-format
+msgid "Advanced Options"
+msgstr "Avancerede tilvalg"
+
+#: conf/preferencesdialog.cpp:78
+#, kde-format
+msgid "Transfer Plugins"
+msgstr "Overførselsplugins"
+
+#: conf/transfersgrouptree.cpp:113 conf/transfersgrouptree.cpp:118
+#, kde-format
+msgid "New Group"
+msgstr "Ny gruppe"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ChecksumAutomaticVerification)
+#: conf/verificationpreferences.ui:17
+#, kde-format
+msgid "Automatic checksums verification"
+msgstr "Automatisk verificering af tjeksummer"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: conf/verificationpreferences.ui:32
+#, kde-format
+msgid "Used checksum:"
+msgstr "Anvendt tjeksum:"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_4)
+#: conf/verificationpreferences.ui:51
+#, kde-format
+msgid "Weak (fastest)"
+msgstr "Svag (hurtigt)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_5)
+#: conf/verificationpreferences.ui:61
+#, kde-format
+msgid "Strong (recommended)"
+msgstr "Stærk (anbefales)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_6)
+#: conf/verificationpreferences.ui:71
+#, kde-format
+msgid "Strongest (slowest)"
+msgstr "Stærkest (langsommest)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, signatureGroup)
+#. i18n: ectx: property (title), widget (QGroupBox, sigGroup)
+#. i18n: ectx: property (text), widget (QPushButton, signature)
+#: conf/verificationpreferences.ui:87 ui/signaturedlg.ui:20
+#: ui/transfersettingsdialog.ui:172
+#, kde-format
+msgid "Signature"
+msgstr "Signatur"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticVerification)
+#: conf/verificationpreferences.ui:93
+#, kde-format
+msgid "Automatic verification"
+msgstr "Automatisk verificering"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticDownloading)
+#: conf/verificationpreferences.ui:100
+#, kde-format
+msgid "Automatic downloading of missing keys"
+msgstr "Automatisk download af manglende nøgler"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: conf/verificationpreferences.ui:123
+#, kde-format
+msgid "Keyservers:"
+msgstr "Nøgleservere:"
+
+#: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
+#: core/kget.cpp:1396 transfer-plugins/metalink/metalink.cpp:199
+#: transfer-plugins/metalink/metalinkhttp.cpp:241
+#: transfer-plugins/metalink/metalinkxml.cpp:198
+#: ui/metalinkcreator/metalinkcreator.cpp:149
+#: ui/metalinkcreator/metalinkcreator.cpp:166
+#, kde-format
+msgid "Error"
+msgstr "Fejl"
+
+#: core/datasourcefactory.cpp:279
+#, kde-format
+msgid "Filesize is larger than maximum file size supported by VFAT."
+msgstr ""
+"Filstørrelsen er større end den maksimale filstørrelse der understøttes af "
+"VFAT."
+
+#: core/datasourcefactory.cpp:624
+#, kde-format
+msgctxt "A mirror is removed when the file has the wrong download size"
+msgid "%1 removed as it did report a wrong file size."
+msgstr "%1 fjernet da den rapporterede forkert filstørrelse."
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "file in a filesystem"
+msgid "File"
+msgstr "Fil"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "status of the download"
+msgid "Status"
+msgstr "Status"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "size of the download"
+msgid "Size"
+msgstr "Størrelse"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "checksum of a file"
+msgid "Checksum"
+msgstr "Tjeksum"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "signature of a file"
+msgid "Signature"
+msgstr "Signatur"
+
+#: core/keydownloader.cpp:74
+#, kde-format
+msgid ""
+"No server for downloading keys is specified in settings. Downloading aborted."
+msgstr ""
+"Ingen server angivet til download af nøgler i indstillingerne. Download "
+"afbrudt."
+
+#: core/keydownloader.cpp:75 core/keydownloader.cpp:95
+#, kde-format
+msgid "No key server"
+msgstr "Ingen nøgleserver"
+
+#: core/keydownloader.cpp:94
+#, kde-format
+msgid ""
+"No useful key server found, key not downloaded. Add more servers to the "
+"settings or restart KGet and retry downloading."
+msgstr ""
+"Ingen brugbar nøgleserver fundet, nøgle ikke downloadet. Føj flere servere "
+"til indstillingerne eller genstart KGet og prøv at downloade igen."
+
+#: core/kget.cpp:119
+#, kde-format
+msgid "Are you sure that you want to remove the group named %1?"
+msgstr "Vil du virkelig fjerne gruppen med navnet %1?"
+
+#: core/kget.cpp:120
+#, kde-format
+msgid "Remove Group"
+msgstr "Fjern gruppe"
+
+#: core/kget.cpp:144
+#, kde-format
+msgid "Are you sure that you want to remove the following groups?"
+msgstr "Vil du virkelig fjerne følgende grupper?"
+
+#: core/kget.cpp:146
+#, kde-format
+msgid "Remove groups"
+msgstr "Fjern grupper"
+
+#: core/kget.cpp:252
+#, kde-format
+msgid ""
+"<p>The following transfer has been added to the download list:</p><p style="
+"\"font-size: small;\">%1</p>"
+msgstr ""
+"<p>Følgende overførsel er blevet føjet til downloadlisten:</p><p style="
+"\"font-size: small;\">%1</p>"
+
+#: core/kget.cpp:253 core/kget.cpp:350
+#, kde-format
+msgid "Download added"
+msgstr "Download tilføjet"
+
+#: core/kget.cpp:345
+#, kde-format
+msgid "<p>The following transfer has been added to the download list:</p>"
+msgstr "<p>Følgende overførsel er blevet føjet til downloadlisten:</p>"
+
+#: core/kget.cpp:347
+#, kde-format
+msgid "<p>The following transfers have been added to the download list:</p>"
+msgstr "<p>Følgende overførsler er blevet føjet til downloadlisten:</p>"
+
+#: core/kget.cpp:515 core/kget.cpp:564
+#, kde-format
+msgid "My Downloads"
+msgstr "Mine downloads"
+
+#: core/kget.cpp:574
+#, kde-format
+msgid ""
+"The file %1 already exists.\n"
+"Overwrite?"
+msgstr ""
+"Filen %1 findes allerede.\n"
+"Overskriv?"
+
+#: core/kget.cpp:575
+#, kde-format
+msgid "Overwrite existing file?"
+msgstr "Overskriv eksisterende fil?"
+
+#: core/kget.cpp:596 ui/metalinkcreator/metalinkcreator.cpp:166
+#, kde-format
+msgid "Unable to save to: %1"
+msgstr "Kan ikke gemme til: %1"
+
+#: core/kget.cpp:899
+#, kde-format
+msgid ""
+"<p>The following URL cannot be downloaded, its protocol is not supported by "
+"KGet:</p>"
+msgid_plural ""
+"<p>The following URLs cannot be downloaded, their protocols are not "
+"supported by KGet:</p>"
+msgstr[0] ""
+"<p>Følgende URL kan ikke downloades, da dens protokol ikke er understøttet "
+"af KGet:</p>"
+msgstr[1] ""
+"<p>Følgende URL'er kan ikke downloades, da deres protokoller ikke er "
+"understøttet af KGet:</p>"
+
+#: core/kget.cpp:909
+#, kde-format
+msgid "Protocol unsupported"
+msgstr "Ikke-understøttet protokol"
+
+#: core/kget.cpp:963 ui/newtransferdialog.cpp:53
+#, kde-format
+msgid "New Download"
+msgstr "Nyt download"
+
+#: core/kget.cpp:963
+#, kde-format
+msgid "Enter URL:"
+msgstr "Indtast URL:"
+
+#: core/kget.cpp:983
+#, kde-format
+msgctxt "@title:window"
+msgid "Choose Directory"
+msgstr "Vælg en mappe"
+
+#: core/kget.cpp:1002
+#, kde-format
+msgctxt "@title:window"
+msgid "Save As"
+msgstr "Gem som"
+
+#: core/kget.cpp:1015 core/urlchecker.cpp:366
+#, kde-format
+msgid ""
+"Malformed URL:\n"
+"%1"
+msgstr ""
+"Misdannet URL:\n"
+"%1"
+
+#: core/kget.cpp:1022 core/urlchecker.cpp:368
+#, kde-format
+msgid ""
+"Malformed URL, protocol missing:\n"
+"%1"
+msgstr ""
+"Misdannet URL, manglende protokol:\n"
+"%1"
+
+#: core/kget.cpp:1033 core/urlchecker.cpp:424
+#, kde-format
+msgid ""
+"You have already completed a download from the location: \n"
+"\n"
+"%1\n"
+"\n"
+"Download it again?"
+msgstr ""
+"Du har allerede gennemført et download fra den placering: \n"
+"\n"
+"%1\n"
+"\n"
+"Vil du downloade den igen?"
+
+#: core/kget.cpp:1034 core/urlchecker.cpp:641
+#, kde-format
+msgid "Download it again?"
+msgstr "Download den igen?"
+
+#: core/kget.cpp:1046 core/urlchecker.cpp:426
+#, kde-format
+msgid ""
+"You have a download in progress from the location: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete it and download again?"
+msgstr ""
+"Du har et download i gang fra den placering: \n"
+"\n"
+"%1\n"
+"\n"
+"Vil du slette det og downloade igen?"
+
+#: core/kget.cpp:1047 core/urlchecker.cpp:638
+#, kde-format
+msgid "Delete it and download again?"
+msgstr "Slet det og download igen?"
+
+#: core/kget.cpp:1070 core/kget.cpp:1077
+#, kde-format
+msgid "Directory is not writable"
+msgstr "Der kan ikke skrives til mappen"
+
+#: core/kget.cpp:1105
+#, kde-format
+msgid ""
+"You have already downloaded that file from another location.\n"
+"\n"
+"Download and delete the previous one?"
+msgstr ""
+"Du har allerede downloadet den fil fra en anden placering.\n"
+"\n"
+"Vil du downloade den og slette den forrige?"
+
+#: core/kget.cpp:1106 core/urlchecker.cpp:650
+#, kde-format
+msgid "File already downloaded. Download anyway?"
+msgstr "Filen er allerede downloadet. Vil du downloade alligevel?"
+
+#: core/kget.cpp:1115
+#, kde-format
+msgid "You are already downloading the same file"
+msgstr "Du downloader allerede den samme fil"
+
+#: core/kget.cpp:1119 core/kget.cpp:1122 core/urlchecker.cpp:653
+#: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:480
+#: transfer-plugins/metalink/metalink.cpp:716
+#, kde-format
+msgid "File already exists"
+msgstr "Filen findes allerede"
+
+#: core/kget.cpp:1223
+#, kde-format
+msgid "Internet connection established, resuming transfers."
+msgstr "Internetforbindelse oprettet, genoptager overførsler."
+
+#: core/kget.cpp:1228
+#, kde-format
+msgid "No internet connection, stopping transfers."
+msgstr "Ingen internetforbindelse, stopper overførsler."
+
+#: core/kget.cpp:1242
+#, kde-format
+msgid "Plugin loader could not load the plugin %1: %2."
+msgstr "Plugin-indlæseren kunne ikke indlæse pluginet %1: %2."
+
+#: core/kget.cpp:1257
+#, kde-format
+msgid ""
+"Not deleting\n"
+"%1\n"
+"as it is a directory."
+msgstr ""
+"Sletter ikke\n"
+"%1\n"
+"da det er en mappe."
+
+#: core/kget.cpp:1268
+#, kde-format
+msgid ""
+"Not deleting\n"
+"%1\n"
+"as it is not a local file."
+msgstr ""
+"Sletter ikke\n"
+"%1\n"
+"da det ikke er en lokal fil."
+
+#: core/kget.cpp:1389
+#, kde-format
+msgid ""
+"<p>The following file has finished downloading:</p><p style=\"font-size: "
+"small;\">%1</p>"
+msgstr ""
+"<p>Følgende fil er blevet downloadet:</p><p style=\"font-size: small;\">%1</"
+"p>"
+
+#: core/kget.cpp:1390
+#, kde-format
+msgid "Download completed"
+msgstr "Download gennemført"
+
+#: core/kget.cpp:1393
+#, kde-format
+msgid ""
+"<p>The following transfer has been started:</p><p style=\"font-size: small;"
+"\">%1</p>"
+msgstr ""
+"<p>Følgende overførsel er blevet startet:</p><p style=\"font-size: small;\">"
+"%1</p>"
+
+#: core/kget.cpp:1394
+#, kde-format
+msgid "Download started"
+msgstr "Download startet"
+
+#: core/kget.cpp:1396
+#, kde-format
+msgid ""
+"<p>There has been an error in the following transfer:</p><p style=\"font-"
+"size: small;\">%1</p><p>The error message is:</p><p style=\"font-size: small;"
+"\">%2</p>"
+msgstr ""
+"<p>Der har været en fejl i følgende overførsel:</p><p style=\"font-size: "
+"small;\">%1</p><p>Fejlmeddelelsen er:</p><p style=\"font-size: small;\">%2</"
+"p>"
+
+#: core/kget.cpp:1401
+#, kde-format
+msgid "Resolve"
+msgstr "Løs"
+
+#: core/kget.cpp:1451
+#, kde-format
+msgid "KGet is now closing, as all downloads have completed."
+msgstr "KGet lukker nu, da alle downloads er gennemført."
+
+#: core/kget.cpp:1455
+#, kde-format
+msgid "The computer will now turn off, as all downloads have completed."
+msgstr "Computeren vil slukke nu, da alle downloads er gennemført."
+
+#: core/kget.cpp:1455
+#, kde-format
+msgctxt "Shutting down computer"
+msgid "Shutdown"
+msgstr "Nedlukning"
+
+#: core/kget.cpp:1458
+#, kde-format
+msgid "The computer will now suspend to disk, as all downloads have completed."
+msgstr ""
+"Computeren vil suspendere til disk nu, da alle downloads er gennemført."
+
+#: core/kget.cpp:1458
+#, kde-format
+msgctxt "Hibernating computer"
+msgid "Hibernating"
+msgstr "Dvale"
+
+#: core/kget.cpp:1461
+#, kde-format
+msgid "The computer will now suspend to RAM, as all downloads have completed."
+msgstr "Computeren vil suspendere til ram nu, da alle downloads er gennemført."
+
+#: core/kget.cpp:1461
+#, kde-format
+msgctxt "Suspending computer"
+msgid "Suspending"
+msgstr "Suspendering"
+
+#: core/kget.cpp:1469
+#, kde-format
+msgctxt "abort the proposed action"
+msgid "Abort"
+msgstr "Afbryd"
+
+#: core/kget.cpp:1479
+#, kde-format
+msgid "<p>All transfers have been finished.</p>"
+msgstr "<p>Alle overførsler er blevet gennemført.</p>"
+
+#: core/kget.cpp:1480
+#, kde-format
+msgid "Downloads completed"
+msgstr "Download gennemført"
+
+#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:526
+#: ui/tray.cpp:44
+#, kde-format
+msgid "KGet"
+msgstr "KGet"
+
+#: core/kgetglobaljob.cpp:57
+#, kde-format
+msgid "KGet is downloading %1 file"
+msgid_plural "KGet is downloading %1 files"
+msgstr[0] "KGet downloader %1 fil"
+msgstr[1] "KGet downloader %1 filer"
+
+#: core/kgetkjobadapter.cpp:47
+#, kde-format
+msgid "KGet Transfer"
+msgstr "KGet-overførsel"
+
+#: core/linkimporter.cpp:83
+#, kde-format
+msgid "Error trying to get %1"
+msgstr "Fejl under forsøg på at hente %1"
+
+#: core/signature.cpp:230
+#, kde-format
+msgid "The key to verify the signature is missing, do you want to download it?"
+msgstr "Nøglen til verificering af signaturen mangler, vil du downloade den?"
+
+#: core/signature.cpp:252
+#, kde-format
+msgid ""
+"The signature could not be verified for %1. See transfer settings for more "
+"information."
+msgstr ""
+"Signaturen kunne ikke verificeres for %1. Se overførselsindstillingerne for "
+"mere information."
+
+#: core/signature.cpp:253
+#, kde-format
+msgid "Signature not verified"
+msgstr "Signatur ikke verificeret"
+
+#: core/transfer.cpp:31
+msgid "Downloading...."
+msgstr "Downloader..."
+
+#: core/transfer.cpp:32
+msgctxt "transfer state: delayed"
+msgid "Delayed"
+msgstr "Forsinket"
+
+#: core/transfer.cpp:33 core/transfer.cpp:232 core/transfer.cpp:251
+#: transfer-plugins/bittorrent/bttransfer.cpp:308
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:94
+#, kde-format
+msgctxt "transfer state: stopped"
+msgid "Stopped"
+msgstr "Stoppet"
+
+#: core/transfer.cpp:34
+msgctxt "transfer state: aborted"
+msgid "Aborted"
+msgstr "Afbrudt"
+
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:225
+#: transfer-plugins/bittorrent/bttransfer.cpp:304
+#, kde-format
+msgctxt "transfer state: finished"
+msgid "Finished"
+msgstr "Færdig"
+
+#: core/transfer.cpp:37 transfer-plugins/bittorrent/bttransfer.cpp:169
+#, kde-format
+msgctxt "changing the destination of the file"
+msgid "Changing destination"
+msgstr "Ændring af destination"
+
+#: core/transfergrouphandler.cpp:96
+#, kde-format
+msgid "1 Item"
+msgid_plural "%1 Items"
+msgstr[0] "1 element"
+msgstr[1] "%1 elementer"
+
+#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:150
+#: ui/transferdetails.cpp:93
+#, kde-format
+msgid "%1/s"
+msgstr "%1/s"
+
+#: core/transfergrouphandler.cpp:168
+#, kde-format
+msgctxt "start transfergroup downloads"
+msgid "Start"
+msgstr "Start"
+
+#: core/transfergrouphandler.cpp:174
+#, kde-format
+msgctxt "stop transfergroup downloads"
+msgid "Stop"
+msgstr "Stop"
+
+#: core/transferhandler.cpp:137
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:29
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:30
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:31
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:32
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:33
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:34
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:35
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:36
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:61
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:62
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:65
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:66
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:69
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:72
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:75
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:78
+#: ui/transfersviewdelegate.cpp:395
+#, kde-format
+msgctxt "not available"
+msgid "n/a"
+msgstr "utilg."
+
+#: core/transferhandler.cpp:145 ui/transferdetails.cpp:89
+#, kde-format
+msgid "Stalled"
+msgstr "Hænger"
+
+#: core/transfertreemodel.cpp:648
+#, kde-format
+msgctxt "name of download"
+msgid "Name"
+msgstr "Navn"
+
+#: core/transfertreemodel.cpp:650
+#, kde-format
+msgctxt "status of download"
+msgid "Status"
+msgstr "Status"
+
+#: core/transfertreemodel.cpp:652
+#, kde-format
+msgctxt "size of download"
+msgid "Size"
+msgstr "Størrelse"
+
+#: core/transfertreemodel.cpp:654
+#, kde-format
+msgctxt "progress of download"
+msgid "Progress"
+msgstr "Fremgang"
+
+#: core/transfertreemodel.cpp:656
+#, kde-format
+msgctxt "speed of download"
+msgid "Speed"
+msgstr "Hastighed"
+
+#: core/transfertreemodel.cpp:658
+#, kde-format
+msgctxt "remaining time of download"
+msgid "Remaining Time"
+msgstr "Tid tilbage"
+
+#: core/urlchecker.cpp:51
+#, kde-format
+msgid "Question"
+msgstr "Spørgsmål"
+
+#: core/urlchecker.cpp:61
+#, kde-format
+msgid "Appl&y to all"
+msgstr "An&vend på alle"
+
+#: core/urlchecker.cpp:300 core/urlchecker.cpp:340
+#, kde-format
+msgid "No download directory specified."
+msgstr "Ingen downloadmappe angivet."
+
+#: core/urlchecker.cpp:302
+#, kde-format
+msgid "Invalid download directory specified."
+msgstr "Ugyldig downloadmappe angivet."
+
+#: core/urlchecker.cpp:304
+#, kde-format
+msgid "Download directory is not writeable."
+msgstr "Downloadmappen er skrivebeskyttet."
+
+#: core/urlchecker.cpp:312 core/urlchecker.cpp:352
+#, kde-format
+msgid "No download destination specified."
+msgstr "Ingen downloaddestination angivet:"
+
+#: core/urlchecker.cpp:314
+#, kde-format
+msgid "Invalid download destination specified."
+msgstr "Ugyldig downloaddestination angivet."
+
+#: core/urlchecker.cpp:316
+#, kde-format
+msgid "Download destination is not writeable."
+msgstr "Downloaddestinationen er skrivebeskyttet."
+
+#: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
+#: core/urlchecker.cpp:468
+#, kde-format
+msgid "No URL specified."
+msgstr "Ingen URL angivet."
+
+#: core/urlchecker.cpp:326
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:96
+#: transfer-plugins/bittorrent/bttransfer.cpp:266
+#, kde-format
+msgid "Malformed URL."
+msgstr "Ugyldig URL."
+
+#: core/urlchecker.cpp:328
+#, kde-format
+msgid "Malformed URL, protocol missing."
+msgstr "Ugyldig URL, protokol mangler."
+
+#: core/urlchecker.cpp:330
+#, kde-format
+msgid "Malformed URL, host missing."
+msgstr "Ugyldig URL, værtsnavn mangler."
+
+#: core/urlchecker.cpp:342
+#, kde-format
+msgid ""
+"Invalid download directory specified:\n"
+"%1"
+msgstr ""
+"Ugyldig downloadmappe angivet:\n"
+"%1"
+
+#: core/urlchecker.cpp:344
+#, kde-format
+msgid ""
+"Download directory is not writeable:\n"
+"%1"
+msgstr ""
+"Downloadmappen er skrivebeskyttet:\n"
+"%1"
+
+#: core/urlchecker.cpp:354
+#, kde-format
+msgid ""
+"Invalid download destination specified:\n"
+"%1"
+msgstr ""
+"Ugyldig downloaddestination angivet:\n"
+"%1"
+
+#: core/urlchecker.cpp:356
+#, kde-format
+msgid ""
+"Download destination is not writeable:\n"
+"%1"
+msgstr ""
+"Downloaddestinationen er skrivebeskyttet:\n"
+"%1"
+
+#: core/urlchecker.cpp:370
+#, kde-format
+msgid ""
+"Malformed URL, host missing:\n"
+"%1"
+msgstr ""
+"Ugyldig URL, værtsnavn mangler:\n"
+"%1"
+
+#: core/urlchecker.cpp:386 core/urlchecker.cpp:398
+#, kde-format
+msgid "File already exists. Overwrite it?"
+msgstr "Filen findes allerede. Vil du overskrive den?"
+
+#: core/urlchecker.cpp:388 core/urlchecker.cpp:414
+#, kde-format
+msgid ""
+"You have already downloaded that file from another location.\n"
+"Download and delete the previous one?"
+msgstr ""
+"Du har allerede downloadet den fil fra en anden placering.\n"
+"Vil du downloade den og slette den forrige?"
+
+#: core/urlchecker.cpp:390 core/urlchecker.cpp:416
+#, kde-format
+msgid ""
+"You are already downloading that file from another location.\n"
+"Download and delete the previous one?"
+msgstr ""
+"Du er allerede ved at downloade den fil fra en anden placering.\n"
+"Vil du downloade den og slette den forrige?"
+
+#: core/urlchecker.cpp:400
+#, kde-format
+msgid ""
+"You have already completed a download from that location. Download it again?"
+msgstr ""
+"Du har allerede gennemført et download fra den placering. Vil du downloade "
+"den igen?"
+
+#: core/urlchecker.cpp:402
+#, kde-format
+msgid ""
+"You have a download in progress from that location.\n"
+"Delete it and download again?"
+msgstr ""
+"Du har et download i gang fra den placering.\n"
+"Vil du slette det og downloade igen?"
+
+#: core/urlchecker.cpp:412
+#, kde-format
+msgid ""
+"File already exists:\n"
+"%1\n"
+"Overwrite it?"
+msgstr ""
+"Filen findes allerede.\n"
+"%1\n"
+"Vil du overskrive den?"
+
+#: core/urlchecker.cpp:456
+#, kde-format
+msgid "Malformed URLs."
+msgstr "Ugyldige URL'er."
+
+#: core/urlchecker.cpp:458
+#, kde-format
+msgid "Malformed URLs, protocol missing."
+msgstr "Ugyldige URL'er, protokol mangler."
+
+#: core/urlchecker.cpp:460
+#, kde-format
+msgid "Malformed URLs, host missing."
+msgstr "Ugyldige URL'er, værtsnavn mangler."
+
+#: core/urlchecker.cpp:470
+#, kde-format
+msgid ""
+"Malformed URLs:\n"
+"%1"
+msgstr ""
+"Ugyldige URL'er:\n"
+"%1"
+
+#: core/urlchecker.cpp:472
+#, kde-format
+msgid ""
+"Malformed URLs, protocol missing:\n"
+"%1"
+msgstr ""
+"Ugyldige URL'er, protokol mangler:\n"
+"%1"
+
+#: core/urlchecker.cpp:474
+#, kde-format
+msgid ""
+"Malformed URLs, host missing:\n"
+"%1"
+msgstr ""
+"Ugyldige URL'er, værtsnavn mangler:\n"
+"%1"
+
+#: core/urlchecker.cpp:476
+#, kde-format
+msgid ""
+"Destinations are not writable:\n"
+"%1"
+msgstr ""
+"Destinationerne er skrivebeskyttede:\n"
+"%1"
+
+#: core/urlchecker.cpp:500
+#, kde-format
+msgid "Files exist already. Overwrite them?"
+msgstr "Filerne findes allerede. Vil du overskrive dem?"
+
+#: core/urlchecker.cpp:502
+#, kde-format
+msgid ""
+"You have already completed downloads at those destinations. Download them "
+"again?"
+msgstr ""
+"Du har allerede gennemført downloads til disse destinationer. Vil du "
+"downloade dem igen?"
+
+#: core/urlchecker.cpp:504
+#, kde-format
+msgid ""
+"You have downloads in progress to these destinations.\n"
+"Delete them and download again?"
+msgstr ""
+"Du har downloads i gang til disse destinationer.\n"
+"Vil du slette dem og downloade igen?"
+
+#: core/urlchecker.cpp:512
+#, kde-format
+msgid ""
+"You have already completed downloads from these locations. Download them "
+"again?"
+msgstr ""
+"Du har allerede gennemført download fra disse placeringer. Vil du downloade "
+"dem igen?"
+
+#: core/urlchecker.cpp:514
+#, kde-format
+msgid ""
+"You have downloads in progress from these locations.\n"
+"Delete them and download again?"
+msgstr ""
+"Du har downloads i gang fra disse placeringer.\n"
+"Vil du slette dem og downloade igen?"
+
+#: core/urlchecker.cpp:523
+#, kde-format
+msgid ""
+"Files exist already:\n"
+"%1\n"
+"Overwrite them?"
+msgstr ""
+"Filerne findes allerede:\n"
+"%1\n"
+"Vil du overskrive dem?"
+
+#: core/urlchecker.cpp:525
+#, kde-format
+msgid ""
+"You have already completed downloads at those destinations: \n"
+"\n"
+"%1\n"
+"\n"
+" Download them again?"
+msgstr ""
+"Du har allerede gennemført downloads til disse destinationer: \n"
+"\n"
+"%1\n"
+"\n"
+"Vil du downloade dem igen?"
+
+#: core/urlchecker.cpp:527
+#, kde-format
+msgid ""
+"You have downloads in progress to these destinations: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete them and download again?"
+msgstr ""
+"Du har downloads i gang til disse destinationer: \n"
+"\n"
+"%1\n"
+"\n"
+"Vil du slette dem og downloade igen?"
+
+#: core/urlchecker.cpp:535
+#, kde-format
+msgid ""
+"You have already completed downloads from these locations: \n"
+"\n"
+"%1\n"
+"\n"
+"Download them again?"
+msgstr ""
+"Du har allerede gennemført downloads fra disse placeringer: \n"
+"\n"
+"%1\n"
+"\n"
+"Vil du downloade dem igen?"
+
+#: core/urlchecker.cpp:537
+#, kde-format
+msgid ""
+"You have downloads in progress from these locations: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete them and download again?"
+msgstr ""
+"Du har downloads i gang fra disse placeringer: \n"
+"\n"
+"%1\n"
+"\n"
+"Vil du slette dem og downloade igen?"
+
+#: core/verificationmodel.cpp:152
+#, kde-format
+msgctxt "the type of the hash, e.g. MD5"
+msgid "Type"
+msgstr "Type"
+
+#: core/verificationmodel.cpp:154
+#, kde-format
+msgctxt "the used hash for verification"
+msgid "Hash"
+msgstr "Hash"
+
+#: core/verificationmodel.cpp:156
+#, kde-format
+msgctxt "verification-result of a file, can be true/false"
+msgid "Verified"
+msgstr "Verificeret"
+
+#: main.cpp:104
+#, kde-format
+msgid "An advanced download manager by KDE"
+msgstr "Avanceret download-håndtering fra KDE"
+
+#: main.cpp:106
+#, kde-format
+msgid ""
+"(C) 2005 - 2014, The KGet developers\n"
+"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2002, Carsten Pfeiffer\n"
+"(C) 1998 - 2000, Matej Koss"
+msgstr ""
+"(C) 2005 - 2014, KGet-udviklerne\n"
+"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2002, Carsten Pfeiffer\n"
+"(C) 1998 - 2000, Matej Koss"
+
+#: main.cpp:110
+#, kde-format
+msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
+msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
+
+#: main.cpp:112
+#, kde-format
+msgid "Lukas Appelhans"
+msgstr "Lukas Appelhans"
+
+#: main.cpp:112
+#, kde-format
+msgid "Maintainer, Core Developer, Torrent Plugin Author"
+msgstr "Vedligeholder, hovedudvikler, ophavsmand til torrent-plugin"
+
+#: main.cpp:113
+#, kde-format
+msgid "Dario Massarin"
+msgstr "Dario Massarin"
+
+#: main.cpp:113 main.cpp:114 main.cpp:116
+#, kde-format
+msgid "Core Developer"
+msgstr "Hovedudvikler"
+
+#: main.cpp:114
+#, kde-format
+msgid "Urs Wolfer"
+msgstr "Urs Wolfer"
+
+#: main.cpp:115
+#, kde-format
+msgid "Manolo Valdes"
+msgstr "Manolo Valdes"
+
+#: main.cpp:115
+#, kde-format
+msgid "Core Developer, Multithreaded Plugin Author"
+msgstr "Hovedudvikler, udikler af plugin til flere tråde"
+
+#: main.cpp:116
+#, kde-format
+msgid "Matthias Fuchs"
+msgstr "Matthias Fuchs"
+
+#: main.cpp:117
+#, kde-format
+msgid "Javier Goday"
+msgstr "Javier Goday"
+
+#: main.cpp:117
+#, kde-format
+msgid "Developer"
+msgstr "Udvikler"
+
+#: main.cpp:118
+#, kde-format
+msgid "Aish Raj Dahal"
+msgstr "Aish Raj Dahal"
+
+#: main.cpp:118
+#, kde-format
+msgid "Google Summer of Code Student"
+msgstr "Google Summer of Code-student"
+
+#: main.cpp:119
+#, kde-format
+msgid "Ernesto Rodriguez Ortiz"
+msgstr "Ernesto Rodriguez Ortiz"
+
+#: main.cpp:119
+#, kde-format
+msgid "Mms Plugin Author"
+msgstr "Ophavsmand til mms-plugin"
+
+#: main.cpp:120
+#, kde-format
+msgid "Patrick Charbonnier"
+msgstr "Patrick Charbonnier"
+
+#: main.cpp:120 main.cpp:121 main.cpp:122
+#, kde-format
+msgid "Former Developer"
+msgstr "Tidligere udvikler"
+
+#: main.cpp:121
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "Carsten Pfeiffer"
+
+#: main.cpp:122
+#, kde-format
+msgid "Matej Koss"
+msgstr "Matej Koss"
+
+#: main.cpp:123
+#, kde-format
+msgid "Joris Guisson"
+msgstr "Joris Guisson"
+
+#: main.cpp:123
+#, kde-format
+msgid "BTCore (KTorrent) Developer"
+msgstr "BTCore-udvikler (KTorrrent)"
+
+#: main.cpp:124
+#, kde-format
+msgid "Mensur Zahirovic (Nookie)"
+msgstr "Mensur Zahirovic (Nookie)"
+
+#: main.cpp:124
+#, kde-format
+msgid "Design of Web Interface"
+msgstr "Design af webgrænseflade"
+
+#: main.cpp:126
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Erik Kjær Pedersen,Martin Schlander"
+
+#: main.cpp:126
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "erik@binghamton.edu,mschlander@opensuse.org"
+
+#: main.cpp:133
+#, kde-format
+msgid "Start KGet with drop target"
+msgstr "Start kget med drop-mål"
+
+#: main.cpp:134
+#, kde-format
+msgid "Start KGet with hidden main window"
+msgstr "Start KGet med skjult hovedvindue"
+
+#: main.cpp:135
+#, kde-format
+msgid "Start KGet without drop target animation"
+msgstr "Start KGet uden dropmål-animation"
+
+#: main.cpp:137
+#, kde-format
+msgid "Execute Unit Testing"
+msgstr "Kør enhedstest"
+
+#: main.cpp:139
+#, kde-format
+msgid "URL(s) to download"
+msgstr "URL'er at downloade"
+
+#: mainwindow.cpp:147
+#, kde-format
+msgid "&New Download..."
+msgstr "&Nyt download..."
+
+#: mainwindow.cpp:154
+#, kde-format
+msgid "&Import Transfers..."
+msgstr "&Importér overførsler..."
+
+#: mainwindow.cpp:161
+#, kde-format
+msgid "&Export Transfers List..."
+msgstr "&Eksportér overførselsliste..."
+
+#: mainwindow.cpp:168
+#, kde-format
+msgid "&Create a Metalink..."
+msgstr "&Opret et metalink..."
+
+#: mainwindow.cpp:174
+#, kde-format
+msgid "Top Priority"
+msgstr "Højeste prioritet"
+
+#: mainwindow.cpp:181
+#, kde-format
+msgid "Least Priority"
+msgstr "Laveste prioritet"
+
+#: mainwindow.cpp:188
+#, kde-format
+msgid "Increase Priority"
+msgstr "Hæv prioritet"
+
+#: mainwindow.cpp:195
+#, kde-format
+msgid "Decrease Priority"
+msgstr "Sænk prioritet"
+
+#: mainwindow.cpp:203
+#, kde-format
+msgctxt "@action"
+msgid "Delete Group"
+msgstr "Slet gruppe"
+
+#: mainwindow.cpp:209
+#, kde-format
+msgctxt "@action"
+msgid "Rename Group..."
+msgstr "Omdøb gruppe..."
+
+#: mainwindow.cpp:214
+#, kde-format
+msgid "Set Icon..."
+msgstr "Vælg ikon..."
+
+#: mainwindow.cpp:220
+#, kde-format
+msgid "Auto-Paste Mode"
+msgstr "'Indsæt automatisk'-tilstand"
+
+#: mainwindow.cpp:223
+#, kde-format
+msgid ""
+"<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
+"When set, KGet will periodically scan the clipboard for URLs and paste them "
+"automatically."
+msgstr ""
+"<b>Indsæt automatisk</b>-knappen slår 'indsæt automatisk'-tilstand til og "
+"fra.\n"
+"Når den er sat, vil KGet periodisk scanne udklipsholderen efter URL'er og "
+"indsætte dem automatisk."
+
+#: mainwindow.cpp:229
+#, kde-format
+msgid "Use KGet as Konqueror Download Manager"
+msgstr "Brug KGet til downloadhåndtering i Konqueror"
+
+#: mainwindow.cpp:247
+#, kde-format
+msgctxt "delete selected transfer item"
+msgid "Remove Selected"
+msgstr "Fjern markerede"
+
+#: mainwindow.cpp:254
+#, kde-format
+msgctxt "delete all finished transfers"
+msgid "Remove All Finished"
+msgstr "Fjern alle færdige"
+
+#: mainwindow.cpp:260
+#, kde-format
+msgctxt "delete selected transfer item and files"
+msgid "Remove Selected and Delete Files"
+msgstr "Fjern de valgte og slet filer"
+
+#: mainwindow.cpp:266
+#, kde-format
+msgctxt "redownload selected transfer item"
+msgid "Redownload Selected"
+msgstr "Download markerede igen"
+
+#: mainwindow.cpp:271
+#, kde-format
+msgid "Start All"
+msgstr "Start alle"
+
+#: mainwindow.cpp:278
+#, kde-format
+msgid "Start Selected"
+msgstr "Start valgte "
+
+#: mainwindow.cpp:284
+#, kde-format
+msgid "Pause All"
+msgstr "Sæt alle på pause"
+
+#: mainwindow.cpp:291
+#, kde-format
+msgid "Stop Selected"
+msgstr "Stop valgte"
+
+#: mainwindow.cpp:296
+#, kde-format
+msgid "Start"
+msgstr "Start"
+
+#: mainwindow.cpp:304
+#, kde-format
+msgid "Pause"
+msgstr "Pause"
+
+#: mainwindow.cpp:313
+#, kde-format
+msgid "Open Destination"
+msgstr "Åbn destination"
+
+#: mainwindow.cpp:318
+#, kde-format
+msgid "Open File"
+msgstr "Åbn fil"
+
+#: mainwindow.cpp:322
+#, kde-format
+msgid "Show Details"
+msgstr "Vis detaljer"
+
+#: mainwindow.cpp:327
+#, kde-format
+msgid "Copy URL to Clipboard"
+msgstr "Kopiér URL til udklipsholderen"
+
+#: mainwindow.cpp:332
+#, kde-format
+msgid "&Transfer History"
+msgstr "&Overførselshistorik"
+
+#: mainwindow.cpp:338
+#, kde-format
+msgid "&Group Settings"
+msgstr "&Gruppeindstillinger"
+
+#: mainwindow.cpp:344
+#, kde-format
+msgid "&Transfer Settings"
+msgstr "&Overførselsindstillinger"
+
+#: mainwindow.cpp:350
+#, kde-format
+msgid "Import &Links..."
+msgstr "Importér &links..."
+
+#: mainwindow.cpp:356
+#, kde-format
+msgid "After downloads finished action"
+msgstr "Handling når downloads er gennemført"
+
+#. i18n("Choose an action that is executed after all downloads have been finished."));
+#: mainwindow.cpp:360
+#, kde-format
+msgid "No Action"
+msgstr "Ingen handling"
+
+#: mainwindow.cpp:438
+#, kde-format
+msgid ""
+"This is the first time you have run KGet.\n"
+"Would you like to enable KGet as the download manager for Konqueror?"
+msgstr ""
+"Dette er første gang du kører KGet.\n"
+"Vil du aktivere KGet som downloadhåndtering i Konqueror?"
+
+#: mainwindow.cpp:440
+#, kde-format
+msgid "Konqueror Integration"
+msgstr "Integration med Konqueror"
+
+#: mainwindow.cpp:440
+#, kde-format
+msgid "Enable"
+msgstr "Aktivér"
+
+#: mainwindow.cpp:441
+#, kde-format
+msgid "Do Not Enable"
+msgstr "Aktivér ikke"
+
+#: mainwindow.cpp:507
+#, kde-format
+msgctxt "@title:window"
+msgid "Open File"
+msgstr "Åbn fil"
+
+#: mainwindow.cpp:508
+#, kde-format
+msgid "All Openable Files"
+msgstr "Alle filer som kan åbnes"
+
+#: mainwindow.cpp:524
+#, kde-format
+msgctxt "window title including overall download progress in percent"
+msgid "KGet - %1%"
+msgstr "KGet - %1%"
+
+#: mainwindow.cpp:574
+#, kde-format
+msgid ""
+"Some transfers are still running.\n"
+"Are you sure you want to close KGet?"
+msgstr ""
+"Nogle overførsler kører stadigvæk.\n"
+"Ønsker du at afslutte KGet alligevel?"
+
+#: mainwindow.cpp:576
+#, kde-format
+msgid "Confirm Quit"
+msgstr "Bekræft afslutning"
+
+#: mainwindow.cpp:602
+#, kde-format
+msgctxt "@title:window"
+msgid "Export Transfers"
+msgstr "Eksportér overførsler"
+
+#: mainwindow.cpp:603
+#, kde-format
+msgid "KGet Transfer List"
+msgstr "KGets overførselsliste"
+
+#: mainwindow.cpp:603
+#, kde-format
+msgid "Text File"
+msgstr "Tekstfil"
+
+#: mainwindow.cpp:634
+#, kde-format
+msgid "Enter Group Name"
+msgstr "Indtast gruppenavn"
+
+#: mainwindow.cpp:635
+#, kde-format
+msgid "Group name:"
+msgstr "Gruppenavn:"
+
+#: mainwindow.cpp:722
+#, kde-format
+msgid "Are you sure you want to delete the selected transfer?"
+msgid_plural "Are you sure you want to delete the selected transfers?"
+msgstr[0] "Vil du virkelig slette den markerede overførsel?"
+msgstr[1] "Vil du virkelig slette de markerede overførsler?"
+
+#: mainwindow.cpp:724 mainwindow.cpp:753
+#, kde-format
+msgid "Confirm transfer delete"
+msgstr "Bekræft sletning af overførsel"
+
+#: mainwindow.cpp:751
+#, kde-format
+msgid "Are you sure you want to delete the selected transfer including files?"
+msgid_plural ""
+"Are you sure you want to delete the selected transfers including files?"
+msgstr[0] "Vil du virkelig slette den valgte overførsel inklusiv filer?"
+msgstr[1] "Vil du virkelig slette de valgte overførsler inklusiv filer?"
+
+#: mainwindow.cpp:1082
+#, kde-format
+msgid ""
+"KGet has been temporarily disabled as download manager for Konqueror. If you "
+"want to disable it forever, go to Settings->Advanced and disable \"Use as "
+"download manager for Konqueror\"."
+msgstr ""
+"KGet er midlertidigt blevet deaktiveret som downloadhåndtering i Konqueror. "
+"Hvis du ønsker at deaktivere det permanent, gå da til Indstillinger-"
+">Avanceret og deaktivér \"Brug til downloadhåndtering i Konqueror\"."
+
+#: mainwindow.cpp:1201 ui/droptarget.cpp:220
+#, kde-format
+msgid "The dropped file is a KGet Transfer List"
+msgstr "Den slupne fil er en KGet-overførselsliste"
+
+#: mainwindow.cpp:1202 ui/droptarget.cpp:221
+#, kde-format
+msgid "&Download"
+msgstr "&Download"
+
+#: mainwindow.cpp:1203 ui/droptarget.cpp:222
+#, kde-format
+msgid "&Load transfer list"
+msgstr "Ind&læs overførselsliste"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:54
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:58
+#, kde-format
+msgid "Advanced Details for %1"
+msgstr "Avancerede detaljer for %1"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:66
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:217
+#, kde-format
+msgid "Files"
+msgstr "Filer"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:74
+#, kde-format
+msgid "Trackers"
+msgstr "Trackers"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:77
+#, kde-format
+msgid "Webseeds"
+msgstr "Seedere"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
+#, kde-format
+msgid "Chunk"
+msgstr "Stykke"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
+#, kde-format
+msgid "Progress"
+msgstr "Fremgang"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#, kde-format
+msgid "Peer"
+msgstr "Peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
+#, kde-format
+msgid "Down Speed"
+msgstr "Downloadhastighed"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
+#, kde-format
+msgid "Number of the chunk"
+msgstr "Stykkets nummer"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
+#, kde-format
+msgid "Download progress of the chunk"
+msgstr "Downloadfremgang for stykket"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
+#, kde-format
+msgid "Which peer we are downloading it from"
+msgstr "Hvilken peer vi downloader fra"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
+#, kde-format
+msgid "Download speed of the chunk"
+msgstr "Downloadhastighed for stykket"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:229
+#, kde-format
+msgid "Which files the chunk is located in"
+msgstr "Hvilke filer stykket hører til i"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (windowTitle), widget (QWidget, ChunkDownloadView)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:13
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:154
+#, kde-format
+msgid "Chunks"
+msgstr "Stykker"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:23
+#, kde-format
+msgid "Total:"
+msgstr "I alt:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel5)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:59
+#, kde-format
+msgid "Currently downloading:"
+msgstr "Downloader nu:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:95
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:163
+#, kde-format
+msgid "Downloaded:"
+msgstr "Downloadet:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:131
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:205
+#, kde-format
+msgid "Excluded:"
+msgstr "Undtaget:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4_2)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:167
+#, kde-format
+msgid "Left:"
+msgstr "Tilbage:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:203
+#, kde-format
+msgid "Size:"
+msgstr "Størrelse:"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
+#, kde-format
+msgctxt "Open file"
+msgid "Open"
+msgstr "Åbn"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
+#, kde-format
+msgid "Download first"
+msgstr "Download først"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#, kde-format
+msgid "Download normally"
+msgstr "Download normalt"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#, kde-format
+msgid "Download last"
+msgstr "Download sidst"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#, kde-format
+msgid "Do Not Download"
+msgstr "Download ikke"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#, kde-format
+msgid "Delete File(s)"
+msgstr "Slet fil(er)"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#, kde-format
+msgid "Move File"
+msgstr "Flyt fil"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#, kde-format
+msgid "Collapse Folder Tree"
+msgstr "Fold mappetræ sammen"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#, kde-format
+msgid "Expand Folder Tree"
+msgstr "Fold mappetræ ud"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
+#, kde-format
+msgid "You will lose all data in this file, are you sure you want to do this?"
+msgid_plural ""
+"You will lose all data in these files, are you sure you want to do this?"
+msgstr[0] "Du vil miste al data i denne fil. Vil du virkelig gøre dette?"
+msgstr[1] "Du vil miste al data i disse filer. Vil du virkelig gøre dette?"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:279
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:299
+#, kde-format
+msgid "Select a directory to move the data to"
+msgstr "Vælg en mappe at flytte data til"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:67
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:70
+#, kde-format
+msgid "Priority"
+msgstr "Prioritet"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:71
+#, kde-format
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:73
+#, no-c-format, kde-format
+msgctxt "Percent of File Downloaded"
+msgid "% Complete"
+msgstr "% færdig"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:83
+#, kde-format
+msgctxt "Download first"
+msgid "First"
+msgstr "Først "
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:82
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:85
+#, kde-format
+msgctxt "Download last"
+msgid "Last"
+msgstr "Sidst "
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:87
+#, kde-format
+msgctxt "Download Normal (not as first or last)"
+msgid "Normal"
+msgstr "Normalt"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:122
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:145
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:149
+#, kde-format
+msgctxt "Preview available"
+msgid "Available"
+msgstr "Tilgængelig"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:124
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:147
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:128
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:151
+#, kde-format
+msgctxt "Preview pending"
+msgid "Pending"
+msgstr "Undervejs"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:127
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:150
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:131
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:154
+#, kde-format
+msgctxt "No preview available"
+msgid "No"
+msgstr "Nej"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:131
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:136
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:162
+#, kde-format
+msgid "%1 %"
+msgstr "%1 %"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:90
+#, kde-format
+msgctxt "Download normally(not as first or last)"
+msgid "Normal"
+msgstr "Normalt"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:126
+#, kde-format
+msgctxt "preview available"
+msgid "Available"
+msgstr "Tilgængelig"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:55
+#, kde-format
+msgid "Kick Peer"
+msgstr "Afbryd peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:56
+#, kde-format
+msgid "Ban Peer"
+msgstr "Bandlys peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#, kde-format
+msgctxt "Choked"
+msgid "Yes"
+msgstr "Ja"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#, kde-format
+msgctxt "Not choked"
+msgid "No"
+msgstr "Nej"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#, kde-format
+msgctxt "Snubbed"
+msgid "Yes"
+msgstr "Ja"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#, kde-format
+msgctxt "Not snubbed"
+msgid "No"
+msgstr "Nej"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#, kde-format
+msgctxt "Interested"
+msgid "Yes"
+msgstr "Ja"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#, kde-format
+msgctxt "Not Interested"
+msgid "No"
+msgstr "Nej"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#, kde-format
+msgctxt "Interesting"
+msgid "Yes"
+msgstr "Ja"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#, kde-format
+msgctxt "Not Interesting"
+msgid "No"
+msgstr "Nej"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
+#, kde-format
+msgid "IP Address"
+msgstr "IP-adresse"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
+#, kde-format
+msgid "Client"
+msgstr "Klient"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
+#, kde-format
+msgid "Up Speed"
+msgstr "Uploadhastighed"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
+#, kde-format
+msgid "Choked"
+msgstr "Kvalt"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
+#, kde-format
+msgid "Snubbed"
+msgstr "Afvist"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
+#, kde-format
+msgid "Availability"
+msgstr "Tilgængelighed"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
+#, kde-format
+msgid "DHT"
+msgstr "DHT"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
+#, kde-format
+msgid "Score"
+msgstr "Score"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
+#, kde-format
+msgid "Upload Slot"
+msgstr "Uploadplads"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
+#, kde-format
+msgid "Requests"
+msgstr "Anmodninger"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:129
+#, kde-format
+msgid "Downloaded"
+msgstr "Downloadet"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
+#, kde-format
+msgid "Uploaded"
+msgstr "Uploadet"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
+#, kde-format
+msgid "Interested"
+msgstr "Interesseret"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
+#, kde-format
+msgid "Interesting"
+msgstr "Interessant"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
+#, kde-format
+msgid "IP address of the peer"
+msgstr "IP-adresse for peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
+#, kde-format
+msgid "Which client the peer is using"
+msgstr "Hvilken klient der bruges af peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
+#, kde-format
+msgid "Download speed"
+msgstr "Downloadhastighed"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
+#, kde-format
+msgid "Upload speed"
+msgstr "Uploadhastighed"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
+#, kde-format
+msgid ""
+"Whether or not the peer has choked us. If we are choked, the peer will not "
+"send us any data."
+msgstr ""
+"Om peer har kvalt os eller ej. Hvis vi er kvalt, vil peer ikke sende os "
+"nogen data."
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
+#, kde-format
+msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
+msgstr ""
+"Afvist betyder at peer ikke har sendt os nogen data i de sidste 2 minutter"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
+#, kde-format
+msgid "How much of the torrent's data the peer has"
+msgstr "Hvor meget af torrentens data som peer har"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
+#, kde-format
+msgid "Whether or not the peer has DHT enabled"
+msgstr "Om peer har DHT aktiveret eller ej"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
+#, kde-format
+msgid ""
+"The score of the peer. KTorrent uses this to determine who to upload to."
+msgstr ""
+"Score for peer. KTorrent bruger dette til at bestemme hvem der skal uploades "
+"til."
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
+#, kde-format
+msgid "Only peers which have an upload slot will get data from us"
+msgstr "Kun peers som har en uploadplads vil få data fra os"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
+#, kde-format
+msgid "The number of download and upload requests"
+msgstr "Antallet af download- og uploadforespørgsler"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
+#, kde-format
+msgid "How much data we have downloaded from this peer"
+msgstr "Hvor meget data vi har downloadet fra denne peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#, kde-format
+msgid "How much data we have uploaded to this peer"
+msgstr "Hvor meget data vi har uploadet til denne peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
+#, kde-format
+msgid "Whether the peer is interested in downloading data from us"
+msgstr "Om peer er interesseret i at downloade data fra os"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
+#, kde-format
+msgid "Whether we are interested in downloading from this peer"
+msgstr "Om vi er interesserede i at downloade fra denne peer"
+
+#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:380
+#, kde-format
+msgid "File"
+msgstr "Fil"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:381
+#: ui/history/transferhistory.ui:90
+#, kde-format
+msgid "Size"
+msgstr "Størrelse"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
+#, kde-format
+msgid "Url"
+msgstr "URL"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:130
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Status"
+msgstr "Status"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
+#, kde-format
+msgid "Seeders"
+msgstr "Seeders"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
+#, kde-format
+msgid "Leechers"
+msgstr "Leechers:"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:155
+#, kde-format
+msgid "Times Downloaded"
+msgstr "Antal gange downloadet"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:156
+#, kde-format
+msgid "Next Update"
+msgstr "Næste opdatering"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
+#, kde-format
+msgid "Add Tracker"
+msgstr "Tilføj tracker"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#, kde-format
+msgid "Enter the URL of the tracker:"
+msgstr "Angiv URL for trackeren:"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:103
+#, kde-format
+msgid "There already is a tracker named <b>%1</b>."
+msgstr "Der er allerede en tracker kaldet <b>%1</b>."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
+#, kde-format
+msgid "Remove Tracker"
+msgstr "Fjern tracker"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_change_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:35
+#, kde-format
+msgid "Change Tracker"
+msgstr "Skift tracker"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_scrape)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
+#, kde-format
+msgid "Update Trackers"
+msgstr "Opdatér trackers"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_restore_defaults)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
+#, kde-format
+msgid "Restore Defaults"
+msgstr "Gendan standardindstillinger"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:127
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:32
+#: ui/linkview/kget_linkview.cpp:90
+#, kde-format
+msgid "URL"
+msgstr "URL"
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:128
+#, kde-format
+msgid "Speed"
+msgstr "Hastighed"
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:97
+#, kde-format
+msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
+msgstr ""
+"Kan ikke tilføje webseed'en %1, den er allerede en del af listen over "
+"webseeds."
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:114
+#, kde-format
+msgid "Cannot remove webseed %1, it is part of the torrent."
+msgstr "Kan ikke fjerne webseed'en %1, den er en del af torrenten."
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
+#, kde-format
+msgid ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Webseed to add to the "
+"torrent.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
+"html>"
+msgstr ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Webseed der skal "
+"tilføjestil torrenten.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Bemærk: </span>Kun http-webseeds er understøttet.</p></body></"
+"html>"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_add)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
+#, kde-format
+msgid "Add Webseed"
+msgstr "Tilføj webseed"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_remove)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
+#, kde-format
+msgid "Remove Webseed"
+msgstr "Fjern webseed"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:29
+#, kde-format
+msgid "Stats"
+msgstr "Statistik"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:47
+#, kde-format
+msgid "Seeders:"
+msgstr "Seedere:"
+
+#. i18n: ectx: property (text), widget (QLabel, seederLabel)
+#. i18n: ectx: property (text), widget (QLabel, dlSpeedLabel)
+#. i18n: ectx: property (text), widget (QLabel, leecherLabel)
+#. i18n: ectx: property (text), widget (QLabel, ulSpeedLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksDownloadedLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksLeftLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksAllLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksExcludedLabel)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:60
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:86
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:112
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:138
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:170
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:184
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:198
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:212
+#, kde-format
+msgid "<n>"
+msgstr "<n>"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:73
+#, kde-format
+msgid "Download speed:"
+msgstr "Downloadhast.:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:99
+#, kde-format
+msgid "Leechers:"
+msgstr "Leechers:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:125
+#, kde-format
+msgid "Upload speed:"
+msgstr "Uploadhast.:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:177
+#, kde-format
+msgctxt "chunks left"
+msgid "Left:"
+msgstr "Tilbage:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:191
+#, kde-format
+msgctxt "all chunks"
+msgid "All:"
+msgstr "Alle:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:240
+#, kde-format
+msgctxt "source-file"
+msgid "Source:"
+msgstr "Kilde:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, destLabel)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:247
+#: ui/transferdetailsfrm.ui:44
+#, kde-format
+msgid "Saving to:"
+msgstr "Gemmer til:"
+
+#. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:49
+#, kde-format
+msgid "Upload limit per transfer:"
+msgstr "Uploadgrænse pr. overførsel:"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:56
+#: transfer-plugins/bittorrent/btsettingswidget.ui:76
+#, kde-format
+msgid "No Limit"
+msgstr "Ingen grænse"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:59
+#: transfer-plugins/bittorrent/btsettingswidget.ui:79
+#, kde-format
+msgid "KiB"
+msgstr "KiB"
+
+#. i18n: ectx: property (text), widget (QLabel, downloadLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:69
+#, kde-format
+msgid "Download limit per transfer:"
+msgstr "Downloadgrænse pr. overførsel:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, utpBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:89
+#, kde-format
+msgid "Enable UTP protocol"
+msgstr "Aktivér UTP-protokol"
+
+#. i18n: ectx: property (title), widget (QGroupBox, folderGroupBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:105
+#, kde-format
+msgid "Folders"
+msgstr "Mapper"
+
+#. i18n: ectx: property (text), widget (QLabel, torrentFolderLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:117
+#, kde-format
+msgid "Default torrent folder:"
+msgstr "Standardmappe til torrents:"
+
+#. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:137
+#, kde-format
+msgid "Default temporary folder:"
+msgstr "Standardmappe til midlertidige filer:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:154
+#, kde-format
+msgid "Pre-allocate disk space"
+msgstr "Præallokering af diskplads"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:139
+#, kde-format
+msgid "Downloading Torrent File...."
+msgstr "Downloader torrentfil..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:183
+#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#, kde-format
+msgctxt "transfer state: downloading"
+msgid "Downloading...."
+msgstr "Downloader..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:260
+#, kde-format
+msgid "Cannot add a tracker to a private torrent."
+msgstr "Kan ikke tilføje tracker til en privat torrent."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:422
+#, kde-format
+msgid "Torrent file does not exist"
+msgstr "Torrent-filen findes ikke"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:427
+#, kde-format
+msgid "Analyzing torrent...."
+msgstr "Analyserer torrent..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:439
+#, kde-format
+msgid "Cannot initialize port..."
+msgstr "Kan ikke initialisere port..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:510
+#, kde-format
+msgctxt "Transfer status: seeding"
+msgid "Seeding...."
+msgstr "Seeder..."
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:33
+#, kde-format
+msgid "Cannot initialize libktorrent. Torrent support might not work."
+msgstr ""
+"Kan ikke initialisere libktorrent. Torrent-understøttelsen vil måske ikke "
+"virke."
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:82
+#, kde-format
+msgid "&Advanced Details"
+msgstr "&Avancerede detaljer"
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:88
+#, kde-format
+msgid "&Scan Files"
+msgstr "&Scan filer"
+
+#: transfer-plugins/bittorrent/scandlg.cpp:107
+#, kde-format
+msgid "Error scanning data: %1"
+msgstr "Fejl under scanning af data: %1"
+
+#. i18n: ectx: property (text), widget (QLabel, torrent_label)
+#: transfer-plugins/bittorrent/scandlg.ui:16
+#, kde-format
+msgid "Scanning data of torrent:"
+msgstr "Scanner torrents data:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: transfer-plugins/bittorrent/scandlg.ui:30
+#, kde-format
+msgid "Number of chunks found:"
+msgstr "Antal stykker fundet:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: transfer-plugins/bittorrent/scandlg.ui:40
+#, kde-format
+msgid "Number of chunks failed:"
+msgstr "Antal mislykkede stykker:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/bittorrent/scandlg.ui:50
+#, kde-format
+msgid "Number of chunks not downloaded:"
+msgstr "Antal stykker som ikke er downloadet:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/bittorrent/scandlg.ui:57
+#, kde-format
+msgid "Number of chunks downloaded:"
+msgstr "Antal stykker downloadet:"
+
+#. i18n: ectx: property (text), widget (QLabel, chunks_found)
+#. i18n: ectx: property (text), widget (QLabel, chunks_failed)
+#. i18n: ectx: property (text), widget (QLabel, chunks_not_downloaded)
+#. i18n: ectx: property (text), widget (QLabel, chunks_downloaded)
+#: transfer-plugins/bittorrent/scandlg.ui:77
+#: transfer-plugins/bittorrent/scandlg.ui:102
+#: transfer-plugins/bittorrent/scandlg.ui:124
+#: transfer-plugins/bittorrent/scandlg.ui:137
+#, kde-format
+msgid "0"
+msgstr "0"
+
+#. i18n: ectx: property (text), widget (QPushButton, cancel)
+#: transfer-plugins/bittorrent/scandlg.ui:183
+#, kde-format
+msgid "Cancel"
+msgstr "Annullér"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Append"
+msgstr "Tilføj"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Replace file"
+msgstr "Erstat fil"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Replace file-ending"
+msgstr "Erstat filendelse"
+
+#. i18n: ectx: property (text), widget (QLabel, label_1)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
+#, kde-format
+msgid "Change string:"
+msgstr "Ændr streng:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
+#, kde-format
+msgid "Mode:"
+msgstr "Tilstand:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:43
+#, kde-format
+msgid "Checksum type:"
+msgstr "Type af tjeksum:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:77
+#, kde-format
+msgid "Result:"
+msgstr "Resultat:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:84
+#, kde-format
+msgid "label"
+msgstr "etiket"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:45
+#, kde-format
+msgid "Add item"
+msgstr "Tilføj element"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:73
+#, kde-format
+msgid "%1 would become %2"
+msgstr "%1 ville blive til %2"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:195
+#, kde-format
+msgctxt "the string that is used to modify an url"
+msgid "Change string"
+msgstr "Ændr streng"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:196
+#, kde-format
+msgctxt "the mode defines how the url should be changed"
+msgid "Change mode"
+msgstr "Ændr tilstand"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:197
+#, kde-format
+msgctxt "the type of the checksum e.g. md5"
+msgid "Checksum type"
+msgstr "Type af tjeksum"
+
+#. i18n: ectx: label, entry (SearchStrings), group (ChecksumSearch)
+#. i18n: ectx: label, entry (SearchEnginesNameList), group (SearchEngines)
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:9
+#: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:12
+#, kde-format
+msgid "List of the available search engines"
+msgstr "Liste over tilgænglige søgemaskiner"
+
+#. i18n: ectx: label, entry (UrlChangeModeList), group (ChecksumSearch)
+#. i18n: ectx: label, entry (ChecksumTypeList), group (ChecksumSearch)
+#. i18n: ectx: label, entry (SearchEnginesUrlList), group (SearchEngines)
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:13
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:17
+#: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
+#, kde-format
+msgid "List of the available search engine URLs"
+msgstr "Liste over tilgænglige URL'er til søgemaskiner"
+
+#: transfer-plugins/kio/transferKio.cpp:100
+#, kde-format
+msgctxt "transfer state: connecting"
+msgid "Connecting...."
+msgstr "Forbinder..."
+
+#: transfer-plugins/kio/transferKio.cpp:280
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:257
+#, kde-format
+msgid "The download (%1) could not be verified. Do you want to repair it?"
+msgstr "Downloadet (%1) kunne ikke verificeres. Vil du reparere det?"
+
+#: transfer-plugins/kio/transferKio.cpp:283
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
+#, kde-format
+msgid "The download (%1) could not be verified. Do you want to redownload it?"
+msgstr "Downloadet (%1) kunne ikke verificeres. Vil du downloade det igen?"
+
+#: transfer-plugins/kio/transferKio.cpp:287
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#, kde-format
+msgid "Verification failed."
+msgstr "Verificering mislykkedes."
+
+#: transfer-plugins/metalink/abstractmetalink.cpp:216
+#: transfer-plugins/metalink/metalink.cpp:489
+#, kde-format
+msgid ""
+"The download could not be verified, do you want to repair (if repairing does "
+"not work the download would be restarted) it?"
+msgstr ""
+"Downloadet kunne ikke verificeres, vil du reparere (hvis reparation ikke "
+"virker vil downloadet blive genstartet) det?"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/metalink/dlgmetalink.ui:22
+#, kde-format
+msgid "Number of simultaneous file downloads:"
+msgstr "Antal samtidige fildownloads:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/metalink/dlgmetalink.ui:39
+#, kde-format
+msgid "Number of mirrors per file:"
+msgstr "Antal mirrors pr. fil:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: transfer-plugins/metalink/dlgmetalink.ui:56
+#: transfer-plugins/mmsthreads/dlgmms.ui:22
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:22
+#, kde-format
+msgid "Number of connections per URL:"
+msgstr "Antal forbindelser pr. URL:"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: transfer-plugins/metalink/fileselection.ui:17
+#, kde-format
+msgid "Select the files you want to be downloaded."
+msgstr "Vælg de filer du vil downloade."
+
+#: transfer-plugins/metalink/fileselectiondlg.cpp:35
+#, kde-format
+msgid "File Selection"
+msgstr "Filvalg"
+
+#: transfer-plugins/metalink/metalink.cpp:80
+#: transfer-plugins/metalink/metalinkxml.cpp:77
+#, kde-format
+msgid "Downloading Metalink File...."
+msgstr "Downloader metalink-fil..."
+
+#: transfer-plugins/metalink/metalink.cpp:118
+#: transfer-plugins/metalink/metalinkxml.cpp:116
+#, kde-format
+msgid ""
+"A newer version of this Metalink might exist, do you want to download it?"
+msgstr ""
+"Der findes måske en nyere version af dette metalink. Vil du downloade det?"
+
+#: transfer-plugins/metalink/metalink.cpp:119
+#: transfer-plugins/metalink/metalinkxml.cpp:117
+#, kde-format
+msgid "Redownload Metalink"
+msgstr "Download metalink igen"
+
+#: transfer-plugins/metalink/metalink.cpp:199
+#: transfer-plugins/metalink/metalinkhttp.cpp:241
+#: transfer-plugins/metalink/metalinkxml.cpp:198
+#, kde-format
+msgid "Download failed, no working URLs were found."
+msgstr "Download mislykkedes, ingen fungerende URL'er blev fundet."
+
+#: transfer-plugins/metalink/metalinkhttp.cpp:160
+#, kde-format
+msgid "The download could not be verified, try to repair it?"
+msgstr "Downloadet kunne ikke verificeres. Vil du reparere det?"
+
+#. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
+#: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
+#, kde-format
+msgid "Engine name:"
+msgstr "Maskinenavn:"
+
+#. i18n: ectx: property (text), widget (QLabel, urlLabel)
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
+#, kde-format
+msgid "URL:"
+msgstr "URL:"
+
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
+#, kde-format
+msgid "Insert Engine"
+msgstr "Indsæt maskine"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:16
+#, kde-format
+msgid "Search Engines"
+msgstr "Søgemaskiner"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:27
+#, kde-format
+msgid "Engine Name"
+msgstr "Maskinenavn"
+
+#. i18n: ectx: property (text), widget (QPushButton, newEngineBt)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
+#, kde-format
+msgid "New Engine..."
+msgstr "Ny maskine..."
+
+#. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
+#, kde-format
+msgid "Remove"
+msgstr "Fjern"
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:60
+#, kde-format
+msgctxt "transfer state: running"
+msgid "Running...."
+msgstr "Kører..."
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:125
+#, kde-format
+msgctxt "Transfer State:Finished"
+msgid "Finished"
+msgstr "Færdig"
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:171
+#, kde-format
+msgid "Download failed, could not access this URL."
+msgstr "Download mislykkedes. Kunne ikke tilgå denne URL."
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:181
+#, kde-format
+msgid ""
+"This URL does not allow multiple connections,\n"
+"the download will take longer."
+msgstr ""
+"Denne URL tillader ikke flere forbindelser,\n"
+"download vil tage længere tid."
+
+#. i18n: ectx: property (text), widget (QCheckBox, enginesCheckBox)
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
+#, kde-format
+msgid "Use search engines"
+msgstr "Brug søgemaskiner"
+
+#. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
+#, kde-format
+msgid "Search for verification information"
+msgstr "Søg efter verificeringsinformation"
+
+#: transfer-plugins/multisegmentkio/segment.cpp:296
+#, kde-format
+msgid "Failed to write to the file."
+msgstr "Kunne ikke skrive til filen."
+
+#: ui/contextmenu.cpp:116
+#, kde-format
+msgid "Delete Group"
+msgid_plural "Delete Groups"
+msgstr[0] "Slet gruppe"
+msgstr[1] "Slet grupper"
+
+#: ui/contextmenu.cpp:120
+#, kde-format
+msgid "Rename Group..."
+msgid_plural "Rename Groups..."
+msgstr[0] "Omdøb gruppe..."
+msgstr[1] "Omdøb grupper..."
+
+#: ui/droptarget.cpp:84
+#, kde-format
+msgctxt "fix position for droptarget"
+msgid "Sticky"
+msgstr "Klæbrig"
+
+#: ui/droptarget.cpp:278
+#, kde-format
+msgid "Show Main Window"
+msgstr "Vis hovedvindue"
+
+#: ui/droptarget.cpp:279
+#, kde-format
+msgid "Hide Main Window"
+msgstr "Skjul hovedvindue"
+
+#: ui/droptarget.cpp:370
+#, kde-format
+msgid "Drop Target"
+msgstr "Dropmål"
+
+#: ui/droptarget.cpp:371
+#, kde-format
+msgid "You can drag download links into the drop target."
+msgstr "Du kan trække downloadlinks ind i dropmålet."
+
+#: ui/droptarget.cpp:416
+#, kde-format
+msgctxt "%1 filename, %2 total size, %3 status"
+msgid "%1(%2) %3"
+msgstr "%1(%2) %3"
+
+#: ui/droptarget.cpp:422
+#, kde-format
+msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
+msgid "%1(%2% %3/%4) Speed:%5/s"
+msgstr "%1(%2% %3/%4) Hastighed:%5/s"
+
+#: ui/droptarget.cpp:430
+#, kde-format
+msgctxt ""
+"%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
+"status"
+msgid "%1(%2% %3/%4) %5"
+msgstr "%1(%2% %3/%4) %5"
+
+#: ui/droptarget.cpp:444
+#, kde-format
+msgid "Ready"
+msgstr "Klar"
+
+#: ui/groupsettingsdialog.cpp:19
+#, kde-format
+msgid "Group Settings for %1"
+msgstr "Gruppeindstillinger for %1"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: ui/groupsettingsdialog.ui:32
+#, kde-format
+msgid "Group Settings"
+msgstr "Gruppeindstilinger"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/groupsettingsdialog.ui:44
+#, kde-format
+msgid "Defau&lt folder:"
+msgstr "Standard&mappe:"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label_2)
+#: ui/groupsettingsdialog.ui:61
+#, kde-format
+msgid "Moves all transfers with the regular expression to this group"
+msgstr "Flytter alle overførsler med det regulære udtryk til denne gruppe"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/groupsettingsdialog.ui:64
+#, kde-format
+msgid "Re&gular expression:"
+msgstr "Re&gulært udtryk:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, regExpEdit)
+#: ui/groupsettingsdialog.ui:74
+#, kde-format
+msgid "*movies*"
+msgstr "*movies*"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadSpin)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadSpin)
+#. i18n: ectx: property (specialValueText), widget (QDoubleSpinBox, ratioSpin)
+#: ui/groupsettingsdialog.ui:87 ui/groupsettingsdialog.ui:106
+#: ui/transfersettingsdialog.ui:51 ui/transfersettingsdialog.ui:67
+#: ui/transfersettingsdialog.ui:83
+#, kde-format
+msgctxt "No value has been set"
+msgid "Not set"
+msgstr "Ikke angivet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/groupsettingsdialog.ui:119
+#, kde-format
+msgid "Ma&ximum download speed:"
+msgstr "Ma&ksimal downloadhastighed:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/groupsettingsdialog.ui:129
+#, kde-format
+msgid "Maximum &upload speed:"
+msgstr "Maksimal &uploadhastighed:"
+
+#: ui/history/transferhistory.cpp:51
+#, kde-format
+msgid "Transfer History"
+msgstr "Overførselshistorik"
+
+#: ui/history/transferhistory.cpp:72
+#, kde-format
+msgid "&Open File"
+msgstr "Å&bn fil"
+
+#: ui/history/transferhistory.cpp:214
+#, kde-format
+msgctxt "The transfer is running"
+msgid "Running"
+msgstr "Kører"
+
+#: ui/history/transferhistory.cpp:216
+#, kde-format
+msgctxt "The transfer is stopped"
+msgid "Stopped"
+msgstr "Stoppet"
+
+#: ui/history/transferhistory.cpp:218
+#, kde-format
+msgctxt "The transfer is aborted"
+msgid "Aborted"
+msgstr "Afbrudt"
+
+#: ui/history/transferhistory.cpp:220
+#, kde-format
+msgctxt "The transfer is finished"
+msgid "Finished"
+msgstr "Færdig"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Source File"
+msgstr "Kildefil"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Destination"
+msgstr "Destination"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Time"
+msgstr "Tid"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "File Size"
+msgstr "Filstørrelse"
+
+#: ui/history/transferhistory.cpp:258
+#, kde-format
+msgid "Less than 1MiB"
+msgstr "Mindre end 1 MiB"
+
+#: ui/history/transferhistory.cpp:260
+#, kde-format
+msgid "Between 1MiB-10MiB"
+msgstr "Mellem 1MiB-10MiB"
+
+#: ui/history/transferhistory.cpp:262
+#, kde-format
+msgid "Between 10MiB-100MiB"
+msgstr "Mellem 10MiB-100MiB"
+
+#: ui/history/transferhistory.cpp:264
+#, kde-format
+msgid "Between 100MiB-1GiB"
+msgstr "Mellem 100MiB-1GiB"
+
+#: ui/history/transferhistory.cpp:266
+#, kde-format
+msgid "More than 1GiB"
+msgstr "Mere end 1GiB"
+
+#: ui/history/transferhistory.cpp:269
+#: ui/history/transferhistorycategorizeddelegate.cpp:45
+#, kde-format
+msgid "Today"
+msgstr "I dag"
+
+#: ui/history/transferhistory.cpp:270
+#: ui/history/transferhistorycategorizeddelegate.cpp:49
+#, kde-format
+msgid "Last week"
+msgstr "Sidste uge"
+
+#: ui/history/transferhistory.cpp:271
+#, kde-format
+msgid "Last month"
+msgstr "Sidste måned"
+
+#: ui/history/transferhistory.cpp:272
+#: ui/history/transferhistorycategorizeddelegate.cpp:57
+#, kde-format
+msgid "A long time ago"
+msgstr "Lang tid siden"
+
+#: ui/history/transferhistory.cpp:292
+#, kde-format
+msgctxt "the transfer has been finished"
+msgid "Finished"
+msgstr "Færdig"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearButton)
+#: ui/history/transferhistory.ui:27
+#, kde-format
+msgid "Clear History"
+msgstr "Ryd historik"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/history/transferhistory.ui:47
+#, kde-format
+msgid "View Modes:"
+msgstr "Visningstilstande:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/history/transferhistory.ui:77
+#, kde-format
+msgid "Select Ranges:"
+msgstr "Vælg områder:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: ui/history/transferhistory.ui:85
+#, kde-format
+msgid "Date"
+msgstr "Dato"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: ui/history/transferhistory.ui:95
+#, kde-format
+msgid "Host"
+msgstr "Vært"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:106
+#, kde-format
+msgid "Filter history"
+msgstr "Filtrér historik"
+
+#. i18n: ectx: property (text), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:120
+#, kde-format
+msgctxt "delete selected transfer"
+msgid "Delete Selected"
+msgstr "Slet valgte"
+
+#. i18n: ectx: property (text), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:125
+#, kde-format
+msgid "Download"
+msgstr "Download"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:53
+#, kde-format
+msgid "Last Month"
+msgstr "Sidste måned"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:77
+#, kde-format
+msgid "Under 10MiB"
+msgstr "Under 10MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:80
+#, kde-format
+msgid "Between 10MiB and 50MiB"
+msgstr "Mellem 10MiB og 50MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:84
+#, kde-format
+msgid "Between 50MiB and 100MiB"
+msgstr "Mellem 50MiB og 100MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:89
+#, kde-format
+msgid "More than 100MiB"
+msgstr "Mere end 100MiB"
+
+#: ui/history/transferhistoryitemdelegate.cpp:40
+#, kde-format
+msgid "Download again"
+msgstr "Download igen"
+
+#: ui/history/transferhistoryitemdelegate.cpp:45
+#, kde-format
+msgctxt "Delete selected history-item"
+msgid "Delete selected"
+msgstr "Slet markerede"
+
+#: ui/history/transferhistoryitemdelegate.cpp:50
+#, kde-format
+msgid "Open file"
+msgstr "Åbn fil"
+
+#. i18n: ectx: Menu (file)
+#: ui/kgetui.rc:5
+#, kde-format
+msgid "&File"
+msgstr "&Fil"
+
+#. i18n: ectx: Menu (Downloads)
+#: ui/kgetui.rc:17
+#, kde-format
+msgid "&Downloads"
+msgstr "&Downloads"
+
+#. i18n: ectx: Menu (settings)
+#: ui/kgetui.rc:34
+#, kde-format
+msgid "&Settings"
+msgstr "&Indstillinger"
+
+#. i18n: ectx: Menu (help)
+#: ui/kgetui.rc:37
+#, kde-format
+msgid "&Help"
+msgstr "&Hjælp"
+
+#. i18n: ectx: ToolBar (kget_toolbar)
+#: ui/kgetui.rc:40
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Hovedværktøjslinje"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/linkview/importlinkdialog.ui:34
+#, kde-format
+msgid "File with &links to import:"
+msgstr "Fil med &links der skal importeres:"
+
+#. i18n: ectx: property (text), widget (QPushButton, importLinks)
+#: ui/linkview/importlinkdialog.ui:50
+#, kde-format
+msgid "&Import Links"
+msgstr "&Importér links"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/linkview/importlinkdialog.ui:67
+#, kde-format
+msgid "Show:"
+msgstr "Vis:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, showWebContent)
+#: ui/linkview/importlinkdialog.ui:77
+#, kde-format
+msgid "Show &web content"
+msgstr "Vis &webindhold"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, textFilter)
+#: ui/linkview/importlinkdialog.ui:115
+#, kde-format
+msgid "You can use wildcards for filtering."
+msgstr "Du kan bruge jokertegn til filtrering."
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, textFilter)
+#: ui/linkview/importlinkdialog.ui:118
+#, kde-format
+msgid "Filter files here...."
+msgstr "Filtrér filer her..."
+
+#. i18n: ectx: property (text), widget (QPushButton, selectAll)
+#: ui/linkview/importlinkdialog.ui:189 ui/linkview/kget_linkview.cpp:337
+#, kde-format
+msgid "&Select All"
+msgstr "&Markér alle"
+
+#. i18n: ectx: property (text), widget (QPushButton, deselectAll)
+#: ui/linkview/importlinkdialog.ui:205 ui/linkview/kget_linkview.cpp:338
+#, kde-format
+msgid "D&eselect All"
+msgstr "A&fmarkér alle"
+
+#. i18n: ectx: property (text), widget (QPushButton, invertSelection)
+#: ui/linkview/importlinkdialog.ui:221
+#, kde-format
+msgid "Inver&t Selection"
+msgstr "Inver&tér markering"
+
+#: ui/linkview/kget_linkview.cpp:41
+#, kde-format
+msgid "Import Links"
+msgstr "Importér links"
+
+#: ui/linkview/kget_linkview.cpp:58
+#, kde-format
+msgid "Contains"
+msgstr "Indeholder"
+
+#: ui/linkview/kget_linkview.cpp:59
+#, kde-format
+msgid "Does Not Contain"
+msgstr "Indeholder ikke"
+
+#: ui/linkview/kget_linkview.cpp:63
+#, kde-format
+msgid "All"
+msgstr "Alle"
+
+#: ui/linkview/kget_linkview.cpp:64
+#, kde-format
+msgid "Videos"
+msgstr "Videoer"
+
+#: ui/linkview/kget_linkview.cpp:65
+#, kde-format
+msgid "Images"
+msgstr "Billeder"
+
+#: ui/linkview/kget_linkview.cpp:66
+#, kde-format
+msgid "Audio"
+msgstr "Lyd"
+
+#: ui/linkview/kget_linkview.cpp:67
+#, kde-format
+msgid "Archives"
+msgstr "Arkiver"
+
+#: ui/linkview/kget_linkview.cpp:73
+#, kde-format
+msgctxt "of a filter, e.g. RegExp or Wildcard"
+msgid "Pattern Syntax"
+msgstr "Mønstersyntaks"
+
+#: ui/linkview/kget_linkview.cpp:74
+#, kde-format
+msgid "Escape Sequences"
+msgstr "Undvigesekvenser"
+
+#: ui/linkview/kget_linkview.cpp:77
+#, kde-format
+msgid "Regular Expression"
+msgstr "Regulært udtryk"
+
+#: ui/linkview/kget_linkview.cpp:87
+#, kde-format
+msgctxt "name of a file"
+msgid "Name"
+msgstr "Navn"
+
+#: ui/linkview/kget_linkview.cpp:117
+#, kde-format
+msgctxt "Download the items which have been selected"
+msgid "&Download"
+msgstr "&Download"
+
+#: ui/linkview/kget_linkview.cpp:157
+#, kde-format
+msgid "Auxiliary header"
+msgstr "Auxiliar-header"
+
+#: ui/linkview/kget_linkview.cpp:158
+#, kde-format
+msgid "File Name"
+msgstr "Filnavn"
+
+#: ui/linkview/kget_linkview.cpp:159
+#, kde-format
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: ui/linkview/kget_linkview.cpp:160
+#, kde-format
+msgctxt "list header: type of file"
+msgid "File Type"
+msgstr "Filtype"
+
+#: ui/linkview/kget_linkview.cpp:161
+#, kde-format
+msgid "Location (URL)"
+msgstr "Sted (URL)"
+
+#: ui/linkview/kget_linkview.cpp:266
+#, kde-format
+msgid "Links in: %1 - KGet"
+msgstr "Link i: %1 - Kget"
+
+#: ui/linkview/kget_linkview.cpp:337
+#, kde-format
+msgid "&Select All Filtered"
+msgstr "&Markér alle filtrerede"
+
+#: ui/linkview/kget_linkview.cpp:338
+#, kde-format
+msgid "D&eselect All Filtered"
+msgstr "A&fmarkér alle filtrerede"
+
+#: ui/linkview/kget_linkview.cpp:461
+#, kde-format
+msgid "Filter Column"
+msgstr "Filtrér kolonne"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/commondata.ui:22
+#, kde-format
+msgid "Identity"
+msgstr "Identitet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: ui/metalinkcreator/commondata.ui:32
+#, kde-format
+msgid "Description:"
+msgstr "Beskrivelse:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/commondata.ui:46
+#, kde-format
+msgid "Version:"
+msgstr "Version:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: ui/metalinkcreator/commondata.ui:56
+#, kde-format
+msgid "Logo:"
+msgstr "Logo:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, logo)
+#: ui/metalinkcreator/commondata.ui:63
+#, kde-format
+msgid "URL to the logo"
+msgstr "URL til logoet"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label_13)
+#: ui/metalinkcreator/commondata.ui:73
+#, kde-format
+msgid "The language of the file"
+msgstr "Filens sprog"
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: ui/metalinkcreator/commondata.ui:76
+#, kde-format
+msgid "Language:"
+msgstr "Sprog:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: ui/metalinkcreator/commondata.ui:86
+#, kde-format
+msgid "Operating systems:"
+msgstr "Operativsystemer:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, os)
+#: ui/metalinkcreator/commondata.ui:93
+#, kde-format
+msgid "Supported OSes, separated with commas"
+msgstr "Understøttede OS'er, adskilt med kommaer"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: ui/metalinkcreator/commondata.ui:103
+#, kde-format
+msgid "Copyright:"
+msgstr "Ophavsret:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_20)
+#: ui/metalinkcreator/commondata.ui:141
+#, kde-format
+msgid "Publisher:"
+msgstr "Udgiver:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: ui/metalinkcreator/commondata.ui:150
+#, kde-format
+msgid "Name:"
+msgstr "Navn:"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, pub_name)
+#. i18n: ectx: property (toolTip), widget (KLineEdit, pub_url)
+#: ui/metalinkcreator/commondata.ui:157 ui/metalinkcreator/commondata.ui:177
+#, kde-format
+msgid "publisher"
+msgstr "udgiver"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_name)
+#: ui/metalinkcreator/commondata.ui:160
+#, kde-format
+msgid "Name of the publisher"
+msgstr "Navnet på udgiveren"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_url)
+#: ui/metalinkcreator/commondata.ui:180
+#, kde-format
+msgid "URL to the publisher"
+msgstr "URL til udgiveren"
+
+#: ui/metalinkcreator/dragdlg.cpp:69
+#, kde-format
+msgid "Import dropped files"
+msgstr "Importér droppede filer"
+
+#: ui/metalinkcreator/dragdlg.cpp:92 ui/metalinkcreator/filedlg.cpp:68
+#: ui/metalinkcreator/filedlg.cpp:178
+#, kde-format
+msgctxt "comma, to separate members of a list"
+msgid ","
+msgstr ","
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite)
+#: ui/metalinkcreator/dragdlg.ui:21
+#, kde-format
+msgctxt "General options."
+msgid "General"
+msgstr "Generelt"
+
+#. i18n: ectx: property (text), widget (QCheckBox, partialChecksums)
+#: ui/metalinkcreator/dragdlg.ui:27
+#, kde-format
+msgid "Create partial checksums"
+msgstr "Opret delvise tjeksummer"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/dragdlg.ui:40
+#, kde-format
+msgid "General URL:"
+msgstr "Generel URL:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/metalinkcreator/dragdlg.ui:66
+#, kde-format
+msgid ""
+"Automatically create checksums for the selected types. Keep in mind that "
+"this might take a while."
+msgstr ""
+"Opret automatisk tjeksummer for de valgte typer. Vær opmærksom på at dette "
+"kan tage noget tid."
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/metalinkcreator/dragdlg.ui:92
+#, kde-format
+msgid ""
+"Enter URLs here if all the dropped files are on that server and in the same "
+"directory. For each dropped file the URL would consist of the entered part "
+"and the filename."
+msgstr ""
+"Angiv URL'er her hvis alle droppede filer er på den server og i den samme "
+"mappe. For hver droppet fil vil URL'en bestå af den angivne del og filnavnet."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: ui/metalinkcreator/dragdlg.ui:102
+#, kde-format
+msgid "Types of the checksums:"
+msgstr "Typer af tjeksummer:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/dragdlg.ui:115
+#, kde-format
+msgid "Create checksums:"
+msgstr "Opret tjeksummer:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
+#: ui/metalinkcreator/dragdlg.ui:123
+#, kde-format
+msgctxt "These entries are optional."
+msgid "Optional"
+msgstr "Valgfrit"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/metalinkcreator/dragdlg.ui:135
+#, kde-format
+msgid "Optional data:"
+msgstr "Valgfri data:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/metalinkcreator/dragdlg.ui:160
+#, kde-format
+msgid "Enter information that all chosen files share."
+msgstr "Angiv information som alle valgte filer deler."
+
+#: ui/metalinkcreator/filedlg.cpp:119
+#, kde-format
+msgid "File Properties"
+msgstr "Filegenskaber"
+
+#: ui/metalinkcreator/filedlg.cpp:131
+#, kde-format
+msgid "Enter a filename."
+msgstr "Angiv et filnavn."
+
+#: ui/metalinkcreator/filedlg.cpp:134
+#, kde-format
+msgid "The filename exists already, choose a different one."
+msgstr "Filnavnet findes allerede. Vælg et andet."
+
+#: ui/metalinkcreator/filedlg.cpp:137
+#, kde-format
+msgid "Enter at least one URL."
+msgstr "Angiv mindst én URL."
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: ui/metalinkcreator/filedlg.ui:24
+#, kde-format
+msgid "Required"
+msgstr "Påkrævet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: ui/metalinkcreator/filedlg.ui:54
+#, kde-format
+msgid "Filename:"
+msgstr "Filnavn:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: ui/metalinkcreator/filedlg.ui:95
+#, kde-format
+msgid "Used Mirrors:"
+msgstr "Anvendte mirrors:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: ui/metalinkcreator/filedlg.ui:103
+#, kde-format
+msgid "Recommended"
+msgstr "Anbefalet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: ui/metalinkcreator/filedlg.ui:111
+#, kde-format
+msgid "File size (in bytes):"
+msgstr "Filstørrelse (i bytes):"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/filedlg.ui:149 ui/signaturedlg.ui:34
+#, kde-format
+msgid "Verification:"
+msgstr "Verificering:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite)
+#: ui/metalinkcreator/filedlg.ui:196
+#, kde-format
+msgid "Optional"
+msgstr "Valgfrit"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, add_local_file)
+#: ui/metalinkcreator/files.ui:26
+#, kde-format
+msgid "Adds local files adding a lot information automatically."
+msgstr "Tilføjer lokale filer med automatisk tilføjelse af meget information."
+
+#. i18n: ectx: property (text), widget (QPushButton, add_local_file)
+#: ui/metalinkcreator/files.ui:29
+#, kde-format
+msgid "Add local files"
+msgstr "Tilføj lokale filer"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/metalinkcreator/files.ui:66
+#, kde-format
+msgid "Adding local files..."
+msgstr "Tilføjelse af lokale filer..."
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/metalinkcreator/generalwidget.ui:23
+#, kde-format
+msgid "General information:"
+msgstr "Generel information:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: ui/metalinkcreator/generalwidget.ui:30
+#, kde-format
+msgid "Here you can enter optional general information on the metalink."
+msgstr "Her kan du angive valgfri generel information om metalinket."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/generalwidget.ui:61
+#, kde-format
+msgid "Origin:"
+msgstr "Oprindelse:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, origin)
+#: ui/metalinkcreator/generalwidget.ui:68
+#, kde-format
+msgid "Web URL to the metalink"
+msgstr "Webadresse til metalinket"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
+#: ui/metalinkcreator/generalwidget.ui:75
+#, kde-format
+msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
+msgstr ""
+"Dynamisk betyder at opdaterede metalinks kan findes på \"Oprindelsen\"."
+
+#. i18n: ectx: property (text), widget (QLabel, labelDynamic)
+#: ui/metalinkcreator/generalwidget.ui:78
+#, kde-format
+msgid "Dynamic:"
+msgstr "Dynamisk:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, publishedGroupBox)
+#: ui/metalinkcreator/generalwidget.ui:110
+#, kde-format
+msgid "Metalink published"
+msgstr "Metalink publiceret"
+
+#. i18n: ectx: property (text), widget (QLabel, label_30)
+#. i18n: ectx: property (text), widget (QLabel, label_29)
+#: ui/metalinkcreator/generalwidget.ui:122
+#: ui/metalinkcreator/generalwidget.ui:231
+#, kde-format
+msgid "Date and time:"
+msgstr "Dato og klokkeslæt:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, use_publishedtimeoffset)
+#. i18n: ectx: property (text), widget (QCheckBox, use_updatedtimeoffset)
+#: ui/metalinkcreator/generalwidget.ui:136
+#: ui/metalinkcreator/generalwidget.ui:217
+#, kde-format
+msgid "Timezone offset:"
+msgstr "Forskydning af tidszone:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: ui/metalinkcreator/generalwidget.ui:153
+#: ui/metalinkcreator/generalwidget.ui:210
+#, kde-format
+msgid "Negative offset:"
+msgstr "Negativ forskydning:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, updatedGroupBox)
+#: ui/metalinkcreator/generalwidget.ui:182
+#, kde-format
+msgid "Metalink updated"
+msgstr "Metalink opdateret"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/introduction.ui:17
+#, kde-format
+msgid ""
+"This assistant allows you to create metalinks from scratch or base them on "
+"existing metalinks. A lot of the fields are optional or recommended, so "
+"enter them if desired. The minimum is a save location, at least one file and "
+"one URL."
+msgstr ""
+"Assistenten lader dig oprette metalinks fra bunden eller basere dem på "
+"eksisterende metalinks. Mange felter er valgfri eller anbefalede, så udfyld "
+"dem hvis du ønsker. Minimum er en gemmeplacering, mindst én fil og én URL."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/introduction.ui:48
+#, kde-format
+msgid "Save created Metalink at:"
+msgstr "Gem oprettet metalink på:"
+
+#. i18n: ectx: property (text), widget (QRadioButton, createButton)
+#: ui/metalinkcreator/introduction.ui:78
+#, kde-format
+msgid "Create new Metalink"
+msgstr "Opret nyt metalink"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadButton)
+#: ui/metalinkcreator/introduction.ui:88
+#, kde-format
+msgid "Load existing Metalink:"
+msgstr "Indlæs eksisterende metalink:"
+
+#. i18n: ectx: property (filter), widget (KUrlRequester, load)
+#: ui/metalinkcreator/introduction.ui:98
+#, kde-format
+msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+msgstr "*.metalink *.meta4|Metalink-fil (*.metalink *.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:84
+#, kde-format
+msgid "Create a Metalink"
+msgstr "Opret et metalink"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:103
+#, kde-format
+msgid "Add at least one file."
+msgstr "Tilføj mindst én fil."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:105
+#, kde-format
+msgid "You need to set mirrors for the entries with an icon."
+msgstr "Du skal angive mirrors for indgangene med et ikon."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:118
+#, kde-format
+msgid "General optional information for the metalink."
+msgstr "Generel valgfri information til metalinket."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:149
+#, kde-format
+msgid "Unable to load: %1"
+msgstr "Kan ikke indlæse: %1"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, kde-format
+msgid "Metalink Version 4.0 file (*.meta4)"
+msgstr "Metalink version 4.0-fil (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, kde-format
+msgid "Metalink Version 3.0 file (*.metalink)"
+msgstr "Metalink version 3.0-fil (*.metalink)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:183
+#, kde-format
+msgid "Define the saving location."
+msgstr "Angiv gemmeplacering."
+
+#: ui/metalinkcreator/metalinkcreator.cpp:229
+#, kde-format
+msgctxt "file as in file on hard drive"
+msgid "Files"
+msgstr "Filer"
+
+#. i18n: ectx: property (text), widget (QLabel, labelMirror)
+#: ui/mirror/mirroradddlg.ui:19
+#, kde-format
+msgid "Mirror:"
+msgstr "Mirror:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelConnections)
+#: ui/mirror/mirroradddlg.ui:26
+#, kde-format
+msgid "Number of connections:"
+msgstr "Antal forbindelser:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, url)
+#: ui/mirror/mirroradddlg.ui:33
+#, kde-format
+msgid "Enter a URL"
+msgstr "Angiv en URL"
+
+#. i18n: ectx: property (text), widget (QLabel, labelPriority)
+#: ui/mirror/mirroradddlg.ui:53
+#, kde-format
+msgid "Priority:"
+msgstr "Prioritet:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, priority)
+#: ui/mirror/mirroradddlg.ui:60
+#, kde-format
+msgid "Optional: The priority of the mirror, 1 highest 999999 lowest."
+msgstr "Valgfrit: Prioritet for mirror, 1 højest og 999999 lavest."
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, priority)
+#: ui/mirror/mirroradddlg.ui:72 ui/mirror/mirrormodel.cpp:213
+#: ui/mirror/mirrormodel.cpp:231
+#, kde-format
+msgid "not specified"
+msgstr "ikke angivet"
+
+#. i18n: ectx: property (text), widget (QLabel, labelLocation)
+#: ui/mirror/mirroradddlg.ui:79
+#, kde-format
+msgid "Location:"
+msgstr "Placering:"
+
+#: ui/mirror/mirrormodel.cpp:366
+#, kde-format
+msgctxt "Mirror as in server, in url"
+msgid "Mirror"
+msgstr "Mirror"
+
+#: ui/mirror/mirrormodel.cpp:369
+#, kde-format
+msgctxt "The priority of the mirror"
+msgid "Priority"
+msgstr "Prioritet"
+
+#: ui/mirror/mirrormodel.cpp:374
+#, kde-format
+msgctxt "Number of parallel connections to the mirror"
+msgid "Connections"
+msgstr "Forbindelser"
+
+#: ui/mirror/mirrormodel.cpp:376
+#, kde-format
+msgctxt "Location = country"
+msgid "Location"
+msgstr "Placering"
+
+#: ui/mirror/mirrorsettings.cpp:55
+#, kde-format
+msgid "Add mirror"
+msgstr "Tilføj mirror"
+
+#: ui/mirror/mirrorsettings.cpp:149
+#, kde-format
+msgid "Modify the used mirrors"
+msgstr "Ændr de anvendte mirrors"
+
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: ui/mirror/mirrorsettings.ui:36
+#, kde-format
+msgid "PushButton"
+msgstr "Trykknap"
+
+#: ui/newtransferdialog.cpp:322
+#, kde-format
+msgid "Select at least one source url."
+msgstr "Vælg mindst én kilde-URL."
+
+#: ui/newtransferdialog.cpp:340
+#, kde-format
+msgid "Files that exist already in the current folder have been marked."
+msgstr "Filer som allerede findes i den aktuelle mappe er blevet markeret."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/newtransferwidget.ui:30
+#, kde-format
+msgid "Destination:"
+msgstr "Destination:"
+
+#. i18n: ectx: property (text), widget (QLabel, groupLabel)
+#: ui/newtransferwidget.ui:40
+#, kde-format
+msgid "Transfer group:"
+msgstr "Overførselsgruppe:"
+
+#: ui/renamefile.cpp:33
+#, kde-format
+msgid "Rename File"
+msgstr "Omdøb fil"
+
+#: ui/renamefile.cpp:39
+#, kde-format
+msgid "Rename %1 to:"
+msgstr "Omdøb %1 til:"
+
+#: ui/renamefile.cpp:42
+#, kde-format
+msgid "&Rename"
+msgstr "&Omdøb"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Ukendt"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "Udefineret"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Aldrig"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "Marginalt"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "Fuldt"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "Ultimativt"
+
+#: ui/signaturedlg.cpp:49
+#, kde-format
+msgctxt ""
+"Signature here is meant in cryptographic terms, so the signature of a file."
+msgid "Signature of %1."
+msgstr "Signatur for %1."
+
+#: ui/signaturedlg.cpp:72
+#, kde-format
+msgid "This option is not supported for the current transfer."
+msgstr "Denne indstilling er ikke understøttet for den aktuelle overførsel."
+
+#: ui/signaturedlg.cpp:99
+#, kde-format
+msgid "Load Signature File"
+msgstr "Indlæs signaturfil"
+
+#: ui/signaturedlg.cpp:100
+#, kde-format
+msgid "Detached OpenPGP ASCII signature (*.asc)"
+msgstr "Afkoblet OpenPGP ASCII-signatur (*.asc)"
+
+#: ui/signaturedlg.cpp:101
+#, kde-format
+msgid "Detached OpenPGP binary signature (*.sig)"
+msgstr "Afkoblet OpenPGP binær-signatur (*.sig)"
+
+#: ui/signaturedlg.cpp:154
+#, kde-format
+msgid "You need to define a signature."
+msgstr "Du skal definere en signatur."
+
+#: ui/signaturedlg.cpp:158
+#, kde-format
+msgid ""
+"No fingerprint could be found, check if the signature is correct or verify "
+"the download."
+msgstr ""
+"Intet fingeraftryk kunne findes, tjek om signaturen er korrekt eller "
+"verificér downloadet."
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgid "The key has been revoked."
+msgstr "Nøglen er blevet trukket tilbage."
+
+#: ui/signaturedlg.cpp:196
+#, kde-format
+msgid "The key is disabled."
+msgstr "Nøglen er deaktiveret."
+
+#: ui/signaturedlg.cpp:200
+#, kde-format
+msgid "The key is invalid."
+msgstr "Nøglen er ugyldig."
+
+#: ui/signaturedlg.cpp:205
+#, kde-format
+msgid "The key is expired."
+msgstr "Nøglen er udløbet."
+
+#: ui/signaturedlg.cpp:220
+#, kde-format
+msgid "The key is not to be trusted."
+msgstr "Nøglen er ikke troværdig."
+
+#: ui/signaturedlg.cpp:225
+#, kde-format
+msgid "The key is to be trusted marginally."
+msgstr "Nøglen er marginalt betroet."
+
+#: ui/signaturedlg.cpp:238
+#, kde-format
+msgid "Trust level of the key is unclear."
+msgstr "Nøglens niveau af betroethed er uklart."
+
+#: ui/signaturedlg.cpp:267
+#, kde-format
+msgid "Unlimited"
+msgstr "Ubegrænset"
+
+#: ui/signaturedlg.cpp:285
+#, kde-format
+msgctxt "pgp signature is verified"
+msgid "Verified"
+msgstr "Verificeret"
+
+#: ui/signaturedlg.cpp:288
+#, kde-format
+msgctxt "pgp signature is not verified"
+msgid "Failed"
+msgstr "Mislykkedes"
+
+#: ui/signaturedlg.cpp:291
+#, kde-format
+msgid ""
+"Caution: Verification failed. Either you entered the wrong signature, or the "
+"data has been modified."
+msgstr ""
+"Advarsel: Verificering mislykkedes. Enten angav du den forkeret signatur "
+"ellers er data blevet ændret."
+
+#: ui/signaturedlg.cpp:296
+#, kde-format
+msgid ""
+"Verification not possible. Check the entered data, whether gpg-agent is "
+"running, or whether you have an Internet connection (for retrieving keys.)"
+msgstr ""
+"Verificering ikke mulig. Tjek de angivne data, om gpg-agent kører eller om "
+"du har internetforbindelse (til at hente nøgler.)"
+
+#: ui/signaturedlg.cpp:313
+#, kde-format
+msgid "Feature is not supported, as KGet is not compiled with QPGME support."
+msgstr ""
+"Funktionen er ikke understøttet, da KGet ikke er oversat med QPGME-"
+"understøttelse."
+
+#. i18n: ectx: property (text), widget (QLabel, binaryLabel)
+#: ui/signaturedlg.ui:80
+#, kde-format
+msgid "Has binary PGP signature."
+msgstr "Har binær PGP-signatur."
+
+#. i18n: ectx: property (text), widget (QLabel, asciiLabel)
+#: ui/signaturedlg.ui:87
+#, kde-format
+msgid "Ascii PGP signature:"
+msgstr "ASCII PGP-signatur:"
+
+#. i18n: ectx: property (text), widget (QPushButton, loadSignature)
+#: ui/signaturedlg.ui:112
+#, kde-format
+msgid "Load Signature"
+msgstr "Indlæs signatur"
+
+#. i18n: ectx: property (text), widget (QPushButton, verify)
+#: ui/signaturedlg.ui:119
+#, kde-format
+msgid "Verify"
+msgstr "Verificér"
+
+#. i18n: ectx: property (title), widget (QGroupBox, keyGroup)
+#: ui/signaturedlg.ui:131
+#, kde-format
+msgid "Key"
+msgstr "Nøgle"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/signaturedlg.ui:143
+#, kde-format
+msgid "Issuer:"
+msgstr "Udsteder:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/signaturedlg.ui:166
+#, kde-format
+msgid "E-Mail:"
+msgstr "E-mail:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: ui/signaturedlg.ui:183
+#, kde-format
+msgid "Comment:"
+msgstr "Kommentar:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/signaturedlg.ui:197
+#, kde-format
+msgid "Creation:"
+msgstr "Oprettelse:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/signaturedlg.ui:214
+#, kde-format
+msgid "Expiration:"
+msgstr "Udløb:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/signaturedlg.ui:255
+#, kde-format
+msgid "Trust:"
+msgstr "Betroethed:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/signaturedlg.ui:296
+#, kde-format
+msgid "Fingerprint:"
+msgstr "Fingeraftryk:"
+
+#: ui/transferdetails.cpp:72
+#, kde-format
+msgid "Average speed: %1/s"
+msgstr "Gennemsnitshastighed: %1/s"
+
+#: ui/transferdetails.cpp:77
+#, kde-format
+msgid "%1 of %2"
+msgstr "%1 af %2"
+
+#. i18n: ectx: property (text), widget (QLabel, sourceLabel)
+#: ui/transferdetailsfrm.ui:51
+#, kde-format
+msgctxt "@label transfer source"
+msgid "Source:"
+msgstr "Kilde:"
+
+#. i18n: ectx: property (text), widget (QLabel, statusLabel)
+#: ui/transferdetailsfrm.ui:114
+#, kde-format
+msgid "Status:"
+msgstr "Status:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/transferdetailsfrm.ui:165
+#, kde-format
+msgid "Remaining Time:"
+msgstr "Tid tilbage:"
+
+#: ui/transfersettingsdialog.cpp:33
+#, kde-format
+msgid "Transfer Settings for %1"
+msgstr "Overførselsindstillinger for %1"
+
+#: ui/transfersettingsdialog.cpp:167
+#, kde-format
+msgid ""
+"Changing the destination did not work, the destination stays unmodified."
+msgstr ""
+"Ændring af destinationen fungerede ikke. Destinationen forbliver uændret."
+
+#: ui/transfersettingsdialog.cpp:167
+#, kde-format
+msgid "Destination unmodified"
+msgstr "Destination uændret"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: ui/transfersettingsdialog.ui:23
+#, kde-format
+msgid "Transfer Settings"
+msgstr "Overførselsindstillinger"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/transfersettingsdialog.ui:35
+#, kde-format
+msgid "Download des&tination:"
+msgstr "Downloaddes&tination:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelUpload)
+#: ui/transfersettingsdialog.ui:90
+#, kde-format
+msgid "&Upload limit:"
+msgstr "&Uploadgrænse:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelDownload)
+#: ui/transfersettingsdialog.ui:100
+#, kde-format
+msgid "Download &limit:"
+msgstr "Download&grænse:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
+#: ui/transfersettingsdialog.ui:110
+#, kde-format
+msgid "Ma&ximum share ratio:"
+msgstr "Ma&ksimalt delingsforhold:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, mirrors)
+#: ui/transfersettingsdialog.ui:139
+#, kde-format
+msgid "Modify the mirrors used for downloading."
+msgstr "Ændr de mirrors der bruges til download."
+
+#. i18n: ectx: property (text), widget (QPushButton, mirrors)
+#: ui/transfersettingsdialog.ui:142
+#, kde-format
+msgctxt "The available mirrors (servers) for downloading"
+msgid "Mirrors"
+msgstr "Mirrors"
+
+#. i18n: ectx: property (text), widget (QPushButton, verification)
+#: ui/transfersettingsdialog.ui:162
+#, kde-format
+msgctxt "verification of the download (e.g. by using MD5)"
+msgid "Verification"
+msgstr "Verificering"
+
+#: ui/transfersview.cpp:126
+#, kde-format
+msgid "Select columns"
+msgstr "Vælg kolonner"
+
+#: ui/transfersview.cpp:314
+#, kde-format
+msgid "Transfer Details"
+msgstr "Overførselsdetaljer"
+
+#: ui/tray.cpp:48
+#, kde-format
+msgid "Download Manager"
+msgstr "Downloadhåndtering"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/verificationadddlg.ui:19
+#, kde-format
+msgctxt "hash type as in md5t, sha1 etc."
+msgid "Hash type:"
+msgstr "Hash-type:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/verificationadddlg.ui:26
+#, kde-format
+msgctxt "hash as a hash of type md5, sha1 etc."
+msgid "Hash:"
+msgstr "Hash:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, newHash)
+#: ui/verificationadddlg.ui:33
+#, kde-format
+msgid "Enter a hash key"
+msgstr "Angiv en hash-nøgle"
+
+#: ui/verificationdialog.cpp:38
+#, kde-format
+msgid "Add checksum"
+msgstr "Tilføj tjeksum"
+
+#: ui/verificationdialog.cpp:94
+#, kde-format
+msgid "Transfer Verification for %1"
+msgstr "Overførselsverificering for %1"
+
+#: ui/verificationdialog.cpp:206
+#, kde-format
+msgid "%1 was successfully verified."
+msgstr "%1 blev korrekt verificeret."
+
+#: ui/verificationdialog.cpp:207
+#, kde-format
+msgid "Verification successful"
+msgstr "Verificering gennemført"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/verificationdialog.ui:65
+#, kde-format
+msgid "Verifying:"
+msgstr "Verificerer:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, verify)
+#: ui/verificationdialog.ui:118
+#, kde-format
+msgid "Verify the finished download with the selected checksum."
+msgstr "Verificér det færdige download med den valgte tjeksum."
+
+#. i18n: ectx: property (text), widget (QPushButton, verify)
+#: ui/verificationdialog.ui:121
+#, kde-format
+msgid "&Verify"
+msgstr "&Verificér"
+
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: ui/verificationdialog.ui:147
+#, kde-format
+msgid "Close"
+msgstr "Luk"
+
+#~ msgctxt "Transfer state: processing script"
+#~ msgid "Processing script...."
+#~ msgstr "Behandler script..."
+
+#~ msgctxt "Transfer State: Finished"
+#~ msgid "Finished"
+#~ msgstr "Færdig"
+
+#~ msgctxt "Transfer State: Aborted"
+#~ msgid "Aborted"
+#~ msgstr "Afbrudt"
+
+#~ msgctxt "Configure script"
+#~ msgid "Configure script"
+#~ msgstr "Indstil script"
+
+#~ msgid "User Scripts"
+#~ msgstr "Bruger-scripts"
+
+#~ msgid "Path"
+#~ msgstr "Sti"
+
+#~ msgid "RegExp"
+#~ msgstr "Reg. udtr."
+
+#~ msgid "New Script...."
+#~ msgstr "Nyt script..."
+
+#~ msgid "Edit...."
+#~ msgstr "Redigér..."
+
+#~ msgid "Configure...."
+#~ msgstr "Indstil..."
+
+#~ msgid "Add New Script"
+#~ msgstr "Tilføj nyt script"
+
+#~ msgid "Edit Script"
+#~ msgstr "Redigér script"
+
+#~ msgid "Set Script File"
+#~ msgstr "Angiv script-fil"
+
+#~ msgid "Regexp:"
+#~ msgstr "Reg. udtr.:"
+
+#~ msgid "Path:"
+#~ msgstr "Sti:"
+
+#~ msgid "List of the Regexp to match input URL"
+#~ msgstr "Liste over de reg. udtr. der skal matche input-URL"
+
+#~ msgid "List of descriptions for user scripts"
+#~ msgstr "Liste over beskrivelser for bruger-scripts"
+
+#~ msgid "List of whether the script is enabled"
+#~ msgstr "Liste over om scriptet er aktiveret"
+
+#~ msgid "File Settings"
+#~ msgstr "Filindstillinger"
+
+#~ msgid "Use Normalized Name"
+#~ msgstr "Brug normaliseret navn"
+
+#~ msgid "Use Literal Name"
+#~ msgstr "Brug bogstaveligt navn"
+
+#~ msgid "Quality:"
+#~ msgstr "Kvalitet:"
+
+#~ msgid "Best Quality (.mp4)"
+#~ msgstr "Bedste kvalitet (.mp4)"
+
+#~ msgid "Normal Quality (.flv)"
+#~ msgstr "Normal kvalitet (.flv)"
+
+#~ msgid ""
+#~ "Provide login info of your YouTube account in order to access restricted "
+#~ "media."
+#~ msgstr ""
+#~ "Oplys login-information til din YouTube-konto for at kunne tilgå indhold "
+#~ "med begrænset adgang."
+
+#~ msgid "Login Info"
+#~ msgstr "Login-info"
+
+#~ msgid "Username:"
+#~ msgstr "Brugernavn:"
+
+#~ msgid ".netrc must have a hostname called 'youtube'."
+#~ msgstr ".netrc skal have et værtsnavn kaldet \"youtube\"."
+
+#~ msgid "User .netrc file"
+#~ msgstr ".netrc-fil for bruger"
+
+#~ msgid "Unable to start WebInterface: Could not open KWallet"
+#~ msgstr "Kan ikke starte webgrænseflade: Kunne ikke åbne KWallet"
+
+#~ msgctxt "@info"
+#~ msgid "Unable to start WebInterface: %1"
+#~ msgstr "Kan ikke starte webgrænseflade: %1"
+
+#~ msgctxt "@item speed of transfer per seconds"
+#~ msgid "%1/s"
+#~ msgstr "%1/s"
+
+#~ msgctxt "@label"
+#~ msgid "KGet Web Interface"
+#~ msgstr "Webgrænseflade til KGet"
+
+#~ msgctxt "@label number"
+#~ msgid "Nr"
+#~ msgstr "Nr."
+
+#~ msgctxt "@label"
+#~ msgid "File name"
+#~ msgstr "Filnavn"
+
+#~ msgctxt "@label Progress of transfer"
+#~ msgid "Finished"
+#~ msgstr "Færdig"
+
+#~ msgctxt "@label Speed of transfer"
+#~ msgid "Speed"
+#~ msgstr "Hastighed"
+
+#~ msgctxt "@label Status of transfer"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgctxt "@action:button start a transfer"
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgctxt "@action:button"
+#~ msgid "Stop"
+#~ msgstr "Stop"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Fjern"
+
+#~ msgctxt "@label Download from"
+#~ msgid "Source:"
+#~ msgstr "Kilde:"
+
+#~ msgctxt "@label Save download to"
+#~ msgid "Saving to:"
+#~ msgstr "Gemmer til:"
+
+#~ msgctxt "@label Title in header"
+#~ msgid "Web Interface"
+#~ msgstr "Webgrænseflade"
+
+#~ msgctxt "@action"
+#~ msgid "Settings"
+#~ msgstr "Indstillinger"
+
+#~ msgctxt "@action"
+#~ msgid "Refresh"
+#~ msgstr "Genopfrisk"
+
+#~ msgctxt "@action"
+#~ msgid "Enter URL: "
+#~ msgstr "Indtast URL:"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgctxt "@action Refresh download list every x (seconds)"
+#~ msgid "Refresh download list every"
+#~ msgstr "Genopfrisk downloadliste hver"
+
+#~ msgctxt "@action (Refresh very x )seconds"
+#~ msgid "seconds"
+#~ msgstr "sekunder"
+
+#~ msgctxt "@action:button"
+#~ msgid "Save Settings"
+#~ msgstr "Gem indstillinger"
+
+#~ msgctxt "@title"
+#~ msgid "Downloads"
+#~ msgstr "Downloads"
+
+#~ msgctxt "@label text in footer"
+#~ msgid "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS"
+#~ msgstr "Webgrænseflade til KGet | Valid XHTML 1.0 Strict &amp; CSS"
+
+#~ msgctxt "Number of paralell connections to the mirror"
+#~ msgid "Connections"
+#~ msgstr "Forbindelser"
+
+#~ msgid "Select a default torrent folder"
+#~ msgstr "Vælg standardmappe til torrents"
+
+#~ msgid "Select a default temporary folder"
+#~ msgstr "Vælg standardmappe til midlertidige filer"
+
+#~ msgid "0123456789"
+#~ msgstr "0123456789"
+
+#~ msgid "Nepomuk"
+#~ msgstr "Nepomuk"
+
+#~ msgid "Opens a dialog to add a transfer to the list"
+#~ msgstr "Åbner en dialog for at føje overførslen til listen"
+
+#~ msgid "Imports a list of transfers"
+#~ msgstr "Importerer en liste over overførsler"
+
+#~ msgid "Exports the current transfers into a file"
+#~ msgstr "Eksporterer de aktuelle overførsler til en fil"
+
+#~ msgid "Creates or modifies a metalink and saves it on disk"
+#~ msgstr "Opretter eller ændrer et metalink og gemmer det på disken"
+
+#~ msgid "Download selected transfer first"
+#~ msgstr "Download de valgte overførsler først"
+
+#~ msgid "Download selected transfer last"
+#~ msgstr "Download de valgte overførsler sidst"
+
+#~ msgid "Increase priority for selected transfer"
+#~ msgstr "Hæv prioritet af valgt overførsel"
+
+#~ msgid "Decrease priority for selected transfer"
+#~ msgstr "Sænk prioritet af valgt overførsel"
+
+#~ msgid "Delete selected group"
+#~ msgstr "Slet valgt gruppe"
+
+#~ msgid "Select a custom icon for the selected group"
+#~ msgstr "Vælg et brugerdefineret ikon til den valgte gruppe"
+
+#~ msgid ""
+#~ "Removes selected transfer and deletes files from disk if it's not finished"
+#~ msgstr ""
+#~ "Fjerner den valgte overførsel og sletter filerne fra disken hvis den ikke "
+#~ "er gennemført"
+
+#~ msgid "Removes all finished transfers and leaves all files on disk"
+#~ msgstr ""
+#~ "Fjerner alle gennemførte overførsler og lader alle filer blive på disken"
+
+#~ msgid "Removes selected transfer and deletes files from disk in any case"
+#~ msgstr ""
+#~ "Fjerner den valgte overførsel og sletter filerne fra disken under alle "
+#~ "omstændigheder"
+
+#~ msgid "Starts / resumes all transfers"
+#~ msgstr "Starter / genoptager alle overførsler"
+
+#~ msgid "Starts / resumes selected transfer"
+#~ msgstr "Starter / genoptager de valgte overførsler"
+
+#~ msgid "Pauses all transfers"
+#~ msgstr "Sætter alle overførsler på pause"
+
+#~ msgid "Pauses selected transfer"
+#~ msgstr "Sætter de valgte overførsler på pause"
+
+#~ msgid ""
+#~ "Choose an action that is executed after all downloads have been finished."
+#~ msgstr "Vælg en handling der skal udføres når alle downloads er gennemført."
+
+#~ msgid "Scanning data of <b>%1</b> :"
+#~ msgstr "Scanner data for <b>%1</b> :"
+
+#~ msgid "Semantic Desktop"
+#~ msgstr "Semantisk skrivebordsmiljø"
+
+#~ msgctxt "on a question"
+#~ msgid "Yes all"
+#~ msgstr "Ja til alle"
+
+#~ msgctxt "on a question"
+#~ msgid "No all"
+#~ msgstr "Nej til alle"
+
+#~ msgctxt "Download the items which have been selected"
+#~ msgid "&Download Checked"
+#~ msgstr "&Download tjekket"
+
+#~ msgid "Number of downloads:"
+#~ msgstr "Antal downloads:"
+
+#~ msgctxt "filter: show all file types"
+#~ msgid "&All"
+#~ msgstr "&Alle"
+
+#~ msgid "Ima&ges"
+#~ msgstr "&Billeder"
+
+#~ msgctxt "Check as in mark, not as in verify"
+#~ msgid "Chec&k Selected"
+#~ msgstr "Tje&k markerede"
+
+#~ msgid "Stop All"
+#~ msgstr "Stop alle"
+
+#~ msgid "Start / Resume"
+#~ msgstr "Start / genoptag"
+
+#~ msgid "Stop"
+#~ msgstr "Stop"
+
+#~ msgid "Downloads from the same server:"
+#~ msgstr "Download fra samme server:"
+
+#~ msgid "Move &Up"
+#~ msgstr "Flyt &op"
+
+#~ msgid "Move &Down"
+#~ msgstr "Flyt &ned"
+
+#~ msgid "After Completing Downloads"
+#~ msgstr "Efter afslutning af downloads"
+
+#~ msgid "Auto shutdown"
+#~ msgstr "Automatisk nedlukning"
+
+#~ msgid "Auto disconnect"
+#~ msgstr "Automatisk afbrydelse"
+
+#~ msgid "Startup"
+#~ msgstr "Opstart"
+
+#~ msgid "Show splashscreen"
+#~ msgstr "Vis splashskærm"
+
+#~ msgid "Enable popup tooltip"
+#~ msgstr "Aktivér pop-op med værktøjstip"
+
+#~ msgid "Show drop target"
+#~ msgstr "Vis dropmål"
+
+#~ msgid " KiB"
+#~ msgstr " KiB"
+
+#~ msgid "Sets to show the splashscreen while KGet is loading"
+#~ msgstr "Sætter opstartsbilledet til at blive vist når KGet indlæses"
+
+#~ msgid ""
+#~ "Drop target has been hidden. If you want to show it again, go to Settings-"
+#~ ">Configure KGet->Look & Feel."
+#~ msgstr ""
+#~ "Dropmål er blevet skjult. Hvis du ønsker at vise det igen, gå da til "
+#~ "Indstillinger->Indstil KGet->Look & Feel."
+
+#~ msgid "Hiding drop target"
+#~ msgstr "Skjul dropmål"
+
+#~ msgid "&Export Transfers as Plain Text..."
+#~ msgstr "&Eksportér overførsler som klartekst..."
+
+#~ msgid "Checksums"
+#~ msgstr "Tjeksummer"
+
+#~ msgid "Automatic verification:"
+#~ msgstr "Automatisk verificering:"
+
+#~ msgid "Disable confirmation dialogs (less verbosity)"
+#~ msgstr "Deaktivér bekræftelsesdialoger (mindre uddybende)"
+
+#~ msgid "History"
+#~ msgstr "Historik"
+
+#~ msgid "The key is to be trusted fully."
+#~ msgstr "Nøglen er fuldt betroet."
+
+#~ msgid "The key is to be trusted ultimately."
+#~ msgstr "Nøglen er ultimativt betroet."
+
+#~ msgid "The signature has been verified successfully."
+#~ msgstr "Signaturen er blevet verificeret."
+
+#~ msgid "The signature has been verified successfully:"
+#~ msgstr "Signaturen er blevet verificeret:"
+
+#~ msgid "Error:"
+#~ msgstr "Fejl:"
+
+#~ msgid "Problems:"
+#~ msgstr "Problemer:"
+
+#~ msgid "Information:"
+#~ msgstr "Information:"
+
+#~ msgid ""
+#~ "Required data entered; also consider entering additional information."
+#~ msgstr ""
+#~ "Påkrævet data angivet, overvej også at angive yderligere information."
+
+#~ msgid "You have no source URLs selected."
+#~ msgstr "Du har ikke valgt nogen kilde-URL'er."
+
+#~ msgctxt "an error happened in connection with the user input"
+#~ msgid "Error:"
+#~ msgstr "Fejl:"
+
+#~ msgctxt "a warning happened in connection with the user input"
+#~ msgid "Warning:"
+#~ msgstr "Advarsel:"
+
+#~ msgctxt "Files as in files on a server"
+#~ msgid "Files:"
+#~ msgstr "Filer:"
+
+#~ msgctxt "Adds the item and reopens the dialog to add a further item"
+#~ msgid "Add more"
+#~ msgstr "Tilføj flere"
+
+#~ msgid "%1 has been successfully added."
+#~ msgstr "%1 er blevet tilføjet."
+
+#~ msgid "%1 %2 has been successfully added."
+#~ msgstr "%1 %2 er blevet tilføjet."
+
+#~ msgid "TextLabel"
+#~ msgstr "TextLabel"
+
+#~ msgid "Show Drop Target"
+#~ msgstr "Vis dropmål"
+
+#~ msgid "List All Links"
+#~ msgstr "Liste over alle links"
+
+#~ msgid "List Selected Links"
+#~ msgstr "Liste over markerede links"
+
+#~ msgid "No downloadable links were found."
+#~ msgstr "Ingen links som kunne downloades blev fundet."
+
+#~ msgid "No Links"
+#~ msgstr "Ingen link"
+
+#~ msgid "Unable to communicate with the KGet download manager."
+#~ msgstr "Kan ikke kommunikere med KGet downloadhåndtering."
+
+#~ msgid "Communication Error"
+#~ msgstr "Kommunikationsfejl"
+
+#~ msgid "&Tools"
+#~ msgstr "Værk&tøjer"
+
+#~ msgid "There are no links in the active frame of the current HTML page."
+#~ msgstr "Der er ingen link i den aktive ramme for denne HTML-side."
+
+#~ msgid "Form"
+#~ msgstr "Formular"
+
+#~ msgid "An error occurred...."
+#~ msgstr "En fejl opstod..."
+
+#~ msgid "Remove Tag"
+#~ msgstr "Fjern tag"
+
+#~ msgid "Add Tag"
+#~ msgstr "Tilføj mærke"
+
+#~ msgid "Tag Settings for the groups"
+#~ msgstr "Mærkeindstillinger for grupperne"
+
+#~ msgid "Tag Settings"
+#~ msgstr "Mærkeindstillinger"
+
+#~ msgid "Available tags:"
+#~ msgstr "Tilgængelige mærker:"
+
+#~ msgid "Used tags:"
+#~ msgstr "Brugte mærker:"
+
+#~ msgid "Enter a new Tag"
+#~ msgstr "Angiv et nyt mærke"
+
+#~ msgid "Enter a new tag"
+#~ msgstr "Angiv et nyt mærke"
+
+#~ msgid "Modify Tags..."
+#~ msgstr "Ændr mærker..."
+
+#~ msgid "Unable to continue: KGet cannot download using this protocol."
+#~ msgstr "Kan ikke fortsætte: KGet kan ikke downloade via denne protokol."
+
+#~ msgid "The width of the columns in the main view"
+#~ msgstr "Bredden på kolonnerne i hovedvisningen"
+
+#~ msgid "OK"
+#~ msgstr "O.k."
+
+#~ msgid "Announcing"
+#~ msgstr "Annoncerer"
+
+#~ msgid "Error: %1"
+#~ msgstr "Fejl: %1"
+
+#~ msgid "Unknown client"
+#~ msgstr "Ukendt klient"
+
+#~ msgid "1 day "
+#~ msgid_plural "%1 days "
+#~ msgstr[0] "1 dag"
+#~ msgstr[1] "%1 dage"
+
+#~ msgid "Cannot open log file %1 : %2"
+#~ msgstr "Kan ikke åbne logfilen %1 : %2"
+
+#~ msgid "Cannot write to %1 : %2"
+#~ msgstr "Kan ikke skrive til %1 : %2"
+
+#~ msgid "Cannot read from %1"
+#~ msgstr "Kan ikke læse fra %1"
+
+#~ msgid "Cannot create directory %1"
+#~ msgstr "Kan ikke oprette mappen %1"
+
+#~ msgid "Cannot symlink %1 to %2: %3"
+#~ msgstr "Kan ikke oprette symbolsk link fra %1 til %2: %3"
+
+#~ msgid "Cannot move %1 to %2: %3"
+#~ msgstr "Kan ikke flytte %1 til %2: %3"
+
+#~ msgid "Cannot copy %1 to %2: %3"
+#~ msgstr "Kan ikke kopiere %1 til %2: %3"
+
+#~ msgid "Cannot delete %1: %2"
+#~ msgstr "Kan ikke slette %1: %2"
+
+#~ msgid "Cannot create %1: %2"
+#~ msgstr "Kan ikke oprette %1: %2"
+
+#~ msgid "Cannot calculate the filesize of %1: %2"
+#~ msgstr "Kan ikke beregne filstørrelse for %1: %2"
+
+#~ msgid "Cannot calculate the filesize : %1"
+#~ msgstr "Kan ikke beregne filstørrelsen: %1"
+
+#~ msgid "Cannot open %1 : %2"
+#~ msgstr "Kan ikke åbne %1 : %2"
+
+#~ msgid "Cannot expand file: %1"
+#~ msgstr "Kan ikke ekspandere fil : %1"
+
+#~ msgid "Cannot seek in file : %1"
+#~ msgstr "Kan ikke søge i indeksfil: %1"
+
+#~ msgid "General"
+#~ msgstr "Generelt"
+
+#~ msgid "Tracker"
+#~ msgstr "Tracker"
+
+#~ msgid "Disk Input/Output"
+#~ msgstr "Disk input/output"
+
+#~ msgid "Not connected"
+#~ msgstr "Ikke forbundet"
+
+#~ msgid "Not in use"
+#~ msgstr "Ikke i brug"
+
+#~ msgid "Connection closed"
+#~ msgstr "Forbindelse lukket"
+
+#~ msgid "Resolving proxy %1:%2"
+#~ msgstr "Slår proxy'en %1:%2 op"
+
+#~ msgid "Resolving hostname %1"
+#~ msgstr "Slår værtsnavnet %1 op"
+
+#~ msgid "Error: request failed: %1"
+#~ msgstr "Fejl: Forespørgsel fejlede: %1"
+
+#~ msgid "Connected"
+#~ msgstr "Forbundet"
+
+#~ msgid "Error: Failed to connect to webseed"
+#~ msgstr "Fejl: Kunne ikke forbinde til webseed"
+
+#~ msgid "Connecting"
+#~ msgstr "Forbinder"
+
+#~ msgid "Failed to connect to webseed"
+#~ msgstr "Kunne ikke forbinde til webseed"
+
+#~ msgid "Failed to resolve hostname of webseed"
+#~ msgstr "Kunne ikke slå værtsnavnet for webseed op"
+
+#~ msgid "Error: failed to connect, server not responding"
+#~ msgstr "Fejl: Kunne ikke forbinde, serveren svarer ikke"
+
+#~ msgid "Error: request timed out"
+#~ msgstr "Fejl: Tidsudløb af forespørgsel"
+
+#~ msgid "Redirected without a new location."
+#~ msgstr "Omdirigeret uden en ny placering."
+
+#~ msgid "1 peer"
+#~ msgid_plural "%1 peers"
+#~ msgstr[0] "1 peer"
+#~ msgstr[1] "%1 peers"
+
+#~ msgid "Illegal token: %1"
+#~ msgstr "Ulovligt symbol: %1"
+
+#~ msgid "Decode error"
+#~ msgstr "Afkodningsfejl"
+
+#~ msgid "Unexpected end of input"
+#~ msgstr "Uventet slut på inddata"
+
+#~ msgid "Cannot convert %1 to an int"
+#~ msgstr "Kan ikke konvertere %1 til et heltal"
+
+#~ msgid "Torrent is incomplete."
+#~ msgstr "Torrent er ukomplet."
+
+#~ msgid "Failed to open %1 : %2"
+#~ msgstr "Kunne ikke åbne %1 : %2"
+
+#~ msgid "Failed to create %1 : %2"
+#~ msgstr "Fejl under oprettelse af %1 : %2"
+
+#~ msgid "Cannot open index file %1 : %2"
+#~ msgstr "Kan ikke åbne indeksfilen %1 : %2"
+
+#~ msgid "Cannot create file %1 : %2"
+#~ msgstr "Kan ikke oprette filen %1: %2"
+
+#~ msgid "Failed to write first chunk to DND file : %1"
+#~ msgstr "Mislykkedes at skrive første stykke til DND-filen: %1"
+
+#~ msgid "Failed to write last chunk to DND file : %1"
+#~ msgstr "Mislykkedes at skrive sidste stykke til DND-filen: %1"
+
+#~ msgid "Cannot open %1 for writing : readonly filesystem"
+#~ msgstr "Kan ikke åbne %1 til skrivning : skrivebeskyttet filsystem"
+
+#~ msgid "Cannot expand file %1 : %2"
+#~ msgstr "Kan ikke udvide filen %1 : %2"
+
+#~ msgid "Error : Reading past the end of the file %1"
+#~ msgstr "Fejl: Læsning forbi filslutning for filen %1"
+
+#~ msgid "Failed to seek file %1 : %2"
+#~ msgstr "Kunne ikke søge i filen %1 : %2"
+
+#~ msgid "Error reading from %1"
+#~ msgstr "Fejl under læsning fra %1"
+
+#~ msgid "Cannot preallocate diskspace : %1"
+#~ msgstr "Kan ikke præallokere diskplads : %1"
+
+#~ msgid "Cannot open file %1 : %2"
+#~ msgstr "Kan ikke åbne filen %1 : %2"
+
+#~ msgid "Corrupted torrent."
+#~ msgstr "Defekt torrent."
+
+#~ msgid " Unable to open torrent file %1 : %2"
+#~ msgstr "Kan ikke åbne torrent-filen %1: %2"
+
+#~ msgid "Parse Error"
+#~ msgstr "Fortolkningsfejl"
+
+#~ msgid ""
+#~ "An error occurred while loading the torrent <b>%1</b>:<br/><b>%2</b><br/"
+#~ ">The torrent is probably corrupt or is not a valid torrent file."
+#~ msgstr ""
+#~ "En fejl opstod under indlæsning af torrenten <b>%1</b>:<br/><b>%2</b><br/"
+#~ ">Torrenten er sandsynligvis defekt, eller er ikke en gyldig torrent-fil."
+
+#~ msgid ""
+#~ "An error occurred while loading the torrent:<br/><b>%1</b><br/>The "
+#~ "torrent is probably corrupt or is not a valid torrent file."
+#~ msgstr ""
+#~ "En fejl opstod under indlæsning af torrenten <br/><b>%1</b><br/>Torrenten "
+#~ "er sandsynligvis defekt, eller er ikke en gyldig torrent-fil."
+
+#~ msgid "Unable to create %1 : %2"
+#~ msgstr "Kan ikke oprette %1 : %2"
+
+#~ msgid ""
+#~ "You are already downloading this torrent %1, the list of trackers of both "
+#~ "torrents has been merged."
+#~ msgstr ""
+#~ "Du downloader allerede torrenten %1, listen over trackere for begge "
+#~ "torrenter er blevet sammenflettet."
+
+#~ msgid "You are already downloading the torrent %1"
+#~ msgstr "Du downloader allerede torrenten %1"
+
+#~ msgid "Not started"
+#~ msgstr "Ikke startet"
+
+#~ msgid "Seeding completed"
+#~ msgstr "Klar til at tilbyde torrent"
+
+#~ msgctxt "Status of a torrent file"
+#~ msgid "Seeding"
+#~ msgstr "Seeder"
+
+#~ msgid "Downloading"
+#~ msgstr "Downloader"
+
+#~ msgid "Stopped"
+#~ msgstr "Stoppet"
+
+#~ msgid "Allocating diskspace"
+#~ msgstr "Allokerer diskplads"
+
+#~ msgid "Queued for seeding"
+#~ msgstr "I kø til seedning"
+
+#~ msgid "Queued for downloading"
+#~ msgstr "I kø til download"
+
+#~ msgid "Checking data"
+#~ msgstr "Kontrollerer data"
+
+#~ msgid "Stopped. No space left on device."
+#~ msgstr "Stoppet. Ingen plads tilbage på enheden."
+
+#~ msgid "Cannot open file %1: %2"
+#~ msgstr "Kan ikke åbne filen %1: %2"
+
+#~ msgid "Cannot create index file: %1"
+#~ msgstr "Kan ikke oprette indeksfil: %1"
+
+#~ msgid "Redirect without a redirect location"
+#~ msgstr "Omdirigering uden en omdirigeringsplacering"
+
+#~ msgid "Timeout contacting tracker %1"
+#~ msgstr "Tidsudløb under kontakt til trackeren %1"
+
+#~ msgid "Unable to resolve hostname %1"
+#~ msgstr "Kunne ikke slå værtsnavnet %1 op"
+
+#~ msgid "Cannot bind to udp port %1 or the 10 following ports."
+#~ msgstr "Kan ikke binde til UDP-port %1 eller de 10 følgende porte."
+
+#~ msgid "Invalid response from tracker"
+#~ msgstr "Ugyldigt svar fra tracker"
+
+#~ msgid "Invalid data from tracker"
+#~ msgstr "Ugyldige data fra tracker"
+
+#~ msgid "Invalid tracker URL"
+#~ msgstr "Ugyldig URL for tracker"
+
+#~ msgid "Cannot open file : %1 : %2"
+#~ msgstr "Kan ikke åbne filen :%1 : %2"
+
+#~ msgid ""
+#~ "Another group with this name already exists. Please select a different "
+#~ "name."
+#~ msgstr "En anden gruppe med dette navn findes allerede. Vælg et andet navn."
+
+#~ msgid "Group Name Already in Use"
+#~ msgstr "Gruppenavn allerede i brug"
+
+#~ msgid "Add"
+#~ msgstr "Tilføj"
+
+#~ msgid "Delete"
+#~ msgstr "Slet"
+
+#~ msgid "Configure..."
+#~ msgstr "Indstil..."
+
+#~ msgid "Details for: %1"
+#~ msgstr "Detaljer for: %1"
+
+#~ msgid "All downloads"
+#~ msgstr "Alle downloads"
+
+#~ msgid "Finished downloads"
+#~ msgstr "Færdige downloads"
+
+#~ msgid "Transfers:"
+#~ msgstr "Overførsler:"
+
+#~ msgid "Downloads"
+#~ msgstr "Downloads"
+
+#~ msgid "Transfer details:"
+#~ msgstr "Overførselsdetaljer:"
+
+#~ msgid "Transfer List"
+#~ msgstr "Overførselsliste"
+
+#~ msgid "Expandable transfer details instead of separate tabs"
+#~ msgstr "Overførselsdetaljer som kan udvides i stedet for seperate faneblade"
+
+#~ msgid "Threads"
+#~ msgstr "Tråde"
+
+#~ msgid "Number of threads:"
+#~ msgstr "Antal tråde:"
+
+#~ msgid "Preference:"
+#~ msgstr "Præference:"
+
+#~ msgid "License:"
+#~ msgstr "Licens:"
+
+#~ msgid "Name of the license"
+#~ msgstr "Licensens navn"
+
+#~ msgid "URL to the license"
+#~ msgstr "URL til licensen"
+
+#~ msgctxt "The transfer is delayed"
+#~ msgid "Delayed"
+#~ msgstr "Udsat"
+
+#~ msgid ""
+#~ "Destination file \n"
+#~ "%1\n"
+#~ "already exists.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Destinationsfilen\n"
+#~ "%1\n"
+#~ "findes allerede.\n"
+#~ "Vil du overskrive den?"
+
+#~ msgid "Cannot remove torrent default tracker."
+#~ msgstr "Kan ikke fjerne torrentens standardtracker."
+
+#~ msgid "You cannot add trackers to a private torrent"
+#~ msgstr "Du kan ikke tilføje trackers til en privat torrent."
+
+#~ msgid "Cannot migrate %1 : %2"
+#~ msgstr "Kan ikke konvertere %1: %2"
+
+#~ msgid ""
+#~ "The torrent %1 was started with a previous version of KTorrent. To make "
+#~ "sure this torrent still works with this version of KTorrent, we will "
+#~ "migrate this torrent. You will be asked for a location to save the "
+#~ "torrent to. If you press cancel, we will select your home directory."
+#~ msgstr ""
+#~ "Torrenten %1 blev startet med en tidligere version af KTorrent. For at "
+#~ "sikre at denne torrent stadig virker med denne version af KTorrent, vil "
+#~ "vi migrere denne torrent. Du vil blive spurgt om at sted at gemme "
+#~ "torrenten på. Hvis du trykker annullér, vil vi vælge din hjemmemappe."
+
+#~ msgid "Select Folder to Save To"
+#~ msgstr "Vælg mappe der skal gemmes til"
+
+#~ msgid "Queued"
+#~ msgstr "I kø"
+
+#~ msgid "Current Tracker"
+#~ msgstr "Nuværende tracker"
+
+#~ msgid "Manual Announce"
+#~ msgstr "Manuel annoncering"
+
+#~ msgid "Scrape"
+#~ msgstr "Scrape"
+
+#~ msgid "Available Trackers"
+#~ msgstr "Tilgængelige trackers"
+
+#~ msgid "Url:"
+#~ msgstr "Url:"
+
+#, fuzzy
+#~| msgid "Enter a new Tag"
+#~ msgid "Enter an url"
+#~ msgstr "Angiv et nyt mærke"
+
+#~ msgid "Urls list of the available search engines"
+#~ msgstr "Liste over URL'er for de tilgænglige søgemaskiner"
+
+#~ msgctxt "delete selected transfer item"
+#~ msgid "Delete Selected"
+#~ msgstr "Slet markerede"
+
+#, fuzzy
+#~| msgid "Clear History"
+#~ msgid "We are sorry"
+#~ msgstr "Ryd historik"
+
+#~ msgid "Rename transfer"
+#~ msgstr "Omdøb overførsel"
+
+#~ msgid "Download URL again?"
+#~ msgstr "Download URL igen?"
+
+#, fuzzy
+#~| msgid "File"
+#~ msgctxt "file in a filsystem"
+#~ msgid "File"
+#~ msgstr "Fil"
+
+#~ msgid "Are you sure that you want to remove all selected groups?"
+#~ msgstr "Vil du virkelig fjerne alle markerede grupper?"
+
+#~ msgid "Remaining Time"
+#~ msgstr "Tid tilbage"
+
+#~ msgid "KGet - Download Manager"
+#~ msgstr "KGet - downloadhåndtering"
+
+#~ msgid "Minimal segment size:"
+#~ msgstr "Minimal segmentstørrelse:"
+
+#~ msgid "kBi"
+#~ msgstr "kBi"
+
+#~ msgid "Save data every:"
+#~ msgstr "Gem data hver:"
+
+#~ msgid ""
+#~ "You will lose all data in these files, are you sure you want to do this?"
+#~ msgstr "Du vil miste al data i disse filer. Vil du virkeig gøre dette?"
+
+#~ msgid "Maintainer, Core Developer"
+#~ msgstr "Vedligeholder, hovedudvikler"
+
+#~ msgid "Cannot expand file : %1"
+#~ msgstr "Kan ikke ekspandere fil : %1"
+
+#~ msgid "filterButtonGroup"
+#~ msgstr "filterButtonGroup"
+
+#~ msgid "Peers"
+#~ msgstr "Peers"
+
+#~ msgid "Torrent has no announce or nodes field"
+#~ msgstr "Torrenten har ingen meddelelse- eller knudefelt"
+
+#~ msgid ""
+#~ "An error occurred while loading the torrent.\n"
+#~ "The torrent is probably corrupt or is not a torrent file."
+#~ msgstr ""
+#~ "En fejl opstod under indlæsning af torrenten.\n"
+#~ "Torrenten er sandsynligvis defekt, eller er ikke en torrent-fil."
+
+#~ msgid "&Transfer History..."
+#~ msgstr "&Overførselshistorik..."
+
+#~ msgid "&Group Settings..."
+#~ msgstr "&Gruppeindstillinger..."
+
+#~ msgid "&Transfer Settings..."
+#~ msgstr "&Overførselsindstillinger..."
+
+#, fuzzy
+#~| msgid "Download-Speed:"
+#~ msgid "Download Speed:"
+#~ msgstr "Downloadhastighed:"
+
+#, fuzzy
+#~| msgid "Upload-Speed:"
+#~ msgid "Upload Speed:"
+#~ msgstr "Uploadhastighed:"
+
+#, fuzzy
+#~| msgid "Import links"
+#~ msgid "&Import links"
+#~ msgstr "Importér links"
+
+#~ msgid "The group name is empty"
+#~ msgstr "Gruppenavnet er tomt"
+
+#, fuzzy
+#~| msgid ""
+#~| "A group can not have an empty name\n"
+#~| "Please select a new one"
+#~ msgid ""
+#~ "A group can not have an empty name.\n"
+#~ "Please select a new one."
+#~ msgstr ""
+#~ "En gruppe må ikke have et tomt navn\n"
+#~ "Vælg venligst et nyt et"
+
+#, fuzzy
+#~| msgid "You can not delete this group!"
+#~ msgid "You can not delete this group."
+#~ msgstr "Du kan ikke slette denne gruppe!"
+
+#, fuzzy
+#~| msgid "Delete"
+#~ msgid "&Delete"
+#~ msgstr "Slet"
+
+#, fuzzy
+#~| msgid "Cancel"
+#~ msgid "&Cancel"
+#~ msgstr "Annullér"

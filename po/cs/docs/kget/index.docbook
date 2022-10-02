@@ -1,0 +1,1094 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY kget "<application
+>KGet</application
+>">
+  <!ENTITY kappname "&kget;"
+><!-- replace kget here do *not* replace kappname-->
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Czech "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Příručka &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Jan</firstname
+><surname
+>Bělohoubek</surname
+><affiliation
+><address
+><email
+>j.bel@atlas.cz</email
+></address
+></affiliation
+><contrib
+>Překlad</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Lukáš</firstname
+><surname
+>Vlček</surname
+><affiliation
+><address
+><email
+>lukas.vlcek777@gmail.com</email
+></address
+></affiliation
+><contrib
+>Překlad</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2010-07-17</date>
+<releaseinfo
+>2.4.93 (&kde; 4.5)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; je správce stahování pro &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>stahování</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Úvod</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Spusťte &kget; (měli byste vidět cíl pro upuštění)</para
+></listitem>
+    <listitem
+><para
+>Přetáhněte a upusťte požadovanou adresu &URL; do okna aplikace &kget; nebo na cíl pro upuštění.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Snímek &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Snímek &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Cíl pro upuštění &kget; </title>
+
+<para
+>Cíl pro upuštění do &kget; má čtyři volby. </para>
+
+<screenshot>
+<screeninfo
+>Snímek cíle pro upuštění do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Snímek cíle pro upuštění do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Volby Cíle pro upuštění do &kget;</title>
+<para
+>Kliknutím pravého tlačítka myši na cíl pro upuštění zobrazíte tyto možnosti: </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Spustit / Pokračovat vše</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Spustí stahování nebo bude pokračovat ve všech neukončených stahováních. Klávesová zkratka pro tuto akci je <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zobrazit/Skrýt hlavní okno</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Tato volba zobrazí hlavní okno, nebo minimalizuje hlavní okno do do systémové části panelu.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+<!-- no longer in 4.5
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Show Drop Target</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Uncheck this box to make the &kget; Drop Target go away.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+-->
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Přichytit</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Udělá cíl pro upuštění do &kget; neposunutelným.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ukončit &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Ukončuje &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Nastavení okna aplikace &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Nastavení</guimenu
+> <guimenuitem
+>Nastavit &kget;</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Otevře nastavení okna aplikace &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Vzhled</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Vzhled</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Vhled</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Vzhled</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zde můžete změnit různá nastavení závislá na vzhledu.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zobrazit úvodní obrazovku</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaškrtněte tento přepínač, chcete-li před startem zobrazit úvodní obrazovku.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zobrazit cíl pro upuštění</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Odškrtněte tento přepínač, nechcete-li zobrazovat Cíl pro upuštění &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Povolit animace</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Povolí několik efektních animací.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+<!-- what is this?
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Enable popup tooltip</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>???</action>
+	</para>
+      </listitem>
+    </varlistentry>
+-->
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Skupiny</title>
+  <para
+>Můžete použít skupinové stahování</para>
+  <screenshot>
+  <screeninfo
+>Skupiny &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skupiny &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Použít jako návrh výchozí adresáře pro skupiny</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaškrtněte tento přepínač, chcete-li aby &kget; pro vaše stahování používal výchozí adresáře</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Síť</title>
+  <para
+>Zde můžete změnit nastavení závislá na síti.</para>
+  <screenshot>
+  <screeninfo
+>Nastavení sítě v &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Nastavení sítě v &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omezit maximální počet stahování na skupinu</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaškrtněte toto tlačítko, chcete-li omezit počet stahování</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Počet stažení</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Pomocí tohoto přírůstkového pole můžete nastavit maximální počet souběžných stahování.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omezení rychlosti</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaškrtněte tento přepínač, chcete-li použít celkové omezení rychlosti</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Souhrnný limit stahování</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nastavte maximální celkové omezení rychlosti stahování.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Souhrnný limit odesílání</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nastavte maximální celkové omezení rychlosti odesílání.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Znovu připojit v případě chyby nebo výpadku připojení</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaškrtněte tento přepínač, chcete-li, aby se aplikace &kget; v případě chyby nebo výpadku připojení znovu připojila.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Počet pokusů</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nastavte maximální počet pokusů aplikace &kget; o znovupřipojení.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zopakovat pokus po</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zde nastavte prodlevu opětovných pokusů (v sekundách)</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Webové rozhraní</title>
+<para
+>Chcete-li povolit webové rozhraní, zaškrtněte <guilabel
+>Povolit webové rozhraní</guilabel
+>. Výchozí port je 8080. Nastavit můžete kterýkoli port vyšší než 1024. Poté nastavte <guilabel
+>Uživatele</guilabel
+> a <guilabel
+>Heslo</guilabel
+>. K Vašemu webovému rozhraní můžete přistupovat na http://127.0.0.1:&lt;port&gt;. Pro získání přístupu budete muset zadat uživatelské jméno a heslo. </para>
+  <screenshot>
+    <screeninfo
+>Webové rozhraní &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Webové rozhraní &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Ověření</title>
+  <para
+>Ověřte Vaše stahování</para>
+  <screenshot>
+    <screeninfo
+>Ověření &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Ověření &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Vaše stahování můžete ověřit použitím dvou metod <guilabel
+>Kontrolní součty</guilabel
+> a <guilabel
+>Popis</guilabel
+>. Je však nutné zaškrtnout přepínač Automatické ověření.</para>
+</sect1>
+
+<sect1 id='Advanced'>
+<title
+>Pokročilé</title>
+  <para
+>Změňte pokročilá nastavení.</para>
+  <screenshot>
+    <screeninfo
+>Pokročilá nastavení &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Pokročilá nastavení &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zakázat potvrzovací dialogy (méně upovídané)</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+><action
+>Zakáže potvrzovací dialogy</action
+>, které způsobují upovídanost. </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Povolit ikonu v systémové části panelu</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Tento přepínač povolí ikonu aplikace &kget; v systémové části panelu.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Vykonat činnost, pokud jsou dokončena všechna stahování</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaškrtněte tento přepínač, abyste po dokončení všech stahování povolili ukončení &kget;. Můžete vybrat Obnovit stav stahování pro obnovu stavu stahování při spouštění. Stejně tak i Zastavit všechna stahování / Spustit všechna stahování.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Historie backendu</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Pro historii backendu můžete zvolit Sqlite nebo Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Používat &kget; jako správce stahování pro Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>&kget; můžete nastavit jako správce stahování pro &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Sledovat schránku, zda neobsahuje soubory ke stažení</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+<!--
+	  <action
+>Blank</action>
+-->
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Povolit souhrnné sledování průběhu v &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Můžete nastavit, aby aplikace &kget; vždy zobrazovala jednotlivá stahování nebo celkový průběh.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Hlavní okno</title>
+<para
+>Náhled na hlavní okno aplikace &kget;</para>
+<screenshot>
+  <screeninfo
+>Snímek &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Snímek &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Nabídka <guimenu
+>Soubor</guimenu
+></title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Nové stahování...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Přidá nový soubor ke stáhnutí.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Importovat přenosy...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Otevírá soubory *.kgt, *.metalink, *.meta4 or *.torrent.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Exportovat seznam přenosů...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Exportuje zvýrazněné odkazy do souboru .kgt k pozdějšímu nahrání.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Exportovat seznam přenosů jako čistý text...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Exportuje stahované odkazy jako čistý text.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Importovat odkazy...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Importovat odkazy</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Importovat odkazy</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Tato akce vyvolá okno, ve kterém si můžete prohlédnout a zpracovat soubory ke stáhnutí. Můžete také vytvořit výběr založený na <guilabel
+>Videích</guilabel
+>, <guilabel
+>Obrázcích</guilabel
+>, <guilabel
+>Audiu</guilabel
+> a <guilabel
+>Archivech</guilabel
+>. Je zde taky textové pole pro filtrování výsledků.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Vytvořit Metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Vytvořit metalink0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Vytvořit Metalink0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Zvolte mezi vytvořením nového Metalinku a otevřením existujícího Metalinku. A klikněte na tlačítko <guilabel
+>Další</guilabel
+>, abyste postoupili dále.</para>
+
+<screenshot>
+  <screeninfo
+>Vytvořit metalink1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Vytvořit Metalink1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Zde můžete zadat některé obecné nepovinné informace. Jako například, kde lze získat tento metalink (Zadejte &URL; do textového pole vedle vedle popisku <guilabel
+>Původ</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Vytvořit metalink2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Vytvořit Metalink2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Zde musíte zadat &URL;, z kterého bude soubor stažen. Zadáváte-li více než jedno zrcadlo, zadejte nepovinnou informaci Přednost (Prioritu) pro konkrétní zrcadlo, které chcete stáhnout.</para>
+
+<screenshot>
+  <screeninfo
+>Vytvořit metalink 3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Vytvořit Metalink 3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Měli byste vidět nové okno se všemi soubory, které budou importovány.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Historie přenosů</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Historie přenosů</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Historie přenosů</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Otevře nové okno, ve kterém můžete vidět všechny stažené soubory pomocí aplikace &kget;. Zde můžete spravovat Vaši historii s použitím filtru a vyčistit historii. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Soubor</guimenu
+> <guimenuitem
+>Ukončit</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Ukončuje &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Informace o autorech a licenční ujednání</title>
+
+<para
+>&kget; </para>
+
+<para
+>Documentation copyright &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Díky patří:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (za pomoc se záležitostmi závislými na DocBooku)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (zkopírování a vložení mnoha věcí z jeho staré dokumentace pro &kget;) </para>
+
+<para
+>Překlad Jan Bělohoubek <email
+>j.bel@atlas.cz</email
+></para
+><para
+>Překlad dokumentace Lukáš Vlček <email
+>lukas.vlcek777@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Instalace</title>
+
+<sect1 id="getting-KGet">
+<title
+>Jak získat &kget;</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="compilation">
+<title
+>Kompilace a instalace</title>
+&install.compile.documentation; </sect1>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

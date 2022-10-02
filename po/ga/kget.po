@@ -1,0 +1,5495 @@
+# Irish translation of kget
+# Copyright (C) 2009 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kget package.
+# Kevin Scannell <kscanne@gmail.com>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdenetwork/kget.po\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-02 00:45+0000\n"
+"PO-Revision-Date: 2004-12-03 14:52-0500\n"
+"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
+"Language: ga\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
+"3 : 4\n"
+
+#: conf/autopastemodel.cpp:174
+#, kde-format
+msgid "Pattern"
+msgstr "Patrún"
+
+#: conf/autopastemodel.cpp:176
+#, kde-format
+msgid "Syntax"
+msgstr "Comhréir"
+
+#: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
+#, kde-format
+msgid "Escape sequences"
+msgstr "Seichimh éalúcháin"
+
+#: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:39
+#, kde-format
+msgid "Regular expression"
+msgstr "Slonn ionadaíochta"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
+#: conf/dlgadvanced.ui:17
+#, kde-format
+msgid "Enable system tray icon"
+msgstr "Cumasaigh deilbhín i dtráidire an chórais"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
+#: conf/dlgadvanced.ui:26
+#, kde-format
+msgid "Execute action after all downloads have been finished:"
+msgstr "Déan an gníomh nuair atá gach íosluchtú curtha i gcrích:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:91
+#, kde-format
+msgid "Quit KGet"
+msgstr "Scoir KGet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: conf/dlgadvanced.ui:42
+#, kde-format
+msgid "At startup:"
+msgstr "Ag am tosaithe:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:50
+#, kde-format
+msgid "Restore Download State"
+msgstr "Athchóirigh an Staid Íosluchtaithe"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:55
+#, kde-format
+msgid "Start All Downloads"
+msgstr "Tosaigh Gach Íosluchtú"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
+#: conf/dlgadvanced.ui:60
+#, kde-format
+msgid "Stop All Downloads"
+msgstr "Stop Gach Íosluchtú"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: conf/dlgadvanced.ui:71
+#, kde-format
+msgid "History backend:"
+msgstr "Inneall staire:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_EnableKUIServerIntegration)
+#: conf/dlgadvanced.ui:80
+#, kde-format
+msgid "Enable KDE Global Progress Tracking"
+msgstr "Cumasaigh rianú comhchoiteann dul chun cinn KDE"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
+#: conf/dlgadvanced.ui:92
+#, kde-format
+msgid "Show every single download "
+msgstr "Taispeáin gach uile íosluchtú "
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
+#: conf/dlgadvanced.ui:99
+#, kde-format
+msgid "Show overall progress"
+msgstr "Taispeáin dul chun cinn iomlán"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: conf/dlgadvanced.ui:109
+#, kde-format
+msgid "Handle existing Files/Transfers"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
+#: conf/dlgadvanced.ui:115
+#, kde-format
+msgid "Always ask"
+msgstr "Fiafraigh díom i gcónaí"
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAutomaticRename)
+#: conf/dlgadvanced.ui:122
+#, kde-format
+msgid "Automatic rename"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
+#: conf/dlgadvanced.ui:129
+#, kde-format
+msgid "Overwrite"
+msgstr "Forscríobh"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowDropTarget)
+#: conf/dlgappearance.ui:17
+#, kde-format
+msgid "Use Drop Target"
+msgstr "Úsáid Sprioc Scaoilte"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
+#: conf/dlgappearance.ui:29
+#, kde-format
+msgid "Enable animations"
+msgstr "Cumasaigh beochan"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DirectoriesAsSuggestion)
+#: conf/dlggroups.ui:17
+#, kde-format
+msgid "Use default folders for groups as suggestion"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
+#: conf/dlggroups.ui:24
+#, kde-format
+msgid "Ask for destination if there are no default folders"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, rename)
+#: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
+#, kde-format
+msgid "Rename"
+msgstr "Athainmnigh"
+
+#. i18n: ectx: property (text), widget (KIconButton, selectIcon)
+#: conf/dlggroups.ui:65
+#, kde-format
+msgid "Select Icon..."
+msgstr "Roghnaigh Deilbhín..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
+#: conf/dlgintegration.ui:17
+#, kde-format
+msgid "Use as download manager for Konqueror"
+msgstr "Úsáid mar bhainisteoir íosluchtaithe i Konqueror"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
+#: conf/dlgintegration.ui:24
+#, kde-format
+msgid "Monitor Clipboard for Files to Download"
+msgstr ""
+"Déan monatóireacht ar an ngearrthaisce chun comhaid le híosluchtú a aimsiú"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: conf/dlgintegration.ui:36
+#, kde-format
+msgid "Case sensitive:"
+msgstr "Cásíogair:"
+
+#. i18n: ectx: property (text), widget (QPushButton, increase)
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#, kde-format
+msgid "&Increase Priority"
+msgstr "&Ardaigh an Tosaíocht"
+
+#. i18n: ectx: property (text), widget (QPushButton, decrease)
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#, kde-format
+msgid "&Decrease Priority"
+msgstr "Í&sligh an Tosaíocht"
+
+#. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
+#: conf/dlgnetwork.ui:19
+#, kde-format
+msgid "Maximum downloads per group:"
+msgstr "Líon uasta íosluchtuithe do gach grúpa"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_MaxConnections)
+#: conf/dlgnetwork.ui:26
+#, kde-format
+msgctxt "no limit for maximum downloads has been set"
+msgid "No limit"
+msgstr "Gan teorainn"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_SpeedLimit)
+#: conf/dlgnetwork.ui:35
+#, kde-format
+msgid "Speed Limit"
+msgstr "Teorainn Luais"
+
+#. i18n: ectx: property (text), widget (QLabel, dllimitlb)
+#: conf/dlgnetwork.ui:44
+#, kde-format
+msgid "Global &download limit:"
+msgstr "&Teorainn chomhchoiteann íosluchtaithe:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalDownloadLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalUploadLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_TransferSpeedLimit)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadSpin)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadSpin)
+#: conf/dlgnetwork.ui:54 conf/dlgnetwork.ui:80 conf/dlgnetwork.ui:103
+#: ui/groupsettingsdialog.ui:90 ui/groupsettingsdialog.ui:109
+#: ui/transfersettingsdialog.ui:54 ui/transfersettingsdialog.ui:70
+#, kde-format
+msgid " KiB/s"
+msgstr " KiB/s"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: conf/dlgnetwork.ui:70
+#, kde-format
+msgid "Global &upload limit:"
+msgstr "Teorainn chomhchoiteann &uasluchtaithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_per_transfer)
+#: conf/dlgnetwork.ui:96
+#, kde-format
+msgid "Per transfer:"
+msgstr "Do gach aistriú:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ReconnectOnBroken)
+#: conf/dlgnetwork.ui:119
+#, kde-format
+msgid "Reconnect on Broken Connection"
+msgstr "Athcheangail tar éis Ceangail Bhriste"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_retries_2)
+#: conf/dlgnetwork.ui:128
+#, kde-format
+msgid "Number of retries:"
+msgstr "Líon uasta na n-iarrachtaí:"
+
+#. i18n: ectx: property (text), widget (QLabel, lb_after_2)
+#: conf/dlgnetwork.ui:142
+#, kde-format
+msgid "Retry after:"
+msgstr "Athcheangail i ndiaidh:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ReconnectDelay)
+#: conf/dlgnetwork.ui:149
+#, kde-format
+msgid " sec"
+msgstr " s"
+
+#: conf/dlgwebinterface.cpp:44 conf/dlgwebinterface.cpp:59
+#, kde-format
+msgid "Could not open KWallet"
+msgstr "Níorbh fhéidir KWallet a oscailt"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
+#: conf/dlgwebinterface.ui:20
+#, kde-format
+msgid "Enable Web Interface"
+msgstr "Cumasaigh Comhéadan Gréasáin"
+
+#. i18n: ectx: property (text), widget (QLabel, portLabel)
+#: conf/dlgwebinterface.ui:32
+#: transfer-plugins/bittorrent/btsettingswidget.ui:32
+#, kde-format
+msgid "Port:"
+msgstr "Port:"
+
+#. i18n: ectx: property (text), widget (QLabel, userLabel)
+#: conf/dlgwebinterface.ui:46
+#, kde-format
+msgid "User:"
+msgstr "Úsáideoir:"
+
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: conf/dlgwebinterface.ui:60
+#, kde-format
+msgid "Password:"
+msgstr "Focal Faire:"
+
+#: conf/integrationpreferences.cpp:35
+#, kde-format
+msgid "Include"
+msgstr "Cuir San Áireamh"
+
+#: conf/integrationpreferences.cpp:36
+#, kde-format
+msgid "Exclude"
+msgstr "Fág as"
+
+#. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
+#: conf/kget.kcfg:176
+#, kde-format
+msgid "The width of the columns in the history view"
+msgstr ""
+
+#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:78
+#, kde-format
+msgid "Plugins"
+msgstr "Breiseáin"
+
+#: conf/preferencesdialog.cpp:52
+#, kde-format
+msgid "Xml"
+msgstr "XML"
+
+#: conf/preferencesdialog.cpp:54
+#, kde-format
+msgid "Sqlite"
+msgstr "Sqlite"
+
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:370
+#, kde-format
+msgid "Turn Off Computer"
+msgstr "Múch an Ríomhaire"
+
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:375
+#, kde-format
+msgid "Hibernate Computer"
+msgstr "Geimhrigh an Ríomhaire"
+
+#: conf/preferencesdialog.cpp:60 mainwindow.cpp:380
+#, kde-format
+msgid "Suspend Computer"
+msgstr ""
+
+#: conf/preferencesdialog.cpp:71
+#, kde-format
+msgid "Appearance"
+msgstr "Cuma"
+
+#: conf/preferencesdialog.cpp:71
+#, kde-format
+msgid "Change appearance settings"
+msgstr "Athraigh cuma an chláir"
+
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Groups"
+msgstr "Grúpaí"
+
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Manage the groups"
+msgstr "Bainistigh na grúpaí"
+
+#. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
+#: conf/preferencesdialog.cpp:73
+#: transfer-plugins/bittorrent/btsettingswidget.ui:23
+#, kde-format
+msgid "Network"
+msgstr "Líonra"
+
+#: conf/preferencesdialog.cpp:73
+#, kde-format
+msgid "Network and Downloads"
+msgstr "Líonra agus Íosluchtú"
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Web Interface"
+msgstr "Comhéadan Gréasáin"
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Control KGet over a Network or the Internet"
+msgstr "Rialaigh KGet tríd an Idirlíon nó Líonra"
+
+#: conf/preferencesdialog.cpp:75
+#, kde-format
+msgid "Verification"
+msgstr "Dearbhú"
+
+#: conf/preferencesdialog.cpp:76
+#, kde-format
+msgctxt "integration of KGet with other applications"
+msgid "Integration"
+msgstr "Comhtháthú"
+
+#: conf/preferencesdialog.cpp:77
+#, kde-format
+msgctxt "Advanced Options"
+msgid "Advanced"
+msgstr "Ardroghanna"
+
+#: conf/preferencesdialog.cpp:77
+#, kde-format
+msgid "Advanced Options"
+msgstr "Ardroghanna"
+
+#: conf/preferencesdialog.cpp:78
+#, kde-format
+msgid "Transfer Plugins"
+msgstr "Breiseáin Aistrithe"
+
+#: conf/transfersgrouptree.cpp:113 conf/transfersgrouptree.cpp:118
+#, kde-format
+msgid "New Group"
+msgstr "Grúpa Nua"
+
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_ChecksumAutomaticVerification)
+#: conf/verificationpreferences.ui:17
+#, kde-format
+msgid "Automatic checksums verification"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: conf/verificationpreferences.ui:32
+#, kde-format
+msgid "Used checksum:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_4)
+#: conf/verificationpreferences.ui:51
+#, kde-format
+msgid "Weak (fastest)"
+msgstr "Lag (is tapúla)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_5)
+#: conf/verificationpreferences.ui:61
+#, kde-format
+msgid "Strong (recommended)"
+msgstr "Láidir (molta)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_6)
+#: conf/verificationpreferences.ui:71
+#, kde-format
+msgid "Strongest (slowest)"
+msgstr "Is Láidre (is maille)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, signatureGroup)
+#. i18n: ectx: property (title), widget (QGroupBox, sigGroup)
+#. i18n: ectx: property (text), widget (QPushButton, signature)
+#: conf/verificationpreferences.ui:87 ui/signaturedlg.ui:20
+#: ui/transfersettingsdialog.ui:172
+#, kde-format
+msgid "Signature"
+msgstr "Síniú"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticVerification)
+#: conf/verificationpreferences.ui:93
+#, kde-format
+msgid "Automatic verification"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticDownloading)
+#: conf/verificationpreferences.ui:100
+#, kde-format
+msgid "Automatic downloading of missing keys"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: conf/verificationpreferences.ui:123
+#, kde-format
+msgid "Keyservers:"
+msgstr ""
+
+#: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
+#: core/kget.cpp:1396 transfer-plugins/metalink/metalink.cpp:199
+#: transfer-plugins/metalink/metalinkhttp.cpp:241
+#: transfer-plugins/metalink/metalinkxml.cpp:198
+#: ui/metalinkcreator/metalinkcreator.cpp:149
+#: ui/metalinkcreator/metalinkcreator.cpp:166
+#, kde-format
+msgid "Error"
+msgstr "Earráid"
+
+#: core/datasourcefactory.cpp:279
+#, kde-format
+msgid "Filesize is larger than maximum file size supported by VFAT."
+msgstr ""
+
+#: core/datasourcefactory.cpp:624
+#, kde-format
+msgctxt "A mirror is removed when the file has the wrong download size"
+msgid "%1 removed as it did report a wrong file size."
+msgstr ""
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "file in a filesystem"
+msgid "File"
+msgstr "Comhad"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "status of the download"
+msgid "Status"
+msgstr "Stádas"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "size of the download"
+msgid "Size"
+msgstr "Méid"
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "checksum of a file"
+msgid "Checksum"
+msgstr ""
+
+#: core/filemodel.cpp:283
+#, kde-format
+msgctxt "signature of a file"
+msgid "Signature"
+msgstr "Síniú"
+
+#: core/keydownloader.cpp:74
+#, kde-format
+msgid ""
+"No server for downloading keys is specified in settings. Downloading aborted."
+msgstr ""
+
+#: core/keydownloader.cpp:75 core/keydownloader.cpp:95
+#, kde-format
+msgid "No key server"
+msgstr ""
+
+#: core/keydownloader.cpp:94
+#, kde-format
+msgid ""
+"No useful key server found, key not downloaded. Add more servers to the "
+"settings or restart KGet and retry downloading."
+msgstr ""
+
+#: core/kget.cpp:119
+#, kde-format
+msgid "Are you sure that you want to remove the group named %1?"
+msgstr "An bhfuil tú cinnte gur mian leat an grúpa darb ainm %1 a bhaint?"
+
+#: core/kget.cpp:120
+#, kde-format
+msgid "Remove Group"
+msgstr "Bain Grúpa"
+
+#: core/kget.cpp:144
+#, kde-format
+msgid "Are you sure that you want to remove the following groups?"
+msgstr "An bhfuil tú cinnte gur mian leat na grúpaí seo a leanas a bhaint?"
+
+#: core/kget.cpp:146
+#, kde-format
+msgid "Remove groups"
+msgstr "Bain grúpaí"
+
+#: core/kget.cpp:252
+#, kde-format
+msgid ""
+"<p>The following transfer has been added to the download list:</p><p style="
+"\"font-size: small;\">%1</p>"
+msgstr ""
+
+#: core/kget.cpp:253 core/kget.cpp:350
+#, kde-format
+msgid "Download added"
+msgstr "Cuireadh íosluchtú leis"
+
+#: core/kget.cpp:345
+#, kde-format
+msgid "<p>The following transfer has been added to the download list:</p>"
+msgstr ""
+
+#: core/kget.cpp:347
+#, kde-format
+msgid "<p>The following transfers have been added to the download list:</p>"
+msgstr ""
+
+#: core/kget.cpp:515 core/kget.cpp:564
+#, kde-format
+msgid "My Downloads"
+msgstr "Mo Chuid Íosluchtaithe"
+
+#: core/kget.cpp:574
+#, kde-format
+msgid ""
+"The file %1 already exists.\n"
+"Overwrite?"
+msgstr ""
+"Tá comhad %1 ann cheana.\n"
+"An bhfuil fonn ort scríobh air?"
+
+#: core/kget.cpp:575
+#, kde-format
+msgid "Overwrite existing file?"
+msgstr "Forscríobh comhad atá ann?"
+
+#: core/kget.cpp:596 ui/metalinkcreator/metalinkcreator.cpp:166
+#, kde-format
+msgid "Unable to save to: %1"
+msgstr "Ní féidir sábháil i: %1"
+
+#: core/kget.cpp:899
+#, kde-format
+msgid ""
+"<p>The following URL cannot be downloaded, its protocol is not supported by "
+"KGet:</p>"
+msgid_plural ""
+"<p>The following URLs cannot be downloaded, their protocols are not "
+"supported by KGet:</p>"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+
+#: core/kget.cpp:909
+#, kde-format
+msgid "Protocol unsupported"
+msgstr ""
+
+#: core/kget.cpp:963 ui/newtransferdialog.cpp:53
+#, kde-format
+msgid "New Download"
+msgstr "Íosluchtú Nua"
+
+#: core/kget.cpp:963
+#, kde-format
+msgid "Enter URL:"
+msgstr "Iontráil URL:"
+
+#: core/kget.cpp:983
+#, kde-format
+msgctxt "@title:window"
+msgid "Choose Directory"
+msgstr ""
+
+#: core/kget.cpp:1002
+#, fuzzy, kde-format
+#| msgid "Save As"
+msgctxt "@title:window"
+msgid "Save As"
+msgstr "Sábháil Mar"
+
+#: core/kget.cpp:1015 core/urlchecker.cpp:366
+#, kde-format
+msgid ""
+"Malformed URL:\n"
+"%1"
+msgstr ""
+"URL Míchumtha:\n"
+"%1"
+
+#: core/kget.cpp:1022 core/urlchecker.cpp:368
+#, kde-format
+msgid ""
+"Malformed URL, protocol missing:\n"
+"%1"
+msgstr ""
+"URL Míchumtha, prótacal ar iarraidh:\n"
+"%1"
+
+#: core/kget.cpp:1033 core/urlchecker.cpp:424
+#, kde-format
+msgid ""
+"You have already completed a download from the location: \n"
+"\n"
+"%1\n"
+"\n"
+"Download it again?"
+msgstr ""
+
+#: core/kget.cpp:1034 core/urlchecker.cpp:641
+#, kde-format
+msgid "Download it again?"
+msgstr "Íosluchtaigh arís?"
+
+#: core/kget.cpp:1046 core/urlchecker.cpp:426
+#, kde-format
+msgid ""
+"You have a download in progress from the location: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete it and download again?"
+msgstr ""
+
+#: core/kget.cpp:1047 core/urlchecker.cpp:638
+#, kde-format
+msgid "Delete it and download again?"
+msgstr ""
+
+#: core/kget.cpp:1070 core/kget.cpp:1077
+#, kde-format
+msgid "Directory is not writable"
+msgstr "Níl an chomhadlann inscríofa"
+
+#: core/kget.cpp:1105
+#, kde-format
+msgid ""
+"You have already downloaded that file from another location.\n"
+"\n"
+"Download and delete the previous one?"
+msgstr ""
+
+#: core/kget.cpp:1106 core/urlchecker.cpp:650
+#, kde-format
+msgid "File already downloaded. Download anyway?"
+msgstr ""
+
+#: core/kget.cpp:1115
+#, kde-format
+msgid "You are already downloading the same file"
+msgstr "Tá an comhad céanna á íosluchtú cheana"
+
+#: core/kget.cpp:1119 core/kget.cpp:1122 core/urlchecker.cpp:653
+#: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:480
+#: transfer-plugins/metalink/metalink.cpp:716
+#, kde-format
+msgid "File already exists"
+msgstr "Tá an comhad ann cheana"
+
+#: core/kget.cpp:1223
+#, kde-format
+msgid "Internet connection established, resuming transfers."
+msgstr ""
+
+#: core/kget.cpp:1228
+#, kde-format
+msgid "No internet connection, stopping transfers."
+msgstr ""
+
+#: core/kget.cpp:1242
+#, fuzzy, kde-format
+#| msgid "Plugin loader could not load the plugin: %1."
+msgid "Plugin loader could not load the plugin %1: %2."
+msgstr "Níorbh fhéidir le luchtóir na mbreiseán an breiseán a luchtú: %1."
+
+#: core/kget.cpp:1257
+#, kde-format
+msgid ""
+"Not deleting\n"
+"%1\n"
+"as it is a directory."
+msgstr ""
+"Ní scriosfar\n"
+"%1\n"
+"mar is comhadlann é."
+
+#: core/kget.cpp:1268
+#, kde-format
+msgid ""
+"Not deleting\n"
+"%1\n"
+"as it is not a local file."
+msgstr ""
+"Ní scriosfar\n"
+"%1\n"
+"mar nach comhad logánta é."
+
+#: core/kget.cpp:1389
+#, kde-format
+msgid ""
+"<p>The following file has finished downloading:</p><p style=\"font-size: "
+"small;\">%1</p>"
+msgstr ""
+
+#: core/kget.cpp:1390
+#, kde-format
+msgid "Download completed"
+msgstr "Íosluchtú curtha i gcrích"
+
+#: core/kget.cpp:1393
+#, kde-format
+msgid ""
+"<p>The following transfer has been started:</p><p style=\"font-size: small;"
+"\">%1</p>"
+msgstr ""
+
+#: core/kget.cpp:1394
+#, kde-format
+msgid "Download started"
+msgstr "Tosaíodh an t-íosluchtú"
+
+#: core/kget.cpp:1396
+#, kde-format
+msgid ""
+"<p>There has been an error in the following transfer:</p><p style=\"font-"
+"size: small;\">%1</p><p>The error message is:</p><p style=\"font-size: small;"
+"\">%2</p>"
+msgstr ""
+
+#: core/kget.cpp:1401
+#, kde-format
+msgid "Resolve"
+msgstr "Réitigh"
+
+#: core/kget.cpp:1451
+#, kde-format
+msgid "KGet is now closing, as all downloads have completed."
+msgstr "Tá KGet á dhúnadh anois toisc go bhfuil gach íosluchtú críochnaithe."
+
+#: core/kget.cpp:1455
+#, kde-format
+msgid "The computer will now turn off, as all downloads have completed."
+msgstr ""
+"Múchfaidh an ríomhaire anois toisc go bhfuil gach íosluchtú críochnaithe."
+
+#: core/kget.cpp:1455
+#, kde-format
+msgctxt "Shutting down computer"
+msgid "Shutdown"
+msgstr "Múchadh"
+
+#: core/kget.cpp:1458
+#, kde-format
+msgid "The computer will now suspend to disk, as all downloads have completed."
+msgstr ""
+"Cuirfear an ríomhaire ar fionraí ar an diosca anois toisc go bhfuil gach "
+"íosluchtú críochnaithe."
+
+#: core/kget.cpp:1458
+#, kde-format
+msgctxt "Hibernating computer"
+msgid "Hibernating"
+msgstr ""
+
+#: core/kget.cpp:1461
+#, kde-format
+msgid "The computer will now suspend to RAM, as all downloads have completed."
+msgstr ""
+"Cuirfear an ríomhaire ar fionraí i RAM anois toisc go bhfuil gach íosluchtú "
+"críochnaithe."
+
+#: core/kget.cpp:1461
+#, kde-format
+msgctxt "Suspending computer"
+msgid "Suspending"
+msgstr ""
+
+#: core/kget.cpp:1469
+#, kde-format
+msgctxt "abort the proposed action"
+msgid "Abort"
+msgstr "Tobscoir"
+
+#: core/kget.cpp:1479
+#, kde-format
+msgid "<p>All transfers have been finished.</p>"
+msgstr ""
+
+#: core/kget.cpp:1480
+#, kde-format
+msgid "Downloads completed"
+msgstr "Íosluchtuithe curtha i gcrích"
+
+#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:526
+#: ui/tray.cpp:44
+#, kde-format
+msgid "KGet"
+msgstr "KGet"
+
+#: core/kgetglobaljob.cpp:57
+#, kde-format
+msgid "KGet is downloading %1 file"
+msgid_plural "KGet is downloading %1 files"
+msgstr[0] "Tá KGet ag íosluchtú %1 chomhad"
+msgstr[1] "Tá KGet ag íosluchtú %1 chomhad"
+msgstr[2] "Tá KGet ag íosluchtú %1 chomhad"
+msgstr[3] "Tá KGet ag íosluchtú %1 chomhad"
+msgstr[4] "Tá KGet ag íosluchtú %1 chomhad"
+
+#: core/kgetkjobadapter.cpp:47
+#, kde-format
+msgid "KGet Transfer"
+msgstr "Aistriú KGet"
+
+#: core/linkimporter.cpp:83
+#, kde-format
+msgid "Error trying to get %1"
+msgstr "Earráid agus %1 á fháil"
+
+#: core/signature.cpp:230
+#, kde-format
+msgid "The key to verify the signature is missing, do you want to download it?"
+msgstr ""
+
+#: core/signature.cpp:252
+#, kde-format
+msgid ""
+"The signature could not be verified for %1. See transfer settings for more "
+"information."
+msgstr ""
+
+#: core/signature.cpp:253
+#, kde-format
+msgid "Signature not verified"
+msgstr ""
+
+#: core/transfer.cpp:31
+msgid "Downloading...."
+msgstr "Á Íosluchtú..."
+
+#: core/transfer.cpp:32
+msgctxt "transfer state: delayed"
+msgid "Delayed"
+msgstr "Moillithe"
+
+#: core/transfer.cpp:33 core/transfer.cpp:232 core/transfer.cpp:251
+#: transfer-plugins/bittorrent/bttransfer.cpp:308
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:94
+#, kde-format
+msgctxt "transfer state: stopped"
+msgid "Stopped"
+msgstr "Stoptha"
+
+#: core/transfer.cpp:34
+msgctxt "transfer state: aborted"
+msgid "Aborted"
+msgstr "Tobscortha"
+
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:225
+#: transfer-plugins/bittorrent/bttransfer.cpp:304
+#, kde-format
+msgctxt "transfer state: finished"
+msgid "Finished"
+msgstr "Críochnaithe"
+
+#: core/transfer.cpp:37 transfer-plugins/bittorrent/bttransfer.cpp:169
+#, kde-format
+msgctxt "changing the destination of the file"
+msgid "Changing destination"
+msgstr ""
+
+#: core/transfergrouphandler.cpp:96
+#, kde-format
+msgid "1 Item"
+msgid_plural "%1 Items"
+msgstr[0] "1 Mhír"
+msgstr[1] "%1 Mhír"
+msgstr[2] "%1 Mhír"
+msgstr[3] "%1 Mír"
+msgstr[4] "%1 Mír"
+
+#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:150
+#: ui/transferdetails.cpp:93
+#, kde-format
+msgid "%1/s"
+msgstr "%1/s"
+
+#: core/transfergrouphandler.cpp:168
+#, kde-format
+msgctxt "start transfergroup downloads"
+msgid "Start"
+msgstr "Tosaigh"
+
+#: core/transfergrouphandler.cpp:174
+#, kde-format
+msgctxt "stop transfergroup downloads"
+msgid "Stop"
+msgstr "Stad"
+
+#: core/transferhandler.cpp:137
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:29
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:30
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:31
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:32
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:33
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:34
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:35
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:36
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:61
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:62
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:65
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:66
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:69
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:72
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:75
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:78
+#: ui/transfersviewdelegate.cpp:395
+#, kde-format
+msgctxt "not available"
+msgid "n/a"
+msgstr "n/a/f"
+
+#: core/transferhandler.cpp:145 ui/transferdetails.cpp:89
+#, kde-format
+msgid "Stalled"
+msgstr "Ag fanacht"
+
+#: core/transfertreemodel.cpp:648
+#, kde-format
+msgctxt "name of download"
+msgid "Name"
+msgstr "Ainm"
+
+#: core/transfertreemodel.cpp:650
+#, kde-format
+msgctxt "status of download"
+msgid "Status"
+msgstr "Stádas"
+
+#: core/transfertreemodel.cpp:652
+#, kde-format
+msgctxt "size of download"
+msgid "Size"
+msgstr "Méid"
+
+#: core/transfertreemodel.cpp:654
+#, kde-format
+msgctxt "progress of download"
+msgid "Progress"
+msgstr "Dul chun cinn"
+
+#: core/transfertreemodel.cpp:656
+#, kde-format
+msgctxt "speed of download"
+msgid "Speed"
+msgstr "Luas"
+
+#: core/transfertreemodel.cpp:658
+#, kde-format
+msgctxt "remaining time of download"
+msgid "Remaining Time"
+msgstr "Am Fágtha"
+
+#: core/urlchecker.cpp:51
+#, kde-format
+msgid "Question"
+msgstr "Ceist"
+
+#: core/urlchecker.cpp:61
+#, kde-format
+msgid "Appl&y to all"
+msgstr ""
+
+#: core/urlchecker.cpp:300 core/urlchecker.cpp:340
+#, kde-format
+msgid "No download directory specified."
+msgstr ""
+
+#: core/urlchecker.cpp:302
+#, kde-format
+msgid "Invalid download directory specified."
+msgstr ""
+
+#: core/urlchecker.cpp:304
+#, kde-format
+msgid "Download directory is not writeable."
+msgstr "Níl an chomhadlann íosluchtaithe inscríofa"
+
+#: core/urlchecker.cpp:312 core/urlchecker.cpp:352
+#, kde-format
+msgid "No download destination specified."
+msgstr ""
+
+#: core/urlchecker.cpp:314
+#, kde-format
+msgid "Invalid download destination specified."
+msgstr ""
+
+#: core/urlchecker.cpp:316
+#, kde-format
+msgid "Download destination is not writeable."
+msgstr "Níl sprioc an íosluchtaithe inscríofa."
+
+#: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
+#: core/urlchecker.cpp:468
+#, kde-format
+msgid "No URL specified."
+msgstr "Gan URL."
+
+#: core/urlchecker.cpp:326
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:96
+#: transfer-plugins/bittorrent/bttransfer.cpp:266
+#, kde-format
+msgid "Malformed URL."
+msgstr "URL míchumtha."
+
+#: core/urlchecker.cpp:328
+#, kde-format
+msgid "Malformed URL, protocol missing."
+msgstr "URL míchumtha, prótacal ar iarraidh."
+
+#: core/urlchecker.cpp:330
+#, kde-format
+msgid "Malformed URL, host missing."
+msgstr "URL míchumtha, óstríomhaire ar iarraidh."
+
+#: core/urlchecker.cpp:342
+#, kde-format
+msgid ""
+"Invalid download directory specified:\n"
+"%1"
+msgstr ""
+
+#: core/urlchecker.cpp:344
+#, kde-format
+msgid ""
+"Download directory is not writeable:\n"
+"%1"
+msgstr ""
+"Níl an chomhadlann íosluchtaithe inscríofa:\n"
+"%1"
+
+#: core/urlchecker.cpp:354
+#, kde-format
+msgid ""
+"Invalid download destination specified:\n"
+"%1"
+msgstr ""
+
+#: core/urlchecker.cpp:356
+#, kde-format
+msgid ""
+"Download destination is not writeable:\n"
+"%1"
+msgstr ""
+"Níl sprioc an íosluchtaithe inscríofa:\n"
+"%1"
+
+#: core/urlchecker.cpp:370
+#, kde-format
+msgid ""
+"Malformed URL, host missing:\n"
+"%1"
+msgstr ""
+"URL míchumtha, óstríomhaire ar iarraidh:\n"
+"%1"
+
+#: core/urlchecker.cpp:386 core/urlchecker.cpp:398
+#, kde-format
+msgid "File already exists. Overwrite it?"
+msgstr "Tá an comhad ann cheana. An bhfuil fonn ort scríobh air?"
+
+#: core/urlchecker.cpp:388 core/urlchecker.cpp:414
+#, kde-format
+msgid ""
+"You have already downloaded that file from another location.\n"
+"Download and delete the previous one?"
+msgstr ""
+
+#: core/urlchecker.cpp:390 core/urlchecker.cpp:416
+#, kde-format
+msgid ""
+"You are already downloading that file from another location.\n"
+"Download and delete the previous one?"
+msgstr ""
+
+#: core/urlchecker.cpp:400
+#, kde-format
+msgid ""
+"You have already completed a download from that location. Download it again?"
+msgstr ""
+
+#: core/urlchecker.cpp:402
+#, kde-format
+msgid ""
+"You have a download in progress from that location.\n"
+"Delete it and download again?"
+msgstr ""
+
+#: core/urlchecker.cpp:412
+#, kde-format
+msgid ""
+"File already exists:\n"
+"%1\n"
+"Overwrite it?"
+msgstr ""
+"Tá an comhad ann cheana:\n"
+"%1\n"
+"An bhfuil fonn ort scríobh air?"
+
+#: core/urlchecker.cpp:456
+#, kde-format
+msgid "Malformed URLs."
+msgstr "URLanna míchumtha."
+
+#: core/urlchecker.cpp:458
+#, kde-format
+msgid "Malformed URLs, protocol missing."
+msgstr "URLanna míchumtha, prótacal ar iarraidh."
+
+#: core/urlchecker.cpp:460
+#, kde-format
+msgid "Malformed URLs, host missing."
+msgstr "URLanna míchumtha, óstríomhaire ar iarraidh."
+
+#: core/urlchecker.cpp:470
+#, kde-format
+msgid ""
+"Malformed URLs:\n"
+"%1"
+msgstr ""
+"URLanna míchumtha:\n"
+"%1"
+
+#: core/urlchecker.cpp:472
+#, kde-format
+msgid ""
+"Malformed URLs, protocol missing:\n"
+"%1"
+msgstr ""
+"URLanna míchumtha, prótacal ar iarraidh:\n"
+"%1"
+
+#: core/urlchecker.cpp:474
+#, kde-format
+msgid ""
+"Malformed URLs, host missing:\n"
+"%1"
+msgstr ""
+"URLanna míchumtha, óstríomhaire ar iarraidh:\n"
+"%1"
+
+#: core/urlchecker.cpp:476
+#, kde-format
+msgid ""
+"Destinations are not writable:\n"
+"%1"
+msgstr ""
+"Níl na spriocanna inscríofa:\n"
+"%1"
+
+#: core/urlchecker.cpp:500
+#, kde-format
+msgid "Files exist already. Overwrite them?"
+msgstr "Tá na comhaid ann cheana. An bhfuil fonn ort scríobh orthu?"
+
+#: core/urlchecker.cpp:502
+#, kde-format
+msgid ""
+"You have already completed downloads at those destinations. Download them "
+"again?"
+msgstr ""
+
+#: core/urlchecker.cpp:504
+#, kde-format
+msgid ""
+"You have downloads in progress to these destinations.\n"
+"Delete them and download again?"
+msgstr ""
+
+#: core/urlchecker.cpp:512
+#, kde-format
+msgid ""
+"You have already completed downloads from these locations. Download them "
+"again?"
+msgstr ""
+
+#: core/urlchecker.cpp:514
+#, kde-format
+msgid ""
+"You have downloads in progress from these locations.\n"
+"Delete them and download again?"
+msgstr ""
+
+#: core/urlchecker.cpp:523
+#, kde-format
+msgid ""
+"Files exist already:\n"
+"%1\n"
+"Overwrite them?"
+msgstr ""
+
+#: core/urlchecker.cpp:525
+#, kde-format
+msgid ""
+"You have already completed downloads at those destinations: \n"
+"\n"
+"%1\n"
+"\n"
+" Download them again?"
+msgstr ""
+
+#: core/urlchecker.cpp:527
+#, kde-format
+msgid ""
+"You have downloads in progress to these destinations: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete them and download again?"
+msgstr ""
+
+#: core/urlchecker.cpp:535
+#, kde-format
+msgid ""
+"You have already completed downloads from these locations: \n"
+"\n"
+"%1\n"
+"\n"
+"Download them again?"
+msgstr ""
+
+#: core/urlchecker.cpp:537
+#, kde-format
+msgid ""
+"You have downloads in progress from these locations: \n"
+"\n"
+"%1\n"
+"\n"
+"Delete them and download again?"
+msgstr ""
+
+#: core/verificationmodel.cpp:152
+#, kde-format
+msgctxt "the type of the hash, e.g. MD5"
+msgid "Type"
+msgstr "Cineál"
+
+#: core/verificationmodel.cpp:154
+#, kde-format
+msgctxt "the used hash for verification"
+msgid "Hash"
+msgstr "Hais"
+
+#: core/verificationmodel.cpp:156
+#, kde-format
+msgctxt "verification-result of a file, can be true/false"
+msgid "Verified"
+msgstr ""
+
+#: main.cpp:104
+#, fuzzy, kde-format
+#| msgid "An advanced download manager for KDE"
+msgid "An advanced download manager by KDE"
+msgstr "Ardbhainisteoir íosluchtaithe KDE"
+
+#: main.cpp:106
+#, fuzzy, kde-format
+#| msgid ""
+#| "(C) 2005 - 2011, The KGet developers\n"
+#| "(C) 2001 - 2002, Patrick Charbonnier\n"
+#| "(C) 2002, Carsten Pfeiffer\n"
+#| "(C) 1998 - 2000, Matej Koss"
+msgid ""
+"(C) 2005 - 2014, The KGet developers\n"
+"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2002, Carsten Pfeiffer\n"
+"(C) 1998 - 2000, Matej Koss"
+msgstr ""
+"© 2005 - 2011, Forbróirí KGet\n"
+"© 2001 - 2002, Patrick Charbonnier\n"
+"© 2002, Carsten Pfeiffer\n"
+"© 1998 - 2000, Matej Koss"
+
+#: main.cpp:110
+#, kde-format
+msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
+msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
+
+#: main.cpp:112
+#, kde-format
+msgid "Lukas Appelhans"
+msgstr "Lukas Appelhans"
+
+#: main.cpp:112
+#, kde-format
+msgid "Maintainer, Core Developer, Torrent Plugin Author"
+msgstr "Cothaitheoir, Bunfhorbróir, Údar an Bhreiseáin Torrent"
+
+#: main.cpp:113
+#, kde-format
+msgid "Dario Massarin"
+msgstr "Dario Massarin"
+
+#: main.cpp:113 main.cpp:114 main.cpp:116
+#, kde-format
+msgid "Core Developer"
+msgstr "Bunfhorbróir"
+
+#: main.cpp:114
+#, kde-format
+msgid "Urs Wolfer"
+msgstr "Urs Wolfer"
+
+#: main.cpp:115
+#, kde-format
+msgid "Manolo Valdes"
+msgstr "Manolo Valdes"
+
+#: main.cpp:115
+#, kde-format
+msgid "Core Developer, Multithreaded Plugin Author"
+msgstr "Bunfhorbróir, Údar an Bhreiseáin Ilsnáitheanna"
+
+#: main.cpp:116
+#, kde-format
+msgid "Matthias Fuchs"
+msgstr ""
+
+#: main.cpp:117
+#, kde-format
+msgid "Javier Goday"
+msgstr "Javier Goday"
+
+#: main.cpp:117
+#, kde-format
+msgid "Developer"
+msgstr "Forbróir"
+
+#: main.cpp:118
+#, kde-format
+msgid "Aish Raj Dahal"
+msgstr ""
+
+#: main.cpp:118
+#, kde-format
+msgid "Google Summer of Code Student"
+msgstr ""
+
+#: main.cpp:119
+#, kde-format
+msgid "Ernesto Rodriguez Ortiz"
+msgstr ""
+
+#: main.cpp:119
+#, kde-format
+msgid "Mms Plugin Author"
+msgstr ""
+
+#: main.cpp:120
+#, kde-format
+msgid "Patrick Charbonnier"
+msgstr "Patrick Charbonnier"
+
+#: main.cpp:120 main.cpp:121 main.cpp:122
+#, kde-format
+msgid "Former Developer"
+msgstr "Iarfhorbróir"
+
+#: main.cpp:121
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "Carsten Pfeiffer"
+
+#: main.cpp:122
+#, kde-format
+msgid "Matej Koss"
+msgstr "Matej Koss"
+
+#: main.cpp:123
+#, kde-format
+msgid "Joris Guisson"
+msgstr "Joris Guisson"
+
+#: main.cpp:123
+#, kde-format
+msgid "BTCore (KTorrent) Developer"
+msgstr "Forbróir BTCore (KTorrent)"
+
+#: main.cpp:124
+#, kde-format
+msgid "Mensur Zahirovic (Nookie)"
+msgstr "Mensur Zahirovic (Nookie)"
+
+#: main.cpp:124
+#, kde-format
+msgid "Design of Web Interface"
+msgstr "Dearadh an Chomhéadain Gréasáin"
+
+#: main.cpp:126
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Kevin Scannell"
+
+#: main.cpp:126
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kscanne@gmail.com"
+
+#: main.cpp:133
+#, kde-format
+msgid "Start KGet with drop target"
+msgstr "Tosaigh KGet le sprioc scaoilte"
+
+#: main.cpp:134
+#, kde-format
+msgid "Start KGet with hidden main window"
+msgstr "Tosaigh KGet leis an bpríomhfhuinneog folaithe"
+
+#: main.cpp:135
+#, kde-format
+msgid "Start KGet without drop target animation"
+msgstr "Tosaigh KGet gan beochan na sprice scaoilte"
+
+#: main.cpp:137
+#, kde-format
+msgid "Execute Unit Testing"
+msgstr ""
+
+#: main.cpp:139
+#, kde-format
+msgid "URL(s) to download"
+msgstr "URL(anna) le híosluchtú"
+
+#: mainwindow.cpp:147
+#, kde-format
+msgid "&New Download..."
+msgstr "Íosluchtú &Nua..."
+
+#: mainwindow.cpp:154
+#, kde-format
+msgid "&Import Transfers..."
+msgstr "&Iompórtáil Aistrithe..."
+
+#: mainwindow.cpp:161
+#, kde-format
+msgid "&Export Transfers List..."
+msgstr "&Easpórtáil Liosta Aistrithe..."
+
+#: mainwindow.cpp:168
+#, kde-format
+msgid "&Create a Metalink..."
+msgstr ""
+
+#: mainwindow.cpp:174
+#, kde-format
+msgid "Top Priority"
+msgstr "Tosaíocht Is Airde"
+
+#: mainwindow.cpp:181
+#, kde-format
+msgid "Least Priority"
+msgstr "Tosaíocht Is Ísle"
+
+#: mainwindow.cpp:188
+#, kde-format
+msgid "Increase Priority"
+msgstr "Ardaigh an Tosaíocht"
+
+#: mainwindow.cpp:195
+#, kde-format
+msgid "Decrease Priority"
+msgstr "Ísligh an Tosaíocht"
+
+#: mainwindow.cpp:203
+#, fuzzy, kde-format
+#| msgid "Delete Group"
+#| msgid_plural "Delete Groups"
+msgctxt "@action"
+msgid "Delete Group"
+msgstr "Scrios Grúpa"
+
+#: mainwindow.cpp:209
+#, fuzzy, kde-format
+#| msgid "Rename Group..."
+#| msgid_plural "Rename Groups..."
+msgctxt "@action"
+msgid "Rename Group..."
+msgstr "Athainmnigh Grúpa..."
+
+#: mainwindow.cpp:214
+#, kde-format
+msgid "Set Icon..."
+msgstr "Socraigh Deilbhín..."
+
+#: mainwindow.cpp:220
+#, kde-format
+msgid "Auto-Paste Mode"
+msgstr "Mód UathGhreamaithe"
+
+#: mainwindow.cpp:223
+#, kde-format
+msgid ""
+"<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
+"When set, KGet will periodically scan the clipboard for URLs and paste them "
+"automatically."
+msgstr ""
+"Scoránaigh an mód uathghreamú leis an gcnaipe <b>Uathghreamaithe</b>.\n"
+"Nuair atá an mód seo gníomhach, scanfaidh KGet an ghearrthaisce go rialta le "
+"haghaidh URLanna agus greamóidh sé iad go huathoibríoch."
+
+#: mainwindow.cpp:229
+#, kde-format
+msgid "Use KGet as Konqueror Download Manager"
+msgstr "Úsáid KGet mar Bhainisteoir Íosluchtaithe i Konqueror"
+
+#: mainwindow.cpp:247
+#, kde-format
+msgctxt "delete selected transfer item"
+msgid "Remove Selected"
+msgstr ""
+
+#: mainwindow.cpp:254
+#, kde-format
+msgctxt "delete all finished transfers"
+msgid "Remove All Finished"
+msgstr "Bain Gach Rud Críochnaithe"
+
+#: mainwindow.cpp:260
+#, kde-format
+msgctxt "delete selected transfer item and files"
+msgid "Remove Selected and Delete Files"
+msgstr ""
+
+#: mainwindow.cpp:266
+#, kde-format
+msgctxt "redownload selected transfer item"
+msgid "Redownload Selected"
+msgstr "Íosluchtaigh na Míreanna Roghnaithe Arís"
+
+#: mainwindow.cpp:271
+#, kde-format
+msgid "Start All"
+msgstr "Tosaigh Uile"
+
+#: mainwindow.cpp:278
+#, kde-format
+msgid "Start Selected"
+msgstr "Tosaigh na Cinn Roghnaithe"
+
+#: mainwindow.cpp:284
+#, kde-format
+msgid "Pause All"
+msgstr "Cuir Uile Ar Shos"
+
+#: mainwindow.cpp:291
+#, kde-format
+msgid "Stop Selected"
+msgstr "Stop Roghnaithe"
+
+#: mainwindow.cpp:296
+#, kde-format
+msgid "Start"
+msgstr "Tosaigh"
+
+#: mainwindow.cpp:304
+#, kde-format
+msgid "Pause"
+msgstr "Sos"
+
+#: mainwindow.cpp:313
+#, kde-format
+msgid "Open Destination"
+msgstr "Oscail Sprioc"
+
+#: mainwindow.cpp:318
+#, kde-format
+msgid "Open File"
+msgstr "Oscail Comhad"
+
+#: mainwindow.cpp:322
+#, kde-format
+msgid "Show Details"
+msgstr "Taispeáin Mionsonraí"
+
+#: mainwindow.cpp:327
+#, kde-format
+msgid "Copy URL to Clipboard"
+msgstr "Cóipeáil URL go dtí an Ghearrthaisce"
+
+#: mainwindow.cpp:332
+#, kde-format
+msgid "&Transfer History"
+msgstr "S&tair Aistrithe"
+
+#: mainwindow.cpp:338
+#, kde-format
+msgid "&Group Settings"
+msgstr "Socruithe &Grúpa"
+
+#: mainwindow.cpp:344
+#, kde-format
+msgid "&Transfer Settings"
+msgstr "Socruithe Ais&trithe"
+
+#: mainwindow.cpp:350
+#, kde-format
+msgid "Import &Links..."
+msgstr "Iompórtáil &Naisc..."
+
+#: mainwindow.cpp:356
+#, kde-format
+msgid "After downloads finished action"
+msgstr ""
+
+#. i18n("Choose an action that is executed after all downloads have been finished."));
+#: mainwindow.cpp:360
+#, kde-format
+msgid "No Action"
+msgstr "Ná Déan Faic"
+
+#: mainwindow.cpp:438
+#, kde-format
+msgid ""
+"This is the first time you have run KGet.\n"
+"Would you like to enable KGet as the download manager for Konqueror?"
+msgstr ""
+"Seo é an chéad uair a rith tú KGet.\n"
+"An bhfuil fonn ort KGet a chumasú mar bhainisteoir réamhshocraithe "
+"íosluchtaithe le haghaidh Konqueror?"
+
+#: mainwindow.cpp:440
+#, kde-format
+msgid "Konqueror Integration"
+msgstr "Comhtháthú Konqueror"
+
+#: mainwindow.cpp:440
+#, kde-format
+msgid "Enable"
+msgstr "Cumasaigh"
+
+#: mainwindow.cpp:441
+#, kde-format
+msgid "Do Not Enable"
+msgstr "Ná Cumasaigh"
+
+#: mainwindow.cpp:507
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@title:window"
+msgid "Open File"
+msgstr "Oscail Comhad"
+
+#: mainwindow.cpp:508
+#, kde-format
+msgid "All Openable Files"
+msgstr "Gach Comhad Inoscailte"
+
+#: mainwindow.cpp:524
+#, kde-format
+msgctxt "window title including overall download progress in percent"
+msgid "KGet - %1%"
+msgstr "KGet - %1%"
+
+#: mainwindow.cpp:574
+#, kde-format
+msgid ""
+"Some transfers are still running.\n"
+"Are you sure you want to close KGet?"
+msgstr ""
+"Tá aistrithe ag rith fós.\n"
+"An bhfuil tú cinnte gur mian leat KGet a dhúnadh?"
+
+#: mainwindow.cpp:576
+#, kde-format
+msgid "Confirm Quit"
+msgstr "Deimhnigh Scor"
+
+#: mainwindow.cpp:602
+#, fuzzy, kde-format
+#| msgid "Export Transfers"
+msgctxt "@title:window"
+msgid "Export Transfers"
+msgstr "Easpórtáil Aistrithe"
+
+#: mainwindow.cpp:603
+#, kde-format
+msgid "KGet Transfer List"
+msgstr "Liosta Aistrithe KGet"
+
+#: mainwindow.cpp:603
+#, kde-format
+msgid "Text File"
+msgstr "Téacschomhad"
+
+#: mainwindow.cpp:634
+#, kde-format
+msgid "Enter Group Name"
+msgstr "Iontráil Ainm an Ghrúpa"
+
+#: mainwindow.cpp:635
+#, kde-format
+msgid "Group name:"
+msgstr "Ainm an ghrúpa:"
+
+#: mainwindow.cpp:722
+#, kde-format
+msgid "Are you sure you want to delete the selected transfer?"
+msgid_plural "Are you sure you want to delete the selected transfers?"
+msgstr[0] ""
+"An bhfuil tú cinnte go dteastaíonn uait an comhad aistrithe roghnaithe a "
+"scriosadh?"
+msgstr[1] ""
+"An bhfuil tú cinnte go dteastaíonn uait na comhaid aistrithe roghnaithe a "
+"scriosadh?"
+msgstr[2] ""
+"An bhfuil tú cinnte go dteastaíonn uait na comhaid aistrithe roghnaithe a "
+"scriosadh?"
+msgstr[3] ""
+"An bhfuil tú cinnte go dteastaíonn uait na comhaid aistrithe roghnaithe a "
+"scriosadh?"
+msgstr[4] ""
+"An bhfuil tú cinnte go dteastaíonn uait na comhaid aistrithe roghnaithe a "
+"scriosadh?"
+
+#: mainwindow.cpp:724 mainwindow.cpp:753
+#, kde-format
+msgid "Confirm transfer delete"
+msgstr ""
+
+#: mainwindow.cpp:751
+#, kde-format
+msgid "Are you sure you want to delete the selected transfer including files?"
+msgid_plural ""
+"Are you sure you want to delete the selected transfers including files?"
+msgstr[0] ""
+"An bhfuil tú cinnte go dteastaíonn uait an t-aistriú roghnaithe a scriosadh, "
+"comhaid san áireamh?"
+msgstr[1] ""
+"An bhfuil tú cinnte go dteastaíonn uait na haistrithe roghnaithe a "
+"scriosadh, comhaid san áireamh?"
+msgstr[2] ""
+"An bhfuil tú cinnte go dteastaíonn uait na haistrithe roghnaithe a "
+"scriosadh, comhaid san áireamh?"
+msgstr[3] ""
+"An bhfuil tú cinnte go dteastaíonn uait na haistrithe roghnaithe a "
+"scriosadh, comhaid san áireamh?"
+msgstr[4] ""
+"An bhfuil tú cinnte go dteastaíonn uait na haistrithe roghnaithe a "
+"scriosadh, comhaid san áireamh?"
+
+#: mainwindow.cpp:1082
+#, kde-format
+msgid ""
+"KGet has been temporarily disabled as download manager for Konqueror. If you "
+"want to disable it forever, go to Settings->Advanced and disable \"Use as "
+"download manager for Konqueror\"."
+msgstr ""
+"Díchumasaíodh KGet mar bhainisteoir íosluchtaithe Konqueror go sealadach.  "
+"Más mian leat é a dhíchumasú go brách, téigh go Socruithe->Casta agus "
+"díchumasaigh \"Úsáid mar bhainisteoir íosluchtaithe i Konqueror\"."
+
+#: mainwindow.cpp:1201 ui/droptarget.cpp:220
+#, kde-format
+msgid "The dropped file is a KGet Transfer List"
+msgstr "Is Liosta Aistrithe KGet é an comhad a ligeadh titim"
+
+#: mainwindow.cpp:1202 ui/droptarget.cpp:221
+#, kde-format
+msgid "&Download"
+msgstr "Íos&luchtaigh"
+
+#: mainwindow.cpp:1203 ui/droptarget.cpp:222
+#, kde-format
+msgid "&Load transfer list"
+msgstr "&Luchtaigh liosta aistrithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:54
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:58
+#, kde-format
+msgid "Advanced Details for %1"
+msgstr "Mionsonraí ar %1"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:66
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:217
+#, kde-format
+msgid "Files"
+msgstr "Comhaid"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:74
+#, kde-format
+msgid "Trackers"
+msgstr "Lorgairí"
+
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:77
+#, kde-format
+msgid "Webseeds"
+msgstr "Síolta Gréasáin"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
+#, kde-format
+msgid "Chunk"
+msgstr "Smután"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
+#, kde-format
+msgid "Progress"
+msgstr "Dul chun cinn"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#, kde-format
+msgid "Peer"
+msgstr "Comhghleacaí"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
+#, kde-format
+msgid "Down Speed"
+msgstr "Luas Íosluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
+#, kde-format
+msgid "Number of the chunk"
+msgstr "Uimhir an smutáin"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
+#, kde-format
+msgid "Download progress of the chunk"
+msgstr "Dul chun cinn íosluchtú an smutáin"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
+#, kde-format
+msgid "Which peer we are downloading it from"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
+#, kde-format
+msgid "Download speed of the chunk"
+msgstr "Luas íosluchtaithe an smutáin"
+
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:229
+#, kde-format
+msgid "Which files the chunk is located in"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (windowTitle), widget (QWidget, ChunkDownloadView)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:13
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:154
+#, kde-format
+msgid "Chunks"
+msgstr "Smutáin"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:23
+#, kde-format
+msgid "Total:"
+msgstr "Iomlán:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel5)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:59
+#, kde-format
+msgid "Currently downloading:"
+msgstr "Á íosluchtú faoi láthair:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:95
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:163
+#, kde-format
+msgid "Downloaded:"
+msgstr "Íosluchtaithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:131
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:205
+#, kde-format
+msgid "Excluded:"
+msgstr "Eisiata:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4_2)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:167
+#, kde-format
+msgid "Left:"
+msgstr "Fágtha:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:203
+#, kde-format
+msgid "Size:"
+msgstr "Méid:"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
+#, kde-format
+msgctxt "Open file"
+msgid "Open"
+msgstr "Oscail"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
+#, kde-format
+msgid "Download first"
+msgstr "Íosluchtaigh ar dtús"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#, kde-format
+msgid "Download normally"
+msgstr "Íosluchtaigh mar is gnách"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#, kde-format
+msgid "Download last"
+msgstr "Íosluchtaigh go deireanach"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#, kde-format
+msgid "Do Not Download"
+msgstr "Ná hÍosluchtaigh"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#, kde-format
+msgid "Delete File(s)"
+msgstr "Scrios Comha(i)d"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#, kde-format
+msgid "Move File"
+msgstr "Bog Comhad"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#, kde-format
+msgid "Collapse Folder Tree"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#, kde-format
+msgid "Expand Folder Tree"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
+#, kde-format
+msgid "You will lose all data in this file, are you sure you want to do this?"
+msgid_plural ""
+"You will lose all data in these files, are you sure you want to do this?"
+msgstr[0] ""
+"Caillfidh tú na sonraí uile sa chomhad seo; an bhfuil tú cinnte is mian leat "
+"é seo a dhéanamh?"
+msgstr[1] ""
+"Caillfidh tú na sonraí uile sna comhaid seo; an bhfuil tú cinnte is mian "
+"leat é seo a dhéanamh?"
+msgstr[2] ""
+"Caillfidh tú na sonraí uile sna comhaid seo; an bhfuil tú cinnte is mian "
+"leat é seo a dhéanamh?"
+msgstr[3] ""
+"Caillfidh tú na sonraí uile sna comhaid seo; an bhfuil tú cinnte is mian "
+"leat é seo a dhéanamh?"
+msgstr[4] ""
+"Caillfidh tú na sonraí uile sna comhaid seo; an bhfuil tú cinnte is mian "
+"leat é seo a dhéanamh?"
+
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:279
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:299
+#, fuzzy, kde-format
+#| msgid "Select a directory to move the data to."
+msgid "Select a directory to move the data to"
+msgstr "Roghnaigh an chomhadlann ar mian leat bogadh na sonraí inti."
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:67
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:70
+#, kde-format
+msgid "Priority"
+msgstr "Tosaíocht"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:71
+#, kde-format
+msgid "Preview"
+msgstr "Réamhamharc"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:73
+#, no-c-format, kde-format
+msgctxt "Percent of File Downloaded"
+msgid "% Complete"
+msgstr "% Críochnaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:83
+#, kde-format
+msgctxt "Download first"
+msgid "First"
+msgstr "Ar dTús"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:82
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:85
+#, kde-format
+msgctxt "Download last"
+msgid "Last"
+msgstr "Go Deireanach"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:87
+#, kde-format
+msgctxt "Download Normal (not as first or last)"
+msgid "Normal"
+msgstr "Gnách"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:122
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:145
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:149
+#, kde-format
+msgctxt "Preview available"
+msgid "Available"
+msgstr "Ar Fáil"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:124
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:147
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:128
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:151
+#, kde-format
+msgctxt "Preview pending"
+msgid "Pending"
+msgstr "Ar Feitheamh"
+
+# "choked", "snubbed" booleans in peerview.cpp
+# the iwfilelistmodel.cpp ones are "isMultimedia"?
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:127
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:150
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:131
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:154
+#, kde-format
+msgctxt "No preview available"
+msgid "No"
+msgstr "Gan Réamhamharc"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:131
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:136
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:162
+#, kde-format
+msgid "%1 %"
+msgstr "%1 %"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:90
+#, kde-format
+msgctxt "Download normally(not as first or last)"
+msgid "Normal"
+msgstr "Gnách"
+
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:126
+#, kde-format
+msgctxt "preview available"
+msgid "Available"
+msgstr "Ar Fáil"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:55
+#, kde-format
+msgid "Kick Peer"
+msgstr "Ciceáil Comhghleacaí"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:56
+#, kde-format
+msgid "Ban Peer"
+msgstr "Toirmisc Comhghleacaí"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#, kde-format
+msgctxt "Choked"
+msgid "Yes"
+msgstr "Tá"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#, kde-format
+msgctxt "Not choked"
+msgid "No"
+msgstr "Níl"
+
+# "choked", "snubbed" booleans in peerview.cpp
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#, kde-format
+msgctxt "Snubbed"
+msgid "Yes"
+msgstr "Tá"
+
+# "choked", "snubbed" booleans in peerview.cpp
+# the iwfilelistmodel.cpp ones are "isMultimedia"?
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#, kde-format
+msgctxt "Not snubbed"
+msgid "No"
+msgstr "Níl"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#, kde-format
+msgctxt "Interested"
+msgid "Yes"
+msgstr "Tá"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#, kde-format
+msgctxt "Not Interested"
+msgid "No"
+msgstr "Níl"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#, kde-format
+msgctxt "Interesting"
+msgid "Yes"
+msgstr "Tá"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#, kde-format
+msgctxt "Not Interesting"
+msgid "No"
+msgstr "Níl"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
+#, kde-format
+msgid "IP Address"
+msgstr "Seoladh IP"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
+#, kde-format
+msgid "Client"
+msgstr "Cliant"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
+#, kde-format
+msgid "Up Speed"
+msgstr "Luas Uasluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
+#, kde-format
+msgid "Choked"
+msgstr "Tachta"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
+#, kde-format
+msgid "Snubbed"
+msgstr "Tréigthe"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
+#, kde-format
+msgid "Availability"
+msgstr "Infhaighteacht"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
+#, kde-format
+msgid "DHT"
+msgstr "DHT"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
+#, kde-format
+msgid "Score"
+msgstr "Scór"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
+#, kde-format
+msgid "Upload Slot"
+msgstr "Sliotán Uasluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
+#, kde-format
+msgid "Requests"
+msgstr "Iarratais"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:129
+#, kde-format
+msgid "Downloaded"
+msgstr "Íosluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
+#, kde-format
+msgid "Uploaded"
+msgstr "Uasluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
+#, kde-format
+msgid "Interested"
+msgstr "Spéis agam"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
+#, kde-format
+msgid "Interesting"
+msgstr "Suimiúil"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
+#, kde-format
+msgid "IP address of the peer"
+msgstr "Seoladh IP an chomhghleacaí"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
+#, kde-format
+msgid "Which client the peer is using"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
+#, kde-format
+msgid "Download speed"
+msgstr "Luas íosluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
+#, kde-format
+msgid "Upload speed"
+msgstr "Luas uasluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
+#, kde-format
+msgid ""
+"Whether or not the peer has choked us. If we are choked, the peer will not "
+"send us any data."
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
+#, kde-format
+msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
+#, kde-format
+msgid "How much of the torrent's data the peer has"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
+#, kde-format
+msgid "Whether or not the peer has DHT enabled"
+msgstr "An bhfuil DHT cumasaithe ag an gcomhghleacaí?"
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
+#, kde-format
+msgid ""
+"The score of the peer. KTorrent uses this to determine who to upload to."
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
+#, kde-format
+msgid "Only peers which have an upload slot will get data from us"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
+#, kde-format
+msgid "The number of download and upload requests"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
+#, kde-format
+msgid "How much data we have downloaded from this peer"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#, kde-format
+msgid "How much data we have uploaded to this peer"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
+#, kde-format
+msgid "Whether the peer is interested in downloading data from us"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
+#, kde-format
+msgid "Whether we are interested in downloading from this peer"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:380
+#, kde-format
+msgid "File"
+msgstr "Comhad"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:381
+#: ui/history/transferhistory.ui:90
+#, kde-format
+msgid "Size"
+msgstr "Méid"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
+#, kde-format
+msgid "Url"
+msgstr "URL"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:130
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Status"
+msgstr "Stádas"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
+#, kde-format
+msgid "Seeders"
+msgstr "Síoladóirí"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
+#, kde-format
+msgid "Leechers"
+msgstr "Súmairí"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:155
+#, kde-format
+msgid "Times Downloaded"
+msgstr "Uaireanta Íosluchtaithe"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:156
+#, kde-format
+msgid "Next Update"
+msgstr "An Chéad Nuashonrú Eile"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
+#, kde-format
+msgid "Add Tracker"
+msgstr "Cuir Lorgaire Leis"
+
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#, kde-format
+msgid "Enter the URL of the tracker:"
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:103
+#, kde-format
+msgid "There already is a tracker named <b>%1</b>."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
+#, kde-format
+msgid "Remove Tracker"
+msgstr "Bain Lorgaire"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_change_tracker)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:35
+#, kde-format
+msgid "Change Tracker"
+msgstr "Athraigh an Lorgaire"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_scrape)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
+#, kde-format
+msgid "Update Trackers"
+msgstr "Nuashonraigh Lorgairí"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_restore_defaults)
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
+#, kde-format
+msgid "Restore Defaults"
+msgstr "Athchóirigh na Réamhshocruithe"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:127
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:32
+#: ui/linkview/kget_linkview.cpp:90
+#, kde-format
+msgid "URL"
+msgstr "URL"
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:128
+#, kde-format
+msgid "Speed"
+msgstr "Luas"
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:97
+#, kde-format
+msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
+msgstr ""
+
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:114
+#, kde-format
+msgid "Cannot remove webseed %1, it is part of the torrent."
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
+#, kde-format
+msgid ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Webseed to add to the "
+"torrent.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
+"html>"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_add)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
+#, kde-format
+msgid "Add Webseed"
+msgstr "Cuir Síol Gréasáin Leis"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_remove)
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
+#, kde-format
+msgid "Remove Webseed"
+msgstr "Bain Síol Gréasáin"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:29
+#, kde-format
+msgid "Stats"
+msgstr "Staitisticí"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:47
+#, kde-format
+msgid "Seeders:"
+msgstr "Síoladóirí:"
+
+#. i18n: ectx: property (text), widget (QLabel, seederLabel)
+#. i18n: ectx: property (text), widget (QLabel, dlSpeedLabel)
+#. i18n: ectx: property (text), widget (QLabel, leecherLabel)
+#. i18n: ectx: property (text), widget (QLabel, ulSpeedLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksDownloadedLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksLeftLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksAllLabel)
+#. i18n: ectx: property (text), widget (QLabel, chunksExcludedLabel)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:60
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:86
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:112
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:138
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:170
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:184
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:198
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:212
+#, kde-format
+msgid "<n>"
+msgstr "<n>"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:73
+#, kde-format
+msgid "Download speed:"
+msgstr "Luas íosluchtaithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:99
+#, kde-format
+msgid "Leechers:"
+msgstr "Súmairí:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:125
+#, kde-format
+msgid "Upload speed:"
+msgstr "Luas uasluchtaithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:177
+#, kde-format
+msgctxt "chunks left"
+msgid "Left:"
+msgstr "Fágtha:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:191
+#, kde-format
+msgctxt "all chunks"
+msgid "All:"
+msgstr "Uile:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:240
+#, kde-format
+msgctxt "source-file"
+msgid "Source:"
+msgstr "Foinse:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, destLabel)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:247
+#: ui/transferdetailsfrm.ui:44
+#, kde-format
+msgid "Saving to:"
+msgstr "Á Shábháil i:"
+
+#. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:49
+#, kde-format
+msgid "Upload limit per transfer:"
+msgstr "Teorainn uasluchtaithe do gach aistriú:"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:56
+#: transfer-plugins/bittorrent/btsettingswidget.ui:76
+#, kde-format
+msgid "No Limit"
+msgstr "Gan Teorainn"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, downloadBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:59
+#: transfer-plugins/bittorrent/btsettingswidget.ui:79
+#, kde-format
+msgid "KiB"
+msgstr "KiB"
+
+#. i18n: ectx: property (text), widget (QLabel, downloadLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:69
+#, kde-format
+msgid "Download limit per transfer:"
+msgstr "Teorainn íosluchtaithe do gach aistriú:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, utpBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:89
+#, kde-format
+msgid "Enable UTP protocol"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, folderGroupBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:105
+#, kde-format
+msgid "Folders"
+msgstr "Fillteáin"
+
+#. i18n: ectx: property (text), widget (QLabel, torrentFolderLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:117
+#, kde-format
+msgid "Default torrent folder:"
+msgstr "Fillteán réamhshocraithe torrent:"
+
+#. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:137
+#, fuzzy, kde-format
+#| msgid "Default temporary folder"
+msgid "Default temporary folder:"
+msgstr "Fillteán réamhshocraithe sealadach"
+
+#. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
+#: transfer-plugins/bittorrent/btsettingswidget.ui:154
+#, kde-format
+msgid "Pre-allocate disk space"
+msgstr "Réamhdháil spás diosca"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:139
+#, kde-format
+msgid "Downloading Torrent File...."
+msgstr "Torrent Á Íosluchtú..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:183
+#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#, kde-format
+msgctxt "transfer state: downloading"
+msgid "Downloading...."
+msgstr "Á Íosluchtú..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:260
+#, kde-format
+msgid "Cannot add a tracker to a private torrent."
+msgstr "Ní féidir lorgaire a chur le torrent príobháideach."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:422
+#, kde-format
+msgid "Torrent file does not exist"
+msgstr "Níl an comhad Torrent ann"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:427
+#, kde-format
+msgid "Analyzing torrent...."
+msgstr "Torrent á anailísiú..."
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:439
+#, kde-format
+msgid "Cannot initialize port..."
+msgstr ""
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:510
+#, kde-format
+msgctxt "Transfer status: seeding"
+msgid "Seeding...."
+msgstr "Á Shíolú..."
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:33
+#, kde-format
+msgid "Cannot initialize libktorrent. Torrent support might not work."
+msgstr ""
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:82
+#, kde-format
+msgid "&Advanced Details"
+msgstr "&Mionsonraí Casta"
+
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:88
+#, kde-format
+msgid "&Scan Files"
+msgstr "&Scan Comhaid"
+
+#: transfer-plugins/bittorrent/scandlg.cpp:107
+#, kde-format
+msgid "Error scanning data: %1"
+msgstr "Earráid agus sonraí á scanadh: %1"
+
+#. i18n: ectx: property (text), widget (QLabel, torrent_label)
+#: transfer-plugins/bittorrent/scandlg.ui:16
+#, kde-format
+msgid "Scanning data of torrent:"
+msgstr "Sonraí an torrent á scanadh:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: transfer-plugins/bittorrent/scandlg.ui:30
+#, kde-format
+msgid "Number of chunks found:"
+msgstr "Líon na smután a aimsíodh:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: transfer-plugins/bittorrent/scandlg.ui:40
+#, kde-format
+msgid "Number of chunks failed:"
+msgstr "Líon na smután ar theip orthu:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/bittorrent/scandlg.ui:50
+#, kde-format
+msgid "Number of chunks not downloaded:"
+msgstr "Líon na smután gan íosluchtú:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/bittorrent/scandlg.ui:57
+#, kde-format
+msgid "Number of chunks downloaded:"
+msgstr "Líon na smután a íosluchtaíodh:"
+
+#. i18n: ectx: property (text), widget (QLabel, chunks_found)
+#. i18n: ectx: property (text), widget (QLabel, chunks_failed)
+#. i18n: ectx: property (text), widget (QLabel, chunks_not_downloaded)
+#. i18n: ectx: property (text), widget (QLabel, chunks_downloaded)
+#: transfer-plugins/bittorrent/scandlg.ui:77
+#: transfer-plugins/bittorrent/scandlg.ui:102
+#: transfer-plugins/bittorrent/scandlg.ui:124
+#: transfer-plugins/bittorrent/scandlg.ui:137
+#, kde-format
+msgid "0"
+msgstr "0"
+
+#. i18n: ectx: property (text), widget (QPushButton, cancel)
+#: transfer-plugins/bittorrent/scandlg.ui:183
+#, kde-format
+msgid "Cancel"
+msgstr "Cealaigh"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Append"
+msgstr "Iarcheangail"
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Replace file"
+msgstr ""
+
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#, kde-format
+msgid "Replace file-ending"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_1)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
+#, kde-format
+msgid "Change string:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
+#, kde-format
+msgid "Mode:"
+msgstr "Mód:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:43
+#, kde-format
+msgid "Checksum type:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:77
+#, kde-format
+msgid "Result:"
+msgstr "Toradh:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:84
+#, kde-format
+msgid "label"
+msgstr "lipéad"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:45
+#, kde-format
+msgid "Add item"
+msgstr "Cuir mír leis"
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:73
+#, kde-format
+msgid "%1 would become %2"
+msgstr ""
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:195
+#, kde-format
+msgctxt "the string that is used to modify an url"
+msgid "Change string"
+msgstr ""
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:196
+#, kde-format
+msgctxt "the mode defines how the url should be changed"
+msgid "Change mode"
+msgstr ""
+
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:197
+#, kde-format
+msgctxt "the type of the checksum e.g. md5"
+msgid "Checksum type"
+msgstr ""
+
+#. i18n: ectx: label, entry (SearchStrings), group (ChecksumSearch)
+#. i18n: ectx: label, entry (SearchEnginesNameList), group (SearchEngines)
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:9
+#: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:12
+#, kde-format
+msgid "List of the available search engines"
+msgstr "Liosta de na hinnill chuardaigh le fáil"
+
+#. i18n: ectx: label, entry (UrlChangeModeList), group (ChecksumSearch)
+#. i18n: ectx: label, entry (ChecksumTypeList), group (ChecksumSearch)
+#. i18n: ectx: label, entry (SearchEnginesUrlList), group (SearchEngines)
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:13
+#: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:17
+#: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
+#, kde-format
+msgid "List of the available search engine URLs"
+msgstr "Liosta de na hinnill chuardaigh le fáil"
+
+#: transfer-plugins/kio/transferKio.cpp:100
+#, kde-format
+msgctxt "transfer state: connecting"
+msgid "Connecting...."
+msgstr "Á Cheangal..."
+
+#: transfer-plugins/kio/transferKio.cpp:280
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:257
+#, kde-format
+msgid "The download (%1) could not be verified. Do you want to repair it?"
+msgstr ""
+
+#: transfer-plugins/kio/transferKio.cpp:283
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
+#, kde-format
+msgid "The download (%1) could not be verified. Do you want to redownload it?"
+msgstr ""
+
+#: transfer-plugins/kio/transferKio.cpp:287
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#, kde-format
+msgid "Verification failed."
+msgstr ""
+
+#: transfer-plugins/metalink/abstractmetalink.cpp:216
+#: transfer-plugins/metalink/metalink.cpp:489
+#, kde-format
+msgid ""
+"The download could not be verified, do you want to repair (if repairing does "
+"not work the download would be restarted) it?"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: transfer-plugins/metalink/dlgmetalink.ui:22
+#, kde-format
+msgid "Number of simultaneous file downloads:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: transfer-plugins/metalink/dlgmetalink.ui:39
+#, kde-format
+msgid "Number of mirrors per file:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: transfer-plugins/metalink/dlgmetalink.ui:56
+#: transfer-plugins/mmsthreads/dlgmms.ui:22
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:22
+#, kde-format
+msgid "Number of connections per URL:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: transfer-plugins/metalink/fileselection.ui:17
+#, kde-format
+msgid "Select the files you want to be downloaded."
+msgstr ""
+
+#: transfer-plugins/metalink/fileselectiondlg.cpp:35
+#, kde-format
+msgid "File Selection"
+msgstr "Roghnú na gComhad"
+
+#: transfer-plugins/metalink/metalink.cpp:80
+#: transfer-plugins/metalink/metalinkxml.cpp:77
+#, kde-format
+msgid "Downloading Metalink File...."
+msgstr ""
+
+#: transfer-plugins/metalink/metalink.cpp:118
+#: transfer-plugins/metalink/metalinkxml.cpp:116
+#, kde-format
+msgid ""
+"A newer version of this Metalink might exist, do you want to download it?"
+msgstr ""
+
+#: transfer-plugins/metalink/metalink.cpp:119
+#: transfer-plugins/metalink/metalinkxml.cpp:117
+#, kde-format
+msgid "Redownload Metalink"
+msgstr ""
+
+#: transfer-plugins/metalink/metalink.cpp:199
+#: transfer-plugins/metalink/metalinkhttp.cpp:241
+#: transfer-plugins/metalink/metalinkxml.cpp:198
+#, kde-format
+msgid "Download failed, no working URLs were found."
+msgstr ""
+
+#: transfer-plugins/metalink/metalinkhttp.cpp:160
+#, kde-format
+msgid "The download could not be verified, try to repair it?"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
+#: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
+#, kde-format
+msgid "Engine name:"
+msgstr "Ainm an innill:"
+
+#. i18n: ectx: property (text), widget (QLabel, urlLabel)
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
+#, kde-format
+msgid "URL:"
+msgstr "URL:"
+
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
+#, kde-format
+msgid "Insert Engine"
+msgstr "Ionsáigh Inneall"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:16
+#, kde-format
+msgid "Search Engines"
+msgstr "Innill Chuardaigh"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:27
+#, kde-format
+msgid "Engine Name"
+msgstr "Ainm an Innill"
+
+#. i18n: ectx: property (text), widget (QPushButton, newEngineBt)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
+#, kde-format
+msgid "New Engine..."
+msgstr "Inneall Nua..."
+
+#. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
+#, kde-format
+msgid "Remove"
+msgstr "Bain"
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:60
+#, kde-format
+msgctxt "transfer state: running"
+msgid "Running...."
+msgstr "Á Rith..."
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:125
+#, kde-format
+msgctxt "Transfer State:Finished"
+msgid "Finished"
+msgstr "Críochnaithe"
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:171
+#, kde-format
+msgid "Download failed, could not access this URL."
+msgstr ""
+
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:181
+#, kde-format
+msgid ""
+"This URL does not allow multiple connections,\n"
+"the download will take longer."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, enginesCheckBox)
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
+#, kde-format
+msgid "Use search engines"
+msgstr "Úsáid innill chuardaigh"
+
+#. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
+#: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
+#, kde-format
+msgid "Search for verification information"
+msgstr ""
+
+#: transfer-plugins/multisegmentkio/segment.cpp:296
+#, kde-format
+msgid "Failed to write to the file."
+msgstr "Níorbh fhéidir scríobh sa chomhad."
+
+#: ui/contextmenu.cpp:116
+#, kde-format
+msgid "Delete Group"
+msgid_plural "Delete Groups"
+msgstr[0] "Scrios Grúpa"
+msgstr[1] "Scrios Grúpaí"
+msgstr[2] "Scrios Grúpaí"
+msgstr[3] "Scrios Grúpaí"
+msgstr[4] "Scrios Grúpaí"
+
+#: ui/contextmenu.cpp:120
+#, kde-format
+msgid "Rename Group..."
+msgid_plural "Rename Groups..."
+msgstr[0] "Athainmnigh Grúpa..."
+msgstr[1] "Athainmnigh Grúpaí..."
+msgstr[2] "Athainmnigh Grúpaí..."
+msgstr[3] "Athainmnigh Grúpaí..."
+msgstr[4] "Athainmnigh Grúpaí..."
+
+#: ui/droptarget.cpp:84
+#, kde-format
+msgctxt "fix position for droptarget"
+msgid "Sticky"
+msgstr "Greamaitheach"
+
+#: ui/droptarget.cpp:278
+#, kde-format
+msgid "Show Main Window"
+msgstr "Taispeáin an Phríomhfhuinneog"
+
+#: ui/droptarget.cpp:279
+#, kde-format
+msgid "Hide Main Window"
+msgstr "Folaigh an Phríomhfhuinneog"
+
+#: ui/droptarget.cpp:370
+#, kde-format
+msgid "Drop Target"
+msgstr "Sprioc Scaoilte"
+
+#: ui/droptarget.cpp:371
+#, kde-format
+msgid "You can drag download links into the drop target."
+msgstr ""
+"Is féidir leat naisc le híosluchtú a tharraingt go dtí an sprioc scaoilte."
+
+#: ui/droptarget.cpp:416
+#, kde-format
+msgctxt "%1 filename, %2 total size, %3 status"
+msgid "%1(%2) %3"
+msgstr "%1(%2) %3"
+
+#: ui/droptarget.cpp:422
+#, kde-format
+msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
+msgid "%1(%2% %3/%4) Speed:%5/s"
+msgstr "%1(%2% %3/%4) Luas:%5/s"
+
+#: ui/droptarget.cpp:430
+#, kde-format
+msgctxt ""
+"%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
+"status"
+msgid "%1(%2% %3/%4) %5"
+msgstr "%1(%2% %3/%4) %5"
+
+#: ui/droptarget.cpp:444
+#, kde-format
+msgid "Ready"
+msgstr "Réidh"
+
+#: ui/groupsettingsdialog.cpp:19
+#, kde-format
+msgid "Group Settings for %1"
+msgstr "Socruithe Grúpa le haghaidh %1"
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: ui/groupsettingsdialog.ui:32
+#, kde-format
+msgid "Group Settings"
+msgstr "Socruithe Grúpa"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/groupsettingsdialog.ui:44
+#, fuzzy, kde-format
+#| msgid "Default &folder:"
+msgid "Defau&lt folder:"
+msgstr "&Fillteán réamhshocraithe:"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label_2)
+#: ui/groupsettingsdialog.ui:61
+#, kde-format
+msgid "Moves all transfers with the regular expression to this group"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/groupsettingsdialog.ui:64
+#, fuzzy, kde-format
+#| msgid "Regular &expression:"
+msgid "Re&gular expression:"
+msgstr "Slonn &ionadaíochta:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, regExpEdit)
+#: ui/groupsettingsdialog.ui:74
+#, kde-format
+msgid "*movies*"
+msgstr "*scannáin*"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadSpin)
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadSpin)
+#. i18n: ectx: property (specialValueText), widget (QDoubleSpinBox, ratioSpin)
+#: ui/groupsettingsdialog.ui:87 ui/groupsettingsdialog.ui:106
+#: ui/transfersettingsdialog.ui:51 ui/transfersettingsdialog.ui:67
+#: ui/transfersettingsdialog.ui:83
+#, kde-format
+msgctxt "No value has been set"
+msgid "Not set"
+msgstr "Gan socrú"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/groupsettingsdialog.ui:119
+#, fuzzy, kde-format
+#| msgid "Maximum &download speed:"
+msgid "Ma&ximum download speed:"
+msgstr "Luas uasta ío&sluchtaithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/groupsettingsdialog.ui:129
+#, kde-format
+msgid "Maximum &upload speed:"
+msgstr "Luas uasta &uasluchtaithe:"
+
+#: ui/history/transferhistory.cpp:51
+#, kde-format
+msgid "Transfer History"
+msgstr "Stair Aistrithe"
+
+#: ui/history/transferhistory.cpp:72
+#, kde-format
+msgid "&Open File"
+msgstr "&Oscail Comhad"
+
+#: ui/history/transferhistory.cpp:214
+#, kde-format
+msgctxt "The transfer is running"
+msgid "Running"
+msgstr "Ag Rith"
+
+#: ui/history/transferhistory.cpp:216
+#, kde-format
+msgctxt "The transfer is stopped"
+msgid "Stopped"
+msgstr "Stoptha"
+
+#: ui/history/transferhistory.cpp:218
+#, kde-format
+msgctxt "The transfer is aborted"
+msgid "Aborted"
+msgstr "Tobscortha"
+
+#: ui/history/transferhistory.cpp:220
+#, kde-format
+msgctxt "The transfer is finished"
+msgid "Finished"
+msgstr "Críochnaithe"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Source File"
+msgstr "Comhad Foinse"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Destination"
+msgstr "Sprioc"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "Time"
+msgstr "Am"
+
+#: ui/history/transferhistory.cpp:248
+#, kde-format
+msgid "File Size"
+msgstr "Méid an Chomhaid"
+
+#: ui/history/transferhistory.cpp:258
+#, kde-format
+msgid "Less than 1MiB"
+msgstr "Níos lú ná 1MiB"
+
+#: ui/history/transferhistory.cpp:260
+#, kde-format
+msgid "Between 1MiB-10MiB"
+msgstr "Idir 1MiB agus 10MiB"
+
+#: ui/history/transferhistory.cpp:262
+#, kde-format
+msgid "Between 10MiB-100MiB"
+msgstr "Idir 10MiB agus 100MiB"
+
+#: ui/history/transferhistory.cpp:264
+#, kde-format
+msgid "Between 100MiB-1GiB"
+msgstr "Idir 100MiB agus 1GiB"
+
+#: ui/history/transferhistory.cpp:266
+#, kde-format
+msgid "More than 1GiB"
+msgstr "Níos mó ná 1GiB"
+
+#: ui/history/transferhistory.cpp:269
+#: ui/history/transferhistorycategorizeddelegate.cpp:45
+#, kde-format
+msgid "Today"
+msgstr "Inniu"
+
+#: ui/history/transferhistory.cpp:270
+#: ui/history/transferhistorycategorizeddelegate.cpp:49
+#, kde-format
+msgid "Last week"
+msgstr "An tseachtain seo caite"
+
+#: ui/history/transferhistory.cpp:271
+#, kde-format
+msgid "Last month"
+msgstr "An mhí seo caite"
+
+#: ui/history/transferhistory.cpp:272
+#: ui/history/transferhistorycategorizeddelegate.cpp:57
+#, kde-format
+msgid "A long time ago"
+msgstr "Fadó fadó"
+
+#: ui/history/transferhistory.cpp:292
+#, kde-format
+msgctxt "the transfer has been finished"
+msgid "Finished"
+msgstr "Críochnaithe"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearButton)
+#: ui/history/transferhistory.ui:27
+#, kde-format
+msgid "Clear History"
+msgstr "Glan an Stair"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/history/transferhistory.ui:47
+#, kde-format
+msgid "View Modes:"
+msgstr "Móid Amhairc:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/history/transferhistory.ui:77
+#, kde-format
+msgid "Select Ranges:"
+msgstr "Roghnaigh Raonta:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: ui/history/transferhistory.ui:85
+#, kde-format
+msgid "Date"
+msgstr "Dáta"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
+#: ui/history/transferhistory.ui:95
+#, kde-format
+msgid "Host"
+msgstr "Óstríomhaire"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:106
+#, kde-format
+msgid "Filter history"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:120
+#, kde-format
+msgctxt "delete selected transfer"
+msgid "Delete Selected"
+msgstr "Scrios an tAistriú Roghnaithe"
+
+#. i18n: ectx: property (text), widget (KLineEdit, searchBar)
+#: ui/history/transferhistory.ui:125
+#, kde-format
+msgid "Download"
+msgstr "Íosluchtaigh"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:53
+#, kde-format
+msgid "Last Month"
+msgstr "An Mhí Seo Caite"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:77
+#, kde-format
+msgid "Under 10MiB"
+msgstr "Níos lú ná 10MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:80
+#, kde-format
+msgid "Between 10MiB and 50MiB"
+msgstr "Idir 10MiB agus 50MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:84
+#, kde-format
+msgid "Between 50MiB and 100MiB"
+msgstr "Idir 50MiB agus 100MiB"
+
+#: ui/history/transferhistorycategorizeddelegate.cpp:89
+#, kde-format
+msgid "More than 100MiB"
+msgstr "Níos mó ná 100MiB"
+
+#: ui/history/transferhistoryitemdelegate.cpp:40
+#, kde-format
+msgid "Download again"
+msgstr "Íosluchtaigh arís"
+
+#: ui/history/transferhistoryitemdelegate.cpp:45
+#, kde-format
+msgctxt "Delete selected history-item"
+msgid "Delete selected"
+msgstr "Scrios an mhír roghnaithe"
+
+#: ui/history/transferhistoryitemdelegate.cpp:50
+#, kde-format
+msgid "Open file"
+msgstr "Oscail comhad"
+
+#. i18n: ectx: Menu (file)
+#: ui/kgetui.rc:5
+#, kde-format
+msgid "&File"
+msgstr "&Comhad"
+
+# "L" under Main -> Uirlisí
+#. i18n: ectx: Menu (Downloads)
+#: ui/kgetui.rc:17
+#, kde-format
+msgid "&Downloads"
+msgstr "Íos&luchtuithe"
+
+#. i18n: ectx: Menu (settings)
+#: ui/kgetui.rc:34
+#, kde-format
+msgid "&Settings"
+msgstr "&Socruithe"
+
+#. i18n: ectx: Menu (help)
+#: ui/kgetui.rc:37
+#, kde-format
+msgid "&Help"
+msgstr "&Cabhair"
+
+#. i18n: ectx: ToolBar (kget_toolbar)
+#: ui/kgetui.rc:40
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Príomhbharra Uirlisí"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/linkview/importlinkdialog.ui:34
+#, fuzzy, kde-format
+#| msgid "&File with links to import:"
+msgid "File with &links to import:"
+msgstr "&Comhad ina bhfuil naisc le hiompórtáil:"
+
+#. i18n: ectx: property (text), widget (QPushButton, importLinks)
+#: ui/linkview/importlinkdialog.ui:50
+#, kde-format
+msgid "&Import Links"
+msgstr "&Iompórtáil Naisc"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/linkview/importlinkdialog.ui:67
+#, kde-format
+msgid "Show:"
+msgstr "Taispeáin:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, showWebContent)
+#: ui/linkview/importlinkdialog.ui:77
+#, kde-format
+msgid "Show &web content"
+msgstr "Taispeáin á&bhar Gréasáin"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, textFilter)
+#: ui/linkview/importlinkdialog.ui:115
+#, kde-format
+msgid "You can use wildcards for filtering."
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, textFilter)
+#: ui/linkview/importlinkdialog.ui:118
+#, kde-format
+msgid "Filter files here...."
+msgstr "Scag comhaid anseo..."
+
+#. i18n: ectx: property (text), widget (QPushButton, selectAll)
+#: ui/linkview/importlinkdialog.ui:189 ui/linkview/kget_linkview.cpp:337
+#, kde-format
+msgid "&Select All"
+msgstr "&Roghnaigh Uile"
+
+#. i18n: ectx: property (text), widget (QPushButton, deselectAll)
+#: ui/linkview/importlinkdialog.ui:205 ui/linkview/kget_linkview.cpp:338
+#, kde-format
+msgid "D&eselect All"
+msgstr "Díroghnai&gh Uile"
+
+#. i18n: ectx: property (text), widget (QPushButton, invertSelection)
+#: ui/linkview/importlinkdialog.ui:221
+#, kde-format
+msgid "Inver&t Selection"
+msgstr "Inbhéar&taigh an Roghnúchán"
+
+#: ui/linkview/kget_linkview.cpp:41
+#, kde-format
+msgid "Import Links"
+msgstr "Iompórtáil Naisc"
+
+#: ui/linkview/kget_linkview.cpp:58
+#, kde-format
+msgid "Contains"
+msgstr "Ina bhfuil"
+
+#: ui/linkview/kget_linkview.cpp:59
+#, kde-format
+msgid "Does Not Contain"
+msgstr "Nach bhfuil ann"
+
+#: ui/linkview/kget_linkview.cpp:63
+#, kde-format
+msgid "All"
+msgstr "Uile"
+
+#: ui/linkview/kget_linkview.cpp:64
+#, kde-format
+msgid "Videos"
+msgstr "Físeáin"
+
+#: ui/linkview/kget_linkview.cpp:65
+#, kde-format
+msgid "Images"
+msgstr "Íomhánna"
+
+#: ui/linkview/kget_linkview.cpp:66
+#, kde-format
+msgid "Audio"
+msgstr "Fuaim"
+
+#: ui/linkview/kget_linkview.cpp:67
+#, kde-format
+msgid "Archives"
+msgstr "Cartlanna"
+
+#: ui/linkview/kget_linkview.cpp:73
+#, kde-format
+msgctxt "of a filter, e.g. RegExp or Wildcard"
+msgid "Pattern Syntax"
+msgstr "Comhréir an Phatrúin"
+
+#: ui/linkview/kget_linkview.cpp:74
+#, kde-format
+msgid "Escape Sequences"
+msgstr "Seichimh Éalúcháin"
+
+#: ui/linkview/kget_linkview.cpp:77
+#, kde-format
+msgid "Regular Expression"
+msgstr "Slonn Ionadaíochta"
+
+#: ui/linkview/kget_linkview.cpp:87
+#, kde-format
+msgctxt "name of a file"
+msgid "Name"
+msgstr "Ainm"
+
+#: ui/linkview/kget_linkview.cpp:117
+#, kde-format
+msgctxt "Download the items which have been selected"
+msgid "&Download"
+msgstr "Íos&luchtaigh"
+
+#: ui/linkview/kget_linkview.cpp:157
+#, kde-format
+msgid "Auxiliary header"
+msgstr "Ceanntásc cúntach"
+
+#: ui/linkview/kget_linkview.cpp:158
+#, kde-format
+msgid "File Name"
+msgstr "Ainm Comhaid"
+
+#: ui/linkview/kget_linkview.cpp:159
+#, kde-format
+msgid "Description"
+msgstr "Cur Síos"
+
+#: ui/linkview/kget_linkview.cpp:160
+#, kde-format
+msgctxt "list header: type of file"
+msgid "File Type"
+msgstr "Cineál Comhaid"
+
+#: ui/linkview/kget_linkview.cpp:161
+#, kde-format
+msgid "Location (URL)"
+msgstr "Suíomh (URL)"
+
+#: ui/linkview/kget_linkview.cpp:266
+#, kde-format
+msgid "Links in: %1 - KGet"
+msgstr "Naisc i: %1 - KGet"
+
+#: ui/linkview/kget_linkview.cpp:337
+#, kde-format
+msgid "&Select All Filtered"
+msgstr "&Roghnaigh Gach Ceann Scagtha"
+
+#: ui/linkview/kget_linkview.cpp:338
+#, kde-format
+msgid "D&eselect All Filtered"
+msgstr "Díroghnai&gh Gach Ceann Scagtha"
+
+#: ui/linkview/kget_linkview.cpp:461
+#, kde-format
+msgid "Filter Column"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/commondata.ui:22
+#, kde-format
+msgid "Identity"
+msgstr "Aitheantas"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: ui/metalinkcreator/commondata.ui:32
+#, kde-format
+msgid "Description:"
+msgstr "Cur Síos:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/commondata.ui:46
+#, kde-format
+msgid "Version:"
+msgstr "Leagan:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: ui/metalinkcreator/commondata.ui:56
+#, kde-format
+msgid "Logo:"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, logo)
+#: ui/metalinkcreator/commondata.ui:63
+#, kde-format
+msgid "URL to the logo"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label_13)
+#: ui/metalinkcreator/commondata.ui:73
+#, kde-format
+msgid "The language of the file"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: ui/metalinkcreator/commondata.ui:76
+#, kde-format
+msgid "Language:"
+msgstr "Teanga:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: ui/metalinkcreator/commondata.ui:86
+#, kde-format
+msgid "Operating systems:"
+msgstr "Córais oibriúcháin:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, os)
+#: ui/metalinkcreator/commondata.ui:93
+#, kde-format
+msgid "Supported OSes, separated with commas"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: ui/metalinkcreator/commondata.ui:103
+#, kde-format
+msgid "Copyright:"
+msgstr "Cóipcheart:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_20)
+#: ui/metalinkcreator/commondata.ui:141
+#, kde-format
+msgid "Publisher:"
+msgstr "Foilsitheoir:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: ui/metalinkcreator/commondata.ui:150
+#, kde-format
+msgid "Name:"
+msgstr "Ainm:"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, pub_name)
+#. i18n: ectx: property (toolTip), widget (KLineEdit, pub_url)
+#: ui/metalinkcreator/commondata.ui:157 ui/metalinkcreator/commondata.ui:177
+#, kde-format
+msgid "publisher"
+msgstr "foilsitheoir"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_name)
+#: ui/metalinkcreator/commondata.ui:160
+#, kde-format
+msgid "Name of the publisher"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_url)
+#: ui/metalinkcreator/commondata.ui:180
+#, kde-format
+msgid "URL to the publisher"
+msgstr ""
+
+#: ui/metalinkcreator/dragdlg.cpp:69
+#, kde-format
+msgid "Import dropped files"
+msgstr ""
+
+#: ui/metalinkcreator/dragdlg.cpp:92 ui/metalinkcreator/filedlg.cpp:68
+#: ui/metalinkcreator/filedlg.cpp:178
+#, fuzzy, kde-format
+#| msgctxt "comma, to seperate members of a list"
+#| msgid ","
+msgctxt "comma, to separate members of a list"
+msgid ","
+msgstr ","
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite)
+#: ui/metalinkcreator/dragdlg.ui:21
+#, kde-format
+msgctxt "General options."
+msgid "General"
+msgstr "Ginearálta"
+
+#. i18n: ectx: property (text), widget (QCheckBox, partialChecksums)
+#: ui/metalinkcreator/dragdlg.ui:27
+#, kde-format
+msgid "Create partial checksums"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/dragdlg.ui:40
+#, kde-format
+msgid "General URL:"
+msgstr "URL Ginearálta:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/metalinkcreator/dragdlg.ui:66
+#, kde-format
+msgid ""
+"Automatically create checksums for the selected types. Keep in mind that "
+"this might take a while."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/metalinkcreator/dragdlg.ui:92
+#, kde-format
+msgid ""
+"Enter URLs here if all the dropped files are on that server and in the same "
+"directory. For each dropped file the URL would consist of the entered part "
+"and the filename."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: ui/metalinkcreator/dragdlg.ui:102
+#, kde-format
+msgid "Types of the checksums:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/dragdlg.ui:115
+#, kde-format
+msgid "Create checksums:"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
+#: ui/metalinkcreator/dragdlg.ui:123
+#, kde-format
+msgctxt "These entries are optional."
+msgid "Optional"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/metalinkcreator/dragdlg.ui:135
+#, kde-format
+msgid "Optional data:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/metalinkcreator/dragdlg.ui:160
+#, kde-format
+msgid "Enter information that all chosen files share."
+msgstr ""
+
+#: ui/metalinkcreator/filedlg.cpp:119
+#, kde-format
+msgid "File Properties"
+msgstr "Airíonna Comhaid"
+
+#: ui/metalinkcreator/filedlg.cpp:131
+#, kde-format
+msgid "Enter a filename."
+msgstr "Iontráil ainm comhaid."
+
+#: ui/metalinkcreator/filedlg.cpp:134
+#, kde-format
+msgid "The filename exists already, choose a different one."
+msgstr ""
+
+#: ui/metalinkcreator/filedlg.cpp:137
+#, kde-format
+msgid "Enter at least one URL."
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: ui/metalinkcreator/filedlg.ui:24
+#, kde-format
+msgid "Required"
+msgstr "Riachtanach"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: ui/metalinkcreator/filedlg.ui:54
+#, kde-format
+msgid "Filename:"
+msgstr "Ainm comhaid:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: ui/metalinkcreator/filedlg.ui:95
+#, kde-format
+msgid "Used Mirrors:"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: ui/metalinkcreator/filedlg.ui:103
+#, kde-format
+msgid "Recommended"
+msgstr "Molta"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: ui/metalinkcreator/filedlg.ui:111
+#, kde-format
+msgid "File size (in bytes):"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/filedlg.ui:149 ui/signaturedlg.ui:34
+#, kde-format
+msgid "Verification:"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, Seite)
+#: ui/metalinkcreator/filedlg.ui:196
+#, kde-format
+msgid "Optional"
+msgstr "Roghnach"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, add_local_file)
+#: ui/metalinkcreator/files.ui:26
+#, kde-format
+msgid "Adds local files adding a lot information automatically."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, add_local_file)
+#: ui/metalinkcreator/files.ui:29
+#, kde-format
+msgid "Add local files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/metalinkcreator/files.ui:66
+#, kde-format
+msgid "Adding local files..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/metalinkcreator/generalwidget.ui:23
+#, kde-format
+msgid "General information:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: ui/metalinkcreator/generalwidget.ui:30
+#, kde-format
+msgid "Here you can enter optional general information on the metalink."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/generalwidget.ui:61
+#, kde-format
+msgid "Origin:"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, origin)
+#: ui/metalinkcreator/generalwidget.ui:68
+#, kde-format
+msgid "Web URL to the metalink"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
+#: ui/metalinkcreator/generalwidget.ui:75
+#, kde-format
+msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelDynamic)
+#: ui/metalinkcreator/generalwidget.ui:78
+#, kde-format
+msgid "Dynamic:"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, publishedGroupBox)
+#: ui/metalinkcreator/generalwidget.ui:110
+#, kde-format
+msgid "Metalink published"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_30)
+#. i18n: ectx: property (text), widget (QLabel, label_29)
+#: ui/metalinkcreator/generalwidget.ui:122
+#: ui/metalinkcreator/generalwidget.ui:231
+#, kde-format
+msgid "Date and time:"
+msgstr "Dáta agus am:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, use_publishedtimeoffset)
+#. i18n: ectx: property (text), widget (QCheckBox, use_updatedtimeoffset)
+#: ui/metalinkcreator/generalwidget.ui:136
+#: ui/metalinkcreator/generalwidget.ui:217
+#, kde-format
+msgid "Timezone offset:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: ui/metalinkcreator/generalwidget.ui:153
+#: ui/metalinkcreator/generalwidget.ui:210
+#, kde-format
+msgid "Negative offset:"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, updatedGroupBox)
+#: ui/metalinkcreator/generalwidget.ui:182
+#, kde-format
+msgid "Metalink updated"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/metalinkcreator/introduction.ui:17
+#, kde-format
+msgid ""
+"This assistant allows you to create metalinks from scratch or base them on "
+"existing metalinks. A lot of the fields are optional or recommended, so "
+"enter them if desired. The minimum is a save location, at least one file and "
+"one URL."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/metalinkcreator/introduction.ui:48
+#, kde-format
+msgid "Save created Metalink at:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, createButton)
+#: ui/metalinkcreator/introduction.ui:78
+#, kde-format
+msgid "Create new Metalink"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadButton)
+#: ui/metalinkcreator/introduction.ui:88
+#, kde-format
+msgid "Load existing Metalink:"
+msgstr ""
+
+#. i18n: ectx: property (filter), widget (KUrlRequester, load)
+#: ui/metalinkcreator/introduction.ui:98
+#, kde-format
+msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:84
+#, kde-format
+msgid "Create a Metalink"
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:103
+#, kde-format
+msgid "Add at least one file."
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:105
+#, kde-format
+msgid "You need to set mirrors for the entries with an icon."
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:118
+#, kde-format
+msgid "General optional information for the metalink."
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:149
+#, kde-format
+msgid "Unable to load: %1"
+msgstr "Ní féidir luchtú: %1"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, kde-format
+msgid "Metalink Version 4.0 file (*.meta4)"
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, kde-format
+msgid "Metalink Version 3.0 file (*.metalink)"
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:183
+#, kde-format
+msgid "Define the saving location."
+msgstr ""
+
+#: ui/metalinkcreator/metalinkcreator.cpp:229
+#, kde-format
+msgctxt "file as in file on hard drive"
+msgid "Files"
+msgstr "Comhaid"
+
+#. i18n: ectx: property (text), widget (QLabel, labelMirror)
+#: ui/mirror/mirroradddlg.ui:19
+#, kde-format
+msgid "Mirror:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelConnections)
+#: ui/mirror/mirroradddlg.ui:26
+#, kde-format
+msgid "Number of connections:"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, url)
+#: ui/mirror/mirroradddlg.ui:33
+#, kde-format
+msgid "Enter a URL"
+msgstr "Iontráil URL"
+
+#. i18n: ectx: property (text), widget (QLabel, labelPriority)
+#: ui/mirror/mirroradddlg.ui:53
+#, kde-format
+msgid "Priority:"
+msgstr "Tosaíocht:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, priority)
+#: ui/mirror/mirroradddlg.ui:60
+#, kde-format
+msgid "Optional: The priority of the mirror, 1 highest 999999 lowest."
+msgstr ""
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, priority)
+#: ui/mirror/mirroradddlg.ui:72 ui/mirror/mirrormodel.cpp:213
+#: ui/mirror/mirrormodel.cpp:231
+#, kde-format
+msgid "not specified"
+msgstr "gan sonrú"
+
+#. i18n: ectx: property (text), widget (QLabel, labelLocation)
+#: ui/mirror/mirroradddlg.ui:79
+#, kde-format
+msgid "Location:"
+msgstr "Suíomh:"
+
+#: ui/mirror/mirrormodel.cpp:366
+#, kde-format
+msgctxt "Mirror as in server, in url"
+msgid "Mirror"
+msgstr ""
+
+#: ui/mirror/mirrormodel.cpp:369
+#, kde-format
+msgctxt "The priority of the mirror"
+msgid "Priority"
+msgstr "Tosaíocht"
+
+#: ui/mirror/mirrormodel.cpp:374
+#, fuzzy, kde-format
+#| msgid "Connections"
+msgctxt "Number of parallel connections to the mirror"
+msgid "Connections"
+msgstr "Ceangail"
+
+#: ui/mirror/mirrormodel.cpp:376
+#, kde-format
+msgctxt "Location = country"
+msgid "Location"
+msgstr "Tír"
+
+#: ui/mirror/mirrorsettings.cpp:55
+#, kde-format
+msgid "Add mirror"
+msgstr ""
+
+#: ui/mirror/mirrorsettings.cpp:149
+#, kde-format
+msgid "Modify the used mirrors"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: ui/mirror/mirrorsettings.ui:36
+#, kde-format
+msgid "PushButton"
+msgstr ""
+
+#: ui/newtransferdialog.cpp:322
+#, kde-format
+msgid "Select at least one source url."
+msgstr ""
+
+#: ui/newtransferdialog.cpp:340
+#, kde-format
+msgid "Files that exist already in the current folder have been marked."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/newtransferwidget.ui:30
+#, kde-format
+msgid "Destination:"
+msgstr "Sprioc:"
+
+#  Transfer not a verb, see french - groupe de transfert
+#. i18n: ectx: property (text), widget (QLabel, groupLabel)
+#: ui/newtransferwidget.ui:40
+#, kde-format
+msgid "Transfer group:"
+msgstr "Grúpa aistrithe:"
+
+#: ui/renamefile.cpp:33
+#, kde-format
+msgid "Rename File"
+msgstr "Athainmnigh Comhad"
+
+#: ui/renamefile.cpp:39
+#, kde-format
+msgid "Rename %1 to:"
+msgstr "Athainmnigh %1 mar:"
+
+#: ui/renamefile.cpp:42
+#, kde-format
+msgid "&Rename"
+msgstr "&Athainmnigh"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Anaithnid"
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr ""
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr ""
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr ""
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr ""
+
+#: ui/signaturedlg.cpp:42
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr ""
+
+#: ui/signaturedlg.cpp:49
+#, kde-format
+msgctxt ""
+"Signature here is meant in cryptographic terms, so the signature of a file."
+msgid "Signature of %1."
+msgstr ""
+
+#: ui/signaturedlg.cpp:72
+#, kde-format
+msgid "This option is not supported for the current transfer."
+msgstr ""
+
+#: ui/signaturedlg.cpp:99
+#, kde-format
+msgid "Load Signature File"
+msgstr "Luchtaigh Comhad Sínithe"
+
+#: ui/signaturedlg.cpp:100
+#, kde-format
+msgid "Detached OpenPGP ASCII signature (*.asc)"
+msgstr ""
+
+#: ui/signaturedlg.cpp:101
+#, kde-format
+msgid "Detached OpenPGP binary signature (*.sig)"
+msgstr ""
+
+#: ui/signaturedlg.cpp:154
+#, kde-format
+msgid "You need to define a signature."
+msgstr "Ní mór duit síniú a shainiú."
+
+#: ui/signaturedlg.cpp:158
+#, kde-format
+msgid ""
+"No fingerprint could be found, check if the signature is correct or verify "
+"the download."
+msgstr ""
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgid "The key has been revoked."
+msgstr ""
+
+#: ui/signaturedlg.cpp:196
+#, kde-format
+msgid "The key is disabled."
+msgstr ""
+
+#: ui/signaturedlg.cpp:200
+#, kde-format
+msgid "The key is invalid."
+msgstr ""
+
+#: ui/signaturedlg.cpp:205
+#, kde-format
+msgid "The key is expired."
+msgstr ""
+
+#: ui/signaturedlg.cpp:220
+#, kde-format
+msgid "The key is not to be trusted."
+msgstr ""
+
+#: ui/signaturedlg.cpp:225
+#, kde-format
+msgid "The key is to be trusted marginally."
+msgstr ""
+
+#: ui/signaturedlg.cpp:238
+#, kde-format
+msgid "Trust level of the key is unclear."
+msgstr ""
+
+#: ui/signaturedlg.cpp:267
+#, kde-format
+msgid "Unlimited"
+msgstr "Gan Teorainn"
+
+#: ui/signaturedlg.cpp:285
+#, kde-format
+msgctxt "pgp signature is verified"
+msgid "Verified"
+msgstr ""
+
+#: ui/signaturedlg.cpp:288
+#, kde-format
+msgctxt "pgp signature is not verified"
+msgid "Failed"
+msgstr "Teipthe"
+
+#: ui/signaturedlg.cpp:291
+#, kde-format
+msgid ""
+"Caution: Verification failed. Either you entered the wrong signature, or the "
+"data has been modified."
+msgstr ""
+
+#: ui/signaturedlg.cpp:296
+#, kde-format
+msgid ""
+"Verification not possible. Check the entered data, whether gpg-agent is "
+"running, or whether you have an Internet connection (for retrieving keys.)"
+msgstr ""
+
+#: ui/signaturedlg.cpp:313
+#, kde-format
+msgid "Feature is not supported, as KGet is not compiled with QPGME support."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, binaryLabel)
+#: ui/signaturedlg.ui:80
+#, kde-format
+msgid "Has binary PGP signature."
+msgstr "Síniú PGP aige."
+
+#. i18n: ectx: property (text), widget (QLabel, asciiLabel)
+#: ui/signaturedlg.ui:87
+#, kde-format
+msgid "Ascii PGP signature:"
+msgstr "Síniú PGP ASCII:"
+
+#. i18n: ectx: property (text), widget (QPushButton, loadSignature)
+#: ui/signaturedlg.ui:112
+#, kde-format
+msgid "Load Signature"
+msgstr "Luchtaigh Síniú"
+
+#. i18n: ectx: property (text), widget (QPushButton, verify)
+#: ui/signaturedlg.ui:119
+#, kde-format
+msgid "Verify"
+msgstr "Fíoraigh"
+
+#. i18n: ectx: property (title), widget (QGroupBox, keyGroup)
+#: ui/signaturedlg.ui:131
+#, kde-format
+msgid "Key"
+msgstr "Eochair"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/signaturedlg.ui:143
+#, kde-format
+msgid "Issuer:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/signaturedlg.ui:166
+#, kde-format
+msgid "E-Mail:"
+msgstr "Ríomhphost:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: ui/signaturedlg.ui:183
+#, kde-format
+msgid "Comment:"
+msgstr "Nóta:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/signaturedlg.ui:197
+#, kde-format
+msgid "Creation:"
+msgstr "Cruthú:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/signaturedlg.ui:214
+#, kde-format
+msgid "Expiration:"
+msgstr "Dul as feidhm:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/signaturedlg.ui:255
+#, kde-format
+msgid "Trust:"
+msgstr "Iontaoibh:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/signaturedlg.ui:296
+#, kde-format
+msgid "Fingerprint:"
+msgstr "Méarlorg:"
+
+#: ui/transferdetails.cpp:72
+#, kde-format
+msgid "Average speed: %1/s"
+msgstr ""
+
+#: ui/transferdetails.cpp:77
+#, kde-format
+msgid "%1 of %2"
+msgstr "%1 as %2"
+
+#. i18n: ectx: property (text), widget (QLabel, sourceLabel)
+#: ui/transferdetailsfrm.ui:51
+#, kde-format
+msgctxt "@label transfer source"
+msgid "Source:"
+msgstr "Foinse:"
+
+#. i18n: ectx: property (text), widget (QLabel, statusLabel)
+#: ui/transferdetailsfrm.ui:114
+#, kde-format
+msgid "Status:"
+msgstr "Stádas:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/transferdetailsfrm.ui:165
+#, kde-format
+msgid "Remaining Time:"
+msgstr "Am Fágtha:"
+
+#: ui/transfersettingsdialog.cpp:33
+#, kde-format
+msgid "Transfer Settings for %1"
+msgstr "Socruithe Aistrithe le haghaidh %1"
+
+#: ui/transfersettingsdialog.cpp:167
+#, kde-format
+msgid ""
+"Changing the destination did not work, the destination stays unmodified."
+msgstr ""
+
+#: ui/transfersettingsdialog.cpp:167
+#, kde-format
+msgid "Destination unmodified"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
+#: ui/transfersettingsdialog.ui:23
+#, kde-format
+msgid "Transfer Settings"
+msgstr "Socruithe Aistrithe"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/transfersettingsdialog.ui:35
+#, kde-format
+msgid "Download des&tination:"
+msgstr "Sprioc an íosluch&taithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelUpload)
+#: ui/transfersettingsdialog.ui:90
+#, kde-format
+msgid "&Upload limit:"
+msgstr "Teorainn &uasluchtaithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelDownload)
+#: ui/transfersettingsdialog.ui:100
+#, fuzzy, kde-format
+#| msgid "&Download limit:"
+msgid "Download &limit:"
+msgstr "Teorain&n íosluchtaithe:"
+
+#. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
+#: ui/transfersettingsdialog.ui:110
+#, fuzzy, kde-format
+#| msgid "Maximum &share ratio:"
+msgid "Ma&ximum share ratio:"
+msgstr "Cóimhea&s uasta comhroinnte:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, mirrors)
+#: ui/transfersettingsdialog.ui:139
+#, kde-format
+msgid "Modify the mirrors used for downloading."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, mirrors)
+#: ui/transfersettingsdialog.ui:142
+#, kde-format
+msgctxt "The available mirrors (servers) for downloading"
+msgid "Mirrors"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, verification)
+#: ui/transfersettingsdialog.ui:162
+#, kde-format
+msgctxt "verification of the download (e.g. by using MD5)"
+msgid "Verification"
+msgstr "Fíorú"
+
+#: ui/transfersview.cpp:126
+#, kde-format
+msgid "Select columns"
+msgstr "Roghnaigh colúin"
+
+#: ui/transfersview.cpp:314
+#, kde-format
+msgid "Transfer Details"
+msgstr "Mionsonraí an Aistrithe"
+
+#: ui/tray.cpp:48
+#, kde-format
+msgid "Download Manager"
+msgstr "Bainisteoir Íosluchtaithe"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/verificationadddlg.ui:19
+#, kde-format
+msgctxt "hash type as in md5t, sha1 etc."
+msgid "Hash type:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/verificationadddlg.ui:26
+#, kde-format
+msgctxt "hash as a hash of type md5, sha1 etc."
+msgid "Hash:"
+msgstr "Hais:"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, newHash)
+#: ui/verificationadddlg.ui:33
+#, kde-format
+msgid "Enter a hash key"
+msgstr ""
+
+#: ui/verificationdialog.cpp:38
+#, kde-format
+msgid "Add checksum"
+msgstr ""
+
+#: ui/verificationdialog.cpp:94
+#, kde-format
+msgid "Transfer Verification for %1"
+msgstr ""
+
+#: ui/verificationdialog.cpp:206
+#, kde-format
+msgid "%1 was successfully verified."
+msgstr ""
+
+#: ui/verificationdialog.cpp:207
+#, kde-format
+msgid "Verification successful"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/verificationdialog.ui:65
+#, kde-format
+msgid "Verifying:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, verify)
+#: ui/verificationdialog.ui:118
+#, kde-format
+msgid "Verify the finished download with the selected checksum."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, verify)
+#: ui/verificationdialog.ui:121
+#, kde-format
+msgid "&Verify"
+msgstr "&Cinntigh"
+
+#. i18n: ectx: property (text), widget (QPushButton, closeButton)
+#: ui/verificationdialog.ui:147
+#, kde-format
+msgid "Close"
+msgstr ""
+
+#~ msgctxt "Transfer state: processing script"
+#~ msgid "Processing script...."
+#~ msgstr "Script á próiseáil..."
+
+#~ msgctxt "Transfer State: Finished"
+#~ msgid "Finished"
+#~ msgstr "Críochnaithe"
+
+#~ msgctxt "Transfer State: Aborted"
+#~ msgid "Aborted"
+#~ msgstr "Tobscortha"
+
+#~ msgctxt "Configure script"
+#~ msgid "Configure script"
+#~ msgstr "Cumraigh script"
+
+#~ msgid "User Scripts"
+#~ msgstr "Scripteanna Úsáideora"
+
+#~ msgid "Path"
+#~ msgstr "Conair"
+
+#~ msgid "RegExp"
+#~ msgstr "Slonn Ionadaíochta"
+
+#~ msgid "New Script...."
+#~ msgstr "Script Nua..."
+
+#~ msgid "Edit...."
+#~ msgstr "Eagar..."
+
+#~ msgid "Configure...."
+#~ msgstr "Cumraigh..."
+
+#~ msgid "Add New Script"
+#~ msgstr "Cuir Script Nua Leis"
+
+#~ msgid "Edit Script"
+#~ msgstr "Cuir Script in Eagar"
+
+#~ msgid "Set Script File"
+#~ msgstr "Socraigh Comhad Scripte"
+
+#~ msgid "Regexp:"
+#~ msgstr "Slonn ionadaíochta:"
+
+#~ msgid "Path:"
+#~ msgstr "Conair:"
+
+#~ msgid "File Settings"
+#~ msgstr "Socruithe Comhaid"
+
+#~ msgid "Quality:"
+#~ msgstr "Cáilíocht:"
+
+#~ msgid "Best Quality (.mp4)"
+#~ msgstr "Cáilíocht is fearr (.mp4)"
+
+#~ msgid "Normal Quality (.flv)"
+#~ msgstr "Gnáthcháilíocht (.flv)"
+
+#~ msgid "Login Info"
+#~ msgstr "Faisnéis Logála Isteach"
+
+#~ msgid "Username:"
+#~ msgstr "Ainm Úsáideora:"
+
+#~ msgid "User .netrc file"
+#~ msgstr "Comhad .netrc an úsáideora"
+
+#~ msgid "Unable to start WebInterface: Could not open KWallet"
+#~ msgstr ""
+#~ "Ní féidir an comhéadan Gréasáin a thosú: Níorbh fhéidir KWallet a oscailt"
+
+#~ msgctxt "@info"
+#~ msgid "Unable to start WebInterface: %1"
+#~ msgstr "Ní féidir an comhéadan Gréasáin a thosú: %1"
+
+#~ msgctxt "@item speed of transfer per seconds"
+#~ msgid "%1/s"
+#~ msgstr "%1/s"
+
+#~ msgctxt "@label"
+#~ msgid "KGet Web Interface"
+#~ msgstr "Comhéadan Gréasáin KGet"
+
+#~ msgctxt "@label number"
+#~ msgid "Nr"
+#~ msgstr "Uimh"
+
+#~ msgctxt "@label"
+#~ msgid "File name"
+#~ msgstr "Ainm comhaid"
+
+#~ msgctxt "@label Progress of transfer"
+#~ msgid "Finished"
+#~ msgstr "Críochnaithe"
+
+#~ msgctxt "@label Speed of transfer"
+#~ msgid "Speed"
+#~ msgstr "Luas"
+
+#~ msgctxt "@label Status of transfer"
+#~ msgid "Status"
+#~ msgstr "Stádas"
+
+#~ msgctxt "@action:button start a transfer"
+#~ msgid "Start"
+#~ msgstr "Tosaigh"
+
+#~ msgctxt "@action:button"
+#~ msgid "Stop"
+#~ msgstr "Stad"
+
+#~ msgctxt "@action:button"
+#~ msgid "Remove"
+#~ msgstr "Bain"
+
+#~ msgctxt "@label Download from"
+#~ msgid "Source:"
+#~ msgstr "Foinse:"
+
+#~ msgctxt "@label Save download to"
+#~ msgid "Saving to:"
+#~ msgstr "Á Shábháil i:"
+
+#~ msgctxt "@label Title in header"
+#~ msgid "Web Interface"
+#~ msgstr "Comhéadan Gréasáin"
+
+#~ msgctxt "@action"
+#~ msgid "Settings"
+#~ msgstr "Socruithe"
+
+#~ msgctxt "@action"
+#~ msgid "Refresh"
+#~ msgstr "Athnuaigh"
+
+#~ msgctxt "@action"
+#~ msgid "Enter URL: "
+#~ msgstr "Iontráil URL:"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgctxt "@action Refresh download list every x (seconds)"
+#~ msgid "Refresh download list every"
+#~ msgstr "Athnuaigh liosta na n-íosluchtuithe gach"
+
+#~ msgctxt "@action (Refresh very x )seconds"
+#~ msgid "seconds"
+#~ msgstr "soicind"
+
+#~ msgctxt "@action:button"
+#~ msgid "Save Settings"
+#~ msgstr "Sábháil Socruithe"
+
+#~ msgctxt "@title"
+#~ msgid "Downloads"
+#~ msgstr "Íosluchtuithe"
+
+#~ msgctxt "@label text in footer"
+#~ msgid "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS"
+#~ msgstr "Comhéadan Gréasáin KGet | XHTML 1.0 Strict &amp; CSS"
+
+#~ msgctxt "Number of paralell connections to the mirror"
+#~ msgid "Connections"
+#~ msgstr "Ceangail"
+
+#~ msgid "Select a default torrent folder"
+#~ msgstr "Roghnaigh fillteán réamhshocraithe torrent"
+
+#~ msgid "Select a default temporary folder"
+#~ msgstr "Roghnaigh fillteán réamhshocraithe sealadach"
+
+#~ msgid "0123456789"
+#~ msgstr "0123456789"
+
+#~ msgid "Nepomuk"
+#~ msgstr "Nepomuk"
+
+#~ msgid "Download selected transfer first"
+#~ msgstr "Íosluchtaigh an t-aistriú roghnaithe i dtosach báire"
+
+#~ msgid "Delete selected group"
+#~ msgstr "Scrios an grúpa roghnaithe"
+
+#~ msgid "Starts / resumes all transfers"
+#~ msgstr "Tosaigh / atosaigh gach aistriú"
+
+#~ msgid "Starts / resumes selected transfer"
+#~ msgstr "Tosaigh / atosaigh an t-aistriú roghnaithe"
+
+#~ msgid "Pauses all transfers"
+#~ msgstr "Cuir gach aistriú ar shos"
+
+#~ msgid ""
+#~ "Choose an action that is executed after all downloads have been finished."
+#~ msgstr "Roghnaigh gníomh a dhéanfar tar éis gach íosluchtú a chur i gcrích."
+
+#~ msgid "Scanning data of <b>%1</b> :"
+#~ msgstr "Sonraí de <b>%1</b> á scanadh:"
+
+#~ msgctxt "Download the items which have been selected"
+#~ msgid "&Download Checked"
+#~ msgstr "Íosluchtaigh na comhaid ticeáilte"
+
+#~ msgid "Number of downloads:"
+#~ msgstr "Líon na n-íosluchtuithe:"
+
+#~ msgctxt "filter: show all file types"
+#~ msgid "&All"
+#~ msgstr "&Uile"
+
+#~ msgid "Ima&ges"
+#~ msgstr "Íomhá&nna"
+
+#~ msgctxt "Check as in mark, not as in verify"
+#~ msgid "Chec&k Selected"
+#~ msgstr "Cuir ti&c leis na cinn roghnaithe"
+
+#~ msgid "Stop All"
+#~ msgstr "Stop Uile"
+
+#~ msgid "Start / Resume"
+#~ msgstr "Tosaigh / Atosaigh"
+
+#~ msgid "Stop"
+#~ msgstr "Stad"
+
+#~ msgid "Downloads from the same server:"
+#~ msgstr "Íosluchtuithe ón fhreastalaí chéanna:"
+
+#~ msgid "Move &Up"
+#~ msgstr "Bog S&uas"
+
+#~ msgid "Move &Down"
+#~ msgstr "Bog Sí&os"
+
+#~ msgid "After Completing Downloads"
+#~ msgstr "Tar Éis na Íosluchtuithe a Chur i gCrích"
+
+#~ msgid "Auto shutdown"
+#~ msgstr "Múchadh uathoibríoch"
+
+#~ msgid "Auto disconnect"
+#~ msgstr "Dícheangal uathoibríoch"
+
+#~ msgid "Startup"
+#~ msgstr "Tosú"
+
+#~ msgid "Show splashscreen"
+#~ msgstr "Taispeáin splancscáileán"
+
+#~ msgid "Show drop target"
+#~ msgstr "Taispeáin sprioc scaoilte"
+
+#~ msgid " KiB"
+#~ msgstr " KiB"
+
+#~ msgid ""
+#~ "Drop target has been hidden. If you want to show it again, go to Settings-"
+#~ ">Configure KGet->Look & Feel."
+#~ msgstr ""
+#~ "Cuireadh an sprioc scaoilte i bhfolach. Más mian leat é a thaispeáint "
+#~ "arís, téigh go Socruithe->Cumraigh KGet->Cuma."
+
+#~ msgid "Hiding drop target"
+#~ msgstr "Sprioc scaoilte á fholú"
+
+#~ msgid "&Export Transfers as Plain Text..."
+#~ msgstr "&Easpórtáil Aistrithe mar Ghnáth-Théacs..."
+
+#~ msgid "Disable confirmation dialogs (less verbosity)"
+#~ msgstr "Díchumasaigh dialóga deimhnithe (níos ciúine)"
+
+#~ msgid "History"
+#~ msgstr "Stair"
+
+#~ msgid "Error:"
+#~ msgstr "Earráid:"
+
+#~ msgctxt "Files as in files on a server"
+#~ msgid "Files:"
+#~ msgstr "Comhaid:"
+
+#~ msgid "TextLabel"
+#~ msgstr "Lipéad"
+
+#~ msgid "Show Drop Target"
+#~ msgstr "Taispeáin Sprioc Scaoilte"
+
+#~ msgid "List All Links"
+#~ msgstr "Taispeáin Gach Nasc"
+
+#~ msgid "List Selected Links"
+#~ msgstr "Taispeáin Gach Nasc Roghnaithe"
+
+#~ msgid "No Links"
+#~ msgstr "Gan Naisc"
+
+#~ msgid "Communication Error"
+#~ msgstr "Earráid Chumarsáide"
+
+#~ msgid "&Tools"
+#~ msgstr "&Uirlisí"
+
+#~ msgid "There are no links in the active frame of the current HTML page."
+#~ msgstr "Níl aon naisc sa fhráma gníomhach den leathanach reatha HTML."
+
+#~ msgid "Form"
+#~ msgstr "Foirm"
+
+#~ msgid "An error occurred...."
+#~ msgstr "Tharla earráid..."
+
+#~ msgid "Remove Tag"
+#~ msgstr "Bain Clib"
+
+#~ msgid "Add Tag"
+#~ msgstr "Cuir Clib Leis"
+
+#~ msgid "Tag Settings"
+#~ msgstr "Socruithe Clibe"
+
+#~ msgid "Available tags:"
+#~ msgstr "Clibeanna ar fáil:"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Announcing"
+#~ msgstr "Fógairt"
+
+#~ msgid "Unknown client"
+#~ msgstr "Cliant anaithnid"
+
+#~ msgid "1 day "
+#~ msgid_plural "%1 days "
+#~ msgstr[0] "1 lá "
+#~ msgstr[1] "%1 lá "
+#~ msgstr[2] "%1 lá "
+#~ msgstr[3] "%1 lá "
+#~ msgstr[4] "%1 lá "
+
+#~ msgid "Cannot open log file %1 : %2"
+#~ msgstr "Ní féidir logchomhad %1 a oscailt: %2"
+
+#~ msgid "Cannot write to %1 : %2"
+#~ msgstr "Ní féidir scríobh i %1: %2"
+
+#~ msgid "Cannot read from %1"
+#~ msgstr "Ní féidir léamh ó %1"
+
+#~ msgid "Cannot create directory %1"
+#~ msgstr "Ní féidir comhadlann %1 a chruthú"
+
+#~ msgid "Cannot symlink %1 to %2: %3"
+#~ msgstr "Ní féidir nasc siombalach a dhéanamh ó %1 go %2: %3"
+
+#~ msgid "Cannot move %1 to %2: %3"
+#~ msgstr "Ní féidir %1 a bhogadh go %2: %3"
+
+#~ msgid "Cannot copy %1 to %2: %3"
+#~ msgstr "Ní féidir %1 a chóipeáil go %2: %3"
+
+#~ msgid "Cannot delete %1: %2"
+#~ msgstr "Ní féidir %1 a scriosadh: %2"
+
+#~ msgid "Cannot create %1: %2"
+#~ msgstr "Ní féidir %1 a chruthú: %2"
+
+#~ msgid "Cannot calculate the filesize of %1: %2"
+#~ msgstr "Ní féidir méid an chomhaid %1 a áireamh: %2"
+
+#~ msgid "Cannot calculate the filesize : %1"
+#~ msgstr "Ní féidir méid an chomhaid a áireamh: %1"
+
+#~ msgid "Cannot open %1 : %2"
+#~ msgstr "Ní féidir %1 a oscailt: %2"
+
+#~ msgid "Cannot expand file: %1"
+#~ msgstr "Ní féidir an comhad a fhairsingiú: %1"
+
+#~ msgid "Cannot seek in file : %1"
+#~ msgstr "Ní féidir lorg i gcomhad: %1"
+
+#~ msgid "General"
+#~ msgstr "Ginearálta"
+
+#~ msgid "Tracker"
+#~ msgstr "Lorgaire"
+
+#~ msgid "Disk Input/Output"
+#~ msgstr "Ionchur/Aschur Diosca"
+
+#~ msgid "Not connected"
+#~ msgstr "Gan cheangal"
+
+#~ msgid "Connection closed"
+#~ msgstr "Ceangal dúnta"
+
+#~ msgid "Resolving proxy %1:%2"
+#~ msgstr "Seachfhreastalaí %1:%2 á réiteach"
+
+#~ msgid "Resolving hostname %1"
+#~ msgstr "Óstainm %1 á réiteach"
+
+#~ msgid "Connected"
+#~ msgstr "Ceangailte"
+
+#~ msgid "Connecting"
+#~ msgstr "Ag Ceangal"
+
+#~ msgid "1 peer"
+#~ msgid_plural "%1 peers"
+#~ msgstr[0] "1 chomhghleacaí"
+#~ msgstr[1] "%1 chomhghleacaí"
+#~ msgstr[2] "%1 chomhghleacaí"
+#~ msgstr[3] "%1 gcomhghleacaí"
+#~ msgstr[4] "%1 comhghleacaí"
+
+#~ msgid "The directory %1 does not exist"
+#~ msgstr "Níl comhadlann %1 ann"
+
+#~ msgid "Illegal token: %1"
+#~ msgstr "Teaghrán neamhcheadaithe: %1"
+
+#~ msgid "Decode error"
+#~ msgstr "Earráid díchódaithe"
+
+#~ msgid "Cannot convert %1 to an int"
+#~ msgstr "Ní féidir %1 a thiontú go slánuimhir"
+
+#~ msgid "Failed to open %1 : %2"
+#~ msgstr "Níorbh fhéidir %1 a oscailt: %2"
+
+#~ msgid "Failed to create %1 : %2"
+#~ msgstr "Níorbh fhéidir %1 a chruthú: %2"
+
+#~ msgid "Cannot open index file %1 : %2"
+#~ msgstr "Ní féidir comhad innéacs %1 a oscailt: %2"
+
+#~ msgid "Cannot create file %1 : %2"
+#~ msgstr "Ní féidir comhad %1 a chruthú: %2"
+
+#~ msgid "Failed to write first chunk to DND file : %1"
+#~ msgstr "Níorbh fhéidir an chéad smután a scríobh i gcomhad DND: %1"
+
+#~ msgid "Failed to write last chunk to DND file : %1"
+#~ msgstr "Níorbh fhéidir an smután deiridh a scríobh i gcomhad DND: %1"
+
+#~ msgid "Cannot open %1 for writing : readonly filesystem"
+#~ msgstr ""
+#~ "Ní féidir %1 a oscailt chun é a scríobh: córas comhad inléite amháin"
+
+#~ msgid "Cannot expand file %1 : %2"
+#~ msgstr "Ní féidir comhad %1 a fhairsingiú: %2"
+
+#~ msgid "Error reading from %1"
+#~ msgstr "Earráid agus %1 á léamh"
+
+#~ msgid "Cannot preallocate diskspace : %1"
+#~ msgstr "Ní féidir spás diosca a réamhdháileadh: %1"
+
+#~ msgid "Cannot open file %1 : %2"
+#~ msgstr "Ní féidir comhad %1 a oscailt: %2"
+
+#~ msgid " Unable to open torrent file %1 : %2"
+#~ msgstr " Ní féidir comhad torrent %1 a oscailt: %2"
+
+#~ msgid "Parse Error"
+#~ msgstr "Earráid Pharsála"
+
+#~ msgid "Unable to create %1 : %2"
+#~ msgstr "Ní féidir %1 a chruthú: %2"
+
+#~ msgid "You are already downloading the torrent %1"
+#~ msgstr "Tá torrent %1 á íosluchtú cheana"
+
+#~ msgid "Not started"
+#~ msgstr "Gan tosú"
+
+#~ msgid "Seeding completed"
+#~ msgstr "Síolú críochnaithe"
+
+#~ msgid "Downloading"
+#~ msgstr "Á Íosluchtú"
+
+#~ msgid "Stopped"
+#~ msgstr "Stoptha"
+
+#~ msgid "Allocating diskspace"
+#~ msgstr "Spás diosca á dháileadh"
+
+#~ msgid "Checking data"
+#~ msgstr "Sonraí á seiceáil"
+
+#~ msgid "Stopped. No space left on device."
+#~ msgstr "Stoptha. Tá an gléas lán."
+
+#~ msgid "Cannot open file %1: %2"
+#~ msgstr "Ní féidir comhad %1 a oscailt: %2"
+
+#~ msgid "Cannot create index file: %1"
+#~ msgstr "Ní féidir an comhad innéacs a chruthú: %1"
+
+#~ msgid "Unable to resolve hostname %1"
+#~ msgstr "Ní féidir óstainm %1 a réiteach"
+
+#~ msgid "Cannot bind to udp port %1 or the 10 following ports."
+#~ msgstr ""
+#~ "Ní féidir ceangal le port udp %1, ná leis na deich bport seo a leanas."
+
+#~ msgid "Invalid response from tracker"
+#~ msgstr "Freagra neamhbhailí ó lorgaire"
+
+#~ msgid "Invalid data from tracker"
+#~ msgstr "Sonraí neamhbhailí ó lorgaire"
+
+#~ msgid "Invalid tracker URL"
+#~ msgstr "URL neamhbhailí ar an lorgaire"
+
+#~ msgid "Cannot open file : %1 : %2"
+#~ msgstr "Ní féidir an comhad a oscailt: %1: %2"
+
+#~ msgid "Add"
+#~ msgstr "Cuir Leis"
+
+#~ msgid "Delete"
+#~ msgstr "Scrios"
+
+#~ msgid "Configure..."
+#~ msgstr "Cumraigh..."
+
+#~ msgid "Details for: %1"
+#~ msgstr "Mionsonraí: %1"
+
+#~ msgid "All downloads"
+#~ msgstr "Gach íosluchtú"
+
+#~ msgid "Finished downloads"
+#~ msgstr "Íosluchtuithe críochnaithe"
+
+#~ msgid "Transfers:"
+#~ msgstr "Aistrithe:"
+
+#~ msgid "Downloads"
+#~ msgstr "Íosluchtuithe"
+
+#~ msgid "Transfer details:"
+#~ msgstr "Mionsonraí an aistrithe:"
+
+#~ msgid "Transfer List"
+#~ msgstr "Liosta Aistrithe"
+
+#~ msgid "Expandable transfer details instead of separate tabs"
+#~ msgstr "Mionsonraí inleathnaithe aistrithe, in ionad cluaisíní ar leith"
+
+#~ msgid "Threads"
+#~ msgstr "Snáitheanna"
+
+#~ msgid "Number of threads:"
+#~ msgstr "Líon na snáitheanna:"
+
+#~ msgid "License:"
+#~ msgstr "Ceadúnas:"
+
+#~ msgctxt "The transfer is delayed"
+#~ msgid "Delayed"
+#~ msgstr "Moillithe"
+
+#~ msgid ""
+#~ "Destination file \n"
+#~ "%1\n"
+#~ "already exists.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Tá an sprioc-chomhad \n"
+#~ "%1\n"
+#~ "ann cheana.\n"
+#~ "An bhfuil fonn ort scríobh air?"
+
+#~ msgid "Cannot remove torrent default tracker."
+#~ msgstr "Ní féidir lorgaire réamhshocraithe torrent a bhaint."
+
+#~ msgid "You cannot add trackers to a private torrent"
+#~ msgstr "Ní féidir leat lorgairí a chur le torrent príobháideach"
+
+#~ msgid "Cannot migrate %1 : %2"
+#~ msgstr "Ní féidir %1 a aistriú: %2"
+
+#~ msgid "Select Folder to Save To"
+#~ msgstr "Roghnaigh Fillteán a Sábhálfar Ann"
+
+#~ msgid "Queued"
+#~ msgstr "Curtha ar Chiú"
+
+#~ msgid "Current Tracker"
+#~ msgstr "Lorgaire Reatha"
+
+#~ msgid "Manual Announce"
+#~ msgstr "Fógra Láimhe"
+
+#~ msgid "Scrape"
+#~ msgstr "Scríob"
+
+#~ msgid "Available Trackers"
+#~ msgstr "Lorgairí Ar Fáil"
+
+#~ msgid "Url:"
+#~ msgstr "URL:"
+
+#~ msgctxt "delete selected transfer item"
+#~ msgid "Delete Selected"
+#~ msgstr "Scrios na Míreanna Roghnaithe"
+
+#~ msgid "Rename transfer"
+#~ msgstr "Athainmnigh an t-aistriú"
+
+#~ msgid "Download URL again?"
+#~ msgstr "Íosluchtaigh an URL arís?"
+
+#~ msgid "Remaining Time"
+#~ msgstr "Am Fágtha"
+
+#~ msgid "KGet - Download Manager"
+#~ msgstr "KGet - Bainisteoir Íosluchtaithe"
+
+#~ msgid "Minimal segment size:"
+#~ msgstr "Íosmhéid deighleán:"
+
+#~ msgid "kBi"
+#~ msgstr "kBi"
+
+#~ msgid "Save data every:"
+#~ msgstr "Sábháil sonraí gach:"
+
+#~ msgid ""
+#~ "You will lose all data in these files, are you sure you want to do this?"
+#~ msgstr ""
+#~ "Caillfidh tú na sonraí uile sna comhaid seo; an bhfuil tú cinnte is mian "
+#~ "leat é seo a dhéanamh?"
+
+#~ msgid "Maintainer, Core Developer"
+#~ msgstr "Cothaitheoir, Bunfhorbróir"
+
+#~ msgid "Cannot expand file : %1"
+#~ msgstr "Ní féidir an comhad a fhairsingiú: %1"
+
+#~ msgid "Peers"
+#~ msgstr "Comhghleacaithe"
+
+#~ msgid "Torrent has no announce or nodes field"
+#~ msgstr "Níl réimse fógra ná réimse nód sa torrent"
+
+#~ msgid ""
+#~ "An error occurred while loading the torrent.\n"
+#~ "The torrent is probably corrupt or is not a torrent file."
+#~ msgstr ""
+#~ "Tharla earráid agus an torrent á luchtú.\n"
+#~ "Is dócha go bhfuil an torrent truaillithe, nó ní comhad torrent é."
+
+#~ msgid "&Transfer History..."
+#~ msgstr "S&tair Aistrithe..."
+
+#~ msgid "&Group Settings..."
+#~ msgstr "&Socruithe Grúpa..."
+
+#~ msgid "&Transfer Settings..."
+#~ msgstr "&Socruithe Aistrithe..."
+
+#~ msgid "Speed limit"
+#~ msgstr "Teorainn luais"
+
+#~ msgid "Download Speed:"
+#~ msgstr "Luas Íosluchtaithe:"
+
+#~ msgid "Upload Speed:"
+#~ msgstr "Luas Uasluchtaithe:"
+
+#~ msgid "The group name is empty"
+#~ msgstr "Tá ainm an ghrúpa folamh"
+
+#~ msgid ""
+#~ "A group can not have an empty name.\n"
+#~ "Please select a new one."
+#~ msgstr ""
+#~ "Ní cheadaítear ainm folamh ar ghrúpa.\n"
+#~ "Roghnaigh ainm nua, le do thoil."
+
+#~ msgid "You can not delete this group."
+#~ msgstr "Ní féidir leat an grúpa seo a scriosadh."
+
+#~ msgid "Default Download Folders"
+#~ msgstr "Fillteáin Réamhshocraithe Íosluchtaithe"
+
+#~ msgid "Folder and extension can not be empty."
+#~ msgstr "Ní cheadaítear fillteán folamh agus iarmhír fholamh."
+
+#~ msgid "Ask save location for every new download"
+#~ msgstr "Fiafraigh díom cén áit ar chóir gach íosluchtú nua a shábháil"
+
+#~ msgid "Place new downloads inside default folder:"
+#~ msgstr "Cuir íosluchtuithe nua san fhillteán réamhshocraithe:"
+
+#~ msgid "Except for specific file types"
+#~ msgstr "Seachas cineálacha áirithe comhaid"
+
+#~ msgid "Specify extension and target folder:"
+#~ msgstr "Sonraigh iarmhír agus spriocfhillteán:"
+
+#~ msgid "File Extension"
+#~ msgstr "Iarmhír"
+
+#~ msgid "Default Folder"
+#~ msgstr "Fillteán Réamhshocraithe"
+
+#~ msgid "Edit"
+#~ msgstr "Eagar"
+
+#~ msgid ""
+#~ "Use a regular expression for the extension. \n"
+#~ "Examples: *.tar.gz or *movies*.zip"
+#~ msgstr ""
+#~ "Úsáid slonn ionadaíochta le haghaidh na hiarmhíre. \n"
+#~ "Samplaí: *.tar.gz nó *movies*.zip"
+
+#~ msgid "Set as default folder"
+#~ msgstr "Socraigh mar fhillteán réamhshocraithe"
+
+#~ msgid "extRegExp, defaultFolder"
+#~ msgstr "extRegExp, fillteán réamhshocraithe"
+
+#~ msgid "Downloading.."
+#~ msgstr "Á Íosluchtú..."
+
+#~ msgid "Advanced-Details for %1"
+#~ msgstr "Mionsonraí ar %1"
+
+#~ msgctxt "transfer state: downloading"
+#~ msgid "Downloading.."
+#~ msgstr "Á Íosluchtú..."
+
+#~ msgctxt "@label Title in header"
+#~ msgid "Webinterface"
+#~ msgstr "Comhéadan Gréasáin"
+
+#~ msgid "Downloads number:"
+#~ msgstr "Líon na n-íosluchtuithe:"
+
+#~ msgid "Assigned Peers"
+#~ msgstr "Comhghleacaithe Sannta"
+
+#~ msgid "%1 GB"
+#~ msgstr "%1 GB"
+
+#~ msgid "%1 MB"
+#~ msgstr "%1 MB"
+
+#~ msgid "%1 KB"
+#~ msgstr "%1 kB"
+
+#~ msgid "%1 B"
+#~ msgstr "%1 B"
+
+#~ msgid "%1 KB/s"
+#~ msgstr "%1 kB/s"
+
+#~ msgid "kBi/s"
+#~ msgstr "kBi/s"
+
+#~ msgid "Maximum Shared Ration: (0 if no limit)"
+#~ msgstr "Cóimheas Uasta Comhroinnte: (0 = gan teorainn)"
+
+#~ msgid "Start downloading files immediately after startup"
+#~ msgstr "Crom ar chomhaid a íosluchtú go díreach tar éis tosaithe"
+
+#~ msgid "Not Deleted"
+#~ msgstr "Gan Scriosadh"
+
+#~ msgid "Konqueror Integration disabled"
+#~ msgstr "Díchumasaíodh Comhtháthú Konqueror"
+
+#~ msgid "Show main window at startup"
+#~ msgstr "Taispeáin an phríomhfhuinneog ag am tosaithe"
+
+#~ msgid "More than 50MiB and 100MiB"
+#~ msgstr "Níos mó ná 50MiB agus 100MiB"
+
+#~ msgid "<done> MiB of <todo> MiB"
+#~ msgstr "<done> MiB as <todo> MiB"
+
+#~ msgid "<icon>"
+#~ msgstr "<deilbhín>"
+
+#~ msgid "<status>"
+#~ msgstr "<stádas>"
+
+#~ msgid "<speed>"
+#~ msgstr "<luas>"
+
+#~ msgid "Error writing to %1 : %2"
+#~ msgstr "Earráid agus %1 á scríobh: %2"
+
+#~ msgid "Error writing to %1"
+#~ msgstr "Earráid agus %1 á scríobh"
+
+#~ msgid "Tracker-Url:"
+#~ msgstr "URL an lorgaire:"
+
+#~ msgctxt "Download normally(not as first or last"
+#~ msgid "Normal"
+#~ msgstr "Gnách"
+
+#~ msgctxt "the transfer has been aborted"
+#~ msgid "Aborted"
+#~ msgstr "Tobscortha"
+
+#~ msgid "History-File cannot be opened correctly!"
+#~ msgstr "Ní féidir an Comhad Staire a oscailt mar is ceart!"
+
+#~ msgid "Bittorrent-Speedlimits"
+#~ msgstr "Teorainneacha Luais Bittorrent"
+
+#~ msgid "Speed-Limits"
+#~ msgstr "Teorainneacha Luais"
+
+#~ msgid "ScanDlgBase"
+#~ msgstr "Bundialóg Scanta"
+
+#~ msgid "Change Password..."
+#~ msgstr "Athraigh Focal Faire..."
+
+#~ msgid " of "
+#~ msgstr " as "
+
+#~ msgid "Download Folder"
+#~ msgstr "Fillteán Íosluchtaithe"
+
+#~ msgid "Global:"
+#~ msgstr "Comhchoiteann:"
+
+#~ msgid "Look and Feel"
+#~ msgstr "Cuma"
+
+#~ msgid "Default Group"
+#~ msgstr "Grúpa Réamhshocraithe"
+
+#~ msgid "DlgAdvanced"
+#~ msgstr "DlgAdvanced"
+
+#~ msgid "Delete Group."
+#~ msgstr "Scrios Grúpa."
+
+#~ msgid "&Dock"
+#~ msgstr "&Cuir i nDuga"
+
+#~ msgid "Source Label"
+#~ msgstr "Lipéad Foinse"
+
+#~ msgid "&Keep this window open after the operation is complete."
+#~ msgstr "&Fág an fhuinneog seo ar oscailt i ndiaidh na hoibríochta."
+
+#~ msgid "Not resumed"
+#~ msgstr "Gan atosú"
+
+#~ msgid "System"
+#~ msgstr "Córas"
+
+#~ msgid "Maximize"
+#~ msgstr "Uasmhéadaigh"
+
+#~ msgid "Minimize"
+#~ msgstr "Íoslaghdaigh"
+
+#~ msgid ""
+#~ "You do not have read permission for the file:\n"
+#~ "%1"
+#~ msgstr ""
+#~ "Níl cead agat an comhad seo a léamh:\n"
+#~ "%1"
+
+#~ msgid ""
+#~ "File %1 exists.\n"
+#~ "Do you want to replace it?"
+#~ msgstr ""
+#~ "Tá comhad %1 ann cheana.\n"
+#~ "An bhfuil fonn ort scríobh air?"
+
+#~ msgid "Could only write %1 bytes of %2."
+#~ msgstr "Níorbh fhéidir ach %1 beart as %2 a scríobh."
+
+#~ msgid "Welcome to KGet"
+#~ msgstr "Fáilte go dtí KGet"
+
+#~ msgid "Could not create valid socket"
+#~ msgstr "Níorbh fhéidir soicéad bailí a chruthú"
+
+#~ msgid "Offline"
+#~ msgstr "As Líne"
+
+#~ msgid "&Open Individual Window"
+#~ msgstr "&Oscail Fuinneog Aonair"
+
+#~ msgid "Move to &Beginning"
+#~ msgstr "Téigh go dtí an &Tús"
+
+#~ msgid "&Queue"
+#~ msgstr "&Ciú"
+
+#~ msgid "&Timer"
+#~ msgstr "&Uaineadóir"
+
+#~ msgid "De&lay"
+#~ msgstr "Mo&ill"
+
+#~ msgid "Use &Animation"
+#~ msgstr "Úsáid Beoch&an"
+
+#~ msgid "&Expert Mode"
+#~ msgstr "&Mód Saineolaí"
+
+#~ msgid "&Offline Mode"
+#~ msgstr "Mód &As Líne"
+
+#~ msgid "Show &Log Window"
+#~ msgstr "Taispeáin an Fhuinneog &Logála"
+
+#~ msgid " Files: %1 "
+#~ msgstr " Comhaid: %1 "
+
+#~ msgid " Size: %1 KB "
+#~ msgstr " Méid: %1 kB "
+
+#~ msgid " Time: %1 "
+#~ msgstr " Am: %1 "
+
+#~ msgid ""
+#~ "*.kgt|*.kgt\n"
+#~ "*|All Files"
+#~ msgstr ""
+#~ "*.kgt|*.kgt\n"
+#~ "*|Gach Comhad"
+
+#~ msgid "Quitting..."
+#~ msgstr "Ag Scor..."
+
+#~ msgid "Stopping all jobs"
+#~ msgstr "Gach jab á stopadh"
+
+#~ msgid "Do Not Overwrite"
+#~ msgstr "Ná Forscríobh"
+
+#~ msgid "Starting another queued job."
+#~ msgstr "Jab ciúáilte eile á thosú."
+
+#~ msgid " Size: %1 "
+#~ msgstr " Méid: %1 "
+
+#~ msgid "<br /><b>Files:</b> %1 "
+#~ msgstr "<br /><b>Comhaid:</b> %1 "
+
+#~ msgid "<br /><b>Size:</b> %1 "
+#~ msgstr "<br /><b>Méid:</b> %1 "
+
+#~ msgid "<br /><b>Time:</b> %1 "
+#~ msgstr "<br /><b>Am:</b> %1 "
+
+#~ msgid "<br /><b>Speed:</b> %1/s"
+#~ msgstr "<br /><b>Luas:</b> %1/s"
+
+#~ msgid "Do you really want to disconnect?"
+#~ msgstr "An bhfuil tú cinnte go dteastaíonn uait dícheangal?"
+
+#~ msgid "Disconnect"
+#~ msgstr "Dícheangail"
+
+#~ msgid "Disconnecting..."
+#~ msgstr "Ag dícheangal..."
+
+#~ msgid "Id"
+#~ msgstr "Aitheantas"
+
+#~ msgid "Mixed"
+#~ msgstr "Measctha"
+
+#~ msgid "Separated"
+#~ msgstr "Dealaithe"
+
+#~ msgid "Iconified"
+#~ msgstr "Íoslaghdaithe"
+
+#~ msgid "Show individual windows"
+#~ msgstr "Taispeáin fuinneoga aonair"
+
+#~ msgid " min"
+#~ msgstr " nóiméad"
+
+#~ msgid "Autosave file list every:"
+#~ msgstr "Uathshábháil an liosta comhad gach:"
+
+#~ msgid "Auto paste from clipboard"
+#~ msgstr "Uathghreamaigh ón ghearrthaisce"
+
+#~ msgid "Permanent"
+#~ msgstr "Buan"
+
+#~ msgid "PLIP"
+#~ msgstr "PLIP"
+
+#~ msgid "SLIP"
+#~ msgstr "SLIP"
+
+#~ msgid "PPP"
+#~ msgstr "PPP"
+
+#~ msgid "ISDN"
+#~ msgstr "LDSC"
+
+#~ msgid " bytes/sec"
+#~ msgstr " beart/soic"
+
+#~ msgid "Window style:"
+#~ msgstr "Stíl fuinneog:"
+
+#~ msgid "To: %1"
+#~ msgstr "Go: %1"
+
+#~ msgid "Stopping"
+#~ msgstr "Ag Stopadh"
+
+#~ msgid "Pausing"
+#~ msgstr "Sos"
+
+#~ msgid "Delaying"
+#~ msgstr "Moill"
+
+#~ msgid "%"
+#~ msgstr "%"

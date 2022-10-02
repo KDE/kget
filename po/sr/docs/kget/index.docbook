@@ -1,0 +1,1102 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Serbian "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Приручник за <application
+>К‑гет</application
+></title>
+
+<authorgroup>
+<author
+><personname
+><firstname
+>Гаурав</firstname
+> <surname
+>Чатурведи</surname
+></personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Драган</firstname
+><surname
+>Пантелић</surname
+><affiliation
+><address
+><email
+>falcon-10@gmx.de</email
+></address
+></affiliation
+><contrib
+>превод</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Гаурав Чатурведи</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>21. 11. 2017.</date>
+<releaseinfo
+>2.95.0 (Програми КДЕ‑а 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+><application
+>К‑гет</application
+> је напредни менаџер преузимања из КДЕ. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>КДЕ</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>К‑гет</keyword>
+<keyword
+>КППП</keyword>
+<keyword
+>преузимање</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Увод</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Покрените <application
+>К‑гет</application
+> (требало би да видите место за спуштање)/</para
+></listitem>
+    <listitem
+><para
+>Превуците жељени УРЛ у прозор <application
+>К‑гета</application
+> или на место за спуштање.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Снимак екрана <application
+>К‑гета</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Снимак екрана <application
+>К‑гета</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Место за спуштање у <application
+>К‑гету</application
+> </title>
+
+<para
+><application
+>К‑гетово</application
+> место за спуштање има четири опције. </para>
+
+<screenshot>
+<screeninfo
+>Снимак екрана <application
+>К‑гетовог</application
+> места за спуштање.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Снимак екрана <application
+>К‑гетовог</application
+> места за спуштање.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Опције <application
+>К‑гетовог</application
+> места за спуштање</title>
+<para
+>Кликните десним на место за спуштање да добијете опције. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Започни/настави све</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Покрените преузимање или наставите сва преузимања на чекању. Пречица за ово је <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>R</keycap
+></keycombo
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Прикажи главни прозор, Сакриј главни прозор</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Ова опција приказује или минимизује главни прозор у системску касету.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Лепљив</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Чини да се место за спуштање не може превлачити.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Напусти К‑гет</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Напушта <application
+>К‑гет</application
+>.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Дијалог за подешавање <application
+>К‑гета</application
+> </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Подешавање</guimenu
+> <guimenuitem
+>Подеси К‑гет...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Отвара <application
+>К‑гетов</application
+> дијалог за подешавање.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Изглед</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Изглед.</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Изглед.</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Изглед</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Овде можете изменити различите елементе изгледа <application
+>К‑гета</application
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Место за спуштање</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Испразните ово ако не желите место за спуштање.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Анимације</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Активира неке помодне анимације.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Групе</title>
+  <para
+>Преузимања можете груписати.</para>
+  <screenshot>
+  <screeninfo
+>Групе у <application
+>К‑гету</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Групе у <application
+>К‑гету</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Подразумеване фасцикле за групе као предлози</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Попуните ову кућицу ако желите да <application
+>К‑гет</application
+> преузима у подразумеване фасцикле.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Мрежа</title>
+  <para
+>Овде можете изменити поставке у вези са мрежом.</para>
+  <screenshot>
+  <screeninfo
+>Мрежа у <application
+>К‑гету</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Мрежа у <application
+>К‑гету</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Највише преузимања по групи:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Попуните ову кућицу да би се примењивала ограничења преузимања.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ограничење брзине</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Попуните ову кућицу да би се примењивало глобална ограничења брзине.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Глобално ограничење преузимања:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Поставите глобално горње ограничење за преузимање.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Глобално ограничење отпремања:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Поставите глобално горње ограничење за отпремање.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Поновно повезивање при прекиду везе</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Попуните ову кућицу да би се <application
+>К‑гет</application
+> поново повезао после грешке или прекида везе.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Број покушаја:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Поставите колико ће највише пута <application
+>К‑гет</application
+> покушати да се повеже.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Покушај поново након:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Поставите период између покушаја (у секундама).</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Веб сучеље</title>
+<para
+>Веб сучеље активирате попуњавањем <guilabel
+>Употреба веб сучеља</guilabel
+>. Подразумевани порт је 8080, а можете задати било који изнад 1024. Затим попуните <guilabel
+>Корисник:</guilabel
+> и <guilabel
+>Лозинка:</guilabel
+>. Веб сучељу можете приступити на <literal
+>http://127.0.0.1:&lt;порт&gt;</literal
+>; унесите корисничко име и лозинку да бисте добили приступ. </para>
+  <screenshot>
+    <screeninfo
+><application
+>К‑гетово</application
+> веб сучеље.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+><application
+>К‑гетово</application
+> веб сучеље.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Овера</title>
+  <para
+>Оверите преузимања.</para>
+  <screenshot>
+    <screeninfo
+>Овера у <application
+>К‑гету</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Овера у <application
+>К‑гету</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Постоје два метода за оверу преузимања, преко контролне суме или потписа. Само треба да попуните кућицу <guilabel
+>Аутоматска овера</guilabel
+>.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Уклапање</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Менаџер преузимања у К‑освајачу</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Поставите <application
+>К‑гет</application
+> за менаџер преузимања у <application
+>К‑освајачу</application
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Прати клипборд за фајлове за преузимање</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Можете да укључите могућност да будете питани желите ли да преузмете УРЛ који сте управо копирали у клипборд. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Напредно</title>
+  <para
+>Измените напредне опције.</para>
+  <screenshot>
+    <screeninfo
+>Напредне опције <application
+>К‑гета</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Напредне опције <application
+>К‑гета</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Укључи иконицу у системској касети</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Попуњавањем ове кућице активирате <application
+>К‑гетову</application
+> иконицу системске касете.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Радња након што се сва преузимања заврше:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Попуните ову кућицу да би <application
+>К‑гет</application
+> био напуштен пошто се заврше сва преузимања. При покретању можете изабрати да обновите стање преузимања, попут заустављања или покретања свих.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Позадина историјата:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Изаберите да ли ће позадина историјата били СКуЛајт или ИксМЛ.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>КДЕ‑ово глобално праћење напретка</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Можете задати да <application
+>К‑гет</application
+> приказује свако преузимање понаособ, или укупан напредак.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Прикључци</title>
+  <screenshot>
+    <screeninfo
+>Опције прикључака <application
+>К‑гета</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Опције прикључака <application
+>К‑гета</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>На овој страници можете да изаберете који се прикључци за пренос користе. Кликните на дугме <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> да промените подразумеване поставке датог прикључка.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Главни прозор</title>
+<para
+>Преглед главног прозора <application
+>К‑гета</application
+>.</para>
+<screenshot>
+  <screeninfo
+>Снимак екрана <application
+>К‑гета</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Снимак екрана <application
+>К‑гета</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Мени Фајл</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Фајл</guimenu
+> <guimenuitem
+>Ново преузимање...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Додаје нови фајл за преузимање.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Фајл</guimenu
+> <guimenuitem
+>Увези везе...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Увожење веза.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Увожење веза.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Ова радња позива прозор у којем можете прегледати и руковати фајловима за преузимање. Такође можете направити избор по типу (видео, слике, аудио или архиве) и филтрирати резултате.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Фајл</guimenu
+> <guimenuitem
+>Увези преносе...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Учитава фајл типа <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> или <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Фајл</guimenu
+> <guimenuitem
+>Извези листу преноса...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Извози истакнуте везе у <filename class="extension"
+>*.kgt</filename
+> фајл, ради каснијег учитавања.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Фајл</guimenu
+> <guimenuitem
+>Направи метавезу...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Стварање металинка (1).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Стварање металинка (1).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Створите нови или учитајте постојећи металинк. Кликните на дугме <guibutton
+>Напред</guibutton
+> да наставите.</para>
+
+<screenshot>
+  <screeninfo
+>Стварање металинка (2).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Стварање металинка (2).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Овде можете унети неке опште опционе податке, попут одакле се овај металинк може набавити (уносом УРЛ‑а у поље <guilabel
+>Порекло:</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Стварање металинка (3).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Стварање металинка (3).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Овде треба да унесете УРЛ са којег покушавате да преузмете фајл. Можете унети још неке опционе податке, попут пожељности (приоритета) датог огледала (ако их додајете више) на које се фајл може наћи.</para>
+
+<screenshot>
+  <screeninfo
+>Стварање металинка (4).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Стварање металинка (4).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Сада би требало да видите прозор у коме су приказани сви фајлови који ће бити увезени.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Фајл</guimenu
+> <guimenuitem
+>Историјат преноса</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Историјат преноса.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Историјат преноса.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Отвара прозор у којем можете видети све фајлове преузете <application
+>К‑гетом</application
+>. Одавде можете управљати историјатом, укључујући филтрирање и чишћење. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Фајл</guimenu
+> <guimenuitem
+>Напусти</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Напушта <application
+>К‑гет</application
+>.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Заслуге и лиценца</title>
+
+<para
+><application
+>К‑гет</application
+> </para>
+
+<para
+>Документација: © 2009, <personname
+><firstname
+>Гаурав</firstname
+> <surname
+>Чатурведи</surname
+></personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </para>
+<para
+>Захвалнице:</para>
+
+<para
+><personname
+><firstname
+>Ан Мари</firstname
+> <surname
+>Мафу</surname
+></personname
+> &Anne-Marie.Mahfouf.mail; (помоћ у вези са докбуком)</para>
+<para
+><personname
+><firstname
+>Џонатан</firstname
+> <othername
+>Е.</othername
+> <surname
+>Друс</surname
+></personname
+> &Jonathan.Drews.mail; (преузети многи делови из његове старе документације за <application
+>К‑гет</application
+>) </para>
+
+<para
+>Превео Драган Пантелић <email
+>falcon-10@gmx.de</email
+>.</para
+> 
+&underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

@@ -1,0 +1,1008 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Ukrainian "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Підручник з &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>о. Іван</firstname
+><surname
+>Петрущак</surname
+><affiliation
+><address
+><email
+>fr.ivan@ukrainian-orthodox.org</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Доповнення і уточнення перекладу українською</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>21 листопада 2017 року</date>
+<releaseinfo
+>2.95.0 (Програми 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; — це програма для керування отриманням даних, яку створено &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>отримання</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Вступ</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Запуск &kget; (ви маєте побачити вікно вкидання цілей)</para
+></listitem>
+    <listitem
+><para
+>Перетягніть і вкиньте потрібну адресу &URL; у вікно &kget; або на мітку скидання.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Знімок вікна &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Знімок вікна &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Вікно цілі &kget; </title>
+
+<para
+>Меню вікна вкидання цілей &kget; містить чотири пункти. </para>
+
+<screenshot>
+<screeninfo
+>Знімок вікна вкидання цілей &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Знімок вікна вкидання цілей &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Пункти меню вікна вкидання цілей &kget;</title>
+<para
+>Щоб побачити ці пункти меню, наведіть вказівник миші на вікно вкидання цілей і клацніть правою кнопкою миші. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Почати/Продовжити всі</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Призначено для запуску отримання або поновлення всіх призупинених отримань. Відповідне клавіатурне скорочення — <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Показати/Сховати головне вікно</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>За допомогою цього пункту можна розгорнути або згорнути головне вікно програми до системного лотка.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Приліпити</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Робить вікно цілі &kget; нерухомим.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Завершити роботу &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Вийти з &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Вікно налаштування &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Параметри</guimenu
+> <guimenuitem
+>Налаштувати &kget;</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває вікно налаштування &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Вигляд</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Вигляд</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Вигляд</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Вигляд</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>За допомогою цього пункту ви зможете змінити значення різноманітних параметрі пов’язаних з виглядом програми.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Використання цілі для кидання посилань</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Зніміть позначку з цього пункту, якщо ви не бажаєте бачити вікна вкидання цілі &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Увімкнути анімацію</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Вмикає декілька ефектів анімації.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Групи</title>
+  <para
+>Ви можете створювати групи отримань.</para>
+  <screenshot>
+  <screeninfo
+>Групи &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Групи &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Використовувати типові каталоги для груп</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Позначте цей пункт, якщо ви бажаєте, щоб програма &kget; використовувала типові теки для ваших отримань.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Мережа</title>
+  <para
+>Тут ви можете змінити параметри, пов’язані з мережевим з’єднанням.</para>
+  <screenshot>
+  <screeninfo
+>Вікно параметрів мережі &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Вікно параметрів мережі &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Обмежити максимум отримань на групу</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Позначте цей пункт, якщо ви бажаєте увімкнути обмеження щодо отримання.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Обмеження швидкості</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Позначте цей пункт, якщо ви бажаєте, щоб було використано загальні обмеження на швидкість отримання.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Загальне обмеження отримання</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>За допомогою цього пункту можна встановити обмеження максимального загального отримання.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Загальне обмеження вивантаження</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Тут можна встановити максимальну швидкість вивантаження.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>У разі втрати зв'язку повторно встановлювати з'єднання</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Позначте цей пункт, якщо ви бажаєте, щоб програма &kget; повторно встановлювала з’єднання після помилки або розриву з’єднання.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Кількість спроб</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Тут можна встановити максимальну кількість повторних спроб з’єднання, які виконуватиме &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Інтервал між спробами</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Тут можна встановити інтервал між послідовними спробами (у секундах).</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Вебінтерфейс</title>
+<para
+>Щоб увімкнути вебінтерфейс, позначте пункт <guilabel
+>Увімкнути вебінтерфейс</guilabel
+>. Типовим портом буде 8080, але ви можете вказати будь-який порт з номером, вищим за 1024. Вкажіть значення полів <guilabel
+>Користувач</guilabel
+> та <guilabel
+>Пароль</guilabel
+>. Доступ до вебінтерфейсу можна отримати за адресою http://127.0.0.1:&lt;порт&gt;. Для отримання доступу вам потрібно буде ввести ім’я користувача і пароль. </para>
+  <screenshot>
+    <screeninfo
+>Вебінтерфейс &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Вебінтерфейс &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Перевірка</title>
+  <para
+>Перевірка отриманих вами даних.</para>
+  <screenshot>
+    <screeninfo
+>Вікно перевірки &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Вікно перевірки &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Ви можете перевіряти отримані вами дані за допомогою двох методів: <guilabel
+>Автоматичної перевірки контрольних сум</guilabel
+> і <guilabel
+>Підпису</guilabel
+>. Вам достатньо просто позначити пункт автоматичної перевірки підписів.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Інтеграція</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Використовувати як менеджер отримання для Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ви можете зробити &kget; інструментом керування отриманнями у &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Спостерігати в кишені за файлами для отримання</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Якщо ви увімкнете цю можливість, програма питатиме вас, чи хочете ви отримати дані за адресою, яку було скопійовано до буфера обміну даними. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Додатково</title>
+  <para
+>Зміна додаткових параметрів.</para>
+  <screenshot>
+    <screeninfo
+>Додаткові параметри &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Додаткові параметри &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ввімкнути піктограму системного лотка</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>За допомогою цього пункту можна увімкнути показ піктограми системного лотка &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Виконати дію, коли буде завершено всі отримання</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Позначте цей пункт, щоб увімкнути завершення роботи &kget; після завершення всіх отримань. Під час запуску ви зможете обрати стан відновлення отримання: зупинити всі отримання або розпочати всі отримання.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Сервер журналу</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ви можете обрати сервер журналу ваших отримань: Sqlite або Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Увімкнути загальне слідкування за поступом &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ви можете наказати &kget; показувати кожне отримання окремо або показувати загальний поступ отримання.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Додатки</title>
+  <screenshot>
+    <screeninfo
+>Параметри додатків &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Параметри додатків &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>За допомогою цієї сторінки ви можете вибрати додатки передавання даних, які використовуватиме програма. Скористайтеся кнопкою <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> для зміни типових параметрів додатка.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Головне вікно</title>
+<para
+>Огляд головного вікна &kget;</para>
+<screenshot>
+  <screeninfo
+>Знімок вікна &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Знімок вікна &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Меню «Файл»</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Нове отримання...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Додати новий файл для отримання.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Імпортувати посилання...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Імпорт посилань</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Імпорт посилань</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>За допомогою цього пункту можна відкрити ще одне вікно, за допомогою якого ви зможете визначитися з тим, які файли отримувати. Ви також можете встановити категорію даних для отримання: <guilabel
+>Відео</guilabel
+>, <guilabel
+>Зображення</guilabel
+>, <guilabel
+>Аудіо</guilabel
+> або <guilabel
+>Архіви</guilabel
+>. Передбачено текстове поле для фільтрування результатів.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Імпортувати перенесення...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Завантажує файл <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> або <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Експортувати список перенесень...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Експортувати позначені посилання до файла <filename class="extension"
+>.kgt</filename
+> для завантаження у майбутньому.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Створити метапосилання</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Створення метапосилання</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Створення метапосилання0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Ви можете наказати програмі створити метапосилання або завантажити вже існуюче метапосилання. Після вибору належного варіанта натисніть кнопку <guilabel
+>Далі</guilabel
+>.</para>
+
+<screenshot>
+  <screeninfo
+>Створення метапосилання1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Створення метапосилання1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Тут ви можете ввести деякі загальні додаткові відомості, зокрема адресу, за якою можна отримати це метапосилання (введіть адресу &URL; у текстове поле, розташоване поруч з написом <guilabel
+>Джерело</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Створення метапосилання2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Створення метапосилання2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Тут ви можете ввести адресу &URL;, з якої ви бажаєте отримати файл. Крім того, ви можете вказати додаткові параметри, зокрема пріоритет певного дзеркала, якщо ви додаєте декілька дзеркал, для файла, який ви бажаєте отримати.</para>
+
+<screenshot>
+  <screeninfo
+>Створення метапосилання3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Створення метапосилання3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Програма відкриє нове вікно, у якому буде показано список всіх файлів, які було імпортовано.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Журнал перенесень</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Список перенесень</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Список перенесень</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Відкриває нове вікно, у якому буде наведено список всіх файлів, які було отримано за допомогою &kget;. Тут ви можете керувати журналом отримань, зокрема фільтрувати або спорожняти журнал. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Вийти</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вийти з &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Подяки і ліцензія</title>
+
+<para
+>&kget; </para>
+
+<para
+>Авторські права на документацію належать Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+>, ©2009 </para>
+<para
+>Подяки:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (за допомогу у питаннях щодо DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (значну частину цього підручника скопійовано з його документації до старих версій &kget;) </para>
+
+<para
+>Переклад українською: о. Іван Петрущак<email
+>fr.ivan@ukrainian-orthodox.org</email
+></para
+><para
+>Доповнення і уточнення перекладу українською: Юрій Чорноіван <email
+>yurchor@ukr.net</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

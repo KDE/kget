@@ -1,0 +1,973 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Het handboek van &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+&Rinse.Devries;&Freek.de.Kruijf; 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2017-11-21</date>
+<releaseinfo
+>2.95.0 (Applications 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; is een geavanceerde downloadbeheerder door &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>download</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Inleiding</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>&kget; starten (u zou een doel moeten zien waarop u iets kan laten vallen)</para
+></listitem>
+    <listitem
+><para
+>Sleep en laat de vereiste &URL; vallen in het venster/valdoel &kget;.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Schermafdruk van &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Schermafdruk van &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>&kget; Laten-vallen-doel </title>
+
+<para
+>Het &kget; Doel-laten-vallen heeft vier opties. </para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van &kget; Laten-vallen-doel</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Schermafdruk van &kget; Laten-vallen-doel</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>De opties van het &kget; Laten-vallen-doel</title>
+<para
+>Rechtsklikken op het laten-vallen-doel laat de opties zien. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Alles starten/hervatten</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Om een download te starten of alle wachtende downloads verder te laten gaan. De sneltoets om dit te doen is <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Hoofdvenster tonen/verbergen</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Deze optie toont of minimaliseert het hoofdvenster in het systeemvak.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Vastgezet</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Maakt dat het valdoel van &kget; niet meer versleept worden.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Beëindig &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Beëindigt &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Instellingenvenster van &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Instellingen</guimenu
+> <guimenuitem
+>&kget; instellen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent het instellingenvenster van &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Uiterlijk</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Uiterlijk</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Uiterlijk</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Uiterlijk</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>U kunt hier de verschillende zaken voor het uiterlijk wijzigen.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Laten-vallen-doel gebruiken</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Dit deactiveren als u het valdoel van &kget; niet wilt.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Animaties inschakelen</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Enkele leuke animaties inschakelen</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Groepen</title>
+  <para
+>U kunt downloads groeperen.</para>
+  <screenshot>
+  <screeninfo
+>Groepen van &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Groepen van &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Gebruik de standaard mappen voor groepen als suggestie</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Dit vakje activeren als u wilt dat &kget; standaard mappen gebruikt voor downloads.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Netwerk</title>
+  <para
+>U kunt hier uw netwerk gerelateerde instellingen wijzigen.</para>
+  <screenshot>
+  <screeninfo
+>Netwerk van &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Netwerk van &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Maximum aantal downloads per groep beperken</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Dit vakje activeren als u limieten aan downloads wilt instellen.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Snelheidslimiet</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Dit vakje activeren als u globale snelheidslimieten wilt gebruiken.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Globale downloadlimiet</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Globale downloadlimiet instellen</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Globale uploadlimiet</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Maximum uploadlimiet instellen.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Bij verbroken verbinding opnieuw verbinden</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Dit vakje activeren als u wilt dat &kget; opnieuw verbinding maakt na een fout of een verbroken verbinding.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Aantal pogingen</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Het maximum aantal pogingen dat &kget; probeert om opnieuw te verbinden instellen.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Opnieuw proberen na</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Tijd tussen opnieuw proberen (in seconden)</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Webinterface</title>
+<para
+>Om het webinterface in te schakelen, activeer <guilabel
+>Webinterface inschakelen</guilabel
+>; standaard poort is 8080 en u stelt elke poort in hoger dan 1024. Stel daarna <guilabel
+>Gebruiker</guilabel
+> en <guilabel
+>Wachtwoord</guilabel
+> in. U kunt uw webinterface gebruiken op http://127.0.0.1:&lt;port&gt;. U moet ook de gebruikersnaam en wachtwoord invoeren om toegang te krijgen. </para>
+  <screenshot>
+    <screeninfo
+>&kget;-webinterface</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;-webinterface</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Verificatie</title>
+  <para
+>Uw downloads verifiëren.</para>
+  <screenshot>
+    <screeninfo
+>&kget;-verificatie</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;-verificatie</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Er zijn twee methoden <guilabel
+>Automatische verificatie met controlesommen</guilabel
+> en <guilabel
+>Ondertekening</guilabel
+> waarmee u uw downloads kan verifiëren. U hoeft alleen het keuzevakje <guilabel
+>Automatische verificatie</guilabel
+> te activeren.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Integratie</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Als downloadbeheerder voor Konqueror gebruiken</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>U kunt &kget; als downloadbeheerder voor &konqueror; instellen.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Klembord volgen voor bestanden om te downloaden</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>U kunt deze functie aanzetten die vraagt of u &URL;'s gekopieerd in het klembord wilt downloaden. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Geavanceerd</title>
+  <para
+>Geavanceerde opties wijzigen.</para>
+  <screenshot>
+    <screeninfo
+>&kget; geavanceerde opties</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; geavanceerde opties</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Systeemvakpictogram inschakelen</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Dit keuzevakje schakelt het &kget; systeemvakpictogram in.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Voer de actie uit als alle downloads zijn voltooid</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Dit vakje activeren om in te schakelen dat &kget; nadat alle downloads klaar zijn, zichzelf beëindigd. Bij opstarten kunt u kiezen om de status van de download te herladen. Zoals Stop alle downloads/ Start alle downloads.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Geschiedenis van de backend</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>U kunt uw backend voor de geschiedenis kiezen als Sqlite of Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>KDE's globale voortgangsindicator activeren</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>U kunt &kget; instellen om elke enkele download te tonen of de algemene voortgang.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Plug-ins</title>
+  <screenshot>
+    <screeninfo
+>&kget; opties voor plug-ins</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; opties voor plug-ins</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>Op deze pagina kunt u de te gebruiken plug-ins voor overdracht selecteren. Gebruik de knop <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> om de standaard instellingen voor een plug-in te wijzigen.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Hoofdvenster</title>
+<para
+>Overzicht van het hoofdvenster van &kget;</para>
+<screenshot>
+  <screeninfo
+>Schermafdruk van &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Schermafdruk van &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Het menu Bestand</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Nieuwe download...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Een nieuwe bestand om te downloaden toevoegen</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Koppelingen importeren...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Koppelingen importeren</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Koppelingen importeren</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Deze actie brengt een ander venster op, waar u kunt zien en manipuleren welke bestanden te downloaden. U kunt ook een selectie maken gebaseerd op <guilabel
+>Video's</guilabel
+>, <guilabel
+>Afbeeldingen</guilabel
+>, <guilabel
+>Geluid</guilabel
+> en <guilabel
+>Archieven</guilabel
+>. Er is ook een tekstvak om resultaten uit te filteren.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Overdrachten importeren...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Laadt een <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> of <filename class="extension"
+>*.torrent</filename
+> bestand.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Overdrachtenlijst exporteren...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>De geaccentueerde koppelingen naar een <filename class="extension"
+>.kgt</filename
+> bestand exporteren om later te laden.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Metalink aanmaken</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Een metalink0 aanmaken</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Een metalink0 aanmaken</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Kies tussen het aanmaken van een nieuwe Metalink en laden van een bestaande Metalink. Klik op de knop <guilabel
+>Volgende</guilabel
+> om verder te gaan.</para>
+
+<screenshot>
+  <screeninfo
+>Een metalink1 aanmaken</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Een metalink1 aanmaken</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Hier kunt u kiezen om enige algemene optionele informatie in te voeren. zoals waarvandaan deze metalink kan worden verkregen (Voer de &URL; in in het tekstvak naast <guilabel
+>Oorsprong</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Een metalink2 aanmaken</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Een metalink2 aanmaken</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Hier moet u de &URL; invoeren vanwaar u wilt proberen om het bestand te downloaden. U kunt ook enige optionele informatie zoals voorkeur (prioriteit) voor een bepaalde mirror als u meer dan één mirror toevoegt voor het bestand dat u wilt downloaden.</para>
+
+<screenshot>
+  <screeninfo
+>Een metalink 3 aanmaken</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Een metalink 3 aanmaken</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>U zou een nieuwe venster moeten kunne zien waar al uw bestanden worden getoond die u wilt downloaden.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Geschiedenis overdragen</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Overdrachtsgeschiedenis</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Overdrachtsgeschiedenis</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Opent een nieuw venster waar u kunt alle bestanden kunt zien die met &kget; zijn gedownload. U kunt uw geschiedenis hier beheren, inclusief filteren en wissen van de geschiedenis. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Afsluiten</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Beëindigt &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Dankbetuigingen en licentie</title>
+
+<para
+>&kget; </para>
+
+<para
+>Documentatie copyright &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Met dank aan:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (voor hulp aan mij met DocBook gerelateerde zaken)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (kopieerde en plakte heel wat van zijn oude &kget; documentatie) </para>
+
+&meld.fouten;&vertaling.rinse; &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

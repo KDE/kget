@@ -1,0 +1,1072 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY kget "<application
+>KGet</application
+>">
+  <!ENTITY kappname "&kget;"
+><!-- replace kget here do *not* replace kappname-->
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Portuguese "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>O Manual do &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>José</firstname
+><surname
+>Pires</surname
+><affiliation
+><address
+><email
+>zepires@gmail.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2010-07-17</date>
+<releaseinfo
+>2.4.93 (&kde; 4.5)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>O &kget; é o gestor de transferências do &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>obter</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Introdução</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Iniciar o &kget; (deverá obter um alvo de largada)</para
+></listitem>
+    <listitem
+><para
+>Arraste e largue o &URL; desejado no alvo de largada do &kget;.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Imagem do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Imagem do KGet</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Alvo de Largada do &kget; </title>
+
+<para
+>O Alvo de Largada do &kget; tem quatro opções. </para>
+
+<screenshot>
+<screeninfo
+>Imagem do alvo de largada do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Imagem do alvo de largada do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Opções do Alvo de Largada do &kget;</title>
+<para
+>Carregue com o botão direito no alvo de largada para ver as opções. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Iniciar / Prosseguir Tudo</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Para iniciar uma transferência ou prosseguir as transferências pendentes, o atalho para tal é o <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Mostrar/Esconder a Janela Principal</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Esta opção mostra ou minimiza a janela principal para a bandeja do sistema.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+<!-- no longer in 4.5
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Show Drop Target</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Uncheck this box to make the &kget; Drop Target go away.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+-->
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Fixo</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Torna a posição do alvo de largada do &kget; fixa e impossível de arrastar.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Sai do &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Sai do &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Janela de Configuração do &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Configuração</guimenu
+> <guimenuitem
+>Configurar o &kget;</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Abre a janela de configuração do &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Aparência</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Aparência</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Aparência</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Aparência</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Poderá modificar aqui várias questões relacionadas com a aparência.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Mostrar o ecrã inicial</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Assinale esta opção para activar um ecrã inicial antes do arranque.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Mostrar o alvo</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Desligue esta opção se não quiser o Alvo de Largada do &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Activar as animações</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Activa algumas animações engraçadas.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+<!-- what is this?
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Enable popup tooltip</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>???</action>
+	</para>
+      </listitem>
+    </varlistentry>
+-->
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Grupos</title>
+  <para
+>Você poderá agrupar as transferências.</para>
+  <screenshot>
+  <screeninfo
+>Grupos do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Grupos do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usar as pastas predefinidas para os grupos como sugestão</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Assinale esta opção se quiser que o &kget; use as pastas predefinidas para as suas transferências.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Rede</title>
+  <para
+>Poderá modificar aqui as suas opções relacionadas com a rede.</para>
+  <screenshot>
+  <screeninfo
+>Rede do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Rede do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limitar o Máximo de Transferências por Grupo</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Assinale esta opção se quiser implementar limites nas suas transferências.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Número de transferências</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Poderá definir com esta opção o número máximo de transferências em simultâneo.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limite de Velocidade</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Assinale esta opção se quiser usar limites de velocidade globais.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limite de recepção global</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Define o limite máximo de recepção das transferências a nível global.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limite de envio global</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Define o limite máximo de envio das transferências a nível global.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ligar de Novo em Caso de Erro ou Ligação Interrompida</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Assinale esta opção se quiser que o &kget; se volte a ligar em caso de erro ou interrupção da ligação.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Número de repetições</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Define o número máximo de vezes que o &kget; irá tentar repetir a ligação.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Repetir após</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Defina aqui o intervalo de repetição (em segundos)</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Interface Web</title>
+<para
+>Para activar a interface Web, assinale a opção <guilabel
+>Activar a Interface Web</guilabel
+>. O porto por omissão é o 8080, mas poderá configurar qualquer porto, desde que seja maior que 1024. Defina o utilizador e senha. Poderá aceder à sua interface Web através de http://127.0.0.1:&lt;porto&gt;. Irá necessitar do utilizador e senha configurados para ter acesso. </para>
+  <screenshot>
+    <screeninfo
+>Interface Web do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Interface Web do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Verificação</title>
+  <para
+>Verifica as suas transferências.</para>
+  <screenshot>
+    <screeninfo
+>Verificação do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Verificação do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Se usar os dois métodos <guilabel
+>Código de Validação</guilabel
+> e <guilabel
+>Assinatura</guilabel
+>, poderá verificar as suas transferências. Apenas terá de assinalar as opções de verificação automática.</para>
+</sect1>
+
+<sect1 id='Advanced'>
+<title
+>Avançado</title>
+  <para
+>Modifica as opções avançadas.</para>
+  <screenshot>
+    <screeninfo
+>Opções Avançadas do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Opções Avançadas do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Desactivar as janelas de confirmação (menos descritivo)</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+><action
+>Desactiva as janelas de confirmação</action
+>, as quais provocam alguma descrição desnecessária. </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Activar o ícone na bandeja do sistema</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Esta opção activa o ícone da bandeja para o &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Executar a acção após terminarem todas as transferências</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Assinale esta opção para activar a saída do &kget;, após todas as transferências terem terminado. No início, poderá optar por repor o estado das transferências, como o Parar Todas as Transferências / Iniciar Todas as Transferências.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Infra-estrutura do histórico</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Poderá escolher a sua infra-estrutura de histórico entre Sqlite e XML.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usar como gestor de transferências do Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Pode configurar o &kget; para ser o seu gestor de transferências no &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Monitorizar a área de transferência para obter ficheiros a transferir</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+<!--
+	  <action
+>Blank</action>
+-->
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Activar o registo de progresso global do &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Poderá configurar o &kget; para mostrar todas as transferências individualmente ou mostrar a evolução global.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>A Janela Principal</title>
+<para
+>Introdução à Janela Principal do &kget;</para>
+<screenshot>
+  <screeninfo
+>Imagem do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Imagem do KGet</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>O Menu <guimenu
+>Ficheiro</guimenu
+></title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Nova Transferência...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Adiciona um novo ficheiro a transferir</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Importar as Transferências...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Carrega um ficheiro *.kgt, *.metalink, *.meta4 ou *.torrent.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Exportar a Lista de Transferências...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Exporta as referências realçadas para um ficheiro .kgt, para transferência posterior.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Exportar as Transferências como Texto Simples...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Exporta as ligações a serem transferidas como texto simples.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Importar as Ligações...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Importar as Ligações</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Importar as Ligações</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Esta acção invoca outra janela, na qual poderá ver e manipular o ficheiro a transferir. Também poderá fazer uma selecção com base nos <guilabel
+>Vídeos</guilabel
+>, <guilabel
+>Imagens</guilabel
+>, <guilabel
+>Áudio</guilabel
+> e <guilabel
+>Pacotes</guilabel
+>. Existe também um campo de texto para filtrar os resultados.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Criar um Metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Criar um Metalink 0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Criar um Metalink 0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Seleccione entre criar um novo Metalink ou carregar um existente. Carregue no botão <guilabel
+>Seguinte</guilabel
+> para prosseguir.</para>
+
+<screenshot>
+  <screeninfo
+>Criar um Metalink 1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Criar um Metalink 1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Aqui poderá optar por introduzir alguma informação geral opcional, como o local de onde este 'metalink' poderá ser obtido (indique o &URL; no campo de texto a seguir à <guilabel
+>Origem</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Criar um Metalink 2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Criar um Metalink 2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Aqui terá de introduzir o &URL; a partir do qual irá tentar transferir o ficheiro. Do mesmo modo, poderá tentar introduzir algumas informações opcionais, como a Preferência (Prioridade) de um dada réplica, caso esteja a adicionar mais que uma réplica, para o ficheiro que deseja transferir.</para>
+
+<screenshot>
+  <screeninfo
+>Criar um Metalink 3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Criar um Metalink 3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Poderá ver uma janela nova onde serão apresentados os seus ficheiros que serão importados.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Histórico de Transferências</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Histórico de Transferências</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Histórico de Transferências</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Abre uma janela nova, na qual poderá ver todos os ficheiros transferidos com o &kget;. Poderá gerir aqui o seu histórico, incluindo a filtragem ou limpeza do mesmo. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Sair</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Sai do &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Créditos e Licença</title>
+
+<para
+>&kget; </para>
+
+<para
+>Documentação com 'copyright' &copy; 2009 de Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Agradecimentos a:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (pela ajuda com os pontos relacionados com o DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (Cópia e colagem de bastantes coisas da sua documentação antiga do kget;) </para>
+
+<para
+>Tradução de José Nuno Pires <email
+>zepires@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Instalação</title>
+
+<sect1 id="getting-KGet">
+<title
+>Como obter o &kget;</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="compilation">
+<title
+>Compilação e instalação</title>
+&install.compile.documentation; </sect1>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

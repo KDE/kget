@@ -1,0 +1,1094 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY kget "<application
+>KGet</application
+>">
+  <!ENTITY kappname "&kget;"
+><!-- replace kget here do *not* replace kappname-->
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Polish "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Podręcznik &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Michał</firstname
+><surname
+>Bendowski</surname
+><affiliation
+><address
+><email
+>bendowski@gmail.com</email
+></address
+></affiliation
+><contrib
+></contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Jan</firstname
+><surname
+>Stożek</surname
+><affiliation
+><address
+><email
+>jasio@stozek.waw.pl</email
+></address
+></affiliation
+><contrib
+></contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2010-07-17</date>
+<releaseinfo
+>2.4.93 (&kde; 4.5)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; jest menedżerem pobierania &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>download</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Wstęp</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Uruchom &kget; (powinno się ukazać małe okno)</para
+></listitem>
+    <listitem
+><para
+>Przeciągnij i upuść adres &URL; pliku do małego okna programu &kget;.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Zrzut ekranu programu &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Zrzut ekranu programu &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Małe okno programu &kget; </title>
+
+<para
+>Z małym oknem związane są cztery opcje.  </para>
+
+<screenshot>
+<screeninfo
+>Zrzut ekranu małego okna programu &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Zrzut ekranu małego okna programu &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Opcje małego okna programu &kget;</title>
+<para
+>Opcje są dostępne po kliknięciu prawym klawiszem myszy w małym oknie </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Rozpocznij / Wznów wszystko</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Rozpoczyna pobieranie lub wznawia wszystkie zawieszone pobrania. Skrót klawiszowy tej operacji, to <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Pokaż/Ukryj główne okno programu. </guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Pokazuje główne okno programu lub minimalizuje je do tacki systemowej.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+<!-- no longer in 4.5
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Show Drop Target</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Uncheck this box to make the &kget; Drop Target go away.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+-->
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Przyklejony</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Blokuje położenie małego okna programu &kget;.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zakończ &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Kończy program &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Okno konfiguracji programu &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Ustawienia</guimenu
+> <guimenuitem
+>Konfiguracja &kget;</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Wywołuje główne okno konfiguracji programu &kget;.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Wygląd</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Wygląd</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Wygląd</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Appearance</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Tutaj można zmieniać ustawienia związane z wyglądem.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Pokaż ekran powitalny</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaznacz to pole wyboru, aby przed uruchomieniem programu został wyświetlony ekran powitalny.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Pokaż małe okno</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Usunięcie zaznaczenia tego pola wyboru spowoduje ukrycie małego okna.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Włącz animacje</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Uruchamia kilka atrakcyjnych animacji.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+<!-- what is this?
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Enable popup tooltip</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>???</action>
+	</para>
+      </listitem>
+    </varlistentry>
+-->
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Grupy</title>
+  <para
+>Pobierania można pogrupować.</para>
+  <screenshot>
+  <screeninfo
+>Grupy</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Grupy</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Podpowiadaj użycie domyślnych katalogów dla grup</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaznacz to pole jeżeli &kget; ma wykorzystywać do pobierania domyślne foldery.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Sieć</title>
+  <para
+>W tym miejscu można konfigurować ustawienia sieci.</para>
+  <screenshot>
+  <screeninfo
+>Sieć</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Sieć</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ograniczenie liczby równoczesnych pobrań w grupach</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaznaczenie tego pola wyboru powoduje zastosowanie limitów związanych z pobieraniem. </action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Liczba pobrań</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>To ustawienie pozwala ograniczyć liczbę równoczesnych pobrań.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ograniczenie szybkości</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaznaczenie tego pola wyboru powoduje ograniczenie całkowitej szybkości transmisji.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ograniczenie liczby równoczesnych pobrań</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ograniczenie liczbę równocześnie pobieranych plików.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ograniczenie liczby równocześnie wysyłanych plików</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ustawia ograniczenie liczby równocześnie wysyłanych plików.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Po błędzie lub zerwanym połączeniu połącz ponownie</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaznaczenie tego pola wyboru powoduje, że w razie wystąpienia błędu lub zerwania transmisji &kget; automatycznie wznowi połączenie. </action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Liczba prób ponowienia</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ustawia limit liczby prób ponowienia połączenia przez program &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Próbuj ponownie po</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ustawia odstęp (w sekundach) pomiędzy kolejnymi próbami ponowienia połączenia.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Interfejs WWW</title>
+<para
+>W celu uruchomienia dostępu przez Interfejs WWW należy zaznaczyć opcję <guilabel
+>Interfejs WWW</guilabel
+>; domyślnym portem jest 8080, ale można wybrać dowolny port o numerze wyższym od 1024. Należy też skonfigurować <guilabel
+>Nazwę użytkownika</guilabel
+> i <guilabel
+>Hasło</guilabel
+>. Interfejs WWW jest dostępny pod adresem http://127.0.0.1:&lt;port&gt; po podaniu nazwy użytkownika i hasła.  </para>
+  <screenshot>
+    <screeninfo
+>Interfejs WWW</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Interfejs WWW</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Weryfikacja</title>
+  <para
+>Zweryfikuj pobrane pliki.</para>
+  <screenshot>
+    <screeninfo
+>Weryfikacja</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Weryfikacja</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Można zweryfikować poprawność pobranych plików przy pomocy dwóch metod kontroli poprawności (<guilabel
+>Sum kontrolnych</guilabel
+>  i <guilabel
+>Podpisu</guilabel
+>) .W tym celu wystarczy zaznaczyć pole wyboru automatycznej weryfikacji.</para>
+</sect1>
+
+<sect1 id='Advanced'>
+<title
+>Zaawansowane</title>
+  <para
+>Umożliwia zmianę opcji zaawansowanych.</para>
+  <screenshot>
+    <screeninfo
+>Opcje Zaawansowane</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Opcje Zaawansowane</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Wyłącz okna dialogowe z potwierdzeniami (mniej informacji)</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+><action
+>Wyłącza okna dialogowe potwierdzeń</action
+>, zmniejszając "gadatliwość" programu. </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Włącz ikonę na tacce systemowej</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>To pole wyboru włącza ikonę programu &kget; na tacce systemowej.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Wykonaj działanie po zakończeniu wszystkich transferów</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Zaznaczenie tego pola wyboru powoduje automatyczne wyłączenie programu &kget; po zakończeniu wszystkich transmisji. Podczas uruchamiania programu można przywrócić stan pobrań, np. zatrzymać lub rozpocząć wszystkie transmisje.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Obsługa historii</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Można wybrać sposób obsługi historii: Sqlite lub pliki XML.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Użyj jako zarządcy pobierania w programie &konqueror;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Można użyć program &kget; jako zarządcy pobierania w programie &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Monitoruj schowek w poszukiwaniu plików do pobrania</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+<!--
+	  <action
+>Blank</action>
+-->
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Włącz globalne śledzenie postępu w &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Można skonfigurować &kget; tak, aby pokazywał każdy transfer oddzielnie lub aby pokazywał łączny postęp pobierania.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Okno główne</title>
+<para
+>Omówienie głównego okna programu &kget;</para>
+<screenshot>
+  <screeninfo
+>Zrzut ekranu programu &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Zrzut ekranu programu &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Menu <guimenu
+>Plik</guimenu
+></title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Plik</guimenu
+> <guimenuitem
+>Nowe pobieranie...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Dodaj nowy plik do pobrania</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Plik</guimenu
+> <guimenuitem
+>Importuj transfery...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Otwiera plik *.kgt, *.metalink, *.meta4 lub *.torrent.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Plik</guimenu
+> <guimenuitem
+>Eksportuj listę transferów...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Zapisuje podświetlone odnośniki w pliku .kgt w celu późniejszego wykorzystania.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Plik</guimenu
+><guimenuitem
+>Eksportuj transfery do pliku tekstowego...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Zapisuje pobierane odnośniki w pliku tekstowym.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Plik</guimenu
+> <guimenuitem
+>Importuj odnośniki...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Importuj odnośniki</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Importuj odnośniki</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Otwierane jest nowe okno, w którym można zobaczyć i kontrolować pobierane pliki. Można dokonywać wyboru plików według ich typu: pliki <guilabel
+>Wideo</guilabel
+>, <guilabel
+>Obrazy</guilabel
+>, <guilabel
+>Audio</guilabel
+> i <guilabel
+>Archiwa</guilabel
+>. Jest też pole tekstowe umożliwiające filtrowaniewyników.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Plik</guimenu
+> <guimenuitem
+>Utwórz meta-odnośnik</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Tworzenie meta-odnośnika0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Tworzenie meta-odnośnika0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Umożliwia wybór pomiędzy utworzeniem nowego meta-odnośnika a otwarciem istniejącego meta-odnośnika. Kliknij na przycisk<guilabel
+>Dalej</guilabel
+> aby kontynuować.</para>
+
+<screenshot>
+  <screeninfo
+>Tworzenie meta-odnośnika1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Tworzenie meta-odnośnika1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Tu można wprowadzić niektóre dodatkowe informacje, takie jak źródło pochodzenia meta-odnośnika (należy wpisać &URL; w pole tekstowe opisane jako <guilabel
+>Źródło</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Tworzenie meta-odnośnika2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Tworzenie meta-odnośnika2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Tu należy wprowadzić &URL; pliku do pobrania. Można też wprowadzić niektóre dodatkowe informacje, np. jeżeli podanych jest kilka serwerów zwierciadlanych zawierających ten sam plik, tu można ustawić ważność (priorytet) danego serwera.</para>
+
+<screenshot>
+  <screeninfo
+>Tworzenie meta-odnośnika 3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Tworzenie meta-odnośnika 3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Otwarte zostanie nowe okno zawierające listę plików do zaimportowania.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Plik</guimenu
+> <guimenuitem
+>Historia transferów</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Historia transferów</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Historia transferów</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Otwiera nowe okno zawierające spis wszystkich plików pobranych przy pomocy programu &kget;. Okno umożliwia też zarządzanie historią, jej filtrowanie i skasowanie. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Plik</guimenu
+> <guimenuitem
+>Wyjdź</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Kończy program &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Podziękowania i licencje</title>
+
+<para
+>&kget; </para>
+
+<para
+>Prawa autorskie do dokumentacji: Copyright &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Podziękowania:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (za pomoc z DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (wykorzystano część materiału pochodzącego z jego starej dokumentacji programu &kget;) </para>
+
+<para
+>Michał Bendowski<email
+>bendowski@gmail.com</email
+></para
+> <para
+>Jan Stożek<email
+>jasio@stozek.waw.pl</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Instalacja</title>
+
+<sect1 id="getting-KGet">
+<title
+>Jak zdobyć &kget;</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="compilation">
+<title
+>Kompilacja i instalacja</title>
+&install.compile.documentation; </sect1>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

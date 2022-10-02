@@ -1,0 +1,1076 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY kget "<application
+>KGet</application
+>">
+  <!ENTITY kappname "&kget;"
+><!-- replace kget here do *not* replace kappname-->
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Estonian  "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>&kget;i käsiraamat</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Marek</firstname
+><surname
+>Laane</surname
+><affiliation
+><address
+><email
+>bald@smail.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2010-07-17</date>
+<releaseinfo
+>2.4.93 (&kde; 4.5)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; on &kde; allalaadimiste haldur </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>allalaadimine</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Sissejuhatus</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Käivita &kget; (peaksid nägema kukutamise märklauda)</para
+></listitem>
+    <listitem
+><para
+>Lohista vajalik &URL; &kget;i aknasse/kukutamise märklauale.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>&kget;i pilt</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i pilt</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>&kget;i kukutamise märklaud </title>
+
+<para
+>&kget;i kukutamise märklaual on neli valikut. </para>
+
+<screenshot>
+<screeninfo
+>&kget;i kukutamise märklaua pilt</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i kukutamise märklaua pilt</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>&kget;i kukutamise märklaua valikud</title>
+<para
+>Valikute nägemiseks tee kukutamise märklaual paremklõps. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Käivita / taasalusta kõiki</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Alustab allalaadimist või taasalustab kõigi ootel allalaadimiste allalaadimist. Toimingu kiirklahv on <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Peaakna näitamine/peitmine</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>See valik minimeerib peaakna süsteemisalve või toob selle nähtavale.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+<!-- no longer in 4.5
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Show Drop Target</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Uncheck this box to make the &kget; Drop Target go away.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+-->
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Kleepuv</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Muudab &kget;i kukutamise märklaua mittelohistatavaks.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Välju &kget;ist</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Lõpetab &kget;i töö.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>&kget;i  seadistustedialoog </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+> <guimenuitem
+>&kget;i seadistamine</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avab &kget;i  seadistustedialoogi</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Välimus</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Välimus</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Välimus</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Välimus</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab muuta mitmesuguseid välimusega seotud asju.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Tiitelkuva näitamine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märkimisel näidatakse käivitamise ajal tiitelkuva.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Kukutamise märklaua näitamine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märke eemaldamisel selle valiku ei näidata &kget;i kukutamise märklauda.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Animatsioonide lubamine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Mõningate vahvate animatsioonide lubamine.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+<!-- what is this?
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Enable popup tooltip</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>???</action>
+	</para>
+      </listitem>
+    </varlistentry>
+-->
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Grupid</title>
+  <para
+>Allalaadimisi on võimalik rühmitada.</para>
+  <screenshot>
+  <screeninfo
+>&kget;i grupid</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i grupid</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Rühmadele pakutakse vaikimisi katalooge</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märkimisel kasutab &kget; allalaadimiste tarbeks vaikimisi katalooge.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Võrk</title>
+  <para
+>Siin saab muuta mitmesuguseid võrguga seotud asju.</para>
+  <screenshot>
+  <screeninfo
+>&kget;i võrguvalikud</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i võrguvalikud</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Allalaadimise limiteerimine grupiti</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märkimisel saab allalaadimisi piirata.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Allalaadimiste arv</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab määrata maksimaalse korraga käivate allalaadimiste arvu.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Kiirusepiirang</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märkimisel saab kehtestada globaalse kiirusepiirangu.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Globaalne allalaadimise piirang</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab määrata allalaadimiste maksimaalse globaalse piirangu.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Globaalne üleslaadimise piirang</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab määrata üleslaadimiste maksimaalse piirangu.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Taasühendumine vea või katkenud ühenduse korral</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märkimisel püüab &kget; pärast viga või ühenduse katkemist ühendust taas luua.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Uuestiproovimiste arv</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab määrata maksimaalse kordade arvu &kget;i taasühendumiste katsetele.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Uuestiproovimise intervall</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab määrata uuestiproovimiste intervalli sekundites.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Veebiliides</title>
+<para
+>Veebiliidese võimaldamiseks märgi kastike <guilabel
+>Veebiliidese lubamine</guilabel
+>. Vaikimisi port on 8080, aga selleks võib soovi korral olla iga port, mis on suurem kui 1024. Määra <guilabel
+>kasutaja</guilabel
+> ja <guilabel
+>parool</guilabel
+>. Veebiliidesele pääseb ligi asukohast http://127.0.0.1:&lt;port&gt;. Ligipääsuks on vaja anda kasutajanimi ja parool. </para>
+  <screenshot>
+    <screeninfo
+>&kget;i veebiliides</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i veebiliides</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Kontrollimine</title>
+  <para
+>Allalaadimiste kontrollimine.</para>
+  <screenshot>
+    <screeninfo
+>&kget;i kontrollimine</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i kontrollimine</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Allalaadimisi saab kontrollida kahel viisil: <guilabel
+>kontrollsummad</guilabel
+> ja <guilabel
+>allkiri</guilabel
+>. Selleks tuleb lihtsalt märkida automaatse kontrollimise kastike.</para>
+</sect1>
+
+<sect1 id='Advanced'>
+<title
+>Muu</title>
+  <para
+>Muud valikud</para>
+  <screenshot>
+    <screeninfo
+>&kget;i muud valikud</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i muud valikud</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Kinnitusdialoogide keelamine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+><action
+>Sellega saab keelata kinnitusdialoogid</action
+>, mis võivad muutuda häirivaks. </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ikoon süsteemisalves</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märkimisel näidatakse &kget;i ikooni süsteemisalves.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Toimingu käivitamine pärast kõigi allalaadimiste lõpetamist</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Märkimisel saab võimaldada &kget;ist väljumise pärast kõigi allalaadimiste lõpetamist. Samas võib valida käivitamisel allalaadimiste taastamise oleku, näiteks kõigi allalaadimiste peatamine või kõigi allalaadimiste käivitamine.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ajaloo taustaprogramm</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab valida ajaloo taustaprogrammi: Sqlite või Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Kasutamine Konquerori allalaadimishaldurina</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab määrata &kget;i &konqueror;i allalaadimiste halduriks.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Lõikepuhvri jälgimine allalaaditavate failide tuvastamiseks</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+<!--
+	  <action
+>Blank</action>
+-->
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>&kde; globaalse edenemise jälgimise lubamine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Siin saab panna &kget;i näitama iga allalaadimist või üldist edenemist.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Peaaken</title>
+<para
+>&kget; peaakna ülevaade</para>
+<screenshot>
+  <screeninfo
+>&kget;i pilt</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;i pilt</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Menüü <guimenu
+>Fail</guimenu
+></title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Uus allalaadimine...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Uue faili lisamine allalaadimiste sekka</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Impordi allalaadimised...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>*.kgt-, *.metalink-, *.meta4- või *.torrent-faili laadimine.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Ekspordi allalaadimiste nimekiri...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Esiletõstetud linkide salvestamine .kgt-failina, mida saab hiljem laadida.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Ekspordi allalaadimiste nimekiri lihttekstina...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Allalaaditavate linkide salvestamine lihttekstina.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Impordi lingid...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Linkide import</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Linkide import</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>See toimning avab uue akna, kus näeb, milliseid faile alla laaditakse, ning saab seda muuta. Samuti võib lasta valiku teha võimalustega <guilabel
+>Videod</guilabel
+>, <guilabel
+>Pildid</guilabel
+>, <guilabel
+>Audio</guilabel
+> ja <guilabel
+>Arhiivid</guilabel
+>. Tulemusi saab filtreerida ka tekstikastis.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Loo Metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Metalingi loomine0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Metalingi loomine</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Siin saab valida uue Metalingi loomise ja olemasoleva Metalingi avamise vahel. Jätkamiseks klõpsa <guilabel
+>Edasi</guilabel
+>.</para>
+
+<screenshot>
+  <screeninfo
+>Metalingi loomine1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Metalingi loomine1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Siin saab soovi korral lisada mõningat üldist teavet, näiteks seda, kust on metalink hangitud (sisesta &URL; tekstikasti <guilabel
+>Päritolu</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Metalingi loomine2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Metalingi loomine2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Siin tuleb sisestada &URL;, kust püüad faili alla laadida. Samuti võib lisada muud teavet, näiteks konkreetse peegli eelistus (prioriteet), kui oled lisanud faili allalaadimiseks mitu peeglit.</para>
+
+<screenshot>
+  <screeninfo
+>Metalingi loomine3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Metalingi loomine3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Lõpuks näed akent, kus näidatakse kõiki imporditavaid faile.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Ülekannete ajalugu</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Ülekannete ajalugu</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Ülekannete ajalugu</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Avab uue akna, kus näeb kõiki &kget;iga alla laaditud faile. Ajalugu saab siin ka hallata, sealhulgas filtreerida ja puhastada. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+> Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Välju</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lõpetab &kget;i töö.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Autorid ja litsents</title>
+
+<para
+>&kget; </para>
+
+<para
+>Dokumentatsiooni autoriõigus &copy; 2009: Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Tänusõnad:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (abi eest DocBookiga seotud asjade puhul)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (abi paljude asjade kopeerimisel oma vanast &kget;i käsiraamatust) </para>
+
+<para
+>Tõlge eesti keelde: Marek Laane <email
+>bald@smail.ee</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Paigaldamine</title>
+
+<sect1 id="getting-KGet">
+<title
+>&kget;i hankimine</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="compilation">
+<title
+>Kompileerimine ja paigaldamine</title>
+&install.compile.documentation; </sect1>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

@@ -1,0 +1,1094 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY kget "<application
+>KGet</application
+>">
+  <!ENTITY kappname "&kget;"
+><!-- replace kget here do *not* replace kappname-->
+  <!ENTITY package "kdenetwork">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Руководство &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Олег</firstname
+> <surname
+>Баталов</surname
+> <affiliation
+><address
+> <email
+>batalov@twiga.kz</email
+> </address
+></affiliation
+> <contrib
+>Перевод на русский</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Евгений</firstname
+> <surname
+>Асланов</surname
+> <affiliation
+><address
+> <email
+>aslanov.ev@gmail.com</email
+> </address
+></affiliation
+> <contrib
+>Обновление перевода на русский</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>17 июля 2010 г.</date>
+<releaseinfo
+>2.4.93 (&kde; 4.5)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; — диспетчер загрузок для &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>загрузка</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Введение</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Запустите &kget; (должна появиться цель для перетаскивания)</para
+></listitem>
+    <listitem
+><para
+>Перетащите нужные адреса &URL; в окно &kget; или на цель для  перетаскивания.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Снимок экрана &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Снимок экрана &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Цель для перетаскивания &kget; </title>
+
+<para
+>В меню цели для перетаскивания &kget; предусмотрено четыре пункта действий. </para>
+
+<screenshot>
+<screeninfo
+>Снимок цели для перетаскивания &kget; </screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Снимок цели для перетаскивания &kget; </phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Варианты действий цели для перетаскивания &kget;</title>
+<para
+>Щёлкните правой кнопкой мыши на цели для перетаскивания, чтобы увидеть меню вариантов действий. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Запустить или возобновить все</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Чтобы начать загружать или возобновить все приостановленные загрузки, нажмите <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Скрыть главное окно</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>С помощью этого пункта можно свернуть окно в системный лоток или развернуть главное окно из лотка.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+<!-- no longer in 4.5
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Show Drop Target</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Uncheck this box to make the &kget; Drop Target go away.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+-->
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Фиксированная позиция цели для перетаскивания</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Зафиксировать позицию цели для перетаскивания &kget; на экране.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Выйти из &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Выход из &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Окно параметров &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Настроить &kget;...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открывает окно параметров &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Внешний вид</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Внешний вид</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Внешний вид</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Внешний вид</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Здесь вы можете изменить параметры внешнего вида.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Заставка при запуске</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Отметьте этот пункт, чтобы показывать заставку при запуске.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Показывать цель для перетаскивания</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Снимите отметку с этого пункта, если вам не нужна цель для перетаскивания &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Включить анимацию</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Включить причудливую анимацию.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+<!-- what is this?
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Enable popup tooltip</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>???</action>
+	</para>
+      </listitem>
+    </varlistentry>
+-->
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Группы</title>
+  <para
+>Вы можете группировать загрузки.</para>
+  <screenshot>
+  <screeninfo
+>Группы &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Группы &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Использовать для групп папки по умолчанию</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Отметьте этот пункт, если вы хотите использовать стандартные папки загрузки.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Сеть</title>
+  <para
+>Здесь можно изменить параметры сети.</para>
+  <screenshot>
+  <screeninfo
+>Сеть &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Сеть &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ограничить количество загрузок в группе</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Отметьте, если хотите ограничить число загрузок.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Количество загрузок</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Здесь вы можете установить максимальное число загрузок.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ограничение скорости</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Отметьте, если вы хотите установить общее ограничение скорости.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Общее ограничение загрузки</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Установите максимальную общую скорость загрузки.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Общее ограничение отдачи</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Установите максимальную общую скорость отдачи.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Соединяться заново при разрыве соединения</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Отметьте, если хотите, чтобы &kget; заново соединялся после проблем с сетью.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Количество попыток</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Установите максимальное количество попыток соединения.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Повторное соединение после</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Установите интервал между попытками (в секундах)</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Веб-интерфейс</title>
+<para
+>Для активации веб-интерфейса отметьте <guilabel
+>Включить веб-интерфейс</guilabel
+>; порт по умолчанию — 8080. Вы можете установить любой порт с номером, превышающим 1024. И не забудьте заполнить поля <guilabel
+>Пользователь</guilabel
+> и <guilabel
+>Пароль</guilabel
+>. Вы можете получить доступ к веб-интерфейсу на http://127.0.0.1:&lt;порт&gt;. Для доступа нужны имя пользователя и пароль. </para>
+  <screenshot>
+    <screeninfo
+>Веб-интерфейс &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Веб-интерфейс &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Проверка</title>
+  <para
+>Проверять ваши загрузки.</para>
+  <screenshot>
+    <screeninfo
+>Проверка &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Проверка &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Используя два способа (<guilabel
+>Контрольные суммы</guilabel
+> и <guilabel
+>Подпись</guilabel
+>), вы можете проверять свои загрузки. Просто отметьте автоматическую проверку.</para>
+</sect1>
+
+<sect1 id='Advanced'>
+<title
+>Дополнительно</title>
+  <para
+>Изменение дополнительных параметров.</para>
+  <screenshot>
+    <screeninfo
+>Дополнительные параметры &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Дополнительные параметры &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Отключить подтверждение операций</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+><action
+>Отключить подтверждение операций</action
+>, которое может быть причиной раздражающих сообщений. </para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Значок в системном лотке</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Отметьте, чтобы активировать значок &kget; в системном лотке.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Выполнить действие после завершения всех загрузок</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Отметьте, чтобы разрешить выход из &kget; после окончания всех загрузок. Вы можете включить восстановление состояния загрузок при запуске, в частности запустить все загрузки или оставить их остановленными.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Журнал</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Вы можете использовать для хранения данных журнала Sqlite или Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Использовать &kget; в качестве диспетчера загрузок в Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Позволяет использовать &kget; в качестве диспетчера загрузок в &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Наблюдать буфер обмена на предмет ссылок</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+<!--
+	  <action
+>Blank</action>
+-->
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Разрешить глобальное слежение за ходом выполнения</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Можно показывать прогресс выполнения каждой загрузки отдельно или общий прогресс.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Главное окно</title>
+<para
+>Обзор главного окна &kget;</para>
+<screenshot>
+  <screeninfo
+>Снимок экрана &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Снимок экрана &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Меню <guimenu
+>Файл</guimenu
+></title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Новая загрузка...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Добавить файл</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Импорт загрузок...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Загружает файлы *.kgt, *.metalink, *.meta4 и *.torrent.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Экспорт списка загрузок...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Экспорт выделенных загрузок в файл .kgt для загрузки позднее.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Экспорт списка загрузок в простой текст...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Экспорт ссылок на загружаемые данные в формате простого текста.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Импорт ссылок...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Импорт ссылок</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Импорт ссылок</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Открывает ещё одно окно, в котором можно выбирать файлы для загрузки. Можно выбирать из категорий <guilabel
+>Видео</guilabel
+>, <guilabel
+>Изображения</guilabel
+>, <guilabel
+>Аудио</guilabel
+> и <guilabel
+>Архивы</guilabel
+>. Есть и поле ввода для более точной фильтрации результатов.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Создать Metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Создание файла Metalink 0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Создание файла Metalink 0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Определитесь с действием: создать Metalink или открыть существующий. Нажмите <guilabel
+>Далее</guilabel
+> для продолжения.</para>
+
+<screenshot>
+  <screeninfo
+>Создание файла Metalink 1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Создание файла Metalink 1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Тут вы можете ввести некоторую необязательную информацию. Например, откуда этот metalink может быть получен (введите адрес &URL; в поле ввода после <guilabel
+>Источник</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Создание файла Metalink 2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Создание файла Metalink 2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Здесь введите адрес &URL;, с которого вы пытаетесь загрузить файл. Также можно указать приоритет зеркал, если их больше одного.</para>
+
+<screenshot>
+  <screeninfo
+>Создание файла Metalink 3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Создание файла Metalink 3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Откроется новое окно, в котором будут показаны все ваши импортированные файлы.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Журнал загрузок</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Журнал загрузок</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Журнал загрузок</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Откроется новое окно, содержащее все загруженные с помощью &kget; файлы. Вы можете изменять журнал (например, фильтровать и очищать). </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Выйти</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Выход из &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Авторские права и лицензия</title>
+
+<para
+>&kget; </para>
+
+<para
+>Авторские права на документацию принадлежат Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com</email
+>, 2009 </para>
+<para
+>Благодарности:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (за помощь с DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (многие вещи скопированы из его старой документации по &kget;) </para>
+
+<para
+>Перевод на русский: Олег Баталов <email
+>olegbatalov@mail.ru</email
+></para
+><para
+>Обновление перевода на русский: Евгений Асланов <email
+>aslanov.ev@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Установка</title>
+
+<sect1 id="getting-KGet">
+<title
+>Как получить &kget;</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="compilation">
+<title
+>Сборка и установка</title>
+&install.compile.documentation; </sect1>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

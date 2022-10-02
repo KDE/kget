@@ -1,0 +1,991 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Handbok &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2017-11-21</date>
+<releaseinfo
+>2.95.0 (Program 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; är en avancerad nerladdningshanterare av &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>nerladdning</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Inledning</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Starta &kget; (du ska se en släppyta)</para
+></listitem>
+    <listitem
+><para
+>Dra och släpp webbadressen som behövs till &kget;s fönster eller släppyta.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Skärmbild av &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skärmbild av &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>&kget;s släppyta </title>
+
+<para
+>&kget;s släppyta har fyra alternativ. </para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av &kget;s släppyta</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skärmbild av &kget;s släppyta</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Alternativ för &kget;s släppyta</title>
+<para
+>Högerklicka på släppytan för att se alternativen. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Starta / Återuppta alla</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>För att starta en nerladdning eller återuppta alla väntande nerladdningar. Genvägen för att göra det är <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Visa eller dölj huvudfönster</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Alternativet visar eller minimerar huvudfönstret till systembrickan.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Klistrig</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Gör &kget;s släppyta omöjlig att dra.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Avsluta &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Avslutar &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>&kget;s inställningsfönster </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Anpassa &kget;...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Öppnar &kget;s inställningsfönster</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Utseende</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Utseende</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Utseende</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Utseende</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Du kan ändra de olika utseenderelaterade grejerna här.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Använd släppyta</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Avmarkera det här om du inte vill använda &kget;s släppyta.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Aktivera animeringar</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Aktiverar några snygga animeringar.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Grupper</title>
+  <para
+>Du kan gruppera nerladdningar.</para>
+  <screenshot>
+  <screeninfo
+>&kget;s grupper</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;s grupper</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Använd standardkataloger för grupper som förslag</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Markera rutan om du vill att &kget; ska använda standardkataloger för nerladdningar.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Nätverk</title>
+  <para
+>Du kan ändra nätverksrelaterade inställningar här.</para>
+  <screenshot>
+  <screeninfo
+>&kget;s nätverk</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget;s nätverk</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Begränsa maximalt antal nerladdningar per grupp</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Markera rutan om du vill implementera nerladdningsbegränsningar.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Hastighetsgräns</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Markera den här rutan om du vill att globala hastighetsbegränsningar ska användas.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Global nerladdningsgräns</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ställ in maximal global nerladdningsgräns.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Global uppladdningsgräns</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ställ in maximal uppladdningsgräns.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Återanslut vid bruten anslutning</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Markera rutan om du vill att &kget; ska koppla upp igen efter ett fel eller bruten anslutning.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Antal försök</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ställ in maximalt antal gånger som &kget; försöker koppla upp igen.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Försök igen efter</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ställ in försöksintervallet här (i sekunder)</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Webbgränssnitt</title>
+<para
+>Markera <guilabel
+>Aktivera webbgränssnitt</guilabel
+> för att aktivera webbgränssnittet. Standardporten är 8080 och du kan ställa in vilken port som helst större än 1024. Ange därefter <guilabel
+>Användare</guilabel
+> och <guilabel
+>Lösenord</guilabel
+>. Du kan komma åt webbgränssnittet på http://127.0.0.1:&lt;port&gt;. Du måste ange användarnamn och lösenord för att komma åt det. </para>
+  <screenshot>
+    <screeninfo
+>&kget; webbgränssnitt</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; webbgränssnitt</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Verifikation</title>
+  <para
+>Verifiera nerladdningar</para>
+  <screenshot>
+    <screeninfo
+>&kget; verifikation</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; verifikation</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Genom att använda de två metoderna <guilabel
+>Automatisk verifikation av checksummor</guilabel
+> och <guilabel
+>Signatur</guilabel
+> för att verifiera nerladdningar. Du måste bara markera kryssrutan <guilabel
+>Automatisk verifiering</guilabel
+>.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Integrering</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Använd som nerladdningshanterare i Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Du kan ställa in &kget; som nerladdningshanterare i &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Bevaka klippbordet efter filer att ladda ner</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Du kan aktivera funktionen som frågar om du vill ladda ner webbadresser kopierade till klippbordet. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Avancerat</title>
+  <para
+>Ändra avancerade inställningar.</para>
+  <screenshot>
+    <screeninfo
+>Avancerade inställningar i &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Avancerade inställningar i &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Aktivera ikon i systembrickan</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Kryssrutan aktiverar &kget;s ikon i systembrickan.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Utför åtgärd när alla nerladdningar är klara</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Markera den här rutan för att aktivera att avsluta &kget; efter alla nerladdningar är klara. Vid start kan du välja att återställa nerladdat tillstånd, liksom Stoppa alla nerladdningar/Starta alla nerladdningar.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Historikgränssnitt</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Du kan välja historikgränssnitt som Sqlite eller XML.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Aktivera global förloppsföljning i &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Du kan ställa in &kget; att visa varje enskild nerladdning, eller visa övergripande förlopp.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Insticksprogram</title>
+  <screenshot>
+    <screeninfo
+>Alternativ för insticksprogram i &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Alternativ för insticksprogram i &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>På den här sidan kan du välja överföringsinsticksprogram som ska användas. Klicka på knappen <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/></imageobject
+></inlinemediaobject
+> för att ändra ett insticksprograms standardinställningar.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Huvudfönster</title>
+<para
+>Översikt av &kget;s huvudfönster</para>
+<screenshot>
+  <screeninfo
+>Skärmbild av &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skärmbild av &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Menyn Arkiv</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Ny nerladdning...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lägg till en ny fil att ladda ner.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Importera länkar...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Importera länkar</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Importera länkar</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Åtgärden visar ett annat fönster, där du kan se och hantera vilken fil som ska laddas ner. Man kan också göra valet baserat på <guilabel
+>Videor</guilabel
+>, <guilabel
+>Bilder</guilabel
+>, <guilabel
+>Ljud</guilabel
+> och <guilabel
+>Arkiv</guilabel
+>. Det finns också en textruta för att filtrera bort resultat.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Importera överföringar...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Läser in en fil av typen <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> eller <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Exportera överföringslista...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Exportera markerade länkar till en <filename class="extension"
+>.kgt</filename
+>-fil, för att senare laddas.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Skapa en metalänk...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Skapa en metalänk 0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skapa en metalänk 0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Välj mellan att skapa en ny metalänk och läsa in en befintlig metalänk. Klicka på knappen <guilabel
+>Nästa</guilabel
+> för att gå vidare.</para>
+
+<screenshot>
+  <screeninfo
+>Skapa en metalänk 1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skapa en metalänk 1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Här kan du välja att skriva in någon allmän valfri information. Som var kan den här metalänken erhållas från (Skriv in webbadressen i textrutan intill <guilabel
+>Ursprung</guilabel
+>);</para>
+
+<screenshot>
+  <screeninfo
+>Skapa en metalänk 2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skapa en metalänk 2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Här måste du skriva in webbadressen du försöker ladda ner filen från. Du kan också skriva in en del valfri information, som att en viss spegelplats föredras (prioritet) om du lägger till mer än en spegelplats för filen du vill ladda ner.</para>
+
+<screenshot>
+  <screeninfo
+>Skapa en metalänk 3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skapa en metalänk 3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Du bör kunna se ett nytt fönster där alla filer som ska importeras kommer att visas.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Överföringshistorik</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Överföringshistorik</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Överföringshistorik</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Öppnar ett nytt fönster där du kan se alla filer nerladdade genom att använda &kget;. Du kan hantera historiken här, inklusive filtrera och rensa historiken. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Avsluta</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avslutar &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Tack till och licens</title>
+
+<para
+>&kget; </para>
+
+<para
+>Dokumentation copyright &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Tack till:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (för hjälp med grejer som har med DocBook att göra)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (kopierade och klistrade in en mängd saker från hans gamla dokumentation av &kget;) </para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

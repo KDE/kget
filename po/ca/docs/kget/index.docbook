@@ -1,0 +1,981 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Catalan  "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>El manual del &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+&traductor.Antoni.Bella; 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>21 de novembre de 2017</date>
+<releaseinfo
+>2.95.0 (Aplicacions 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>El &kget; és un gestor avançat de baixades, creat per la comunitat &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>baixada</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Introducció</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Inicieu el &kget; (hauríeu de veure una finestra on deixar anar la destinació).</para
+></listitem>
+    <listitem
+><para
+>Arrossegueu i deixeu anar l'&URL; requerit dintre de la finestra del &kget; on deixar anar la destinació.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Captura de pantalla del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Captura de pantalla del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Finestra del &kget; on deixar anar la destinació </title>
+
+<para
+>La finestra del &kget; on deixar anar la destinació té quatre opcions. </para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla on deixar anar la destinació del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Captura de pantalla on deixar anar la destinació del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Opcions de la finestra del &kget; on deixar anar la destinació</title>
+<para
+>Feu clic dret sobre la finestra on deixar anar la destinació per a veure les opcions. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Inicia-les totes / Reprèn</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Per iniciar una baixada o reprendre totes les baixades pendents. La drecera per fer-ho és <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Mostra/Oculta la finestra principal</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Aquesta opció mostra o minimitza la finestra principal a la safata del sistema.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Apegalós</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Fa que el deixa anar la destinació del &kget; resti desancorat de la finestra principal.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Surt del &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Surt del &kget;.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Finestra de configuració del &kget;. </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arranjament</guimenu
+> <guimenuitem
+>Configura el &kget;...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Obre la finestra de configuració del &kget;.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Aparença</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Aparença</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Aparença</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Aparença</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Des d'aquí podreu canviar l'aparença relacionada amb coses diferents.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usa una destinació a on deixar anar</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Desmarqueu aquesta opció si no voleu la finestra del &kget; on deixar anar la destinació.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Habilita les animacions</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Habilita unes poques animacions fantasioses.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Grups</title>
+  <para
+>Des d'aquí podreu agrupar les baixades.</para>
+  <screenshot>
+  <screeninfo
+>Grups del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Grups del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usa les carpetes per defecte com a suggeriment per als grups</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marqueu aquesta casella si voleu que el &kget; utilitzi les carpetes per omissió per a les baixades.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Xarxa</title>
+  <para
+>Des d'aquí podreu modificar la configuració relacionada amb la xarxa.</para>
+  <screenshot>
+  <screeninfo
+>Xarxa del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Xarxa del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limita les baixades màximes per grup</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marqueu aquesta casella si voleu implementar límits de baixada.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Límit de velocitat</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marqueu aquesta casella si voleu que s'utilitzin límits de velocitat globals.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Límit global de les baixades</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ajusta el límit de baixades global màxim.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Límit global de les pujades</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ajusta el límit de pujada màxim.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Torna a connectar en cas d'un tall de la connexió</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marqueu aquesta casella si voleu que el &kget; torni a connectar després d'un error o una interrupció de la connexió.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Nombre de reintents</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ajusta el nombre màxim de temps que el &kget; tractarà de tornar a connectar.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Reintenta després de</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ajusta l'interval per tornar a connectar (en segons).</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Interfície web</title>
+<para
+>Per activar la interfície web, marqueu <guilabel
+>Habilita la interfície web</guilabel
+>, el port per omissió és 8080, i configureu qualsevol port superior a 1024. A continuació, establiu <guilabel
+>Usuari</guilabel
+> i <guilabel
+>Contrasenya</guilabel
+>. Podeu accedir a la interfície web a .http://127.0.0.1:&lt;port&gt;. Per obtenir accés haureu d'introduir el nom d'usuari i la contrasenya. </para>
+  <screenshot>
+    <screeninfo
+>Interfície web del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Interfície web del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Verificació</title>
+  <para
+>Des d'aquí podreu verificar les vostres baixades.</para>
+  <screenshot>
+    <screeninfo
+>Verificació del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Verificació del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Utilitzant els dos mètodes <guilabel
+>Comprova automàticament les sumes de verificació</guilabel
+> i <guilabel
+>Signatura</guilabel
+> podreu verificar les baixades. Només haureu de marcar la casella de selecció <guilabel
+>Verifica automàticament</guilabel
+>.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Integració</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usa com a gestor de baixades per al Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Podeu establir el &kget; com al gestor de baixades per al &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Controla el porta-retalls pels fitxers a baixar</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Podeu activar aquesta característica perquè se us demani si voleu baixar els &URL; copiats al porta-retalls. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Avançat</title>
+  <para
+>Des d'aquí podreu modificar les opcions avançades.</para>
+  <screenshot>
+    <screeninfo
+>Opcions avançades del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Opcions avançades del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Habilita la icona a la safata del sistema</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Aquesta casella de selecció activa la icona de la safata del sistema del &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Executa una acció quan totes les baixades estiguin finalitzades</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marqueu aquesta casella per activar la sortida del &kget; després que totes les baixades hagin finalitzat. A l'inici podeu escollir <guilabel
+>Restaura l'estat de la baixada</guilabel
+>. Com <guilabel
+>Atura totes les baixades</guilabel
+>/<guilabel
+>Inicia totes les baixades</guilabel
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Dorsal per a l'historial</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Podeu escollir un dorsal per a l'historial com Sqlite o Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Activa el seguiment del progrés global del &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Podeu establir el &kget; per a mostrar cada baixada individual o mostrar el progrés general.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Connectors</title>
+  <screenshot>
+    <screeninfo
+>Opcions dels connectors del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Opcions dels connectors del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>En aquesta pàgina podeu seleccionar els connectors de transferència que s'utilitzaran. Utilitzeu el botó <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> per a canviar la configuració predeterminada d'un connector.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Finestra principal</title>
+<para
+>Descripció de la finestra principal del &kget;</para>
+<screenshot>
+  <screeninfo
+>Captura de pantalla del &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Captura de pantalla del &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>El menú Fitxer</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Baixada nova...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Afegeix un fitxer nou per baixar.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Importa els enllaços...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Importa els enllaços</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Importa els enllaços</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Aquesta acció fa aparèixer una altra finestra, des d'on podreu veure i manipular el fitxer que voleu baixar. També podreu fer una selecció basada en <guilabel
+>Vídeos</guilabel
+>, <guilabel
+>Imatges</guilabel
+>, <guilabel
+>Àudio</guilabel
+> i <guilabel
+>Fitxers</guilabel
+>. També hi ha un quadre de text per a filtrar els resultats.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Importa les transferències...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Carrega un fitxer <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> o <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Exporta la llista de transferències...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Exporta els enllaços ressaltats a un fitxer <filename class="extension"
+>.kgt</filename
+>, per a baixar-los més tard.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Crea un «Metalink»</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Crea un «metalink0»</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Crea un «metalink0»</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Tria entre crear un Metalink nou i carregar-ne un d'existent. Feu clic al botó <guilabel
+>Següent</guilabel
+> per a continuar.</para>
+
+<screenshot>
+  <screeninfo
+>Crea un «metalink1»</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Crea un «metalink1»</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Aquí podeu escollir introduir alguna informació opcional general. Com on es pot obtenir aquest «metalink» (Introduïu l'&URL; al quadre de text <guilabel
+>Origen</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Crea un «metalink2»</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Crea un «metalink2»</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Aquí haureu d'introduir l'&URL; des d'on intenteu baixar el fitxer. També podeu introduir informació opcional, com la preferència (prioritat) per a una rèplica en particular si n'hi afegiu més d'una, per al fitxer que voleu baixar.</para>
+
+<screenshot>
+  <screeninfo
+>Crea un «metalink3»</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Crea un «metalink3»</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Veureu una finestra nova on es mostraran tots els fitxers que voleu importar.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Historial de transferències</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Historial de transferències</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Historial de transferències</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Obrirà una finestra nova des d'on veureu tots els fitxers baixats amb el &kget;. Podeu gestionar el vostre historial des d'aquí, incloure filtres i netejar l'historial. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Surt</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Surt del &kget;.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Crèdits i llicència</title>
+
+<para
+>&kget; </para>
+
+<para
+>Copyright de la documentació &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Gràcies a:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (per haver-me ajudat en les coses relacionades amb DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (copio i enganxo un munt de coses des de l'antiga documentació del &kget;) </para>
+
+<para
+>Traductor/Revisor de la documentació: &credits.Antoni.Bella;</para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

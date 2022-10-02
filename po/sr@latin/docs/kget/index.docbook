@@ -1,0 +1,1102 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Serbian-Latin "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Priručnik za <application
+>KGet</application
+></title>
+
+<authorgroup>
+<author
+><personname
+><firstname
+>Gaurav</firstname
+> <surname
+>Čaturvedi</surname
+></personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Dragan</firstname
+><surname
+>Pantelić</surname
+><affiliation
+><address
+><email
+>falcon-10@gmx.de</email
+></address
+></affiliation
+><contrib
+>prevod</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Čaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>21. 11. 2017.</date>
+<releaseinfo
+>2.95.0 (Programi KDE‑a 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+><application
+>KGet</application
+> je napredni menadžer preuzimanja iz KDE. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>KGet</keyword>
+<keyword
+>KPPP</keyword>
+<keyword
+>preuzimanje</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Uvod</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Pokrenite <application
+>KGet</application
+> (trebalo bi da vidite mesto za spuštanje)/</para
+></listitem>
+    <listitem
+><para
+>Prevucite željeni URL u prozor <application
+>KGeta</application
+> ili na mesto za spuštanje.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Snimak ekrana <application
+>KGeta</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Snimak ekrana <application
+>KGeta</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Mesto za spuštanje u <application
+>KGetu</application
+> </title>
+
+<para
+><application
+>KGetovo</application
+> mesto za spuštanje ima četiri opcije. </para>
+
+<screenshot>
+<screeninfo
+>Snimak ekrana <application
+>KGetovog</application
+> mesta za spuštanje.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Snimak ekrana <application
+>KGetovog</application
+> mesta za spuštanje.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Opcije <application
+>KGetovog</application
+> mesta za spuštanje</title>
+<para
+>Kliknite desnim na mesto za spuštanje da dobijete opcije. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Započni/nastavi sve</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Pokrenite preuzimanje ili nastavite sva preuzimanja na čekanju. Prečica za ovo je <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>R</keycap
+></keycombo
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Prikaži glavni prozor, Sakrij glavni prozor</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Ova opcija prikazuje ili minimizuje glavni prozor u sistemsku kasetu.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Lepljiv</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Čini da se mesto za spuštanje ne može prevlačiti.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Napusti KGet</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Napušta <application
+>KGet</application
+>.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Dijalog za podešavanje <application
+>KGeta</application
+> </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Podešavanje</guimenu
+> <guimenuitem
+>Podesi KGet...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Otvara <application
+>KGetov</application
+> dijalog za podešavanje.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Izgled</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Izgled.</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Izgled.</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Izgled</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ovde možete izmeniti različite elemente izgleda <application
+>KGeta</application
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Mesto za spuštanje</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Ispraznite ovo ako ne želite mesto za spuštanje.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Animacije</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Aktivira neke pomodne animacije.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Grupe</title>
+  <para
+>Preuzimanja možete grupisati.</para>
+  <screenshot>
+  <screeninfo
+>Grupe u <application
+>KGetu</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Grupe u <application
+>KGetu</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Podrazumevane fascikle za grupe kao predlozi</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Popunite ovu kućicu ako želite da <application
+>KGet</application
+> preuzima u podrazumevane fascikle.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Mreža</title>
+  <para
+>Ovde možete izmeniti postavke u vezi sa mrežom.</para>
+  <screenshot>
+  <screeninfo
+>Mreža u <application
+>KGetu</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Mreža u <application
+>KGetu</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Najviše preuzimanja po grupi:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Popunite ovu kućicu da bi se primenjivala ograničenja preuzimanja.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ograničenje brzine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Popunite ovu kućicu da bi se primenjivalo globalna ograničenja brzine.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Globalno ograničenje preuzimanja:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Postavite globalno gornje ograničenje za preuzimanje.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Globalno ograničenje otpremanja:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Postavite globalno gornje ograničenje za otpremanje.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ponovno povezivanje pri prekidu veze</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Popunite ovu kućicu da bi se <application
+>KGet</application
+> ponovo povezao posle greške ili prekida veze.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Broj pokušaja:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Postavite koliko će najviše puta <application
+>KGet</application
+> pokušati da se poveže.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Pokušaj ponovo nakon:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Postavite period između pokušaja (u sekundama).</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Veb sučelje</title>
+<para
+>Veb sučelje aktivirate popunjavanjem <guilabel
+>Upotreba veb sučelja</guilabel
+>. Podrazumevani port je 8080, a možete zadati bilo koji iznad 1024. Zatim popunite <guilabel
+>Korisnik:</guilabel
+> i <guilabel
+>Lozinka:</guilabel
+>. Veb sučelju možete pristupiti na <literal
+>http://127.0.0.1:&lt;port&gt;</literal
+>; unesite korisničko ime i lozinku da biste dobili pristup. </para>
+  <screenshot>
+    <screeninfo
+><application
+>KGetovo</application
+> veb sučelje.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+><application
+>KGetovo</application
+> veb sučelje.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Overa</title>
+  <para
+>Overite preuzimanja.</para>
+  <screenshot>
+    <screeninfo
+>Overa u <application
+>KGetu</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Overa u <application
+>KGetu</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Postoje dva metoda za overu preuzimanja, preko kontrolne sume ili potpisa. Samo treba da popunite kućicu <guilabel
+>Automatska overa</guilabel
+>.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Uklapanje</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Menadžer preuzimanja u K‑osvajaču</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Postavite <application
+>KGet</application
+> za menadžer preuzimanja u <application
+>K‑osvajaču</application
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Prati klipbord za fajlove za preuzimanje</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Možete da uključite mogućnost da budete pitani želite li da preuzmete URL koji ste upravo kopirali u klipbord. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Napredno</title>
+  <para
+>Izmenite napredne opcije.</para>
+  <screenshot>
+    <screeninfo
+>Napredne opcije <application
+>KGeta</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Napredne opcije <application
+>KGeta</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Uključi ikonicu u sistemskoj kaseti</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Popunjavanjem ove kućice aktivirate <application
+>KGetovu</application
+> ikonicu sistemske kasete.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Radnja nakon što se sva preuzimanja završe:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Popunite ovu kućicu da bi <application
+>KGet</application
+> bio napušten pošto se završe sva preuzimanja. Pri pokretanju možete izabrati da obnovite stanje preuzimanja, poput zaustavljanja ili pokretanja svih.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Pozadina istorijata:</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Izaberite da li će pozadina istorijata bili SQLite ili XML.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>KDE‑ovo globalno praćenje napretka</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Možete zadati da <application
+>KGet</application
+> prikazuje svako preuzimanje ponaosob, ili ukupan napredak.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Priključci</title>
+  <screenshot>
+    <screeninfo
+>Opcije priključaka <application
+>KGeta</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Opcije priključaka <application
+>KGeta</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>Na ovoj stranici možete da izaberete koji se priključci za prenos koriste. Kliknite na dugme <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> da promenite podrazumevane postavke datog priključka.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Glavni prozor</title>
+<para
+>Pregled glavnog prozora <application
+>KGeta</application
+>.</para>
+<screenshot>
+  <screeninfo
+>Snimak ekrana <application
+>KGeta</application
+>.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Snimak ekrana <application
+>KGeta</application
+>.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Meni Fajl</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fajl</guimenu
+> <guimenuitem
+>Novo preuzimanje...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Dodaje novi fajl za preuzimanje.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fajl</guimenu
+> <guimenuitem
+>Uvezi veze...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Uvoženje veza.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Uvoženje veza.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Ova radnja poziva prozor u kojem možete pregledati i rukovati fajlovima za preuzimanje. Takođe možete napraviti izbor po tipu (video, slike, audio ili arhive) i filtrirati rezultate.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fajl</guimenu
+> <guimenuitem
+>Uvezi prenose...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Učitava fajl tipa <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> ili <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fajl</guimenu
+> <guimenuitem
+>Izvezi listu prenosa...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Izvozi istaknute veze u <filename class="extension"
+>*.kgt</filename
+> fajl, radi kasnijeg učitavanja.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fajl</guimenu
+> <guimenuitem
+>Napravi metavezu...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Stvaranje MetaLinka (1).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Stvaranje MetaLinka (1).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Stvorite novi ili učitajte postojeći MetaLink. Kliknite na dugme <guibutton
+>Napred</guibutton
+> da nastavite.</para>
+
+<screenshot>
+  <screeninfo
+>Stvaranje MetaLinka (2).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Stvaranje MetaLinka (2).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Ovde možete uneti neke opšte opcione podatke, poput odakle se ovaj MetaLink može nabaviti (unosom URL‑a u polje <guilabel
+>Poreklo:</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Stvaranje MetaLinka (3).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Stvaranje MetaLinka (3).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Ovde treba da unesete URL sa kojeg pokušavate da preuzmete fajl. Možete uneti još neke opcione podatke, poput poželjnosti (prioriteta) datog ogledala (ako ih dodajete više) na koje se fajl može naći.</para>
+
+<screenshot>
+  <screeninfo
+>Stvaranje MetaLinka (4).</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Stvaranje MetaLinka (4).</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Sada bi trebalo da vidite prozor u kome su prikazani svi fajlovi koji će biti uvezeni.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fajl</guimenu
+> <guimenuitem
+>Istorijat prenosa</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Istorijat prenosa.</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Istorijat prenosa.</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Otvara prozor u kojem možete videti sve fajlove preuzete <application
+>KGetom</application
+>. Odavde možete upravljati istorijatom, uključujući filtriranje i čišćenje. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ctrl</keycap
+><keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fajl</guimenu
+> <guimenuitem
+>Napusti</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Napušta <application
+>KGet</application
+>.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Zasluge i licenca</title>
+
+<para
+><application
+>KGet</application
+> </para>
+
+<para
+>Dokumentacija: © 2009, <personname
+><firstname
+>Gaurav</firstname
+> <surname
+>Čaturvedi</surname
+></personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </para>
+<para
+>Zahvalnice:</para>
+
+<para
+><personname
+><firstname
+>An Mari</firstname
+> <surname
+>Mafu</surname
+></personname
+> &Anne-Marie.Mahfouf.mail; (pomoć u vezi sa DocBookom)</para>
+<para
+><personname
+><firstname
+>Džonatan</firstname
+> <othername
+>E.</othername
+> <surname
+>Drus</surname
+></personname
+> &Jonathan.Drews.mail; (preuzeti mnogi delovi iz njegove stare dokumentacije za <application
+>KGet</application
+>) </para>
+
+<para
+>Preveo Dragan Pantelić <email
+>falcon-10@gmx.de</email
+>.</para
+> 
+&underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

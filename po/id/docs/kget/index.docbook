@@ -1,0 +1,991 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Indonesian "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Panduan &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+> <firstname
+>Ndaru</firstname
+> <surname
+>Crown</surname
+><affiliation
+><address
+><email
+>ndarucrown@gmail.com</email
+></address
+></affiliation
+><contrib
+>Penerjemah</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>21-11-2017</date>
+<releaseinfo
+>2.95.0 (Applications 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; adalah salah satu pengelola unduhan yang terkemuka dari &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>unduh</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Pengenalan</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Start &kget; (anda dapat melihat sebuah Drop Target)</para
+></listitem>
+    <listitem
+><para
+>Tarik dan letakkan &URL; yang diperlukan ke dalam Drop Target/window &kget;.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Cuplikan dari &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Cuplikan dari &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>Drop Target &kget; </title>
+
+<para
+>Drop Target pada &kget; memiliki empat opsi. </para>
+
+<screenshot>
+<screeninfo
+>Cuplikan drop target dari &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Cuplikan drop target dari &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Opsi Drop Target pada &kget;</title>
+<para
+>Klik kanan pada drop target untuk melihat opsi-opsinya. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Start / Lanjutkan Semuanya</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Untuk memulai mengunduh atau melanjutkan semua unduhan yang tertunda. Pintasannya adalah <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Tampilkan/Sembunyikan Halaman Utama</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Opsi ini menampilkan atau meminimaliskan halaman utama ke dalam sistem tray.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Sticky</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Membuat drop target &kget; menjadi tidak dapat ditarik.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Berhentikan &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Berhentikan &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Jendela Konfigurasi &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Settingan</guimenu
+> <guimenuitem
+>Konfigurasikan &kget;</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Buka window konfigurasi &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Tampilan</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Tampilan</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Tampilan</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Tampilan</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Di sini Anda dapat mengubah hal-hal yang berhubungan dengan variasi penampilan.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Gunakan Drop Target</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Hilangkan tanda centang di sini jika Anda tidak menginginkan Drop Target &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Nyalakan animasi-animasi</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nyalakan beberapa animasi yang menarik.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Grup</title>
+  <para
+>Anda dapat mengunduh secara grup.</para>
+  <screenshot>
+  <screeninfo
+>Grup &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Grup &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Gunakan folder baku untuk grup sebagai penyaranan</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Tandai kotak ini jika anda ingin &kget; menggunakan folder baku untuk unduhanmu.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Network</title>
+  <para
+>Anda dapat memodifikasi yang berhubungan dengan network Anda di sini.</para>
+  <screenshot>
+  <screeninfo
+>&kget; Network</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Network</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Batasi Maksimal Unduh Per Grup</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Centang kotak ini jika Anda ingin menggunakan pembatasan Unduh.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Batas Kecepatan</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Centang kotak ini jika Anda ingin menggunakan batas kecepatan secara Global.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Batas unduh Global</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Atur batas maksimal unduh global.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Global batas unggahan</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Atur batas maksimal unggah.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Mengoneksikan kembali pada Koneksi yang Buruk</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Centang kotak ini jika Anda menginginkan &kget; untuk mengkoneksikan kembali setelah error atau koneksi yang terputus.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Jumlah pencobaan</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Atur jumlah maksimal berapa kali &kget; akan mencoba mengkoneksikan kembali.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Coba lagi sesudah</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Atur selang waktu pengulangan di sini (dalam detik)</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Tampilan Web</title>
+<para
+>Untuk menyalakan tampilan web, centang <guilabel
+>Tampilkan Tampilan Web</guilabel
+>; port bakunya 8080, dan anda atur berapapun port yang lebih tinggi dari 1024. Kemudian atur <guilabel
+>Pengguna</guilabel
+> dan <guilabel
+>Password</guilabel
+>. Anda dapat mengakses tampilan web anda di http://127.0.0.1:&lt;port&gt;. Anda akan membutuhkan namapengguna dan password untuk dapat mengaksesnya. </para>
+  <screenshot>
+    <screeninfo
+>&kget; Tampilan Web</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Tampilan Web</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Verifikasi</title>
+  <para
+>Verifikasi unduhan Anda.</para>
+  <screenshot>
+    <screeninfo
+>&kget; Verifikasi</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Verifikasi</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Menggunakan dua metode <guilabel
+>Verifikasi checksums otomatis</guilabel
+> dan <guilabel
+>Signatur</guilabel
+> Anda dapat memverifikasi unduh-an Anda. Anda hanya perlu menandai pada kotak <guilabel
+>Verifikasi otomatis</guilabel
+>.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Integrasi</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Gunakan sebagai pengelola unduhan untuk Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Anda dapat menyeting &kget; sebagai pengelola unduhan anda untuk &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Clipboard monitor untuk file yang akan diunduh</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Anda dapat menyalakan fitur ini yang akan menanyakan apakah anda ingin mengunduh &URL; yang terkopikan kedalam papan-klip. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Tingkat-lanjut</title>
+  <para
+>Modifikasi Opsi Tingkat-lanjut.</para>
+  <screenshot>
+    <screeninfo
+>&kget; Opsi Tingkat-lanjut</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Opsi Tingkat-lanjut</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Fungsikan ikon baki sistem</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Kotak centang ini memfungsikan ikon baki sistem &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Lakukan tindakan setelah semua unduhan sudah selesai</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Centang kotak ini untuk memfungsikan Pemberhentian &kget; setelah semua unduh-an selesai. Saat pemulaian Anda dapat memilih untuk Mengembalikan keadaan Unduh. Seperti Hentikan Semua unduh-an/ Mulai Semua unduh-an.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Backend riwayat</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Anda dapat memilih backend histori Anda sebagai Sqlite atau Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Fungsikan pelacakan progres global &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Anda dapat mengatur &kget; untuk menunjukan setiap satuan unduh atau menunjukan progres keseluruhan.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Plugin</title>
+  <screenshot>
+    <screeninfo
+>Opsi Plugin &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Opsi Plugin &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>Di halaman ini Anda dapat memilih transfer plugin yang akan digunakan. Gunakan tombol<inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> untuk mengubah pengaturan baku pada plugin.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Window Utama</title>
+<para
+>Ikhtisar Window Utama &kget;</para>
+<screenshot>
+  <screeninfo
+>Cuplikan dari &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Cuplikan dari &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Menu File</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Unduh Baru...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Tambahkan sebuah file baru untuk diunduh</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Import Link...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Import Link</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Import Link</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Tindakan ini menampilkan window lainnya, dimana Anda dapat melihat dan memanipulasi file mana yang akan diunduh. Juga Anda dapat menggunakan sebuah pilihan berdasarkan pada <guilabel
+>Videos</guilabel
+>, <guilabel
+>Citra</guilabel
+>, <guilabel
+>Audio</guilabel
+> dan <guilabel
+>Arsip</guilabel
+>. Juga terdapat teks box untuk memfilter hasilnya.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Import Transfer...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Muat sebuah file <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> atau <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Daftar Export Transfer...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Export link yang telah dihighlight ke sebuah file <filename class="extension"
+>.kgt</filename
+>, untuk dimuat nanti.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Buat sebuah Metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Buat sebuah metalink0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Buat sebuah Metalink0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Pilih antara membuat sebuah Metalink baru atau memuat Metalink yang telah tersedia. Klik tombol <guilabel
+>Next</guilabel
+> untuk melanjutkan.</para>
+
+<screenshot>
+  <screeninfo
+>Membuat sebuah metalink1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Membuat sebuah Metalink1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Di sini Anda dapat memilih untuk memasukkan beberapa informasi umum secara pilihan. Semisal dimana metalink ini dapat diperoleh (Masukkan &URL;nya pada teks box disamping <guilabel
+>Asal</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Membuat sebuah metalink2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Membuat sebuah Metalink2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Di sini Anda harus memasukkan &URL; darimana Anda akan mengunduh filenya. Juga Anda dapat memasukkan beberapa informasi secara pilihan seperti Preferensi (prioritas), untuk file yang ingin Anda unduh.</para>
+
+<screenshot>
+  <screeninfo
+>Membuat sebuah metalink3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Membuat sebuah Metalink3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Anda dapat melihat sebuah window baru di mana semua file-file anda yang telah diimport akan ditampilkan.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Histori Transfer</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Histori Transfer</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Histori Transfer</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Membuka window baru di mana Anda dapat melihat semua file-file yang telah diunduh menggunakan &kget;. Anda dapat mengatur histori Anda di sini, termasuk memfilter dan menghapus historinya. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Berhenti</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Berhentikan &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Pujian dan Lisensi</title>
+
+<para
+>&kget; </para>
+
+<para
+>Hakcipta dokumentasi &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Terimakasih kepada:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (untuk membantu saya dengan hal-hal yang berhubungan dengan DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (mengkopi dan mempaste banyak bagian dari dokumentasi &kget;nya yang lama) </para>
+
+<para
+>Ndaru C<email
+>ndarucrown@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->

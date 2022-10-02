@@ -1,0 +1,987 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Italian "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Manuale di &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+><affiliation
+><address
+><email
+>toscano.pino@tiscali.it</email
+></address
+></affiliation
+><contrib
+>Traduzione italiana</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2017-11-21</date>
+<releaseinfo
+>2.95.0 (Applications 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; è il gestore scaricamenti creato da &kde; </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>scaricamento</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Introduzione</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Avvia &kget; (dovresti vedere una finestra sagomata)</para
+></listitem>
+    <listitem
+><para
+>Trascina e rilascia l'&URL; sulla finestra di &kget; o sulla finestra sagomata.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Immagine di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Immagine di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>La finestra sagomata di &kget; </title>
+
+<para
+>La finestra sagomata di &kget; ha quattro opzioni. </para>
+
+<screenshot>
+<screeninfo
+>Immagine della finestra sagomata di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Immagine della finestra sagomata di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>Opzioni della finestra sagomata di &kget;</title>
+<para
+>Fai clic col &RMB; sulla finestra sagomata per vedere le opzioni. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Avvia / Riprendi tutto</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Per avviare uno scaricamento o riprendere tutti gli scaricamenti sospesi. La scorciatoia da tastiera per questo è <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+>.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Mostra/nascondi la finestra principale</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Questa opzione mostra o minimizza la finestra principale nel vassoio di sistema.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Attaccato</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Fa sì che la finestra sagomata di &kget; non possa più essere spostata.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Esci da &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Esce da &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>La finestra di configurazione di &kget; </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Impostazioni</guimenu
+> <guimenuitem
+>Configura &kget;...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre la finestra di configurazione di &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Aspetto</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Aspetto</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Aspetto</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Aspetto</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Qui puoi modificare tutto ciò che riguarda l'aspetto di &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usa finestra sagomata</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Disattiva questa casella se non vuoi la finestra sagomata di &kget;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Abilita animazioni</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Abilita qualche semplice animazione.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Gruppi</title>
+  <para
+>Puoi raggruppare gli scaricamenti.</para>
+  <screenshot>
+  <screeninfo
+>I gruppi di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>I gruppi di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usa le cartelle predefinite per gruppi come suggerimento</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marca questa casella se vuoi che &kget; usi per gli scaricamenti le cartelle predefinite.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Rete</title>
+  <para
+>Qui puoi modificare le impostazioni relative alla rete.</para>
+  <screenshot>
+  <screeninfo
+>Rete in &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Rete in &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limita il numero massimo di scaricamenti per gruppo</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marca questa casella se vuoi attivare i limiti degli scaricamenti.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limite di velocità</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marca questa casella se vuoi usare i limiti di velocità globali.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limite per gli scaricamenti globali</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Imposta il limite massimo globale per gli scaricamenti.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Limite per gli invii globali</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Imposta il limite massimo per gli invii.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Riconnessione in caso di connessione interrotta</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marca questa casella se vuoi che &kget; si riconnetta dopo un errore o dopo che la connessione è caduta.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Numero di tentativi</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Imposta il numero massimo di tentativi di connessione che &kget; effettuerà.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Riprova dopo</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Imposta qui l'intervallo (in secondi) tra un tentativo e l'altro</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Interfaccia web</title>
+<para
+>Per abilitare l'interfaccia web, marca la casella <guilabel
+>Abilita interfaccia web</guilabel
+>; la porta predefinita è 8080, e puoi impostare qualunque valore maggiore di 1024. Quindi imposta il nome utente e la password. Puoi accedere all'interfaccia web all'indirizzo http://127.0.0.1&lt;porta&gt;, e dovrai inserire il nome utente e la password. </para>
+  <screenshot>
+    <screeninfo
+>L'interfaccia web di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>L'interfaccia web di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Verifica</title>
+  <para
+>Verifica gli scaricamenti.</para>
+  <screenshot>
+    <screeninfo
+>Verifica di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Verifica di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Puoi verificare gli scaricamenti usando i due metodi <guilabel
+>Verifica automatica del codice di controllo</guilabel
+> e <guilabel
+>Firma</guilabel
+>. Devi solo marcare la casella <guilabel
+>Verifica automatica</guilabel
+>.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Integrazione</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usa KGet come gestore degli scaricamenti in &konqueror;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Puoi impostare &kget; come gestore degli scaricamenti in &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Controlla gli appunti per i file da scaricare</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Puoi attivare questa funzione se vuoi scaricare gli &URL; copiati negli appunti. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Avanzate</title>
+  <para
+>Modifica le opzioni avanzate.</para>
+  <screenshot>
+    <screeninfo
+>Le opzioni avanzate di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Le opzioni avanzate di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Abilita icona del vassoio di sistema</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Questa casella abilita l'icona di &kget; nel vassoio di sistema.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Esegui azione quando tutti gli scaricamenti sono terminati</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Marca questa casella per abilitare l'uscita da &kget; dopo che tutti gli scaricamenti sono stati completati. Per quanto riguarda l'avvio, puoi scegliere di ripristinare lo stato degli scaricamenti, avviarli tutti o fermarli tutti.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Backend di cronologia</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Puoi scegliere il backend da usare per la cronologia, «Sqlite» o «Xml».</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Abilita il tracciamento dell'avanzamento globale di &kde;</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Puoi impostare che &kget; mostri ogni scaricamento singolo oppure il progresso complessivo.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Estensioni</title>
+  <screenshot>
+    <screeninfo
+>Le opzioni delle estensioni di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Le opzioni delle estensioni di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>In questa pagina puoi selezionare le estensioni di trasferimento da usare. Usa il pulsante <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> per modificare le opzioni di un'estensione.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>La finestra principale</title>
+<para
+>Panoramica della finestra principale di &kget;</para>
+<screenshot>
+  <screeninfo
+>Immagine di &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Immagine di &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Il menu File</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Nuovo scaricamento...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Aggiungi un nuovo file da scaricare</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Importa collegamenti...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Importa collegamenti</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Importa collegamenti</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Questa azione apre un'altra finestra dove puoi vedere e manipolare quali file scaricare. Puoi anche scegliere in base al tipo: <guilabel
+>Video</guilabel
+>, <guilabel
+>Immagini</guilabel
+>, <guilabel
+>Audio</guilabel
+> e <guilabel
+>Archivi</guilabel
+>. C'è anche una casella di testo per filtrare i risultati.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Importa trasferimenti...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Carica un file <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> o <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Esporta lista trasferimenti...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Esporta in un file <filename class="extension"
+>.kgt</filename
+> i collegamenti evidenziati, per essere caricati in seguito.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Crea un metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Creazione di un metalink, passo 0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Creazione di un metalink, passo 0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Scegli se creare un nuovo metalink o caricare un metalink esistente. Premi <guilabel
+>Successivo</guilabel
+> per procedere.</para>
+
+<screenshot>
+  <screeninfo
+>Creazione di un metalink, passo 1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Creazione di un metalink, passo 1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Qui puoi inserire alcune informazioni generali facoltative, ad esempio da dove può essere scaricato questo metalink (inserisci l'&URL; nella casella di testo accanto a <guilabel
+>Origine</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Creazione di un metalink, passo 2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Creazione di un metalink, passo 2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Qui devi inserire l'&URL; da cui scaricare il file. Puoi anche inserire alcune informazioni aggiuntive come la priorità di un mirror particolare nel caso in cui stia aggiungendo più di un mirror per il file.</para>
+
+<screenshot>
+  <screeninfo
+>Creazione di un metalink, passo 3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Creazione di un metalink, passo 3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Dovresti vedere una nuova finestra in cui saranno mostrati tutti i file che saranno importati.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Cronologia dei trasferimenti</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>La cronologia dei trasferimenti</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>La cronologia dei trasferimenti</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Apre una nuova finestra dove puoi vedere tutti i file scaricati da &kget;. Qui puoi gestire la cronologia, con la possibilità di filtrare gli elementi e di pulire la cronologia. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Esci</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Esce da &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Riconoscimenti e licenza</title>
+
+<para
+>&kget; </para>
+
+<para
+>Copyright della documentazione &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Ringraziamenti:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (per avermi aiutato riguardo a DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (sono state copiate molte cose dalla sua vecchia documentazione di &kget;) </para>
+
+<para
+>Traduzione italiana di Pino Toscano <email
+>toscano.pino@tiscali.it</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->
