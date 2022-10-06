@@ -3176,7 +3176,7 @@ msgstr "Historial de transferències"
 #: ui/history/transferhistory.cpp:72
 #, kde-format
 msgid "&Open File"
-msgstr "&Obri fitxer"
+msgstr "O&bri fitxer"
 
 #: ui/history/transferhistory.cpp:214
 #, kde-format
@@ -3370,7 +3370,7 @@ msgstr "Obri fitxer"
 #: ui/kgetui.rc:5
 #, kde-format
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #. i18n: ectx: Menu (Downloads)
 #: ui/kgetui.rc:17
@@ -4097,7 +4097,7 @@ msgstr "Canvia el nom %1 a:"
 #: ui/renamefile.cpp:42
 #, kde-format
 msgid "&Rename"
-msgstr "&Canvia el nom"
+msgstr "Ca&nvia el nom"
 
 #: ui/signaturedlg.cpp:42
 #, kde-format
