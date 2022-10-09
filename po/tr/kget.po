@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-02 00:45+0000\n"
-"PO-Revision-Date: 2022-06-30 13:43+0300\n"
+"PO-Revision-Date: 2022-10-08 13:06+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 22.08.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -2339,8 +2339,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
 #, kde-format
 msgid "Only peers which have an upload slot will get data from us"
-msgstr ""
-"Yalnızca, bir gönderme (upload) yuvası olan akranlar bizden veri alacak"
+msgstr "Yalnızca, bir karşıya gönderme yuvası olan eşler bizden veri alacak"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
