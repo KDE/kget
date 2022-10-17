@@ -703,7 +703,7 @@ msgstr ""
 #: core/kget.cpp:1034 core/urlchecker.cpp:641
 #, kde-format
 msgid "Download it again?"
-msgstr "El torne a baixar?"
+msgstr "El voleu tornar a baixar?"
 
 #: core/kget.cpp:1046 core/urlchecker.cpp:426
 #, kde-format
@@ -718,12 +718,12 @@ msgstr ""
 "\n"
 "%1\n"
 "\n"
-"La suprimisc i torne a baixar-la?"
+"La voleu suprimir i tornar a baixar?"
 
 #: core/kget.cpp:1047 core/urlchecker.cpp:638
 #, kde-format
 msgid "Delete it and download again?"
-msgstr "La suprimisc i torne a baixar-la?"
+msgstr "La voleu suprimir i tornar a baixar?"
 
 #: core/kget.cpp:1070 core/kget.cpp:1077
 #, kde-format
@@ -1208,7 +1208,7 @@ msgid ""
 "Delete it and download again?"
 msgstr ""
 "Hi ha una baixada en curs des d'esta ubicació.\n"
-"La suprimisc i torne a baixar-la?"
+"La voleu suprimir i tornar a baixar?"
 
 #: core/urlchecker.cpp:412
 #, kde-format
@@ -1293,7 +1293,7 @@ msgid ""
 "Delete them and download again?"
 msgstr ""
 "Hi ha algunes baixades en curs a estes destinacions.\n"
-"Les suprimisc i torne a baixar-les?"
+"Les voleu suprimir i tornar a baixar?"
 
 #: core/urlchecker.cpp:512
 #, kde-format
@@ -1311,7 +1311,7 @@ msgid ""
 "Delete them and download again?"
 msgstr ""
 "Hi ha algunes baixades en curs des d'estes ubicacions.\n"
-"Les suprimisc i torne a baixar-les?"
+"Les voleu suprimir i tornar a baixar?"
 
 #: core/urlchecker.cpp:523
 #, kde-format
@@ -1352,7 +1352,7 @@ msgstr ""
 "\n"
 "%1\n"
 "\n"
-"Les suprimisc i torne a baixar-les?"
+"Les voleu suprimir i tornar a baixar?"
 
 #: core/urlchecker.cpp:535
 #, kde-format
@@ -1382,7 +1382,7 @@ msgstr ""
 "\n"
 "%1\n"
 "\n"
-"Les suprimisc i torne a baixar-les?"
+"Les voleu suprimir i tornar a baixar?"
 
 #: core/verificationmodel.cpp:152
 #, kde-format
@@ -1570,7 +1570,7 @@ msgstr "Execució d'una prova unitària"
 #: main.cpp:139
 #, kde-format
 msgid "URL(s) to download"
-msgstr "Els URL a baixar"
+msgstr "Els URL que s'han de baixar"
 
 #: mainwindow.cpp:147
 #, kde-format
@@ -2030,7 +2030,7 @@ msgstr "No baixes"
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Delete File(s)"
-msgstr "Suprimix el fitxer(s)"
+msgstr "Suprimix els fitxers"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
@@ -2498,8 +2498,8 @@ msgstr ""
 "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
 "size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Sembrador web a afegir al "
-"torrent.</p>\n"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Sembrador web que "
+"s'afegirà al torrent.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
 "p>\n"
@@ -3080,8 +3080,8 @@ msgstr "Finestra on deixar anar la destinació"
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr ""
-"Podeu arrossegar els enllaços a baixar dins la finestra on deixar anar la "
-"destinació."
+"Podeu arrossegar els enllaços que es baixaran dins la finestra on deixar "
+"anar la destinació."
 
 #: ui/droptarget.cpp:416
 #, kde-format
@@ -3400,7 +3400,7 @@ msgstr "Barra d'eines principal"
 #: ui/linkview/importlinkdialog.ui:34
 #, kde-format
 msgid "File with &links to import:"
-msgstr "Fitxer amb els en&llaços a importar:"
+msgstr "Fitxer amb els en&llaços que s'han d'importar:"
 
 #. i18n: ectx: property (text), widget (QPushButton, importLinks)
 #: ui/linkview/importlinkdialog.ui:50
