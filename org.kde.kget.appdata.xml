@@ -5,7 +5,6 @@
   <project_license>GPL-2.0+</project_license>
   <name>KGet</name>
   <name xml:lang="ar">كجت</name>
-  <name xml:lang="ast">KGet</name>
   <name xml:lang="bg">KGet</name>
   <name xml:lang="ca">KGet</name>
   <name xml:lang="ca-valencia">KGet</name>
@@ -40,7 +39,6 @@
   <name xml:lang="zh-TW">KGet</name>
   <summary>Download Manager</summary>
   <summary xml:lang="ar">مدير التّنزيل</summary>
-  <summary xml:lang="ast">Xestor de descargues</summary>
   <summary xml:lang="bg">Мениджър на изтегляния</summary>
   <summary xml:lang="ca">Gestor de baixades</summary>
   <summary xml:lang="ca-valencia">Gestor de baixades</summary>
@@ -78,7 +76,6 @@
      KGet is a versatile and user-friendly download manager.
     </p>
     <p xml:lang="ar">كجت هو مدير تنزيل متعدد الاستخدامات وسهل الاستخدام.</p>
-    <p xml:lang="ast">KGet ye un xestor de descargues versátil y amañosu.</p>
     <p xml:lang="bg">KGet е гъвкава и потребителска ориентирана програма за управления на изтегляния.</p>
     <p xml:lang="ca">El KGet és un gestor de baixades versàtil i fàcil d'emprar.</p>
     <p xml:lang="ca-valencia">KGet és un gestor de baixades versàtil i fàcil d'emprar.</p>
@@ -112,7 +109,6 @@
     <p xml:lang="zh-TW">KGet 是款多功能且使用者友善的下載管理器。</p>
     <p>Features:</p>
     <p xml:lang="ar">المميزات:</p>
-    <p xml:lang="ast">Carauterístiques:</p>
     <p xml:lang="bg">Функции:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
@@ -148,7 +144,6 @@
     <ul>
       <li>Downloading files from FTP and HTTP(S) sources.</li>
       <li xml:lang="ar">تحميل الملفات من مصادر FTP و HTTP(s)</li>
-      <li xml:lang="ast">Descarga de ficheros dende oríxenes FTP, HTTP y HTTPS.</li>
       <li xml:lang="bg">Изтегляне на файлове от FTP и HTTP(S) източници.</li>
       <li xml:lang="ca">Baixa fitxers des de fonts FTP i HTTP/S.</li>
       <li xml:lang="ca-valencia">Baixa fitxers des de fonts FTP i HTTP/S.</li>
@@ -182,7 +177,6 @@
       <li xml:lang="zh-TW">從 FTP 和 HTTP(S) 來源下載檔案。</li>
       <li>Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
       <li xml:lang="ar">إيقاف تنزيل الملفات مؤقتًا واستئنافها ، بالإضافة إلى القدرة على إعادة تشغيل التنزيل.</li>
-      <li xml:lang="ast">Posa y sigue colos ficheros de descarga, amás de poder reaniciar les descargues.</li>
       <li xml:lang="bg">Паузиране и възобновяване на изтегляния, както и възможност за рестартиране на изтегляне.</li>
       <li xml:lang="ca">Fa pausa i reprèn la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="ca-valencia">Fa pausa i reprén la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
@@ -215,7 +209,6 @@
       <li xml:lang="zh-TW">暫停及繼續下載檔案，以及重新開始下載的能力。</li>
       <li>Tells lots of information about current and pending downloads.</li>
       <li xml:lang="ar">يعطي الكثير من المعلومات حول التنزيلات الحالية والمعلقة.</li>
-      <li xml:lang="ast">Diz muncha información tocante a les descargues actuales y pendientes.</li>
       <li xml:lang="bg">Дава много информация за текущи и предстоящи изтегляния.</li>
       <li xml:lang="ca">Dona molta informació sobre les baixades actuals i pendents.</li>
       <li xml:lang="ca-valencia">Dona molta informació sobre les baixades actuals i pendents.</li>
@@ -248,7 +241,6 @@
       <li xml:lang="zh-TW">顯示關於目前和待下載項目的詳細資訊。</li>
       <li>Embedding into system tray.</li>
       <li xml:lang="ar">مضمّن في صينية النظام.</li>
-      <li xml:lang="ast">Incrustación na bandexa del sistema.</li>
       <li xml:lang="bg">Интегрира се в системната област.</li>
       <li xml:lang="ca">Està incrustat a la safata del sistema.</li>
       <li xml:lang="ca-valencia">Està incrustat a dins de la safata del sistema.</li>
@@ -282,7 +274,6 @@
       <li xml:lang="zh-TW">嵌入到系統通知區塊。</li>
       <li>Integration with the Konqueror web browser.</li>
       <li xml:lang="ar">متكامل مع متصفح الويب كنكرر.</li>
-      <li xml:lang="ast">Integración col restolador web Konqueror.</li>
       <li xml:lang="bg">Интегриране в Konqueror.</li>
       <li xml:lang="ca">S'integra amb el navegador web Konqueror.</li>
       <li xml:lang="ca-valencia">S'integra amb el navegador web Konqueror.</li>
@@ -316,7 +307,6 @@
       <li xml:lang="zh-TW">能與 Konqueror 網頁瀏覽器整合。</li>
       <li>Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
       <li xml:lang="ar">دعم ميتالينك الذي يحتوي على عناوين متعددة للتنزيل، جنبًا إلى جنب مع المجاميع والمعلومات الأخرى.</li>
-      <li xml:lang="ast">Sofitu pa metaenllaces que contienen munches URLs pa descargues, xunto coles sumes de comprobación y otra información.</li>
       <li xml:lang="bg">Поддръжка на Metalink с множество URL-адреси за сваляне, наред с контролни суми и друга информация.</li>
       <li xml:lang="ca">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
       <li xml:lang="ca-valencia">Admet «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
@@ -357,7 +347,6 @@
     <screenshot type="default">
       <caption>Downloading files with KGet</caption>
       <caption xml:lang="ar">تنزيل الملفات بواسطة </caption>
-      <caption xml:lang="ast">Descarga de ficheros con KGet</caption>
       <caption xml:lang="bg">Изтегляне на файлове с KGet</caption>
       <caption xml:lang="ca">Baixada de fitxers amb el KGet</caption>
       <caption xml:lang="ca-valencia">Baixada de fitxers amb KGet</caption>
