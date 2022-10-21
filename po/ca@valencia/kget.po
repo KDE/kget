@@ -4244,7 +4244,7 @@ msgid ""
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
 "La verificació no es pot fer. Comproveu les dades introduïdes, si s'està "
-"executant «gpg-agent», o si teniu una connexió a Internet (per a recuperar "
+"executant «gpg-agent», o si teniu una connexió amb Internet (per a recuperar "
 "les claus)."
 
 #: ui/signaturedlg.cpp:313
