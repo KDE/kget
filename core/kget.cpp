@@ -34,6 +34,7 @@
 #include <algorithm>
 #include <iostream>
 
+#include <kwidgetsaddons_version.h>
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <KActionCollection>
@@ -115,10 +116,19 @@ void KGet::delGroup(TransferGroupHandler *group, bool askUser)
 
     if (askUser) {
         QWidget *configDialog = KConfigDialog::exists("preferences");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::warningTwoActions(configDialog ? configDialog : m_mainWindow,
+#else
         if (KMessageBox::warningYesNo(configDialog ? configDialog : m_mainWindow,
+#endif
                         i18n("Are you sure that you want to remove the group named %1?", g->name()),
                         i18n("Remove Group"),
-                        KStandardGuiItem::remove(), KStandardGuiItem::cancel()) != KMessageBox::Yes)
+                        KStandardGuiItem::remove(), KStandardGuiItem::cancel())
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::SecondaryAction)
+#else
+            == KMessageBox::No)
+#endif
             return;
     }
 
@@ -140,11 +150,20 @@ void KGet::delGroups(QList<TransferGroupHandler*> groups, bool askUser)
         foreach (TransferGroupHandler * handler, groups)
             names << handler->name();
         QWidget * configDialog = KConfigDialog::exists("preferences");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        del = KMessageBox::warningTwoActionsList(configDialog ? configDialog : m_mainWindow,
+#else
         del = KMessageBox::warningYesNoList(configDialog ? configDialog : m_mainWindow,
+#endif
               i18n("Are you sure that you want to remove the following groups?"),
               names,
               i18n("Remove groups"),
-              KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::Yes;
+              KStandardGuiItem::remove(), KStandardGuiItem::cancel())
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+              == KMessageBox::PrimaryAction;
+#else
+              == KMessageBox::Yes;
+#endif
     }
     if (del) {
         foreach (TransferGroupHandler * handler, groups)
@@ -570,11 +589,21 @@ void KGet::save( QString filename, bool plain ) // krazy:exclude=passbyvalue
 {
     if ( !filename.isEmpty()
         && QFile::exists( filename )
-        && (KMessageBox::questionYesNoCancel(nullptr,
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        && (KMessageBox::questionTwoActions(nullptr,
+#else
+        && (KMessageBox::questionYesNo(nullptr,
+#endif
                 i18n("The file %1 already exists.\nOverwrite?", filename),
-                i18n("Overwrite existing file?"), KStandardGuiItem::yes(),
-                KStandardGuiItem::no(), KStandardGuiItem::cancel(), "QuestionFilenameExists" )
-                != KMessageBox::Yes) )
+                i18n("Overwrite existing file?"),
+                KStandardGuiItem::overwrite(),
+                KStandardGuiItem::cancel(),
+                "QuestionFilenameExists" )
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                == KMessageBox::SecondaryAction) )
+#else
+                == KMessageBox::No) )
+#endif
         return;
 
     if(filename.isEmpty()) {
@@ -1029,11 +1058,20 @@ bool KGet::isValidSource(const QUrl &source)
     {
         if (transfer->status() == Job::Finished) {
             // transfer is finished, ask if we want to download again
-            if (KMessageBox::questionYesNoCancel(nullptr,
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (KMessageBox::questionTwoActions(nullptr,
+#else
+            if (KMessageBox::questionYesNo(nullptr,
+#endif
                     i18n("You have already completed a download from the location: \n\n%1\n\nDownload it again?", source.toString()),
-                    i18n("Download it again?"), KStandardGuiItem::yes(),
-                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
+                    i18n("Download it again?"),
+                    KGuiItem(i18nc("@action:button", "Download Again"), QStringLiteral("document-save")),
+                    KGuiItem(i18nc("@action:button", "Skip"), QStringLiteral("dialog-cancel")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                    == KMessageBox::PrimaryAction) {
+#else
                     == KMessageBox::Yes) {
+#endif
                 transfer->stop();
                 KGet::delTransfer(transfer->handler());
                 return true;
@@ -1042,11 +1080,20 @@ bool KGet::isValidSource(const QUrl &source)
                 return false;
         }
         else {
-            if (KMessageBox::warningYesNoCancel(nullptr,
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (KMessageBox::warningTwoActions(nullptr,
+#else
+            if (KMessageBox::warningYesNo(nullptr,
+#endif
                     i18n("You have a download in progress from the location: \n\n%1\n\nDelete it and download again?", source.toString()),
-                    i18n("Delete it and download again?"), KStandardGuiItem::yes(),
-                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
+                    i18n("Delete it and download again?"),
+                    KGuiItem(i18nc("@action:button", "Download Again"), QStringLiteral("document-save")),
+                    KGuiItem(i18nc("@action:button", "Skip"), QStringLiteral("dialog-cancel")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                    == KMessageBox::PrimaryAction) {
+#else
                     == KMessageBox::Yes) {
+#endif
                 transfer->stop();
                 KGet::delTransfer(transfer->handler());
                 return true;
@@ -1101,11 +1148,20 @@ QUrl KGet::getValidDestUrl(const QUrl& destDir, const QUrl &srcUrl)
 
     if (existingTransferDest) {
         if (existingTransferDest->status() == Job::Finished) {
-            if (KMessageBox::questionYesNoCancel(nullptr,
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (KMessageBox::questionTwoActions(nullptr,
+#else
+            if (KMessageBox::questionYesNo(nullptr,
+#endif
                     i18n("You have already downloaded that file from another location.\n\nDownload and delete the previous one?"),
-                    i18n("File already downloaded. Download anyway?"), KStandardGuiItem::yes(),
-                    KStandardGuiItem::no(), KStandardGuiItem::cancel())
+                    i18n("File already downloaded. Download anyway?"),
+                    KGuiItem(i18nc("@action:button", "Download Again"), QStringLiteral("document-save")),
+                    KGuiItem(i18nc("@action:button", "Skip"), QStringLiteral("dialog-cancel")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                    == KMessageBox::PrimaryAction) {
+#else
                     == KMessageBox::Yes) {
+#endif
                 existingTransferDest->stop();
                 KGet::delTransfer(existingTransferDest->handler());
                 //start = true;

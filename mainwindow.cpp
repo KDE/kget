@@ -41,6 +41,7 @@
 #include "kget_debug.h"
 #include <QDebug>
 
+#include <kwidgetsaddons_version.h>
 #include <KActionMenu>
 #include <KIconDialog>
 #include <KLocalizedString>
@@ -435,11 +436,21 @@ void MainWindow::init()
     m_drop = new DropTarget(this);
 
     if (Settings::firstRun()) {
-        if (KMessageBox::questionYesNoCancel(this ,i18n("This is the first time you have run KGet.\n"
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::questionTwoActions(this,
+#else
+        if (KMessageBox::questionYesNo(this,
+#endif
+                                       i18n("This is the first time you have run KGet.\n"
                                              "Would you like to enable KGet as the download manager for Konqueror?"),
-                                             i18n("Konqueror Integration"), KGuiItem(i18n("Enable")),
-                                             KGuiItem(i18n("Do Not Enable")))
+                                       i18n("Konqueror Integration"),
+                                       KGuiItem(i18n("Enable")),
+                                       KGuiItem(i18n("Do Not Enable")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                                             == KMessageBox::PrimaryAction) {
+#else
                                              == KMessageBox::Yes) {
+#endif
             Settings::setKonquerorIntegration(true);
             m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
             slotKonquerorIntegration(true);
@@ -570,12 +581,21 @@ void MainWindow::slotGroupsChanged(QMap<TransferGroupHandler*, TransferGroup::Ch
 void MainWindow::slotQuit()
 {
     if (KGet::schedulerRunning()) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::warningTwoActions(this,
+#else
         if (KMessageBox::warningYesNo(this,
+#endif
                 i18n("Some transfers are still running.\n"
                      "Are you sure you want to close KGet?"),
                 i18n("Confirm Quit"),
                 KStandardGuiItem::quit(), KStandardGuiItem::cancel(),
-                "ExitWithActiveTransfers") != KMessageBox::Yes)
+                "ExitWithActiveTransfers")
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::SecondaryAction)
+#else
+            == KMessageBox::No)
+#endif
             return;
     }
 
@@ -718,11 +738,20 @@ void MainWindow::slotDeleteSelected()
     foreach (TransferHandler * it, KGet::selectedTransfers())
     {
         if (it->status() != Job::Finished && it->status() != Job::FinishedKeepAlive) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (KMessageBox::warningTwoActions(this,
+#else
             if (KMessageBox::warningYesNo(this,
+#endif
                     i18np("Are you sure you want to delete the selected transfer?", 
                           "Are you sure you want to delete the selected transfers?", KGet::selectedTransfers().count()),
                     i18n("Confirm transfer delete"),
-                    KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No)
+                    KStandardGuiItem::remove(), KStandardGuiItem::cancel())
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                == KMessageBox::SecondaryAction)
+#else
+                == KMessageBox::No)
+#endif
             {
                 return;
             }
@@ -747,11 +776,20 @@ void MainWindow::slotDeleteSelectedIncludingFiles()
     const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
 
     if (!selectedTransfers.isEmpty()) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::warningTwoActions(this,
+#else
         if (KMessageBox::warningYesNo(this,
+#endif
                 i18np("Are you sure you want to delete the selected transfer including files?", 
                         "Are you sure you want to delete the selected transfers including files?", selectedTransfers.count()),
                 i18n("Confirm transfer delete"),
-                KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::No) {
+                KStandardGuiItem::remove(), KStandardGuiItem::cancel())
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::SecondaryAction) {
+#else
+            == KMessageBox::No) {
+#endif
             return;
         }
         foreach (TransferHandler *it, selectedTransfers) {
@@ -1198,13 +1236,26 @@ void MainWindow::dropEvent(QDropEvent * event)
     {
         if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt")))
         {
-            int msgBoxResult = KMessageBox::questionYesNoCancel(this, i18n("The dropped file is a KGet Transfer List"), "KGet",
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            int msgBoxResult = KMessageBox::questionTwoActionsCancel(this,
+#else
+            int msgBoxResult = KMessageBox::questionYesNoCancel(this,
+#endif
+                                                                i18n("The dropped file is a KGet Transfer List"), "KGet",
                                    KGuiItem(i18n("&Download"), QIcon::fromTheme("document-save")), 
                                        KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")), KStandardGuiItem::cancel());
 
-            if (msgBoxResult == 3) //Download
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (msgBoxResult == KMessageBox::PrimaryAction) //Download
+#else
+            if (msgBoxResult == KMessageBox::Yes) //Download
+#endif
                 NewTransferDialogHandler::showNewTransferDialog(list.first());
-            if (msgBoxResult == 4) //Load
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (msgBoxResult == KMessageBox::SecondaryAction) //Load
+#else
+            if (msgBoxResult == KMessageBox::No) //Load
+#endif
                 KGet::load(list.first().url());
         }
         else

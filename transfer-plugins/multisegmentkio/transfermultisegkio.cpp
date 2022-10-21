@@ -27,6 +27,7 @@
 
 #include "kget_debug.h"
 
+#include <kwidgetsaddons_version.h>
 #include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -254,14 +255,29 @@ void TransferMultiSegKio::slotVerified(bool isVerified)
     }
 
     if (!isVerified) {
-        QString text = i18n("The download (%1) could not be verified. Do you want to repair it?", m_dest.fileName());
-
-        if (!verifier()->partialChunkLength()) {
+        QString text;
+        KGuiItem action;
+        if (verifier()->partialChunkLength()) {
+            text = i18n("The download (%1) could not be verified. Do you want to repair it?", m_dest.fileName());
+            action = KGuiItem(i18nc("@action:button", "Repair"));
+        } else {
             text = i18n("The download (%1) could not be verified. Do you want to redownload it?", m_dest.fileName());
+            action = KGuiItem(i18nc("@action:button", "Download Again"), QStringLiteral("document-save"));
         }
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::warningTwoActions(nullptr,
+#else
         if (KMessageBox::warningYesNo(nullptr,
+#endif
                                       text,
-                                      i18n("Verification failed.")) == KMessageBox::Yes) {
+                                      i18n("Verification failed."),
+                                      action,
+                                      KGuiItem(i18n("Ignore"), QStringLiteral("dialog-cancel")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::PrimaryAction) {
+#else
+            == KMessageBox::Yes) {
+#endif
             repair();
         }
     }

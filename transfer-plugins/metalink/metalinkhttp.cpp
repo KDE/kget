@@ -26,6 +26,7 @@
 
 #include "kget_debug.h"
 
+#include <kwidgetsaddons_version.h>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
@@ -156,9 +157,20 @@ void MetalinkHttp::slotSignatureVerified()
 
         if (brokenFiles.count())
         {
-            if (KMessageBox::warningYesNoCancelList(nullptr,
-                i18n("The download could not be verified, try to repair it?"),
-                     brokenFiles) == KMessageBox::Yes) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (KMessageBox::warningTwoActionsList(nullptr,
+#else
+            if (KMessageBox::warningYesNoList(nullptr,
+#endif
+                    i18n("The download could not be verified, try to repair it?"),
+                    brokenFiles, QString(),
+                    KGuiItem(i18nc("@action:button", "Repair")),
+                    KGuiItem(i18nc("@action:button", "Ignore"), QStringLiteral("dialog-cancel")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                == KMessageBox::PrimaryAction) {
+#else
+                == KMessageBox::Yes) {
+#endif
                     if (repair()) {
                     KGet::addTransfer(m_metalinkxmlUrl);
                     //TODO Use a Notification instead. Check kget.h for how to use it.

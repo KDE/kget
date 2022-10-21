@@ -26,6 +26,7 @@
 #include <QMenu>
 #include <QSortFilterProxyModel>
 
+#include <kwidgetsaddons_version.h>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -265,7 +266,19 @@ namespace kt
 		QString msg = i18np("You will lose all data in this file, are you sure you want to do this?",
                             "You will lose all data in these files, are you sure you want to do this?", n);
 				
-		if (KMessageBox::warningYesNo(nullptr, msg) == KMessageBox::Yes)
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+		if (KMessageBox::warningTwoActions(nullptr,
+#else
+		if (KMessageBox::warningYesNo(nullptr,
+#endif
+					      msg. QString(),
+					      KStandardGuiItem::del(), KStandardGuiItem::cancel()
+					      )
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+		    == KMessageBox::PrimaryAction)
+#else
+		    == KMessageBox::Yes)
+#endif
 			changePriority(EXCLUDED);
 	}
 	

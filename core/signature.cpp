@@ -23,6 +23,8 @@
 
 #include "kget_debug.h"
 #include <QDebug>
+
+#include <kwidgetsaddons_version.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -226,8 +228,19 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
     if (d->sigSummary & GpgME::Signature::KeyMissing) {
         qCDebug(KGET_DEBUG) << "Public key missing.";
         if (Settings::signatureAutomaticDownloading() ||
-            (KMessageBox::warningYesNoCancel(nullptr,
-             i18n("The key to verify the signature is missing, do you want to download it?")) == KMessageBox::Yes)) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            (KMessageBox::warningTwoActions(nullptr,
+#else
+            (KMessageBox::warningYesNo(nullptr,
+#endif
+                 i18n("The key to verify the signature is missing, do you want to download it?"), QString(),
+                 KGuiItem(i18nc("@action:button", "Download"), QStringLiteral("document-save")),
+                 KGuiItem(i18nc("@action:button", "Continue Without"), QStringLiteral("dialog-cancel")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::PrimaryAction)) {
+#else
+            == KMessageBox::Yes)) {
+#endif
             d->verifyTried = true;
             downloadKey(d->fingerprint);
             Q_EMIT verified(d->status);

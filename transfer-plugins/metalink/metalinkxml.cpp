@@ -28,6 +28,7 @@
 
 #include <algorithm>
 
+#include <kwidgetsaddons_version.h>
 #include <KConfigGroup>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
@@ -113,8 +114,20 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
     //offers a dialog to download the newest version of a dynamic metalink
      if ((m_source.isLocalFile() || !m_metalinkJustDownloaded) &&
          m_metalink.dynamic && (UrlChecker::checkSource(m_metalink.origin) == UrlChecker::NoError)) {
-        if (KMessageBox::questionYesNo(nullptr, i18n("A newer version of this Metalink might exist, do you want to download it?"),
-                                       i18n("Redownload Metalink")) == KMessageBox::Yes) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::questionTwoActions(nullptr,
+#else
+        if (KMessageBox::questionYesNo(nullptr,
+#endif
+                                       i18n("A newer version of this Metalink might exist, do you want to download it?"),
+                                       i18n("Redownload Metalink"),
+                                       KGuiItem(i18nc("@action:button", "Download Again"), QStringLiteral("view-refresh")),
+                                       KGuiItem(i18nc("@action:button", "Ignore"), QStringLiteral("dialog-cancel")))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::PrimaryAction) {
+#else
+            == KMessageBox::Yes) {
+#endif
             m_localMetalinkLocation.clear();
             m_source = m_metalink.origin;
             downloadMetalink();
