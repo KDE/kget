@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-08-17 17:47+0200\n"
+"PO-Revision-Date: 2022-10-22 09:27+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -711,8 +711,7 @@ msgstr "El torno a baixar?"
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Torna a baixar"
@@ -721,7 +720,7 @@ msgstr "Torna a baixar"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Omet"
 
 #: core/kget.cpp:1088 core/urlchecker.cpp:426
 #, kde-format
@@ -944,17 +943,16 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "No s'ha trobat la clau per a verificar la signatura. Voleu baixar-la?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "Baixada"
+msgstr "Baixa"
 
 #: core/signature.cpp:238
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Continua sense"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2911,7 +2909,7 @@ msgstr "No s'ha pogut verificar la baixada (%1). Voleu reparar-la?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Repara"
 
 #: transfer-plugins/kio/transferKio.cpp:287
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
@@ -2929,7 +2927,7 @@ msgstr "La verificació ha fallat."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignora"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:222
 #: transfer-plugins/metalink/metalink.cpp:506
@@ -2949,7 +2947,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignora"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -4563,98 +4561,3 @@ msgstr "&Verifica"
 #, kde-format
 msgid "Close"
 msgstr "Tanca"
-
-#~ msgctxt "Transfer state: processing script"
-#~ msgid "Processing script...."
-#~ msgstr "S'està processant l'script..."
-
-#~ msgctxt "Transfer State: Finished"
-#~ msgid "Finished"
-#~ msgstr "Finalitzada"
-
-#~ msgctxt "Transfer State: Aborted"
-#~ msgid "Aborted"
-#~ msgstr "Interrompuda"
-
-#~ msgctxt "Configure script"
-#~ msgid "Configure script"
-#~ msgstr "Configura l'script"
-
-#~ msgid "User Scripts"
-#~ msgstr "Scripts de l'usuari"
-
-#~ msgid "Path"
-#~ msgstr "Camí"
-
-#~ msgid "RegExp"
-#~ msgstr "Expressió regular"
-
-#~ msgid "New Script...."
-#~ msgstr "Script nou..."
-
-#~ msgid "Edit...."
-#~ msgstr "Edita..."
-
-#~ msgid "Configure...."
-#~ msgstr "Configura..."
-
-#~ msgid "Add New Script"
-#~ msgstr "Afegeix un script nou"
-
-#~ msgid "Edit Script"
-#~ msgstr "Edita l'script"
-
-#~ msgid "Set Script File"
-#~ msgstr "Arranja el fitxer de script"
-
-#~ msgid "Regexp:"
-#~ msgstr "Regexp:"
-
-#~ msgid "Path:"
-#~ msgstr "Camí:"
-
-#~ msgid "List of the Regexp to match input URL"
-#~ msgstr "Llista d'expressions regulars per a coincidir amb els URL d'entrada"
-
-#~ msgid "List of descriptions for user scripts"
-#~ msgstr "Llista de descripcions per als scripts d'usuari"
-
-#~ msgid "List of whether the script is enabled"
-#~ msgstr "Llista de si l'script està activat"
-
-#~ msgid "File Settings"
-#~ msgstr "Arranjaments del fitxer"
-
-#~ msgid "Use Normalized Name"
-#~ msgstr "Usa el nom normalitzat"
-
-#~ msgid "Use Literal Name"
-#~ msgstr "Usa el nom literal"
-
-#~ msgid "Quality:"
-#~ msgstr "Qualitat:"
-
-#~ msgid "Best Quality (.mp4)"
-#~ msgstr "Millor qualitat (.mp4)"
-
-#~ msgid "Normal Quality (.flv)"
-#~ msgstr "Qualitat normal (.flv)"
-
-#~ msgid ""
-#~ "Provide login info of your YouTube account in order to access restricted "
-#~ "media."
-#~ msgstr ""
-#~ "Facilita informació d'entrada al vostre compte de YouTube per tal "
-#~ "d'accedir a material restringit."
-
-#~ msgid "Login Info"
-#~ msgstr "Informació d'entrada"
-
-#~ msgid "Username:"
-#~ msgstr "Usuari:"
-
-#~ msgid ".netrc must have a hostname called 'youtube'."
-#~ msgstr "El .netrc ha de tenir un nom de màquina anomenat «youtube»."
-
-#~ msgid "User .netrc file"
-#~ msgstr "Fitxers d'usuari .netrc"
