@@ -1,6 +1,7 @@
 [Desktop Entry]
 Actions=KGetDownload;
 Type=Service
+SingleMainWindow=true
 Icon=
 Name=
 X-KDE-ServiceTypes=KonqPopupMenu/Plugin,application/octet-stream
