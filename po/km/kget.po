@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-02 00:45+0000\n"
+"POT-Creation-Date: 2022-10-22 00:44+0000\n"
 "PO-Revision-Date: 2012-07-09 10:43+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -50,7 +50,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "ប្រតិបត្តិ​សកម្មភាព​បន្ទាប់​ពី​ការ​ទាញយក​ទាំងអស់​ត្រូវ​បាន​បញ្ចប់ ៖"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:91
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:365 ui/droptarget.cpp:92
 #, kde-format
 msgid "Quit KGet"
 msgstr "ចេញ​ពី KGet"
@@ -330,17 +330,17 @@ msgstr "Xml"
 msgid "Sqlite"
 msgstr "ទំហំ"
 
-#: conf/preferencesdialog.cpp:58 mainwindow.cpp:370
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "បិទ​កុំព្យូទ័រ"
 
-#: conf/preferencesdialog.cpp:59 mainwindow.cpp:375
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "សម្ងំ​កុំព្យូទ័រ"
 
-#: conf/preferencesdialog.cpp:60 mainwindow.cpp:380
+#: conf/preferencesdialog.cpp:60 mainwindow.cpp:381
 #, kde-format
 msgid "Suspend Computer"
 msgstr "ផ្អាក​​កុំព្យូទ័រ"
@@ -477,9 +477,9 @@ msgid "Keyservers:"
 msgstr "ម៉ាស៊ីន​បម្រើ​សោ ៖"
 
 #: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
-#: core/kget.cpp:1396 transfer-plugins/metalink/metalink.cpp:199
-#: transfer-plugins/metalink/metalinkhttp.cpp:241
-#: transfer-plugins/metalink/metalinkxml.cpp:198
+#: core/kget.cpp:1452 transfer-plugins/metalink/metalink.cpp:212
+#: transfer-plugins/metalink/metalinkhttp.cpp:253
+#: transfer-plugins/metalink/metalinkxml.cpp:211
 #: ui/metalinkcreator/metalinkcreator.cpp:149
 #: ui/metalinkcreator/metalinkcreator.cpp:166
 #, kde-format
@@ -548,27 +548,27 @@ msgstr ""
 "រក​មិនឃើញ​សោ​ដែលមានប្រយោជន៍​ទេ សោ​មិន​បានទាញយក​ទេ ។ បន្ថែម​ម៉ាស៊ីនបម្រើ​ផ្សេង​ទៀត​ទៅការ​កំណត់ ឬ​"
 "ចាប់ផ្ដើម KGet ឡើងវិញ ហើយ​ព្យាយាម​ទាញយក​ម្ដង​ទៀត ។"
 
-#: core/kget.cpp:119
+#: core/kget.cpp:124
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "តើ​អ្នក​ប្រាកដ​ជា​ចង់​យក​ក្រុម​ដែល​មាន​ឈ្មោះ %1 ចេញ​ឬ ?"
 
-#: core/kget.cpp:120
+#: core/kget.cpp:125
 #, kde-format
 msgid "Remove Group"
 msgstr "យក​ក្រុម​ចេញ"
 
-#: core/kget.cpp:144
+#: core/kget.cpp:158
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "តើ​អ្នក​ប្រាកដ​ជា​ចង់​យក​ក្រុម​ដូច​ខាងក្រោម​ចេញ​ឬ ?"
 
-#: core/kget.cpp:146
+#: core/kget.cpp:160
 #, kde-format
 msgid "Remove groups"
 msgstr "យក​ក្រុម​ចេញ"
 
-#: core/kget.cpp:252
+#: core/kget.cpp:271
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -577,27 +577,27 @@ msgstr ""
 "<p>ការ​ផ្ទេរ​ដូច​ខាង​ក្រោម​ត្រូវ​បាន​បន្ថែម​ទៅ​បញ្ជី​ទាញយក ៖</p><p style=\"font-size: small;\">"
 "%1</p>"
 
-#: core/kget.cpp:253 core/kget.cpp:350
+#: core/kget.cpp:272 core/kget.cpp:369
 #, kde-format
 msgid "Download added"
 msgstr "បាន​បន្ថែម​ការ​ទាញយក"
 
-#: core/kget.cpp:345
+#: core/kget.cpp:364
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>កា​រផ្ទេរ​ដូច​ខាងក្រោម​ត្រូវ​បានបន្ថែម​ទៅ​ក្នុង​បញ្ជី​ទាញយក ៖</p>"
 
-#: core/kget.cpp:347
+#: core/kget.cpp:366
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>កា​រផ្ទេរ​ដូច​ខាងក្រោម​ត្រូវ​បានបន្ថែម​ទៅ​ក្នុង​បញ្ជី​ទាញយក ៖</p>"
 
-#: core/kget.cpp:515 core/kget.cpp:564
+#: core/kget.cpp:534 core/kget.cpp:583
 #, kde-format
 msgid "My Downloads"
 msgstr "ការ​ទាញយក​របស់​ខ្ញុំ"
 
-#: core/kget.cpp:574
+#: core/kget.cpp:597
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -606,17 +606,17 @@ msgstr ""
 "មាន​ឯកសារ %1 រួច​ហើយ ។\n"
 "សរសេរ​ជាន់លើ​ឬ?"
 
-#: core/kget.cpp:575
+#: core/kget.cpp:598
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "សរសេរ​ជាន់លើ​ឯកសារ​ដែល​មាន​រួច?"
 
-#: core/kget.cpp:596 ui/metalinkcreator/metalinkcreator.cpp:166
+#: core/kget.cpp:625 ui/metalinkcreator/metalinkcreator.cpp:166
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "មិន​អាច​រក្សា​ទុក​ទៅ ៖ %1"
 
-#: core/kget.cpp:899
+#: core/kget.cpp:928
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -628,35 +628,35 @@ msgstr[0] ""
 "<p>URLs ដូច​ខាងក្រោម​មិន​អាច​ត្រូវបាន​ទាញយក​បាន​ទេ ពិធិការ​របស់​ពួកគេ​មិន​ត្រូវបានគាំទ្រ​ដោយ​ KGet ទេ ៖"
 "</p>"
 
-#: core/kget.cpp:909
+#: core/kget.cpp:938
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "មិនបានគាំទ្រ​ពិធីការ​ទេ"
 
-#: core/kget.cpp:963 ui/newtransferdialog.cpp:53
+#: core/kget.cpp:992 ui/newtransferdialog.cpp:53
 #, kde-format
 msgid "New Download"
 msgstr "ទាញយក​ថ្មី"
 
-#: core/kget.cpp:963
+#: core/kget.cpp:992
 #, kde-format
 msgid "Enter URL:"
 msgstr "បញ្ចូល URL ៖"
 
-#: core/kget.cpp:983
+#: core/kget.cpp:1012
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr ""
 
-#: core/kget.cpp:1002
+#: core/kget.cpp:1031
 #, fuzzy, kde-format
 #| msgid "Save As"
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "រក្សាទុកជា"
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:366
+#: core/kget.cpp:1044 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -665,7 +665,7 @@ msgstr ""
 "ទម្រង់ URL មិន​ត្រឹមត្រូវ ៖\n"
 "%1"
 
-#: core/kget.cpp:1022 core/urlchecker.cpp:368
+#: core/kget.cpp:1051 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -674,7 +674,7 @@ msgstr ""
 "URL មិន​ត្រឹមត្រូវ​ បាត់​ពិធីការ ៖\n"
 "%1"
 
-#: core/kget.cpp:1033 core/urlchecker.cpp:424
+#: core/kget.cpp:1066 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -689,12 +689,29 @@ msgstr ""
 "\n"
 "ទាញយក​វា​ម្ដង​ទៀត​ដែរឬទេ ?"
 
-#: core/kget.cpp:1034 core/urlchecker.cpp:641
+#: core/kget.cpp:1067 core/urlchecker.cpp:641
 #, kde-format
 msgid "Download it again?"
 msgstr "ទាញយក​ម្ដង​ទៀត ?"
 
-#: core/kget.cpp:1046 core/urlchecker.cpp:426
+#: core/kget.cpp:1068 core/kget.cpp:1090 core/kget.cpp:1158
+#: transfer-plugins/kio/transferKio.cpp:288
+#: transfer-plugins/metalink/metalink.cpp:126
+#: transfer-plugins/metalink/metalinkxml.cpp:124
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
+#, fuzzy, kde-format
+#| msgid "Download again"
+msgctxt "@action:button"
+msgid "Download Again"
+msgstr "ទាញយក​ម្ដង​ទៀត"
+
+#: core/kget.cpp:1069 core/kget.cpp:1091 core/kget.cpp:1159
+#, kde-format
+msgctxt "@action:button"
+msgid "Skip"
+msgstr ""
+
+#: core/kget.cpp:1088 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -709,17 +726,17 @@ msgstr ""
 "\n"
 "លុបវា ហើយ​ទាញយក​ម្ដង​ទៀត​ដែរឬទេ ?"
 
-#: core/kget.cpp:1047 core/urlchecker.cpp:638
+#: core/kget.cpp:1089 core/urlchecker.cpp:638
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "លុប​វា ហើយ​ទាញយក​ម្ដងទៀត ?"
 
-#: core/kget.cpp:1070 core/kget.cpp:1077
+#: core/kget.cpp:1117 core/kget.cpp:1124
 #, kde-format
 msgid "Directory is not writable"
 msgstr "ថត​មិន​អាច​សរសេរ​បាន​ឡើយ"
 
-#: core/kget.cpp:1105
+#: core/kget.cpp:1156
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -730,40 +747,40 @@ msgstr ""
 "\n"
 "ទាញយក ហើយ​លុប​ឯកសារ​មួយ​មុន​ដែរឬទេ ?"
 
-#: core/kget.cpp:1106 core/urlchecker.cpp:650
+#: core/kget.cpp:1157 core/urlchecker.cpp:650
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "បាន​ទាញយក​ឯកសារ​រួច​ហើយ ? អញ្ចឹង​ទាញយក​ដែរឬទេ ?"
 
-#: core/kget.cpp:1115
+#: core/kget.cpp:1171
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "កំពុង​កំពុង​ទាញយក​ឯកសារ​ដូច​គ្នា​រួច​ហើយ"
 
-#: core/kget.cpp:1119 core/kget.cpp:1122 core/urlchecker.cpp:653
-#: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:480
-#: transfer-plugins/metalink/metalink.cpp:716
+#: core/kget.cpp:1175 core/kget.cpp:1178 core/urlchecker.cpp:653
+#: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:493
+#: transfer-plugins/metalink/metalink.cpp:740
 #, kde-format
 msgid "File already exists"
 msgstr "មាន​ឯកសារ​រួច​ហើយ"
 
-#: core/kget.cpp:1223
+#: core/kget.cpp:1279
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "បាន​បើក​ការ​តភ្ជាប់​អ៊ីនធឺណិត ធ្វើ​ការ​ផ្ទេរ​បន្ត ។"
 
-#: core/kget.cpp:1228
+#: core/kget.cpp:1284
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "គ្មាន​ការ​តភ្ជាប់​អ៊ីនធឺណិត បញ្ឈប់​ការ​ផ្ទេរ ។"
 
-#: core/kget.cpp:1242
+#: core/kget.cpp:1298
 #, fuzzy, kde-format
 #| msgid "Plugin loader could not load the plugin: %1."
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "កម្មវិធី​ផ្ទុក​កម្មវិធី​បញ្ជា​មិនអាច​ផ្ទុក​កម្មវិធី​បញ្ជា​បានទេ ៖ %1 ។"
 
-#: core/kget.cpp:1257
+#: core/kget.cpp:1313
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -774,7 +791,7 @@ msgstr ""
 "%1 ឡើយ\n"
 "ដោយ​សារ​តែ​វា​ជា​ថត ។"
 
-#: core/kget.cpp:1268
+#: core/kget.cpp:1324
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -785,7 +802,7 @@ msgstr ""
 "%1 ឡើយ\n"
 "ដោយ​សារ​តែ​វា​ជា​ឯកសារ​មូលដ្ឋាន ។"
 
-#: core/kget.cpp:1389
+#: core/kget.cpp:1445
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -794,12 +811,12 @@ msgstr ""
 "<p>ឯកសារ​ដូច​ខាង​ក្រោម​បាន​បញ្ចប់​កា​រទាញយក​ហើយ​ ៖</p><p style=\"font-size: small;\">%1</"
 "p>"
 
-#: core/kget.cpp:1390
+#: core/kget.cpp:1446
 #, kde-format
 msgid "Download completed"
 msgstr "បាន​បញ្ចប់​ការ​ទាញយក"
 
-#: core/kget.cpp:1393
+#: core/kget.cpp:1449
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -807,12 +824,12 @@ msgid ""
 msgstr ""
 "<p>ការ​ផ្ទេរ​ដូច​ខាង​ក្រោម​ត្រូ​វបាន​ចាប់ផ្ដើម ៖</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1394
+#: core/kget.cpp:1450
 #, kde-format
 msgid "Download started"
 msgstr "បាន​ចាប់ផ្ដើម​កា​រទាញយក"
 
-#: core/kget.cpp:1396
+#: core/kget.cpp:1452
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -822,66 +839,66 @@ msgstr ""
 "<p>មាន​បញ្ហា​​នៅ​ក្នុង​ការ​ផ្ទេរ​ដូ​ច​ខា​ងក្រោម ៖</p><p style=\"font-size: small;\">%1</"
 "p><p>សារ​កំហុស​គឺ ៖</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1457
 #, kde-format
 msgid "Resolve"
 msgstr "ដោះស្រាយ"
 
-#: core/kget.cpp:1451
+#: core/kget.cpp:1507
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "ឥឡូវ KGet បាន​បិទ ព្រោះ​បាន​បញ្ចប់​ការ​ទាញយក​ទាំងអស់​ហើយ ។"
 
-#: core/kget.cpp:1455
+#: core/kget.cpp:1511
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​បិទ​ឥឡូវ ពីព្រោះ​ការ​ទាញយក​ទាំងអស់​​បាន​បញ្ចប់​ហើយ ។"
 
-#: core/kget.cpp:1455
+#: core/kget.cpp:1511
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "បិទ"
 
-#: core/kget.cpp:1458
+#: core/kget.cpp:1514
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​ផ្អាក​ទៅ​ថាស​ឥឡូវ ព្រោះ​ថា​ការ​ទាញយក​ទាំងអស់​បាន​បញ្ចប់​ហើយ ។"
 
-#: core/kget.cpp:1458
+#: core/kget.cpp:1514
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "សម្ងំ"
 
-#: core/kget.cpp:1461
+#: core/kget.cpp:1517
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​ផ្អាក​ទៅសតិ​ឥឡូវ ព្រោះថា​ការ​ទាញយក​ទាំងអស់​បាន​បញ្ចប់​ហើយ ។ "
 
-#: core/kget.cpp:1461
+#: core/kget.cpp:1517
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "ផ្អាក"
 
-#: core/kget.cpp:1469
+#: core/kget.cpp:1525
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "​បោះបង់"
 
-#: core/kget.cpp:1479
+#: core/kget.cpp:1535
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>ការ​ផ្ទេរ​ទាំងអស់​បាន​ចប់​ហើយ ។</p>"
 
-#: core/kget.cpp:1480
+#: core/kget.cpp:1536
 #, kde-format
 msgid "Downloads completed"
 msgstr "ការ​ទាញយក​បាន​បញ្ចប់"
 
-#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:526
+#: core/kget.h:369 main.cpp:102 mainwindow.cpp:96 mainwindow.cpp:537
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -903,12 +920,25 @@ msgstr "ការ​ផ្ទេរ​របស់ KGet"
 msgid "Error trying to get %1"
 msgstr "មាន​កំហុស​ក្នុង​ការ​យក %1"
 
-#: core/signature.cpp:230
+#: core/signature.cpp:236
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "​បាត់​សោ​ត្រូវ​ផ្ទៀងផ្ទាត់​ហត្ថលេខា​​ហើយ តើ​អ្នក​​អ្នក​ចង់​ទាញយក​វា​ដែរឬទេ ?"
 
-#: core/signature.cpp:252
+#: core/signature.cpp:237
+#, fuzzy, kde-format
+#| msgid "Download"
+msgctxt "@action:button"
+msgid "Download"
+msgstr "​ទាញយក"
+
+#: core/signature.cpp:238
+#, kde-format
+msgctxt "@action:button"
+msgid "Continue Without"
+msgstr ""
+
+#: core/signature.cpp:265
 #, kde-format
 msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
@@ -916,7 +946,7 @@ msgid ""
 msgstr ""
 "ហត្ថលេខា​មិន​ត្រូវ​បាន​ផ្ទៀងផ្ទាត់​សម្រាប់ %1 នោះ​ទេ ។ ចំពោះ​ព័ត៌មាន​បន្ថែម​ សូម​មើល​កា​រកំណត់​ផ្ទេរ​ ។"
 
-#: core/signature.cpp:253
+#: core/signature.cpp:266
 #, kde-format
 msgid "Signature not verified"
 msgstr "ហត្ថលេខា​​មិន​បាន​ផ្ទៀងផ្ទាត់"
@@ -1557,47 +1587,47 @@ msgstr "ប្រតិបត្តិ​ការ​សាកល្បង​ឯ
 msgid "URL(s) to download"
 msgstr "URL ដែល​ត្រូវ​ទាញយក"
 
-#: mainwindow.cpp:147
+#: mainwindow.cpp:148
 #, kde-format
 msgid "&New Download..."
 msgstr "ការ​ទាញយក​ថ្មី..."
 
-#: mainwindow.cpp:154
+#: mainwindow.cpp:155
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "នាំចូល​ការ​ផ្ទេរ..."
 
-#: mainwindow.cpp:161
+#: mainwindow.cpp:162
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "នាំចេញ​បញ្ជី​ផ្ទេរ..."
 
-#: mainwindow.cpp:168
+#: mainwindow.cpp:169
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "​បង្កើត​តំណ​មេតា..."
 
-#: mainwindow.cpp:174
+#: mainwindow.cpp:175
 #, kde-format
 msgid "Top Priority"
 msgstr "អាទិភាព​ខ្ពស់​"
 
-#: mainwindow.cpp:181
+#: mainwindow.cpp:182
 #, kde-format
 msgid "Least Priority"
 msgstr "អាទិភាពទាប"
 
-#: mainwindow.cpp:188
+#: mainwindow.cpp:189
 #, kde-format
 msgid "Increase Priority"
 msgstr "បង្កើន​អាទិភាព"
 
-#: mainwindow.cpp:195
+#: mainwindow.cpp:196
 #, kde-format
 msgid "Decrease Priority"
 msgstr "បន្ថយ​អាទិភាព"
 
-#: mainwindow.cpp:203
+#: mainwindow.cpp:204
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 #| msgid_plural "Delete Groups"
@@ -1605,7 +1635,7 @@ msgctxt "@action"
 msgid "Delete Group"
 msgstr "លុប​ក្រុម"
 
-#: mainwindow.cpp:209
+#: mainwindow.cpp:210
 #, fuzzy, kde-format
 #| msgid "Rename Group..."
 #| msgid_plural "Rename Groups..."
@@ -1613,17 +1643,17 @@ msgctxt "@action"
 msgid "Rename Group..."
 msgstr "ប្ដូរ​ឈ្មោះ​ក្រុម​..."
 
-#: mainwindow.cpp:214
+#: mainwindow.cpp:215
 #, kde-format
 msgid "Set Icon..."
 msgstr "កំណត់​រូបតំណាង..."
 
-#: mainwindow.cpp:220
+#: mainwindow.cpp:221
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "របៀប​បិទភ្ជាប់​ស្វ័យប្រវត្តិ"
 
-#: mainwindow.cpp:223
+#: mainwindow.cpp:224
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1634,117 +1664,117 @@ msgstr ""
 "នៅ​ពេល​​ដែល​បាន​កំណត់ នោះ KGet នឹង​វិភាគ​​ក្ដារ​តម្បៀតខ្ទាស់​​រក URL ​យ៉ាង​ទៀងទាត់​ ហើយ​បិទភ្ជាប់​ពួកវា​​"
 "ដោយស្វ័យប្រវត្តិ ។"
 
-#: mainwindow.cpp:229
+#: mainwindow.cpp:230
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "ប្រើ KGet ជា​កម្មវិធី​គ្រប់គ្រង​ការ​ទាញយក​របស់ Konqueror"
 
-#: mainwindow.cpp:247
+#: mainwindow.cpp:248
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "យកអ្វី​ដែលបានជ្រើស​ចេញ"
 
-#: mainwindow.cpp:254
+#: mainwindow.cpp:255
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "យក​អ្វី​ដែល​បានបញ្ចប់​ចេញ"
 
-#: mainwindow.cpp:260
+#: mainwindow.cpp:261
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "យក​ឯកសារ​ដែល​បាន​ជ្រើស និង​លុប​ចេញ"
 
-#: mainwindow.cpp:266
+#: mainwindow.cpp:267
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "ទាញ​យក​អ្វី​ដែលបាន​ជ្រើស​ម្ដង​ទៀត"
 
-#: mainwindow.cpp:271
+#: mainwindow.cpp:272
 #, kde-format
 msgid "Start All"
 msgstr "ចាប់ផ្ដើម​ទាំងអស់"
 
-#: mainwindow.cpp:278
+#: mainwindow.cpp:279
 #, kde-format
 msgid "Start Selected"
 msgstr "​ចាប់ផ្ដើម​អ្វី​ដែល​បាន​ជ្រើស"
 
-#: mainwindow.cpp:284
+#: mainwindow.cpp:285
 #, kde-format
 msgid "Pause All"
 msgstr "ផ្អាក​ទាំងអស់"
 
-#: mainwindow.cpp:291
+#: mainwindow.cpp:292
 #, kde-format
 msgid "Stop Selected"
 msgstr "បញ្ឈប់​អ្វី​​ដែល​បាន​ជ្រើស"
 
-#: mainwindow.cpp:296
+#: mainwindow.cpp:297
 #, kde-format
 msgid "Start"
 msgstr "ចាប់ផ្ដើម"
 
-#: mainwindow.cpp:304
+#: mainwindow.cpp:305
 #, kde-format
 msgid "Pause"
 msgstr "ផ្អាក"
 
-#: mainwindow.cpp:313
+#: mainwindow.cpp:314
 #, kde-format
 msgid "Open Destination"
 msgstr "បើក​ទិសដៅ"
 
-#: mainwindow.cpp:318
+#: mainwindow.cpp:319
 #, kde-format
 msgid "Open File"
 msgstr "បើក​ឯកសារ"
 
-#: mainwindow.cpp:322
+#: mainwindow.cpp:323
 #, kde-format
 msgid "Show Details"
 msgstr "បង្ហាញ​លម្អិត"
 
-#: mainwindow.cpp:327
+#: mainwindow.cpp:328
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "ចម្លង URL ទៅ​ក្ដារ​តម្បៀត​ខ្ទាស់"
 
-#: mainwindow.cpp:332
+#: mainwindow.cpp:333
 #, kde-format
 msgid "&Transfer History"
 msgstr "ប្រវត្តិ​នៃកា​រផ្ទេរ"
 
-#: mainwindow.cpp:338
+#: mainwindow.cpp:339
 #, kde-format
 msgid "&Group Settings"
 msgstr "ការ​កំណត់​ក្រុម"
 
-#: mainwindow.cpp:344
+#: mainwindow.cpp:345
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "កំណត់​ការ​ផ្ទេរ"
 
-#: mainwindow.cpp:350
+#: mainwindow.cpp:351
 #, kde-format
 msgid "Import &Links..."
 msgstr "នាំចូល​តំណ..."
 
-#: mainwindow.cpp:356
+#: mainwindow.cpp:357
 #, kde-format
 msgid "After downloads finished action"
 msgstr "បន្ទាប់ពី​​ទាញ​យក​សកម្មភាព​​ដែល​បាន​បញ្ចប់"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:360
+#: mainwindow.cpp:361
 #, kde-format
 msgid "No Action"
 msgstr "គ្មាន​សកម្មភាព"
 
-#: mainwindow.cpp:438
+#: mainwindow.cpp:444
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1753,40 +1783,40 @@ msgstr ""
 "អ្នក​បាន​រត់ KGet ជា​លើក​ដំបូង ។\n"
 "តើ​អ្នក​ចង់​អនុញ្ញាត​​ឲ្យ KGet ធ្វើ​ជា​កម្មវិធី​គ្រប់គ្រង​ការ​ទាញយក​សម្រាប់ Konqueror ឬ​ទេ?"
 
-#: mainwindow.cpp:440
+#: mainwindow.cpp:446
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "ការ​រួមបញ្ចូល​របស់ Konqueror"
 
-#: mainwindow.cpp:440
+#: mainwindow.cpp:447
 #, kde-format
 msgid "Enable"
 msgstr "អនុញ្ញាត"
 
-#: mainwindow.cpp:441
+#: mainwindow.cpp:448
 #, kde-format
 msgid "Do Not Enable"
 msgstr "មិន​អនុញ្ញាត"
 
-#: mainwindow.cpp:507
+#: mainwindow.cpp:518
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "បើក​ឯកសារ"
 
-#: mainwindow.cpp:508
+#: mainwindow.cpp:519
 #, kde-format
 msgid "All Openable Files"
 msgstr "ឯកសារ​ដែល​អាច​បើក​ទាំងអស់"
 
-#: mainwindow.cpp:524
+#: mainwindow.cpp:535
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:574
+#: mainwindow.cpp:589
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1795,57 +1825,57 @@ msgstr ""
 "ការ​ផ្ទេរ​មួយ​ចំនួន កំពុង​តែ​ដំណើរការ​នៅ​ឡើយ ។\n"
 "តើ​អ្នក​ពិត​ជា​ចង់​បិទ KGet ឬ?"
 
-#: mainwindow.cpp:576
+#: mainwindow.cpp:591
 #, kde-format
 msgid "Confirm Quit"
 msgstr "អះអាង​ការ​ចេញ"
 
-#: mainwindow.cpp:602
+#: mainwindow.cpp:622
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "នាំចេញ​ការ​ផ្ទេរ"
 
-#: mainwindow.cpp:603
+#: mainwindow.cpp:623
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "បញ្ជី​ការ​ផ្ទេរ​របស់ KGet"
 
-#: mainwindow.cpp:603
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Text File"
 msgstr "ឯកសារ​អត្ថបទ"
 
-#: mainwindow.cpp:634
+#: mainwindow.cpp:654
 #, kde-format
 msgid "Enter Group Name"
 msgstr "បញ្ចូល​ឈ្មោះ​ក្រុម"
 
-#: mainwindow.cpp:635
+#: mainwindow.cpp:655
 #, kde-format
 msgid "Group name:"
 msgstr "ឈ្មោះ​ក្រុម ៖"
 
-#: mainwindow.cpp:722
+#: mainwindow.cpp:746
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "តើអ្នក​ប្រាកដ​ជា​ចង់​លុប​ការ​ផ្ទេរ​ដែល​បានជ្រើស​ឬ ?"
 
-#: mainwindow.cpp:724 mainwindow.cpp:753
+#: mainwindow.cpp:748 mainwindow.cpp:786
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "អះអាង​លុប​ការ​ផ្ទេរ"
 
-#: mainwindow.cpp:751
+#: mainwindow.cpp:784
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "តើអ្នក​ប្រាកដ​ជា​ចង់​លុប​ការ​ផ្ទេរ​ដែល​បានជ្រើស​​រួម​នឹង​ឯកសារ​ឬ ?"
 
-#: mainwindow.cpp:1082
+#: mainwindow.cpp:1120
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1856,17 +1886,17 @@ msgstr ""
 "ជារៀងរហូត គឺ​ត្រូវ​ទៅកាន់ ការ​កំណត់->កម្រិត​ខ្ពស់ ហើយ​ដោះធីក ​​\"ប្រើជា​កម្មវិធី​គ្រប់គ្រង​ការ​ទាញយក​សម្រាប់ "
 "Konqueror\" ។"
 
-#: mainwindow.cpp:1201 ui/droptarget.cpp:220
+#: mainwindow.cpp:1244 ui/droptarget.cpp:226
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "ឯកសារ​ដែល​បានទម្លាក់​គឺ​ជា​បញ្ជី​ផ្ទេរ​របស់ KGet"
 
-#: mainwindow.cpp:1202 ui/droptarget.cpp:221
+#: mainwindow.cpp:1245 ui/droptarget.cpp:227
 #, kde-format
 msgid "&Download"
 msgstr "ទាញយក"
 
-#: mainwindow.cpp:1203 ui/droptarget.cpp:222
+#: mainwindow.cpp:1246 ui/droptarget.cpp:228
 #, kde-format
 msgid "&Load transfer list"
 msgstr "ផ្ទុក​​បញ្ជី​ផ្ទេរ"
@@ -1987,61 +2017,61 @@ msgstr "ឆ្វេង ៖"
 msgid "Size:"
 msgstr "ទំហំ ៖"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:66
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "បើក​"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgid "Download first"
 msgstr "ទាញ​យក​ដំបូង"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
 #, kde-format
 msgid "Download normally"
 msgstr "​ទាញយក​ធម្មតា"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download last"
 msgstr "ទាញ​យក​ចុងក្រោយ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Do Not Download"
 msgstr "កុំទាញយក"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
 #, kde-format
 msgid "Delete File(s)"
 msgstr "លុប​ឯកសារ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Move File"
 msgstr "ផ្លាស់ទី​ឯកសារ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "វេញ​មែកធាង​ថត"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "ពង្រីក​មែកធាង​ថត"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:266
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] "អ្នក​នឹង​បាត់បង់​ទិន្នន័យ​ទាំងអស់​នៅ​ក្នុង​ឯកសារទាំង​នេះ តើ​អ្នក​ប្រាកដ​ជា​ចង់​ធ្វើ​ដូចនេះ​ឬ ?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:279
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:299
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:292
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:312
 #, fuzzy, kde-format
 #| msgid "Select a directory to move the data to."
 msgid "Select a directory to move the data to"
@@ -2837,32 +2867,48 @@ msgstr "បញ្ជី​ម៉ាស៊ីន​ស្វែងរក​ដែ
 msgid "List of the available search engine URLs"
 msgstr "បញ្ជី​ URLs ម៉ាស៊ីន​ស្វែងរក​ដែលអាច​ប្រើបាន"
 
-#: transfer-plugins/kio/transferKio.cpp:100
+#: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "កំពុង​តភ្ជាប់..."
 
-#: transfer-plugins/kio/transferKio.cpp:280
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:257
+#: transfer-plugins/kio/transferKio.cpp:284
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "ការ​ទាញយក (%1) មិនអាច​ត្រូ​វបាន​ផ្ទៀងផ្ទាត់​ទេ ។ តើ​អ្នក​ចង់​ជួសជុល​វា​ដែរឬទេ ?"
 
-#: transfer-plugins/kio/transferKio.cpp:283
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
+#: transfer-plugins/kio/transferKio.cpp:285
+#: transfer-plugins/metalink/abstractmetalink.cpp:224
+#: transfer-plugins/metalink/metalink.cpp:508
+#: transfer-plugins/metalink/metalinkhttp.cpp:167
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
-msgid "The download (%1) could not be verified. Do you want to redownload it?"
-msgstr "ការ​ទាញយក (%1) មិនអាច​ត្រូវ​បាន​ផ្ទៀងផ្ទាត់​ទេ ។ តើ​អ្នក​ចង់​ទាញយក​វា​ម្ដង​ទៀត​ដែរឬទេ ?"
+msgctxt "@action:button"
+msgid "Repair"
+msgstr ""
 
 #: transfer-plugins/kio/transferKio.cpp:287
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
+msgid "The download (%1) could not be verified. Do you want to redownload it?"
+msgstr "ការ​ទាញយក (%1) មិនអាច​ត្រូវ​បាន​ផ្ទៀងផ្ទាត់​ទេ ។ តើ​អ្នក​ចង់​ទាញយក​វា​ម្ដង​ទៀត​ដែរឬទេ ?"
+
+#: transfer-plugins/kio/transferKio.cpp:296
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
+#, kde-format
 msgid "Verification failed."
 msgstr "បានបរាជ័យ​ក្នុង​កា​រផ្ទៀងផ្ទាត់"
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:216
-#: transfer-plugins/metalink/metalink.cpp:489
+#: transfer-plugins/kio/transferKio.cpp:298
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
+#, kde-format
+msgid "Ignore"
+msgstr ""
+
+#: transfer-plugins/metalink/abstractmetalink.cpp:222
+#: transfer-plugins/metalink/metalink.cpp:506
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2870,6 +2916,16 @@ msgid ""
 msgstr ""
 "កា​រទាញយក​មិន​អាច​​​ត្រូវ​បាន​ផ្ទៀងផ្ទាត់​ទេ តើ​អ្នក​ចង់​ជួសជុលវា​ដែរឬទេ ?​ (ប្រសិនបើ​ការ​ជួសជុល​មិន​ដំណើរការ​ "
 "ការ​ទាញយក​នឹង​ត្រូវ​បាន​ចាប់ផ្ដើម​ឡើង​វិញ)"
+
+#: transfer-plugins/metalink/abstractmetalink.cpp:225
+#: transfer-plugins/metalink/metalink.cpp:127
+#: transfer-plugins/metalink/metalink.cpp:509
+#: transfer-plugins/metalink/metalinkhttp.cpp:168
+#: transfer-plugins/metalink/metalinkxml.cpp:125
+#, kde-format
+msgctxt "@action:button"
+msgid "Ignore"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -2903,33 +2959,33 @@ msgstr "ជ្រើស​ឯកសារ​ដែល​អ្នកចង់​
 msgid "File Selection"
 msgstr "ការ​ជ្រើស​ឯកសារ"
 
-#: transfer-plugins/metalink/metalink.cpp:80
-#: transfer-plugins/metalink/metalinkxml.cpp:77
+#: transfer-plugins/metalink/metalink.cpp:81
+#: transfer-plugins/metalink/metalinkxml.cpp:78
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "កំពុង​ទាញយក​ឯកសារ​តំណ​មេតា...."
 
-#: transfer-plugins/metalink/metalink.cpp:118
-#: transfer-plugins/metalink/metalinkxml.cpp:116
+#: transfer-plugins/metalink/metalink.cpp:124
+#: transfer-plugins/metalink/metalinkxml.cpp:122
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "មាន​កំណែ​ថ្មីជាង​របស់​តំណមេតា​​នេះ តើ​អ្នក​ចង់ទាញយក​វា​ដែរឬទេ ?"
 
-#: transfer-plugins/metalink/metalink.cpp:119
-#: transfer-plugins/metalink/metalinkxml.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:125
+#: transfer-plugins/metalink/metalinkxml.cpp:123
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "ទាញយក​តំណ​មេតា​ឡើងវិញ"
 
-#: transfer-plugins/metalink/metalink.cpp:199
-#: transfer-plugins/metalink/metalinkhttp.cpp:241
-#: transfer-plugins/metalink/metalinkxml.cpp:198
+#: transfer-plugins/metalink/metalink.cpp:212
+#: transfer-plugins/metalink/metalinkhttp.cpp:253
+#: transfer-plugins/metalink/metalinkxml.cpp:211
 #, kde-format
 msgid "Download failed, no working URLs were found."
 msgstr "បាន​បរាជ័យ​ក្នុងកា​រទាញយក រក​មិនឃើញ URLs ដំណើរការ ។"
 
-#: transfer-plugins/metalink/metalinkhttp.cpp:160
+#: transfer-plugins/metalink/metalinkhttp.cpp:165
 #, fuzzy, kde-format
 #| msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgid "The download could not be verified, try to repair it?"
@@ -3035,45 +3091,45 @@ msgid "Rename Group..."
 msgid_plural "Rename Groups..."
 msgstr[0] "ប្ដូរ​ឈ្មោះ​ក្រុម​..."
 
-#: ui/droptarget.cpp:84
+#: ui/droptarget.cpp:85
 #, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "ស្អិត"
 
-#: ui/droptarget.cpp:278
+#: ui/droptarget.cpp:292
 #, kde-format
 msgid "Show Main Window"
 msgstr "បង្ហាញ​បង្អួច​មេ"
 
-#: ui/droptarget.cpp:279
+#: ui/droptarget.cpp:293
 #, kde-format
 msgid "Hide Main Window"
 msgstr "លាក់​បង្អួច​មេ"
 
-#: ui/droptarget.cpp:370
+#: ui/droptarget.cpp:384
 #, kde-format
 msgid "Drop Target"
 msgstr "គោលដៅ​ទម្លាក់"
 
-#: ui/droptarget.cpp:371
+#: ui/droptarget.cpp:385
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "អ្នក​អាច​អុស​តំណ​ទាញយក​ទៅ​គោលដៅ​ទម្លាក់ ។"
 
-#: ui/droptarget.cpp:416
+#: ui/droptarget.cpp:430
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1(%2) %3"
 
-#: ui/droptarget.cpp:422
+#: ui/droptarget.cpp:436
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1(%2% %3/%4) ល្បឿន ៖ %5/s"
 
-#: ui/droptarget.cpp:430
+#: ui/droptarget.cpp:444
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3081,7 +3137,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1(%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:444
+#: ui/droptarget.cpp:458
 #, kde-format
 msgid "Ready"
 msgstr "រួចរាល់"
