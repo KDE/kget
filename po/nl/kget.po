@@ -23,14 +23,14 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-06-30 09:56+0200\n"
+"PO-Revision-Date: 2022-10-22 09:47+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 22.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: conf/autopastemodel.cpp:174
@@ -721,8 +721,7 @@ msgstr "Opnieuw downloaden?"
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Opnieuw downloaden"
@@ -731,7 +730,7 @@ msgstr "Opnieuw downloaden"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Overslaan"
 
 #: core/kget.cpp:1088 core/urlchecker.cpp:426
 #, kde-format
@@ -957,8 +956,7 @@ msgstr ""
 "downloaden?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Downloaden"
@@ -967,7 +965,7 @@ msgstr "Downloaden"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Doorgaan zonder"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2929,7 +2927,7 @@ msgstr "De download (%1) kon niet worden geverifieerd. Wilt u het repareren?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Repareren"
 
 #: transfer-plugins/kio/transferKio.cpp:287
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
@@ -2948,7 +2946,7 @@ msgstr "Verificatie is mislukt."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Negeren"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:222
 #: transfer-plugins/metalink/metalink.cpp:506
@@ -2968,7 +2966,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Negeren"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22

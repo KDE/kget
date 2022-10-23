@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-06-30 14:35+0100\n"
+"PO-Revision-Date: 2022-10-22 11:37+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -717,8 +717,7 @@ msgstr "Transferi-lo de novo?"
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Transferir de novo"
@@ -727,7 +726,7 @@ msgstr "Transferir de novo"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Ignorar"
 
 #: core/kget.cpp:1088 core/urlchecker.cpp:426
 #, kde-format
@@ -952,17 +951,16 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Falta a chave para verificar a assinatura; deseja obtê-la?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "Recepção"
+msgstr "Obter"
 
 #: core/signature.cpp:238
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Continuar sem Ela"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2921,7 +2919,7 @@ msgstr "Não foi possível verificar a transferência (%1). Deseja repará-la?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Reparar"
 
 #: transfer-plugins/kio/transferKio.cpp:287
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
@@ -2940,7 +2938,7 @@ msgstr "A verificação foi mal-sucedida."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorar"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:222
 #: transfer-plugins/metalink/metalink.cpp:506
@@ -2960,7 +2958,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorar"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -4575,98 +4573,3 @@ msgstr "&Verificar"
 #, kde-format
 msgid "Close"
 msgstr "Fechar"
-
-#~ msgctxt "Transfer state: processing script"
-#~ msgid "Processing script...."
-#~ msgstr "A processar o programa...."
-
-#~ msgctxt "Transfer State: Finished"
-#~ msgid "Finished"
-#~ msgstr "Terminada"
-
-#~ msgctxt "Transfer State: Aborted"
-#~ msgid "Aborted"
-#~ msgstr "Interrompida"
-
-#~ msgctxt "Configure script"
-#~ msgid "Configure script"
-#~ msgstr "Configurar o programa"
-
-#~ msgid "User Scripts"
-#~ msgstr "Programas do Utilizador"
-
-#~ msgid "Path"
-#~ msgstr "Localização"
-
-#~ msgid "RegExp"
-#~ msgstr "Expressão Regular"
-
-#~ msgid "New Script...."
-#~ msgstr "Novo Programa..."
-
-#~ msgid "Edit...."
-#~ msgstr "Editar..."
-
-#~ msgid "Configure...."
-#~ msgstr "Configurar..."
-
-#~ msgid "Add New Script"
-#~ msgstr "Adicionar um Novo Programa"
-
-#~ msgid "Edit Script"
-#~ msgstr "Editar o Programa"
-
-#~ msgid "Set Script File"
-#~ msgstr "Definir o Ficheiro do Programa"
-
-#~ msgid "Regexp:"
-#~ msgstr "Expressão regular:"
-
-#~ msgid "Path:"
-#~ msgstr "Localização:"
-
-#~ msgid "List of the Regexp to match input URL"
-#~ msgstr "A lista de expressões regulares a corresponder ao URL de entrada"
-
-#~ msgid "List of descriptions for user scripts"
-#~ msgstr "A lista das descrições para os programas do utilizador"
-
-#~ msgid "List of whether the script is enabled"
-#~ msgstr "A lista da actividade/inactividade dos programas"
-
-#~ msgid "File Settings"
-#~ msgstr "Configuração do Ficheiro"
-
-#~ msgid "Use Normalized Name"
-#~ msgstr "Usar o Nome Normalizado"
-
-#~ msgid "Use Literal Name"
-#~ msgstr "Usar o Nome Literal"
-
-#~ msgid "Quality:"
-#~ msgstr "Qualidade:"
-
-#~ msgid "Best Quality (.mp4)"
-#~ msgstr "Qualidade Alta (.mp4)"
-
-#~ msgid "Normal Quality (.flv)"
-#~ msgstr "Qualidade Normal (.flv)"
-
-#~ msgid ""
-#~ "Provide login info of your YouTube account in order to access restricted "
-#~ "media."
-#~ msgstr ""
-#~ "Indique os dados de autenticação da sua conta do YouTube, para aceder aos "
-#~ "conteúdos restritos."
-
-#~ msgid "Login Info"
-#~ msgstr "Informação de Autenticação"
-
-#~ msgid "Username:"
-#~ msgstr "Utilizador:"
-
-#~ msgid ".netrc must have a hostname called 'youtube'."
-#~ msgstr "O '.netrc' deverá ter um nome de máquina chamado 'youtube'."
-
-#~ msgid "User .netrc file"
-#~ msgstr "Ficheiro '.netrc' do utilizador"
