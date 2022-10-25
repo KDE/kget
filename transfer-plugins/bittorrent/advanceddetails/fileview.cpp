@@ -271,7 +271,7 @@ namespace kt
 #else
 		if (KMessageBox::warningYesNo(nullptr,
 #endif
-					      msg. QString(),
+					      msg, QString(),
 					      KStandardGuiItem::del(), KStandardGuiItem::cancel()
 					      )
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
