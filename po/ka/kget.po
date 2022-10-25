@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-09-28 18:24+0200\n"
+"PO-Revision-Date: 2022-10-24 06:22+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -243,7 +243,7 @@ msgstr "ატვირთვის გლობალური ლიმიტ�
 #: conf/dlgnetwork.ui:96
 #, kde-format
 msgid "Per transfer:"
-msgstr ""
+msgstr "ყოველ გადაწერაზე:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ReconnectOnBroken)
 #: conf/dlgnetwork.ui:119
@@ -676,15 +676,14 @@ msgstr ""
 #: core/kget.cpp:1067 core/urlchecker.cpp:641
 #, kde-format
 msgid "Download it again?"
-msgstr ""
+msgstr "გადმოვწერო თავიდან?"
 
 #: core/kget.cpp:1068 core/kget.cpp:1090 core/kget.cpp:1158
 #: transfer-plugins/kio/transferKio.cpp:288
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "თავიდან გადმოწერა"
@@ -693,7 +692,7 @@ msgstr "თავიდან გადმოწერა"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "გამოტოვება"
 
 #: core/kget.cpp:1088 core/urlchecker.cpp:426
 #, kde-format
@@ -708,12 +707,12 @@ msgstr ""
 #: core/kget.cpp:1089 core/urlchecker.cpp:638
 #, kde-format
 msgid "Delete it and download again?"
-msgstr ""
+msgstr "წავშალო და თავიდან გადმოვწერო?"
 
 #: core/kget.cpp:1117 core/kget.cpp:1124
 #, kde-format
 msgid "Directory is not writable"
-msgstr ""
+msgstr "საქაღალდე ჩაწერადი არაა"
 
 #: core/kget.cpp:1156
 #, kde-format
@@ -891,11 +890,10 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "ჩამოტვირთვა"
+msgstr "გადმოწერა"
 
 #: core/signature.cpp:238
 #, kde-format
@@ -1416,7 +1414,7 @@ msgstr "Patrick Charbonnier"
 #: main.cpp:120 main.cpp:121 main.cpp:122
 #, kde-format
 msgid "Former Developer"
-msgstr ""
+msgstr "ყოფილი პროგრამისტი"
 
 #: main.cpp:121
 #, kde-format
@@ -1714,7 +1712,7 @@ msgstr ""
 #: mainwindow.cpp:591
 #, kde-format
 msgid "Confirm Quit"
-msgstr ""
+msgstr "გასვლის დადასტურება"
 
 #: mainwindow.cpp:622
 #, kde-format
@@ -1800,7 +1798,7 @@ msgstr "ფაილები"
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:74
 #, kde-format
 msgid "Trackers"
-msgstr ""
+msgstr "ტრეკერები"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:77
 #, kde-format
@@ -1925,7 +1923,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Do Not Download"
-msgstr "არ ჩამოტვირთვა"
+msgstr "არ გადმოწერო"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
 #, kde-format
@@ -2659,7 +2657,7 @@ msgstr ""
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
 #, kde-format
 msgid "Change string:"
-msgstr ""
+msgstr "სტრიქონის შეცვლა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
@@ -2671,7 +2669,7 @@ msgstr "რეჟიმი:"
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:43
 #, kde-format
 msgid "Checksum type:"
-msgstr ""
+msgstr "საკონტროლო ჯამის ტიპი:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:77
@@ -2705,13 +2703,13 @@ msgstr ""
 #, kde-format
 msgctxt "the mode defines how the url should be changed"
 msgid "Change mode"
-msgstr ""
+msgstr "რეჟიმის შეცვლა"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:197
 #, kde-format
 msgctxt "the type of the checksum e.g. md5"
 msgid "Checksum type"
-msgstr ""
+msgstr "საკონტროლო ჯამის ტიპი"
 
 #. i18n: ectx: label, entry (SearchStrings), group (ChecksumSearch)
 #. i18n: ectx: label, entry (SearchEnginesNameList), group (SearchEngines)
@@ -2735,7 +2733,7 @@ msgstr ""
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
-msgstr ""
+msgstr "მიერთება...."
 
 #: transfer-plugins/kio/transferKio.cpp:284
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
@@ -2751,7 +2749,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "აღდგნა"
 
 #: transfer-plugins/kio/transferKio.cpp:287
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
@@ -2769,7 +2767,7 @@ msgstr "გადამოწმებს შეცდომა."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "იგნორი"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:222
 #: transfer-plugins/metalink/metalink.cpp:506
@@ -2787,7 +2785,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "იგნორი"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -2819,7 +2817,7 @@ msgstr ""
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
 #, kde-format
 msgid "File Selection"
-msgstr ""
+msgstr "ფაილის არჩევანი"
 
 #: transfer-plugins/metalink/metalink.cpp:81
 #: transfer-plugins/metalink/metalinkxml.cpp:78
@@ -3125,22 +3123,22 @@ msgstr ""
 #: ui/history/transferhistory.cpp:260
 #, kde-format
 msgid "Between 1MiB-10MiB"
-msgstr ""
+msgstr "1მიბ-10მიბ შუალედში"
 
 #: ui/history/transferhistory.cpp:262
 #, kde-format
 msgid "Between 10MiB-100MiB"
-msgstr ""
+msgstr "10მიბ-100მიბ შუალედში"
 
 #: ui/history/transferhistory.cpp:264
 #, kde-format
 msgid "Between 100MiB-1GiB"
-msgstr ""
+msgstr "100მიბ-1გიბ შუალედში"
 
 #: ui/history/transferhistory.cpp:266
 #, kde-format
 msgid "More than 1GiB"
-msgstr ""
+msgstr "1 გიბ-ზე დდი"
 
 #: ui/history/transferhistory.cpp:269
 #: ui/history/transferhistorycategorizeddelegate.cpp:45
@@ -3163,7 +3161,7 @@ msgstr "1 თვის წინ"
 #: ui/history/transferhistorycategorizeddelegate.cpp:57
 #, kde-format
 msgid "A long time ago"
-msgstr ""
+msgstr "დიდი ხნის წინ"
 
 #: ui/history/transferhistory.cpp:292
 #, kde-format
@@ -3181,13 +3179,13 @@ msgstr "ისტორიის გაწმენდა"
 #: ui/history/transferhistory.ui:47
 #, kde-format
 msgid "View Modes:"
-msgstr ""
+msgstr "ნახვის რეჟიმები:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/history/transferhistory.ui:77
 #, kde-format
 msgid "Select Ranges:"
-msgstr ""
+msgstr "აირჩეთ დიაპაზონები:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: ui/history/transferhistory.ui:85
@@ -3205,7 +3203,7 @@ msgstr "ჰოსტი"
 #: ui/history/transferhistory.ui:106
 #, kde-format
 msgid "Filter history"
-msgstr ""
+msgstr "ფილტრის ისტორია"
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:120
@@ -3223,27 +3221,27 @@ msgstr "ჩამოტვირთვა"
 #: ui/history/transferhistorycategorizeddelegate.cpp:53
 #, kde-format
 msgid "Last Month"
-msgstr ""
+msgstr "ბოლო თვე"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:77
 #, kde-format
 msgid "Under 10MiB"
-msgstr ""
+msgstr "10 მიბ-ზე პატარა"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:80
 #, kde-format
 msgid "Between 10MiB and 50MiB"
-msgstr ""
+msgstr "10მიბ-სა და 50მიბ-ს შუა"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:84
 #, kde-format
 msgid "Between 50MiB and 100MiB"
-msgstr ""
+msgstr "50მიბ-სა და 100 მიბ-ს შუა"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:89
 #, kde-format
 msgid "More than 100MiB"
-msgstr ""
+msgstr "100 მიბ-ზე მეტი"
 
 #: ui/history/transferhistoryitemdelegate.cpp:40
 #, kde-format
@@ -3301,7 +3299,7 @@ msgstr ""
 #: ui/linkview/importlinkdialog.ui:50
 #, kde-format
 msgid "&Import Links"
-msgstr ""
+msgstr "&ბმულების შემოტანა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/linkview/importlinkdialog.ui:67
@@ -3411,7 +3409,7 @@ msgstr ""
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
-msgstr ""
+msgstr "&გადმოწერა"
 
 #: ui/linkview/kget_linkview.cpp:157
 #, kde-format
@@ -3529,7 +3527,7 @@ msgstr "გამომცემელი:"
 #: ui/metalinkcreator/commondata.ui:150
 #, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "სახელი:"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, pub_name)
 #. i18n: ectx: property (toolTip), widget (KLineEdit, pub_url)
@@ -3744,7 +3742,7 @@ msgstr ""
 #: ui/metalinkcreator/generalwidget.ui:78
 #, kde-format
 msgid "Dynamic:"
-msgstr ""
+msgstr "დინამიკური:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, publishedGroupBox)
 #: ui/metalinkcreator/generalwidget.ui:110
@@ -3766,7 +3764,7 @@ msgstr "თარიღი და დრო:"
 #: ui/metalinkcreator/generalwidget.ui:217
 #, kde-format
 msgid "Timezone offset:"
-msgstr ""
+msgstr "დროის სარტყლის წანაცვლება:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -3774,13 +3772,13 @@ msgstr ""
 #: ui/metalinkcreator/generalwidget.ui:210
 #, kde-format
 msgid "Negative offset:"
-msgstr ""
+msgstr "ნეგატიური წანაცვლება:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, updatedGroupBox)
 #: ui/metalinkcreator/generalwidget.ui:182
 #, kde-format
 msgid "Metalink updated"
-msgstr ""
+msgstr "მეტაბმული განახლდა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/introduction.ui:17
@@ -4192,7 +4190,7 @@ msgstr "ვადა:"
 #: ui/signaturedlg.ui:255
 #, kde-format
 msgid "Trust:"
-msgstr ""
+msgstr "ნდობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/signaturedlg.ui:296
@@ -4354,7 +4352,7 @@ msgstr ""
 #: ui/verificationdialog.ui:65
 #, kde-format
 msgid "Verifying:"
-msgstr ""
+msgstr "გადამოწმება:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:118
@@ -4366,7 +4364,7 @@ msgstr ""
 #: ui/verificationdialog.ui:121
 #, kde-format
 msgid "&Verify"
-msgstr ""
+msgstr "&გადამოწმება"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/verificationdialog.ui:147
