@@ -27,3 +27,7 @@ Dependencies:
     'frameworks/kwindowsystem': '@stable'
     'frameworks/kxmlgui': '@stable'
     'frameworks/kdelibs4support': '@stable'
+
+- 'on' : ['Linux', 'FreeBSD']
+  'require':
+    'network/libktorrent' : '@same'
