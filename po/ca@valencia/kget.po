@@ -1650,7 +1650,7 @@ msgstr "Suprimix el grup"
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Canvia el nom el grup..."
+msgstr "Canvia el nom del grup..."
 
 #: mainwindow.cpp:215
 #, kde-format
@@ -3107,7 +3107,7 @@ msgstr[1] "Suprimix els grups"
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
 msgstr[0] "Canvia el nom d'un grup..."
-msgstr[1] "Canvia el nom grups..."
+msgstr[1] "Canvia el nom dels grups..."
 
 #: ui/droptarget.cpp:85
 #, kde-format
@@ -4146,7 +4146,7 @@ msgstr "Canvia el nom del fitxer"
 #: ui/renamefile.cpp:39
 #, kde-format
 msgid "Rename %1 to:"
-msgstr "Canvia el nom %1 a:"
+msgstr "Canvia el nom de %1 a:"
 
 #: ui/renamefile.cpp:42
 #, kde-format
