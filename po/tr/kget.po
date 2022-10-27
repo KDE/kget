@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-10-22 12:57+0300\n"
+"PO-Revision-Date: 2022-10-26 23:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1012,7 +1012,7 @@ msgstr[1] "%1 Öge"
 #: ui/transferdetails.cpp:93
 #, kde-format
 msgid "%1/s"
-msgstr "%1/s"
+msgstr "%1/sn"
 
 #: core/transfergrouphandler.cpp:168
 #, kde-format
@@ -4379,7 +4379,7 @@ msgstr "Parmak izi:"
 #: ui/transferdetails.cpp:72
 #, kde-format
 msgid "Average speed: %1/s"
-msgstr "Ortalama hız: %1/s"
+msgstr "Ortalama hız: %1/sn"
 
 #: ui/transferdetails.cpp:77
 #, kde-format
