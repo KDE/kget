@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-10-22 05:28\n"
+"PO-Revision-Date: 2022-10-30 07:48\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -693,11 +693,10 @@ msgstr "要重新下载吗？"
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr "再次下载"
+msgstr ""
 
 #: core/kget.cpp:1069 core/kget.cpp:1091 core/kget.cpp:1159
 #, kde-format
@@ -916,11 +915,10 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "用于验证签名的密钥丢失，您想要下载它吗？"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "下载"
+msgstr ""
 
 #: core/signature.cpp:238
 #, kde-format
