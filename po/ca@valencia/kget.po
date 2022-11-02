@@ -4305,8 +4305,8 @@ msgstr ""
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""
-"La funcionalitat no està admesa, atés que KGet està compilat sense "
-"implementar el QPGME."
+"La característica no està admesa, atés que KGet està compilat sense "
+"implementar QPGME."
 
 #. i18n: ectx: property (text), widget (QLabel, binaryLabel)
 #: ui/signaturedlg.ui:80
