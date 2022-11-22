@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-11-14 14:19+0300\n"
+"PO-Revision-Date: 2022-11-21 22:30+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3438,7 +3438,7 @@ msgstr "&İndirmeler"
 #: ui/kgetui.rc:34
 #, kde-format
 msgid "&Settings"
-msgstr "Aya&rlar"
+msgstr "Ayar&lar"
 
 #. i18n: ectx: Menu (help)
 #: ui/kgetui.rc:37
