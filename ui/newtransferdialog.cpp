@@ -34,7 +34,6 @@
 
 #include <KLocalizedString>
 #include <QListWidgetItem>
-#include <KColorScheme>
 #include <KWindowSystem>
 #include <LineEditUrlDropEventFilter>
 #include <QStandardPaths>
@@ -42,39 +41,13 @@
 Q_GLOBAL_STATIC(NewTransferDialogHandler, newTransferDialogHandler)
 
 
-NewTransferDialog::NewTransferDialog(QWidget *parent)
-  : QDialog(parent),
-    m_window(nullptr),
+NewTransferDialog::NewTransferDialog(QWindow *parent)
+  : QQuickView(parent),
     m_existingTransfer(nullptr),
     m_multiple(false),
     m_overWriteSingle(false)
 {
-    setModal(true);
-    setWindowTitle(i18n("New Download"));
-    
-    ui.setupUi(this);
-
-    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-
-    //timer to avoid constant checking of the input
-    m_timer = new QTimer(this);
-    m_timer->setInterval(350);
-    m_timer->setSingleShot(true);
-    connect(m_timer, &QTimer::timeout, this, &NewTransferDialog::checkInput);
-
-    const KColorScheme scheme = KColorScheme(QPalette::Active, KColorScheme::View);
-    m_existingFileBackground = scheme.background(KColorScheme::NeutralBackground);
-    m_normalBackground = scheme.background();
-
-
-    // properties of the m_destRequester combobox
-    auto *dropUrlEventFilter = new LineEditUrlDropEventFilter(this);
-    dropUrlEventFilter->installEventFilter(ui.destRequester->comboBox());
-    ui.destRequester->comboBox()->setDuplicatesEnabled(false);
-    ui.destRequester->comboBox()->setEditable(true);
-    ui.destRequester->setAcceptMode(QFileDialog::AcceptSave);
-
-    ui.errorWidget->setCloseButtonVisible(false);
+    setTitle(i18n("New Download"));
 
     connect(ui.groupComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setDefaultDestination()));
 

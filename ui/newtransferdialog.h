@@ -14,10 +14,8 @@
 #ifndef NEW_TRANSFER_DIALOG_H
 #define NEW_TRANSFER_DIALOG_H
 
-#include <QDialog>
+#include <QQuickView>
 #include <QUrl>
-
-#include "ui_newtransferwidget.h"
 
 class KJob;
 class TransferHandler;
@@ -32,7 +30,7 @@ class TransferHandler;
 * 
 * @note this class is private and should be used via NewTransferDialogHandler
 */
-class NewTransferDialog : public QDialog
+class NewTransferDialog : public QQuickView
 {
     Q_OBJECT
 
@@ -53,8 +51,8 @@ class NewTransferDialog : public QDialog
         void checkInput();
         void slotFinished(int resultCode);
 
-    private:
-        explicit NewTransferDialog(QWidget *parent = nullptr);
+private:
+    explicit NewTransferDialog(QWindow *parent = nullptr);
 
         /**
         * Shows the dialog adding one url list transfers
@@ -84,18 +82,12 @@ class NewTransferDialog : public QDialog
         void clear();
 
     private:
-        Ui::NewTransferWidget ui;
-        QWidget *m_window;
-        QTimer *m_timer;
         QList<QUrl> m_sources;
 
         //points to a folder if m_multiple otherwise to the destination
         QUrl m_destination;
 
         TransferHandler *m_existingTransfer;
-
-        QBrush m_existingFileBackground;
-        QBrush m_normalBackground;
 
         bool m_multiple;
         bool m_overWriteSingle;

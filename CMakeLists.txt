@@ -32,6 +32,7 @@ find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPON
     DBus
     Gui
     Network
+    Quick
     Sql
     Test
     Widgets
@@ -340,7 +341,6 @@ ki18n_wrap_ui(kget
     conf/dlgnetwork.ui
     conf/verificationpreferences.ui
     ui/transferdetailsfrm.ui
-    ui/newtransferwidget.ui
     ui/history/transferhistory.ui
     ui/groupsettingsdialog.ui
     ui/transfersettingsdialog.ui
@@ -376,6 +376,7 @@ target_link_libraries(kget
     KF5::NotifyConfig
     KF5::WindowSystem
     Qt::Core
+    Qt::Quick
     Qt::Widgets
     Qt::Sql
     Qt::Network
