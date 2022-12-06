@@ -24,7 +24,7 @@
  **/
 
 #include "kget_export.h"
-
+#include <QObject>
 #include <QPixmap>
 
 class QDomNode;
