@@ -3904,7 +3904,7 @@ msgstr "URL del web a «Metalink»"
 #, kde-format
 msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
 msgstr ""
-"Dinàmic vol dir que els «Metalink» actualitzats es poden trobar a l'«origen»."
+"Dinàmic vol dir que els «Metalink» actualitzats es troben a l'«origen»."
 
 #. i18n: ectx: property (text), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:78
