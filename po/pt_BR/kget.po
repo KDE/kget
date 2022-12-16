@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-07-12 11:56-0300\n"
+"PO-Revision-Date: 2022-12-15 11:43-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -720,8 +720,7 @@ msgstr "Baixá-lo novamente?"
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Baixar novamente"
@@ -730,7 +729,7 @@ msgstr "Baixar novamente"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Ignorar"
 
 #: core/kget.cpp:1088 core/urlchecker.cpp:426
 #, kde-format
@@ -953,8 +952,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Falta a chave para verificar a assinatura. Deseja obtê-la?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Baixar"
@@ -963,7 +961,7 @@ msgstr "Baixar"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Continuar sem"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2925,7 +2923,7 @@ msgstr "Não foi possível verificar o download (%1). Deseja repará-lo?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Reparar"
 
 #: transfer-plugins/kio/transferKio.cpp:287
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
@@ -2943,7 +2941,7 @@ msgstr "Falha na verificação."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorar"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:222
 #: transfer-plugins/metalink/metalink.cpp:506
@@ -2963,7 +2961,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorar"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
