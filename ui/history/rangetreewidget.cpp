@@ -20,10 +20,8 @@
 #include <QList>
 #include <QPainter>
 #include <QPalette>
-#include <QStyledItemDelegate>
 #include <QStandardItem>
 #include <QStandardItemModel>
-#include <QSortFilterProxyModel>
 #include <QVariant>
 #include <QUrl>
 

@@ -24,7 +24,6 @@
 #include <QDebug>
 #include <KLocalizedString>
 #include <QAction>
-#include <QVariant>
 
 TransferHandler::TransferHandler(Transfer * parent, Scheduler * scheduler)
   : Handler(scheduler, parent),

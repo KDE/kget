@@ -21,7 +21,6 @@
 #include "metalinker.h"
 
 #include <QFile>
-#include <QDomElement>
 #include <QTextStream>
 #include <QTimeZone>
 

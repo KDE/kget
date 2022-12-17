@@ -23,7 +23,6 @@
 #include <KLocalizedString>
 
 
-#include <QIcon>
 #include <QLocale>
 
 #include <interfaces/torrentinterface.h>

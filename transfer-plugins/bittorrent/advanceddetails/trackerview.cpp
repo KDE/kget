@@ -27,7 +27,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KSharedConfig>
 
 #include <torrent/globals.h>
 #include <interfaces/trackerinterface.h>

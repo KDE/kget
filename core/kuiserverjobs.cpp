@@ -12,7 +12,6 @@
 
 #include "kuiserverjobs.h"
 
-#include "kgetglobaljob.h"
 #include "kgetkjobadapter.h"
 #include "transferhandler.h"
 #include "settings.h"

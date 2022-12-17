@@ -16,7 +16,6 @@
 #include <QDebug>
 
 #include <QGridLayout>
-#include <QModelIndex>
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QVariant>

@@ -26,7 +26,6 @@
 #include "conf/autopastemodel.h"
 #include "conf/preferencesdialog.h"
 #include "ui/viewscontainer.h"
-#include "ui/tray.h"
 #include "ui/droptarget.h"
 #include "ui/newtransferdialog.h"
 #include "ui/history/transferhistory.h"

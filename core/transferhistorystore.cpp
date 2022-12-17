@@ -16,9 +16,7 @@
 #include "core/transfer.h"
 #include "settings.h"
 
-#include <QDateTime>
 #include <QDir>
-#include <QList>
 #include <QThread>
 
 #include <KIO/Global>

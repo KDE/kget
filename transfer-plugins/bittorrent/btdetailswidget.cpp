@@ -11,7 +11,6 @@
 #include "btdetailswidget.h"
 
 #include "bttransferhandler.h"
-#include "ui_btdetailswidgetfrm.h"
 
 #include "kget_debug.h"
 

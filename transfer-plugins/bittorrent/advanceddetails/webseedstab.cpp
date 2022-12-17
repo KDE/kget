@@ -27,7 +27,6 @@
 
 #include <interfaces/torrentinterface.h>
 #include <interfaces/webseedinterface.h>
-#include <KSharedConfig>
 #include "webseedsmodel.h"
 
 using namespace bt;

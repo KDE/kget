@@ -20,7 +20,6 @@
 #include <KLocalizedString>
 #include <KLazyLocalizedString>
 #include <QDomElement>
-#include <QTime>
 
 struct StatusStrings
 {

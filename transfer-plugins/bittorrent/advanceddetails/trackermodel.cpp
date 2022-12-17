@@ -20,12 +20,10 @@
  ***************************************************************************/
 #include "trackermodel.h"
 
-#include <QList>
 
 #include <KLocalizedString>
 
 #include <interfaces/torrentinterface.h>
-#include <interfaces/trackerinterface.h>
 
 namespace kt
 {

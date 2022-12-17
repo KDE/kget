@@ -33,7 +33,6 @@
 #include <QIcon>
 #include <QMenu>
 #include <QMouseEvent>
-#include <QModelIndex>
 #include <QPainter>
 
 GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)

@@ -36,8 +36,6 @@
 
 #include <kwidgetsaddons_version.h>
 #include <KMessageBox>
-#include <KLocalizedString>
-#include <KActionCollection>
 #include <KIO/RenameDialog>
 #include <KIO/DeleteJob>
 #include <KSharedConfig>

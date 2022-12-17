@@ -22,7 +22,6 @@
 
 #include <interfaces/torrentinterface.h>
 #include <interfaces/torrentfileinterface.h>
-#include <interfaces/chunkdownloadinterface.h>
 #include <util/functions.h>
 
 #include <KLocalizedString>

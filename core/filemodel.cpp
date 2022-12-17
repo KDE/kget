@@ -22,7 +22,6 @@
 #include "signature.h"
 #include "verifier.h"
 
-#include <QIcon>
 #include <KLocalizedString>
 #include <KIO/Global>
 

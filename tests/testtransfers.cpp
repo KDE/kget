@@ -27,7 +27,6 @@
 #include <QDBusPendingReply>
 #include <QList>
 
-#include <QTemporaryDir>
 #include <QTest>
 
 //FIXME not working fine if files or transfers are existing already

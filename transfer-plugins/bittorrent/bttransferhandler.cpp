@@ -10,7 +10,6 @@
 
 #include "bttransferhandler.h"
 
-#include "bttransfer.h"
 #include "advanceddetails/monitor.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
 #include "scandlg.h"

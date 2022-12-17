@@ -18,7 +18,6 @@
 ***************************************************************************/
 
 #include "mirrorsettings.h"
-#include "mirrormodel.h"
 #include "core/transferhandler.h"
 
 #include <QSortFilterProxyModel>
