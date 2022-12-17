@@ -26,7 +26,6 @@ Dependencies:
     'frameworks/kwidgetsaddons': '@stable'
     'frameworks/kwindowsystem': '@stable'
     'frameworks/kxmlgui': '@stable'
-    'frameworks/kdelibs4support': '@stable'
 
 - 'on' : ['Linux', 'FreeBSD']
   'require':
