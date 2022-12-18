@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:44+0000\n"
+"POT-Creation-Date: 2022-12-18 00:53+0000\n"
 "PO-Revision-Date: 2019-07-13 12:48+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <kde-i18n-doc@kde.org>\n"
@@ -60,7 +60,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "Executar a acción cando se completen todas as descargas:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:34 mainwindow.cpp:365 ui/droptarget.cpp:92
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:92
 #, kde-format
 msgid "Quit KGet"
 msgstr "Saír de KGet"
@@ -325,101 +325,101 @@ msgstr "Excluír"
 msgid "The width of the columns in the history view"
 msgstr "A anchura das columnas na vista de historial"
 
-#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:78
+#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:77
 #, kde-format
 msgid "Plugins"
 msgstr "Complementos"
 
-#: conf/preferencesdialog.cpp:52
+#: conf/preferencesdialog.cpp:51
 #, kde-format
 msgid "Xml"
 msgstr "Xml"
 
-#: conf/preferencesdialog.cpp:54
+#: conf/preferencesdialog.cpp:53
 #, kde-format
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:57 mainwindow.cpp:370
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "Apagar o computador"
 
-#: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:375
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "Hibernar o computador"
 
-#: conf/preferencesdialog.cpp:60 mainwindow.cpp:381
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:380
 #, kde-format
 msgid "Suspend Computer"
 msgstr "Suspender o computador"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Appearance"
 msgstr "Aparencia"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Change appearance settings"
 msgstr "Cambiar as propiedades de aparencia"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Groups"
 msgstr "Grupos"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Manage the groups"
 msgstr "Xestionar os grupos"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:72
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
 msgstr "Rede"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Network and Downloads"
 msgstr "Rede e descargas"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Web Interface"
 msgstr "Interface web"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr "Controlar KGet a través da rede ou Internet"
 
-#: conf/preferencesdialog.cpp:75
+#: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Verification"
 msgstr "Verificación"
 
-#: conf/preferencesdialog.cpp:76
+#: conf/preferencesdialog.cpp:75
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "Integración"
 
-#: conf/preferencesdialog.cpp:77
+#: conf/preferencesdialog.cpp:76
 #, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "Avanzado"
 
-#: conf/preferencesdialog.cpp:77
+#: conf/preferencesdialog.cpp:76
 #, kde-format
 msgid "Advanced Options"
 msgstr "Opcións avanzadas"
 
-#: conf/preferencesdialog.cpp:78
+#: conf/preferencesdialog.cpp:77
 #, kde-format
 msgid "Transfer Plugins"
 msgstr "Complementos de transferencia"
@@ -487,7 +487,7 @@ msgid "Keyservers:"
 msgstr "Servidores de chaves:"
 
 #: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
-#: core/kget.cpp:1452 transfer-plugins/metalink/metalink.cpp:212
+#: core/kget.cpp:1450 transfer-plugins/metalink/metalink.cpp:212
 #: transfer-plugins/metalink/metalinkhttp.cpp:253
 #: transfer-plugins/metalink/metalinkxml.cpp:211
 #: ui/metalinkcreator/metalinkcreator.cpp:149
@@ -508,31 +508,31 @@ msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
 msgstr "retirouse %1 porque informou dun tamaño de ficheiro erróneo."
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "file in a filesystem"
 msgid "File"
 msgstr "Ficheiro"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "status of the download"
 msgid "Status"
 msgstr "Estado"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "size of the download"
 msgid "Size"
 msgstr "Tamaño"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "checksum of a file"
 msgid "Checksum"
 msgstr "Suma de comprobación"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "signature of a file"
 msgid "Signature"
@@ -561,27 +561,27 @@ msgstr ""
 "Engada máis servidores á configuración ou reinicie KGet e probe a volver "
 "descargar."
 
-#: core/kget.cpp:124
+#: core/kget.cpp:122
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "Está seguro de que quere retirar o grupo chamado %1?"
 
-#: core/kget.cpp:125
+#: core/kget.cpp:123
 #, kde-format
 msgid "Remove Group"
 msgstr "Retirar o grupo"
 
-#: core/kget.cpp:158
+#: core/kget.cpp:156
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "Está seguro de que quere retirar os grupos seguintes?"
 
-#: core/kget.cpp:160
+#: core/kget.cpp:158
 #, kde-format
 msgid "Remove groups"
 msgstr "Retirar os grupos"
 
-#: core/kget.cpp:271
+#: core/kget.cpp:269
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -590,27 +590,27 @@ msgstr ""
 "<p>A seguinte transferencia engadiuse á lista de descargas:</p><p style="
 "\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:272 core/kget.cpp:369
+#: core/kget.cpp:270 core/kget.cpp:367
 #, kde-format
 msgid "Download added"
 msgstr "Engadiuse unha descarga"
 
-#: core/kget.cpp:364
+#: core/kget.cpp:362
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>A seguinte transferencia engadiuse á lista de descargas:</p>"
 
-#: core/kget.cpp:366
+#: core/kget.cpp:364
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>As seguintes transferencias engadíronse á lista de descargas:</p>"
 
-#: core/kget.cpp:534 core/kget.cpp:583
+#: core/kget.cpp:532 core/kget.cpp:581
 #, kde-format
 msgid "My Downloads"
 msgstr "As miñas descargas"
 
-#: core/kget.cpp:597
+#: core/kget.cpp:595
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -619,17 +619,17 @@ msgstr ""
 "O ficheiro %1 xa existe.\n"
 "Desexa substituílo?"
 
-#: core/kget.cpp:598
+#: core/kget.cpp:596
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "Desexa substituír o ficheiro xa existente?"
 
-#: core/kget.cpp:625 ui/metalinkcreator/metalinkcreator.cpp:166
+#: core/kget.cpp:623 ui/metalinkcreator/metalinkcreator.cpp:166
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "Non se pode gardar en: %1"
 
-#: core/kget.cpp:928
+#: core/kget.cpp:926
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -644,34 +644,34 @@ msgstr[1] ""
 "<p>Os seguintes enderezos URL non poden descargarse, KGet non é compatíbel "
 "cos seus protocolos:</p>"
 
-#: core/kget.cpp:938
+#: core/kget.cpp:936
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "Non se admite este protocolo"
 
-#: core/kget.cpp:992 ui/newtransferdialog.cpp:53
+#: core/kget.cpp:990 ui/newtransferdialog.cpp:53
 #, kde-format
 msgid "New Download"
 msgstr "Nova descarga"
 
-#: core/kget.cpp:992
+#: core/kget.cpp:990
 #, kde-format
 msgid "Enter URL:"
 msgstr "Insira o URL:"
 
-#: core/kget.cpp:1012
+#: core/kget.cpp:1010
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "Escoller un directorio"
 
-#: core/kget.cpp:1031
+#: core/kget.cpp:1029
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "Gardar como"
 
-#: core/kget.cpp:1044 core/urlchecker.cpp:366
+#: core/kget.cpp:1042 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -680,7 +680,7 @@ msgstr ""
 "O URL está mal escrito:\n"
 "%1"
 
-#: core/kget.cpp:1051 core/urlchecker.cpp:368
+#: core/kget.cpp:1049 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -689,7 +689,7 @@ msgstr ""
 "O URL está mal escrito; falta o protocolo:\n"
 "%1"
 
-#: core/kget.cpp:1066 core/urlchecker.cpp:424
+#: core/kget.cpp:1064 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -704,12 +704,12 @@ msgstr ""
 "\n"
 "Descárgase igual?"
 
-#: core/kget.cpp:1067 core/urlchecker.cpp:641
+#: core/kget.cpp:1065 core/urlchecker.cpp:641
 #, kde-format
 msgid "Download it again?"
 msgstr "Descargar de novo?"
 
-#: core/kget.cpp:1068 core/kget.cpp:1090 core/kget.cpp:1158
+#: core/kget.cpp:1066 core/kget.cpp:1088 core/kget.cpp:1156
 #: transfer-plugins/kio/transferKio.cpp:288
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
@@ -720,13 +720,13 @@ msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Descargar de novo"
 
-#: core/kget.cpp:1069 core/kget.cpp:1091 core/kget.cpp:1159
+#: core/kget.cpp:1067 core/kget.cpp:1089 core/kget.cpp:1157
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1088 core/urlchecker.cpp:426
+#: core/kget.cpp:1086 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -741,17 +741,17 @@ msgstr ""
 "\n"
 "Elimínase e descárgase de novo?"
 
-#: core/kget.cpp:1089 core/urlchecker.cpp:638
+#: core/kget.cpp:1087 core/urlchecker.cpp:638
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "Eliminar e descargar de novo?"
 
-#: core/kget.cpp:1117 core/kget.cpp:1124
+#: core/kget.cpp:1115 core/kget.cpp:1122
 #, kde-format
 msgid "Directory is not writable"
 msgstr "O directorio non permite escritura"
 
-#: core/kget.cpp:1156
+#: core/kget.cpp:1154
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -762,40 +762,40 @@ msgstr ""
 "\n"
 "Quere descargar e eliminar o anterior?"
 
-#: core/kget.cpp:1157 core/urlchecker.cpp:650
+#: core/kget.cpp:1155 core/urlchecker.cpp:650
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "Xa se descargou este ficheiro. Descárgase igual?"
 
-#: core/kget.cpp:1171
+#: core/kget.cpp:1169
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "Xa está a descargar o mesmo ficheiro"
 
-#: core/kget.cpp:1175 core/kget.cpp:1178 core/urlchecker.cpp:653
+#: core/kget.cpp:1173 core/kget.cpp:1176 core/urlchecker.cpp:653
 #: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:493
 #: transfer-plugins/metalink/metalink.cpp:740
 #, kde-format
 msgid "File already exists"
 msgstr "Xa existe este ficheiro"
 
-#: core/kget.cpp:1279
+#: core/kget.cpp:1277
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "Estabeleceuse unha conexión de rede, retomando as transferencias."
 
-#: core/kget.cpp:1284
+#: core/kget.cpp:1282
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "Non se dispón dunha conexión á rede, detendo as transferencias."
 
-#: core/kget.cpp:1298
+#: core/kget.cpp:1296
 #, fuzzy, kde-format
 #| msgid "Plugin loader could not load the plugin: %1."
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "O cargador de complementos non puido cargar: %1."
 
-#: core/kget.cpp:1313
+#: core/kget.cpp:1311
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -806,7 +806,7 @@ msgstr ""
 "%1\n"
 "xa que é un directorio."
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -817,7 +817,7 @@ msgstr ""
 "%1\n"
 "xa que non é un ficheiro local."
 
-#: core/kget.cpp:1445
+#: core/kget.cpp:1443
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -826,12 +826,12 @@ msgstr ""
 "<p>Rematou a descarga do seguinte ficheiro:</p><p style=\"font-size: small;"
 "\">%1</p>"
 
-#: core/kget.cpp:1446
+#: core/kget.cpp:1444
 #, kde-format
 msgid "Download completed"
 msgstr "Descarga completa"
 
-#: core/kget.cpp:1449
+#: core/kget.cpp:1447
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -840,12 +840,12 @@ msgstr ""
 "<p>Iniciouse a seguinte transferencia:</p><p style=\"font-size: small;\">%1</"
 "p>"
 
-#: core/kget.cpp:1450
+#: core/kget.cpp:1448
 #, kde-format
 msgid "Download started"
 msgstr "Iniciouse unha descarga"
 
-#: core/kget.cpp:1452
+#: core/kget.cpp:1450
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -856,70 +856,70 @@ msgstr ""
 "small;\">%1</p><p>Esta é a mensaxe do erro:</p><p style=\"font-size: small;"
 "\">%2</p>"
 
-#: core/kget.cpp:1457
+#: core/kget.cpp:1455
 #, kde-format
 msgid "Resolve"
 msgstr "Solucionar"
 
-#: core/kget.cpp:1507
+#: core/kget.cpp:1505
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "Todas as descargas acabaron así que KGet pechará agora mesmo."
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1509
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr ""
 "O computador apagarase agora mesmo xa que remataron todas as descargas."
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1509
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Apagar"
 
-#: core/kget.cpp:1514
+#: core/kget.cpp:1512
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "O computador suspenderase en disco, xa que se completaron todas as descargas."
 
-#: core/kget.cpp:1514
+#: core/kget.cpp:1512
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "Hibernando"
 
-#: core/kget.cpp:1517
+#: core/kget.cpp:1515
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 "O computador suspenderase en memoria, xa que se completaron todas as "
 "descargas."
 
-#: core/kget.cpp:1517
+#: core/kget.cpp:1515
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Suspendendo"
 
-#: core/kget.cpp:1525
+#: core/kget.cpp:1523
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Interromper"
 
-#: core/kget.cpp:1535
+#: core/kget.cpp:1533
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>Remataron todas as transferencias.</p>"
 
-#: core/kget.cpp:1536
+#: core/kget.cpp:1534
 #, kde-format
 msgid "Downloads completed"
 msgstr "Descargas completas"
 
-#: core/kget.h:369 main.cpp:102 mainwindow.cpp:96 mainwindow.cpp:537
+#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:536
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -974,16 +974,16 @@ msgstr ""
 msgid "Signature not verified"
 msgstr "A sinatura non está verificada"
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:30
 msgid "Downloading...."
 msgstr "Estase a descargar…"
 
-#: core/transfer.cpp:32
+#: core/transfer.cpp:31
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "Adiado"
 
-#: core/transfer.cpp:33 core/transfer.cpp:232 core/transfer.cpp:251
+#: core/transfer.cpp:32 core/transfer.cpp:231 core/transfer.cpp:250
 #: transfer-plugins/bittorrent/bttransfer.cpp:308
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:94
 #, kde-format
@@ -991,19 +991,19 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "Detido"
 
-#: core/transfer.cpp:34
+#: core/transfer.cpp:33
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "Interrompido"
 
-#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:225
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:225
 #: transfer-plugins/bittorrent/bttransfer.cpp:304
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "Rematado"
 
-#: core/transfer.cpp:37 transfer-plugins/bittorrent/bttransfer.cpp:169
+#: core/transfer.cpp:36 transfer-plugins/bittorrent/bttransfer.cpp:169
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -1016,7 +1016,7 @@ msgid_plural "%1 Items"
 msgstr[0] "1 elemento"
 msgstr[1] "%1 elementos"
 
-#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:150
+#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:149
 #: ui/transferdetails.cpp:93
 #, kde-format
 msgid "%1/s"
@@ -1034,7 +1034,8 @@ msgctxt "stop transfergroup downloads"
 msgid "Stop"
 msgstr "Deter"
 
-#: core/transferhandler.cpp:137
+#: core/transferhandler.cpp:136
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:28
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:29
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:30
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:31
@@ -1042,57 +1043,56 @@ msgstr "Deter"
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:33
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:34
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:35
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:36
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:60
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:61
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:62
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:64
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:65
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:66
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:69
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:72
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:75
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:78
-#: ui/transfersviewdelegate.cpp:395
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:68
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:71
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:74
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:77
+#: ui/transfersviewdelegate.cpp:394
 #, kde-format
 msgctxt "not available"
 msgid "n/a"
 msgstr "n/d"
 
-#: core/transferhandler.cpp:145 ui/transferdetails.cpp:89
+#: core/transferhandler.cpp:144 ui/transferdetails.cpp:89
 #, kde-format
 msgid "Stalled"
 msgstr "Atrancado"
 
-#: core/transfertreemodel.cpp:648
+#: core/transfertreemodel.cpp:646
 #, kde-format
 msgctxt "name of download"
 msgid "Name"
 msgstr "Nome"
 
-#: core/transfertreemodel.cpp:650
+#: core/transfertreemodel.cpp:648
 #, kde-format
 msgctxt "status of download"
 msgid "Status"
 msgstr "Estado"
 
-#: core/transfertreemodel.cpp:652
+#: core/transfertreemodel.cpp:650
 #, kde-format
 msgctxt "size of download"
 msgid "Size"
 msgstr "Tamaño"
 
-#: core/transfertreemodel.cpp:654
+#: core/transfertreemodel.cpp:652
 #, kde-format
 msgctxt "progress of download"
 msgid "Progress"
 msgstr "Progreso"
 
-#: core/transfertreemodel.cpp:656
+#: core/transfertreemodel.cpp:654
 #, kde-format
 msgctxt "speed of download"
 msgid "Speed"
 msgstr "Velocidade"
 
-#: core/transfertreemodel.cpp:658
+#: core/transfertreemodel.cpp:656
 #, kde-format
 msgctxt "remaining time of download"
 msgid "Remaining Time"
@@ -1145,7 +1145,7 @@ msgid "No URL specified."
 msgstr "Non se indicou un enderezo URL."
 
 #: core/urlchecker.cpp:326
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:96
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:95
 #: transfer-plugins/bittorrent/bttransfer.cpp:266
 #, kde-format
 msgid "Malformed URL."
@@ -1602,47 +1602,47 @@ msgstr "Executar a proba de unidades"
 msgid "URL(s) to download"
 msgstr "URL(s) para descargar"
 
-#: mainwindow.cpp:148
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr "&Nova descarga…"
 
-#: mainwindow.cpp:155
+#: mainwindow.cpp:154
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "&Importar transferencias…"
 
-#: mainwindow.cpp:162
+#: mainwindow.cpp:161
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "&Exportar a lista de transferencias…"
 
-#: mainwindow.cpp:169
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "&Crear unha metaligazón…"
 
-#: mainwindow.cpp:175
+#: mainwindow.cpp:174
 #, kde-format
 msgid "Top Priority"
 msgstr "Máxima prioridade"
 
-#: mainwindow.cpp:182
+#: mainwindow.cpp:181
 #, kde-format
 msgid "Least Priority"
 msgstr "Mínima prioridade"
 
-#: mainwindow.cpp:189
+#: mainwindow.cpp:188
 #, kde-format
 msgid "Increase Priority"
 msgstr "Aumentar a prioridade"
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:195
 #, kde-format
 msgid "Decrease Priority"
 msgstr "Diminuír a prioridade"
 
-#: mainwindow.cpp:204
+#: mainwindow.cpp:203
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 #| msgid_plural "Delete Groups"
@@ -1650,7 +1650,7 @@ msgctxt "@action"
 msgid "Delete Group"
 msgstr "Eliminar o grupo"
 
-#: mainwindow.cpp:210
+#: mainwindow.cpp:209
 #, fuzzy, kde-format
 #| msgid "Rename Group..."
 #| msgid_plural "Rename Groups..."
@@ -1658,17 +1658,17 @@ msgctxt "@action"
 msgid "Rename Group..."
 msgstr "Renomear o grupo…"
 
-#: mainwindow.cpp:215
+#: mainwindow.cpp:214
 #, kde-format
 msgid "Set Icon..."
 msgstr "Estabelecer unha icona…"
 
-#: mainwindow.cpp:221
+#: mainwindow.cpp:220
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "Modo de pegado automático"
 
-#: mainwindow.cpp:224
+#: mainwindow.cpp:223
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1680,117 +1680,117 @@ msgstr ""
 "Se activa o modo, KGet examinará periodicamente o portapapeis en busca de "
 "URLs, e os pegará automaticamente."
 
-#: mainwindow.cpp:230
+#: mainwindow.cpp:229
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "Usar KGet como xestor de descargas de Konqueror"
 
-#: mainwindow.cpp:248
+#: mainwindow.cpp:247
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "Retirar os seleccionados"
 
-#: mainwindow.cpp:255
+#: mainwindow.cpp:254
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "Retirar todo o rematado"
 
-#: mainwindow.cpp:261
+#: mainwindow.cpp:260
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "Retirar o seleccionado e eliminar os ficheiros"
 
-#: mainwindow.cpp:267
+#: mainwindow.cpp:266
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "Volver descargar o escollido"
 
-#: mainwindow.cpp:272
+#: mainwindow.cpp:271
 #, kde-format
 msgid "Start All"
 msgstr "Inicialo todo"
 
-#: mainwindow.cpp:279
+#: mainwindow.cpp:278
 #, kde-format
 msgid "Start Selected"
 msgstr "Iniciar o seleccionado"
 
-#: mainwindow.cpp:285
+#: mainwindow.cpp:284
 #, kde-format
 msgid "Pause All"
 msgstr "Detelo todo"
 
-#: mainwindow.cpp:292
+#: mainwindow.cpp:291
 #, kde-format
 msgid "Stop Selected"
 msgstr "Deter as escollidas"
 
-#: mainwindow.cpp:297
+#: mainwindow.cpp:296
 #, kde-format
 msgid "Start"
 msgstr "Iniciar"
 
-#: mainwindow.cpp:305
+#: mainwindow.cpp:304
 #, kde-format
 msgid "Pause"
 msgstr "Deter"
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:313
 #, kde-format
 msgid "Open Destination"
 msgstr "Abrir o destino"
 
-#: mainwindow.cpp:319
+#: mainwindow.cpp:318
 #, kde-format
 msgid "Open File"
 msgstr "Abrir un ficheiro"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:322
 #, kde-format
 msgid "Show Details"
 msgstr "Mostrar os detalles"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:327
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "Copiar o URL ao portapapeis"
 
-#: mainwindow.cpp:333
+#: mainwindow.cpp:332
 #, kde-format
 msgid "&Transfer History"
 msgstr "&Historial de transferencias"
 
-#: mainwindow.cpp:339
+#: mainwindow.cpp:338
 #, kde-format
 msgid "&Group Settings"
 msgstr "&Configuración de grupo"
 
-#: mainwindow.cpp:345
+#: mainwindow.cpp:344
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "&Configuración de transferencia"
 
-#: mainwindow.cpp:351
+#: mainwindow.cpp:350
 #, kde-format
 msgid "Import &Links..."
 msgstr "Importar &ligazóns…"
 
-#: mainwindow.cpp:357
+#: mainwindow.cpp:356
 #, kde-format
 msgid "After downloads finished action"
 msgstr "Acción tras rematar as descargas"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:361
+#: mainwindow.cpp:360
 #, kde-format
 msgid "No Action"
 msgstr "Ningunha"
 
-#: mainwindow.cpp:444
+#: mainwindow.cpp:443
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1799,39 +1799,39 @@ msgstr ""
 "Esta é a primeira vez que executa KGet.\n"
 "Quere activa KGet como xestor de descargas de Konqueror?"
 
-#: mainwindow.cpp:446
+#: mainwindow.cpp:445
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Integración con Konqueror"
 
-#: mainwindow.cpp:447
+#: mainwindow.cpp:446
 #, kde-format
 msgid "Enable"
 msgstr "Activar"
 
-#: mainwindow.cpp:448
+#: mainwindow.cpp:447
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Non activar"
 
-#: mainwindow.cpp:518
+#: mainwindow.cpp:517
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Abrir un ficheiro"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:518
 #, kde-format
 msgid "All Openable Files"
 msgstr "Todos os ficheiros que se poidan abrir"
 
-#: mainwindow.cpp:535
+#: mainwindow.cpp:534
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:588
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1840,50 +1840,50 @@ msgstr ""
 "Algunhas transferencias aínda están en marcha.\n"
 "Seguro que quere pechar KGet?"
 
-#: mainwindow.cpp:591
+#: mainwindow.cpp:590
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Confirmar a saída"
 
-#: mainwindow.cpp:622
+#: mainwindow.cpp:621
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Exportar as transferencias"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:622
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Lista de transferencias de KGet"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:622
 #, kde-format
 msgid "Text File"
 msgstr "Ficheiro de texto"
 
-#: mainwindow.cpp:654
+#: mainwindow.cpp:653
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Insira o nome do grupo"
 
-#: mainwindow.cpp:655
+#: mainwindow.cpp:654
 #, kde-format
 msgid "Group name:"
 msgstr "Nome do grupo:"
 
-#: mainwindow.cpp:746
+#: mainwindow.cpp:745
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Seguro que quere eliminar a transferencia escollida?"
 msgstr[1] "Seguro que quere eliminar as transferencias escollidas?"
 
-#: mainwindow.cpp:748 mainwindow.cpp:786
+#: mainwindow.cpp:747 mainwindow.cpp:785
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Confirmar a eliminación da transferencia"
 
-#: mainwindow.cpp:784
+#: mainwindow.cpp:783
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1895,7 +1895,7 @@ msgstr[1] ""
 "Seguro que quere eliminar as transferencias seleccionadas, incluíndo os "
 "ficheiros?"
 
-#: mainwindow.cpp:1120
+#: mainwindow.cpp:1119
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1906,17 +1906,17 @@ msgstr ""
 "quere desactivado para sempre, vaia a Configuración->Avanzado e desactive "
 "«Usar como xestor de descargas de Konqueror»."
 
-#: mainwindow.cpp:1244 ui/droptarget.cpp:226
+#: mainwindow.cpp:1243 ui/droptarget.cpp:226
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "O ficheiro arrastrado é unha lista de transferencias de KGet"
 
-#: mainwindow.cpp:1245 ui/droptarget.cpp:227
+#: mainwindow.cpp:1244 ui/droptarget.cpp:227
 #, kde-format
 msgid "&Download"
 msgstr "&Descargar"
 
-#: mainwindow.cpp:1246 ui/droptarget.cpp:228
+#: mainwindow.cpp:1245 ui/droptarget.cpp:228
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Cargar unha lista de transferencias"
@@ -1928,7 +1928,7 @@ msgid "Advanced Details for %1"
 msgstr "Detalles avanzados de %1"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:66
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:217
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
 #, kde-format
 msgid "Files"
 msgstr "Ficheiros"
@@ -1943,48 +1943,48 @@ msgstr "Localizadores"
 msgid "Webseeds"
 msgstr "Fontes web"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:212
 #, kde-format
 msgid "Chunk"
 msgstr "Anaco"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
 #, kde-format
 msgid "Progress"
 msgstr "Progreso"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
 #, kde-format
 msgid "Peer"
 msgstr "Parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
 #, kde-format
 msgid "Down Speed"
 msgstr "Velocidade de descarga"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:224
 #, kde-format
 msgid "Number of the chunk"
 msgstr "Número do anaco"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
 #, kde-format
 msgid "Download progress of the chunk"
 msgstr "Progreso de descarga do fragmento"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
 #, kde-format
 msgid "Which peer we are downloading it from"
 msgstr "De que parceiro se están a descargar os datos"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
 #, kde-format
 msgid "Download speed of the chunk"
 msgstr "Velocidade de descarga do anaco"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:229
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
 #, kde-format
 msgid "Which files the chunk is located in"
 msgstr "En que ficheiro está situado o fragmento"
@@ -2037,53 +2037,53 @@ msgstr "Restante:"
 msgid "Size:"
 msgstr "Tamaño :"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:66
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "Abrir"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
 #, kde-format
 msgid "Download first"
 msgstr "Descargar primeiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgid "Download normally"
 msgstr "Descarga normal"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
 #, kde-format
 msgid "Download last"
 msgstr "Descargar de último"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Do Not Download"
 msgstr "Non descargar"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Delete File(s)"
 msgstr "Eliminar o(s) ficheiro(s)"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Move File"
 msgstr "Mover o ficheiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "Pregar a árbore de cartafoles"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "Expandir a árbore de cartafoles"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:266
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2092,8 +2092,8 @@ msgstr[0] "Perderá todos os datos deste ficheiro. Seguro que quere facer isto?"
 msgstr[1] ""
 "Perderá todos os datos destes ficheiros. Seguro que quere facer isto?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:292
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:312
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:291
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:311
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr "Seleccione un directorio onde mover os datos"
@@ -2184,156 +2184,156 @@ msgctxt "preview available"
 msgid "Available"
 msgstr "Dispoñíbel"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:55
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
 #, kde-format
 msgid "Kick Peer"
 msgstr "Expulsar ao parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:56
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:54
 #, kde-format
 msgid "Ban Peer"
 msgstr "Bloquear o parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
 #, kde-format
 msgctxt "Choked"
 msgid "Yes"
 msgstr "Si"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
 #, kde-format
 msgctxt "Not choked"
 msgid "No"
 msgstr "Non"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
 #, kde-format
 msgctxt "Snubbed"
 msgid "Yes"
 msgstr "Si"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
 #, kde-format
 msgctxt "Not snubbed"
 msgid "No"
 msgstr "Non"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, kde-format
 msgctxt "Interested"
 msgid "Yes"
 msgstr "Si"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, kde-format
 msgctxt "Not Interested"
 msgid "No"
 msgstr "Non"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
 #, kde-format
 msgctxt "Interesting"
 msgid "Yes"
 msgstr "Si"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
 #, kde-format
 msgctxt "Not Interesting"
 msgid "No"
 msgstr "Non"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:311
 #, kde-format
 msgid "IP Address"
 msgstr "Enderezo IP"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
 #, kde-format
 msgid "Client"
 msgstr "Cliente"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
 #, kde-format
 msgid "Up Speed"
 msgstr "Velocidade de subida"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
 #, kde-format
 msgid "Choked"
 msgstr "Atascado"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
 #, kde-format
 msgid "Snubbed"
 msgstr "Ignorado"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
 #, kde-format
 msgid "Availability"
 msgstr "Dispoñibilidade"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
 #, kde-format
 msgid "DHT"
 msgstr "DHT"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
 #, kde-format
 msgid "Score"
 msgstr "Puntuación"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
 #, kde-format
 msgid "Upload Slot"
 msgstr "Rañura de envío"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
 #, kde-format
 msgid "Requests"
 msgstr "Pedidos"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:129
 #, kde-format
 msgid "Downloaded"
 msgstr "Descargado"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
 #, kde-format
 msgid "Uploaded"
 msgstr "Enviado"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
 #, kde-format
 msgid "Interested"
 msgstr "Interesado"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
 #, kde-format
 msgid "Interesting"
 msgstr "Interesante"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:333
 #, kde-format
 msgid "IP address of the peer"
 msgstr "Enderezo IP do parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
 #, kde-format
 msgid "Which client the peer is using"
 msgstr "Cliente que emprega o parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
 #, kde-format
 msgid "Download speed"
 msgstr "Velocidade de descarga"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, kde-format
 msgid "Upload speed"
 msgstr "Velocidade de envío"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
 #, kde-format
 msgid ""
 "Whether or not the peer has choked us. If we are choked, the peer will not "
@@ -2342,24 +2342,24 @@ msgstr ""
 "Se fomos estrangulados polo parceiro ou non. Se nos limita é que non nos "
 "está a enviar datos."
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
 #, kde-format
 msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
 msgstr ""
 "Ignorado significa que o parceiro non enviou datos durante polo menos os "
 "últimos 2 minutos"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
 #, kde-format
 msgid "How much of the torrent's data the peer has"
 msgstr "Que fracción dos datos do torrent ten o parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
 msgstr "Se o parceiro ten DHT activado ou non"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
 #, kde-format
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
@@ -2367,32 +2367,32 @@ msgstr ""
 "A puntuación do parceiro. KTorrent emprega isto para determinar a quen "
 "enviar."
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
 #, kde-format
 msgid "Only peers which have an upload slot will get data from us"
 msgstr "Só os parceiros que teñen unha rañura de envío recibirán datos de nós"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
 #, kde-format
 msgid "The number of download and upload requests"
 msgstr "O número de descargas e envíos solicitados"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
 msgid "How much data we have downloaded from this peer"
 msgstr "Cantos datos se descargaron deste parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
 #, kde-format
 msgid "How much data we have uploaded to this peer"
 msgstr "Cantos datos se lle enviaron a este parceiro"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
 #, kde-format
 msgid "Whether the peer is interested in downloading data from us"
 msgstr "Se o parceiro está interesado en descargar datos nosos"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
 #, kde-format
 msgid "Whether we are interested in downloading from this peer"
 msgstr "Se o parceiro está interesado en descargar datos deste parceiro"
@@ -2411,51 +2411,51 @@ msgstr "Ficheiro"
 msgid "Size"
 msgstr "Tamaño"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:149
 #, kde-format
 msgid "Url"
 msgstr "Url"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:150
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:130
 #: ui/history/transferhistory.cpp:248
 #, kde-format
 msgid "Status"
 msgstr "Estado"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
 #, kde-format
 msgid "Seeders"
 msgstr "Parceiros"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
 #, kde-format
 msgid "Leechers"
 msgstr "Parceiros incompletos"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:155
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
 #, kde-format
 msgid "Times Downloaded"
 msgstr "Veces descargado"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
 #, kde-format
 msgid "Next Update"
 msgstr "Vindeira actualización"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
 #, kde-format
 msgid "Add Tracker"
 msgstr "Engadir un localizador"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
 #, kde-format
 msgid "Enter the URL of the tracker:"
 msgstr "Insira o URL do localizador:"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:103
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:102
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
 msgstr "Xa hai un localizador chamado <b>%1</b>."
@@ -2497,12 +2497,12 @@ msgstr "URL"
 msgid "Speed"
 msgstr "Velocidade"
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:97
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:96
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
 msgstr "Non se pode engadir a fonte web %1: xa está na lista destas."
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:114
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:113
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
 msgstr "Non se pode retirar a fonte web %1: é parte do torrente."
@@ -4106,12 +4106,12 @@ msgctxt "Location = country"
 msgid "Location"
 msgstr "Localización"
 
-#: ui/mirror/mirrorsettings.cpp:55
+#: ui/mirror/mirrorsettings.cpp:54
 #, kde-format
 msgid "Add mirror"
 msgstr "Engadir unha réplica"
 
-#: ui/mirror/mirrorsettings.cpp:149
+#: ui/mirror/mirrorsettings.cpp:148
 #, kde-format
 msgid "Modify the used mirrors"
 msgstr "Modificar as réplicas empregadas"

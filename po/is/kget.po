@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:44+0000\n"
+"POT-Creation-Date: 2022-12-18 00:53+0000\n"
 "PO-Revision-Date: 2009-06-13 15:37+0000\n"
 "Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
 "Language-Team: icelandic <kde-isl@molar.is>\n"
@@ -59,7 +59,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "Öllum niðurhölum lokið."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:34 mainwindow.cpp:365 ui/droptarget.cpp:92
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:92
 #, fuzzy, kde-format
 #| msgid "KGet"
 msgid "Quit KGet"
@@ -333,103 +333,103 @@ msgstr "Útilokaðir:"
 msgid "The width of the columns in the history view"
 msgstr ""
 
-#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:78
+#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:77
 #, fuzzy, kde-format
 msgid "Plugins"
 msgstr "Íforrit"
 
-#: conf/preferencesdialog.cpp:52
+#: conf/preferencesdialog.cpp:51
 #, fuzzy, kde-format
 msgid "Xml"
 msgstr "XML"
 
-#: conf/preferencesdialog.cpp:54
+#: conf/preferencesdialog.cpp:53
 #, fuzzy, kde-format
 msgid "Sqlite"
 msgstr "SQLite"
 
-#: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:57 mainwindow.cpp:370
 #, fuzzy, kde-format
 msgid "Turn Off Computer"
 msgstr "Slökkva á tölvu"
 
-#: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:375
 #, fuzzy, kde-format
 msgid "Hibernate Computer"
 msgstr "Slökkva á tölvu"
 
-#: conf/preferencesdialog.cpp:60 mainwindow.cpp:381
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:380
 #, fuzzy, kde-format
 msgid "Suspend Computer"
 msgstr "Slökkva á tölvu"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:70
 #, fuzzy, kde-format
 msgid "Appearance"
 msgstr "Útlit"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Change appearance settings"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:71
 #, fuzzy, kde-format
 msgid "Groups"
 msgstr "Hópar"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Manage the groups"
 msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:72
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, fuzzy, kde-format
 msgid "Network"
 msgstr "Net"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:72
 #, fuzzy, kde-format
 msgid "Network and Downloads"
 msgstr "Merkja ókláraðar færslur"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Web Interface"
 msgstr "Vefviðmót"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:75
+#: conf/preferencesdialog.cpp:74
 #, fuzzy, kde-format
 #| msgid "Destination:"
 msgid "Verification"
 msgstr "Áfangastaður:"
 
-#: conf/preferencesdialog.cpp:76
+#: conf/preferencesdialog.cpp:75
 #, fuzzy, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "Samtvinnun við Konqueror"
 
-#: conf/preferencesdialog.cpp:77
+#: conf/preferencesdialog.cpp:76
 #, fuzzy, kde-format
 #| msgid "Advanced"
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "Ítarlegra"
 
-#: conf/preferencesdialog.cpp:77
+#: conf/preferencesdialog.cpp:76
 #, kde-format
 msgid "Advanced Options"
 msgstr "Ítarlegri valkostir"
 
-#: conf/preferencesdialog.cpp:78
+#: conf/preferencesdialog.cpp:77
 #, fuzzy, kde-format
 msgid "Transfer Plugins"
 msgstr "Opna flutning:"
@@ -500,7 +500,7 @@ msgid "Keyservers:"
 msgstr "Hraði"
 
 #: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
-#: core/kget.cpp:1452 transfer-plugins/metalink/metalink.cpp:212
+#: core/kget.cpp:1450 transfer-plugins/metalink/metalink.cpp:212
 #: transfer-plugins/metalink/metalinkhttp.cpp:253
 #: transfer-plugins/metalink/metalinkxml.cpp:211
 #: ui/metalinkcreator/metalinkcreator.cpp:149
@@ -520,31 +520,31 @@ msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
 msgstr ""
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, fuzzy, kde-format
 msgctxt "file in a filesystem"
 msgid "File"
 msgstr "Opna &skrá"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, fuzzy, kde-format
 msgctxt "status of the download"
 msgid "Status"
 msgstr "Endurræ&sa"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, fuzzy, kde-format
 msgctxt "size of the download"
 msgid "Size"
 msgstr "Stærð"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "checksum of a file"
 msgid "Checksum"
 msgstr ""
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "signature of a file"
 msgid "Signature"
@@ -568,54 +568,54 @@ msgid ""
 "settings or restart KGet and retry downloading."
 msgstr ""
 
-#: core/kget.cpp:124
+#: core/kget.cpp:122
 #, fuzzy, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "Ertu viss um að þú viljir eyða þessum færslum?"
 
-#: core/kget.cpp:125
+#: core/kget.cpp:123
 #, fuzzy, kde-format
 msgid "Remove Group"
 msgstr "Sjálfgefin mappa"
 
-#: core/kget.cpp:158
+#: core/kget.cpp:156
 #, fuzzy, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "Ertu viss um að þú viljir eyða þessum færslum?"
 
-#: core/kget.cpp:160
+#: core/kget.cpp:158
 #, fuzzy, kde-format
 msgid "Remove groups"
 msgstr "Sjálfgefin mappa"
 
-#: core/kget.cpp:271
+#: core/kget.cpp:269
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:272 core/kget.cpp:369
+#: core/kget.cpp:270 core/kget.cpp:367
 #, fuzzy, kde-format
 msgid "Download added"
 msgstr "Niðurhali haldið áfram"
 
-#: core/kget.cpp:364
+#: core/kget.cpp:362
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr ""
 
-#: core/kget.cpp:366
+#: core/kget.cpp:364
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr ""
 
-#: core/kget.cpp:534 core/kget.cpp:583
+#: core/kget.cpp:532 core/kget.cpp:581
 #, fuzzy, kde-format
 msgid "My Downloads"
 msgstr "Niðurhali haldið áfram"
 
-#: core/kget.cpp:597
+#: core/kget.cpp:595
 #, fuzzy, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -626,17 +626,17 @@ msgstr ""
 "er þegar til.\n"
 "Viltu skrifa yfir hana?"
 
-#: core/kget.cpp:598
+#: core/kget.cpp:596
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr ""
 
-#: core/kget.cpp:625 ui/metalinkcreator/metalinkcreator.cpp:166
+#: core/kget.cpp:623 ui/metalinkcreator/metalinkcreator.cpp:166
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr ""
 
-#: core/kget.cpp:928
+#: core/kget.cpp:926
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -647,34 +647,34 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/kget.cpp:938
+#: core/kget.cpp:936
 #, kde-format
 msgid "Protocol unsupported"
 msgstr ""
 
-#: core/kget.cpp:992 ui/newtransferdialog.cpp:53
+#: core/kget.cpp:990 ui/newtransferdialog.cpp:53
 #, fuzzy, kde-format
 msgid "New Download"
 msgstr "Hlaða niður aftur"
 
-#: core/kget.cpp:992
+#: core/kget.cpp:990
 #, kde-format
 msgid "Enter URL:"
 msgstr ""
 
-#: core/kget.cpp:1012
+#: core/kget.cpp:1010
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr ""
 
-#: core/kget.cpp:1031
+#: core/kget.cpp:1029
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr ""
 
-#: core/kget.cpp:1044 core/urlchecker.cpp:366
+#: core/kget.cpp:1042 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -683,7 +683,7 @@ msgstr ""
 "Gölluð slóð:\n"
 "%1"
 
-#: core/kget.cpp:1051 core/urlchecker.cpp:368
+#: core/kget.cpp:1049 core/urlchecker.cpp:368
 #, fuzzy, kde-format
 #| msgid ""
 #| "Malformed URL:\n"
@@ -695,7 +695,7 @@ msgstr ""
 "Gölluð slóð:\n"
 "%1"
 
-#: core/kget.cpp:1066 core/urlchecker.cpp:424
+#: core/kget.cpp:1064 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -705,12 +705,12 @@ msgid ""
 "Download it again?"
 msgstr ""
 
-#: core/kget.cpp:1067 core/urlchecker.cpp:641
+#: core/kget.cpp:1065 core/urlchecker.cpp:641
 #, fuzzy, kde-format
 msgid "Download it again?"
 msgstr "Hlaða niður aftur"
 
-#: core/kget.cpp:1068 core/kget.cpp:1090 core/kget.cpp:1158
+#: core/kget.cpp:1066 core/kget.cpp:1088 core/kget.cpp:1156
 #: transfer-plugins/kio/transferKio.cpp:288
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
@@ -720,13 +720,13 @@ msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Hlaða niður aftur"
 
-#: core/kget.cpp:1069 core/kget.cpp:1091 core/kget.cpp:1159
+#: core/kget.cpp:1067 core/kget.cpp:1089 core/kget.cpp:1157
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1088 core/urlchecker.cpp:426
+#: core/kget.cpp:1086 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -736,17 +736,17 @@ msgid ""
 "Delete it and download again?"
 msgstr ""
 
-#: core/kget.cpp:1089 core/urlchecker.cpp:638
+#: core/kget.cpp:1087 core/urlchecker.cpp:638
 #, fuzzy, kde-format
 msgid "Delete it and download again?"
 msgstr "Hlaða niður aftur"
 
-#: core/kget.cpp:1117 core/kget.cpp:1124
+#: core/kget.cpp:1115 core/kget.cpp:1122
 #, kde-format
 msgid "Directory is not writable"
 msgstr ""
 
-#: core/kget.cpp:1156
+#: core/kget.cpp:1154
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -754,7 +754,7 @@ msgid ""
 "Download and delete the previous one?"
 msgstr ""
 
-#: core/kget.cpp:1157 core/urlchecker.cpp:650
+#: core/kget.cpp:1155 core/urlchecker.cpp:650
 #, fuzzy, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr ""
@@ -762,12 +762,12 @@ msgstr ""
 "%1\n"
 "Sækja aftur?"
 
-#: core/kget.cpp:1171
+#: core/kget.cpp:1169
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr ""
 
-#: core/kget.cpp:1175 core/kget.cpp:1178 core/urlchecker.cpp:653
+#: core/kget.cpp:1173 core/kget.cpp:1176 core/urlchecker.cpp:653
 #: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:493
 #: transfer-plugins/metalink/metalink.cpp:740
 #, fuzzy, kde-format
@@ -778,22 +778,22 @@ msgstr ""
 "er þegar til.\n"
 "Viltu skrifa yfir hana?"
 
-#: core/kget.cpp:1279
+#: core/kget.cpp:1277
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr ""
 
-#: core/kget.cpp:1284
+#: core/kget.cpp:1282
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr ""
 
-#: core/kget.cpp:1298
+#: core/kget.cpp:1296
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr ""
 
-#: core/kget.cpp:1313
+#: core/kget.cpp:1311
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -804,7 +804,7 @@ msgstr ""
 "%1\n"
 "Þar sem það er mappa"
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -815,32 +815,32 @@ msgstr ""
 "%1\n"
 "þar sem hún er ekki staðbundin skrá."
 
-#: core/kget.cpp:1445
+#: core/kget.cpp:1443
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1446
+#: core/kget.cpp:1444
 #, fuzzy, kde-format
 #| msgid "Download finished"
 msgid "Download completed"
 msgstr "Niðurhali lokið"
 
-#: core/kget.cpp:1449
+#: core/kget.cpp:1447
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1450
+#: core/kget.cpp:1448
 #, fuzzy, kde-format
 msgid "Download started"
 msgstr "Niðurhali haldið áfram"
 
-#: core/kget.cpp:1452
+#: core/kget.cpp:1450
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -848,72 +848,72 @@ msgid ""
 "\">%2</p>"
 msgstr ""
 
-#: core/kget.cpp:1457
+#: core/kget.cpp:1455
 #, fuzzy, kde-format
 #| msgid "Open Transfer"
 msgid "Resolve"
 msgstr "Opna flutning"
 
-#: core/kget.cpp:1507
+#: core/kget.cpp:1505
 #, fuzzy, kde-format
 #| msgid "All the downloads are finished."
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "Öllum niðurhölum lokið."
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1509
 #, fuzzy, kde-format
 #| msgid "All the downloads are finished."
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "Öllum niðurhölum lokið."
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1509
 #, fuzzy, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Slekkur sjálfvirkt."
 
-#: core/kget.cpp:1514
+#: core/kget.cpp:1512
 #, fuzzy, kde-format
 #| msgid "All the downloads are finished."
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "Öllum niðurhölum lokið."
 
-#: core/kget.cpp:1514
+#: core/kget.cpp:1512
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr ""
 
-#: core/kget.cpp:1517
+#: core/kget.cpp:1515
 #, fuzzy, kde-format
 #| msgid "All the downloads are finished."
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "Öllum niðurhölum lokið."
 
-#: core/kget.cpp:1517
+#: core/kget.cpp:1515
 #, fuzzy, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Í bið"
 
-#: core/kget.cpp:1525
+#: core/kget.cpp:1523
 #, fuzzy, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Hætt við"
 
-#: core/kget.cpp:1535
+#: core/kget.cpp:1533
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1536
+#: core/kget.cpp:1534
 #, fuzzy, kde-format
 #| msgid "Download finished"
 msgid "Downloads completed"
 msgstr "Niðurhali lokið"
 
-#: core/kget.h:369 main.cpp:102 mainwindow.cpp:96 mainwindow.cpp:537
+#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:536
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -970,19 +970,19 @@ msgstr ""
 msgid "Signature not verified"
 msgstr ""
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:30
 #, fuzzy
 msgid "Downloading...."
 msgstr "Niðurhali haldið áfram"
 
-#: core/transfer.cpp:32
+#: core/transfer.cpp:31
 #, fuzzy
 #| msgid "Delayed"
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "Tafðar"
 
-#: core/transfer.cpp:33 core/transfer.cpp:232 core/transfer.cpp:251
+#: core/transfer.cpp:32 core/transfer.cpp:231 core/transfer.cpp:250
 #: transfer-plugins/bittorrent/bttransfer.cpp:308
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:94
 #, fuzzy, kde-format
@@ -991,13 +991,13 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "Stöðvað"
 
-#: core/transfer.cpp:34
+#: core/transfer.cpp:33
 #, fuzzy
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "Hætt við"
 
-#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:225
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:225
 #: transfer-plugins/bittorrent/bttransfer.cpp:304
 #, fuzzy, kde-format
 #| msgid "Finished"
@@ -1005,7 +1005,7 @@ msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "Lokið"
 
-#: core/transfer.cpp:37 transfer-plugins/bittorrent/bttransfer.cpp:169
+#: core/transfer.cpp:36 transfer-plugins/bittorrent/bttransfer.cpp:169
 #, fuzzy, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -1018,7 +1018,7 @@ msgid_plural "%1 Items"
 msgstr[0] "1 hlutur"
 msgstr[1] "1 hlutur"
 
-#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:150
+#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:149
 #: ui/transferdetails.cpp:93
 #, kde-format
 msgid "%1/s"
@@ -1036,7 +1036,8 @@ msgctxt "stop transfergroup downloads"
 msgid "Stop"
 msgstr "Stöðvað"
 
-#: core/transferhandler.cpp:137
+#: core/transferhandler.cpp:136
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:28
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:29
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:30
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:31
@@ -1044,59 +1045,58 @@ msgstr "Stöðvað"
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:33
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:34
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:35
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:36
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:60
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:61
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:62
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:64
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:65
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:66
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:69
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:72
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:75
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:78
-#: ui/transfersviewdelegate.cpp:395
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:68
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:71
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:74
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:77
+#: ui/transfersviewdelegate.cpp:394
 #, fuzzy, kde-format
 msgctxt "not available"
 msgid "n/a"
 msgstr "n/a"
 
-#: core/transferhandler.cpp:145 ui/transferdetails.cpp:89
+#: core/transferhandler.cpp:144 ui/transferdetails.cpp:89
 #, kde-format
 msgid "Stalled"
 msgstr "Töf"
 
-#: core/transfertreemodel.cpp:648
+#: core/transfertreemodel.cpp:646
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "name of download"
 msgid "Name"
 msgstr "Nafn"
 
-#: core/transfertreemodel.cpp:650
+#: core/transfertreemodel.cpp:648
 #, fuzzy, kde-format
 msgctxt "status of download"
 msgid "Status"
 msgstr "Endurræ&sa"
 
-#: core/transfertreemodel.cpp:652
+#: core/transfertreemodel.cpp:650
 #, fuzzy, kde-format
 msgctxt "size of download"
 msgid "Size"
 msgstr "Stærð"
 
-#: core/transfertreemodel.cpp:654
+#: core/transfertreemodel.cpp:652
 #, fuzzy, kde-format
 msgctxt "progress of download"
 msgid "Progress"
 msgstr "Framvindugluggi"
 
-#: core/transfertreemodel.cpp:656
+#: core/transfertreemodel.cpp:654
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgctxt "speed of download"
 msgid "Speed"
 msgstr "Hraði"
 
-#: core/transfertreemodel.cpp:658
+#: core/transfertreemodel.cpp:656
 #, fuzzy, kde-format
 #| msgid "Rem. Time"
 msgctxt "remaining time of download"
@@ -1154,7 +1154,7 @@ msgid "No URL specified."
 msgstr ""
 
 #: core/urlchecker.cpp:326
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:96
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:95
 #: transfer-plugins/bittorrent/bttransfer.cpp:266
 #, fuzzy, kde-format
 #| msgid "Malformed URL:\n"
@@ -1612,70 +1612,70 @@ msgstr ""
 msgid "URL(s) to download"
 msgstr "Slóðir sem á að sækja"
 
-#: mainwindow.cpp:148
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr ""
 
-#: mainwindow.cpp:155
+#: mainwindow.cpp:154
 #, fuzzy, kde-format
 #| msgid "&Import Transfer List..."
 msgid "&Import Transfers..."
 msgstr "Flytja &inn flutningslista..."
 
-#: mainwindow.cpp:162
+#: mainwindow.cpp:161
 #, fuzzy, kde-format
 msgid "&Export Transfers List..."
 msgstr "&Flytja út flutningslista..."
 
-#: mainwindow.cpp:169
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr ""
 
-#: mainwindow.cpp:175
+#: mainwindow.cpp:174
 #, fuzzy, kde-format
 msgid "Top Priority"
 msgstr "Forgangur"
 
-#: mainwindow.cpp:182
+#: mainwindow.cpp:181
 #, fuzzy, kde-format
 msgid "Least Priority"
 msgstr "Forgangur"
 
-#: mainwindow.cpp:189
+#: mainwindow.cpp:188
 #, fuzzy, kde-format
 msgid "Increase Priority"
 msgstr "Forgangur"
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:195
 #, fuzzy, kde-format
 msgid "Decrease Priority"
 msgstr "Forgangur"
 
-#: mainwindow.cpp:204
+#: mainwindow.cpp:203
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "Engar skrár valdar"
 
-#: mainwindow.cpp:210
+#: mainwindow.cpp:209
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "Sjálfgefin mappa"
 
-#: mainwindow.cpp:215
+#: mainwindow.cpp:214
 #, fuzzy, kde-format
 msgid "Set Icon..."
 msgstr "Setja táknmynd..."
 
-#: mainwindow.cpp:221
+#: mainwindow.cpp:220
 #, fuzzy, kde-format
 msgid "Auto-Paste Mode"
 msgstr "Sjálfvirk &líming"
 
-#: mainwindow.cpp:224
+#: mainwindow.cpp:223
 #, fuzzy, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1687,122 +1687,122 @@ msgstr ""
 "Þegar valið, skannar KGet klippispjaldið reglulega og bætir\n"
 "sjálfkrafa við niðurhölum."
 
-#: mainwindow.cpp:230
+#: mainwindow.cpp:229
 #, fuzzy, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "Aftengja &KGet sem Konqueror niðurhalsstjóra"
 
-#: mainwindow.cpp:248
+#: mainwindow.cpp:247
 #, fuzzy, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "Halda áf&ram"
 
-#: mainwindow.cpp:255
+#: mainwindow.cpp:254
 #, fuzzy, kde-format
 #| msgid "Download Selected Files"
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "Sækja valdar skrár"
 
-#: mainwindow.cpp:261
+#: mainwindow.cpp:260
 #, fuzzy, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "Halda áf&ram"
 
-#: mainwindow.cpp:267
+#: mainwindow.cpp:266
 #, fuzzy, kde-format
 #| msgid "Download finished"
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "Niðurhali lokið"
 
-#: mainwindow.cpp:272
+#: mainwindow.cpp:271
 #, fuzzy, kde-format
 msgid "Start All"
 msgstr "Endurræ&sa"
 
-#: mainwindow.cpp:279
+#: mainwindow.cpp:278
 #, fuzzy, kde-format
 msgid "Start Selected"
 msgstr "Engar skrár valdar"
 
-#: mainwindow.cpp:285
+#: mainwindow.cpp:284
 #, kde-format
 msgid "Pause All"
 msgstr ""
 
-#: mainwindow.cpp:292
+#: mainwindow.cpp:291
 #, fuzzy, kde-format
 msgid "Stop Selected"
 msgstr "Engar skrár valdar"
 
-#: mainwindow.cpp:297
+#: mainwindow.cpp:296
 #, fuzzy, kde-format
 msgid "Start"
 msgstr "Endurræ&sa"
 
-#: mainwindow.cpp:305
+#: mainwindow.cpp:304
 #, kde-format
 msgid "Pause"
 msgstr ""
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:313
 #, fuzzy, kde-format
 msgid "Open Destination"
 msgstr "&Opna áfangastað"
 
-#: mainwindow.cpp:319
+#: mainwindow.cpp:318
 #, fuzzy, kde-format
 msgid "Open File"
 msgstr "Opna &skrá"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:322
 #, fuzzy, kde-format
 msgid "Show Details"
 msgstr "pjetur@pjetur.net, leosson@frisurf.no"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:327
 #, fuzzy, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "&Afrita slóð á klippispjald"
 
-#: mainwindow.cpp:333
+#: mainwindow.cpp:332
 #, fuzzy, kde-format
 msgid "&Transfer History"
 msgstr "Opna flutning:"
 
-#: mainwindow.cpp:339
+#: mainwindow.cpp:338
 #, fuzzy, kde-format
 #| msgid "Default folder:"
 msgid "&Group Settings"
 msgstr "Sjálfgefin mappa:"
 
-#: mainwindow.cpp:345
+#: mainwindow.cpp:344
 #, fuzzy, kde-format
 msgid "&Transfer Settings"
 msgstr " Flutningar: %1 "
 
-#: mainwindow.cpp:351
+#: mainwindow.cpp:350
 #, fuzzy, kde-format
 #| msgid "No Links"
 msgid "Import &Links..."
 msgstr "Engir hlekkir"
 
-#: mainwindow.cpp:357
+#: mainwindow.cpp:356
 #, kde-format
 msgid "After downloads finished action"
 msgstr ""
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:361
+#: mainwindow.cpp:360
 #, fuzzy, kde-format
 #| msgid "Location (URL)"
 msgid "No Action"
 msgstr "Staðsetning (slóð)"
 
-#: mainwindow.cpp:444
+#: mainwindow.cpp:443
 #, fuzzy, kde-format
 #| msgid ""
 #| "This is the first time that you have run KGet.\n"
@@ -1814,39 +1814,39 @@ msgstr ""
 "Þetta er í fyrsta skipti sem þú keyrir KGet.\n"
 "Viltu nota KGet sem niðurhalsstjóra fyrir Konqueror?"
 
-#: mainwindow.cpp:446
+#: mainwindow.cpp:445
 #, fuzzy, kde-format
 msgid "Konqueror Integration"
 msgstr "Samtvinnun við Konqueror"
 
-#: mainwindow.cpp:447
+#: mainwindow.cpp:446
 #, kde-format
 msgid "Enable"
 msgstr "Virkja"
 
-#: mainwindow.cpp:448
+#: mainwindow.cpp:447
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Ekki virkja"
 
-#: mainwindow.cpp:518
+#: mainwindow.cpp:517
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Opna &skrá"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:518
 #, kde-format
 msgid "All Openable Files"
 msgstr ""
 
-#: mainwindow.cpp:535
+#: mainwindow.cpp:534
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr ""
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:588
 #, fuzzy, kde-format
 #| msgid ""
 #| "Some transfers are still running.\n"
@@ -1858,38 +1858,38 @@ msgstr ""
 "Það eru færslur í gangi.\n"
 "Eru viss um að þú viljir loka KGet?"
 
-#: mainwindow.cpp:591
+#: mainwindow.cpp:590
 #, kde-format
 msgid "Confirm Quit"
 msgstr ""
 
-#: mainwindow.cpp:622
+#: mainwindow.cpp:621
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "&Flytja út flutningslista..."
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:622
 #, fuzzy, kde-format
 msgid "KGet Transfer List"
 msgstr "Opna flutning:"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:622
 #, fuzzy, kde-format
 msgid "Text File"
 msgstr "Opna &skrá"
 
-#: mainwindow.cpp:654
+#: mainwindow.cpp:653
 #, fuzzy, kde-format
 msgid "Enter Group Name"
 msgstr "Pjetur G. Hjaltason, Arnar Leósson"
 
-#: mainwindow.cpp:655
+#: mainwindow.cpp:654
 #, fuzzy, kde-format
 msgid "Group name:"
 msgstr "Pjetur G. Hjaltason, Arnar Leósson"
 
-#: mainwindow.cpp:746
+#: mainwindow.cpp:745
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to delete this transfer?"
 msgid "Are you sure you want to delete the selected transfer?"
@@ -1897,12 +1897,12 @@ msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Ertu viss um að þú viljir eyða þessari færslu?"
 msgstr[1] "Ertu viss um að þú viljir eyða þessari færslu?"
 
-#: mainwindow.cpp:748 mainwindow.cpp:786
+#: mainwindow.cpp:747 mainwindow.cpp:785
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "Opna flutning:"
 
-#: mainwindow.cpp:784
+#: mainwindow.cpp:783
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to delete this transfer?"
 msgid "Are you sure you want to delete the selected transfer including files?"
@@ -1911,7 +1911,7 @@ msgid_plural ""
 msgstr[0] "Ertu viss um að þú viljir eyða þessari færslu?"
 msgstr[1] "Ertu viss um að þú viljir eyða þessari færslu?"
 
-#: mainwindow.cpp:1120
+#: mainwindow.cpp:1119
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1919,17 +1919,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1244 ui/droptarget.cpp:226
+#: mainwindow.cpp:1243 ui/droptarget.cpp:226
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Opna flutning:"
 
-#: mainwindow.cpp:1245 ui/droptarget.cpp:227
+#: mainwindow.cpp:1244 ui/droptarget.cpp:227
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "Niðurhali haldið áfram"
 
-#: mainwindow.cpp:1246 ui/droptarget.cpp:228
+#: mainwindow.cpp:1245 ui/droptarget.cpp:228
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "Opna flutning:"
@@ -1942,7 +1942,7 @@ msgid "Advanced Details for %1"
 msgstr "Sjálfgefin mappa:"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:66
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:217
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
 #, fuzzy, kde-format
 msgid "Files"
 msgstr "Opna &skrá"
@@ -1957,52 +1957,52 @@ msgstr "&Flutningur"
 msgid "Webseeds"
 msgstr "Vefsáningar"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:212
 #, fuzzy, kde-format
 #| msgid "Count"
 msgid "Chunk"
 msgstr "Fjöldi"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
 #, fuzzy, kde-format
 msgid "Progress"
 msgstr "Framvindugluggi"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
 #, fuzzy, kde-format
 msgid "Peer"
 msgstr "Jafningi"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgid "Down Speed"
 msgstr "Hraði"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:224
 #, fuzzy, kde-format
 #| msgid "Number of retries:"
 msgid "Number of the chunk"
 msgstr "Hve oft á að reyna:"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
 #, kde-format
 msgid "Download progress of the chunk"
 msgstr "Sóknarframvinda búts"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
 #, kde-format
 msgid "Which peer we are downloading it from"
 msgstr "Frá hvaða jafningja er verið að sækja"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
 #, fuzzy, kde-format
 #| msgid "Download finished"
 msgid "Download speed of the chunk"
 msgstr "Niðurhali lokið"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:229
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
 #, kde-format
 msgid "Which files the chunk is located in"
 msgstr "Í hvaða skrám búturinn er staðsettur"
@@ -2057,54 +2057,54 @@ msgstr "Vinstri:"
 msgid "Size:"
 msgstr " Stærð: %1 "
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:66
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
 #, fuzzy, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "Opna &skrá"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
 #, fuzzy, kde-format
 msgid "Download first"
 msgstr "Niðurhali haldið áfram"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, fuzzy, kde-format
 msgid "Download normally"
 msgstr "Sjálfgefin mappa"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
 #, fuzzy, kde-format
 msgid "Download last"
 msgstr "Niðurhali haldið áfram"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, fuzzy, kde-format
 msgid "Do Not Download"
 msgstr "Hlaða niður aftur"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, fuzzy, kde-format
 #| msgid "Download Selected Files"
 msgid "Delete File(s)"
 msgstr "Sækja valdar skrár"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, fuzzy, kde-format
 msgid "Move File"
 msgstr "Opna &skrá"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "Fella saman möppugrein"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "Fella út möppugrein"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:266
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2112,8 +2112,8 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:292
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:312
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:291
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:311
 #, fuzzy, kde-format
 #| msgid "Select a directory to move the data to."
 msgid "Select a directory to move the data to"
@@ -2208,216 +2208,216 @@ msgctxt "preview available"
 msgid "Available"
 msgstr "Tiltækt"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:55
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
 #, fuzzy, kde-format
 msgid "Kick Peer"
 msgstr "Sparka jafningja"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:56
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:54
 #, fuzzy, kde-format
 msgid "Ban Peer"
 msgstr "Banna jafningja"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
 #, fuzzy, kde-format
 msgctxt "Choked"
 msgid "Yes"
 msgstr "Já"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
 #, fuzzy, kde-format
 msgctxt "Not choked"
 msgid "No"
 msgstr "Nei"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
 #, fuzzy, kde-format
 msgctxt "Snubbed"
 msgid "Yes"
 msgstr "Já"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
 #, fuzzy, kde-format
 msgctxt "Not snubbed"
 msgid "No"
 msgstr "Nei"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, fuzzy, kde-format
 msgctxt "Interested"
 msgid "Yes"
 msgstr "Já"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, fuzzy, kde-format
 msgctxt "Not Interested"
 msgid "No"
 msgstr "Nei"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
 #, fuzzy, kde-format
 msgctxt "Interesting"
 msgid "Yes"
 msgstr "Já"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
 #, fuzzy, kde-format
 msgctxt "Not Interesting"
 msgid "No"
 msgstr "Nei"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:311
 #, fuzzy, kde-format
 #| msgid "Address (URL)"
 msgid "IP Address"
 msgstr "Slóð"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
 #, fuzzy, kde-format
 msgid "Client"
 msgstr "Biðlari"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgid "Up Speed"
 msgstr "Hraði"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
 #, fuzzy, kde-format
 #| msgid "Docked"
 msgid "Choked"
 msgstr "Á spjaldið"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
 #, kde-format
 msgid "Snubbed"
 msgstr "Sniðgengið"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
 #, kde-format
 msgid "Availability"
 msgstr "Aðgengi"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
 #, kde-format
 msgid "DHT"
 msgstr "DHT"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
 #, fuzzy, kde-format
 #| msgid "Source:"
 msgid "Score"
 msgstr "Uppruni:"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
 #, fuzzy, kde-format
 msgid "Upload Slot"
 msgstr "Senda hólf"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
 #, fuzzy, kde-format
 msgid "Requests"
 msgstr "Beiðnir"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:129
 #, fuzzy, kde-format
 msgid "Downloaded"
 msgstr "Niðurhali haldið áfram"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
 #, fuzzy, kde-format
 msgid "Uploaded"
 msgstr "Hlaðið inn"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
 #, fuzzy, kde-format
 msgid "Interested"
 msgstr "Áhugasamur"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
 #, fuzzy, kde-format
 msgid "Interesting"
 msgstr "Samtvinnun við Konqueror"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:333
 #, kde-format
 msgid "IP address of the peer"
 msgstr "IP vistfang jafningja"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
 #, kde-format
 msgid "Which client the peer is using"
 msgstr "Hvaða forrit jafningi notar"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
 #, fuzzy, kde-format
 msgid "Download speed"
 msgstr "Niðurhali haldið áfram"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgid "Upload speed"
 msgstr "Hraði"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
 #, kde-format
 msgid ""
 "Whether or not the peer has choked us. If we are choked, the peer will not "
 "send us any data."
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
 #, kde-format
 msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
 msgstr ""
 "Að vera sniðgenginn þýðir að jafninginn hefur ekki sent okkur nein gögn "
 "síðustu 2 mínúturnar"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
 #, kde-format
 msgid "How much of the torrent's data the peer has"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
 msgstr "Hvort jafninginn sé með DHT virkjað"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
 #, kde-format
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
 #, kde-format
 msgid "Only peers which have an upload slot will get data from us"
 msgstr "Einungis jafningjar sem eiga sendingarhólf fá gögn frá okkur"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
 #, kde-format
 msgid "The number of download and upload requests"
 msgstr "Fjöldi fyrirspurna um niðurhal og sendingar"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
 msgid "How much data we have downloaded from this peer"
 msgstr "Hversu mikið af gögnum við erum búin að ná í frá þessum jafningja"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
 #, kde-format
 msgid "How much data we have uploaded to this peer"
 msgstr "Hversu mikið af gögnum við erum búin að senda til þessa jafningja"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
 #, kde-format
 msgid "Whether the peer is interested in downloading data from us"
 msgstr "Hvort jafninginn hefur áhuga á gögnum frá okkur"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
 #, kde-format
 msgid "Whether we are interested in downloading from this peer"
 msgstr "Hvort við höfum áhuga á gögnum frá þessum jafningja"
@@ -2436,53 +2436,53 @@ msgstr "Opna &skrá"
 msgid "Size"
 msgstr "Stærð"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:149
 #, fuzzy, kde-format
 msgid "Url"
 msgstr "Slóð:"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:150
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:130
 #: ui/history/transferhistory.cpp:248
 #, fuzzy, kde-format
 msgid "Status"
 msgstr "Endurræ&sa"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgid "Seeders"
 msgstr "Hraði"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgid "Leechers"
 msgstr "Hraði"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:155
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
 #, fuzzy, kde-format
 msgid "Times Downloaded"
 msgstr "Niðurhali haldið áfram"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
 #, kde-format
 msgid "Next Update"
 msgstr "Næsta uppfærsla"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
 #, kde-format
 msgid "Add Tracker"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
 #, kde-format
 msgid "Enter the URL of the tracker:"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:103
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:102
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
 msgstr "Þegar er til staðar skrásetjari (tracker) með heitinu <b>%1</b>."
@@ -2526,14 +2526,14 @@ msgstr "Slóð"
 msgid "Speed"
 msgstr "Hraði"
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:97
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:96
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
 msgstr ""
 "Get ekki bætt við vefsáningunni %1, hún er nú þegar hluti listans yfir "
 "vefsáningar."
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:114
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:113
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
 msgstr "Get ekki fjarlægt vefsáninguna %1, hún er hluti af straumnum."
@@ -4175,12 +4175,12 @@ msgctxt "Location = country"
 msgid "Location"
 msgstr "Staðsetning (slóð)"
 
-#: ui/mirror/mirrorsettings.cpp:55
+#: ui/mirror/mirrorsettings.cpp:54
 #, kde-format
 msgid "Add mirror"
 msgstr ""
 
-#: ui/mirror/mirrorsettings.cpp:149
+#: ui/mirror/mirrorsettings.cpp:148
 #, kde-format
 msgid "Modify the used mirrors"
 msgstr ""

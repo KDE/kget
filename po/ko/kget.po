@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:44+0000\n"
+"POT-Creation-Date: 2022-12-18 00:53+0000\n"
 "PO-Revision-Date: 2022-07-13 12:53+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -51,7 +51,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "모든 다운로드가 완료되었을 때 실행할 동작:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:34 mainwindow.cpp:365 ui/droptarget.cpp:92
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:92
 #, kde-format
 msgid "Quit KGet"
 msgstr "KGet 끝내기"
@@ -315,101 +315,101 @@ msgstr "제외"
 msgid "The width of the columns in the history view"
 msgstr "과거 기록 보기의 열 너비"
 
-#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:78
+#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:77
 #, kde-format
 msgid "Plugins"
 msgstr "플러그인"
 
-#: conf/preferencesdialog.cpp:52
+#: conf/preferencesdialog.cpp:51
 #, kde-format
 msgid "Xml"
 msgstr "XML"
 
-#: conf/preferencesdialog.cpp:54
+#: conf/preferencesdialog.cpp:53
 #, kde-format
 msgid "Sqlite"
 msgstr "SQLite"
 
-#: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:57 mainwindow.cpp:370
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "컴퓨터 끄기"
 
-#: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:375
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "최대 절전 모드로 전환"
 
-#: conf/preferencesdialog.cpp:60 mainwindow.cpp:381
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:380
 #, kde-format
 msgid "Suspend Computer"
 msgstr "절전 모드로 전환"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Appearance"
 msgstr "모양"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Change appearance settings"
 msgstr "모양 설정 변경"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Groups"
 msgstr "그룹"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Manage the groups"
 msgstr "그룹 관리"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:72
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
 msgstr "네트워크"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Network and Downloads"
 msgstr "네트워크와 다운로드"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Web Interface"
 msgstr "웹 인터페이스"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr "KGet을 네트워크나 인터넷으로 제어합니다"
 
-#: conf/preferencesdialog.cpp:75
+#: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Verification"
 msgstr "확인"
 
-#: conf/preferencesdialog.cpp:76
+#: conf/preferencesdialog.cpp:75
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "통합"
 
-#: conf/preferencesdialog.cpp:77
+#: conf/preferencesdialog.cpp:76
 #, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "고급"
 
-#: conf/preferencesdialog.cpp:77
+#: conf/preferencesdialog.cpp:76
 #, kde-format
 msgid "Advanced Options"
 msgstr "고급 설정"
 
-#: conf/preferencesdialog.cpp:78
+#: conf/preferencesdialog.cpp:77
 #, kde-format
 msgid "Transfer Plugins"
 msgstr "전송 플러그인"
@@ -477,7 +477,7 @@ msgid "Keyservers:"
 msgstr "키 서버:"
 
 #: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
-#: core/kget.cpp:1452 transfer-plugins/metalink/metalink.cpp:212
+#: core/kget.cpp:1450 transfer-plugins/metalink/metalink.cpp:212
 #: transfer-plugins/metalink/metalinkhttp.cpp:253
 #: transfer-plugins/metalink/metalinkxml.cpp:211
 #: ui/metalinkcreator/metalinkcreator.cpp:149
@@ -497,31 +497,31 @@ msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
 msgstr "%1에서 보고한 파일 크기가 잘못되어서 삭제했습니다."
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "file in a filesystem"
 msgid "File"
 msgstr "파일"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "status of the download"
 msgid "Status"
 msgstr "상태"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "size of the download"
 msgid "Size"
 msgstr "크기"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "checksum of a file"
 msgid "Checksum"
 msgstr "체크섬"
 
-#: core/filemodel.cpp:283
+#: core/filemodel.cpp:282
 #, kde-format
 msgctxt "signature of a file"
 msgid "Signature"
@@ -547,27 +547,27 @@ msgstr ""
 "사용할 수 있는 키 서버가 없어서 키를 다운로드할 수 없습니다. 설정에서 키 서버"
 "를 더 추가하거나 KGet을 다시 시작한 다음 다운로드를 다시 시도하십시오."
 
-#: core/kget.cpp:124
+#: core/kget.cpp:122
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "%1 그룹을 삭제하시겠습니까?"
 
-#: core/kget.cpp:125
+#: core/kget.cpp:123
 #, kde-format
 msgid "Remove Group"
 msgstr "그룹 삭제"
 
-#: core/kget.cpp:158
+#: core/kget.cpp:156
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "다음 그룹을 삭제하시겠습니까?"
 
-#: core/kget.cpp:160
+#: core/kget.cpp:158
 #, kde-format
 msgid "Remove groups"
 msgstr "그룹 삭제"
 
-#: core/kget.cpp:271
+#: core/kget.cpp:269
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -576,27 +576,27 @@ msgstr ""
 "<p>다운로드 목록에 다음 전송 항목을 추가했습니다:</p><p style=\"font-size: "
 "small;\">%1</p>"
 
-#: core/kget.cpp:272 core/kget.cpp:369
+#: core/kget.cpp:270 core/kget.cpp:367
 #, kde-format
 msgid "Download added"
 msgstr "다운로드 추가됨"
 
-#: core/kget.cpp:364
+#: core/kget.cpp:362
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>다운로드 목록에 다음 전송 항목을 추가했습니다:</p>"
 
-#: core/kget.cpp:366
+#: core/kget.cpp:364
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>다운로드 목록에 다음 전송 항목을 추가했습니다:</p>"
 
-#: core/kget.cpp:534 core/kget.cpp:583
+#: core/kget.cpp:532 core/kget.cpp:581
 #, kde-format
 msgid "My Downloads"
 msgstr "내 다운로드"
 
-#: core/kget.cpp:597
+#: core/kget.cpp:595
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -605,17 +605,17 @@ msgstr ""
 "%1 파일이 이미 존재합니다.\n"
 "덮어쓰시겠습니까?"
 
-#: core/kget.cpp:598
+#: core/kget.cpp:596
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "존재하는 파일을 덮어쓰시겠습니까?"
 
-#: core/kget.cpp:625 ui/metalinkcreator/metalinkcreator.cpp:166
+#: core/kget.cpp:623 ui/metalinkcreator/metalinkcreator.cpp:166
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "다음에 저장할 수 없음: %1"
 
-#: core/kget.cpp:928
+#: core/kget.cpp:926
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -626,34 +626,34 @@ msgid_plural ""
 msgstr[0] ""
 "<p>KGet에서 프로토콜을 지원하지 않아서 다음 URL을 다운로드할 수 없습니다:</p>"
 
-#: core/kget.cpp:938
+#: core/kget.cpp:936
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "프로토콜 지원하지 않음"
 
-#: core/kget.cpp:992 ui/newtransferdialog.cpp:53
+#: core/kget.cpp:990 ui/newtransferdialog.cpp:53
 #, kde-format
 msgid "New Download"
 msgstr "새 다운로드"
 
-#: core/kget.cpp:992
+#: core/kget.cpp:990
 #, kde-format
 msgid "Enter URL:"
 msgstr "URL 입력:"
 
-#: core/kget.cpp:1012
+#: core/kget.cpp:1010
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "디렉터리 선택"
 
-#: core/kget.cpp:1031
+#: core/kget.cpp:1029
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: core/kget.cpp:1044 core/urlchecker.cpp:366
+#: core/kget.cpp:1042 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -662,7 +662,7 @@ msgstr ""
 "잘못된 URL:\n"
 "%1"
 
-#: core/kget.cpp:1051 core/urlchecker.cpp:368
+#: core/kget.cpp:1049 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -671,7 +671,7 @@ msgstr ""
 "잘못된 URL, 프로토콜 없음:\n"
 "%1"
 
-#: core/kget.cpp:1066 core/urlchecker.cpp:424
+#: core/kget.cpp:1064 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -686,12 +686,12 @@ msgstr ""
 "\n"
 "다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1067 core/urlchecker.cpp:641
+#: core/kget.cpp:1065 core/urlchecker.cpp:641
 #, kde-format
 msgid "Download it again?"
 msgstr "다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1068 core/kget.cpp:1090 core/kget.cpp:1158
+#: core/kget.cpp:1066 core/kget.cpp:1088 core/kget.cpp:1156
 #: transfer-plugins/kio/transferKio.cpp:288
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
@@ -702,13 +702,13 @@ msgctxt "@action:button"
 msgid "Download Again"
 msgstr "다시 다운로드"
 
-#: core/kget.cpp:1069 core/kget.cpp:1091 core/kget.cpp:1159
+#: core/kget.cpp:1067 core/kget.cpp:1089 core/kget.cpp:1157
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1088 core/urlchecker.cpp:426
+#: core/kget.cpp:1086 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -723,17 +723,17 @@ msgstr ""
 "\n"
 "삭제한 후 다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1089 core/urlchecker.cpp:638
+#: core/kget.cpp:1087 core/urlchecker.cpp:638
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "삭제한 후 다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1117 core/kget.cpp:1124
+#: core/kget.cpp:1115 core/kget.cpp:1122
 #, kde-format
 msgid "Directory is not writable"
 msgstr "디렉터리에 쓸 수 없습니다"
 
-#: core/kget.cpp:1156
+#: core/kget.cpp:1154
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -744,39 +744,39 @@ msgstr ""
 "\n"
 "이전 파일을 삭제하고 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1157 core/urlchecker.cpp:650
+#: core/kget.cpp:1155 core/urlchecker.cpp:650
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "파일이 이미 다운로드되었습니다. 그래도 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1171
+#: core/kget.cpp:1169
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "같은 파일을 이미 다운로드하고 있음"
 
-#: core/kget.cpp:1175 core/kget.cpp:1178 core/urlchecker.cpp:653
+#: core/kget.cpp:1173 core/kget.cpp:1176 core/urlchecker.cpp:653
 #: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:493
 #: transfer-plugins/metalink/metalink.cpp:740
 #, kde-format
 msgid "File already exists"
 msgstr "파일이 이미 존재함"
 
-#: core/kget.cpp:1279
+#: core/kget.cpp:1277
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "인터넷에 연결되어 전송을 다시 시작합니다."
 
-#: core/kget.cpp:1284
+#: core/kget.cpp:1282
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "인터넷 연결이 끊겨서 전송을 중단합니다."
 
-#: core/kget.cpp:1298
+#: core/kget.cpp:1296
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "플러그인 로더에서 %1 플러그인을 불러올 수 없음: %2."
 
-#: core/kget.cpp:1313
+#: core/kget.cpp:1311
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -787,7 +787,7 @@ msgstr ""
 "이(가) 디렉터리이기 때문에\n"
 "삭제하지 않습니다."
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -798,7 +798,7 @@ msgstr ""
 "이(가) 로컬 파일이 아니기 때문에\n"
 "삭제하지 않습니다."
 
-#: core/kget.cpp:1445
+#: core/kget.cpp:1443
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -806,24 +806,24 @@ msgid ""
 msgstr ""
 "<p>다음 파일을 다운로드했습니다:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1446
+#: core/kget.cpp:1444
 #, kde-format
 msgid "Download completed"
 msgstr "다운로드 완료됨"
 
-#: core/kget.cpp:1449
+#: core/kget.cpp:1447
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr "<p>다음 전송을 시작했습니다:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1450
+#: core/kget.cpp:1448
 #, kde-format
 msgid "Download started"
 msgstr "다운로드 시작됨"
 
-#: core/kget.cpp:1452
+#: core/kget.cpp:1450
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -833,67 +833,67 @@ msgstr ""
 "<p>다음 전송에서 오류가 발생했습니다:</p><p style=\"font-size: small;\">%1</"
 "p><p>오류 메시지:</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1457
+#: core/kget.cpp:1455
 #, kde-format
 msgid "Resolve"
 msgstr "해결"
 
-#: core/kget.cpp:1507
+#: core/kget.cpp:1505
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "모든 다운로드가 완료되었기 때문에 KGet을 종료합니다."
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1509
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "모든 다운로드가 완료되었기 때문에 컴퓨터를 끕니다."
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1509
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "컴퓨터 끄기"
 
-#: core/kget.cpp:1514
+#: core/kget.cpp:1512
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "모든 다운로드가 완료되었기 때문에 컴퓨터를 최대 절전 모드로 전환합니다."
 
-#: core/kget.cpp:1514
+#: core/kget.cpp:1512
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "최대 절전 모드로 전환"
 
-#: core/kget.cpp:1517
+#: core/kget.cpp:1515
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "모든 다운로드가 완료되었기 때문에 컴퓨터를 대기 모드로 전환합니다."
 
-#: core/kget.cpp:1517
+#: core/kget.cpp:1515
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "대기 모드로 전환"
 
-#: core/kget.cpp:1525
+#: core/kget.cpp:1523
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "중지"
 
-#: core/kget.cpp:1535
+#: core/kget.cpp:1533
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>모든 전송이 완료되었습니다.</p>"
 
-#: core/kget.cpp:1536
+#: core/kget.cpp:1534
 #, kde-format
 msgid "Downloads completed"
 msgstr "다운로드 완료됨"
 
-#: core/kget.h:369 main.cpp:102 mainwindow.cpp:96 mainwindow.cpp:537
+#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:536
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -947,16 +947,16 @@ msgstr ""
 msgid "Signature not verified"
 msgstr "서명이 인증되지 않음"
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:30
 msgid "Downloading...."
 msgstr "다운로드 중...."
 
-#: core/transfer.cpp:32
+#: core/transfer.cpp:31
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "지연됨"
 
-#: core/transfer.cpp:33 core/transfer.cpp:232 core/transfer.cpp:251
+#: core/transfer.cpp:32 core/transfer.cpp:231 core/transfer.cpp:250
 #: transfer-plugins/bittorrent/bttransfer.cpp:308
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:94
 #, kde-format
@@ -964,19 +964,19 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "정지됨"
 
-#: core/transfer.cpp:34
+#: core/transfer.cpp:33
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "중단됨"
 
-#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:225
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:225
 #: transfer-plugins/bittorrent/bttransfer.cpp:304
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "완료됨"
 
-#: core/transfer.cpp:37 transfer-plugins/bittorrent/bttransfer.cpp:169
+#: core/transfer.cpp:36 transfer-plugins/bittorrent/bttransfer.cpp:169
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -988,7 +988,7 @@ msgid "1 Item"
 msgid_plural "%1 Items"
 msgstr[0] "항목 %1개"
 
-#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:150
+#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:149
 #: ui/transferdetails.cpp:93
 #, kde-format
 msgid "%1/s"
@@ -1006,7 +1006,8 @@ msgctxt "stop transfergroup downloads"
 msgid "Stop"
 msgstr "정지"
 
-#: core/transferhandler.cpp:137
+#: core/transferhandler.cpp:136
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:28
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:29
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:30
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:31
@@ -1014,57 +1015,56 @@ msgstr "정지"
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:33
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:34
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:35
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:36
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:60
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:61
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:62
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:64
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:65
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:66
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:69
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:72
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:75
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:78
-#: ui/transfersviewdelegate.cpp:395
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:68
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:71
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:74
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:77
+#: ui/transfersviewdelegate.cpp:394
 #, kde-format
 msgctxt "not available"
 msgid "n/a"
 msgstr "없음"
 
-#: core/transferhandler.cpp:145 ui/transferdetails.cpp:89
+#: core/transferhandler.cpp:144 ui/transferdetails.cpp:89
 #, kde-format
 msgid "Stalled"
 msgstr "정지됨"
 
-#: core/transfertreemodel.cpp:648
+#: core/transfertreemodel.cpp:646
 #, kde-format
 msgctxt "name of download"
 msgid "Name"
 msgstr "이름"
 
-#: core/transfertreemodel.cpp:650
+#: core/transfertreemodel.cpp:648
 #, kde-format
 msgctxt "status of download"
 msgid "Status"
 msgstr "상태"
 
-#: core/transfertreemodel.cpp:652
+#: core/transfertreemodel.cpp:650
 #, kde-format
 msgctxt "size of download"
 msgid "Size"
 msgstr "크기"
 
-#: core/transfertreemodel.cpp:654
+#: core/transfertreemodel.cpp:652
 #, kde-format
 msgctxt "progress of download"
 msgid "Progress"
 msgstr "진행"
 
-#: core/transfertreemodel.cpp:656
+#: core/transfertreemodel.cpp:654
 #, kde-format
 msgctxt "speed of download"
 msgid "Speed"
 msgstr "속도"
 
-#: core/transfertreemodel.cpp:658
+#: core/transfertreemodel.cpp:656
 #, kde-format
 msgctxt "remaining time of download"
 msgid "Remaining Time"
@@ -1117,7 +1117,7 @@ msgid "No URL specified."
 msgstr "URL을 지정하지 않았습니다."
 
 #: core/urlchecker.cpp:326
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:96
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:95
 #: transfer-plugins/bittorrent/bttransfer.cpp:266
 #, kde-format
 msgid "Malformed URL."
@@ -1574,69 +1574,69 @@ msgstr "유닛 테스트"
 msgid "URL(s) to download"
 msgstr "다운로드할 URL"
 
-#: mainwindow.cpp:148
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr "새 다운로드(&N)..."
 
-#: mainwindow.cpp:155
+#: mainwindow.cpp:154
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "전송 목록 가져오기(&I)..."
 
-#: mainwindow.cpp:162
+#: mainwindow.cpp:161
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "전송 목록 내보내기(&E)..."
 
-#: mainwindow.cpp:169
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "메타링크 만들기(&C)..."
 
-#: mainwindow.cpp:175
+#: mainwindow.cpp:174
 #, kde-format
 msgid "Top Priority"
 msgstr "가장 높은 순위"
 
-#: mainwindow.cpp:182
+#: mainwindow.cpp:181
 #, kde-format
 msgid "Least Priority"
 msgstr "가장 낮은 순위"
 
-#: mainwindow.cpp:189
+#: mainwindow.cpp:188
 #, kde-format
 msgid "Increase Priority"
 msgstr "우선 순위 증가"
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:195
 #, kde-format
 msgid "Decrease Priority"
 msgstr "우선 순위 감소"
 
-#: mainwindow.cpp:204
+#: mainwindow.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "그룹 삭제"
 
-#: mainwindow.cpp:210
+#: mainwindow.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "그룹 이름 바꾸기..."
 
-#: mainwindow.cpp:215
+#: mainwindow.cpp:214
 #, kde-format
 msgid "Set Icon..."
 msgstr "아이콘 설정..."
 
-#: mainwindow.cpp:221
+#: mainwindow.cpp:220
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "자동 붙여넣기 모드"
 
-#: mainwindow.cpp:224
+#: mainwindow.cpp:223
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1646,117 +1646,117 @@ msgstr ""
 "<b>자동 붙여넣기</b> 단추는 자동 붙여넣기 모드를 켜거나 끕니다.\n"
 "사용할 경우에는 KGet에서 자동으로 클립보드의 URL을 검색하여 붙여넣습니다."
 
-#: mainwindow.cpp:230
+#: mainwindow.cpp:229
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "KGet을 Konqueror 다운로드 관리자로 사용하기"
 
-#: mainwindow.cpp:248
+#: mainwindow.cpp:247
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "선택한 항목 삭제"
 
-#: mainwindow.cpp:255
+#: mainwindow.cpp:254
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "모든 완료된 항목 삭제"
 
-#: mainwindow.cpp:261
+#: mainwindow.cpp:260
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "선택한 항목과 파일 삭제"
 
-#: mainwindow.cpp:267
+#: mainwindow.cpp:266
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "선택한 항목 다시 다운로드"
 
-#: mainwindow.cpp:272
+#: mainwindow.cpp:271
 #, kde-format
 msgid "Start All"
 msgstr "모두 시작"
 
-#: mainwindow.cpp:279
+#: mainwindow.cpp:278
 #, kde-format
 msgid "Start Selected"
 msgstr "선택한 항목 시작"
 
-#: mainwindow.cpp:285
+#: mainwindow.cpp:284
 #, kde-format
 msgid "Pause All"
 msgstr "모두 일시 정지"
 
-#: mainwindow.cpp:292
+#: mainwindow.cpp:291
 #, kde-format
 msgid "Stop Selected"
 msgstr "선택 항목 정지"
 
-#: mainwindow.cpp:297
+#: mainwindow.cpp:296
 #, kde-format
 msgid "Start"
 msgstr "시작"
 
-#: mainwindow.cpp:305
+#: mainwindow.cpp:304
 #, kde-format
 msgid "Pause"
 msgstr "일시 정지"
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:313
 #, kde-format
 msgid "Open Destination"
 msgstr "대상 열기"
 
-#: mainwindow.cpp:319
+#: mainwindow.cpp:318
 #, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:322
 #, kde-format
 msgid "Show Details"
 msgstr "자세한 정보 표시"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:327
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "URL을 클립보드에 복사"
 
-#: mainwindow.cpp:333
+#: mainwindow.cpp:332
 #, kde-format
 msgid "&Transfer History"
 msgstr "전송 기록(&T)"
 
-#: mainwindow.cpp:339
+#: mainwindow.cpp:338
 #, kde-format
 msgid "&Group Settings"
 msgstr "그룹 설정(&G)"
 
-#: mainwindow.cpp:345
+#: mainwindow.cpp:344
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "전송 설정(&T)"
 
-#: mainwindow.cpp:351
+#: mainwindow.cpp:350
 #, kde-format
 msgid "Import &Links..."
 msgstr "링크 가져오기(&L)..."
 
-#: mainwindow.cpp:357
+#: mainwindow.cpp:356
 #, kde-format
 msgid "After downloads finished action"
 msgstr "다운로드가 끝난 후 동작"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:361
+#: mainwindow.cpp:360
 #, kde-format
 msgid "No Action"
 msgstr "동작 없음"
 
-#: mainwindow.cpp:444
+#: mainwindow.cpp:443
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1765,39 +1765,39 @@ msgstr ""
 "KGet을 처음으로 실행했습니다.\n"
 "Konqueror의 다운로드 관리자로 KGet을 사용하시겠습니까?"
 
-#: mainwindow.cpp:446
+#: mainwindow.cpp:445
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror 통합"
 
-#: mainwindow.cpp:447
+#: mainwindow.cpp:446
 #, kde-format
 msgid "Enable"
 msgstr "사용함"
 
-#: mainwindow.cpp:448
+#: mainwindow.cpp:447
 #, kde-format
 msgid "Do Not Enable"
 msgstr "사용하지 않음"
 
-#: mainwindow.cpp:518
+#: mainwindow.cpp:517
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "파일 열기"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:518
 #, kde-format
 msgid "All Openable Files"
 msgstr "모든 열 수 있는 파일"
 
-#: mainwindow.cpp:535
+#: mainwindow.cpp:534
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:588
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1806,56 +1806,56 @@ msgstr ""
 "일부 파일이 전송 중입니다.\n"
 "KGet을 닫으시겠습니까?"
 
-#: mainwindow.cpp:591
+#: mainwindow.cpp:590
 #, kde-format
 msgid "Confirm Quit"
 msgstr "종료 확인"
 
-#: mainwindow.cpp:622
+#: mainwindow.cpp:621
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "전송 목록 내보내기"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:622
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet 전송 목록"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:622
 #, kde-format
 msgid "Text File"
 msgstr "텍스트 파일"
 
-#: mainwindow.cpp:654
+#: mainwindow.cpp:653
 #, kde-format
 msgid "Enter Group Name"
 msgstr "그룹 이름 입력"
 
-#: mainwindow.cpp:655
+#: mainwindow.cpp:654
 #, kde-format
 msgid "Group name:"
 msgstr "그룹 이름:"
 
-#: mainwindow.cpp:746
+#: mainwindow.cpp:745
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "선택한 전송 항목을 삭제하시겠습니까?"
 
-#: mainwindow.cpp:748 mainwindow.cpp:786
+#: mainwindow.cpp:747 mainwindow.cpp:785
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "전송 항목 삭제 확인"
 
-#: mainwindow.cpp:784
+#: mainwindow.cpp:783
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "선택한 전송 항목과 파일을 같이 삭제하시겠습니까?"
 
-#: mainwindow.cpp:1120
+#: mainwindow.cpp:1119
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1866,17 +1866,17 @@ msgstr ""
 "영원히 비활성화시키시려면 설정->고급에서 \"Konqueror 다운로드 관리자로 사용"
 "\"을 비활성화시키십시오."
 
-#: mainwindow.cpp:1244 ui/droptarget.cpp:226
+#: mainwindow.cpp:1243 ui/droptarget.cpp:226
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "떨어트린 파일이 KGet 전송 목록입니다"
 
-#: mainwindow.cpp:1245 ui/droptarget.cpp:227
+#: mainwindow.cpp:1244 ui/droptarget.cpp:227
 #, kde-format
 msgid "&Download"
 msgstr "다운로드(&D)"
 
-#: mainwindow.cpp:1246 ui/droptarget.cpp:228
+#: mainwindow.cpp:1245 ui/droptarget.cpp:228
 #, kde-format
 msgid "&Load transfer list"
 msgstr "전송 목록 불러오기(&L)"
@@ -1888,7 +1888,7 @@ msgid "Advanced Details for %1"
 msgstr "%1의 자세한 정보"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:66
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:217
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
 #, kde-format
 msgid "Files"
 msgstr "파일"
@@ -1903,48 +1903,48 @@ msgstr "트래커"
 msgid "Webseeds"
 msgstr "웹 시드"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:212
 #, kde-format
 msgid "Chunk"
 msgstr "조각"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
 #, kde-format
 msgid "Progress"
 msgstr "진행"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
 #, kde-format
 msgid "Peer"
 msgstr "동료"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
 #, kde-format
 msgid "Down Speed"
 msgstr "다운로드 속도"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:224
 #, kde-format
 msgid "Number of the chunk"
 msgstr "조각 수"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
 #, kde-format
 msgid "Download progress of the chunk"
 msgstr "조각의 다운로드 상태"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
 #, kde-format
 msgid "Which peer we are downloading it from"
 msgstr "다운로드받고 있는 동료"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
 #, kde-format
 msgid "Download speed of the chunk"
 msgstr "조각의 다운로드 속도"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:229
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
 #, kde-format
 msgid "Which files the chunk is located in"
 msgstr "조각이 저장된 파일"
@@ -1997,61 +1997,61 @@ msgstr "남음:"
 msgid "Size:"
 msgstr "크기:"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:66
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "열기"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
 #, kde-format
 msgid "Download first"
 msgstr "먼저 다운로드"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgid "Download normally"
 msgstr "일반적으로 다운로드"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
 #, kde-format
 msgid "Download last"
 msgstr "마지막에 다운로드"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Do Not Download"
 msgstr "다운로드하지 않음"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Delete File(s)"
 msgstr "파일 삭제"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Move File"
 msgstr "파일 이동"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "폴더 트리 접기"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "폴더 트리 펼치기"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:266
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] "이 파일의 모든 데이터를 잃게 됩니다. 계속 진행하시겠습니까?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:292
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:312
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:291
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:311
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr "데이터를 이동할 디렉터리를 선택하십시오"
@@ -2142,156 +2142,156 @@ msgctxt "preview available"
 msgid "Available"
 msgstr "미리 볼 수 있음"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:55
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
 #, kde-format
 msgid "Kick Peer"
 msgstr "피어 추방"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:56
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:54
 #, kde-format
 msgid "Ban Peer"
 msgstr "피어 차단"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
 #, kde-format
 msgctxt "Choked"
 msgid "Yes"
 msgstr "예"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
 #, kde-format
 msgctxt "Not choked"
 msgid "No"
 msgstr "아니요"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
 #, kde-format
 msgctxt "Snubbed"
 msgid "Yes"
 msgstr "예"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:157
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
 #, kde-format
 msgctxt "Not snubbed"
 msgid "No"
 msgstr "아니요"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, kde-format
 msgctxt "Interested"
 msgid "Yes"
 msgstr "예"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, kde-format
 msgctxt "Not Interested"
 msgid "No"
 msgstr "아니요"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
 #, kde-format
 msgctxt "Interesting"
 msgid "Yes"
 msgstr "예"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
 #, kde-format
 msgctxt "Not Interesting"
 msgid "No"
 msgstr "아니요"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:311
 #, kde-format
 msgid "IP Address"
 msgstr "IP 주소"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
 #, kde-format
 msgid "Client"
 msgstr "클라이언트"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
 #, kde-format
 msgid "Up Speed"
 msgstr "업로드 속도"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
 #, kde-format
 msgid "Choked"
 msgstr "거부됨"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
 #, kde-format
 msgid "Snubbed"
 msgstr "비활성"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
 #, kde-format
 msgid "Availability"
 msgstr "사용 가능성"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
 #, kde-format
 msgid "DHT"
 msgstr "DHT"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
 #, kde-format
 msgid "Score"
 msgstr "점수"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
 #, kde-format
 msgid "Upload Slot"
 msgstr "업로드 슬롯"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
 #, kde-format
 msgid "Requests"
 msgstr "요청"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:129
 #, kde-format
 msgid "Downloaded"
 msgstr "다운로드됨"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
 #, kde-format
 msgid "Uploaded"
 msgstr "업로드됨"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
 #, kde-format
 msgid "Interested"
 msgstr "관심 받음"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
 #, kde-format
 msgid "Interesting"
 msgstr "관심 있음"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:333
 #, kde-format
 msgid "IP address of the peer"
 msgstr "동료의 IP 주소"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
 #, kde-format
 msgid "Which client the peer is using"
 msgstr "동료가 사용하는 클라이언트"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
 #, kde-format
 msgid "Download speed"
 msgstr "다운로드 속도"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, kde-format
 msgid "Upload speed"
 msgstr "업로드 속도"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
 #, kde-format
 msgid ""
 "Whether or not the peer has choked us. If we are choked, the peer will not "
@@ -2300,54 +2300,54 @@ msgstr ""
 "동료 측에서 거부했는지 여부입니다. 동료 측에서 거부하면 데이터를 보내지 않습"
 "니다."
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
 #, kde-format
 msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
 msgstr "동료 측에서 2분 동안 데이터를 보내지 않으면 비활성 상태가 됩니다"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
 #, kde-format
 msgid "How much of the torrent's data the peer has"
 msgstr "동료 측에서 가지고 있는 토렌트 데이터"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
 msgstr "동료 측의 DHT 활성화 여부"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
 #, kde-format
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
 msgstr ""
 "동료의 점수입니다. KTorrent에서 이 정보를 사용하여 업로드할 대상을 정합니다."
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
 #, kde-format
 msgid "Only peers which have an upload slot will get data from us"
 msgstr "업로드 슬롯을 갖고 있는 동료만 데이터를 받을 수 있습니다"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
 #, kde-format
 msgid "The number of download and upload requests"
 msgstr "다운로드와 업로드 요청 수"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
 msgid "How much data we have downloaded from this peer"
 msgstr "동료에게서 다운로드받은 데이터 양"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
 #, kde-format
 msgid "How much data we have uploaded to this peer"
 msgstr "동료에게 업로드한 데이터 양"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
 #, kde-format
 msgid "Whether the peer is interested in downloading data from us"
 msgstr "동료 측에서 데이터를 다운로드하는 데 관심을 보이는지 여부"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
 #, kde-format
 msgid "Whether we are interested in downloading from this peer"
 msgstr "이 동료 측에서 데이터를 다운로드하는 데 관심 있는지 여부"
@@ -2366,51 +2366,51 @@ msgstr "파일"
 msgid "Size"
 msgstr "크기"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:149
 #, kde-format
 msgid "Url"
 msgstr "URL"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:150
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:130
 #: ui/history/transferhistory.cpp:248
 #, kde-format
 msgid "Status"
 msgstr "상태"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
 #, kde-format
 msgid "Seeders"
 msgstr "시더"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
 #, kde-format
 msgid "Leechers"
 msgstr "받는 사람"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:155
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
 #, kde-format
 msgid "Times Downloaded"
 msgstr "다운로드한 시간"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
 #, kde-format
 msgid "Next Update"
 msgstr "다음 업데이트"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
 #, kde-format
 msgid "Add Tracker"
 msgstr "트래커 추가"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:88
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
 #, kde-format
 msgid "Enter the URL of the tracker:"
 msgstr "트래커 URL을 입력하십시오:"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:103
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:102
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
 msgstr "<b>%1</b> 트래커가 이미 있습니다."
@@ -2452,12 +2452,12 @@ msgstr "URL"
 msgid "Speed"
 msgstr "속도"
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:97
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:96
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
 msgstr "%1 웹 시드를 추가할 수 없습니다. 이미 웹 시드의 일부분입니다."
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:114
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:113
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
 msgstr "%1 웹 시드를 삭제할 수 없습니다. 토렌트의 일부분입니다."
@@ -4053,12 +4053,12 @@ msgctxt "Location = country"
 msgid "Location"
 msgstr "위치"
 
-#: ui/mirror/mirrorsettings.cpp:55
+#: ui/mirror/mirrorsettings.cpp:54
 #, kde-format
 msgid "Add mirror"
 msgstr "미러 추가"
 
-#: ui/mirror/mirrorsettings.cpp:149
+#: ui/mirror/mirrorsettings.cpp:148
 #, kde-format
 msgid "Modify the used mirrors"
 msgstr "사용할 미러 수정"
