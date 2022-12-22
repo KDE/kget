@@ -45,7 +45,7 @@ DropTarget::DropTarget(MainWindow * mw)
     : QWidget(nullptr, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint),
     parentWidget(mw), animTimer(nullptr), showInformation(false)
 {
-    KWindowSystem::setState(winId(), NET::SkipTaskbar);
+    KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::KeepAbove);
 
     QRect screenGeo = qApp->desktop()->screenGeometry(Settings::dropPosition());
     if ((screenGeo.x() + screenGeo.width() >= Settings::dropPosition().x() &&
@@ -54,9 +54,6 @@ DropTarget::DropTarget(MainWindow * mw)
     else
         position = QPoint(screenGeo.x() + screenGeo.width() / 2, screenGeo.y() + screenGeo.height() / 2);
     setFixedSize(TARGET_SIZE, TARGET_SIZE);
-
-    if(Settings::dropSticky())
-        KWindowSystem::setState(winId(), KWindowSystem::Sticky);
 
     cachedPixmap = QIcon::fromTheme("kget").pixmap(TARGET_SIZE);
     if (!cachedPixmap.mask().isNull())
@@ -347,11 +344,6 @@ void DropTarget::toggleSticky()
 {
     Settings::setDropSticky( !Settings::dropSticky() );
     pop_sticky->setChecked(Settings::dropSticky());
-
-    if ( Settings::dropSticky() )
-        KWindowSystem::setState(winId(), KWindowSystem::SkipTaskbar | KWindowSystem::KeepAbove | KWindowSystem::Sticky);
-    else
-        KWindowSystem::clearState(winId(), KWindowSystem::Sticky);
 }
 
 void DropTarget::toggleMinimizeRestore()
