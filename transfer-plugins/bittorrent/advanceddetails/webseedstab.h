@@ -30,50 +30,49 @@
 
 namespace bt
 {
-	class TorrentInterface;
+class TorrentInterface;
 }
 
 namespace kt
 {
-	class WebSeedsModel;
+class WebSeedsModel;
 
-	/**
-		Tab which displays the list of webseeds of a torrent, and allows you to add or remove them.
-	*/
-	class WebSeedsTab : public QWidget,public Ui_WebSeedsTab
-	{
-		Q_OBJECT
-	public:
-		WebSeedsTab(QWidget* parent);
-		~WebSeedsTab() override;
-		
-		/**
-		 * Switch to a different torrent.
-		 * @param tc The torrent
-		 */
-		void changeTC(bt::TorrentInterface* tc);
+/**
+    Tab which displays the list of webseeds of a torrent, and allows you to add or remove them.
+*/
+class WebSeedsTab : public QWidget, public Ui_WebSeedsTab
+{
+    Q_OBJECT
+public:
+    WebSeedsTab(QWidget *parent);
+    ~WebSeedsTab() override;
 
-		/// Check to see if the GUI needs to be updated
-		void update();
-		
-		void saveState(KSharedConfigPtr cfg);
-		void loadState(KSharedConfigPtr cfg);
-		
-	private Q_SLOTS:
-		void addWebSeed();
-		void removeWebSeed();
-		void onWebSeedTextChanged(const QString & ws);
-		void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
-		
-	private:
-		void selectionChanged(const QModelIndexList & indexes);
+    /**
+     * Switch to a different torrent.
+     * @param tc The torrent
+     */
+    void changeTC(bt::TorrentInterface *tc);
 
-	private:
-		bt::TorrentInterface* curr_tc;
-		WebSeedsModel* model;
-		QSortFilterProxyModel* proxy_model;
-	};
+    /// Check to see if the GUI needs to be updated
+    void update();
 
+    void saveState(KSharedConfigPtr cfg);
+    void loadState(KSharedConfigPtr cfg);
+
+private Q_SLOTS:
+    void addWebSeed();
+    void removeWebSeed();
+    void onWebSeedTextChanged(const QString &ws);
+    void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+
+private:
+    void selectionChanged(const QModelIndexList &indexes);
+
+private:
+    bt::TorrentInterface *curr_tc;
+    WebSeedsModel *model;
+    QSortFilterProxyModel *proxy_model;
+};
 }
 
 #endif

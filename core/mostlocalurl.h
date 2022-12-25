@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2011 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2011 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #ifndef KGET_MOSTLOCALURL_H
 #define KGET_MOSTLOCALURL_H
@@ -54,23 +54,23 @@ KGET_EXPORT MostLocalUrlJob *mostLocalUrlJob(const QUrl &url);
 class KGET_EXPORT MostLocalUrlJob : public KIO::Job
 {
     Q_OBJECT
-    public:
-        MostLocalUrlJob(const QUrl &url);
+public:
+    MostLocalUrlJob(const QUrl &url);
 
-        void start() override;
-        QUrl url();
+    void start() override;
+    QUrl url();
 
-        /**
-         * Call this in the slot connected to result.
-         */
-        QUrl mostLocalUrl() const;
+    /**
+     * Call this in the slot connected to result.
+     */
+    QUrl mostLocalUrl() const;
 
-    protected:
-        void slotResult(KJob *job) override;
+protected:
+    void slotResult(KJob *job) override;
 
-    private:
-        QUrl m_url;
-        QUrl m_mostLocalUrl;
+private:
+    QUrl m_url;
+    QUrl m_mostLocalUrl;
 };
 
 #endif

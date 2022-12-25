@@ -10,17 +10,17 @@
 
 #include "bttransferhandler.h"
 
-#include "advanceddetails/monitor.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
+#include "advanceddetails/monitor.h"
 #include "scandlg.h"
 
 #include "core/scheduler.h"
 
 #include "kget_debug.h"
 
-BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler)
-    : TransferHandler(transfer, scheduler),
-      m_transfer(transfer)
+BTTransferHandler::BTTransferHandler(BTTransfer *transfer, Scheduler *scheduler)
+    : TransferHandler(transfer, scheduler)
+    , m_transfer(transfer)
 {
     advancedDetails = nullptr;
     scanDlg = nullptr;
@@ -28,8 +28,8 @@ BTTransferHandler::BTTransferHandler(BTTransfer * transfer, Scheduler * schedule
 
 BTTransferHandler::~BTTransferHandler()
 {
-    if(advancedDetails)
-        delete(advancedDetails);
+    if (advancedDetails)
+        delete (advancedDetails);
 }
 
 void BTTransferHandler::createAdvancedDetails()
@@ -38,14 +38,12 @@ void BTTransferHandler::createAdvancedDetails()
         return;
     qCDebug(KGET_DEBUG);
 
-    if (!advancedDetails)
-    {
+    if (!advancedDetails) {
         qCDebug(KGET_DEBUG) << "Going to create AdvancedDetails";
         advancedDetails = new BTAdvancedDetailsWidget(this);
         advancedDetails->show();
         connect(advancedDetails, &BTAdvancedDetailsWidget::aboutToClose, this, &BTTransferHandler::removeAdvancedDetails);
-        if (m_transfer->torrentControl())
-        {
+        if (m_transfer->torrentControl()) {
             m_transfer->torrentControl()->setMonitor(nullptr);
             m_transfer->torrentControl()->setMonitor(m_transfer);
         }
@@ -58,7 +56,7 @@ void BTTransferHandler::removeAdvancedDetails()
     advancedDetails = nullptr;
 }
 
-kt::Monitor* BTTransferHandler::torrentMonitor() const
+kt::Monitor *BTTransferHandler::torrentMonitor() const
 {
     if (advancedDetails)
         return advancedDetails->torrentMonitor();
@@ -71,6 +69,6 @@ void BTTransferHandler::createScanDlg()
     if (!torrentControl())
         return;
 
-    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), nullptr);//TODO: Maybe start/stop it
+    scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), nullptr); // TODO: Maybe start/stop it
     scanDlg->exec();
 }

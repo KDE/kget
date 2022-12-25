@@ -1,21 +1,21 @@
 /**************************************************************************
-*   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "verificationthread.h"
 #include "verifier.h"
@@ -26,10 +26,10 @@
 #include <QFile>
 
 VerificationThread::VerificationThread(QObject *parent)
-  : QThread(parent),
-    m_abort(false),
-    m_length(0),
-    m_type(Nothing)
+    : QThread(parent)
+    , m_abort(false)
+    , m_length(0)
+    , m_type(Nothing)
 {
 }
 
@@ -50,8 +50,7 @@ void VerificationThread::verify(const QString &type, const QString &checksum, co
     m_files.append(file);
     m_type = Verify;
 
-    if (!isRunning())
-    {
+    if (!isRunning()) {
         start();
     }
 }
@@ -67,25 +66,20 @@ void VerificationThread::findBrokenPieces(const QString &type, const QList<QStri
     m_length = length;
     m_type = BrokenPieces;
 
-    if (!isRunning())
-    {
+    if (!isRunning()) {
         start();
     }
 }
 
 void VerificationThread::run()
 {
-    if (m_type == Nothing)
-    {
+    if (m_type == Nothing) {
         return;
     }
 
-    if (m_type == Verify)
-    {
+    if (m_type == Verify) {
         doVerify();
-    }
-    else if (m_type == BrokenPieces)
-    {
+    } else if (m_type == BrokenPieces) {
         doBrokenPieces();
     }
 }
@@ -96,16 +90,14 @@ void VerificationThread::doVerify()
     bool run = m_files.count();
     m_mutex.unlock();
 
-    while (run && !m_abort)
-    {
+    while (run && !m_abort) {
         m_mutex.lock();
         const QString type = m_types.takeFirst();
         const QString checksum = m_checksums.takeFirst();
         const QUrl url = m_files.takeFirst();
         m_mutex.unlock();
 
-        if (type.isEmpty() || checksum.isEmpty())
-        {
+        if (type.isEmpty() || checksum.isEmpty()) {
             m_mutex.lock();
             run = m_files.count();
             m_mutex.unlock();
@@ -116,14 +108,12 @@ void VerificationThread::doVerify()
         qCDebug(KGET_DEBUG) << "Type:" << type << "Calculated checksum:" << hash << "Entered checksum:" << checksum;
         const bool fileVerified = (hash == checksum);
 
-        if (m_abort)
-        {
+        if (m_abort) {
             return;
         }
 
         m_mutex.lock();
-        if (!m_abort)
-        {
+        if (!m_abort) {
             Q_EMIT verified(type, fileVerified, url);
             Q_EMIT verified(fileVerified);
         }
@@ -144,40 +134,33 @@ void VerificationThread::doBrokenPieces()
 
     QList<KIO::fileoffset_t> broken;
 
-    if (QFile::exists(url.toString()))
-    {
+    if (QFile::exists(url.toString())) {
         QFile file(url.toString());
-        if (!file.open(QIODevice::ReadOnly))
-        {
+        if (!file.open(QIODevice::ReadOnly)) {
             Q_EMIT brokenPieces(broken, length);
             return;
         }
 
         const KIO::filesize_t fileSize = file.size();
-        if (!length || !fileSize)
-        {
+        if (!length || !fileSize) {
             Q_EMIT brokenPieces(broken, length);
             return;
         }
 
         const QStringList fileChecksums = Verifier::partialChecksums(url, type, length, &m_abort).checksums();
-        if (m_abort)
-        {
+        if (m_abort) {
             Q_EMIT brokenPieces(broken, length);
             return;
         }
 
-        if (fileChecksums.size() != checksums.size())
-        {
+        if (fileChecksums.size() != checksums.size()) {
             qCDebug(KGET_DEBUG) << "Number of checksums differs!";
             Q_EMIT brokenPieces(broken, length);
             return;
         }
 
-        for (int i = 0; i < checksums.size(); ++i)
-        {
-            if (fileChecksums.at(i) != checksums.at(i))
-            {
+        for (int i = 0; i < checksums.size(); ++i) {
+            if (fileChecksums.at(i) != checksums.at(i)) {
                 const int brokenStart = length * i;
                 qCDebug(KGET_DEBUG) << url << "broken segment" << i << "start" << brokenStart << "length" << length;
                 broken.append(brokenStart);

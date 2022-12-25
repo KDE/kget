@@ -13,40 +13,53 @@
 
 #include "settings.h"
 
-#include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
 #include "core/scheduler.h"
+#include "core/transferhandler.h"
 
-#include <KLocalizedString>
 #include <KLazyLocalizedString>
+#include <KLocalizedString>
 #include <QDomElement>
 
-struct StatusStrings
-{
+struct StatusStrings {
     KLazyLocalizedString name;
 };
 
-const StatusStrings STATUSTEXTS[] = {
-    {kli18n("Downloading....")},
-    {kli18nc("transfer state: delayed", "Delayed")},
-    {kli18nc("transfer state: stopped", "Stopped")},
-    {kli18nc("transfer state: aborted", "Aborted")},
-    {kli18nc("transfer state: finished", "Finished")},
-    {KLazyLocalizedString()},//TODO: Add FinishedKeepAlive status
-    {kli18nc("changing the destination of the file", "Changing destination")}
-};
-const QStringList STATUSICONS = QStringList() << "media-playback-start" << "view-history" << "process-stop" << "dialog-error" << "dialog-ok" << "media-playback-start" << "media-playback-pause";
+const StatusStrings STATUSTEXTS[] = {{kli18n("Downloading....")},
+                                     {kli18nc("transfer state: delayed", "Delayed")},
+                                     {kli18nc("transfer state: stopped", "Stopped")},
+                                     {kli18nc("transfer state: aborted", "Aborted")},
+                                     {kli18nc("transfer state: finished", "Finished")},
+                                     {KLazyLocalizedString()}, // TODO: Add FinishedKeepAlive status
+                                     {kli18nc("changing the destination of the file", "Changing destination")}};
+const QStringList STATUSICONS = QStringList() << "media-playback-start"
+                                              << "view-history"
+                                              << "process-stop"
+                                              << "dialog-error"
+                                              << "dialog-ok"
+                                              << "media-playback-start"
+                                              << "media-playback-pause";
 
-Transfer::Transfer(TransferGroup * parent, TransferFactory * factory,
-                   Scheduler * scheduler, const QUrl & source, const QUrl & dest,
-                   const QDomElement * e)
-    : Job(scheduler, parent),
-      m_source(source), m_dest(dest),
-      m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
-      m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
-      m_uploadLimit(0), m_downloadLimit(0), m_isSelected(false),
-      m_capabilities(), m_visibleUploadLimit(0), m_visibleDownloadLimit(0),
-      m_runningSeconds(0), m_ratio(0), m_handler(nullptr), m_factory(factory)
+Transfer::Transfer(TransferGroup *parent, TransferFactory *factory, Scheduler *scheduler, const QUrl &source, const QUrl &dest, const QDomElement *e)
+    : Job(scheduler, parent)
+    , m_source(source)
+    , m_dest(dest)
+    , m_totalSize(0)
+    , m_downloadedSize(0)
+    , m_uploadedSize(0)
+    , m_percent(0)
+    , m_downloadSpeed(0)
+    , m_uploadSpeed(0)
+    , m_uploadLimit(0)
+    , m_downloadLimit(0)
+    , m_isSelected(false)
+    , m_capabilities()
+    , m_visibleUploadLimit(0)
+    , m_visibleDownloadLimit(0)
+    , m_runningSeconds(0)
+    , m_ratio(0)
+    , m_handler(nullptr)
+    , m_factory(factory)
 {
     Q_UNUSED(e)
 }
@@ -71,20 +84,17 @@ void Transfer::create()
 void Transfer::destroy(DeleteOptions options)
 {
     deinit(options);
-
 }
 
-void Transfer::init()//TODO think about e, maybe not have it at all in the constructor?
+void Transfer::init() // TODO think about e, maybe not have it at all in the constructor?
 {
-
 }
 
-
-bool Transfer::setDirectory(const QUrl& newDirectory)
+bool Transfer::setDirectory(const QUrl &newDirectory)
 {
     Q_UNUSED(newDirectory)
 
-    //the standard implementation always returns false
+    // the standard implementation always returns false
     return false;
 }
 
@@ -99,33 +109,29 @@ int Transfer::elapsedTime() const
 int Transfer::averageDownloadSpeed() const
 {
     const int runningSeconds = elapsedTime();
-    if (runningSeconds)
-    {
+    if (runningSeconds) {
         return m_totalSize / runningSeconds;
     }
 
     return 0;
 }
 
-QHash<QUrl, QPair<bool, int> > Transfer::availableMirrors(const QUrl &file) const
+QHash<QUrl, QPair<bool, int>> Transfer::availableMirrors(const QUrl &file) const
 {
     Q_UNUSED(file)
 
-    QHash<QUrl, QPair<bool, int> > available;
+    QHash<QUrl, QPair<bool, int>> available;
     available[m_source] = QPair<bool, int>(true, 1);
     return available;
 }
 
 void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 {
-    if (limit == Transfer::VisibleSpeedLimit)
-    {
+    if (limit == Transfer::VisibleSpeedLimit) {
         m_visibleUploadLimit = ulLimit;
         if (ulLimit < m_uploadLimit || m_uploadLimit == 0)
             m_uploadLimit = ulLimit;
-    }
-    else
-    {
+    } else {
         m_uploadLimit = ulLimit;
     }
 
@@ -134,14 +140,11 @@ void Transfer::setUploadLimit(int ulLimit, SpeedLimit limit)
 
 void Transfer::setDownloadLimit(int dlLimit, SpeedLimit limit)
 {
-    if (limit == Transfer::VisibleSpeedLimit)
-    {
+    if (limit == Transfer::VisibleSpeedLimit) {
         m_visibleDownloadLimit = dlLimit;
         if (dlLimit < m_downloadLimit || m_downloadLimit == 0)
             m_downloadLimit = dlLimit;
-    }
-    else
-    {
+    } else {
         m_downloadLimit = dlLimit;
     }
 
@@ -176,20 +179,18 @@ void Transfer::checkShareRatio()
         return;
 
     if ((double)m_uploadedSize / m_downloadedSize >= m_ratio)
-        setDownloadLimit(1, Transfer::InvisibleSpeedLimit);//If we set it to 0 we would have no limit xD
+        setDownloadLimit(1, Transfer::InvisibleSpeedLimit); // If we set it to 0 we would have no limit xD
     else
         setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
 }
 
-void Transfer::setLog(const QString& message, Transfer::LogLevel level)
+void Transfer::setLog(const QString &message, Transfer::LogLevel level)
 {
     QString msg("<font color=\"blue\">" + QTime::currentTime().toString() + "</font> : ");
-    if (level == Log_Error)
-    {
+    if (level == Log_Error) {
         msg += "<font color=\"red\">" + message + "</font>";
     }
-    if (level == Log_Warning)
-    {
+    if (level == Log_Warning) {
         msg += "<font color=\"yellow\">" + message + "</font>";
     } else {
         msg += message;
@@ -197,15 +198,15 @@ void Transfer::setLog(const QString& message, Transfer::LogLevel level)
     m_log << msg;
 }
 
-TransferHandler * Transfer::handler()
+TransferHandler *Transfer::handler()
 {
-    if(!m_handler)
+    if (!m_handler)
         m_handler = m_factory->createTransferHandler(this, scheduler());
 
     return m_handler;
 }
 
-TransferTreeModel * Transfer::model()
+TransferTreeModel *Transfer::model()
 {
     return group()->model();
 }
@@ -226,8 +227,7 @@ void Transfer::save(const QDomElement &element)
 
 void Transfer::load(const QDomElement *element)
 {
-    if (!element)
-    {
+    if (!element) {
         setStatus(status(), i18nc("transfer state: stopped", "Stopped"), "process-stop");
         setStartStatus(status());
         return;
@@ -253,16 +253,11 @@ void Transfer::load(const QDomElement *element)
     setUploadLimit(e.attribute("UploadLimit").toInt(), Transfer::VisibleSpeedLimit);
     setDownloadLimit(e.attribute("DownloadLimit").toInt(), Transfer::VisibleSpeedLimit);
     m_runningSeconds = e.attribute("ElapsedTime").toInt();
-    if (Settings::startupAction() == 1)
-    {
+    if (Settings::startupAction() == 1) {
         setPolicy(Job::Start);
-    }
-    else if (Settings::startupAction() == 2)
-    {
+    } else if (Settings::startupAction() == 2) {
         setPolicy(Job::Stop);
-    }
-    else
-    {
+    } else {
         if (e.attribute("Policy") == "Start")
             setPolicy(Job::Start);
         else if (e.attribute("Policy") == "Stop")
@@ -280,7 +275,7 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QStri
         statusText = KLocalizedString(STATUSTEXTS[jobStatus].name).toString();
     }
 
-    //always prefer pix, if it is set
+    // always prefer pix, if it is set
     if (!pix.isNull()) {
         m_statusIconName = pix;
     } else if (statusChanged || m_statusIconName.isNull()) {
@@ -289,26 +284,24 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QStri
 
     m_statusText = statusText;
 
-    if (jobStatus == Job::Running && status() != Job::Running)
-    {
+    if (jobStatus == Job::Running && status() != Job::Running) {
         m_runningTime.restart();
         m_runningTime.addSecs(m_runningSeconds);
     }
     if (jobStatus != Job::Running && status() == Job::Running)
         m_runningSeconds = m_runningTime.elapsed() / 1000;
     /**
-    * It's important to call job::setStatus AFTER having changed the 
-    * icon or the text or whatever.
-    * This because this function also notifies about this change
-    * the scheduler which could also decide to change it another time
-    * as well. For example if a job status is set to Aborted, the scheduler
-    * could mark it to Delayed. This could trigger another icon or text
-    * change which would be the right one since the status of the Job
-    * has changed. If we set the icon or text after calling setStatus(),
-    * we can overwrite the last icon or text change.
-    */
+     * It's important to call job::setStatus AFTER having changed the
+     * icon or the text or whatever.
+     * This because this function also notifies about this change
+     * the scheduler which could also decide to change it another time
+     * as well. For example if a job status is set to Aborted, the scheduler
+     * could mark it to Delayed. This could trigger another icon or text
+     * change which would be the right one since the status of the Job
+     * has changed. If we set the icon or text after calling setStatus(),
+     * we can overwrite the last icon or text change.
+     */
     Job::setStatus(jobStatus);
-
 }
 
 void Transfer::setTransferChange(ChangesFlags change, bool postEvent)

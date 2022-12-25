@@ -11,24 +11,23 @@
 #include "bttransferfactory.h"
 
 // header inclusion order is crucial because of signal Q_EMIT clashes
-#include "bttransfer.h"
-#include "btdatasource.h"
-#include "bttransferhandler.h"
-#include "btdetailswidget.h"
 #include "advanceddetails/btadvanceddetailswidget.h"
+#include "btdatasource.h"
+#include "btdetailswidget.h"
+#include "bttransfer.h"
+#include "bttransferhandler.h"
 
 #include "kget_debug.h"
+#include <torrent/job.h>
 #include <util/functions.h>
 #include <version.h>
-#include <torrent/job.h>
 
 K_PLUGIN_CLASS_WITH_JSON(BTTransferFactory, "kget_bittorrentfactory.json")
 
 BTTransferFactory::BTTransferFactory(QObject *parent, const QVariantList &args)
-  : TransferFactory(parent, args)
+    : TransferFactory(parent, args)
 {
-    if (!bt::InitLibKTorrent())
-    {
+    if (!bt::InitLibKTorrent()) {
         qCCritical(KGET_DEBUG) << "Failed to initialize libktorrent";
         KGet::showNotification(nullptr, "error", i18n("Cannot initialize libktorrent. Torrent support might not work."));
     }
@@ -38,26 +37,21 @@ BTTransferFactory::~BTTransferFactory()
 {
 }
 
-Transfer * BTTransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl,
-                                              TransferGroup * parent,
-                                              Scheduler * scheduler, 
-                                              const QDomElement * e )
+Transfer *BTTransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e)
 {
     qCDebug(KGET_DEBUG) << "BTTransferFactory::createTransfer";
 
-    if (isSupported(srcUrl))
-    {
+    if (isSupported(srcUrl)) {
         return new BTTransfer(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return nullptr;
 }
 
-TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
+TransferHandler *BTTransferFactory::createTransferHandler(Transfer *transfer, Scheduler *scheduler)
 {
-    auto * bttransfer = qobject_cast<BTTransfer *>(transfer);
+    auto *bttransfer = qobject_cast<BTTransfer *>(transfer);
 
-    if (!bttransfer)
-    {
+    if (!bttransfer) {
         qCCritical(KGET_DEBUG) << "WARNING! passing a non-BTTransfer pointer!!";
         return nullptr;
     }
@@ -65,40 +59,39 @@ TransferHandler * BTTransferFactory::createTransferHandler(Transfer * transfer, 
     return new BTTransferHandler(bttransfer, scheduler);
 }
 
-QWidget * BTTransferFactory::createDetailsWidget( TransferHandler * transfer )
+QWidget *BTTransferFactory::createDetailsWidget(TransferHandler *transfer)
 {
-    auto * bttransfer = static_cast<BTTransferHandler *>(transfer);
+    auto *bttransfer = static_cast<BTTransferHandler *>(transfer);
 
     return new BTDetailsWidget(bttransfer);
 }
 
 const QList<QAction *> BTTransferFactory::actions(TransferHandler *handler)
 {
-     auto * bttransfer = static_cast<BTTransferHandler *>(handler);
+    auto *bttransfer = static_cast<BTTransferHandler *>(handler);
 
-     QList<QAction *> actions;
-     if (bttransfer && bttransfer->torrentControl())
-     {
-         auto *openAdvancedDetailsAction = new QAction(QIcon::fromTheme("document-open"), i18n("&Advanced Details"), this);
- 
-         connect(openAdvancedDetailsAction, &QAction::triggered, bttransfer, &BTTransferHandler::createAdvancedDetails);
- 
-         actions.append(openAdvancedDetailsAction);
+    QList<QAction *> actions;
+    if (bttransfer && bttransfer->torrentControl()) {
+        auto *openAdvancedDetailsAction = new QAction(QIcon::fromTheme("document-open"), i18n("&Advanced Details"), this);
 
-         auto *openScanDlg = new QAction(QIcon::fromTheme("document-open"), i18n("&Scan Files"), this);
- 
-         connect(openScanDlg, &QAction::triggered, bttransfer, &BTTransferHandler::createScanDlg);
- 
-         actions.append(openScanDlg);
-     }
- 
-     if (bttransfer)
-         return actions;
-     else
-         return QList<QAction *>();
+        connect(openAdvancedDetailsAction, &QAction::triggered, bttransfer, &BTTransferHandler::createAdvancedDetails);
+
+        actions.append(openAdvancedDetailsAction);
+
+        auto *openScanDlg = new QAction(QIcon::fromTheme("document-open"), i18n("&Scan Files"), this);
+
+        connect(openScanDlg, &QAction::triggered, bttransfer, &BTTransferHandler::createScanDlg);
+
+        actions.append(openScanDlg);
+    }
+
+    if (bttransfer)
+        return actions;
+    else
+        return QList<QAction *>();
 }
 
-TransferDataSource * BTTransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource *BTTransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)

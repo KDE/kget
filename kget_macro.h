@@ -25,13 +25,8 @@
  *         ....
  *     }u
  */
-#define KGET_EXPORT_PLUGIN( classname ) \
-K_PLUGIN_FACTORY(KGetFactory, \
-                 registerPlugin<TransferKioFactory>(); \
-)
-    
+#define KGET_EXPORT_PLUGIN(classname) K_PLUGIN_FACTORY(KGetFactory, registerPlugin<TransferKioFactory>();)
 
-#define KGET_EXPORT_PLUGIN_CONFIG( classname ) \
-    K_PLUGIN_FACTORY( KGetFactory, registerPlugin< classname >(); )
+#define KGET_EXPORT_PLUGIN_CONFIG(classname) K_PLUGIN_FACTORY(KGetFactory, registerPlugin<classname>();)
 
 #endif

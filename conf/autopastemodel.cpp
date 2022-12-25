@@ -1,34 +1,34 @@
 /***************************************************************************
-*   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "autopastemodel.h"
 #include "settings.h"
 
 #include <KComboBox>
-#include <QIcon>
 #include <KLineEdit>
 #include <KLocalizedString>
+#include <QIcon>
 
 AutoPasteDelegate::AutoPasteDelegate(QAbstractItemModel *types, QAbstractItemModel *syntaxes, QObject *parent)
-  : QStyledItemDelegate(parent),
-    m_types(types),
-    m_syntaxes(syntaxes)
+    : QStyledItemDelegate(parent)
+    , m_types(types)
+    , m_syntaxes(syntaxes)
 {
 }
 
@@ -40,23 +40,23 @@ QWidget *AutoPasteDelegate::createEditor(QWidget *parent, const QStyleOptionView
         return nullptr;
     }
 
-    switch(index.column()) {
-        case AutoPasteModel::Type: {
-            auto *types = new KComboBox(parent);
-            types->setModel(m_types);
-            return types;
-        }
-        case AutoPasteModel::Pattern: {
-            auto *pattern = new KLineEdit(parent);
-            return pattern;
-        }
-        case AutoPasteModel::PatternSyntax: {
-            auto *syntaxes = new KComboBox(parent);
-            syntaxes->setModel(m_syntaxes);
-            return syntaxes;
-        }
-        default:
-            return nullptr;
+    switch (index.column()) {
+    case AutoPasteModel::Type: {
+        auto *types = new KComboBox(parent);
+        types->setModel(m_types);
+        return types;
+    }
+    case AutoPasteModel::Pattern: {
+        auto *pattern = new KLineEdit(parent);
+        return pattern;
+    }
+    case AutoPasteModel::PatternSyntax: {
+        auto *syntaxes = new KComboBox(parent);
+        syntaxes->setModel(m_syntaxes);
+        return syntaxes;
+    }
+    default:
+        return nullptr;
     }
 }
 
@@ -67,25 +67,25 @@ void AutoPasteDelegate::setEditorData(QWidget *editor, const QModelIndex &index)
     }
 
     switch (index.column()) {
-        case AutoPasteModel::Type: {
-            auto *type = static_cast<KComboBox*>(editor);
-            const int row = type->findData(index.data(Qt::EditRole));
-            type->setCurrentIndex(row);
-            break;
-        }
-        case AutoPasteModel::Pattern: {
-            auto *line = static_cast<KLineEdit*>(editor);
-            line->setText(index.data(Qt::EditRole).toString());
-            break;
-        }
-        case AutoPasteModel::PatternSyntax: {
-            auto *syntax = static_cast<KComboBox*>(editor);
-            const int row = syntax->findData(index.data(Qt::EditRole));
-            syntax->setCurrentIndex(row);
-            break;
-        }
-        default:
-            break;
+    case AutoPasteModel::Type: {
+        auto *type = static_cast<KComboBox *>(editor);
+        const int row = type->findData(index.data(Qt::EditRole));
+        type->setCurrentIndex(row);
+        break;
+    }
+    case AutoPasteModel::Pattern: {
+        auto *line = static_cast<KLineEdit *>(editor);
+        line->setText(index.data(Qt::EditRole).toString());
+        break;
+    }
+    case AutoPasteModel::PatternSyntax: {
+        auto *syntax = static_cast<KComboBox *>(editor);
+        const int row = syntax->findData(index.data(Qt::EditRole));
+        syntax->setCurrentIndex(row);
+        break;
+    }
+    default:
+        break;
     }
 }
 
@@ -96,28 +96,28 @@ void AutoPasteDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
     }
 
     switch (index.column()) {
-        case AutoPasteModel::Type: {
-            auto *typeBox = static_cast<KComboBox*>(editor);
-            const int type = typeBox->itemData(typeBox->currentIndex()).toInt();
-            model->setData(index, type);
-            break;
+    case AutoPasteModel::Type: {
+        auto *typeBox = static_cast<KComboBox *>(editor);
+        const int type = typeBox->itemData(typeBox->currentIndex()).toInt();
+        model->setData(index, type);
+        break;
+    }
+    case AutoPasteModel::Pattern: {
+        auto *line = static_cast<KLineEdit *>(editor);
+        const QString text = line->text();
+        if (!text.isEmpty()) {
+            model->setData(index, text);
         }
-        case AutoPasteModel::Pattern: {
-            auto *line = static_cast<KLineEdit*>(editor);
-            const QString text = line->text();
-            if (!text.isEmpty()) {
-                model->setData(index, text);
-            }
-            break;
-        }
-        case AutoPasteModel::PatternSyntax: {
-            auto *syntaxBox = static_cast<KComboBox*>(editor);
-            const int syntax = syntaxBox->itemData(syntaxBox->currentIndex()).toInt();
-            model->setData(index, syntax);
-            break;
-        }
-        default:
-            break;
+        break;
+    }
+    case AutoPasteModel::PatternSyntax: {
+        auto *syntaxBox = static_cast<KComboBox *>(editor);
+        const int syntax = syntaxBox->itemData(syntaxBox->currentIndex()).toInt();
+        model->setData(index, syntax);
+        break;
+    }
+    default:
+        break;
     }
 }
 
@@ -129,7 +129,7 @@ void AutoPasteDelegate::updateEditorGeometry(QWidget *editor, const QStyleOption
 
 QSize AutoPasteDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    //make the sizeHint a little bit nicer to have more beautiful editors
+    // make the sizeHint a little bit nicer to have more beautiful editors
     QSize hint;
     hint.setWidth(QStyledItemDelegate::sizeHint(option, index).width());
     hint.setHeight(option.fontMetrics.height() + 7);
@@ -137,7 +137,7 @@ QSize AutoPasteDelegate::sizeHint(const QStyleOptionViewItem &option, const QMod
 }
 
 AutoPasteModel::AutoPasteModel(QObject *parent)
-  : QAbstractTableModel(parent)
+    : QAbstractTableModel(parent)
 {
 }
 
@@ -190,30 +190,30 @@ QVariant AutoPasteModel::data(const QModelIndex &index, int role) const
     const int row = index.row();
 
     switch (column) {
-        case Type: {
-            if (role == Qt::DecorationRole) {
-                return (m_data[row].type == Include ? QIcon::fromTheme("list-add") : QIcon::fromTheme("list-remove"));
-            } else if ((role == Qt::UserRole) || (role == Qt::EditRole)) {
-                return m_data[row].type;
-            }
-            break;
+    case Type: {
+        if (role == Qt::DecorationRole) {
+            return (m_data[row].type == Include ? QIcon::fromTheme("list-add") : QIcon::fromTheme("list-remove"));
+        } else if ((role == Qt::UserRole) || (role == Qt::EditRole)) {
+            return m_data[row].type;
         }
-        case Pattern: {
-            if ((role == Qt::DisplayRole) || (role == Qt::EditRole) || (role == Qt::UserRole)) {
-                return m_data[row].pattern;
-            }
-            break;
+        break;
+    }
+    case Pattern: {
+        if ((role == Qt::DisplayRole) || (role == Qt::EditRole) || (role == Qt::UserRole)) {
+            return m_data[row].pattern;
         }
-        case PatternSyntax: {
-            if (role == Qt::DisplayRole) {
-                return (m_data[row].syntax == Wildcard ? i18n("Escape sequences") : i18n("Regular expression"));
-            } else if ((role == Qt::UserRole) || (role == Qt::EditRole)) {
-                return m_data[row].syntax;
-            }
-            break;
+        break;
+    }
+    case PatternSyntax: {
+        if (role == Qt::DisplayRole) {
+            return (m_data[row].syntax == Wildcard ? i18n("Escape sequences") : i18n("Regular expression"));
+        } else if ((role == Qt::UserRole) || (role == Qt::EditRole)) {
+            return m_data[row].syntax;
         }
-        default:
-            return QVariant();
+        break;
+    }
+    default:
+        return QVariant();
     }
 
     return QVariant();
@@ -236,20 +236,20 @@ bool AutoPasteModel::setData(const QModelIndex &index, const QVariant &value, in
     const int column = index.column();
 
     switch (column) {
-        case Type: {
-            m_data[row].type = static_cast<TypeData>(value.toInt());
-            break;
-        }
-        case Pattern: {
-            m_data[row].pattern = value.toString();
-            break;
-        }
-        case PatternSyntax: {
-            m_data[row].syntax = static_cast<PatternSyntaxData>(value.toInt());
-            break;
-        }
-        default:
-            return false;
+    case Type: {
+        m_data[row].type = static_cast<TypeData>(value.toInt());
+        break;
+    }
+    case Pattern: {
+        m_data[row].pattern = value.toString();
+        break;
+    }
+    case PatternSyntax: {
+        m_data[row].syntax = static_cast<PatternSyntaxData>(value.toInt());
+        break;
+    }
+    default:
+        return false;
     }
 
     Q_EMIT dataChanged(index, index);
@@ -300,7 +300,7 @@ bool AutoPasteModel::moveItem(int sourceRow, int destinationRow)
         return false;
     }
 
-    //beginMoveRows asks for different data, than QList::move does, see the 4.7 docs
+    // beginMoveRows asks for different data, than QList::move does, see the 4.7 docs
     if (sourceRow + 2 == destinationRow) {
         --destinationRow;
     }
@@ -312,7 +312,7 @@ bool AutoPasteModel::moveItem(int sourceRow, int destinationRow)
 
 void AutoPasteModel::load()
 {
-    //remove all old items if there are any
+    // remove all old items if there are any
     if (rowCount()) {
         beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
         m_data.clear();
@@ -340,7 +340,9 @@ void AutoPasteModel::save()
 
 void AutoPasteModel::resetDefaults()
 {
-    QStringList names = QStringList() << "AutoPastePatterns" << "AutoPasteTypes" << "AutoPastePatternSyntaxes";
+    QStringList names = QStringList() << "AutoPastePatterns"
+                                      << "AutoPasteTypes"
+                                      << "AutoPastePatternSyntaxes";
     foreach (const QString &name, names) {
         KConfigSkeletonItem *item = Settings::self()->findItem(name);
         if (item) {
@@ -350,4 +352,3 @@ void AutoPasteModel::resetDefaults()
 
     load();
 }
-

@@ -11,19 +11,19 @@
 #include "core/kget.h"
 #include "core/transferhistorystore.h"
 
+#include "dlgwebinterface.h"
 #include "ui_dlgappearance.h"
 #include "ui_dlgnetwork.h"
-#include "dlgwebinterface.h"
 
 #include "integrationpreferences.h"
-#include "transfersgroupwidget.h"
 #include "pluginselector.h"
+#include "transfersgroupwidget.h"
 #include "verificationpreferences.h"
 
-#include <KLocalizedString>
 #include <KConfigSkeleton>
+#include <KLocalizedString>
 
-PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleton)
+PreferencesDialog::PreferencesDialog(QWidget *parent, KConfigSkeleton *skeleton)
     : KConfigDialog(parent, "preferences", skeleton)
 {
     auto *appearance = new QWidget(this);
@@ -37,7 +37,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     connect(integration, &IntegrationPreferences::changed, this, &PreferencesDialog::enableApplyButton);
     auto *verification = new VerificationPreferences(this);
     connect(verification, &VerificationPreferences::changed, this, &PreferencesDialog::enableApplyButton);
-    auto * pluginSelector = new PluginSelector(this);
+    auto *pluginSelector = new PluginSelector(this);
     connect(pluginSelector, &PluginSelector::changed, this, &PreferencesDialog::enableApplyButton);
 
     Ui::DlgAppearance dlgApp;
@@ -60,7 +60,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
 #endif
 
     // enable or disable the AfterFinishAction depends on the AfterFinishActionEnabled checkbox state
-    dlgAdv.kcfg_AfterFinishAction->setEnabled(dlgAdv.kcfg_AfterFinishActionEnabled->checkState () == Qt::Checked);
+    dlgAdv.kcfg_AfterFinishAction->setEnabled(dlgAdv.kcfg_AfterFinishActionEnabled->checkState() == Qt::Checked);
     connect(dlgAdv.kcfg_AfterFinishActionEnabled, &QCheckBox::stateChanged, this, &PreferencesDialog::slotToggleAfterFinishAction);
 
     // TODO: remove the following lines as soon as these features are ready
@@ -72,7 +72,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, KConfigSkeleton * skeleto
     addPage(network, i18n("Network"), "network-workgroup", i18n("Network and Downloads"));
     addPage(webinterface, i18n("Web Interface"), "network-workgroup", i18n("Control KGet over a Network or the Internet"));
     addPage(verification, i18n("Verification"), "document-encrypt", i18n("Verification"));
-    addPage(integration, i18nc("integration of KGet with other applications", "Integration"), "konqueror", i18nc("integration of KGet with other applications", "Integration"));
+    addPage(integration,
+            i18nc("integration of KGet with other applications", "Integration"),
+            "konqueror",
+            i18nc("integration of KGet with other applications", "Integration"));
     addPage(advanced, i18nc("Advanced Options", "Advanced"), "preferences-other", i18n("Advanced Options"));
     addPage(pluginSelector, i18n("Plugins"), "preferences-plugin", i18n("Transfer Plugins"));
 
@@ -100,5 +103,3 @@ void PreferencesDialog::updateWidgetsDefault()
     Q_EMIT resetDefaults();
     KConfigDialog::updateWidgetsDefault();
 }
-
-

@@ -1,38 +1,38 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "filemodel.h"
 
 #include "signature.h"
 #include "verifier.h"
 
-#include <KLocalizedString>
 #include <KIO/Global>
+#include <KLocalizedString>
 
 FileItem::FileItem(const QString &name, FileItem *parent)
-  : m_name(name),
-    m_state(Qt::Checked),
-    m_status(Job::Stopped),
-    m_totalSize(0),
-    m_checkusmVerified(0),
-    m_signatureVerified(0),
-    m_parent(parent)
+    : m_name(name)
+    , m_state(Qt::Checked)
+    , m_status(Job::Stopped)
+    , m_totalSize(0)
+    , m_checkusmVerified(0)
+    , m_signatureVerified(0)
+    , m_parent(parent)
 {
 }
 
@@ -68,18 +68,12 @@ int FileItem::columnCount() const
 
 QVariant FileItem::data(int column, int role) const
 {
-    if (column == FileItem::File)
-    {
-        if (role == Qt::CheckStateRole)
-        {
+    if (column == FileItem::File) {
+        if (role == Qt::CheckStateRole) {
             return m_state;
-        }
-        else if (role == Qt::DisplayRole)
-        {
+        } else if (role == Qt::DisplayRole) {
             return m_name;
-        }
-        else if (role == Qt::DecorationRole)
-        {
+        } else if (role == Qt::DecorationRole) {
             if (m_mimeType.isNull()) {
                 if (isFile()) {
                     m_mimeType = QIcon::fromTheme(KIO::iconNameForUrl(QUrl(m_name)));
@@ -90,48 +84,42 @@ QVariant FileItem::data(int column, int role) const
 
             return m_mimeType;
         }
-    }
-    else if (column == FileItem::Status)
-    {
-        if ((role == Qt::DisplayRole) || (role == Qt::DecorationRole))
-        {
+    } else if (column == FileItem::Status) {
+        if ((role == Qt::DisplayRole) || (role == Qt::DecorationRole)) {
             if (isFile()) {
                 return m_status;
             }
         }
-    }
-    else if (column == FileItem::Size)
-    {
-        if (role == Qt::DisplayRole)
-        {
+    } else if (column == FileItem::Size) {
+        if (role == Qt::DisplayRole) {
             return KIO::convertSize(m_totalSize);
         }
     } else if (column == FileItem::ChecksumVerified) {
         if (role == Qt::DecorationRole) {
             switch (m_checkusmVerified) {
-                case Verifier::Verified:
-                    return QIcon::fromTheme("dialog-ok");
-                case Verifier::NotVerified:
-                    return QIcon::fromTheme("dialog-error");
-                case Verifier::NoResult:
-                default:
-                    return QIcon::fromTheme(QString());
+            case Verifier::Verified:
+                return QIcon::fromTheme("dialog-ok");
+            case Verifier::NotVerified:
+                return QIcon::fromTheme("dialog-error");
+            case Verifier::NoResult:
+            default:
+                return QIcon::fromTheme(QString());
             }
         }
-    } else if (column == FileItem::SignatureVerified) {//TODO implement all cases
+    } else if (column == FileItem::SignatureVerified) { // TODO implement all cases
         if (role == Qt::DecorationRole) {
             switch (m_signatureVerified) {
-                case Signature::Verified:
-                    return QIcon::fromTheme("dialog-ok");
-                case Signature::VerifiedInformation:
-                    return QIcon::fromTheme("dialog-information");
-                case Signature::VerifiedWarning:
-                    return QIcon::fromTheme("dialog-warning");
-                case Signature::NotVerified:
-                    return QIcon::fromTheme("dialog-error");
-                case Signature::NoResult:
-                default:
-                    return QIcon::fromTheme(QString());
+            case Signature::Verified:
+                return QIcon::fromTheme("dialog-ok");
+            case Signature::VerifiedInformation:
+                return QIcon::fromTheme("dialog-information");
+            case Signature::VerifiedWarning:
+                return QIcon::fromTheme("dialog-warning");
+            case Signature::NotVerified:
+                return QIcon::fromTheme("dialog-error");
+            case Signature::NoResult:
+            default:
+                return QIcon::fromTheme(QString());
             }
         }
     }
@@ -141,32 +129,24 @@ QVariant FileItem::data(int column, int role) const
 
 bool FileItem::setData(int column, const QVariant &value, FileModel *model, int role)
 {
-    if (value.isNull())
-    {
+    if (value.isNull()) {
         return false;
     }
 
-    if (column == FileItem::File)
-    {
-        if (role == Qt::CheckStateRole)
-        {
+    if (column == FileItem::File) {
+        if (role == Qt::CheckStateRole) {
             m_state = static_cast<Qt::CheckState>(value.toInt());
             model->changeData(this->row(), column, this);
             checkParents(m_state, model);
             checkChildren(m_state, model);
             return true;
-        }
-        else if (role == Qt::EditRole)
-        {
+        } else if (role == Qt::EditRole) {
             m_name = value.toString();
             model->changeData(this->row(), column, this);
             return true;
         }
-    }
-    else if (column == FileItem::Status)
-    {
-        if (role == Qt::EditRole)
-        {
+    } else if (column == FileItem::Status) {
+        if (role == Qt::EditRole) {
             if (isFile()) {
                 m_status = static_cast<Job::Status>(value.toInt());
                 bool finished = (m_status == Job::Finished);
@@ -175,14 +155,10 @@ bool FileItem::setData(int column, const QVariant &value, FileModel *model, int 
                 return true;
             }
         }
-    }
-    else if (column == FileItem::Size)
-    {
-        if (role == Qt::EditRole)
-        {
+    } else if (column == FileItem::Size) {
+        if (role == Qt::EditRole) {
             KIO::fileoffset_t newSize = value.toLongLong();
-            if (m_parent)
-            {
+            if (m_parent) {
                 m_parent->addSize(newSize - m_totalSize, model);
             }
             m_totalSize = newSize;
@@ -204,20 +180,16 @@ bool FileItem::setData(int column, const QVariant &value, FileModel *model, int 
 
 void FileItem::checkParents(Qt::CheckState state, FileModel *model)
 {
-    if (!model)
-    {
+    if (!model) {
         return;
     }
 
-    if (!m_parent)
-    {
+    if (!m_parent) {
         return;
     }
 
-    foreach (FileItem *child, m_parent->m_childItems)
-    {
-        if (child->m_state != state)
-        {
+    foreach (FileItem *child, m_parent->m_childItems) {
+        if (child->m_state != state) {
             state = Qt::Unchecked;
             break;
         }
@@ -230,16 +202,14 @@ void FileItem::checkParents(Qt::CheckState state, FileModel *model)
 
 void FileItem::checkChildren(Qt::CheckState state, FileModel *model)
 {
-    if (!model)
-    {
+    if (!model) {
         return;
     }
 
     m_state = state;
     model->changeData(row(), FileItem::File, this);
 
-    foreach (FileItem *child, m_childItems)
-    {
+    foreach (FileItem *child, m_childItems) {
         child->checkChildren(state, model);
     }
 }
@@ -251,9 +221,8 @@ FileItem *FileItem::parent()
 
 int FileItem::row() const
 {
-    if (m_parent)
-    {
-        return m_parent->m_childItems.indexOf(const_cast<FileItem*>(this));
+    if (m_parent) {
+        return m_parent->m_childItems.indexOf(const_cast<FileItem *>(this));
     }
 
     return 0;
@@ -261,25 +230,23 @@ int FileItem::row() const
 
 void FileItem::addSize(KIO::fileoffset_t size, FileModel *model)
 {
-    if (!isFile())
-    {
+    if (!isFile()) {
         m_totalSize += size;
         model->changeData(this->row(), FileItem::Size, this);
-        if (m_parent)
-        {
+        if (m_parent) {
             m_parent->addSize(size, model);
         }
     }
 }
 
-
 FileModel::FileModel(const QList<QUrl> &files, const QUrl &destDirectory, QObject *parent)
-  : QAbstractItemModel(parent),
-    m_destDirectory(destDirectory),
-    m_checkStateChanged(false)
+    : QAbstractItemModel(parent)
+    , m_destDirectory(destDirectory)
+    , m_checkStateChanged(false)
 {
     m_rootItem = new FileItem("root");
-    m_header << i18nc("file in a filesystem", "File") << i18nc("status of the download", "Status") << i18nc("size of the download", "Size") << i18nc("checksum of a file", "Checksum") << i18nc("signature of a file", "Signature");
+    m_header << i18nc("file in a filesystem", "File") << i18nc("status of the download", "Status") << i18nc("size of the download", "Size")
+             << i18nc("checksum of a file", "Checksum") << i18nc("signature of a file", "Signature");
 
     setupModelData(files);
 }
@@ -293,23 +260,18 @@ void FileModel::setupModelData(const QList<QUrl> &files)
 {
     QString destDirectory = m_destDirectory.toLocalFile();
 
-    foreach (const QUrl &file, files)
-    {
+    foreach (const QUrl &file, files) {
         FileItem *parent = m_rootItem;
         QStringList directories = file.toLocalFile().remove(destDirectory).split('/', Qt::SkipEmptyParts);
         FileItem *child = nullptr;
-        while (directories.count())
-        {
+        while (directories.count()) {
             QString part = directories.takeFirst();
-            for (int i = 0; i < parent->childCount(); ++i)
-            {
-                //folder already exists
-                if (parent->child(i)->data(0, Qt::DisplayRole).toString() == part)
-                {
+            for (int i = 0; i < parent->childCount(); ++i) {
+                // folder already exists
+                if (parent->child(i)->data(0, Qt::DisplayRole).toString() == part) {
                     parent = parent->child(i);
-                    //file already exists
-                    if (!directories.count())
-                    {
+                    // file already exists
+                    if (!directories.count()) {
                         break;
                     }
                     part = directories.takeFirst();
@@ -321,8 +283,7 @@ void FileModel::setupModelData(const QList<QUrl> &files)
             parent->appendChild(child);
             parent = parent->child(parent->childCount() - 1);
         }
-        if (child)
-        {
+        if (child) {
             m_files.append(child);
         }
     }
@@ -330,51 +291,36 @@ void FileModel::setupModelData(const QList<QUrl> &files)
 
 int FileModel::columnCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
-    {
-        return static_cast<FileItem*>(parent.internalPointer())->columnCount();
-    }
-    else
-    {
+    if (parent.isValid()) {
+        return static_cast<FileItem *>(parent.internalPointer())->columnCount();
+    } else {
         return m_rootItem->columnCount();
     }
 }
 
 QVariant FileModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
-    {
+    if (!index.isValid()) {
         return QVariant();
     }
 
-
-    auto *item = static_cast<FileItem*>(index.internalPointer());
+    auto *item = static_cast<FileItem *>(index.internalPointer());
     const QVariant data = item->data(index.column(), role);
 
-    //get the status icon as well as status text
-    if (index.column() == FileItem::Status)
-    {
+    // get the status icon as well as status text
+    if (index.column() == FileItem::Status) {
         const auto status = static_cast<Job::Status>(data.toInt());
         if (item->isFile()) {
-            if (role == Qt::DisplayRole)
-            {
-                if (m_customStatusTexts.contains(status))
-                {
+            if (role == Qt::DisplayRole) {
+                if (m_customStatusTexts.contains(status)) {
                     return m_customStatusTexts[status];
-                }
-                else
-                {
+                } else {
                     return Transfer::statusText(status);
                 }
-            }
-            else if (role == Qt::DecorationRole)
-            {
-                if (m_customStatusIcons.contains(status))
-                {
+            } else if (role == Qt::DecorationRole) {
+                if (m_customStatusIcons.contains(status)) {
                     return m_customStatusIcons[status];
-                }
-                else
-                {
+                } else {
                     return QIcon::fromTheme(Transfer::statusIconName(status));
                 }
             }
@@ -388,12 +334,11 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
 
 bool FileModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (!index.isValid())
-    {
+    if (!index.isValid()) {
         return false;
     }
 
-    auto *item = static_cast<FileItem*>(index.internalPointer());
+    auto *item = static_cast<FileItem *>(index.internalPointer());
 
     if ((index.column() == FileItem::File) && (role == Qt::CheckStateRole)) {
         const bool worked = item->setData(index.column(), value, this, role);
@@ -409,13 +354,11 @@ bool FileModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
 Qt::ItemFlags FileModel::flags(const QModelIndex &index) const
 {
-    if (!index.isValid())
-    {
+    if (!index.isValid()) {
         return Qt::NoItemFlags;
     }
 
-    if (index.column() == FileItem::File)
-    {
+    if (index.column() == FileItem::File) {
         return QAbstractItemModel::flags(index) | Qt::ItemIsUserCheckable;
     }
 
@@ -424,8 +367,7 @@ Qt::ItemFlags FileModel::flags(const QModelIndex &index) const
 
 QVariant FileModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if ((orientation == Qt::Horizontal) && (role == Qt::DisplayRole))
-    {
+    if ((orientation == Qt::Horizontal) && (role == Qt::DisplayRole)) {
         return m_header.value(section);
     }
 
@@ -434,28 +376,21 @@ QVariant FileModel::headerData(int section, Qt::Orientation orientation, int rol
 
 QModelIndex FileModel::index(int row, int column, const QModelIndex &parent) const
 {
-    if (!hasIndex(row, column, parent))
-    {
+    if (!hasIndex(row, column, parent)) {
         return QModelIndex();
     }
 
     FileItem *parentItem;
-    if (parent.isValid())
-    {
-        parentItem = static_cast<FileItem*>(parent.internalPointer());
-    }
-    else
-    {
+    if (parent.isValid()) {
+        parentItem = static_cast<FileItem *>(parent.internalPointer());
+    } else {
         parentItem = m_rootItem;
     }
 
     FileItem *childItem = parentItem->child(row);
-    if (childItem)
-    {
+    if (childItem) {
         return createIndex(row, column, childItem);
-    }
-    else
-    {
+    } else {
         return QModelIndex();
     }
 }
@@ -463,8 +398,7 @@ QModelIndex FileModel::index(int row, int column, const QModelIndex &parent) con
 QModelIndex FileModel::index(const QUrl &file, int column)
 {
     FileItem *item = getItem(file);
-    if (!item)
-    {
+    if (!item) {
         return QModelIndex();
     }
 
@@ -474,8 +408,7 @@ QModelIndex FileModel::index(const QUrl &file, int column)
 QModelIndexList FileModel::fileIndexes(int column) const
 {
     QModelIndexList indexList;
-    foreach (FileItem *item, m_files)
-    {
+    foreach (FileItem *item, m_files) {
         int row = item->row();
         indexList.append(createIndex(row, column, item));
     }
@@ -485,37 +418,29 @@ QModelIndexList FileModel::fileIndexes(int column) const
 
 QModelIndex FileModel::parent(const QModelIndex &index) const
 {
-    if (!index.isValid())
-    {
+    if (!index.isValid()) {
         return QModelIndex();
     }
 
-    auto *childItem = static_cast<FileItem*>(index.internalPointer());
+    auto *childItem = static_cast<FileItem *>(index.internalPointer());
     FileItem *parentItem = childItem->parent();
-    if ((parentItem == m_rootItem) || (!parentItem))
-    {
+    if ((parentItem == m_rootItem) || (!parentItem)) {
         return QModelIndex();
-    }
-    else
-    {
+    } else {
         return createIndex(parentItem->row(), 0, parentItem);
     }
 }
 
 int FileModel::rowCount(const QModelIndex &parent) const
 {
-    if (parent.column() > 0)
-    {
+    if (parent.column() > 0) {
         return 0;
     }
 
     FileItem *parentItem;
-    if (parent.isValid())
-    {
-        parentItem = static_cast<FileItem*>(parent.internalPointer());
-    }
-    else
-    {
+    if (parent.isValid()) {
+        parentItem = static_cast<FileItem *>(parent.internalPointer());
+    } else {
         parentItem = m_rootItem;
     }
 
@@ -533,7 +458,6 @@ void FileModel::changeData(int row, int column, FileItem *item, bool finished)
     }
 }
 
-
 void FileModel::setDirectory(const QUrl &newDirectory)
 {
     m_destDirectory = newDirectory;
@@ -548,7 +472,7 @@ QUrl FileModel::getUrl(const QModelIndex &index)
 
     const QModelIndex file = index.sibling(index.row(), FileItem::File);
 
-    return getUrl(static_cast<FileItem*>(file.internalPointer()));
+    return getUrl(static_cast<FileItem *>(file.internalPointer()));
 }
 
 QUrl FileModel::getUrl(FileItem *item)
@@ -565,8 +489,7 @@ QString FileModel::getPath(FileItem *item)
 {
     FileItem *parent = item->parent();
     QString path;
-    while (parent && parent->parent())
-    {
+    while (parent && parent->parent()) {
         path = parent->data(FileItem::File, Qt::DisplayRole).toString() + '/' + path;
         parent = parent->parent();
     }
@@ -576,8 +499,7 @@ QString FileModel::getPath(FileItem *item)
 
 FileItem *FileModel::getItem(const QUrl &file)
 {
-    if (m_itemCache.contains(file))
-    {
+    if (m_itemCache.contains(file)) {
         return m_itemCache[file];
     }
 
@@ -585,18 +507,14 @@ FileItem *FileModel::getItem(const QUrl &file)
 
     FileItem *item = m_rootItem;
     QStringList directories = file.toLocalFile().remove(destDirectory).split('/', Qt::SkipEmptyParts);
-    while (directories.count())
-    {
+    while (directories.count()) {
         QString part = directories.takeFirst();
-        for (int i = 0; i < item->childCount(); ++i)
-        {
-            //folder already exists
-            if (item->child(i)->data(FileItem::File, Qt::DisplayRole).toString() == part)
-            {
+        for (int i = 0; i < item->childCount(); ++i) {
+            // folder already exists
+            if (item->child(i)->data(FileItem::File, Qt::DisplayRole).toString() == part) {
                 item = item->child(i);
-                //file already exists
-                if (!directories.count())
-                {
+                // file already exists
+                if (!directories.count()) {
                     break;
                 }
                 part = directories.takeFirst();
@@ -606,12 +524,9 @@ FileItem *FileModel::getItem(const QUrl &file)
         }
     }
 
-    if (item == m_rootItem)
-    {
+    if (item == m_rootItem) {
         item = nullptr;
-    }
-    else
-    {
+    } else {
         m_itemCache[file] = item;
     }
 
@@ -621,11 +536,9 @@ FileItem *FileModel::getItem(const QUrl &file)
 bool FileModel::downloadFinished(const QUrl &file)
 {
     FileItem *item = getItem(file);
-    if (item)
-    {
+    if (item) {
         const Job::Status status = static_cast<Job::Status>(item->data(FileItem::Status, Qt::DisplayRole).toInt());
-        if (status == Job::Finished)
-        {
+        if (status == Job::Finished) {
             return true;
         }
     }
@@ -639,26 +552,25 @@ bool FileModel::isFile(const QModelIndex &index) const
         return false;
     }
 
-    auto *item = static_cast<FileItem*>(index.internalPointer());
+    auto *item = static_cast<FileItem *>(index.internalPointer());
 
-    //only files can be renamed, no folders
+    // only files can be renamed, no folders
     return item->isFile();
 }
 
 void FileModel::rename(const QModelIndex &file, const QString &newName)
 {
-    if (!file.isValid() || (file.column() != FileItem::File))
-    {
+    if (!file.isValid() || (file.column() != FileItem::File)) {
         return;
     }
 
-    auto *item = static_cast<FileItem*>(file.internalPointer());
-    //only files can be renamed, no folders
+    auto *item = static_cast<FileItem *>(file.internalPointer());
+    // only files can be renamed, no folders
     if (!item->isFile()) {
         return;
     }
 
-    //Find out the old and the new QUrl
+    // Find out the old and the new QUrl
     QString oldName = file.data(Qt::DisplayRole).toString();
     QString path = getPath(item);
 
@@ -687,11 +599,9 @@ void FileModel::watchCheckState()
 
 void FileModel::stopWatchCheckState()
 {
-    if (m_checkStateChanged)
-    {
+    if (m_checkStateChanged) {
         Q_EMIT checkStateChanged();
     }
 
     m_checkStateChanged = false;
 }
-

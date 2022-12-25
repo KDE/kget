@@ -1,31 +1,31 @@
 /**************************************************************************
-*   Copyright (C) 2006 - 2008 Urs Wolfer <uwolfer @ kde.org>              *
-*   Copyright (C) 2006 Dario Massarin <nekkar@libero.it>                  *
-*   Copyright (C) 2008 - 2009 Lukas Appelhans <l.appelhans@gmx.de>        *
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2006 - 2008 Urs Wolfer <uwolfer @ kde.org>              *
+ *   Copyright (C) 2006 Dario Massarin <nekkar@libero.it>                  *
+ *   Copyright (C) 2008 - 2009 Lukas Appelhans <l.appelhans@gmx.de>        *
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "dbuskgetwrapper.h"
 
 #include "core/kget.h"
+#include "core/plugin/transferfactory.h"
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
-#include "core/plugin/transferfactory.h"
 #include "mainwindow.h"
 #include "settings.h"
 #include "ui/droptarget.h"
@@ -35,8 +35,8 @@
 #include "kget_debug.h"
 
 DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
-  : QObject(parent),
-    m_mainWindow(parent)
+    : QObject(parent)
+    , m_mainWindow(parent)
 {
     foreach (TransferHandler *handler, KGet::allTransfers()) {
         m_transfers[handler] = qMakePair(handler->source().toString(), handler->dBusObjectPath());
@@ -44,7 +44,7 @@ DBusKGetWrapper::DBusKGetWrapper(MainWindow *parent)
 
     TransferTreeModel *model = KGet::model();
 
-    connect(model, SIGNAL(transfersAddedEvent(QList<TransferHandler*>)), this, SLOT(slotTransfersAdded(QList<TransferHandler*>)));
+    connect(model, SIGNAL(transfersAddedEvent(QList<TransferHandler *>)), this, SLOT(slotTransfersAdded(QList<TransferHandler *>)));
     connect(model, &TransferTreeModel::transfersRemovedEvent, this, &DBusKGetWrapper::slotTransfersRemoved);
 }
 
@@ -52,7 +52,7 @@ DBusKGetWrapper::~DBusKGetWrapper()
 {
 }
 
-QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest, bool start)
+QStringList DBusKGetWrapper::addTransfer(const QString &src, const QString &dest, bool start)
 {
     QStringList dBusPaths;
 
@@ -61,7 +61,7 @@ QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest
     for (const QString &s : srcSplit)
         urls.append(QUrl(s));
     // split src for the case it is a QStringList (e.g. from konqueror plugin)
-    QList<TransferHandler*> addedTransfers = KGet::addTransfer(urls, dest, QString(), start);
+    QList<TransferHandler *> addedTransfers = KGet::addTransfer(urls, dest, QString(), start);
 
     foreach (TransferHandler *handler, addedTransfers) {
         dBusPaths.append(handler->dBusObjectPath());
@@ -70,7 +70,7 @@ QStringList DBusKGetWrapper::addTransfer(const QString& src, const QString& dest
     return dBusPaths;
 }
 
-bool DBusKGetWrapper::delTransfer(const QString& dbusObjectPath)
+bool DBusKGetWrapper::delTransfer(const QString &dbusObjectPath)
 {
     qCDebug(KGET_DEBUG) << "deleting Transfer";
 
@@ -115,7 +115,7 @@ bool DBusKGetWrapper::offlineMode() const
 
 QVariantMap DBusKGetWrapper::transfers() const
 {
-    const QList<QPair<QString, QString> > transfers = m_transfers.values();
+    const QList<QPair<QString, QString>> transfers = m_transfers.values();
     QVariantMap result;
     for (int i = 0; i < transfers.count(); ++i) {
         result.insert(transfers[i].first, transfers[i].second);
@@ -124,7 +124,7 @@ QVariantMap DBusKGetWrapper::transfers() const
     return result;
 }
 
-void DBusKGetWrapper::slotTransfersAdded(const QList<TransferHandler*> &transfers)
+void DBusKGetWrapper::slotTransfersAdded(const QList<TransferHandler *> &transfers)
 {
     QStringList urls;
     QStringList objectPaths;
@@ -139,7 +139,7 @@ void DBusKGetWrapper::slotTransfersAdded(const QList<TransferHandler*> &transfer
     Q_EMIT transfersAdded(urls, objectPaths);
 }
 
-void DBusKGetWrapper::slotTransfersRemoved(const QList<TransferHandler*> &transfers)
+void DBusKGetWrapper::slotTransfersRemoved(const QList<TransferHandler *> &transfers)
 {
     QStringList urls;
     QStringList objectPaths;
@@ -154,11 +154,11 @@ void DBusKGetWrapper::slotTransfersRemoved(const QList<TransferHandler*> &transf
 
 int DBusKGetWrapper::transfersSpeed() const
 {
-    return 0;//FIXME
-    //return m_dbusModelObserver->transfersSpeed();
+    return 0; // FIXME
+    // return m_dbusModelObserver->transfersSpeed();
 }
 
-void DBusKGetWrapper::importLinks(const QList <QString> &links)
+void DBusKGetWrapper::importLinks(const QList<QString> &links)
 {
     auto *link_view = new KGetLinkView(m_mainWindow);
     link_view->setLinks(links);
@@ -167,12 +167,10 @@ void DBusKGetWrapper::importLinks(const QList <QString> &links)
 
 bool DBusKGetWrapper::isSupported(const QString &url) const
 {
-    foreach (TransferFactory * factory, KGet::factories()) {
+    foreach (TransferFactory *factory, KGet::factories()) {
         qDebug() << "Check" << factory->objectName() << "for" << url << "it is?" << factory->isSupported(QUrl(url));
         if (factory->isSupported(QUrl(url)))
             return true;
     }
     return false;
 }
-
-

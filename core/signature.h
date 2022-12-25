@@ -1,35 +1,35 @@
 /**************************************************************************
-*   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #ifndef KGET_SIGNATURE_H
 #define KGET_SIGNATURE_H
 
 #include "kget_export.h"
 
-#include <QUrl>
 #include <QObject>
+#include <QUrl>
 
 class QDomElement;
 
 #ifdef HAVE_QGPGME
 #include <gpgme++/verificationresult.h>
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 
 /**
  * @class Signature
@@ -43,65 +43,63 @@ class KGET_EXPORT Signature : public QObject
     friend class KeyDownloader;
     friend class SignatureThread;
 
-//TODO also support verification and decryption of files that contain the signature?
-    public:
-        explicit Signature(const QUrl &dest, QObject *object = nullptr);
-        ~Signature() override;
+    // TODO also support verification and decryption of files that contain the signature?
+public:
+    explicit Signature(const QUrl &dest, QObject *object = nullptr);
+    ~Signature() override;
 
-        enum SignatureType
-        {
-            NoType = 0,
-            AsciiDetached, //.asc
-            BinaryDetached //.sig
-        };
+    enum SignatureType {
+        NoType = 0,
+        AsciiDetached, //.asc
+        BinaryDetached //.sig
+    };
 
-        enum VerificationStatus
-        {
-            NoResult, //either not tried, or not enough information
-            NotWorked, //something during verification failed
-            NotVerified,
-            Verified,
-            VerifiedInformation, //verified, though the there is some additional information
-            VerifiedWarning //verified, though there is a warning
-        };
+    enum VerificationStatus {
+        NoResult, // either not tried, or not enough information
+        NotWorked, // something during verification failed
+        NotVerified,
+        Verified,
+        VerifiedInformation, // verified, though the there is some additional information
+        VerifiedWarning // verified, though there is a warning
+    };
 
-        QUrl destination() const;
-        void setDestination(const QUrl &destination);
+    QUrl destination() const;
+    void setDestination(const QUrl &destination);
 
-        VerificationStatus status() const;
+    VerificationStatus status() const;
 #ifdef HAVE_QGPGME
-        GpgME::VerificationResult verificationResult();
-#endif //HAVE_QGPGME
+    GpgME::VerificationResult verificationResult();
+#endif // HAVE_QGPGME
 
-        void downloadKey(QString fingerprint);
-        QByteArray signature();
-        void setAsciiDetachedSignature(const QString &signature);
-        void setSignature(const QByteArray &signature, SignatureType type);
+    void downloadKey(QString fingerprint);
+    QByteArray signature();
+    void setAsciiDetachedSignature(const QString &signature);
+    void setSignature(const QByteArray &signature, SignatureType type);
 
-        SignatureType type() const;
+    SignatureType type() const;
 
-        /**
-         * The fingerprint of the signature//TODO get even without verification??
-         */
-        QString fingerprint();
-        bool isVerifyable();
-        void verify();
+    /**
+     * The fingerprint of the signature//TODO get even without verification??
+     */
+    QString fingerprint();
+    bool isVerifyable();
+    void verify();
 
-        void save(const QDomElement &element);
-        void load(const QDomElement &e);
+    void save(const QDomElement &element);
+    void load(const QDomElement &e);
 
-    Q_SIGNALS:
-        void verified(int verificationStatus);
+Q_SIGNALS:
+    void verified(int verificationStatus);
 
-    private Q_SLOTS:
+private Q_SLOTS:
 #ifdef HAVE_QGPGME
-        void slotVerified(const GpgME::VerificationResult &result);
-#endif //HAVE_QGPGME
+    void slotVerified(const GpgME::VerificationResult &result);
+#endif // HAVE_QGPGME
 
-    private:
-        class SignaturePrivate *d;
+private:
+    class SignaturePrivate *d;
 
-        friend class SignaturePrivate;
+    friend class SignaturePrivate;
 };
 
 #endif

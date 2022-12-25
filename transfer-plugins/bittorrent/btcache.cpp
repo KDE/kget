@@ -14,10 +14,10 @@
 #include <QDataStream>
 
 using namespace bt;
-//TODO: Support buffered mode?
-BTCache::BTCache(Torrent & tor,const QString & tmpdir,const QString & datadir)
-  : Cache(tor, tmpdir, datadir),
-    QObject(nullptr)
+// TODO: Support buffered mode?
+BTCache::BTCache(Torrent &tor, const QString &tmpdir, const QString &datadir)
+    : Cache(tor, tmpdir, datadir)
+    , QObject(nullptr)
 {
 }
 
@@ -25,12 +25,12 @@ BTCache::~BTCache()
 {
 }
 
-void BTCache::load(Chunk* c)
+void BTCache::load(Chunk *c)
 {
     c->setData(0, Chunk::MMAPPED);
 }
 
-void BTCache::save(Chunk* c)
+void BTCache::save(Chunk *c)
 {
     /*if (c->getStatus() == Chunk::MMAPPED)
     {
@@ -45,19 +45,19 @@ void BTCache::save(Chunk* c)
     }
     else if (c->getStatus() == Chunk::BUFFERED)
     {*/
-        KIO::fileoffset_t off = c->getIndex() * tor.getChunkSize();
-        qCDebug(KGET_DEBUG) << "Fileoffset is: " + QString::number(off);
-        QByteArray data;
-        QDataStream s(&data, QIODevice::WriteOnly | QIODevice::Unbuffered);
-        s << c->getData();
-        emit dataArrived(off, data);
-        //fd->write(c->getData(),c->getSize(),off);//Send a signal here that the signal has arrived
-        c->clear();
-        c->setStatus(Chunk::ON_DISK);
+    KIO::fileoffset_t off = c->getIndex() * tor.getChunkSize();
+    qCDebug(KGET_DEBUG) << "Fileoffset is: " + QString::number(off);
+    QByteArray data;
+    QDataStream s(&data, QIODevice::WriteOnly | QIODevice::Unbuffered);
+    s << c->getData();
+    emit dataArrived(off, data);
+    // fd->write(c->getData(),c->getSize(),off);//Send a signal here that the signal has arrived
+    c->clear();
+    c->setStatus(Chunk::ON_DISK);
     //}
 }
 
-bool BTCache::prep(Chunk* c)
+bool BTCache::prep(Chunk *c)
 {
     c->setData(0, Chunk::MMAPPED);
     return true;
@@ -67,11 +67,9 @@ void BTCache::deleteDataFiles()
 {
 }
 
-Cache* BTCacheFactory::create(Torrent & tor,const QString & tmpdir,const QString & datadir) 
+Cache *BTCacheFactory::create(Torrent &tor, const QString &tmpdir, const QString &datadir)
 {
     BTCache *newcache = new BTCache(tor, tmpdir, datadir);
     emit cacheAdded(newcache);
     return newcache;
 }
-
-

@@ -1,21 +1,21 @@
 /**************************************************************************
-*   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "signaturethread.h"
 #include "signature_p.h"
@@ -24,8 +24,8 @@
 #include <QDebug>
 
 SignatureThread::SignatureThread(QObject *parent)
-  : QThread(parent),
-    m_abort(false)
+    : QThread(parent)
+    , m_abort(false)
 {
 }
 
@@ -42,9 +42,9 @@ bool SignatureThread::isValid() const
 {
 #ifdef HAVE_QGPGME
     return true;
-#else //HAVE_QGPGME
+#else // HAVE_QGPGME
     return false;
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 }
 
 void SignatureThread::verify(const QUrl &dest, const QByteArray &sig)
@@ -73,7 +73,7 @@ void SignatureThread::run()
             Q_EMIT verified(result);
         }
     }
-#else //HAVE_QGPGME
+#else // HAVE_QGPGME
     qCWarning(KGET_DEBUG) << "No QGPGME support.";
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 }

@@ -11,40 +11,40 @@
 #ifndef KGETBTCHUNKSELECTOR_H
 #define KGETBTCHUNKSELECTOR_H
 
-#include <list>
-#include <util/timer.h>
-#include <util/constants.h>
 #include <download/chunkselector.h>
+#include <list>
+#include <util/constants.h>
+#include <util/timer.h>
 
 #include <QObject>
 
 namespace bt
 {
-    class BitSet;
-    class ChunkManager;
-    class Downloader;
-    class PeerManager;
-    class PieceDownloader;
+class BitSet;
+class ChunkManager;
+class Downloader;
+class PeerManager;
+class PieceDownloader;
 }
 
 class BTChunkSelector : public bt::ChunkSelector
 {
-    public:
-        BTChunkSelector(bt::ChunkManager & cman,bt::Downloader & downer,bt::PeerManager & pman);
-        ~BTChunkSelector();
+public:
+    BTChunkSelector(bt::ChunkManager &cman, bt::Downloader &downer, bt::PeerManager &pman);
+    ~BTChunkSelector();
 };
 
 class BTChunkSelectorFactory : public QObject, public bt::ChunkSelectorFactoryInterface
 {
     Q_OBJECT
-    public:
-        BTChunkSelectorFactory();
-        ~BTChunkSelectorFactory();
+public:
+    BTChunkSelectorFactory();
+    ~BTChunkSelectorFactory();
 
-        bt::ChunkSelectorInterface* createChunkSelector(bt::ChunkManager & cman, bt::Downloader & downer, bt::PeerManager & pman);
+    bt::ChunkSelectorInterface *createChunkSelector(bt::ChunkManager &cman, bt::Downloader &downer, bt::PeerManager &pman);
 
-    Q_SIGNALS:
-        void selectorAdded(BTChunkSelector *selector);
+Q_SIGNALS:
+    void selectorAdded(BTChunkSelector *selector);
 };
 
 #endif

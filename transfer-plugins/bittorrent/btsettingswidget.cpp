@@ -9,15 +9,15 @@
 */
 #include "btsettingswidget.h"
 
-#include "kget_macro.h"
 #include "bittorrentsettings.h"
+#include "kget_macro.h"
 
 #include "kget_debug.h"
 
 KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)
 
-BTSettingsWidget::BTSettingsWidget(QWidget * parent, const QVariantList &args)
-  : KCModule(parent, args)
+BTSettingsWidget::BTSettingsWidget(QWidget *parent, const QVariantList &args)
+    : KCModule(parent, args)
 {
     setupUi(this);
 
@@ -63,5 +63,3 @@ void BTSettingsWidget::defaults()
 }
 
 #include "btsettingswidget.moc"
-
- 

@@ -18,8 +18,8 @@
 */
 
 #include "dlgmms.h"
-#include "mmssettings.h"
 #include "kget_macro.h"
+#include "mmssettings.h"
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgMmsSettings)
 
@@ -43,5 +43,3 @@ void DlgMmsSettings::save()
 }
 
 #include "dlgmms.moc"
-
-

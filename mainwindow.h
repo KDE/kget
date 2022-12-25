@@ -18,9 +18,9 @@
 #include <KToggleAction>
 #include <KXmlGuiWindow>
 
-#include "ui/tray.h"
 #include "core/transfer.h"
 #include "core/transfergroup.h"
+#include "ui/tray.h"
 
 #ifdef HAVE_QCA2
 #include <QtCrypto>
@@ -41,14 +41,14 @@ class MainWindow : public KXmlGuiWindow
 {
     friend class DBusKGetWrapper;
 
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = nullptr);
     ~MainWindow() override;
 
     virtual void setSystemTrayDownloading(bool running);
 
-    //no slot, to make sure that MainWindow is correctly initialized before any transfers get added
+    // no slot, to make sure that MainWindow is correctly initialized before any transfers get added
     void init();
 
 public Q_SLOTS:
@@ -84,7 +84,7 @@ private Q_SLOTS:
     void slotConfigureNotifications();
     void slotToggleAutoPaste();
     void slotTrayKonquerorIntegration(bool);
-    void slotKonquerorIntegration( bool );
+    void slotKonquerorIntegration(bool);
     void slotShowMenubar();
     void slotTransferGroupSettings();
     void slotTransferSettings();
@@ -118,33 +118,33 @@ private Q_SLOTS:
 
     // import links slots
     void slotShowListLinks();
-    
-    //Model changes
-    void slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFlags> transfers);
-    void slotGroupsChanged(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups);
+
+    // Model changes
+    void slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers);
+    void slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags> groups);
 
 private:
     /**
-    * Returns the completed percents of all active transfers
-    */
+     * Returns the completed percents of all active transfers
+     */
     int transfersPercent();
 
     // one-time functions
     void setupActions();
-    
-    KGet * m_kget = nullptr;
+
+    KGet *m_kget = nullptr;
 
     // internal widgets
-    ViewsContainer * m_viewsContainer = nullptr;
+    ViewsContainer *m_viewsContainer = nullptr;
 
     // separated widgets
-    DropTarget    * m_drop = nullptr;
-    Tray          * m_dock = nullptr;
+    DropTarget *m_drop = nullptr;
+    Tray *m_dock = nullptr;
 
     // actions
-    KToggleAction * m_autoPasteAction = nullptr;
-    KToggleAction * m_menubarAction = nullptr;
-    KToggleAction * m_konquerorIntegration = nullptr;
+    KToggleAction *m_autoPasteAction = nullptr;
+    KToggleAction *m_menubarAction = nullptr;
+    KToggleAction *m_konquerorIntegration = nullptr;
 
     // for autopaste function
     QString lastClipboard;
@@ -152,13 +152,13 @@ private:
     QTimer *clipboardTimer = nullptr;
 
     bool m_startWithoutAnimation;
-    bool m_doTesting;               // UnitTest flag
+    bool m_doTesting; // UnitTest flag
 
-    //HttpServer *m_webinterface;
+    // HttpServer *m_webinterface;
 
 #ifdef HAVE_QCA2
     QCA::Initializer m_qcaInit;
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
 };
 
 #endif

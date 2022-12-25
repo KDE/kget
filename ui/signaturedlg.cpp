@@ -1,29 +1,28 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "signaturedlg.h"
 
-#include "core/kget.h"
 #include "core/filemodel.h"
-#include "core/transferhandler.h"
+#include "core/kget.h"
 #include "core/signature.h"
-
+#include "core/transferhandler.h"
 
 #include "kget_debug.h"
 #include <QDebug>
@@ -36,15 +35,17 @@
 #include <QLayoutItem>
 #include <QStyle>
 
-#include <QFileDialog>
 #include <KLocalizedString>
+#include <QFileDialog>
 
-const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
+const QStringList SignatureDlg::OWNERTRUST = QStringList()
+    << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal")
+    << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
 
 SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget *parent, Qt::WindowFlags flags)
-  : KGetSaveSizeDialog("SignatureDlg", parent, flags),
-    m_signature(transfer->signature(dest)),
-    m_fileModel(transfer->fileModel())
+    : KGetSaveSizeDialog("SignatureDlg", parent, flags)
+    , m_signature(transfer->signature(dest))
+    , m_fileModel(transfer->fileModel())
 {
     setWindowTitle(i18nc("Signature here is meant in cryptographic terms, so the signature of a file.", "Signature of %1.", dest.fileName()));
 
@@ -96,9 +97,11 @@ void SignatureDlg::textChanged()
 
 void SignatureDlg::loadSignatureClicked()
 {
-    const QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Load Signature File"), QUrl::fromLocalFile(KGet::generalDestDir()),
-                                                 "*.asc|" + i18n("Detached OpenPGP ASCII signature (*.asc)") + '\n' +
-                                                 "*.sig|" + i18n("Detached OpenPGP binary signature (*.sig)"));
+    const QUrl url = QFileDialog::getOpenFileUrl(this,
+                                                 i18n("Load Signature File"),
+                                                 QUrl::fromLocalFile(KGet::generalDestDir()),
+                                                 "*.asc|" + i18n("Detached OpenPGP ASCII signature (*.asc)") + '\n' + "*.sig|"
+                                                     + i18n("Detached OpenPGP binary signature (*.sig)"));
     if (url.isEmpty()) {
         return;
     }
@@ -155,7 +158,7 @@ void SignatureDlg::updateData()
         problem = true;
     }
     if (fingerprintString.isEmpty()) {
-        information << i18n("No fingerprint could be found, check if the signature is correct or verify the download.");//TODO get fingerprint from signature!
+        information << i18n("No fingerprint could be found, check if the signature is correct or verify the download."); // TODO get fingerprint from signature!
         problem = true;
     }
 
@@ -181,7 +184,7 @@ void SignatureDlg::updateData()
         if (err) {
             qCDebug(KGET_DEBUG) << "OpenPGP not supported!";
         } else if (!context.data()) {
-                qCDebug(KGET_DEBUG) << "Could not create context.";
+            qCDebug(KGET_DEBUG) << "Could not create context.";
         } else {
             QByteArray fingerprint = fingerprintString.toLatin1();
             const GpgME::Key key = context->key(fingerprint.constData(), err);
@@ -210,38 +213,37 @@ void SignatureDlg::updateData()
                     ui.expirationIcon->hide();
                 }
 
-
-                //handle the trust of the key
+                // handle the trust of the key
                 const GpgME::Key::OwnerTrust ownerTrust = key.ownerTrust();
                 ui.trust->setText(OWNERTRUST.value(ownerTrust));
 
                 switch (ownerTrust) {
-                    case GpgME::Key::Never:
-                        information.prepend(i18n("The key is not to be trusted."));
-                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(iconSize));
-                        error = true;
-                        break;
-                    case GpgME::Key::Marginal:
-                        information.prepend(i18n("The key is to be trusted marginally."));
-                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(iconSize));
-                        problem = true;
-                        break;
-                    case GpgME::Key::Full:
-                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
-                        break;
-                    case GpgME::Key::Ultimate:
-                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
-                        break;
-                    case GpgME::Key::Unknown:
-                    case GpgME::Key::Undefined:
-                    default:
-                        information.prepend(i18n("Trust level of the key is unclear."));
-                        ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(iconSize));
-                        problem = true;
-                        break;
+                case GpgME::Key::Never:
+                    information.prepend(i18n("The key is not to be trusted."));
+                    ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(iconSize));
+                    error = true;
+                    break;
+                case GpgME::Key::Marginal:
+                    information.prepend(i18n("The key is to be trusted marginally."));
+                    ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(iconSize));
+                    problem = true;
+                    break;
+                case GpgME::Key::Full:
+                    ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
+                    break;
+                case GpgME::Key::Ultimate:
+                    ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
+                    break;
+                case GpgME::Key::Unknown:
+                case GpgME::Key::Undefined:
+                default:
+                    information.prepend(i18n("Trust level of the key is unclear."));
+                    ui.trustIcon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(iconSize));
+                    problem = true;
+                    break;
                 }
 
-                //issuer, issuer mail and comment
+                // issuer, issuer mail and comment
                 if (key.numUserIDs()) {
                     const GpgME::UserID userID = key.userID(0);
                     ui.issuer->setText(userID.name());
@@ -249,7 +251,7 @@ void SignatureDlg::updateData()
                     ui.email->setText(userID.email());
                 }
 
-                //key creation/expiration-time
+                // key creation/expiration-time
                 if (key.numSubkeys()) {
                     const GpgME::Subkey subKey = key.subkey(0);
 
@@ -270,35 +272,37 @@ void SignatureDlg::updateData()
             }
         }
     }
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 
     const Signature::VerificationStatus verificationStatus = m_signature->status();
 
-    //display the verification status
+    // display the verification status
     ui.verificationIcon->hide();
     switch (verificationStatus) {
-        case Signature::Verified:
-        case Signature::VerifiedInformation:
-        case Signature::VerifiedWarning:
-            ui.verificationIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
-            ui.verificationIcon->show();
-            ui.verified->setText(i18nc("pgp signature is verified", "Verified"));
-            break;
-        case Signature::NotVerified:
-            ui.verified->setText(i18nc("pgp signature is not verified", "Failed"));
-            ui.verificationIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(iconSize));
-            ui.verificationIcon->show();
-            information.prepend(i18n("Caution: Verification failed. Either you entered the wrong signature, or the data has been modified."));
-            error = true;
-            break;
-        case Signature::NotWorked://TODO downloading state? --> currently downloading
-            ui.verified->clear();//TODO
-            information.prepend(i18n("Verification not possible. Check the entered data, whether gpg-agent is running, or whether you have an Internet connection (for retrieving keys.)"));
-            problem = true;
-            break;
-        case Signature::NoResult:
-            ui.verified->clear();//TODO
-            break;
+    case Signature::Verified:
+    case Signature::VerifiedInformation:
+    case Signature::VerifiedWarning:
+        ui.verificationIcon->setPixmap(QIcon::fromTheme("dialog-ok").pixmap(iconSize));
+        ui.verificationIcon->show();
+        ui.verified->setText(i18nc("pgp signature is verified", "Verified"));
+        break;
+    case Signature::NotVerified:
+        ui.verified->setText(i18nc("pgp signature is not verified", "Failed"));
+        ui.verificationIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(iconSize));
+        ui.verificationIcon->show();
+        information.prepend(i18n("Caution: Verification failed. Either you entered the wrong signature, or the data has been modified."));
+        error = true;
+        break;
+    case Signature::NotWorked: // TODO downloading state? --> currently downloading
+        ui.verified->clear(); // TODO
+        information.prepend(
+            i18n("Verification not possible. Check the entered data, whether gpg-agent is running, or whether you have an Internet connection (for retrieving "
+                 "keys.)"));
+        problem = true;
+        break;
+    case Signature::NoResult:
+        ui.verified->clear(); // TODO
+        break;
     }
 
     if (verificationStatus == Signature::VerifiedWarning) {
@@ -312,12 +316,12 @@ void SignatureDlg::updateData()
     information.clear();
     information << i18n("Feature is not supported, as KGet is not compiled with QPGME support.");
     resize(350, 200);
-#endif //HAVE_QPGME
+#endif // HAVE_QPGME
 
-    //TODO more messages, e.g. from result etc.
-    //TODO enter more error cases
+    // TODO more messages, e.g. from result etc.
+    // TODO enter more error cases
 
-    //change the icon of the titlewidget
+    // change the icon of the titlewidget
     if (error) {
         ui.information->setMessageType(KMessageWidget::Error);
     } else if (problem) {
@@ -371,5 +375,3 @@ void SignatureDlg::handleWidgets(bool isAsciiSig)
         ui.verticalLayout_2->addStretch(1);
     }
 }
-
-

@@ -20,21 +20,19 @@
 #include "kget_debug.h"
 #include <QDebug>
 
-Scheduler::Scheduler(QObject * parent)
-  : QObject(parent),
-    m_failureCheckTimer(0),
-    m_stallTime(5),
-    m_stallTimeout(Settings::reconnectDelay()),
-    m_abortTimeout(Settings::reconnectDelay()),
-    m_isSuspended(false),
-    m_hasConnection(true)
+Scheduler::Scheduler(QObject *parent)
+    : QObject(parent)
+    , m_failureCheckTimer(0)
+    , m_stallTime(5)
+    , m_stallTimeout(Settings::reconnectDelay())
+    , m_abortTimeout(Settings::reconnectDelay())
+    , m_isSuspended(false)
+    , m_hasConnection(true)
 {
-
 }
 
 Scheduler::~Scheduler()
 {
-
 }
 
 void Scheduler::setIsSuspended(bool isSuspended)
@@ -42,7 +40,7 @@ void Scheduler::setIsSuspended(bool isSuspended)
     const bool changed = (isSuspended != m_isSuspended);
     m_isSuspended = isSuspended;
 
-    //update all the queues
+    // update all the queues
     if (changed && shouldUpdate()) {
         updateAllQueues();
     }
@@ -71,20 +69,22 @@ void Scheduler::setHasNetworkConnection(bool hasConnection)
     }
 }
 
-void Scheduler::addQueue(JobQueue * queue)
+void Scheduler::addQueue(JobQueue *queue)
 {
-    if(!m_queues.contains(queue))
+    if (!m_queues.contains(queue))
         m_queues.append(queue);
 }
 
-void Scheduler::delQueue(JobQueue * queue)
+void Scheduler::delQueue(JobQueue *queue)
 {
     m_queues.removeAll(queue);
 }
 
-struct IsRunningJob
-{
-    bool operator()(Job *job) const {return (job->status() == Job::Running);}
+struct IsRunningJob {
+    bool operator()(Job *job) const
+    {
+        return (job->status() == Job::Running);
+    }
 };
 
 bool Scheduler::hasRunningJobs() const
@@ -100,7 +100,7 @@ bool Scheduler::hasRunningJobs() const
 int Scheduler::countRunningJobs() const
 {
     int count = 0;
-    foreach(JobQueue * queue, m_queues) {
+    foreach (JobQueue *queue, m_queues) {
         count += std::count_if(queue->begin(), queue->end(), IsRunningJob());
     }
 
@@ -111,125 +111,118 @@ void Scheduler::settingsChanged()
 {
     m_stallTimeout = Settings::reconnectDelay();
     m_abortTimeout = Settings::reconnectDelay();
-    
+
     updateAllQueues();
 }
 
-void Scheduler::jobQueueChangedEvent(JobQueue * queue, JobQueue::Status status)
+void Scheduler::jobQueueChangedEvent(JobQueue *queue, JobQueue::Status status)
 {
-    if( status == JobQueue::Stopped )
-    {
+    if (status == JobQueue::Stopped) {
         JobQueue::iterator it = queue->begin();
         JobQueue::iterator itEnd = queue->end();
 
-        for ( ; it!=itEnd ; ++it)
-        {
+        for (; it != itEnd; ++it) {
             if ((*it)->status() != Job::Stopped)
                 (*it)->stop();
         }
-    }
-    else
+    } else
         updateQueue(queue);
 }
 
-void Scheduler::jobQueueMovedJobEvent(JobQueue * queue, Job * job)
+void Scheduler::jobQueueMovedJobEvent(JobQueue *queue, Job *job)
 {
     Q_UNUSED(job)
 
     updateQueue(queue);
 }
 
-void Scheduler::jobQueueAddedJobEvent(JobQueue * queue, Job * job)
+void Scheduler::jobQueueAddedJobEvent(JobQueue *queue, Job *job)
 {
     Q_UNUSED(job)
 
     updateQueue(queue);
 }
 
-void Scheduler::jobQueueAddedJobsEvent(JobQueue *queue, const QList<Job*> jobs)
+void Scheduler::jobQueueAddedJobsEvent(JobQueue *queue, const QList<Job *> jobs)
 {
     Q_UNUSED(jobs)
 
     updateQueue(queue);
 }
 
-
-void Scheduler::jobQueueRemovedJobEvent(JobQueue * queue, Job * job)
+void Scheduler::jobQueueRemovedJobEvent(JobQueue *queue, Job *job)
 {
     Q_UNUSED(job)
 
     updateQueue(queue);
 }
 
-void Scheduler::jobQueueRemovedJobsEvent(JobQueue *queue, const QList<Job*> jobs)
+void Scheduler::jobQueueRemovedJobsEvent(JobQueue *queue, const QList<Job *> jobs)
 {
     Q_UNUSED(jobs)
 
     updateQueue(queue);
 }
 
-void Scheduler::jobChangedEvent(Job * job, Job::Status status)
+void Scheduler::jobChangedEvent(Job *job, Job::Status status)
 {
-    qCDebug(KGET_DEBUG) << "Scheduler::jobChangedEvent  (job=" << job << " status=" << status <<  ")";
+    qCDebug(KGET_DEBUG) << "Scheduler::jobChangedEvent  (job=" << job << " status=" << status << ")";
 
     if (!m_failureCheckTimer)
         m_failureCheckTimer = startTimer(1000);
 
     if (status != Job::Running)
-        updateQueue( job->jobQueue() );
+        updateQueue(job->jobQueue());
 }
 
-void Scheduler::jobChangedEvent(Job * job, Job::Policy policy)
+void Scheduler::jobChangedEvent(Job *job, Job::Policy policy)
 {
     Q_UNUSED(policy)
 
-    updateQueue( job->jobQueue() );
+    updateQueue(job->jobQueue());
 }
 
-void Scheduler::jobChangedEvent(Job * job, JobFailure failure)
+void Scheduler::jobChangedEvent(Job *job, JobFailure failure)
 {
-    switch(failure.status)
-    {
-        case None:
-            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = None ";
-            break;
-        case AboutToStall:
-            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = AboutToStall ";
-            break;
-        case Stall:
-            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Stall ";
-            break;
-        case StallTimeout:
-            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = StallTimeout ";
-            break;
-        case Abort:
-            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Abort ";
-            break;
-        case AbortTimeout:
-            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = AbortTimeout ";
-            break;
-        case Error:
-            qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Error ";
-            break;
+    switch (failure.status) {
+    case None:
+        qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = None ";
+        break;
+    case AboutToStall:
+        qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = AboutToStall ";
+        break;
+    case Stall:
+        qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Stall ";
+        break;
+    case StallTimeout:
+        qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = StallTimeout ";
+        break;
+    case Abort:
+        qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Abort ";
+        break;
+    case AbortTimeout:
+        qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = AbortTimeout ";
+        break;
+    case Error:
+        qCDebug(KGET_DEBUG) << "job = " << job << " failure (#" << failure.count << ") = Error ";
+        break;
     }
-    
+
     if (failure.status == Error) {
-        static_cast<Transfer*>(job)->handler()->stop();
-    } else if (//If this happens the job just gets stopped
-        // Second condition: if count >  reconnectRetries and Timeout happened trigger a stop/start BUT only if
-        // 10 timeouts have happened (9 of them without taking any action). This means every 10*Settings::reconnectDelay() (ex. 15s -> 150s)
-       (failure.count >  Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout) 
-                                                      && !((failure.count - Settings::reconnectRetries()) % 10)) )
-    {
-        //FIXME reenable once a connection limit per mirror is in place BUG:262098
-        //static_cast<Transfer*>(job)->handler()->stop();// This will trigger the changedEvent which will trigger an updateQueue call
-        job->stop();//FIXME remove once a connection limit per mirror is in place
-    } else if (failure.count <= Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)){
+        static_cast<Transfer *>(job)->handler()->stop();
+    } else if ( // If this happens the job just gets stopped
+                //  Second condition: if count >  reconnectRetries and Timeout happened trigger a stop/start BUT only if
+                //  10 timeouts have happened (9 of them without taking any action). This means every 10*Settings::reconnectDelay() (ex. 15s -> 150s)
+        (failure.count > Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)
+         && !((failure.count - Settings::reconnectRetries()) % 10))) {
+        // FIXME reenable once a connection limit per mirror is in place BUG:262098
+        // static_cast<Transfer*>(job)->handler()->stop();// This will trigger the changedEvent which will trigger an updateQueue call
+        job->stop(); // FIXME remove once a connection limit per mirror is in place
+    } else if (failure.count <= Settings::reconnectRetries() && (failure.status == StallTimeout || failure.status == AbortTimeout)) {
         // First  condition: if count <= reconnectRetries and Timeout happened trigger a stop/start
-        job->stop();//stops the job, it will be later restarted by updateQueue
-    }
-    else
-        updateQueue( job->jobQueue() );  
+        job->stop(); // stops the job, it will be later restarted by updateQueue
+    } else
+        updateQueue(job->jobQueue());
 }
 
 void Scheduler::start()
@@ -242,21 +235,21 @@ void Scheduler::stop()
     std::for_each(m_queues.begin(), m_queues.end(), boost::bind(&JobQueue::setStatus, boost::placeholders::_1, JobQueue::Stopped));
 }
 
-void Scheduler::updateQueue( JobQueue * queue )
+void Scheduler::updateQueue(JobQueue *queue)
 {
     static bool updatingQueue = false;
-    
+
     if (!shouldUpdate() || updatingQueue)
         return;
 
     updatingQueue = true;
-       
-    int runningJobs = 0;    //Jobs that are running (and not in the stallTimeout)
-    int waitingJobs = 0;    //Jobs that we leave running but are in stallTimeout. We wait for them to start downloading, while we start other ones
+
+    int runningJobs = 0; // Jobs that are running (and not in the stallTimeout)
+    int waitingJobs = 0; // Jobs that we leave running but are in stallTimeout. We wait for them to start downloading, while we start other ones
 
     /**
      * Implemented behaviour
-     * 
+     *
      * The scheduler allows a maximum number of runningJobs equal to the queue->maxSimultaneousJobs() setting.
      * If that number is not reached because of stallTimeout transfers, the scheduler allows that:
      *     (runningJobs + waitingJobs) < 2 * queue->maxSimultaneousJobs()
@@ -267,7 +260,7 @@ void Scheduler::updateQueue( JobQueue * queue )
      *     3) 0 runningJobs - up to 4 waitingJobs
      *        These are if the waiting jobs come first in the queue
      *     1) 1 waitingJobs - 2 runningJobs
-     *     2) 2 waitingJobs - 2 runningJobs     
+     *     2) 2 waitingJobs - 2 runningJobs
      *     3) 3 waitingJobs - 1 runningJobs
      *     4) 4 waitingJobs - 0 runningJobs
      **/
@@ -275,48 +268,39 @@ void Scheduler::updateQueue( JobQueue * queue )
     JobQueue::iterator it = queue->begin();
     JobQueue::iterator itEnd = queue->end();
 
-    for( int job=0 ; it!=itEnd ; ++it, ++job)
-    {
-        //qCDebug(KGET_DEBUG) << "MaxSimJobs " << queue->maxSimultaneousJobs();
+    for (int job = 0; it != itEnd; ++it, ++job) {
+        // qCDebug(KGET_DEBUG) << "MaxSimJobs " << queue->maxSimultaneousJobs();
         qCDebug(KGET_DEBUG) << "Scheduler: Evaluating job " << job;
-        
+
         JobFailure failure = m_failedJobs.value(*it);
-        
-        if( runningJobs < queue->maxSimultaneousJobs() && ((runningJobs + waitingJobs) < 2 * queue->maxSimultaneousJobs()) )
-        {
-            if( (*it)->status() == Job::Running || (*it)->status() == Job::FinishedKeepAlive )
-            {
-                if( !shouldBeRunning(*it) )
-                {
+
+        if (runningJobs < queue->maxSimultaneousJobs() && ((runningJobs + waitingJobs) < 2 * queue->maxSimultaneousJobs())) {
+            if ((*it)->status() == Job::Running || (*it)->status() == Job::FinishedKeepAlive) {
+                if (!shouldBeRunning(*it)) {
                     qCDebug(KGET_DEBUG) << "Scheduler:    stopping job";
                     (*it)->stop();
-                }
-                else if(failure.status == None || failure.status == AboutToStall)
+                } else if (failure.status == None || failure.status == AboutToStall)
                     runningJobs++;
                 else
                     waitingJobs++;
-            }
-            else             // != Job::Running
+            } else // != Job::Running
             {
-                if( shouldBeRunning(*it) )
-                {
+                if (shouldBeRunning(*it)) {
                     qCDebug(KGET_DEBUG) << "Scheduler:    starting job";
                     (*it)->start();
-                    if((failure.status == None || failure.status == AboutToStall) && (*it)->status() != Job::FinishedKeepAlive)
+                    if ((failure.status == None || failure.status == AboutToStall) && (*it)->status() != Job::FinishedKeepAlive)
                         runningJobs++;
                     else
                         waitingJobs++;
                 }
             }
-        }
-        else
-        {
-            //Stop all the other running downloads
+        } else {
+            // Stop all the other running downloads
             qCDebug(KGET_DEBUG) << "Scheduler:    stopping job over maxSimJobs limit";
             (*it)->stop();
         }
     }
-    
+
     updatingQueue = false;
 }
 
@@ -327,115 +311,93 @@ void Scheduler::updateAllQueues()
     }
 }
 
-bool Scheduler::shouldBeRunning( Job * job )
+bool Scheduler::shouldBeRunning(Job *job)
 {
     Job::Policy policy = job->policy();
     Job::Status status = job->status();
 
-    if( job->jobQueue()->status() == JobQueue::Stopped )
+    if (job->jobQueue()->status() == JobQueue::Stopped) {
+        return ((policy == Job::Start) && ((status != Job::Finished) && (status != Job::Aborted || job->error().type == Job::AutomaticRetry)));
+    } else // JobQueue::Running
     {
-        return ( (policy == Job::Start)   &&
-                 ((status != Job::Finished) &&
-                 (status != Job::Aborted || job->error().type == Job::AutomaticRetry)));
-    }
-    else                           //JobQueue::Running
-    {
-        return ( (policy != Job::Stop)    &&
-                 ((status != Job::Finished) &&
-                 (status != Job::Aborted || job->error().type == Job::AutomaticRetry)));
+        return ((policy != Job::Stop) && ((status != Job::Finished) && (status != Job::Aborted || job->error().type == Job::AutomaticRetry)));
     }
 }
 
-void Scheduler::timerEvent( QTimerEvent * event )
+void Scheduler::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
-//     qCDebug(KGET_DEBUG);
+    //     qCDebug(KGET_DEBUG);
 
     if (!shouldUpdate()) {
         return;
     }
 
-    foreach(JobQueue * queue, m_queues)
-    {
+    foreach (JobQueue *queue, m_queues) {
         JobQueue::iterator it = queue->begin();
         JobQueue::iterator itEnd = queue->end();
 
-        for( int job=0 ; it!=itEnd ; ++it, ++job)
-        {
+        for (int job = 0; it != itEnd; ++it, ++job) {
             JobFailure failure = m_failedJobs[*it];
             JobFailure prevFailure = failure;
-            
-            if((*it)->isStalled())                              // Stall status initialization
+
+            if ((*it)->isStalled()) // Stall status initialization
             {
-                if(failure.status!=AboutToStall && failure.status!=Stall && failure.status!=StallTimeout)
-                {
+                if (failure.status != AboutToStall && failure.status != Stall && failure.status != StallTimeout) {
                     failure.status = AboutToStall;
                     failure.time = 0;
-                    failure.count = 0;                    
-                }
-                else
-                {
+                    failure.count = 0;
+                } else {
                     failure.time++;
-                    
-                    if(failure.time >= m_stallTime + m_stallTimeout)
-                    {
-                        failure.status = StallTimeout;
-                        failure.count++;                    
 
-                    }
-                    else if(failure.time >= m_stallTime)
+                    if (failure.time >= m_stallTime + m_stallTimeout) {
+                        failure.status = StallTimeout;
+                        failure.count++;
+
+                    } else if (failure.time >= m_stallTime)
                         failure.status = Stall;
                     else
                         failure.status = AboutToStall;
-                    
-                    if(failure.status == StallTimeout)
+
+                    if (failure.status == StallTimeout)
                         failure.time = m_stallTime;
                 }
-            } 
-            else if((*it)->status() == Job::Aborted)            // Abort status initialization
+            } else if ((*it)->status() == Job::Aborted) // Abort status initialization
             {
                 if ((*it)->error().type != Job::AutomaticRetry) {
                     failure.status = Error;
                 } else {
-                    if(failure.status!=Abort)
-                    {
+                    if (failure.status != Abort) {
                         failure.status = Abort;
                         failure.time = 0;
                         failure.count = 0;
-                    }
-                    else
-                    {
+                    } else {
                         failure.time++;
-                        failure.count++;                    
-                    
-                        if(failure.time >= m_abortTimeout)
-                        {
+                        failure.count++;
+
+                        if (failure.time >= m_abortTimeout) {
                             failure.status = AbortTimeout;
-                            failure.count++;                    
+                            failure.count++;
                         }
-                    
-                        if(failure.status == AbortTimeout)
+
+                        if (failure.status == AbortTimeout)
                             failure.time = 0;
                     }
                 }
-            }
-            else if ((*it)->isWorking())
-            {
+            } else if ((*it)->isWorking()) {
                 failure = JobFailure();
             }
 
-            if(failure.isValid())                                   // A failure has been detected
+            if (failure.isValid()) // A failure has been detected
                 m_failedJobs[*it] = failure;
-            else                                                    // No failure detected, remove it
+            else // No failure detected, remove it
                 m_failedJobs.remove(*it);
 
-//             if(failure.isValid() || prevFailure.isValid())
-//                 qCDebug(KGET_DEBUG) << "failure = " << failure.status << " T=" << failure.time << " prevFailure = " << prevFailure.status;
-            
-            if(failure.status != prevFailure.status)
-                jobChangedEvent(*it, failure);                      // Notify the scheduler
+            //             if(failure.isValid() || prevFailure.isValid())
+            //                 qCDebug(KGET_DEBUG) << "failure = " << failure.status << " T=" << failure.time << " prevFailure = " << prevFailure.status;
+
+            if (failure.status != prevFailure.status)
+                jobChangedEvent(*it, failure); // Notify the scheduler
         }
     }
 }
-
-

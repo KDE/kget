@@ -20,7 +20,6 @@ class QModelIndex;
 class LinkImporter;
 class KGetSortFilterProxyModel;
 
-
 class KGetLinkView : public KGetSaveSizeDialog
 {
     Q_OBJECT
@@ -31,16 +30,16 @@ public:
 
     // void setLinks( QList<LinkItem*>& links );
     void setLinks(const QStringList &links);
-    void setPageUrl( const QString& url );
+    void setPageUrl(const QString &url);
     void importUrl(const QString &url = QString());
 
 Q_SIGNALS:
-    void leechUrls( const QList<QUrl>& urls );
+    void leechUrls(const QList<QUrl> &urls);
 
 private Q_SLOTS:
     void slotMimeTypeChanged(int index);
     void slotFilterModeChanged(int index);
-    void slotFilterColumn(QAction*);
+    void slotFilterColumn(QAction *);
     void slotStartLeech();
     void selectionChanged();
     void setTextFilter(const QString &text = QString());
@@ -64,10 +63,7 @@ private:
     void showLinks(const QStringList &links, bool urlRequestVisible);
 
 private:
-    enum PatternSyntax {
-        Wildcard = 0,
-        RegExp
-    };
+    enum PatternSyntax { Wildcard = 0, RegExp };
     Ui::ImportLinkDialog ui;
     KGetSortFilterProxyModel *m_proxyModel;
     QStringList m_links;
@@ -75,7 +71,7 @@ private:
     QMenu *m_patternSyntaxMenu;
     QAction *m_nameAction;
     QAction *m_urlAction;
-    QPushButton * m_downloadButton;
+    QPushButton *m_downloadButton;
 };
 
 #endif // KGET_LINKVIEW_H

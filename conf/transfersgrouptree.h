@@ -19,35 +19,34 @@
 #include <QStyledItemDelegate>
 #include <QTreeView>
 
-
 class TransfersGroupDelegate : public BasicTransfersViewDelegate
 {
     Q_OBJECT
 
-    public:
-        TransfersGroupDelegate(QAbstractItemView *parent);
+public:
+    TransfersGroupDelegate(QAbstractItemView *parent);
 
-        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-        void setEditorData(QWidget *editor, const QModelIndex &index) const override;
-        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 };
 
 class TransfersGroupTree : public QTreeView
 {
     Q_OBJECT
-    public:
-        TransfersGroupTree(QWidget *parent = nullptr);
-        void setModel(QAbstractItemModel *model) override;
+public:
+    TransfersGroupTree(QWidget *parent = nullptr);
+    void setModel(QAbstractItemModel *model) override;
 
-    public Q_SLOTS:
-        void editCurrent();
-        void addGroup();
-        void deleteSelectedGroup();
-        void renameSelectedGroup();
-        void changeIcon(const QString &icon);
+public Q_SLOTS:
+    void editCurrent();
+    void addGroup();
+    void deleteSelectedGroup();
+    void renameSelectedGroup();
+    void changeIcon(const QString &icon);
 
-    private:
-        void rowsInserted(const QModelIndex &index, int start, int end) override;
+private:
+    void rowsInserted(const QModelIndex &index, int start, int end) override;
 };
 
 #endif

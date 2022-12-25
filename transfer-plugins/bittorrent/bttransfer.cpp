@@ -12,29 +12,29 @@
 #include "bttransfer.h"
 #include "bittorrentsettings.h"
 #include "bttransferhandler.h"
-//#include "btchunkselector.h"
+// #include "btchunkselector.h"
 #include "advanceddetails/monitor.h"
-#include "core/kget.h"
-#include "core/filemodel.h"
 #include "core/download.h"
+#include "core/filemodel.h"
+#include "core/kget.h"
 #include "kget_version.h"
 
-#include <torrent/torrent.h>
+#include <interfaces/trackerinterface.h>
+#include <peer/authenticationmonitor.h>
 #include <peer/peermanager.h>
-#include <util/error.h>
 #include <torrent/globals.h>
 #include <torrent/server.h>
+#include <torrent/torrent.h>
 #include <util/constants.h>
+#include <util/error.h>
 #include <util/functions.h>
 #include <util/log.h>
-#include <peer/authenticationmonitor.h>
-#include <interfaces/trackerinterface.h>
 #include <utp/utpserver.h>
 #include <version.h>
 
 #include "kget_debug.h"
-#include <KLocalizedString>
 #include <KIO/CopyJob>
+#include <KLocalizedString>
 
 #include <KMessageBox>
 
@@ -42,31 +42,29 @@
 #include <QDomElement>
 #include <QFile>
 #include <QFileInfo>
-#include <QUrl>
 #include <QStandardPaths>
+#include <QUrl>
 
 #ifdef ERROR
 #undef ERROR
 #endif
 
-BTTransfer::BTTransfer(TransferGroup* parent, TransferFactory* factory,
-               Scheduler* scheduler, const QUrl &src, const QUrl& dest,
-               const QDomElement * e)
-  : Transfer(parent, factory, scheduler, src, dest, e),
-    torrent(nullptr),
-    m_tmp(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/")),
-    m_ready(false),
-    m_downloadFinished(false),
-    m_movingFile(false),
-    m_fileModel(nullptr),
-    m_updateCounter(0)
+BTTransfer::BTTransfer(TransferGroup *parent, TransferFactory *factory, Scheduler *scheduler, const QUrl &src, const QUrl &dest, const QDomElement *e)
+    : Transfer(parent, factory, scheduler, src, dest, e)
+    , torrent(nullptr)
+    , m_tmp(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/"))
+    , m_ready(false)
+    , m_downloadFinished(false)
+    , m_movingFile(false)
+    , m_fileModel(nullptr)
+    , m_updateCounter(0)
 {
     QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/");
-        // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
-        if (!QFileInfo::exists(tmpDirName)) {
-            QDir().mkpath(tmpDirName);
-        }
-    m_directory = KIO::upUrl(m_dest);//FIXME test
+    // make sure that the /tmp directory exists (earlier this used to be handled by KStandardDirs)
+    if (!QFileInfo::exists(tmpDirName)) {
+        QDir().mkpath(tmpDirName);
+    }
+    m_directory = KIO::upUrl(m_dest); // FIXME test
 
     setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming | Transfer::Cap_SpeedLimit);
 }
@@ -82,7 +80,7 @@ BTTransfer::~BTTransfer()
 void BTTransfer::deinit(Transfer::DeleteOptions options)
 {
     qDebug() << "****************************DEINIT";
-    if (torrent && (options & Transfer::DeleteFiles)) {//FIXME: Also delete when torrent does not exist
+    if (torrent && (options & Transfer::DeleteFiles)) { // FIXME: Also delete when torrent does not exist
         torrent->deleteDataFiles();
     }
     if (options & Transfer::DeleteTemporaryFiles) {
@@ -97,7 +95,7 @@ void BTTransfer::deinit(Transfer::DeleteOptions options)
         tmpDir.cdUp();
         tmpDir.rmdir(m_source.fileName().remove(".torrent"));
 
-        //only remove the .torrent file if it was downloaded by KGet
+        // only remove the .torrent file if it was downloaded by KGet
         if (!m_tmpTorrentFile.isEmpty()) {
             qCDebug(KGET_DEBUG) << "Removing" << m_tmpTorrentFile;
             QFile torrentFile(m_tmpTorrentFile);
@@ -122,15 +120,12 @@ bool BTTransfer::isWorking() const
 
 void BTTransfer::start()
 {
-    if (m_movingFile)
-    {
+    if (m_movingFile) {
         return;
     }
 
-    if (!torrent)
-    {
-        if (!m_source.isLocalFile())
-        {
+    if (!torrent) {
+        if (!m_source.isLocalFile()) {
             qCDebug(KGET_DEBUG) << m_dest.path();
             QString tmpDirName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tmp/");
             m_tmpTorrentFile = tmpDirName + m_dest.fileName();
@@ -139,26 +134,22 @@ void BTTransfer::start()
             setStatus(Job::Stopped, i18n("Downloading Torrent File...."), "document-save");
             setTransferChange(Tc_Status, true);
 
-            //m_source = tmpDirName + m_source.fileName();
+            // m_source = tmpDirName + m_source.fileName();
             connect(download, &Download::finishedSuccessfully, this, &BTTransfer::btTransferInit);
-        }
-        else
+        } else
             btTransferInit();
-    }
-    else
+    } else
         startTorrent();
 }
 
 bool BTTransfer::setDirectory(const QUrl &newDirectory)
 {
-    //check if the newDestination is the same as the old
+    // check if the newDestination is the same as the old
     QUrl temp = newDirectory;
     temp = temp.adjusted(QUrl::StripTrailingSlash);
     temp.setPath(temp.path() + '/' + (torrent->getStats().torrent_name));
-    if (newDirectory.isValid() && (newDirectory != dest()) && (temp != dest()))
-    {
-        if (torrent->changeOutputDir(newDirectory.url(QUrl::PreferLocalFile), bt::TorrentInterface::MOVE_FILES))
-        {
+    if (newDirectory.isValid() && (newDirectory != dest()) && (temp != dest())) {
+        if (torrent->changeOutputDir(newDirectory.url(QUrl::PreferLocalFile), bt::TorrentInterface::MOVE_FILES)) {
             connect(torrent, &bt::TorrentInterface::aboutToBeStarted, this, &BTTransfer::newDestResult);
             m_movingFile = true;
             m_directory = newDirectory;
@@ -189,8 +180,7 @@ void BTTransfer::stop()
     if (m_movingFile)
         return;
 
-    if (m_ready)
-    {
+    if (m_ready) {
         stopTorrent();
     }
 }
@@ -198,21 +188,17 @@ void BTTransfer::stop()
 /**Own public functions**/
 void BTTransfer::update()
 {
-    if (m_movingFile)
-    {
+    if (m_movingFile) {
         return;
     }
 
-    if (torrent)
-    {
+    if (torrent) {
         QStringList files;
-        if (torrent->hasMissingFiles(files))
-        {
+        if (torrent->hasMissingFiles(files)) {
             torrent->recreateMissingFiles();
         }
         updateTorrent();
-    }
-    else
+    } else
         timer.stop();
 }
 
@@ -220,8 +206,7 @@ void BTTransfer::load(const QDomElement *element)
 {
     Transfer::load(element);
 
-    if ((m_totalSize == m_downloadedSize) && (m_totalSize != 0))
-    {
+    if ((m_totalSize == m_downloadedSize) && (m_totalSize != 0)) {
         setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), "dialog-ok");
     }
 }
@@ -229,9 +214,9 @@ void BTTransfer::load(const QDomElement *element)
 // void BTTransfer::save(const QDomElement &element)
 // {
 //     qCDebug(KGET_DEBUG);
-// 
+//
 //     QDomElement e = element;
-// 
+//
 //     Transfer::save(e);
 // }
 
@@ -256,32 +241,31 @@ void BTTransfer::setSpeedLimits(int ulLimit, int dlLimit)
 void BTTransfer::addTracker(const QString &url)
 {
     qCDebug(KGET_DEBUG);
-    if(torrent->getStats().priv_torrent) {
+    if (torrent->getStats().priv_torrent) {
         KMessageBox::error(nullptr, i18n("Cannot add a tracker to a private torrent."));
         return;
     }
 
     QUrl u(url);
-    if(!u.isValid()) {
-       KMessageBox::error(nullptr, i18n("Malformed URL."));
-       return;
+    if (!u.isValid()) {
+        KMessageBox::error(nullptr, i18n("Malformed URL."));
+        return;
     }
 
-    torrent->getTrackersList()->addTracker(u,true);
+    torrent->getTrackersList()->addTracker(u, true);
 }
 
 /**Private functions**/
 
 void BTTransfer::startTorrent()
 {
-    if (m_ready)
-    {
-        //qCDebug(KGET_DEBUG) << "Going to download that stuff :-0";
-        setSpeedLimits(uploadLimit(Transfer::InvisibleSpeedLimit), downloadLimit(Transfer::InvisibleSpeedLimit));//Set traffic-limits before starting
+    if (m_ready) {
+        // qCDebug(KGET_DEBUG) << "Going to download that stuff :-0";
+        setSpeedLimits(uploadLimit(Transfer::InvisibleSpeedLimit), downloadLimit(Transfer::InvisibleSpeedLimit)); // Set traffic-limits before starting
         torrent->setMonitor(this);
         torrent->start();
         timer.start(250);
-        if (chunksTotal() == chunksDownloaded()/* && !m_downloadFinished*/) {
+        if (chunksTotal() == chunksDownloaded() /* && !m_downloadFinished*/) {
             slotDownloadFinished(torrent);
         } else {
             setStatus(Job::Running, i18nc("transfer state: downloading", "Downloading...."), "media-playback-start");
@@ -299,12 +283,9 @@ void BTTransfer::stopTorrent()
     m_downloadSpeed = 0;
     timer.stop();
 
-    if (m_downloadFinished)
-    {
+    if (m_downloadFinished) {
         setStatus(Job::Stopped, i18nc("transfer state: finished", "Finished"), "dialog-ok");
-    }
-    else
-    {
+    } else {
         setStatus(Job::Stopped, i18nc("transfer state: stopped", "Stopped"), "process-stop");
     }
     setTransferChange(Tc_Status, true);
@@ -314,7 +295,7 @@ void BTTransfer::stopTorrent()
 
 void BTTransfer::updateTorrent()
 {
-    //qCDebug(KGET_DEBUG) << "Update torrent";
+    // qCDebug(KGET_DEBUG) << "Update torrent";
     bt::UpdateCurrentTime();
     bt::AuthenticationMonitor::instance().update();
     torrent->update();
@@ -324,14 +305,12 @@ void BTTransfer::updateTorrent()
     if (m_downloadedSize != (m_downloadedSize = torrent->getStats().bytes_downloaded))
         changesFlags |= Tc_DownloadedSize;
 
-    if (m_uploadSpeed != static_cast<int>(torrent->getStats().upload_rate))
-    {
+    if (m_uploadSpeed != static_cast<int>(torrent->getStats().upload_rate)) {
         m_uploadSpeed = torrent->getStats().upload_rate;
         changesFlags |= Tc_UploadSpeed;
     }
 
-    if (m_downloadSpeed != static_cast<int>(torrent->getStats().download_rate))
-    {
+    if (m_downloadSpeed != static_cast<int>(torrent->getStats().download_rate)) {
         m_downloadSpeed = torrent->getStats().download_rate;
         changesFlags |= Tc_DownloadSpeed;
     }
@@ -344,9 +323,8 @@ void BTTransfer::updateTorrent()
 
     setTransferChange(changesFlags, true);
 
-    //update the files status every 3 seconds
-    if (!m_updateCounter)
-    {
+    // update the files status every 3 seconds
+    if (!m_updateCounter) {
         updateFilesStatus();
         m_updateCounter = 12;
     }
@@ -356,54 +334,38 @@ void BTTransfer::updateTorrent()
 void BTTransfer::updateFilesStatus()
 {
     const Job::Status currentStatus = this->status();
-    if (!torrent)
-    {
+    if (!torrent) {
         return;
     }
     const bt::TorrentStats *stats = &torrent->getStats();
-    if (stats->multi_file_torrent)
-    {
-        QHash<QUrl, bt::TorrentFileInterface*>::const_iterator it;
-        QHash<QUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
-        for (it = m_files.constBegin(); it != itEnd; ++it)
-        {
+    if (stats->multi_file_torrent) {
+        QHash<QUrl, bt::TorrentFileInterface *>::const_iterator it;
+        QHash<QUrl, bt::TorrentFileInterface *>::const_iterator itEnd = m_files.constEnd();
+        for (it = m_files.constBegin(); it != itEnd; ++it) {
             QModelIndex status = m_fileModel->index(it.key(), FileItem::Status);
-            if (!(*it)->doNotDownload() && (currentStatus == Job::Running))
-            {
+            if (!(*it)->doNotDownload() && (currentStatus == Job::Running)) {
                 m_fileModel->setData(status, Job::Running);
-            }
-            else
-            {
+            } else {
                 m_fileModel->setData(status, Job::Stopped);
             }
-            if (qFuzzyCompare((*it)->getDownloadPercentage(), 100.0f))
-            {
+            if (qFuzzyCompare((*it)->getDownloadPercentage(), 100.0f)) {
                 m_fileModel->setData(status, Job::Finished);
             }
         }
-    }
-    else
-    {
+    } else {
         QModelIndexList indexes = fileModel()->fileIndexes(FileItem::Status);
-        if (indexes.count() != 1)
-        {
+        if (indexes.count() != 1) {
             return;
         }
 
         QModelIndex index = indexes.first();
-        if (stats->bytes_left_to_download)
-        {
-            if (currentStatus == Job::Running)
-            {
+        if (stats->bytes_left_to_download) {
+            if (currentStatus == Job::Running) {
                 fileModel()->setData(index, Job::Running);
-            }
-            else
-            {
+            } else {
                 fileModel()->setData(index, Job::Stopped);
             }
-        }
-        else
-        {
+        } else {
             fileModel()->setData(index, Job::Finished);
         }
     }
@@ -424,38 +386,40 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
         return;
     }
 
-    setStatus(Job::Stopped, i18n("Analyzing torrent...."), "document-preview"); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a multi-frame PNG so it's hard for me to test
+    setStatus(Job::Stopped,
+              i18n("Analyzing torrent...."),
+              "document-preview"); // jpetso says: you should probably use the "process-working" icon here (from the animations category), but that's a
+                                   // multi-frame PNG so it's hard for me to test
     setTransferChange(Tc_Status, true);
 
-    bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/torrentlog.log"), false, false);//initialize the torrent-log
+    bt::InitLog(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/torrentlog.log"),
+                false,
+                false); // initialize the torrent-log
 
-    bt::SetClientInfo("KGet", KGET_VERSION_MAJOR, KGET_VERSION_MINOR, KGET_VERSION_PATCH, bt::NORMAL, "KG");//Set client info to KGet
+    bt::SetClientInfo("KGet", KGET_VERSION_MAJOR, KGET_VERSION_MINOR, KGET_VERSION_PATCH, bt::NORMAL, "KG"); // Set client info to KGet
 
     bt::Uint16 i = 0;
     while (!bt::Globals::instance().initTCPServer(BittorrentSettings::port() + i) && i < 10)
         i++;
-    
+
     if (i == 10) {
         setError(i18n("Cannot initialize port..."), "dialog-cancel");
         setTransferChange(Tc_Status);
         return;
     }
     if (BittorrentSettings::enableUTP()) {
-        while (!bt::Globals::instance().initUTPServer(BittorrentSettings::port() + i) && i < 10) //We don't care if it fails for now as UTP is experimental...
+        while (!bt::Globals::instance().initUTPServer(BittorrentSettings::port() + i) && i < 10) // We don't care if it fails for now as UTP is experimental...
             i++;
     }
 
     QDir tmpDir(m_tmp + m_source.fileName().remove(".torrent"));
-    if (tmpDir.exists())
-    {
+    if (tmpDir.exists()) {
         tmpDir.remove("torrent");
     }
-    try
-    {
+    try {
         torrent = new bt::TorrentControl();
 
-        if (!BittorrentSettings::tmpDir().isEmpty() && QFileInfo(BittorrentSettings::tmpDir()).isDir())
-        {
+        if (!BittorrentSettings::tmpDir().isEmpty() && QFileInfo(BittorrentSettings::tmpDir()).isDir()) {
             m_tmp = BittorrentSettings::tmpDir();
         }
 
@@ -463,10 +427,14 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
 
         qDebug() << "Source:" << m_source.path() << "Destination:" << m_dest.path();
         m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
-        torrent->init(nullptr, file.readAll(), m_tmp + m_source.fileName().remove(".torrent"), QUrl::fromLocalFile(m_dest.adjusted(QUrl::RemoveFilename).path()).toLocalFile());
+        torrent->init(nullptr,
+                      file.readAll(),
+                      m_tmp + m_source.fileName().remove(".torrent"),
+                      QUrl::fromLocalFile(m_dest.adjusted(QUrl::RemoveFilename).path()).toLocalFile());
 
         m_dest = QUrl::fromLocalFile(torrent->getStats().output_path);
-        if (!torrent->getStats().multi_file_torrent && (m_dest.fileName() != torrent->getStats().torrent_name))//TODO check if this is needed, so if that case is true at some point
+        if (!torrent->getStats().multi_file_torrent
+            && (m_dest.fileName() != torrent->getStats().torrent_name)) // TODO check if this is needed, so if that case is true at some point
         {
             m_dest = m_dest.adjusted(QUrl::StripTrailingSlash);
             m_dest.setPath(m_dest.path() + '/' + (torrent->getStats().torrent_name));
@@ -476,12 +444,10 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
 
         torrent->setPreallocateDiskSpace(BittorrentSettings::preAlloc());
 
-        connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface*,QString)), SLOT(slotStoppedByError(bt::TorrentInterface*,QString)));
+        connect(torrent, SIGNAL(stoppedByError(bt::TorrentInterface *, QString)), SLOT(slotStoppedByError(bt::TorrentInterface *, QString)));
         connect(torrent, &bt::TorrentInterface::finished, this, &BTTransfer::slotDownloadFinished);
-        //FIXME connect(tc,SIGNAL(corruptedDataFound(bt::TorrentInterface*)), this, SLOT(emitCorruptedData(bt::TorrentInterface*)));//TODO: Fix it
-    }
-    catch (bt::Error &err)
-    {
+        // FIXME connect(tc,SIGNAL(corruptedDataFound(bt::TorrentInterface*)), this, SLOT(emitCorruptedData(bt::TorrentInterface*)));//TODO: Fix it
+    } catch (bt::Error &err) {
         m_ready = false;
         torrent->deleteLater();
         torrent = nullptr;
@@ -493,7 +459,7 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
     connect(&timer, &QTimer::timeout, this, &BTTransfer::update);
 }
 
-void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QString &errormsg)
+void BTTransfer::slotStoppedByError(const bt::TorrentInterface *&error, const QString &errormsg)
 {
     Q_UNUSED(error)
     stop();
@@ -501,12 +467,12 @@ void BTTransfer::slotStoppedByError(const bt::TorrentInterface* &error, const QS
     setTransferChange(Tc_Status);
 }
 
-void BTTransfer::slotDownloadFinished(bt::TorrentInterface* ti)
+void BTTransfer::slotDownloadFinished(bt::TorrentInterface *ti)
 {
     qCDebug(KGET_DEBUG) << "Start seeding *********************************************************************";
     Q_UNUSED(ti)
     m_downloadFinished = true;
-    //timer.stop();
+    // timer.stop();
     setStatus(Job::FinishedKeepAlive, i18nc("Transfer status: seeding", "Seeding...."), "media-playback-start");
     setTransferChange(Tc_Status, true);
 }
@@ -518,7 +484,7 @@ QList<QUrl> BTTransfer::trackersList() const
         return QList<QUrl>();
 
     QList<QUrl> trackers;
-    foreach (bt::TrackerInterface * tracker, torrent->getTrackersList()->getTrackers())
+    foreach (bt::TrackerInterface *tracker, torrent->getTrackersList()->getTrackers())
         trackers << tracker->trackerURL();
     return trackers;
 }
@@ -619,7 +585,7 @@ int BTTransfer::remainingTime() const
     return torrent->getETA();
 }
 
-bt::TorrentControl * BTTransfer::torrentControl()
+bt::TorrentControl *BTTransfer::torrentControl()
 {
     return torrent;
 }
@@ -629,73 +595,69 @@ bool BTTransfer::ready()
     return m_ready;
 }
 
-void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface* cd)
+void BTTransfer::downloadRemoved(bt::ChunkDownloadInterface *cd)
 {
-    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
-        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadRemoved(cd);
+    if (static_cast<BTTransferHandler *>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler *>(handler())->torrentMonitor()->downloadRemoved(cd);
 
     setTransferChange(Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
 
-void BTTransfer::downloadStarted(bt::ChunkDownloadInterface* cd)
+void BTTransfer::downloadStarted(bt::ChunkDownloadInterface *cd)
 {
-    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
-        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->downloadStarted(cd);
+    if (static_cast<BTTransferHandler *>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler *>(handler())->torrentMonitor()->downloadStarted(cd);
 
     setTransferChange(Tc_ChunksDownloaded | Tc_ChunksExcluded | Tc_ChunksLeft, true);
 }
 
-void BTTransfer::peerAdded(bt::PeerInterface* peer)
+void BTTransfer::peerAdded(bt::PeerInterface *peer)
 {
-    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
-        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->peerAdded(peer);
+    if (static_cast<BTTransferHandler *>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler *>(handler())->torrentMonitor()->peerAdded(peer);
 
     setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
 }
 
-void BTTransfer::peerRemoved(bt::PeerInterface* peer)
+void BTTransfer::peerRemoved(bt::PeerInterface *peer)
 {
-    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
-        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->peerRemoved(peer);
+    if (static_cast<BTTransferHandler *>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler *>(handler())->torrentMonitor()->peerRemoved(peer);
 
     setTransferChange(Tc_SeedsConnected | Tc_SeedsDisconnected | Tc_LeechesConnected | Tc_LeechesDisconnected, true);
 }
 
 void BTTransfer::stopped()
 {
-    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
-        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->stopped();
+    if (static_cast<BTTransferHandler *>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler *>(handler())->torrentMonitor()->stopped();
 }
 
 void BTTransfer::destroyed()
 {
-    if (static_cast<BTTransferHandler*>(handler())->torrentMonitor())
-        static_cast<BTTransferHandler*>(handler())->torrentMonitor()->destroyed();
+    if (static_cast<BTTransferHandler *>(handler())->torrentMonitor())
+        static_cast<BTTransferHandler *>(handler())->torrentMonitor()->destroyed();
 }
 
 QList<QUrl> BTTransfer::files() const
 {
     QList<QUrl> urls;
 
-    if (!torrent)
-    {
+    if (!torrent) {
         return urls;
     }
 
-    //multiple files
-    if (torrent->getStats().multi_file_torrent)
-    {
-        for (uint i = 0; i < torrent->getNumFiles(); ++i)
-        {
+    // multiple files
+    if (torrent->getStats().multi_file_torrent) {
+        for (uint i = 0; i < torrent->getNumFiles(); ++i) {
             const QString path = torrent->getTorrentFile(i).getPathOnDisk();
             urls.append(QUrl(path));
         }
     }
-    //one single file
-    else
-    {
+    // one single file
+    else {
         QUrl temp = m_dest;
-        if (m_dest.fileName() != torrent->getStats().torrent_name)//TODO check if the body is ever entered!
+        if (m_dest.fileName() != torrent->getStats().torrent_name) // TODO check if the body is ever entered!
         {
             temp = temp.adjusted(QUrl::StripTrailingSlash);
             temp.setPath(temp.path() + '/' + (torrent->getStats().torrent_name));
@@ -709,28 +671,21 @@ QList<QUrl> BTTransfer::files() const
 void BTTransfer::filesSelected()
 {
     QModelIndexList indexes = fileModel()->fileIndexes(FileItem::File);
-    //one single file
-    if (indexes.count() == 1)
-    {
+    // one single file
+    if (indexes.count() == 1) {
         QModelIndex index = indexes.first();
         const bool doDownload = index.data(Qt::CheckStateRole).toBool();
-        if (torrent && torrent->getStats().bytes_left_to_download)
-        {
-            if (doDownload)
-            {
+        if (torrent && torrent->getStats().bytes_left_to_download) {
+            if (doDownload) {
                 start();
-            }
-            else
-            {
+            } else {
                 stop();
             }
         }
     }
-    //multiple files
-    else
-    {
-        foreach (const QModelIndex &index, indexes)
-        {
+    // multiple files
+    else {
+        foreach (const QModelIndex &index, indexes) {
             const QUrl dest = fileModel()->getUrl(index);
             const bool doDownload = index.data(Qt::CheckStateRole).toBool();
             bt::TorrentFileInterface *file = m_files[dest];
@@ -738,36 +693,31 @@ void BTTransfer::filesSelected()
         }
     }
 
-//     setTransferChange(Tc_TotalSize | Tc_DownloadedSize | Tc_Percent, true);
+    //     setTransferChange(Tc_TotalSize | Tc_DownloadedSize | Tc_Percent, true);
 }
 
-FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrents
+FileModel *BTTransfer::fileModel() // TODO correct file model for one-file-torrents
 {
-    if (!m_fileModel)
-    {
-        if (!torrent)
-        {
+    if (!m_fileModel) {
+        if (!torrent) {
             return nullptr;
         }
 
-        //multiple files
-        if (torrent->getStats().multi_file_torrent)
-        {
-            for (bt::Uint32 i = 0; i < torrent->getNumFiles(); ++i)
-            {
+        // multiple files
+        if (torrent->getStats().multi_file_torrent) {
+            for (bt::Uint32 i = 0; i < torrent->getNumFiles(); ++i) {
                 bt::TorrentFileInterface *file = &torrent->getTorrentFile(i);
                 m_files[QUrl(file->getPathOnDisk())] = file;
             }
             m_fileModel = new FileModel(m_files.keys(), directory(), this);
-    //         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
+            //         connect(m_fileModel, SIGNAL(rename(QUrl,QUrl)), this, SLOT(slotRename(QUrl,QUrl)));
             connect(m_fileModel, &FileModel::checkStateChanged, this, &BTTransfer::filesSelected);
 
-            //set the checkstate, the status and the size of the model items
-            QHash<QUrl, bt::TorrentFileInterface*>::const_iterator it;
-            QHash<QUrl, bt::TorrentFileInterface*>::const_iterator itEnd = m_files.constEnd();
+            // set the checkstate, the status and the size of the model items
+            QHash<QUrl, bt::TorrentFileInterface *>::const_iterator it;
+            QHash<QUrl, bt::TorrentFileInterface *>::const_iterator itEnd = m_files.constEnd();
             const Job::Status curentStatus = this->status();
-            for (it = m_files.constBegin(); it != itEnd; ++it)
-            {
+            for (it = m_files.constBegin(); it != itEnd; ++it) {
                 QModelIndex size = m_fileModel->index(it.key(), FileItem::Size);
                 m_fileModel->setData(size, static_cast<qlonglong>((*it)->getSize()));
 
@@ -777,26 +727,21 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
                 m_fileModel->setData(checkIndex, checkState, Qt::CheckStateRole);
 
                 QModelIndex status = m_fileModel->index(it.key(), FileItem::Status);
-                if (doDownload && (curentStatus == Job::Running))
-                {
+                if (doDownload && (curentStatus == Job::Running)) {
                     m_fileModel->setData(status, Job::Running);
-                }
-                else
-                {
+                } else {
                     m_fileModel->setData(status, Job::Stopped);
                 }
-                if (qFuzzyCompare((*it)->getDownloadPercentage(), 100.0f))
-                {
+                if (qFuzzyCompare((*it)->getDownloadPercentage(), 100.0f)) {
                     m_fileModel->setData(status, Job::Finished);
                 }
             }
         }
-        //one single file
-        else
-        {
+        // one single file
+        else {
             QList<QUrl> urls;
             QUrl temp = m_dest;
-            if (m_dest.fileName() != torrent->getStats().torrent_name)//TODO check if the body is ever entered!
+            if (m_dest.fileName() != torrent->getStats().torrent_name) // TODO check if the body is ever entered!
             {
                 temp = temp.adjusted(QUrl::StripTrailingSlash);
                 temp.setPath(temp.path() + '/' + (torrent->getStats().torrent_name));
@@ -815,16 +760,12 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
             m_fileModel->setData(checkIndex, Qt::Checked, Qt::CheckStateRole);
 
             QModelIndex status = m_fileModel->index(url, FileItem::Status);
-            if (this->status() == Job::Running)
-            {
+            if (this->status() == Job::Running) {
                 m_fileModel->setData(status, Job::Running);
-            }
-            else
-            {
+            } else {
                 m_fileModel->setData(status, Job::Stopped);
             }
-            if (!torrent->getStats().bytes_left_to_download)
-            {
+            if (!torrent->getStats().bytes_left_to_download) {
                 m_fileModel->setData(status, Job::Finished);
             }
         }
@@ -832,5 +773,3 @@ FileModel *BTTransfer::fileModel()//TODO correct file model for one-file-torrent
 
     return m_fileModel;
 }
-
-

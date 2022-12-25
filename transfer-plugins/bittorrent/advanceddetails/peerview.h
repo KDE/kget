@@ -20,52 +20,52 @@
 #ifndef KT_PEERVIEW_HH
 #define KT_PEERVIEW_HH
 
-#include <QTreeWidget>
 #include <KSharedConfig>
+#include <QTreeWidget>
 
-#include <util/ptrmap.h>
 #include <interfaces/peerinterface.h>
+#include <util/ptrmap.h>
 
 class QMenu;
 
 namespace kt
 {
-	class PeerViewModel;
-	
-	/**
-	 * View which shows a list of peers, of a torrent.
-	 * */
-	class PeerView : public QTreeView
-	{
-		Q_OBJECT
-	public:
-		PeerView(QWidget* parent);
-		~PeerView() override;
+class PeerViewModel;
 
-		/// A peer has been added
-		void peerAdded(bt::PeerInterface* peer);
+/**
+ * View which shows a list of peers, of a torrent.
+ * */
+class PeerView : public QTreeView
+{
+    Q_OBJECT
+public:
+    PeerView(QWidget *parent);
+    ~PeerView() override;
 
-		/// A peer has been removed
-		void peerRemoved(bt::PeerInterface* peer);
+    /// A peer has been added
+    void peerAdded(bt::PeerInterface *peer);
 
-		/// Check to see if the GUI needs to be updated
-		void update();
+    /// A peer has been removed
+    void peerRemoved(bt::PeerInterface *peer);
 
-		/// Remove all items
-		void removeAll();
-		
-		void saveState(KSharedConfigPtr cfg);
-		void loadState(KSharedConfigPtr cfg);
-		
-	private Q_SLOTS: 
-		void showContextMenu(const QPoint& pos);
-		void banPeer();
-		void kickPeer();
-				
-	private:
-		QMenu* context_menu;
-		PeerViewModel* model;
-	};
+    /// Check to see if the GUI needs to be updated
+    void update();
+
+    /// Remove all items
+    void removeAll();
+
+    void saveState(KSharedConfigPtr cfg);
+    void loadState(KSharedConfigPtr cfg);
+
+private Q_SLOTS:
+    void showContextMenu(const QPoint &pos);
+    void banPeer();
+    void kickPeer();
+
+private:
+    QMenu *context_menu;
+    PeerViewModel *model;
+};
 }
 
 #endif

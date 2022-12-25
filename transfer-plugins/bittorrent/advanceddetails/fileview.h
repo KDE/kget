@@ -22,88 +22,87 @@
 
 #include <util/constants.h>
 
-#include <QTreeView>
 #include <KSharedConfig>
+#include <QTreeView>
 
 class QMenu;
 class QSortFilterProxyModel;
 
 namespace bt
 {
-	class TorrentInterface;
-	class TorrentFileInterface;
+class TorrentInterface;
+class TorrentFileInterface;
 }
 
 namespace kt
 {
-	class TorrentFileModel;
+class TorrentFileModel;
 
-	/**
-		@author Joris Guisson <joris.guisson@gmail.com>
-	*/
-	class FileView : public QTreeView
-	{
-		Q_OBJECT
-	public:
-		FileView(QWidget *parent);
-		~FileView() override;
+/**
+    @author Joris Guisson <joris.guisson@gmail.com>
+*/
+class FileView : public QTreeView
+{
+    Q_OBJECT
+public:
+    FileView(QWidget *parent);
+    ~FileView() override;
 
-		void changeTC(bt::TorrentInterface* tc,KSharedConfigPtr cfg);
-		void setShowListOfFiles(bool on,KSharedConfigPtr cfg);
-		void saveState(KSharedConfigPtr cfg);
-		void loadState(KSharedConfigPtr cfg);
-		void update();
-		void filePercentageChanged(bt::TorrentFileInterface* file,float percentage);
-		void filePreviewChanged(bt::TorrentFileInterface* file,bool preview);
-		
-	public Q_SLOTS:
-		void onTorrentRemoved(bt::TorrentInterface* tc);
+    void changeTC(bt::TorrentInterface *tc, KSharedConfigPtr cfg);
+    void setShowListOfFiles(bool on, KSharedConfigPtr cfg);
+    void saveState(KSharedConfigPtr cfg);
+    void loadState(KSharedConfigPtr cfg);
+    void update();
+    void filePercentageChanged(bt::TorrentFileInterface *file, float percentage);
+    void filePreviewChanged(bt::TorrentFileInterface *file, bool preview);
 
-	private Q_SLOTS:
-		void showContextMenu(const QPoint & p);
-		void onDoubleClicked(const QModelIndex & index);
-		void onMissingFileMarkedDND(bt::TorrentInterface* tc);
-		
-	private:
-		void changePriority(bt::Priority newpriority);
-		void expandCollapseTree(const QModelIndex& idx, bool expand);
-		void expandCollapseSelected(bool expand);
-		bool viewportEvent(QEvent *event) override;
-		virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
+public Q_SLOTS:
+    void onTorrentRemoved(bt::TorrentInterface *tc);
 
-	private Q_SLOTS:
-		void open();
-		void downloadFirst();
-		void downloadLast();
-		void downloadNormal();
-		void doNotDownload();
-		void deleteFiles();
-		void moveFiles();
-		void collapseTree();
-		void expandTree();
+private Q_SLOTS:
+    void showContextMenu(const QPoint &p);
+    void onDoubleClicked(const QModelIndex &index);
+    void onMissingFileMarkedDND(bt::TorrentInterface *tc);
 
-	private:
-		bool redraw;
-		bt::TorrentInterface* curr_tc;
-		TorrentFileModel* model;
+private:
+    void changePriority(bt::Priority newpriority);
+    void expandCollapseTree(const QModelIndex &idx, bool expand);
+    void expandCollapseSelected(bool expand);
+    bool viewportEvent(QEvent *event) override;
+    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
 
-		QMenu* context_menu;
-		QAction* open_action;
-		QAction* download_first_action;
-		QAction* download_normal_action;
-		QAction* download_last_action;
-		QAction* dnd_action;
-		QAction* delete_action;
-		QAction* move_files_action;
-		QAction* collapse_action;
-		QAction* expand_action;
+private Q_SLOTS:
+    void open();
+    void downloadFirst();
+    void downloadLast();
+    void downloadNormal();
+    void doNotDownload();
+    void deleteFiles();
+    void moveFiles();
+    void collapseTree();
+    void expandTree();
 
-		QString preview_path;
-		bool show_list_of_files;
-		QMap<bt::TorrentInterface*,QByteArray> expanded_state_map;
-		QSortFilterProxyModel* proxy_model;
-	};
+private:
+    bool redraw;
+    bt::TorrentInterface *curr_tc;
+    TorrentFileModel *model;
 
+    QMenu *context_menu;
+    QAction *open_action;
+    QAction *download_first_action;
+    QAction *download_normal_action;
+    QAction *download_last_action;
+    QAction *dnd_action;
+    QAction *delete_action;
+    QAction *move_files_action;
+    QAction *collapse_action;
+    QAction *expand_action;
+
+    QString preview_path;
+    bool show_list_of_files;
+    QMap<bt::TorrentInterface *, QByteArray> expanded_state_map;
+    QSortFilterProxyModel *proxy_model;
+};
 }
 
 #endif

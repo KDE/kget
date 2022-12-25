@@ -26,7 +26,7 @@
 #include <KLineEdit>
 
 TransfersGroupDelegate::TransfersGroupDelegate(QAbstractItemView *parent)
-  : BasicTransfersViewDelegate(parent)
+    : BasicTransfersViewDelegate(parent)
 {
 }
 
@@ -42,7 +42,7 @@ QWidget *TransfersGroupDelegate::createEditor(QWidget *parent, const QStyleOptio
 void TransfersGroupDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Name) {
-        auto *groupEditor = static_cast<KLineEdit*>(editor);
+        auto *groupEditor = static_cast<KLineEdit *>(editor);
         groupEditor->setText(index.data().toString());
     } else {
         BasicTransfersViewDelegate::setEditorData(editor, index);
@@ -52,7 +52,7 @@ void TransfersGroupDelegate::setEditorData(QWidget *editor, const QModelIndex &i
 void TransfersGroupDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Name) {
-        auto *groupEditor = static_cast<KLineEdit*>(editor);
+        auto *groupEditor = static_cast<KLineEdit *>(editor);
         const QString newName = groupEditor->text();
         const QString oldName = index.data().toString();
 
@@ -71,7 +71,6 @@ void TransfersGroupDelegate::setModelData(QWidget *editor, QAbstractItemModel *m
     }
 }
 
-
 TransfersGroupTree::TransfersGroupTree(QWidget *parent)
     : QTreeView(parent)
 {
@@ -88,7 +87,7 @@ void TransfersGroupTree::setModel(QAbstractItemModel *model)
         openPersistentEditor(model->index(i, TransferTreeModel::Status, QModelIndex()));
     }
 
-    setColumnWidth(0 , 250);
+    setColumnWidth(0, 250);
 }
 
 void TransfersGroupTree::rowsInserted(const QModelIndex &parent, int start, int end)
@@ -111,10 +110,9 @@ void TransfersGroupTree::editCurrent()
 void TransfersGroupTree::addGroup()
 {
     QString groupName(i18n("New Group"));
-    int i=0;
+    int i = 0;
 
-    while(KGet::transferGroupNames().contains(groupName))
-    {
+    while (KGet::transferGroupNames().contains(groupName)) {
         groupName = i18n("New Group") + QString::number(++i);
     }
 
@@ -132,7 +130,7 @@ void TransfersGroupTree::deleteSelectedGroup()
 
 void TransfersGroupTree::renameSelectedGroup()
 {
-    if(currentIndex().isValid())
+    if (currentIndex().isValid())
         editCurrent();
 }
 
@@ -143,12 +141,10 @@ void TransfersGroupTree::changeIcon(const QString &icon)
 
     QModelIndexList indexList = selModel->selectedRows();
 
-    if (!icon.isEmpty())
-    {
-        foreach (TransferGroupHandler *group, KGet::selectedTransferGroups())
-        {
+    if (!icon.isEmpty()) {
+        foreach (TransferGroupHandler *group, KGet::selectedTransferGroups()) {
             group->setIconName(icon);
         }
     }
-    Q_EMIT dataChanged(indexList.first(),indexList.last());
+    Q_EMIT dataChanged(indexList.first(), indexList.last());
 }

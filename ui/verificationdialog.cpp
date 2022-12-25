@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "verificationdialog.h"
 
@@ -26,14 +26,14 @@
 
 #include "core/filemodel.h"
 #include "core/transferhandler.h"
-#include "core/verifier.h"
-#include "core/verificationmodel.h"
 #include "core/verificationdelegate.h"
+#include "core/verificationmodel.h"
+#include "core/verifier.h"
 #include "settings.h"
 
 VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent, Qt::WindowFlags flags)
-  : QDialog(parent, flags),
-    m_model(model)
+    : QDialog(parent, flags)
+    , m_model(model)
 {
     setWindowTitle(i18n("Add checksum"));
     ui.setupUi(this);
@@ -49,7 +49,7 @@ VerificationAddDlg::VerificationAddDlg(VerificationModel *model, QWidget *parent
     connect(ui.newHash, &KLineEdit::textChanged, this, &VerificationAddDlg::updateButton);
     connect(ui.hashTypes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &VerificationAddDlg::updateButton);
     connect(this, &QDialog::accepted, this, &VerificationAddDlg::addChecksum);
-    
+
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
@@ -79,12 +79,12 @@ void VerificationAddDlg::addChecksum()
 }
 
 VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfer, const QUrl &file)
-  : KGetSaveSizeDialog("VerificationDialog", parent),
-    m_transfer(transfer),
-    m_verifier(transfer->verifier(file)),
-    m_model(nullptr),
-    m_proxy(nullptr),
-    m_fileModel(nullptr)
+    : KGetSaveSizeDialog("VerificationDialog", parent)
+    , m_transfer(transfer)
+    , m_verifier(transfer->verifier(file))
+    , m_model(nullptr)
+    , m_proxy(nullptr)
+    , m_fileModel(nullptr)
 {
     if (m_verifier) {
         m_model = m_verifier->model();
@@ -94,7 +94,7 @@ VerificationDialog::VerificationDialog(QWidget *parent, TransferHandler *transfe
     setWindowTitle(i18n("Transfer Verification for %1", file.fileName()));
 
     ui.setupUi(this);
-    
+
     KGuiItem::assign(ui.add, KStandardGuiItem::add());
     KGuiItem::assign(ui.remove, KStandardGuiItem::remove());
     KGuiItem::assign(ui.closeButton, KStandardGuiItem::close());
@@ -156,7 +156,7 @@ void VerificationDialog::updateButtons()
 {
     ui.remove->setEnabled(m_model && ui.usedHashes->selectionModel()->hasSelection());
 
-    //check if the download finished and if the selected index is verifyable
+    // check if the download finished and if the selected index is verifyable
     bool verifyEnabled = false;
     if (m_fileModel && m_fileModel->downloadFinished(m_fileModel->getUrl(m_file))) {
         const QModelIndexList indexes = ui.usedHashes->selectionModel()->selectedRows();
@@ -185,9 +185,9 @@ void VerificationDialog::verifyClicked()
 {
     const QModelIndex index = m_proxy->mapToSource(ui.usedHashes->selectionModel()->selectedRows().first());
     if (index.isValid()) {
-         m_verifier->verify(index);
-         ui.progressBar->setMaximum(0);
-         ui.verifying->show();
+        m_verifier->verify(index);
+        ui.progressBar->setMaximum(0);
+        ui.verifying->show();
     }
 }
 
@@ -202,10 +202,6 @@ void VerificationDialog::slotVerified(bool verified)
             fileName = m_fileModel->getUrl(m_file).fileName();
         }
 
-        KMessageBox::information(this,
-                                 i18n("%1 was successfully verified.", fileName),
-                                 i18n("Verification successful"));
+        KMessageBox::information(this, i18n("%1 was successfully verified.", fileName), i18n("Verification successful"));
     }
 }
-
-

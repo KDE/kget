@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #ifndef URLWIDGET_H
 #define URLWIDGET_H
@@ -26,7 +26,7 @@
 
 namespace KGetMetalink
 {
-    class Resources;
+class Resources;
 }
 
 class MirrorModel;
@@ -37,33 +37,33 @@ class UrlWidget : public QObject
 {
     Q_OBJECT
 
-    public:
-        UrlWidget(QObject *parent = nullptr);
-        ~UrlWidget() override;
+public:
+    UrlWidget(QObject *parent = nullptr);
+    ~UrlWidget() override;
 
-        void init(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort);
+    void init(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort);
 
-        QWidget *widget();
+    QWidget *widget();
 
-        void save();
+    void save();
 
-        bool hasUrls() const;
+    bool hasUrls() const;
 
-    Q_SIGNALS:
-        void urlsChanged();
+Q_SIGNALS:
+    void urlsChanged();
 
-    private Q_SLOTS:
-        void slotUrlClicked();
-        void slotAddMirror();
-        void slotRemoveMirror();
+private Q_SLOTS:
+    void slotUrlClicked();
+    void slotAddMirror();
+    void slotRemoveMirror();
 
-    private:
-        KGetMetalink::Resources *m_resources = nullptr;
-        MirrorModel *m_mirrorModel = nullptr;
-        MirrorProxyModel *m_proxy = nullptr;
-        QSortFilterProxyModel *m_countrySort = nullptr;
-        QPointer<QWidget> m_widget;
-        Ui::UrlWidget ui;
+private:
+    KGetMetalink::Resources *m_resources = nullptr;
+    MirrorModel *m_mirrorModel = nullptr;
+    MirrorProxyModel *m_proxy = nullptr;
+    QSortFilterProxyModel *m_countrySort = nullptr;
+    QPointer<QWidget> m_widget;
+    Ui::UrlWidget ui;
 };
 
 #endif

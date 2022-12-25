@@ -1,29 +1,29 @@
 /***************************************************************************
-*   Copyright (C) 2011 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2011 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "mostlocalurl.h"
 #include "kget.h"
 #include "plugin/transferfactory.h"
 
 #include "kget_debug.h"
-#include <QDebug>
 #include <KIO/StatJob>
+#include <QDebug>
 
 QUrl mostLocalUrl(const QUrl &url)
 {
@@ -36,7 +36,7 @@ QUrl mostLocalUrl(const QUrl &url)
     }
 
     qCDebug(KGET_DEBUG) << "Trying to find the most local URL for:" << url;
-    KIO::StatJob* job = KIO::mostLocalUrl(url, KIO::HideProgressInfo);
+    KIO::StatJob *job = KIO::mostLocalUrl(url, KIO::HideProgressInfo);
     if (job->exec()) {
         return job->mostLocalUrl();
     };
@@ -48,9 +48,9 @@ MostLocalUrlJob *mostLocalUrlJob(const QUrl &url)
     return new MostLocalUrlJob(url);
 }
 
-MostLocalUrlJob::MostLocalUrlJob(const QUrl& url)
-  : KIO::Job(),
-    m_url(url)
+MostLocalUrlJob::MostLocalUrlJob(const QUrl &url)
+    : KIO::Job()
+    , m_url(url)
 {
 }
 
@@ -85,13 +85,13 @@ void MostLocalUrlJob::start()
     }
 }
 
-void MostLocalUrlJob::slotResult(KJob* job)
+void MostLocalUrlJob::slotResult(KJob *job)
 {
     if (job->error()) {
         qCWarning(KGET_DEBUG) << "Error" << job->error() << "happened for:" << m_url;
         m_mostLocalUrl = m_url;
     } else {
-        m_mostLocalUrl = static_cast<KIO::StatJob*>(job)->mostLocalUrl();
+        m_mostLocalUrl = static_cast<KIO::StatJob *>(job)->mostLocalUrl();
     }
     qCDebug(KGET_DEBUG) << "Setting mostLocalUrl to" << m_mostLocalUrl;
     emitResult();

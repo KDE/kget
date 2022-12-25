@@ -20,43 +20,40 @@
 #ifndef MMSTRANSFER_H
 #define MMSTRANSFER_H
 
-
-#include <QTime>
-#include <KIO/DeleteJob>
 #include "core/kget.h"
+#include "core/transfer.h"
 #include "mmsdownload.h"
 #include "mmssettings.h"
-#include "core/transfer.h"
+#include <KIO/DeleteJob>
+#include <QTime>
 
 class MmsTransfer : public Transfer
 {
     Q_OBJECT
 
-    public:
-        MmsTransfer(TransferGroup * parent, TransferFactory * factory,
-                    Scheduler * scheduler, const QUrl & src, const QUrl & dest,
-                    const QDomElement * e = nullptr);
-        ~MmsTransfer() override;
+public:
+    MmsTransfer(TransferGroup *parent, TransferFactory *factory, Scheduler *scheduler, const QUrl &src, const QUrl &dest, const QDomElement *e = nullptr);
+    ~MmsTransfer() override;
 
-    public Q_SLOTS:
-        void start() override;
-        void stop() override;
-        void deinit(Transfer::DeleteOptions options) override;
+public Q_SLOTS:
+    void start() override;
+    void stop() override;
+    void deinit(Transfer::DeleteOptions options) override;
 
-    private Q_SLOTS:
-        void slotResult();
-        void slotTotalSize(qulonglong size);
-        void slotProcessedSizeAndPercent(qulonglong size);
-        void slotSpeed(ulong bytes_per_sec);
-        void slotNotAllowMultiDownload();
-        void slotBrokenUrl();
-        void slotConnectionsErrors(int connections);
+private Q_SLOTS:
+    void slotResult();
+    void slotTotalSize(qulonglong size);
+    void slotProcessedSizeAndPercent(qulonglong size);
+    void slotSpeed(ulong bytes_per_sec);
+    void slotNotAllowMultiDownload();
+    void slotBrokenUrl();
+    void slotConnectionsErrors(int connections);
 
-    private:
-        MmsDownload* m_mmsdownload;
-        int m_amountThreads;
-        bool m_retryDownload;
-        QString m_fileTemp;
+private:
+    MmsDownload *m_mmsdownload;
+    int m_amountThreads;
+    bool m_retryDownload;
+    QString m_fileTemp;
 };
 
 #endif

@@ -1,44 +1,49 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "filedlg.h"
+#include "../verificationdialog.h"
 #include "metalinker.h"
 #include "urlwidget.h"
-#include "../verificationdialog.h"
 
-#include "../../core/verifier.h"
-#include "../../core/verificationmodel.h"
 #include "../../core/verificationdelegate.h"
+#include "../../core/verificationmodel.h"
+#include "../../core/verifier.h"
 
-#include <QSortFilterProxyModel>
 #include <KStandardGuiItem>
+#include <QSortFilterProxyModel>
 
 #include <KLocalizedString>
 
-FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent, bool edit)
-  : KGetSaveSizeDialog("FileDlg", parent),
-    m_file(file),
-    m_initialFileName(m_file->name),
-    m_currentFileNames(currentFileNames),
-    m_edit(edit)
+FileDlg::FileDlg(KGetMetalink::File *file,
+                 const QStringList &currentFileNames,
+                 QSortFilterProxyModel *countrySort,
+                 QSortFilterProxyModel *languageSort,
+                 QWidget *parent,
+                 bool edit)
+    : KGetSaveSizeDialog("FileDlg", parent)
+    , m_file(file)
+    , m_initialFileName(m_file->name)
+    , m_currentFileNames(currentFileNames)
+    , m_edit(edit)
 {
-    //remove the initial name, to see later if the chosen name is still free
+    // remove the initial name, to see later if the chosen name is still free
     m_currentFileNames.removeAll(m_initialFileName);
 
     ui.setupUi(this);
@@ -58,7 +63,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
     ui.infoWidget->setCloseButtonVisible(false);
     ui.infoWidget->setMessageType(KMessageWidget::Information);
 
-    //set the file data
+    // set the file data
     ui.name->setText(m_file->name);
     uiData.identity->setText(m_file->data.identity);
     uiData.version->setText(m_file->data.version);
@@ -75,19 +80,17 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
         ui.size->setText(QString::number(m_file->size));
     }
 
-
-    //create the language selection
+    // create the language selection
     uiData.language->setModel(languageSort);
-    if (m_file->data.languages.count()) {//TODO 4.5 support multiple languages
+    if (m_file->data.languages.count()) { // TODO 4.5 support multiple languages
         const int index = uiData.language->findData(m_file->data.languages.first());
         uiData.language->setCurrentIndex(index);
     } else {
-        //Do not select a language of a file if none was defined.
+        // Do not select a language of a file if none was defined.
         uiData.language->setCurrentIndex(-1);
     }
 
-
-    //create the verification stuff
+    // create the verification stuff
     m_verificationModel = new VerificationModel(this);
     QHash<QString, QString>::const_iterator it;
     QHash<QString, QString>::const_iterator itEnd = m_file->verification.hashes.constEnd();
@@ -122,7 +125,7 @@ FileDlg::FileDlg(KGetMetalink::File *file, const QStringList &currentFileNames, 
 void FileDlg::slotUpdateOkButton()
 {
     bool hasName = !ui.name->text().isEmpty();
-    bool hasUrls =  m_urlWidget->hasUrls();
+    bool hasUrls = m_urlWidget->hasUrls();
     bool isDuplicate = (m_currentFileNames.indexOf(ui.name->text()) > -1);
 
     QStringList information;
@@ -164,8 +167,8 @@ void FileDlg::slotAddHash()
 
 void FileDlg::slotOkClicked()
 {
-    QList<KGetMetalink::Metaurl> metaurls = m_file->resources.metaurls;//TODO remove once metaurls are also shown
-    QList<KGetMetalink::Pieces> pieces = m_file->verification.pieces;//TODO remove once the partial hashes are also shown
+    QList<KGetMetalink::Metaurl> metaurls = m_file->resources.metaurls; // TODO remove once metaurls are also shown
+    QList<KGetMetalink::Pieces> pieces = m_file->verification.pieces; // TODO remove once the partial hashes are also shown
     m_file->clear();
 
     m_file->name = ui.name->text();
@@ -185,8 +188,7 @@ void FileDlg::slotOkClicked()
     m_urlWidget->save();
     m_file->resources.metaurls = metaurls;
 
-
-    //store the verification data
+    // store the verification data
     for (int i = 0; i < m_verificationModel->rowCount(); ++i) {
         const QString type = m_verificationModel->index(i, VerificationModel::Type).data().toString();
         const QString hash = m_verificationModel->index(i, VerificationModel::Checksum).data().toString();
@@ -195,12 +197,10 @@ void FileDlg::slotOkClicked()
     m_file->verification.pieces = pieces;
 
     if (m_edit) {
-        //the file has been edited
+        // the file has been edited
         Q_EMIT fileEdited(m_initialFileName, m_file->name);
     } else {
-        //a new file should be added, not edited
+        // a new file should be added, not edited
         Q_EMIT addFile();
     }
 }
-
-

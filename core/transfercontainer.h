@@ -29,9 +29,9 @@ public:
 
     enum TransferFlag {
         /**  The transfer supports resuming and seeking  */
-        Tf_SupportsSegments    = 0x01,
+        Tf_SupportsSegments = 0x01,
         /**  The container includes more than one file, e.g. metalink  */
-        Tf_MultipleFiles       = 0x02
+        Tf_MultipleFiles = 0x02
     };
 
     Q_DECLARE_FLAGS(TransferFlags, TransferFlag)

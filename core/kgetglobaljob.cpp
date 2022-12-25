@@ -9,14 +9,13 @@
    version 2 of the License, or (at your option) any later version.
 */
 #include "kgetglobaljob.h"
-#include "transferhandler.h"
 #include "kget.h"
+#include "transferhandler.h"
 
 #include "kget_debug.h"
-#include <QDebug>
 #include <KLocalizedString>
 #include <KUiServerJobTracker>
-
+#include <QDebug>
 
 KGetGlobalJob::KGetGlobalJob(QObject *parent)
     : KJob(parent)
@@ -28,7 +27,6 @@ KGetGlobalJob::~KGetGlobalJob()
 {
 }
 
-
 void KGetGlobalJob::update()
 {
     int runningTransfers = 0;
@@ -36,25 +34,26 @@ void KGetGlobalJob::update()
     qulonglong totalAmount = 0;
     unsigned long speed = 0;
     unsigned long percent = 0;
-    
-    foreach(TransferHandler * transfer, KGet::allTransfers()) {
-        if(transfer->status() == Job::Running) {
+
+    foreach (TransferHandler *transfer, KGet::allTransfers()) {
+        if (transfer->status() == Job::Running) {
             runningTransfers++;
             processedAmount += transfer->downloadedSize();
             speed += transfer->downloadSpeed();
             totalAmount += transfer->totalSize();
         }
     }
-  
-//     qCDebug(KGET_DEBUG) << totalAmount;
-  
-    if (totalAmount > 0) 
+
+    //     qCDebug(KGET_DEBUG) << totalAmount;
+
+    if (totalAmount > 0)
         percent = 100 * processedAmount / totalAmount;
     else
-        percent =  0;
-  
-    Q_EMIT description(this, "KGet global information", 
-                      qMakePair(QString("source"), i18np("KGet is downloading %1 file", "KGet is downloading %1 files", runningTransfers)));
+        percent = 0;
+
+    Q_EMIT description(this,
+                       "KGet global information",
+                       qMakePair(QString("source"), i18np("KGet is downloading %1 file", "KGet is downloading %1 files", runningTransfers)));
 
     emitSpeed(speed);
     setTotalAmount(KJob::Bytes, totalAmount);
@@ -69,4 +68,3 @@ bool KGetGlobalJob::doKill()
     Q_EMIT requestStop(this, nullptr);
     return KJob::doKill();
 }
-

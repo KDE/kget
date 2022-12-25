@@ -20,35 +20,35 @@
 class KLocalizedString;
 
 /**
-* Import a list of urls from a file (local or remote)
-*/
+ * Import a list of urls from a file (local or remote)
+ */
 class KGET_EXPORT LinkImporter : public QThread
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     LinkImporter(const QUrl &source, QObject *parent);
     LinkImporter(QObject *parent);
     ~LinkImporter() override;
 
     /**
-    * Check for urls in clipboard
-    */
+     * Check for urls in clipboard
+     */
     void checkClipboard(const QString &clipboardContent);
 
     /**
-    * Start reading the url contents
-    */
+     * Start reading the url contents
+     */
     void run() override;
 
     /**
-    * copy the remote file out of the thread
-    */
+     * copy the remote file out of the thread
+     */
     void copyRemoteFile();
 
     /**
-    * Returns a list with the links of the selected url m_url
-    */
-    QList <QString> links()
+     * Returns a list with the links of the selected url m_url
+     */
+    QList<QString> links()
     {
         return m_transfers;
     };
@@ -62,13 +62,13 @@ private Q_SLOTS:
 
 private:
     /**
-    * Checks if an url is valid and adds it to the transfers lists
-    */
+     * Checks if an url is valid and adds it to the transfers lists
+     */
     void addTransfer(QString &link);
 
 private:
     QUrl m_url;
-    QList <QString> m_transfers;
+    QList<QString> m_transfers;
     QString m_tempFile;
 };
 #endif

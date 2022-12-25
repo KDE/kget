@@ -18,30 +18,29 @@ class mirror : public QObject
 {
     Q_OBJECT
 
-    public:
-        mirror();
-        void search(const QUrl &url, QObject *receiver, const char *member);
-        void search(const QString &fileName, QObject *receiver, const char *member);
+public:
+    mirror();
+    void search(const QUrl &url, QObject *receiver, const char *member);
+    void search(const QString &fileName, QObject *receiver, const char *member);
 
-    Q_SIGNALS:
+Q_SIGNALS:
 
-        void urls (QList<QUrl>&);
+    void urls(QList<QUrl> &);
 
-    private Q_SLOTS:
+private Q_SLOTS:
 
-        void slotData(KIO::Job *, const QByteArray& data);
-        void slotResult( KJob *job );
+    void slotData(KIO::Job *, const QByteArray &data);
+    void slotResult(KJob *job);
 
-    private:
-
-        QString m_search_engine;
-        KIO::TransferJob *m_job;
-        QUrl m_url;
-        QList<QUrl> m_Urls;
-        QByteArray m_data;
+private:
+    QString m_search_engine;
+    KIO::TransferJob *m_job;
+    QUrl m_url;
+    QList<QUrl> m_Urls;
+    QByteArray m_data;
 };
 
-void MirrorSearch ( const QUrl &url, QObject *receiver, const char *member );
-void MirrorSearch ( const QString &fileName, QObject *receiver, const char *member );
+void MirrorSearch(const QUrl &url, QObject *receiver, const char *member);
+void MirrorSearch(const QString &fileName, QObject *receiver, const char *member);
 
 #endif // MIRROR_H

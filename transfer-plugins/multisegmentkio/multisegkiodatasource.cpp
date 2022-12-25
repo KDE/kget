@@ -8,19 +8,19 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
- 
+
 #include "multisegkiodatasource.h"
-#include "segment.h"
 #include "core/transfer.h"
+#include "segment.h"
 
 #include "kget_debug.h"
 #include <QDebug>
 
 MultiSegKioDataSource::MultiSegKioDataSource(const QUrl &srcUrl, QObject *parent)
-  : TransferDataSource(srcUrl, parent),
-    m_size(0),
-    m_canResume(false),
-    m_started(false)
+    : TransferDataSource(srcUrl, parent)
+    , m_size(0)
+    , m_canResume(false)
+    , m_started(false)
 {
     qCDebug(KGET_DEBUG) << "Create MultiSegKioDataSource for" << m_sourceUrl << this;
     setCapabilities(capabilities() | Transfer::Cap_FindFilesize);
@@ -36,8 +36,7 @@ void MultiSegKioDataSource::start()
     qCDebug(KGET_DEBUG) << this;
 
     m_started = true;
-    foreach (Segment *segment, m_segments)
-    {
+    foreach (Segment *segment, m_segments) {
         segment->startTransfer();
     }
 }
@@ -47,8 +46,7 @@ void MultiSegKioDataSource::stop()
     qCDebug(KGET_DEBUG) << this << m_segments.count() << "segments stopped.";
 
     m_started = false;
-    foreach (Segment *segment, m_segments)
-    {
+    foreach (Segment *segment, m_segments) {
         if (segment->findingFileSize()) {
             qCDebug(KGET_DEBUG) << "Removing findingFileSize segment" << this;
             m_segments.removeAll(segment);
@@ -59,11 +57,10 @@ void MultiSegKioDataSource::stop()
     }
 }
 
-QList<QPair<int, int> > MultiSegKioDataSource::assignedSegments() const
+QList<QPair<int, int>> MultiSegKioDataSource::assignedSegments() const
 {
-    QList<QPair<int, int> > assigned;
-    foreach (Segment *segment, m_segments)
-    {
+    QList<QPair<int, int>> assigned;
+    foreach (Segment *segment, m_segments) {
         assigned.append(segment->assignedSegments());
     }
 
@@ -76,8 +73,8 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
     m_segments.append(segment);
 
     connect(segment, &Segment::canResume, this, &MultiSegKioDataSource::slotCanResume);
-    connect(segment, SIGNAL(totalSize(KIO::filesize_t,QPair<int,int>)), this, SLOT(slotTotalSize(KIO::filesize_t,QPair<int,int>)));
-    connect(segment, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)), this, SIGNAL(data(KIO::fileoffset_t,QByteArray,bool&)));
+    connect(segment, SIGNAL(totalSize(KIO::filesize_t, QPair<int, int>)), this, SLOT(slotTotalSize(KIO::filesize_t, QPair<int, int>)));
+    connect(segment, SIGNAL(data(KIO::fileoffset_t, QByteArray, bool &)), this, SIGNAL(data(KIO::fileoffset_t, QByteArray, bool &)));
     connect(segment, &Segment::finishedSegment, this, &MultiSegKioDataSource::slotFinishedSegment);
     connect(segment, &Segment::error, this, &MultiSegKioDataSource::slotError);
     connect(segment, &Segment::finishedDownload, this, &MultiSegKioDataSource::slotFinishedDownload);
@@ -122,7 +119,7 @@ void MultiSegKioDataSource::setSupposedSize(KIO::filesize_t supposedSize)
 {
     m_supposedSize = supposedSize;
 
-    //check if the size is correct
+    // check if the size is correct
     slotTotalSize(m_size);
 }
 
@@ -132,14 +129,13 @@ void MultiSegKioDataSource::slotTotalSize(KIO::filesize_t size, const QPair<int,
 
     m_size = size;
 
-    //findFileSize was called
+    // findFileSize was called
     if ((range.first != -1) && (range.second != -1)) {
         Q_EMIT foundFileSize(this, size, range);
     }
 
-    //the filesize is not what it should be, maybe using a wrong mirror
-    if (m_size && m_supposedSize && (m_size != m_supposedSize))
-    {
+    // the filesize is not what it should be, maybe using a wrong mirror
+    if (m_size && m_supposedSize && (m_size != m_supposedSize)) {
         qCDebug(KGET_DEBUG) << "Size does not match for" << m_sourceUrl << this;
         Q_EMIT broken(this, WrongDownloadSize);
     }
@@ -164,17 +160,14 @@ Segment *MultiSegKioDataSource::mostUnfinishedSegments(int *unfin) const
 {
     int unfinished = 0;
     Segment *seg = nullptr;
-    foreach (Segment *segment, m_segments)
-    {
-        if (segment->countUnfinishedSegments() > unfinished)
-        {
+    foreach (Segment *segment, m_segments) {
+        if (segment->countUnfinishedSegments() > unfinished) {
             unfinished = segment->countUnfinishedSegments();
             seg = segment;
         }
     }
 
-    if (unfin)
-    {
+    if (unfin) {
         *unfin = unfinished;
     }
 
@@ -238,7 +231,7 @@ void MultiSegKioDataSource::slotError(Segment *segment, const QString &errorText
         qCDebug(KGET_DEBUG) << this << "has broken segments.";
         Q_EMIT brokenSegments(this, range);
     } else {
-        //decrease the number of maximum parallel downloads, maybe the server does not support so many connections
+        // decrease the number of maximum parallel downloads, maybe the server does not support so many connections
         if (m_parallelSegments > 1) {
             --m_parallelSegments;
         }
@@ -260,6 +253,3 @@ void MultiSegKioDataSource::slotRestartBrokenSegment()
     qCDebug(KGET_DEBUG) << this;
     start();
 }
-
-
-

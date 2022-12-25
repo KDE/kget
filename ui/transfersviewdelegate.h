@@ -15,8 +15,8 @@
 
 #include <KExtendableItemDelegate>
 
-#include <QToolButton>
 #include <QModelIndex>
+#include <QToolButton>
 
 class QHBoxLayout;
 class QButtonGroup;
@@ -27,50 +27,50 @@ class GroupStatusButton : public QToolButton
 {
     Q_OBJECT
 
-    public:
-        GroupStatusButton(const QModelIndex &index, QWidget *parent);
+public:
+    GroupStatusButton(const QModelIndex &index, QWidget *parent);
 
-    protected:
-        void checkStateSet() override;
-        void enterEvent(QEvent * event) override;
-        void leaveEvent(QEvent * event) override;
-        void paintEvent(QPaintEvent * event) override;
-        void timerEvent(QTimerEvent *event) override;
+protected:
+    void checkStateSet() override;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void timerEvent(QTimerEvent *event) override;
 
-    private:
-        enum {None, Selecting, Deselecting, Blinking, BlinkingExiting} m_status;
-        QModelIndex m_index;
+private:
+    enum { None, Selecting, Deselecting, Blinking, BlinkingExiting } m_status;
+    QModelIndex m_index;
 
-        int m_timerId;
-        int m_iconSize;
+    int m_timerId;
+    int m_iconSize;
 
-        float m_gradientId;
+    float m_gradientId;
 };
 
 class GroupStatusEditor : public QWidget
 {
     Q_OBJECT
 
-    public:
-        GroupStatusEditor(const QModelIndex &index, QWidget *parent);
+public:
+    GroupStatusEditor(const QModelIndex &index, QWidget *parent);
 
-        void setRunning(bool running);
-        bool isRunning();
+    void setRunning(bool running);
+    bool isRunning();
 
-    private Q_SLOTS:
-        void slotStatusChanged();
+private Q_SLOTS:
+    void slotStatusChanged();
 
-    Q_SIGNALS:
-        void changedStatus(GroupStatusEditor *editor);
+Q_SIGNALS:
+    void changedStatus(GroupStatusEditor *editor);
 
-    private:
-        QModelIndex m_index;
+private:
+    QModelIndex m_index;
 
-        QHBoxLayout * m_layout;
+    QHBoxLayout *m_layout;
 
-        QButtonGroup * m_btGroup;
-        GroupStatusButton * m_startBt;
-        GroupStatusButton * m_stopBt;
+    QButtonGroup *m_btGroup;
+    GroupStatusButton *m_startBt;
+    GroupStatusButton *m_stopBt;
 };
 
 /**
@@ -80,32 +80,31 @@ class BasicTransfersViewDelegate : public KExtendableItemDelegate
 {
     Q_OBJECT
 
-    public:
-        BasicTransfersViewDelegate(QAbstractItemView *parent);
+public:
+    BasicTransfersViewDelegate(QAbstractItemView *parent);
 
-        QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-        void setEditorData(QWidget *editor, const QModelIndex &index) const override;
-        void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 
-    private Q_SLOTS:
-        virtual void slotGroupStatusChanged(GroupStatusEditor *editor);
+private Q_SLOTS:
+    virtual void slotGroupStatusChanged(GroupStatusEditor *editor);
 };
 
 class TransfersViewDelegate : public BasicTransfersViewDelegate
 {
     Q_OBJECT
 
-    public:
-        TransfersViewDelegate(QAbstractItemView *parent);
+public:
+    TransfersViewDelegate(QAbstractItemView *parent);
 
-        void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-        void drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const QRect & rect) const;
+    void drawFocus(QPainter *painter, const QStyleOptionViewItem &option, const QRect &rect) const;
 
-        QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-        bool editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index) override;
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 };
 
 #endif
-

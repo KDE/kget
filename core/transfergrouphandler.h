@@ -15,9 +15,9 @@
 #include <QVariant>
 
 #include "handler.h"
-#include "transfergroup.h"
-#include "kget_export.h"
 #include "kget.h"
+#include "kget_export.h"
+#include "transfergroup.h"
 
 class QAction;
 
@@ -32,236 +32,308 @@ class KGET_EXPORT TransferGroupHandler : public Handler
     friend class TransferGroup;
     friend class TransferTreeModel;
     friend class KGet;
-    public:
 
-        typedef TransferGroup::ChangesFlags ChangesFlags;
+public:
+    typedef TransferGroup::ChangesFlags ChangesFlags;
 
-        TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent);
+    TransferGroupHandler(Scheduler *scheduler, TransferGroup *parent);
 
-        ~TransferGroupHandler() override;
+    ~TransferGroupHandler() override;
 
-        JobQueue::Status status() const {return m_group->status();}
+    JobQueue::Status status() const
+    {
+        return m_group->status();
+    }
 
-        /**
-         * Moves a list of transfers belonging to this group to a new position,
-         * after the transfer named "after". All the transfers must belong to
-         * this group
-         *
-         * @param transfers The transfers to be be moved
-         * @param after The transfer after which the given transfers should be moved
-         */
-        void move(QList<TransferHandler *> transfers, TransferHandler * after);
+    /**
+     * Moves a list of transfers belonging to this group to a new position,
+     * after the transfer named "after". All the transfers must belong to
+     * this group
+     *
+     * @param transfers The transfers to be be moved
+     * @param after The transfer after which the given transfers should be moved
+     */
+    void move(QList<TransferHandler *> transfers, TransferHandler *after);
 
-        /**
-         * Sets the maximum number of jobs belonging to this queue that 
-         * should executed simultaneously by the scheduler
-         *
-         * @param n The maximum number of jobs
-         */
-        void setMaxSimultaneousJobs(int n);
+    /**
+     * Sets the maximum number of jobs belonging to this queue that
+     * should executed simultaneously by the scheduler
+     *
+     * @param n The maximum number of jobs
+     */
+    void setMaxSimultaneousJobs(int n);
 
-        /**
-         * @returns the Job in the queue at the given index i
-         */
-        TransferHandler * operator[] (int i);
+    /**
+     * @returns the Job in the queue at the given index i
+     */
+    TransferHandler *operator[](int i);
 
-        /**
-         * @returns the number of Transfers owned by this object
-         */
-        int size()     {return m_group->size();}
+    /**
+     * @returns the number of Transfers owned by this object
+     */
+    int size()
+    {
+        return m_group->size();
+    }
 
-        /**Set the group name
-         * @param name group name
-         */
-        void  setName(const QString &name);
+    /**Set the group name
+     * @param name group name
+     */
+    void setName(const QString &name);
 
-        /**
-         * @return the group name
-         */
-        const QString & name()    {return m_group->name();}
+    /**
+     * @return the group name
+     */
+    const QString &name()
+    {
+        return m_group->name();
+    }
 
-        /**
-         * @return the sum of the sizes of the transfers belonging to 
-         * this group
-         */
-        int totalSize() const     {return m_group->totalSize();}
+    /**
+     * @return the sum of the sizes of the transfers belonging to
+     * this group
+     */
+    int totalSize() const
+    {
+        return m_group->totalSize();
+    }
 
-        /**
-         * @return the sum of the downloaded sizes of the transfers
-         * belonging to this group
-         */
-        int downloadedSize() const {return m_group->downloadedSize();}
+    /**
+     * @return the sum of the downloaded sizes of the transfers
+     * belonging to this group
+     */
+    int downloadedSize() const
+    {
+        return m_group->downloadedSize();
+    }
 
-        /**
-         * @return the sum of the uploaded sizes of the transfers
-         * belonging to this group
-         */
-        int uploadedSize() const {return m_group->uploadedSize();}
+    /**
+     * @return the sum of the uploaded sizes of the transfers
+     * belonging to this group
+     */
+    int uploadedSize() const
+    {
+        return m_group->uploadedSize();
+    }
 
-        /**
-         * @return the progress percentage
-         */
-        int percent() const       {return m_group->percent();}
+    /**
+     * @return the progress percentage
+     */
+    int percent() const
+    {
+        return m_group->percent();
+    }
 
-        /**
-         * @return the sum of the download speeds of the running transfers 
-         * belonging this group
-         */
-        int downloadSpeed() const         {return m_group->downloadSpeed();}
+    /**
+     * @return the sum of the download speeds of the running transfers
+     * belonging this group
+     */
+    int downloadSpeed() const
+    {
+        return m_group->downloadSpeed();
+    }
 
-        /**
-         * @return the sum of the upload speeds of the running transfers 
-         * belonging this group
-         */
-        int uploadSpeed() const         {return m_group->uploadSpeed();}
-        
-        /**
-         * @return the changes flags which are currently set on the transfer
-         */
-        ChangesFlags changesFlags();
+    /**
+     * @return the sum of the upload speeds of the running transfers
+     * belonging this group
+     */
+    int uploadSpeed() const
+    {
+        return m_group->uploadSpeed();
+    }
 
-        /**
-         * Set a default Folder for the group
-         * @param folder the new default folder
-         */
-        void setDefaultFolder(QString folder) {m_group->setDefaultFolder(folder);}
+    /**
+     * @return the changes flags which are currently set on the transfer
+     */
+    ChangesFlags changesFlags();
 
-        /**
-         * @return the groups default folder
-         */
-        QString defaultFolder() {return m_group->defaultFolder();}
+    /**
+     * Set a default Folder for the group
+     * @param folder the new default folder
+     */
+    void setDefaultFolder(QString folder)
+    {
+        m_group->setDefaultFolder(folder);
+    }
 
-        /**
-         * Sets the regular expression of the group
-         * @param regexp the regular expression
-         */
-        void setRegExp(const QRegExp &regexp) {m_group->setRegExp(regexp);}
+    /**
+     * @return the groups default folder
+     */
+    QString defaultFolder()
+    {
+        return m_group->defaultFolder();
+    }
 
-        /**
-         * @returns the regular expression of the group
-         */
-        QRegExp regExp() {return m_group->regExp();}
+    /**
+     * Sets the regular expression of the group
+     * @param regexp the regular expression
+     */
+    void setRegExp(const QRegExp &regexp)
+    {
+        m_group->setRegExp(regexp);
+    }
 
-        /**
-         * Set a Download-Limit for the group
-         * @param dlLimit the new download-limit
-         * @param limit the type of the new download-limit
-         * @note if limit is 0, no download-limit is set
-         */
-         void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit) {m_group->setDownloadLimit(dlLimit, limit);}
+    /**
+     * @returns the regular expression of the group
+     */
+    QRegExp regExp()
+    {
+        return m_group->regExp();
+    }
 
-        /**
-         * @return the group's Download-Limit
-         */
-         int downloadLimit(Transfer::SpeedLimit limit) {return m_group->downloadLimit(limit);}
+    /**
+     * Set a Download-Limit for the group
+     * @param dlLimit the new download-limit
+     * @param limit the type of the new download-limit
+     * @note if limit is 0, no download-limit is set
+     */
+    void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit)
+    {
+        m_group->setDownloadLimit(dlLimit, limit);
+    }
 
-        /**
-         * Set a Upload-Limit for the group
-         * @param ulLimit the new upload-limit
-         * @param limit the type of the new upload-limit
-         * @note this will not be displayed in the GUI
-         */
-         void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) {m_group->setUploadLimit(ulLimit, limit);}
+    /**
+     * @return the group's Download-Limit
+     */
+    int downloadLimit(Transfer::SpeedLimit limit)
+    {
+        return m_group->downloadLimit(limit);
+    }
 
-        /**
-         * @return the group's Upload-Limit
-         */
-         int uploadLimit(Transfer::SpeedLimit limit) {return m_group->uploadLimit(limit);}
+    /**
+     * Set a Upload-Limit for the group
+     * @param ulLimit the new upload-limit
+     * @param limit the type of the new upload-limit
+     * @note this will not be displayed in the GUI
+     */
+    void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit)
+    {
+        m_group->setUploadLimit(ulLimit, limit);
+    }
 
-        /**
-         * Set the group's icon
-         * @param name the icon's name
-         */
-        void setIconName(const QString &name) {m_group->setIconName(name);}
+    /**
+     * @return the group's Upload-Limit
+     */
+    int uploadLimit(Transfer::SpeedLimit limit)
+    {
+        return m_group->uploadLimit(limit);
+    }
 
-        /**
-         * @returns the group's icon's name
-         */
-        QString iconName() const {return m_group->iconName();}
+    /**
+     * Set the group's icon
+     * @param name the icon's name
+     */
+    void setIconName(const QString &name)
+    {
+        m_group->setIconName(name);
+    }
 
-        /**
-         * @returns the group's icon
-         */
-        QPixmap pixmap() {return m_group->pixmap();}
+    /**
+     * @returns the group's icon's name
+     */
+    QString iconName() const
+    {
+        return m_group->iconName();
+    }
 
-        /**
-         * @returns the data associated to this TransferGroup item. This is
-         * necessary to make the interview model/view work
-         */
-        QVariant data(int column) override;
+    /**
+     * @returns the group's icon
+     */
+    QPixmap pixmap()
+    {
+        return m_group->pixmap();
+    }
 
-        /**
-         * @returns the number of columns associated to the group's data
-         */
-        int columnCount() const     {return 6;}
+    /**
+     * @returns the data associated to this TransferGroup item. This is
+     * necessary to make the interview model/view work
+     */
+    QVariant data(int column) override;
 
-        /**
-         * @returns the index for the given transfer. If the transfer can't
-         *          be found, it returns -1
-         */
-        int indexOf(TransferHandler * transfer);
+    /**
+     * @returns the number of columns associated to the group's data
+     */
+    int columnCount() const
+    {
+        return 6;
+    }
 
-        /**
-         * @returns a list containing all the transfers belonging to this group.
-         */
-        const QList<TransferHandler *> transfers();
+    /**
+     * @returns the index for the given transfer. If the transfer can't
+     *          be found, it returns -1
+     */
+    int indexOf(TransferHandler *transfer);
 
-        /**
-         * @returns a pointer to a QObjectInterface object which is a QObject
-         * by means of which you can connect signals and slots for this 
-         * transfer group.
-         */
-        const QList<QAction *> & actions();
+    /**
+     * @returns a list containing all the transfers belonging to this group.
+     */
+    const QList<TransferHandler *> transfers();
 
-        /**
-         * Calculates the whole SpeedLimits
-         */
-        void calculateSpeedLimits() {m_group->calculateSpeedLimits();}
+    /**
+     * @returns a pointer to a QObjectInterface object which is a QObject
+     * by means of which you can connect signals and slots for this
+     * transfer group.
+     */
+    const QList<QAction *> &actions();
 
-        /**
-         * Calculates the DownloadLimits
-         */
-        void calculateDownloadLimit() {m_group->calculateDownloadLimit();}
+    /**
+     * Calculates the whole SpeedLimits
+     */
+    void calculateSpeedLimits()
+    {
+        m_group->calculateSpeedLimits();
+    }
 
-        /**
-         * Calculates the DownloadLimits
-         */
-        void calculateUploadLimit() {m_group->calculateUploadLimit();}
-        
-    public Q_SLOTS:
-        /**
-         * These are all JobQueue-related functions
-         */
-        void start() override;
-        void stop() override;
-        
-    Q_SIGNALS:
-        void groupChangedEvent(TransferGroupHandler * transfer, TransferGroupHandler::ChangesFlags flags);
+    /**
+     * Calculates the DownloadLimits
+     */
+    void calculateDownloadLimit()
+    {
+        m_group->calculateDownloadLimit();
+    }
 
-    private:
-        /**
-         * Sets a change flag in the ChangesFlags variable.
-         *
-         * @param change The TransferChange flag to be set
-         * @param notifyModel notify the model about the change
-         */
-        void setGroupChange(ChangesFlags change, bool notifyModel = false);
+    /**
+     * Calculates the DownloadLimits
+     */
+    void calculateUploadLimit()
+    {
+        m_group->calculateUploadLimit();
+    }
 
-        /**
-         * Resets the changes flags
-         */
-        void resetChangesFlags();
+public Q_SLOTS:
+    /**
+     * These are all JobQueue-related functions
+     */
+    void start() override;
+    void stop() override;
 
-        /**
-         * Creates all the QActions
-         */
-        void createActions();
+Q_SIGNALS:
+    void groupChangedEvent(TransferGroupHandler *transfer, TransferGroupHandler::ChangesFlags flags);
 
-        TransferGroup * m_group;
+private:
+    /**
+     * Sets a change flag in the ChangesFlags variable.
+     *
+     * @param change The TransferChange flag to be set
+     * @param notifyModel notify the model about the change
+     */
+    void setGroupChange(ChangesFlags change, bool notifyModel = false);
 
-        QList<QAction *> m_actions;
+    /**
+     * Resets the changes flags
+     */
+    void resetChangesFlags();
 
-        ChangesFlags m_changesFlags;
+    /**
+     * Creates all the QActions
+     */
+    void createActions();
+
+    TransferGroup *m_group;
+
+    QList<QAction *> m_actions;
+
+    ChangesFlags m_changesFlags;
 };
 
 #endif

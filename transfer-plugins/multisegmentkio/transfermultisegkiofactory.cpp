@@ -13,20 +13,20 @@
 
 #include "core/scheduler.h"
 #include "core/transfergroup.h"
+#include "multisegkiodatasource.h"
 #include "multisegkiosettings.h"
 #include "transfermultisegkio.h"
-#include "multisegkiodatasource.h"
 
 #include <QDomElement>
 
 #include "kget_debug.h"
-#include <QDebug>
 #include "kget_macro.h"
+#include <QDebug>
 
 K_PLUGIN_CLASS_WITH_JSON(TransferMultiSegKioFactory, "kget_multisegkiofactory.json")
 
 TransferMultiSegKioFactory::TransferMultiSegKioFactory(QObject *parent, const QVariantList &args)
-  : TransferFactory(parent, args)
+    : TransferFactory(parent, args)
 {
 }
 
@@ -34,29 +34,25 @@ TransferMultiSegKioFactory::~TransferMultiSegKioFactory()
 {
 }
 
-Transfer * TransferMultiSegKioFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
-                                               TransferGroup * parent,
-                                               Scheduler * scheduler,
-                                               const QDomElement * e )
+Transfer *TransferMultiSegKioFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e)
 {
     qCDebug(KGET_DEBUG);
 
-    if (isSupported(srcUrl) && (!e || !e->firstChildElement("factories").isNull()))
-    {
-       return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
+    if (isSupported(srcUrl) && (!e || !e->firstChildElement("factories").isNull())) {
+        return new TransferMultiSegKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return nullptr;
 }
 
-TransferHandler * TransferMultiSegKioFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
+TransferHandler *TransferMultiSegKioFactory::createTransferHandler(Transfer *transfer, Scheduler *scheduler)
 {
     return new TransferHandler(transfer, scheduler);
 }
 
-QWidget * TransferMultiSegKioFactory::createDetailsWidget( TransferHandler * transfer )
+QWidget *TransferMultiSegKioFactory::createDetailsWidget(TransferHandler *transfer)
 {
     Q_UNUSED(transfer)
-    return nullptr;   //Temporary!!
+    return nullptr; // Temporary!!
 }
 
 const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *handler)
@@ -65,18 +61,16 @@ const QList<QAction *> TransferMultiSegKioFactory::actions(TransferHandler *hand
     return QList<QAction *>();
 }
 
- TransferDataSource * TransferMultiSegKioFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource *TransferMultiSegKioFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     qCDebug(KGET_DEBUG);
 
-    //only use this TransferDataSource if no type is specified and the protocols match
-    if (!type.attribute("type").isEmpty())
-    {
+    // only use this TransferDataSource if no type is specified and the protocols match
+    if (!type.attribute("type").isEmpty()) {
         return nullptr;
     }
 
-    if (isSupported(srcUrl))
-    {
+    if (isSupported(srcUrl)) {
         return new MultiSegKioDataSource(srcUrl, parent);
     }
     return nullptr;
@@ -91,7 +85,10 @@ bool TransferMultiSegKioFactory::isSupported(const QUrl &url) const
 
 QStringList TransferMultiSegKioFactory::addsProtocols() const
 {
-    static const QStringList protocols = QStringList() << "http" << "https" << "ftp" << "sftp";
+    static const QStringList protocols = QStringList() << "http"
+                                                       << "https"
+                                                       << "ftp"
+                                                       << "sftp";
     return protocols;
 }
 

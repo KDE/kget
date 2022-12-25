@@ -14,14 +14,14 @@
 
 #include "core/kget.h"
 #include "core/transferhandler.h"
-#include "core/transfertreeselectionmodel.h"
 #include "core/transfertreemodel.h"
+#include "core/transfertreeselectionmodel.h"
 #include "transfersview.h"
 #include "transfersviewdelegate.h"
 
 #include <QVBoxLayout>
 
-ViewsContainer::ViewsContainer(QWidget * parent)
+ViewsContainer::ViewsContainer(QWidget *parent)
     : QWidget(parent)
 {
     auto *layout = new QVBoxLayout();
@@ -39,13 +39,13 @@ ViewsContainer::ViewsContainer(QWidget * parent)
     setLayout(layout);
 }
 
-void ViewsContainer::showTransferDetails(TransferHandler * transfer)
+void ViewsContainer::showTransferDetails(TransferHandler *transfer)
 {
     TransferTreeModel *model = KGet::model();
     m_transfersView->slotItemActivated(model->itemFromHandler(transfer)->index());
 }
 
-void ViewsContainer::closeTransferDetails(TransferHandler * transfer)
+void ViewsContainer::closeTransferDetails(TransferHandler *transfer)
 {
     TransferTreeModel *model = KGet::model();
     m_transfersView->closeExpandableDetails(model->itemFromHandler(transfer)->index());
@@ -55,5 +55,3 @@ void ViewsContainer::selectAll()
 {
     m_transfersView->selectAll();
 }
-
-

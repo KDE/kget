@@ -22,42 +22,75 @@ class BTAdvancedDetailsWidget;
 
 namespace kt
 {
-    class ScanDlg;
-    class Monitor;
+class ScanDlg;
+class Monitor;
 }
 
 class BTTransferHandler : public TransferHandler
 {
     Q_OBJECT
-    public:
-        BTTransferHandler(BTTransfer * transfer, Scheduler * scheduler);
-        ~BTTransferHandler() override;
+public:
+    BTTransferHandler(BTTransfer *transfer, Scheduler *scheduler);
+    ~BTTransferHandler() override;
 
-        int chunksTotal() const                         {return m_transfer->chunksTotal();}
-        int chunksDownloaded() const                    {return m_transfer->chunksDownloaded();}
-        int chunksExcluded() const                      {return m_transfer->chunksExcluded();}
-        int chunksLeft() const                          {return m_transfer->chunksLeft();}
-        int seedsConnected() const                      {return m_transfer->seedsConnected();}
-        int seedsDisconnected() const                   {return m_transfer->seedsDisconnected();}
-        int leechesConnected() const                    {return m_transfer->leechesConnected();}
-        int leechesDisconnected() const                 {return m_transfer->leechesDisconnected();}
-        bt::TorrentControl * torrentControl() const     {return m_transfer->torrentControl();}
-        bool ready() const                              {return m_transfer->ready();}
+    int chunksTotal() const
+    {
+        return m_transfer->chunksTotal();
+    }
+    int chunksDownloaded() const
+    {
+        return m_transfer->chunksDownloaded();
+    }
+    int chunksExcluded() const
+    {
+        return m_transfer->chunksExcluded();
+    }
+    int chunksLeft() const
+    {
+        return m_transfer->chunksLeft();
+    }
+    int seedsConnected() const
+    {
+        return m_transfer->seedsConnected();
+    }
+    int seedsDisconnected() const
+    {
+        return m_transfer->seedsDisconnected();
+    }
+    int leechesConnected() const
+    {
+        return m_transfer->leechesConnected();
+    }
+    int leechesDisconnected() const
+    {
+        return m_transfer->leechesDisconnected();
+    }
+    bt::TorrentControl *torrentControl() const
+    {
+        return m_transfer->torrentControl();
+    }
+    bool ready() const
+    {
+        return m_transfer->ready();
+    }
 
-        void addTracker(QString url)                    {m_transfer->addTracker(url);}
-        kt::Monitor* torrentMonitor() const;
+    void addTracker(QString url)
+    {
+        m_transfer->addTracker(url);
+    }
+    kt::Monitor *torrentMonitor() const;
 
-    public Q_SLOTS:
-        void createAdvancedDetails();
-        void createScanDlg();
+public Q_SLOTS:
+    void createAdvancedDetails();
+    void createScanDlg();
 
-    private Q_SLOTS:
-        void removeAdvancedDetails();
+private Q_SLOTS:
+    void removeAdvancedDetails();
 
-    private:
-        BTTransfer * m_transfer;
-        BTAdvancedDetailsWidget *advancedDetails;
-        kt::ScanDlg *scanDlg;
+private:
+    BTTransfer *m_transfer;
+    BTAdvancedDetailsWidget *advancedDetails;
+    kt::ScanDlg *scanDlg;
 };
 
 #endif

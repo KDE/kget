@@ -12,8 +12,8 @@
 #ifndef TRANSFERSETTINGSDIALOG_H
 #define TRANSFERSETTINGSDIALOG_H
 
-#include "ui_transfersettingsdialog.h"
 #include "../core/basedialog.h"
+#include "ui_transfersettingsdialog.h"
 
 class FileModel;
 class QSortFilterProxyModel;
@@ -22,28 +22,27 @@ class TransferHandler;
 class TransferSettingsDialog : public KGetSaveSizeDialog
 {
     Q_OBJECT
-    public:
-        TransferSettingsDialog(QWidget *parent, TransferHandler *transfer);
-        ~TransferSettingsDialog() override;
-        
-        QSize sizeHint() const override;
+public:
+    TransferSettingsDialog(QWidget *parent, TransferHandler *transfer);
+    ~TransferSettingsDialog() override;
 
-    private Q_SLOTS:
-        void updateCapabilities();
-        void slotMirrors();
-        void slotRename();
-        void slotVerification();
-        void slotSignature();
-        void slotSelectionChanged();
-        void slotFinished();
-        void save();
+    QSize sizeHint() const override;
 
-    private:
-        TransferHandler *m_transfer = nullptr;
-        FileModel *m_model = nullptr;
-        QSortFilterProxyModel *m_proxy = nullptr;
-        Ui::TransferSettingsDialog ui;
+private Q_SLOTS:
+    void updateCapabilities();
+    void slotMirrors();
+    void slotRename();
+    void slotVerification();
+    void slotSignature();
+    void slotSelectionChanged();
+    void slotFinished();
+    void save();
+
+private:
+    TransferHandler *m_transfer = nullptr;
+    FileModel *m_model = nullptr;
+    QSortFilterProxyModel *m_proxy = nullptr;
+    Ui::TransferSettingsDialog ui;
 };
 
 #endif
-

@@ -17,7 +17,7 @@ class TransferGroupHandler;
 
 class TestKGet : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     TestKGet();
 
@@ -25,13 +25,13 @@ private Q_SLOTS:
     void simpleTest();
     void transferGroupTest();
     void transferGroupRepetitiveAddTest();
-    
-    void addedTransferGroupEvent(TransferGroupHandler * group);
-    void removedTransferGroupEvent(TransferGroupHandler * group);
-    
+
+    void addedTransferGroupEvent(TransferGroupHandler *group);
+    void removedTransferGroupEvent(TransferGroupHandler *group);
+
 private:
-    TransferGroupHandler * m_addedGH;
-    TransferGroupHandler * m_removedGH;
+    TransferGroupHandler *m_addedGH;
+    TransferGroupHandler *m_removedGH;
 };
 
 #endif

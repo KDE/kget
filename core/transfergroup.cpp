@@ -11,23 +11,30 @@
 
 #include "core/transfergroup.h"
 
-#include "core/transfergrouphandler.h"
 #include "core/kget.h"
+#include "core/transfergrouphandler.h"
 
 #include "kget_debug.h"
 #include <KIO/Global>
 
 #include <QDomElement>
 
-
-TransferGroup::TransferGroup(TransferTreeModel * model, Scheduler * parent, const QString & name)
-    : JobQueue(parent),
-      m_model(model), m_name(name),
-      m_totalSize(0), m_downloadedSize(0), m_uploadedSize(0),
-      m_percent(0), m_downloadSpeed(0), m_uploadSpeed(0),
-      m_downloadLimit(0), m_uploadLimit(0),
-      m_visibleDownloadLimit(0), m_visibleUploadLimit(0),
-      m_iconName("bookmark-new-list"), m_defaultFolder()
+TransferGroup::TransferGroup(TransferTreeModel *model, Scheduler *parent, const QString &name)
+    : JobQueue(parent)
+    , m_model(model)
+    , m_name(name)
+    , m_totalSize(0)
+    , m_downloadedSize(0)
+    , m_uploadedSize(0)
+    , m_percent(0)
+    , m_downloadSpeed(0)
+    , m_uploadSpeed(0)
+    , m_downloadLimit(0)
+    , m_uploadLimit(0)
+    , m_visibleDownloadLimit(0)
+    , m_visibleUploadLimit(0)
+    , m_iconName("bookmark-new-list")
+    , m_defaultFolder()
 {
     m_handler = new TransferGroupHandler(parent, this);
 }
@@ -39,9 +46,8 @@ TransferGroup::~TransferGroup()
 int TransferGroup::downloadSpeed()
 {
     m_downloadSpeed = 0;
-    foreach(Job *job, runningJobs())
-    {
-        auto *transfer = static_cast<Transfer*>(job);
+    foreach (Job *job, runningJobs()) {
+        auto *transfer = static_cast<Transfer *>(job);
         if (transfer)
             m_downloadSpeed += transfer->downloadSpeed();
     }
@@ -51,9 +57,8 @@ int TransferGroup::downloadSpeed()
 int TransferGroup::uploadSpeed()
 {
     m_uploadSpeed = 0;
-    foreach(Job *job, runningJobs())
-    {
-        auto *transfer = static_cast<Transfer*>(job);
+    foreach (Job *job, runningJobs()) {
+        auto *transfer = static_cast<Transfer *>(job);
         if (transfer)
             m_uploadSpeed += transfer->uploadSpeed();
     }
@@ -62,15 +67,15 @@ int TransferGroup::uploadSpeed()
 
 bool TransferGroup::supportsSpeedLimits()
 {
-    QList<Job*> jobs = runningJobs();
+    QList<Job *> jobs = runningJobs();
     foreach (Job *job, jobs) {
-        auto * transfer = static_cast<Transfer*>(job);
+        auto *transfer = static_cast<Transfer *>(job);
         if (!(transfer->capabilities() & Transfer::Cap_SpeedLimit)) {
             return false;
         }
     }
 
-    //empty jobs can't support a speed limit
+    // empty jobs can't support a speed limit
     return !jobs.isEmpty();
 }
 
@@ -81,16 +86,16 @@ void TransferGroup::setStatus(Status queueStatus)
     m_handler->setGroupChange(Gc_Status, true);
 }
 
-void TransferGroup::append(Transfer * transfer)
+void TransferGroup::append(Transfer *transfer)
 {
     JobQueue::append(transfer);
 
     calculateSpeedLimits();
 }
 
-void TransferGroup::append(const QList<Transfer*> &transfers)
+void TransferGroup::append(const QList<Transfer *> &transfers)
 {
-    QList<Job*> jobs;
+    QList<Job *> jobs;
     foreach (Transfer *transfer, transfers) {
         jobs << transfer;
     }
@@ -99,31 +104,30 @@ void TransferGroup::append(const QList<Transfer*> &transfers)
     calculateSpeedLimits();
 }
 
-
-void TransferGroup::prepend(Transfer * transfer)
+void TransferGroup::prepend(Transfer *transfer)
 {
     JobQueue::prepend(transfer);
 
     calculateSpeedLimits();
 }
 
-void TransferGroup::insert(Transfer * transfer, Transfer * after)
+void TransferGroup::insert(Transfer *transfer, Transfer *after)
 {
     JobQueue::insert(transfer, after);
 
     calculateSpeedLimits();
 }
 
-void TransferGroup::remove(Transfer * transfer)
+void TransferGroup::remove(Transfer *transfer)
 {
     JobQueue::remove(transfer);
 
     calculateSpeedLimits();
 }
 
-void TransferGroup::remove(const QList<Transfer*> &transfers)
+void TransferGroup::remove(const QList<Transfer *> &transfers)
 {
-    QList<Job*> jobs;
+    QList<Job *> jobs;
     foreach (Transfer *transfer, transfers) {
         jobs << transfer;
     }
@@ -132,23 +136,22 @@ void TransferGroup::remove(const QList<Transfer*> &transfers)
     calculateSpeedLimits();
 }
 
-void TransferGroup::move(Transfer * transfer, Transfer * after)
+void TransferGroup::move(Transfer *transfer, Transfer *after)
 {
-    if(transfer == after)
+    if (transfer == after)
         return;
 
     JobQueue::move(transfer, after);
 }
 
-Transfer * TransferGroup::findTransfer(const QUrl &src)
+Transfer *TransferGroup::findTransfer(const QUrl &src)
 {
     iterator it = begin();
     iterator itEnd = end();
 
-    for(; it!=itEnd ; ++it)
-    {
-        auto * t = (Transfer *) *it;
-        if( t->source().url() == src.url() )
+    for (; it != itEnd; ++it) {
+        auto *t = (Transfer *)*it;
+        if (t->source().url() == src.url())
             return t;
     }
     return nullptr;
@@ -159,16 +162,16 @@ Transfer *TransferGroup::findTransferByDestination(const QUrl &dest)
     iterator it = begin();
     iterator itEnd = end();
 
-    for(; it!=itEnd ; ++it) {
-        auto *t = (Transfer *) *it;
-        if(t->dest().url() == dest.url()) {
+    for (; it != itEnd; ++it) {
+        auto *t = (Transfer *)*it;
+        if (t->dest().url() == dest.url()) {
             return t;
         }
     }
     return nullptr;
 }
 
-void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit) 
+void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit)
 {
     if (limit == Transfer::VisibleSpeedLimit) {
         m_visibleUploadLimit = ulLimit;
@@ -181,7 +184,7 @@ void TransferGroup::setUploadLimit(int ulLimit, Transfer::SpeedLimit limit)
     calculateUploadLimit();
 }
 
-void TransferGroup::setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit) 
+void TransferGroup::setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit)
 {
     if (limit == Transfer::VisibleSpeedLimit) {
         m_visibleDownloadLimit = dlLimit;
@@ -220,41 +223,35 @@ void TransferGroup::calculateSpeedLimits()
 void TransferGroup::calculateDownloadLimit()
 {
     qCDebug(KGET_DEBUG) << "Calculate new DownloadLimit of " + QString::number(m_downloadLimit);
-    if (supportsSpeedLimits())
-    {
-        const QList<Job*> running = runningJobs();
+    if (supportsSpeedLimits()) {
+        const QList<Job *> running = runningJobs();
         int n = running.count();
-        int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
-        QList<Transfer*> transfersNeedSpeed;
+        int pool = 0; // We create a pool where we have some KiB/s to go to other transfer's...
+        QList<Transfer *> transfersNeedSpeed;
         foreach (Job *job, running) {
-            auto * transfer = static_cast<Transfer*>(job);
-            if (transfer)
-            {
+            auto *transfer = static_cast<Transfer *>(job);
+            if (transfer) {
                 if (m_downloadLimit == 0 && transfer->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
                     continue;
                 else if (m_downloadLimit == 0 && transfer->downloadLimit(Transfer::VisibleSpeedLimit) == 0)
                     transfer->setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
-                else if (transfer->downloadLimit(Transfer::VisibleSpeedLimit) < m_downloadLimit / n 
-                                            && transfer->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
-                        /*If the transfer's visible download limit is under the new one, 
-                                       we move the KiB/s which are different to the pool*/
-                    pool = pool + (m_downloadLimit / n - transfer->downloadLimit(Transfer::VisibleSpeedLimit));       
-                else if (transfer->downloadSpeed() + 10 < m_downloadLimit / n)
-                {
-                        /*When the downloadSpeed of the transfer is under the new downloadLimit + 10 then we 
-                            set the downloadLimit to the downloadSpeed + 10*/
+                else if (transfer->downloadLimit(Transfer::VisibleSpeedLimit) < m_downloadLimit / n
+                         && transfer->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
+                    /*If the transfer's visible download limit is under the new one,
+                                   we move the KiB/s which are different to the pool*/
+                    pool = pool + (m_downloadLimit / n - transfer->downloadLimit(Transfer::VisibleSpeedLimit));
+                else if (transfer->downloadSpeed() + 10 < m_downloadLimit / n) {
+                    /*When the downloadSpeed of the transfer is under the new downloadLimit + 10 then we
+                        set the downloadLimit to the downloadSpeed + 10*/
                     pool = pool + m_downloadLimit / n - transfer->downloadSpeed() + 10;
                     transfer->setDownloadLimit(transfer->downloadSpeed() + 10, Transfer::InvisibleSpeedLimit);
-                }
-                else
-                {
+                } else {
                     transfer->setDownloadLimit(m_downloadLimit / n, Transfer::InvisibleSpeedLimit);
                     transfersNeedSpeed.append(transfer);
                 }
             }
         }
-        foreach (Transfer *transfer, transfersNeedSpeed)
-        {
+        foreach (Transfer *transfer, transfersNeedSpeed) {
             transfer->setDownloadLimit(m_downloadLimit / n + pool / transfersNeedSpeed.count(), Transfer::InvisibleSpeedLimit);
         }
     }
@@ -263,41 +260,34 @@ void TransferGroup::calculateDownloadLimit()
 void TransferGroup::calculateUploadLimit()
 {
     qCDebug(KGET_DEBUG) << "Calculate new Upload Limit of " + QString::number(m_uploadLimit);
-    if (supportsSpeedLimits())
-    {
-        const QList<Job*> running = runningJobs();
+    if (supportsSpeedLimits()) {
+        const QList<Job *> running = runningJobs();
         int n = running.count();
-        int pool = 0;//We create a pool where we have some KiB/s to go to other transfer's...
-        QList<Transfer*> transfersNeedSpeed;
+        int pool = 0; // We create a pool where we have some KiB/s to go to other transfer's...
+        QList<Transfer *> transfersNeedSpeed;
         foreach (Job *job, running) {
-            auto * transfer = static_cast<Transfer*>(job);
-            if (transfer)
-            {
+            auto *transfer = static_cast<Transfer *>(job);
+            if (transfer) {
                 if (m_uploadLimit == 0 && transfer->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
                     continue;
                 else if (m_uploadLimit == 0 && transfer->uploadLimit(Transfer::VisibleSpeedLimit) == 0)
                     transfer->setUploadLimit(0, Transfer::InvisibleSpeedLimit);
-                else if (transfer->uploadLimit(Transfer::VisibleSpeedLimit) < m_uploadLimit / n 
-                                                        && transfer->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
-                        /*If the transfer's visible upload limit is under the new one, 
-                                       we move the KiB/s which are different to the pool*/
-                    pool = pool + (m_uploadLimit / n - transfer->uploadLimit(Transfer::VisibleSpeedLimit));       
-                else if (transfer->uploadSpeed() + 10 < m_uploadLimit / n)
-                {
-                        /*When the uploadSpeed of the transfer is under the new uploadLimit + 10 then we 
-                            set the uploadLimit to the uploadSpeed + 10*/
+                else if (transfer->uploadLimit(Transfer::VisibleSpeedLimit) < m_uploadLimit / n && transfer->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
+                    /*If the transfer's visible upload limit is under the new one,
+                                   we move the KiB/s which are different to the pool*/
+                    pool = pool + (m_uploadLimit / n - transfer->uploadLimit(Transfer::VisibleSpeedLimit));
+                else if (transfer->uploadSpeed() + 10 < m_uploadLimit / n) {
+                    /*When the uploadSpeed of the transfer is under the new uploadLimit + 10 then we
+                        set the uploadLimit to the uploadSpeed + 10*/
                     pool = pool + m_uploadLimit / n - transfer->uploadSpeed() + 10;
                     transfer->setUploadLimit(transfer->uploadSpeed() + 10, Transfer::InvisibleSpeedLimit);
-                }
-                else
-                {
+                } else {
                     transfer->setUploadLimit(m_uploadLimit / n, Transfer::InvisibleSpeedLimit);
                     transfersNeedSpeed.append(transfer);
                 }
             }
         }
-        foreach (Transfer *transfer, transfersNeedSpeed)
-        {
+        foreach (Transfer *transfer, transfersNeedSpeed) {
             transfer->setUploadLimit(m_uploadLimit / n + pool / transfersNeedSpeed.count(), Transfer::InvisibleSpeedLimit);
         }
     }
@@ -305,7 +295,7 @@ void TransferGroup::calculateUploadLimit()
 
 void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
 {
-    //qCDebug(KGET_DEBUG) << " -->  " << name();
+    // qCDebug(KGET_DEBUG) << " -->  " << name();
 
     e.setAttribute("Name", m_name);
     e.setAttribute("DefaultFolder", m_defaultFolder);
@@ -318,9 +308,8 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     iterator it = begin();
     iterator itEnd = end();
 
-    for( ; it!=itEnd; ++it )
-    {
-        auto* transfer = static_cast<Transfer*>(*it);
+    for (; it != itEnd; ++it) {
+        auto *transfer = static_cast<Transfer *>(*it);
         qCDebug(KGET_DEBUG) << "  -->  " << name() << "  transfer: " << transfer->source();
         QDomElement t = e.ownerDocument().createElement("Transfer");
         e.appendChild(t);
@@ -328,7 +317,7 @@ void TransferGroup::save(QDomElement e) // krazy:exclude=passbyvalue
     }
 }
 
-void TransferGroup::load(const QDomElement & e)
+void TransferGroup::load(const QDomElement &e)
 {
     qCDebug(KGET_DEBUG) << "TransferGroup::load";
 
@@ -354,6 +343,7 @@ void TransferGroup::load(const QDomElement & e)
         elements << nodeList.item(i).toElement();
     }
 
-    qCDebug(KGET_DEBUG) << "TransferGroup::load ->" << "add" << nItems << "transfers";
+    qCDebug(KGET_DEBUG) << "TransferGroup::load ->"
+                        << "add" << nItems << "transfers";
     KGet::addTransfers(elements, name());
 }

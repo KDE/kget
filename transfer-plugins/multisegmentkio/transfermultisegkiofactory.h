@@ -20,23 +20,20 @@ class Scheduler;
 class TransferMultiSegKioFactory : public TransferFactory
 {
     Q_OBJECT
-    public:
-        TransferMultiSegKioFactory(QObject *parent, const QVariantList &args);
-        ~TransferMultiSegKioFactory() override;
+public:
+    TransferMultiSegKioFactory(QObject *parent, const QVariantList &args);
+    ~TransferMultiSegKioFactory() override;
 
-        Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
-                                 TransferGroup * parent, Scheduler * scheduler,
-                                 const QDomElement * e = nullptr ) override;
+    Transfer *createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e = nullptr) override;
 
-        TransferHandler * createTransferHandler(Transfer * transfer,
-                                              Scheduler * scheduler) override;
+    TransferHandler *createTransferHandler(Transfer *transfer, Scheduler *scheduler) override;
 
-        QWidget * createDetailsWidget( TransferHandler * transfer ) override;
+    QWidget *createDetailsWidget(TransferHandler *transfer) override;
 
-        const QList<QAction *> actions(TransferHandler *handler = nullptr) override;
-        TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent) override;
-        bool isSupported(const QUrl &url) const override;
-        QStringList addsProtocols() const override;
+    const QList<QAction *> actions(TransferHandler *handler = nullptr) override;
+    TransferDataSource *createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent) override;
+    bool isSupported(const QUrl &url) const override;
+    QStringList addsProtocols() const override;
 };
 
 #endif

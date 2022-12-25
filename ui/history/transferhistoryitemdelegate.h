@@ -21,16 +21,14 @@ class QModelIndex;
 
 class TransferHistoryItemDelegate : public QStyledItemDelegate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     TransferHistoryItemDelegate(QWidget *parent);
     ~TransferHistoryItemDelegate() override;
 
-    void paint(QPainter *painter, const QStyleOptionViewItem &option,
-                                  const QModelIndex &index) const override;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    bool editorEvent(QEvent * event, QAbstractItemModel * model,
-                    const QStyleOptionViewItem & option, const QModelIndex & index) override;
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 
 Q_SIGNALS:
     void deletedTransfer(const QString &url, const QModelIndex &index);

@@ -12,8 +12,8 @@
 
 #include "settings.h"
 
-#include <KMessageBox>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <kwallet.h>
 
 DlgWebinterface::DlgWebinterface(QDialog *parent)
@@ -22,7 +22,7 @@ DlgWebinterface::DlgWebinterface(QDialog *parent)
     setupUi(this);
 
     readConfig();
-    
+
     connect(parent, &QDialog::accepted, this, &DlgWebinterface::saveSettings);
     connect(webinterfacePwd, &KLineEdit::textChanged, this, &DlgWebinterface::changed);
 }
@@ -36,7 +36,7 @@ void DlgWebinterface::readConfig()
 {
     if (Settings::webinterfaceEnabled()) {
         m_wallet = KWallet::Wallet::openWallet(KWallet::Wallet::LocalWallet(),
-                                               winId(),///Use MainWindow?
+                                               winId(), /// Use MainWindow?
                                                KWallet::Wallet::Asynchronous);
         if (m_wallet) {
             connect(m_wallet, &KWallet::Wallet::walletOpened, this, &DlgWebinterface::walletOpened);
@@ -48,10 +48,7 @@ void DlgWebinterface::readConfig()
 
 void DlgWebinterface::walletOpened(bool opened)
 {
-    if (opened &&
-        (m_wallet->hasFolder("KGet") ||
-         m_wallet->createFolder("KGet")) &&
-         m_wallet->setFolder("KGet")) {
+    if (opened && (m_wallet->hasFolder("KGet") || m_wallet->createFolder("KGet")) && m_wallet->setFolder("KGet")) {
         QString pwd;
         m_wallet->readPassword("Webinterface", pwd);
         webinterfacePwd->setText(pwd);
@@ -67,5 +64,3 @@ void DlgWebinterface::saveSettings()
     }
     Q_EMIT saved();
 }
-
-

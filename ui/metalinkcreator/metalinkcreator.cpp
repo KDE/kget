@@ -1,30 +1,30 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "metalinkcreator.h"
-#include "filedlg.h"
 #include "dragdlg.h"
-#include "localemodels.h"
+#include "filedlg.h"
 #include "generalwidget.h"
+#include "localemodels.h"
 
-#include <QFileDialog>
 #include <QDragEnterEvent>
+#include <QFileDialog>
 #include <QMimeData>
 #include <QPushButton>
 #include <QSortFilterProxyModel>
@@ -34,19 +34,17 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-//TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
+// TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
 
 FileWidget::FileWidget(QWidget *parent)
-  : QWidget(parent)
+    : QWidget(parent)
 {
     setAcceptDrops(true);
 }
 
-
 void FileWidget::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (event->mimeData()->hasUrls())
-    {
+    if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
     }
 }
@@ -63,14 +61,14 @@ void FileWidget::dropEvent(QDropEvent *event)
 }
 
 MetalinkCreator::MetalinkCreator(QWidget *parent)
-  : KAssistantDialog(parent),
-    m_needUrlCount(0),
-    m_countrySort(nullptr),
-    m_languageModel(nullptr),
-    m_languageSort(nullptr),
-    m_introduction(nullptr),
-    m_generalPage(nullptr),
-    m_filesModel(nullptr)
+    : KAssistantDialog(parent)
+    , m_needUrlCount(0)
+    , m_countrySort(nullptr)
+    , m_languageModel(nullptr)
+    , m_languageSort(nullptr)
+    , m_introduction(nullptr)
+    , m_generalPage(nullptr)
+    , m_filesModel(nullptr)
 {
     create();
 
@@ -90,13 +88,12 @@ MetalinkCreator::~MetalinkCreator()
 
 void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidgetItem *from)
 {
-    //once we leave the introduction page the data is being loaded
-    if (m_introduction && m_generalPage && (from == m_introduction) && (to == m_generalPage))
-    {
+    // once we leave the introduction page the data is being loaded
+    if (m_introduction && m_generalPage && (from == m_introduction) && (to == m_generalPage)) {
         load();
     }
 
-    //it is impossible to return to the introduction page
+    // it is impossible to return to the introduction page
     backButton()->setEnabled(to != m_generalPage);
 
     if (!m_filesModel->rowCount()) {
@@ -106,8 +103,8 @@ void MetalinkCreator::slotUpdateAssistantButtons(KPageWidgetItem *to, KPageWidge
     }
     uiFiles.infoWidget->setVisible(!m_filesModel->rowCount() || m_needUrlCount);
 
-    //only enable finish when the metalink is valid (i.e. no required data missing)
-    //and the thread is not running
+    // only enable finish when the metalink is valid (i.e. no required data missing)
+    // and the thread is not running
     finishButton()->setEnabled(metalink.isValid() && !m_thread.isRunning());
 }
 
@@ -142,10 +139,8 @@ void MetalinkCreator::slotDelayedCreation()
 void MetalinkCreator::load()
 {
     QUrl url = uiIntroduction.load->url();
-    if (uiIntroduction.loadButton->isChecked() && url.isValid())
-    {
-        if (!KGetMetalink::HandleMetalink::load(url, &metalink))
-        {
+    if (uiIntroduction.loadButton->isChecked() && url.isValid()) {
+        if (!KGetMetalink::HandleMetalink::load(url, &metalink)) {
             KMessageBox::error(this, i18n("Unable to load: %1", url.toString()), i18n("Error"));
         }
     }
@@ -159,10 +154,8 @@ void MetalinkCreator::slotSave()
     m_general->save(&metalink);
 
     QUrl url = uiIntroduction.save->url();
-    if (url.isValid())
-    {
-        if(!KGetMetalink::HandleMetalink::save(url, &metalink))
-        {
+    if (url.isValid()) {
+        if (!KGetMetalink::HandleMetalink::save(url, &metalink)) {
             KMessageBox::error(this, i18n("Unable to save to: %1", url.toString()), i18n("Error"));
         }
     }
@@ -189,7 +182,7 @@ void MetalinkCreator::slotUpdateIntroductionNextButton()
 {
     bool enableNext = false;
 
-    //check if a save location and if selected if also a load location has been specified and if the m_countrySort has been created
+    // check if a save location and if selected if also a load location has been specified and if the m_countrySort has been created
     enableNext = uiIntroduction.save->url().isValid() && m_countrySort;
     if (enableNext && uiIntroduction.loadButton->isChecked()) {
         enableNext = uiIntroduction.load->url().isValid();
@@ -231,11 +224,9 @@ void MetalinkCreator::createFiles()
 
 void MetalinkCreator::loadFiles()
 {
-    foreach (const KGetMetalink::File &file, metalink.files.files)
-    {
+    foreach (const KGetMetalink::File &file, metalink.files.files) {
         auto *item = new QStandardItem(file.name);
-        if (!file.resources.isValid())
-        {
+        if (!file.resources.isValid()) {
             ++m_needUrlCount;
             item->setIcon(QIcon::fromTheme("edit-delete"));
         }
@@ -275,8 +266,7 @@ void MetalinkCreator::slotAddFile()
 void MetalinkCreator::slotAddFile(const KGetMetalink::File &file)
 {
     auto *item = new QStandardItem(file.name);
-    if (!file.resources.isValid())
-    {
+    if (!file.resources.isValid()) {
         ++m_needUrlCount;
         item->setIcon(QIcon::fromTheme("edit-delete"));
     }
@@ -294,9 +284,8 @@ void MetalinkCreator::slotFileEdited(const QString &oldFileName, const QString &
     QStandardItem *item = m_filesModel->itemFromIndex(index);
     item->setText(newFileName);
 
-    //had no url but has it now
-    if (!item->icon().isNull())
-    {
+    // had no url but has it now
+    if (!item->icon().isNull()) {
         --m_needUrlCount;
         item->setIcon(QIcon());
     }
@@ -309,13 +298,10 @@ void MetalinkCreator::slotRemoveFile()
     while (uiFiles.files->selectionModel()->hasSelection()) {
         const QModelIndex index = uiFiles.files->selectionModel()->selectedRows().first();
         const QString filePath = index.data().toString();
-        for (int i = 0; i < metalink.files.files.size(); ++i)
-        {
-            if (metalink.files.files.at(i).name == filePath)
-            {
-                //the entry had not url, so do not count it anymore
-                if (!index.data(Qt::DecorationRole).isNull())
-                {
+        for (int i = 0; i < metalink.files.files.size(); ++i) {
+            if (metalink.files.files.at(i).name == filePath) {
+                // the entry had not url, so do not count it anymore
+                if (!index.data(Qt::DecorationRole).isNull()) {
                     --m_needUrlCount;
                 }
                 metalink.files.files.removeAt(i);
@@ -332,7 +318,7 @@ void MetalinkCreator::slotRemoveFile()
 
 void MetalinkCreator::slotAddClicked()
 {
-    //no old stored data should be used
+    // no old stored data should be used
     m_tempFile.clear();
     fileDlg(&m_tempFile);
 }
@@ -340,8 +326,7 @@ void MetalinkCreator::slotAddClicked()
 void MetalinkCreator::fileDlg(KGetMetalink::File *file, bool edit)
 {
     QStringList currentNames;
-    for (int i = 0; i < m_filesModel->rowCount(); ++i)
-    {
+    for (int i = 0; i < m_filesModel->rowCount(); ++i) {
         currentNames.append(m_filesModel->index(i, 0).data().toString());
     }
 
@@ -359,11 +344,9 @@ void MetalinkCreator::slotFileProperties()
     const QModelIndex index = uiFiles.files->selectionModel()->selectedRows().first();
     const QString fileName = index.data().toString();
 
-    //search the selected file in metalink
-    for (int i = 0; i < metalink.files.files.count(); ++i)
-    {
-        if (metalink.files.files.at(i).name == fileName)
-        {
+    // search the selected file in metalink
+    for (int i = 0; i < metalink.files.files.count(); ++i) {
+        if (metalink.files.files.at(i).name == fileName) {
             fileDlg(&metalink.files.files[i], true);
             break;
         }
@@ -392,5 +375,3 @@ void MetalinkCreator::slotThreadFinished()
     uiFiles.dragDrop->hide();
     slotUpdateAssistantButtons(nullptr, m_files);
 }
-
-

@@ -13,8 +13,8 @@
 
 #include "ui/history/transferhistorycategorizeddelegate.h"
 
-#include <QWidget>
 #include <QModelIndex>
+#include <QWidget>
 
 class QDate;
 class QStandardItemModel;
@@ -24,9 +24,8 @@ class KCategorizedSortFilterProxyModel;
 
 class TransferHistoryCategorizedView : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-
     TransferHistoryCategorizedView(QWidget *parent = nullptr);
     ~TransferHistoryCategorizedView() override;
 

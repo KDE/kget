@@ -16,8 +16,8 @@
 #include <QStyle>
 
 DBusTransferWrapper::DBusTransferWrapper(TransferHandler *parent)
-  : QObject(parent),
-    m_transfer(parent)
+    : QObject(parent)
+    , m_transfer(parent)
 {
     connect(m_transfer, &TransferHandler::transferChangedEvent, this, &DBusTransferWrapper::slotTransferChanged);
     connect(m_transfer, &TransferHandler::capabilitiesChanged, this, &DBusTransferWrapper::capabilitiesChanged);
@@ -168,7 +168,4 @@ QString DBusTransferWrapper::verifier(const QString &file)
 bool DBusTransferWrapper::repair(const QString &file)
 {
     return m_transfer->repair(QUrl(file));
-
 }
-
-

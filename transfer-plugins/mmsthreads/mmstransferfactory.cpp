@@ -29,16 +29,15 @@
 K_PLUGIN_CLASS_WITH_JSON(MmsTransferFactory, "kget_mmsfactory.json")
 
 MmsTransferFactory::MmsTransferFactory(QObject *parent, const QVariantList &args)
-  : TransferFactory(parent, args)
-{}
+    : TransferFactory(parent, args)
+{
+}
 
 MmsTransferFactory::~MmsTransferFactory()
-{}
+{
+}
 
-Transfer * MmsTransferFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
-                                               TransferGroup * parent,
-                                               Scheduler * scheduler, 
-                                               const QDomElement * e )
+Transfer *MmsTransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e)
 {
     qCDebug(KGET_DEBUG) << "MmsTransferFactory::createTransfer";
 
@@ -50,10 +49,10 @@ Transfer * MmsTransferFactory::createTransfer( const QUrl &srcUrl, const QUrl &d
     return nullptr;
 }
 
-QWidget * MmsTransferFactory::createDetailsWidget( TransferHandler * transfer )
+QWidget *MmsTransferFactory::createDetailsWidget(TransferHandler *transfer)
 {
     Q_UNUSED(transfer)
-    return nullptr;   //Temporary!!
+    return nullptr; // Temporary!!
 }
 
 const QList<QAction *> MmsTransferFactory::actions(TransferHandler *handler)

@@ -27,56 +27,52 @@ class TransferHistory : public KGetSaveSizeDialog, Ui::TransferHistory
 {
     Q_OBJECT
 
-    public:
-        TransferHistory(QWidget *parent = nullptr);
-        ~TransferHistory() override;
-        
-        QSize sizeHint() const override;
+public:
+    TransferHistory(QWidget *parent = nullptr);
+    ~TransferHistory() override;
 
-    private:
-        enum RangeType {
-            Date = 0,
-            Size = 1,
-            Host = 2
-        };
-        void hideEvent(QHideEvent *event) override;
-        QString statusText(int status) const;
+    QSize sizeHint() const override;
 
-        bool save;
-        QFileSystemWatcher *watcher;
-        int m_rangeType;
-        QWidget *m_view;
-        QProgressBar *m_progressBar;
-        QVBoxLayout *m_verticalLayout;
-        KComboBox *m_rangeTypeCombobox;
-        QHBoxLayout *m_hboxLayout;
-        KLineEdit *m_searchBar;
-        QAction *m_actionDelete_Selected;
-        QAction *m_actionClear;
-        QAction *m_actionDownload;
-        QAction *m_openFile;
-        QPushButton *m_clearButton;
-        QPushButton *m_iconView;
-        QPushButton *m_listView;
-        bool m_iconModeEnabled;
-        TransferHistoryStore *m_store;
+private:
+    enum RangeType { Date = 0, Size = 1, Host = 2 };
+    void hideEvent(QHideEvent *event) override;
+    QString statusText(int status) const;
 
-    public Q_SLOTS:
-        void slotDeleteTransfer(const QString &url, const QModelIndex &index = QModelIndex());
+    bool save;
+    QFileSystemWatcher *watcher;
+    int m_rangeType;
+    QWidget *m_view;
+    QProgressBar *m_progressBar;
+    QVBoxLayout *m_verticalLayout;
+    KComboBox *m_rangeTypeCombobox;
+    QHBoxLayout *m_hboxLayout;
+    KLineEdit *m_searchBar;
+    QAction *m_actionDelete_Selected;
+    QAction *m_actionClear;
+    QAction *m_actionDownload;
+    QAction *m_openFile;
+    QPushButton *m_clearButton;
+    QPushButton *m_iconView;
+    QPushButton *m_listView;
+    bool m_iconModeEnabled;
+    TransferHistoryStore *m_store;
 
-    private Q_SLOTS:
-        void slotDeleteTransfer();
-        void slotAddTransfers();
-        void slotClear();
-        void slotWriteDefault();
-        void slotDownload();
-        void slotOpenFile(const QModelIndex &index = QModelIndex());
-        void contextMenuEvent(QContextMenuEvent *event) override;
-        void slotLoadRangeType(int type);
-        void slotSetListMode();
-        void slotSetIconMode();
-        void slotElementLoaded(int number, int total, const TransferHistoryItem &item);
-        void slotLoadFinished();
+public Q_SLOTS:
+    void slotDeleteTransfer(const QString &url, const QModelIndex &index = QModelIndex());
+
+private Q_SLOTS:
+    void slotDeleteTransfer();
+    void slotAddTransfers();
+    void slotClear();
+    void slotWriteDefault();
+    void slotDownload();
+    void slotOpenFile(const QModelIndex &index = QModelIndex());
+    void contextMenuEvent(QContextMenuEvent *event) override;
+    void slotLoadRangeType(int type);
+    void slotSetListMode();
+    void slotSetIconMode();
+    void slotElementLoaded(int number, int total, const TransferHistoryItem &item);
+    void slotLoadFinished();
 };
 
 #endif

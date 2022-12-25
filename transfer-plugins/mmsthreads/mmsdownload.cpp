@@ -19,19 +19,18 @@
 
 #include "mmsdownload.h"
 
-const int SPEEDTIMER = 1000;//1 second...
+const int SPEEDTIMER = 1000; // 1 second...
 
-MmsDownload::MmsDownload(const QString &url, const QString &name, const QString &temp, 
-                         int amountsThread)
-: QThread(),
-  m_sourceUrl(url),
-  m_fileName(name),
-  m_fileTemp(temp),
-  m_amountThreads(amountsThread),
-  m_connectionsFails(0),
-  m_connectionsSuccessfully(0),
-  m_downloadedSize(0),
-  m_mms(NULL)
+MmsDownload::MmsDownload(const QString &url, const QString &name, const QString &temp, int amountsThread)
+    : QThread()
+    , m_sourceUrl(url)
+    , m_fileName(name)
+    , m_fileTemp(temp)
+    , m_amountThreads(amountsThread)
+    , m_connectionsFails(0)
+    , m_connectionsSuccessfully(0)
+    , m_downloadedSize(0)
+    , m_mms(NULL)
 {
     m_speedTimer = new QTimer(this);
     m_speedTimer->setInterval(SPEEDTIMER);
@@ -59,7 +58,6 @@ void MmsDownload::run()
     exec();
 }
 
-
 bool MmsDownload::isWorkingUrl()
 {
     /** Check if the URL is working, if it can't connect then not start the download.*/
@@ -82,7 +80,7 @@ void MmsDownload::splitTransfer()
 
     const qulonglong total = mmsx_get_length(m_mms);
     Q_EMIT signTotalSize(total);
-    
+
     if (QFile::exists(m_fileTemp)) {
         unSerialization();
     } else {
@@ -101,16 +99,15 @@ void MmsDownload::splitTransfer()
 }
 
 void MmsDownload::startTransfer()
-{   
+{
     m_speedTimer->start();
     QMap<int, int>::const_iterator iterator = m_mapEndIni.constBegin();
     while (iterator != m_mapEndIni.constEnd()) {
-        auto* thread = new MmsThread(m_sourceUrl, m_fileName,
-                                          iterator.value(), iterator.key());
+        auto *thread = new MmsThread(m_sourceUrl, m_fileName, iterator.value(), iterator.key());
         m_threadList.append(thread);
         connect(thread, SIGNAL(finished()), this, SLOT(slotThreadFinish()));
         connect(thread, SIGNAL(signIsConnected(bool)), this, SLOT(slotIsThreadConnected(bool)));
-        connect(thread, SIGNAL(signReading(int,int,int)), this, SLOT(slotRead(int,int,int)));
+        connect(thread, SIGNAL(signReading(int, int, int)), this, SLOT(slotRead(int, int, int)));
         thread->start();
         ++iterator;
     }
@@ -118,33 +115,31 @@ void MmsDownload::startTransfer()
 
 void MmsDownload::slotSpeedChanged()
 {
-    /** Using the same speed calculating datasourcefactory uses (use all downloaded data 
+    /** Using the same speed calculating datasourcefactory uses (use all downloaded data
      * of the last 10 secs)
      */
     qulonglong speed;
     if (m_prevDownloadedSizes.size()) {
-        speed = (m_downloadedSize - m_prevDownloadedSizes.first()) / (SPEEDTIMER *
-            m_prevDownloadedSizes.size() / 1000);//downloaded in 1 second
+        speed = (m_downloadedSize - m_prevDownloadedSizes.first()) / (SPEEDTIMER * m_prevDownloadedSizes.size() / 1000); // downloaded in 1 second
     } else {
         speed = 0;
     }
-    
+
     m_prevDownloadedSizes.append(m_downloadedSize);
-    if(m_prevDownloadedSizes.size() > 10)
+    if (m_prevDownloadedSizes.size() > 10)
         m_prevDownloadedSizes.removeFirst();
-    
+
     Q_EMIT signSpeed(speed);
     serialization();
 }
 
-
 void MmsDownload::stopTransfer()
-{   
+{
     /** Here only is called thread->stop() because when the thread finish it Q_EMIT a signal
      * and slotThreadFinish(); is called where the thread is delete calling deleteLater(); and
      * m_threadList is cleaning using removeAll().
      */
-    foreach (MmsThread* thread, m_threadList) {
+    foreach (MmsThread *thread, m_threadList) {
         thread->stop();
         thread->quit();
     }
@@ -155,10 +150,9 @@ int MmsDownload::threadsAlive()
     return m_threadList.size();
 }
 
-
 void MmsDownload::slotThreadFinish()
 {
-    auto* thread = qobject_cast<MmsThread*>(QObject::sender());
+    auto *thread = qobject_cast<MmsThread *>(QObject::sender());
     m_threadList.removeAll(thread);
     thread->deleteLater();
 
@@ -174,12 +168,12 @@ void MmsDownload::slotRead(int reading, int thread_end, int thread_in)
      * speed.
      */
     if (thread_in == thread_end) {
-        m_mapEndIni.remove(thread_end);    
+        m_mapEndIni.remove(thread_end);
     } else {
         m_mapEndIni[thread_end] = thread_in;
     }
     m_downloadedSize += reading;
-    Q_EMIT signDownloaded(m_downloadedSize); 
+    Q_EMIT signDownloaded(m_downloadedSize);
 }
 
 void MmsDownload::slotIsThreadConnected(bool connected)
@@ -195,15 +189,14 @@ void MmsDownload::slotIsThreadConnected(bool connected)
     } else {
         m_connectionsFails++;
     }
-    if ((m_connectionsFails != 0) && 
-        (m_connectionsFails + m_connectionsSuccessfully == m_amountThreads)) {
+    if ((m_connectionsFails != 0) && (m_connectionsFails + m_connectionsSuccessfully == m_amountThreads)) {
         Q_EMIT signRestartDownload(m_connectionsSuccessfully);
     }
 }
 
 void MmsDownload::serialization()
 {
-    /** Here we save the status of the download to the temporal file for resume the download 
+    /** Here we save the status of the download to the temporal file for resume the download
      * if we stop it.
      */
     QFile file(m_fileTemp);

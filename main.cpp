@@ -11,28 +11,29 @@
 
 #include <KAboutData>
 #include <KDBusService>
-#include <Kdelibs4ConfigMigrator>
-#include <Kdelibs4Migration>
 #include <KLocalizedString>
 #include <KWindowSystem>
+#include <Kdelibs4ConfigMigrator>
+#include <Kdelibs4Migration>
 
-#include <QCommandLineParser>
 #include <QCommandLineOption>
+#include <QCommandLineParser>
 #include <QStandardPaths>
 
 #include "core/kget.h"
 #include "dbus/dbuskgetwrapper.h"
-#include "mainadaptor.h"
-#include "settings.h"
-#include "mainwindow.h"
-#include "ui/newtransferdialog.h"
 #include "kget_version.h"
+#include "mainadaptor.h"
+#include "mainwindow.h"
+#include "settings.h"
+#include "ui/newtransferdialog.h"
 
 class KGetApp : public QObject
 {
 public:
     KGetApp(QCommandLineParser *p)
-        : kget( nullptr ), parser( p )
+        : kget(nullptr)
+        , parser(p)
     {
     }
 
@@ -43,8 +44,7 @@ public:
 
     int newInstance()
     {
-        if (!kget)
-        {
+        if (!kget) {
 #ifdef DEBUG
             kget = new MainWindow(!parser->isSet("showDropTarget"), parser->isSet("startWithoutAnimation"), parser->isSet("test"));
 #else
@@ -62,15 +62,14 @@ public:
         }
 
         if (parser->isSet("showDropTarget"))
-            Settings::setShowDropTarget( true );
+            Settings::setShowDropTarget(true);
 
         QList<QUrl> l;
         const QStringList args = parser->positionalArguments();
-        for (int i = 0; i < args.count(); i++)
-        {
+        for (int i = 0; i < args.count(); i++) {
             QString txt(args.at(i));
-            if ( txt.endsWith( QLatin1String(".kgt"), Qt::CaseInsensitive ) )
-                KGet::load( txt );
+            if (txt.endsWith(QLatin1String(".kgt"), Qt::CaseInsensitive))
+                KGet::load(txt);
             else
                 l.push_back(QUrl::fromUserInput(args.at(i)));
         }
@@ -82,31 +81,31 @@ public:
     }
 
 public Q_SLOTS:
-    void slotActivateRequested (QStringList args, const QString & /*workingDir*/)
+    void slotActivateRequested(QStringList args, const QString & /*workingDir*/)
     {
         parser->parse(args);
         newInstance();
     }
 
 private:
-    MainWindow * kget;
+    MainWindow *kget;
     QCommandLineParser *parser;
 };
-
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     KLocalizedString::setApplicationDomain("kget");
-    KAboutData aboutData(QStringLiteral("kget"), i18n("KGet"),
+    KAboutData aboutData(QStringLiteral("kget"),
+                         i18n("KGet"),
                          QStringLiteral(KGET_VERSION_STRING),
                          i18n("An advanced download manager by KDE"),
                          KAboutLicense::GPL,
                          i18n("(C) 2005 - 2014, The KGet developers\n"
-                         "(C) 2001 - 2002, Patrick Charbonnier\n"
-                         "(C) 2002, Carsten Pfeiffer\n"
-                         "(C) 1998 - 2000, Matej Koss"),
+                              "(C) 2001 - 2002, Patrick Charbonnier\n"
+                              "(C) 2002, Carsten Pfeiffer\n"
+                              "(C) 1998 - 2000, Matej Koss"),
                          i18n("<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"));
 
     aboutData.addAuthor(i18n("Lukas Appelhans"), i18n("Maintainer, Core Developer, Torrent Plugin Author"), "l.appelhans@gmx.de");
@@ -123,7 +122,7 @@ int main(int argc, char *argv[])
     aboutData.addCredit(i18n("Joris Guisson"), i18n("BTCore (KTorrent) Developer"), "joris.guisson@gmail.com");
     aboutData.addCredit(i18n("Mensur Zahirovic (Nookie)"), i18n("Design of Web Interface"), "linuxsajten@gmail.com");
     // necessary to make the "Translators" tab appear in the About dialog
-    aboutData.setTranslator( i18nc( "NAME OF TRANSLATORS", "Your names" ), i18nc( "EMAIL OF TRANSLATORS", "Your emails" ) );
+    aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
     KAboutData::setApplicationData(aboutData);
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kget")));
 
@@ -144,14 +143,10 @@ int main(int argc, char *argv[])
     KDBusService dbusService(KDBusService::Unique);
 
     Kdelibs4ConfigMigrator migrate(QStringLiteral("kget"));
-    migrate.setConfigFiles(QStringList() << QStringLiteral("kgetrc")
-        << QStringLiteral("kget_bittorrentfactory.rc")
-        << QStringLiteral("kget_checksumsearchfactory.rc")
-        << QStringLiteral("kget_metalinkfactory.rc")
-        << QStringLiteral("kget_mirrorsearchfactory.rc")
-        << QStringLiteral("kget_mmsfactory.rc")
-        << QStringLiteral("kget_multisegkiofactory.rc")
-        << QStringLiteral("kget.notifyrc"));
+    migrate.setConfigFiles(QStringList() << QStringLiteral("kgetrc") << QStringLiteral("kget_bittorrentfactory.rc")
+                                         << QStringLiteral("kget_checksumsearchfactory.rc") << QStringLiteral("kget_metalinkfactory.rc")
+                                         << QStringLiteral("kget_mirrorsearchfactory.rc") << QStringLiteral("kget_mmsfactory.rc")
+                                         << QStringLiteral("kget_multisegkiofactory.rc") << QStringLiteral("kget.notifyrc"));
     if (migrate.migrate()) {
         Kdelibs4Migration dataMigrator;
         const QString sourceBasePath = dataMigrator.saveLocation("data", QStringLiteral("kget"));
@@ -165,8 +160,7 @@ int main(int argc, char *argv[])
             if (!targetDir.exists()) {
                 QDir().mkpath(targetBasePath);
             }
-            QStringList fileNames = sourceDir.entryList(
-                QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
+            QStringList fileNames = sourceDir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
             foreach (const QString &fileName, fileNames) {
                 targetFilePath = targetBasePath + fileName;
                 if (!QFile::exists(targetFilePath)) {

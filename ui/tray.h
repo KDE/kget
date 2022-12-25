@@ -17,18 +17,18 @@ class MainWindow;
 class KGet;
 
 /**
-  * This class implements the main tray icon for kget. It has a popup
-  * from which the user can open a new transfer, configure kget, 
-  * minimize/restore or quit the app (default behavior).
-  *
-  * @short KGet's system tray icon.
-  **/
+ * This class implements the main tray icon for kget. It has a popup
+ * from which the user can open a new transfer, configure kget,
+ * minimize/restore or quit the app (default behavior).
+ *
+ * @short KGet's system tray icon.
+ **/
 
 class Tray : public KStatusNotifierItem
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    Tray( MainWindow * parent );
+    Tray(MainWindow *parent);
 
     void setDownloading(bool downloading);
     bool isDownloading();

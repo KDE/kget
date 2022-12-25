@@ -15,11 +15,11 @@
 #include <KCategoryDrawer>
 #include <QDebug>
 
-#include <QGridLayout>
-#include <QStandardItemModel>
-#include <QStandardItem>
-#include <QVariant>
 #include <QApplication>
+#include <QGridLayout>
+#include <QStandardItem>
+#include <QStandardItemModel>
+#include <QVariant>
 
 TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     : QWidget(parent)
@@ -71,8 +71,7 @@ void TransferHistoryCategorizedView::addData(const QDate &date, const QString &u
     m_model->appendRow(item);
 }
 
-QVariant TransferHistoryCategorizedView::data(const QModelIndex &index, 
-                                             TransferHistoryCategorizedDelegate::AlternativeRoles role) const
+QVariant TransferHistoryCategorizedView::data(const QModelIndex &index, TransferHistoryCategorizedDelegate::AlternativeRoles role) const
 {
     return m_model->itemFromIndex(m_proxyModel->mapToSource(index))->data(role);
 }
@@ -102,7 +101,7 @@ void TransferHistoryCategorizedView::removeRow(int row, const QModelIndex &paren
 
 void TransferHistoryCategorizedView::update()
 {
-    for(int i=0; i<m_model->rowCount(); i++) {
+    for (int i = 0; i < m_model->rowCount(); i++) {
         QStandardItem *item = m_model->item(i, 0);
 
         m_delegate->categorizeItem(item);
@@ -116,5 +115,3 @@ void TransferHistoryCategorizedView::update()
     m_view->setModel(m_proxyModel);
     oldProxy->deleteLater();
 }
-
-

@@ -16,8 +16,8 @@
 
 mirror::mirror()
 {
-    if( !MirrorSearchSettings::searchEnginesUrlList().isEmpty())
-       m_search_engine = MirrorSearchSettings::searchEnginesUrlList().takeFirst();
+    if (!MirrorSearchSettings::searchEnginesUrlList().isEmpty())
+        m_search_engine = MirrorSearchSettings::searchEnginesUrlList().takeFirst();
 }
 
 void mirror::search(const QUrl &url, QObject *receiver, const char *member)
@@ -25,28 +25,25 @@ void mirror::search(const QUrl &url, QObject *receiver, const char *member)
     qCDebug(KGET_DEBUG);
 
     m_url = url;
-    if (m_url.path() != m_url.fileName())
-    {
+    if (m_url.path() != m_url.fileName()) {
         m_Urls << m_url;
     }
 
-    search(m_url.fileName(),receiver,member);
+    search(m_url.fileName(), receiver, member);
 }
 
 void mirror::search(const QString &fileName, QObject *receiver, const char *member)
 {
     qCDebug(KGET_DEBUG);
 
-    QUrl search(m_search_engine.replace("${filename}",fileName));
+    QUrl search(m_search_engine.replace("${filename}", fileName));
     m_job = KIO::get(search, KIO::NoReload, KIO::HideProgressInfo);
-    connect(m_job,&KIO::TransferJob::data,
-               this, &mirror::slotData);
-    connect(m_job,&KJob::result,
-               this, &mirror::slotResult);
-    connect(this,SIGNAL(urls(QList<QUrl>&)),receiver,member);
+    connect(m_job, &KIO::TransferJob::data, this, &mirror::slotData);
+    connect(m_job, &KJob::result, this, &mirror::slotResult);
+    connect(this, SIGNAL(urls(QList<QUrl> &)), receiver, member);
 }
 
-void mirror::slotData(KIO::Job *, const QByteArray& data)
+void mirror::slotData(KIO::Job *, const QByteArray &data)
 {
     qCDebug(KGET_DEBUG);
     if (data.size() == 0)
@@ -54,14 +51,13 @@ void mirror::slotData(KIO::Job *, const QByteArray& data)
     m_data.append(data);
 }
 
-void mirror::slotResult( KJob *job )
+void mirror::slotResult(KJob *job)
 {
     qCDebug(KGET_DEBUG);
     m_job = nullptr;
     int minUrlsNeeded = static_cast<int>(!m_Urls.isEmpty());
 
-    if( job->error() )
-    {
+    if (job->error()) {
         deleteLater();
         return;
     }
@@ -69,18 +65,16 @@ void mirror::slotResult( KJob *job )
 
     int start = 0, posOfTagA = 0, posOfTagHref = 0, hrefEnd = 0;
 
-    while ((posOfTagA = str.indexOf("<a " , start, Qt::CaseInsensitive)) != -1 )
-    {
+    while ((posOfTagA = str.indexOf("<a ", start, Qt::CaseInsensitive)) != -1) {
         posOfTagHref = str.indexOf("href=\"", posOfTagA, Qt::CaseInsensitive);
-        hrefEnd = str.indexOf("\"",posOfTagHref + 6,Qt::CaseInsensitive);
-        QString u = str.mid(posOfTagHref + 6, (hrefEnd - posOfTagHref -6));
+        hrefEnd = str.indexOf("\"", posOfTagHref + 6, Qt::CaseInsensitive);
+        QString u = str.mid(posOfTagHref + 6, (hrefEnd - posOfTagHref - 6));
 
         start = hrefEnd + 1;
-            if ( u.endsWith( '/' + m_url.fileName() ) )
-            {
-                m_Urls << QUrl(u);
-                qCDebug(KGET_DEBUG) << "url: " << u;
-            }
+        if (u.endsWith('/' + m_url.fileName())) {
+            m_Urls << QUrl(u);
+            qCDebug(KGET_DEBUG) << "url: " << u;
+        }
     }
 
     if (m_Urls.size() > minUrlsNeeded)
@@ -88,16 +82,14 @@ void mirror::slotResult( KJob *job )
     deleteLater();
 }
 
-void MirrorSearch ( const QUrl &url, QObject *receiver, const char *member )
+void MirrorSearch(const QUrl &url, QObject *receiver, const char *member)
 {
     auto *searcher = new mirror();
     searcher->search(url, receiver, member);
 }
 
-void MirrorSearch ( const QString &fileName, QObject *receiver, const char *member )
+void MirrorSearch(const QString &fileName, QObject *receiver, const char *member)
 {
     auto *searcher = new mirror();
     searcher->search(fileName, receiver, member);
 }
-
-

@@ -7,7 +7,7 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
- 
+
 #include "mirrorsearchtransferdatasource.h"
 #include "mirrors.h"
 
@@ -15,7 +15,7 @@
 #include <QDebug>
 
 MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const QUrl &srcUrl, QObject *parent)
-  : TransferDataSource(srcUrl, parent)
+    : TransferDataSource(srcUrl, parent)
 {
     m_filename = m_sourceUrl.fileName();
     qCDebug(KGET_DEBUG) << m_filename;
@@ -24,8 +24,8 @@ MirrorSearchTransferDataSource::MirrorSearchTransferDataSource(const QUrl &srcUr
 void MirrorSearchTransferDataSource::start()
 {
     qCDebug(KGET_DEBUG);
-    if(!m_filename.isEmpty())
-        MirrorSearch (m_filename, this, SLOT(slotSearchUrls(QList<QUrl>&)));
+    if (!m_filename.isEmpty())
+        MirrorSearch(m_filename, this, SLOT(slotSearchUrls(QList<QUrl> &)));
 }
 
 void MirrorSearchTransferDataSource::stop()
@@ -40,9 +40,7 @@ void MirrorSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t, 
     qCDebug(KGET_DEBUG);
 }
 
-void MirrorSearchTransferDataSource::slotSearchUrls(QList<QUrl>& Urls)
+void MirrorSearchTransferDataSource::slotSearchUrls(QList<QUrl> &Urls)
 {
     Q_EMIT data(Urls);
 }
-
-

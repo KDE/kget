@@ -10,8 +10,8 @@
 */
 
 #include "transferKio.h"
-#include "core/verifier.h"
 #include "core/signature.h"
+#include "core/verifier.h"
 #include "settings.h"
 
 #ifdef Q_OS_WIN
@@ -23,29 +23,27 @@
 #include "kget_debug.h"
 #include <QDebug>
 
-#include <kwidgetsaddons_version.h>
-#include <KIO/Scheduler>
-#include <KIO/DeleteJob>
 #include <KIO/CopyJob>
+#include <KIO/DeleteJob>
+#include <KIO/Scheduler>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <kwidgetsaddons_version.h>
 
-#include <QFile>
 #include <QDomElement>
+#include <QFile>
 
-TransferKio::TransferKio(TransferGroup * parent, TransferFactory * factory,
-                         Scheduler * scheduler, const QUrl & source, const QUrl & dest,
-                         const QDomElement * e)
-    : Transfer(parent, factory, scheduler, source, dest, e),
-      m_copyjob(nullptr),
-      m_movingFile(false),
-      m_verifier(nullptr),
-      m_signature(nullptr)
+TransferKio::TransferKio(TransferGroup *parent, TransferFactory *factory, Scheduler *scheduler, const QUrl &source, const QUrl &dest, const QDomElement *e)
+    : Transfer(parent, factory, scheduler, source, dest, e)
+    , m_copyjob(nullptr)
+    , m_movingFile(false)
+    , m_verifier(nullptr)
+    , m_signature(nullptr)
 {
-    setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming);//TODO check if it really can resume
+    setCapabilities(Transfer::Cap_Moving | Transfer::Cap_Renaming | Transfer::Cap_Resuming); // TODO check if it really can resume
 }
 
-bool TransferKio::setDirectory(const QUrl& newDirectory)
+bool TransferKio::setDirectory(const QUrl &newDirectory)
 {
     QUrl newDest = newDirectory;
     newDest.setPath(newDest.adjusted(QUrl::RemoveFilename).toString() + m_dest.fileName());
@@ -71,10 +69,11 @@ bool TransferKio::setNewDestination(const QUrl &newDestination)
                 m_signature->setDestination(newDestination);
             }
 
-            KIO::Job *move = KIO::file_move(QUrl::fromLocalFile(oldPath), QUrl::fromLocalFile(newDestination.toLocalFile() + ".part"), -1, KIO::HideProgressInfo);
+            KIO::Job *move =
+                KIO::file_move(QUrl::fromLocalFile(oldPath), QUrl::fromLocalFile(newDestination.toLocalFile() + ".part"), -1, KIO::HideProgressInfo);
             connect(move, &KJob::result, this, &TransferKio::newDestResult);
             connect(move, &KJob::infoMessage, this, &TransferKio::slotInfoMessage);
-            connect(move, SIGNAL(percent(KJob*,ulong)), this, SLOT(slotPercent(KJob*,ulong)));
+            connect(move, SIGNAL(percent(KJob *, ulong)), this, SLOT(slotPercent(KJob *, ulong)));
 
             return true;
         }
@@ -84,7 +83,7 @@ bool TransferKio::setNewDestination(const QUrl &newDestination)
 
 void TransferKio::newDestResult(KJob *result)
 {
-    Q_UNUSED(result)//TODO handle errors etc.!
+    Q_UNUSED(result) // TODO handle errors etc.!
     m_movingFile = false;
     start();
     setTransferChange(Tc_FileName);
@@ -94,11 +93,13 @@ void TransferKio::start()
 {
     if (!m_movingFile && (status() != Finished)) {
         m_stopped = false;
-        if(!m_copyjob)
+        if (!m_copyjob)
             createJob();
 
         qCDebug(KGET_DEBUG) << "TransferKio::start";
-        setStatus(Job::Running, i18nc("transfer state: connecting", "Connecting...."), "network-connect"); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
+        setStatus(Job::Running,
+                  i18nc("transfer state: connecting", "Connecting...."),
+                  "network-connect"); // should be "network-connecting", but that doesn't exist for KDE 4.0 yet
         setTransferChange(Tc_Status, true);
     }
 }
@@ -111,10 +112,9 @@ void TransferKio::stop()
 
     m_stopped = true;
 
-    if(m_copyjob)
-    {
+    if (m_copyjob) {
         m_copyjob->kill(KJob::EmitResult);
-        m_copyjob=nullptr;
+        m_copyjob = nullptr;
     }
 
     qCDebug(KGET_DEBUG) << "Stop";
@@ -125,67 +125,60 @@ void TransferKio::stop()
 
 void TransferKio::deinit(Transfer::DeleteOptions options)
 {
-    if (options & DeleteFiles)//if the transfer is not finished, we delete the *.part-file
+    if (options & DeleteFiles) // if the transfer is not finished, we delete the *.part-file
     {
         KIO::Job *del = KIO::del(QUrl::fromLocalFile(m_dest.path() + ".part"), KIO::HideProgressInfo);
         if (!del->exec()) {
             qCDebug(KGET_DEBUG) << "Could not delete part " << QString(m_dest.path() + ".part");
         }
-    }//TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
+    } // TODO: Ask the user if he/she wants to delete the *.part-file? To discuss (boom1992)
 }
 
-//NOTE: INTERNAL METHODS
+// NOTE: INTERNAL METHODS
 
 void TransferKio::createJob()
 {
-    if(!m_copyjob)
-    {
+    if (!m_copyjob) {
         KIO::Scheduler::checkSlaveOnHold(true);
         m_copyjob = KIO::file_copy(m_source, m_dest, -1, KIO::HideProgressInfo);
 
-        connect(m_copyjob, &KJob::result, 
-                this, &TransferKio::slotResult);
-        connect(m_copyjob, &KJob::infoMessage, 
-                this, &TransferKio::slotInfoMessage);
-        connect(m_copyjob, SIGNAL(percent(KJob*,ulong)), 
-                this, SLOT(slotPercent(KJob*,ulong)));
-        connect(m_copyjob, &KJob::totalSize, 
-                this, &TransferKio::slotTotalSize);
-        connect(m_copyjob, &KJob::processedSize, 
-                this, &TransferKio::slotProcessedSize);
-        connect(m_copyjob, &KJob::speed, 
-                this, &TransferKio::slotSpeed);
+        connect(m_copyjob, &KJob::result, this, &TransferKio::slotResult);
+        connect(m_copyjob, &KJob::infoMessage, this, &TransferKio::slotInfoMessage);
+        connect(m_copyjob, SIGNAL(percent(KJob *, ulong)), this, SLOT(slotPercent(KJob *, ulong)));
+        connect(m_copyjob, &KJob::totalSize, this, &TransferKio::slotTotalSize);
+        connect(m_copyjob, &KJob::processedSize, this, &TransferKio::slotProcessedSize);
+        connect(m_copyjob, &KJob::speed, this, &TransferKio::slotSpeed);
     }
 }
 
-void TransferKio::slotResult( KJob * kioJob )
+void TransferKio::slotResult(KJob *kioJob)
 {
     qCDebug(KGET_DEBUG) << "slotResult  (" << kioJob->error() << ")";
     switch (kioJob->error()) {
-        case 0:                            //The download has finished
-        case KIO::ERR_FILE_ALREADY_EXIST:  //The file has already been downloaded.
-            setStatus(Job::Finished);
+    case 0: // The download has finished
+    case KIO::ERR_FILE_ALREADY_EXIST: // The file has already been downloaded.
+        setStatus(Job::Finished);
         // "ok" icon should probably be "dialog-success", but we don't have that icon in KDE 4.0
-            m_percent = 100;
-            m_downloadSpeed = 0;
-            m_downloadedSize = m_totalSize;
-            setTransferChange(Tc_Percent | Tc_DownloadSpeed);
-            break;
-        default:
-            //There has been an error
-            qCDebug(KGET_DEBUG) << "--  E R R O R  (" << kioJob->error() << ")--";
-            if (!m_stopped)
-                setStatus(Job::Aborted);
-            break;
+        m_percent = 100;
+        m_downloadSpeed = 0;
+        m_downloadedSize = m_totalSize;
+        setTransferChange(Tc_Percent | Tc_DownloadSpeed);
+        break;
+    default:
+        // There has been an error
+        qCDebug(KGET_DEBUG) << "--  E R R O R  (" << kioJob->error() << ")--";
+        if (!m_stopped)
+            setStatus(Job::Aborted);
+        break;
     }
     // when slotResult gets called, the m_copyjob has already been deleted!
-    m_copyjob=nullptr;
+    m_copyjob = nullptr;
 
     // If it is an ftp file, there's still work to do
     Transfer::ChangesFlags flags = (m_source.scheme() != "ftp") ? Tc_Status : Tc_None;
     if (status() == Job::Finished) {
         if (!m_totalSize) {
-            //downloaded elsewhere already, e.g. Konqueror
+            // downloaded elsewhere already, e.g. Konqueror
             if (!m_downloadedSize) {
                 QFile file(m_dest.toLocalFile() + ".part");
                 m_downloadedSize = file.size();
@@ -206,7 +199,7 @@ void TransferKio::slotResult( KJob * kioJob )
     }
 
     if (m_source.scheme() == "ftp") {
-        KIO::StatJob * statJob = KIO::stat(m_source);
+        KIO::StatJob *statJob = KIO::stat(m_source);
         connect(statJob, &KJob::result, this, &TransferKio::slotStatResult);
         statJob->start();
     }
@@ -214,13 +207,13 @@ void TransferKio::slotResult( KJob * kioJob )
     setTransferChange(flags, true);
 }
 
-void TransferKio::slotInfoMessage( KJob * kioJob, const QString & msg )
+void TransferKio::slotInfoMessage(KJob *kioJob, const QString &msg)
 {
-  Q_UNUSED(kioJob)
+    Q_UNUSED(kioJob)
     m_log.append(QString(msg));
 }
 
-void TransferKio::slotPercent( KJob * kioJob, unsigned long percent )
+void TransferKio::slotPercent(KJob *kioJob, unsigned long percent)
 {
     qCDebug(KGET_DEBUG) << "slotPercent";
     Q_UNUSED(kioJob)
@@ -228,7 +221,7 @@ void TransferKio::slotPercent( KJob * kioJob, unsigned long percent )
     setTransferChange(Tc_Percent, true);
 }
 
-void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
+void TransferKio::slotTotalSize(KJob *kioJob, qulonglong size)
 {
     Q_UNUSED(kioJob)
 
@@ -240,14 +233,13 @@ void TransferKio::slotTotalSize( KJob * kioJob, qulonglong size )
     setTransferChange(Tc_Status | Tc_TotalSize, true);
 }
 
-void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
+void TransferKio::slotProcessedSize(KJob *kioJob, qulonglong size)
 {
     Q_UNUSED(kioJob)
 
-//     qCDebug(KGET_DEBUG) << "slotProcessedSize";
+    //     qCDebug(KGET_DEBUG) << "slotProcessedSize";
 
-    if(status() != Job::Running)
-    {
+    if (status() != Job::Running) {
         setStatus(Job::Running);
         setTransferChange(Tc_Status);
     }
@@ -255,20 +247,18 @@ void TransferKio::slotProcessedSize( KJob * kioJob, qulonglong size )
     setTransferChange(Tc_DownloadedSize, true);
 }
 
-void TransferKio::slotSpeed( KJob * kioJob, unsigned long bytes_per_second )
+void TransferKio::slotSpeed(KJob *kioJob, unsigned long bytes_per_second)
 {
     Q_UNUSED(kioJob)
 
-//     qCDebug(KGET_DEBUG) << "slotSpeed";
+    //     qCDebug(KGET_DEBUG) << "slotSpeed";
 
-    if(status() != Job::Running)
-    {
+    if (status() != Job::Running) {
         if (m_movingFile)
             setStatus(Job::Moving);
         else
             setStatus(Job::Running);
         setTransferChange(Tc_Status);
-
     }
 
     m_downloadSpeed = bytes_per_second;
@@ -292,10 +282,10 @@ void TransferKio::slotVerified(bool isVerified)
 #else
         if (KMessageBox::warningYesNo(nullptr,
 #endif
-                                      text,
-                                      i18n("Verification failed."),
-                                      action,
-                                      KGuiItem(i18n("Ignore"), QStringLiteral("dialog-cancel")))
+                                           text,
+                                           i18n("Verification failed."),
+                                           action,
+                                           KGuiItem(i18n("Ignore"), QStringLiteral("dialog-cancel")))
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             == KMessageBox::PrimaryAction) {
 #else
@@ -306,9 +296,9 @@ void TransferKio::slotVerified(bool isVerified)
     }
 }
 
-void TransferKio::slotStatResult(KJob* kioJob)
+void TransferKio::slotStatResult(KJob *kioJob)
 {
-    auto * statJob = qobject_cast<KIO::StatJob *>(kioJob);
+    auto *statJob = qobject_cast<KIO::StatJob *>(kioJob);
 
     if (!statJob->error()) {
         const KIO::UDSEntry entryResult = statJob->statResult();
@@ -323,17 +313,14 @@ void TransferKio::slotStatResult(KJob* kioJob)
     setTransferChange(Tc_Status, true);
 }
 
-
 bool TransferKio::repair(const QUrl &file)
 {
     Q_UNUSED(file)
 
-    if (verifier()->status() == Verifier::NotVerified)
-    {
+    if (verifier()->status() == Verifier::NotVerified) {
         m_downloadedSize = 0;
         m_percent = 0;
-        if(m_copyjob)
-        {
+        if (m_copyjob) {
             m_copyjob->kill(KJob::Quietly);
             m_copyjob = nullptr;
         }
@@ -351,8 +338,7 @@ Verifier *TransferKio::verifier(const QUrl &file)
 {
     Q_UNUSED(file)
 
-    if (!m_verifier)
-    {
+    if (!m_verifier) {
         m_verifier = new Verifier(m_dest, this);
         connect(m_verifier, &Verifier::verified, this, &TransferKio::slotVerified);
     }
@@ -367,8 +353,6 @@ Signature *TransferKio::signature(const QUrl &file)
     if (!m_signature) {
         m_signature = new Signature(m_dest, this);
     }
-    
+
     return m_signature;
 }
-
-

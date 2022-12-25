@@ -19,14 +19,14 @@
 class TransfersGroupWidget : public QWidget
 {
     Q_OBJECT
-    public:
-        TransfersGroupWidget(QWidget *parent = nullptr);
+public:
+    TransfersGroupWidget(QWidget *parent = nullptr);
 
-    private Q_SLOTS:
-        void slotSelectionChanged();
+private Q_SLOTS:
+    void slotSelectionChanged();
 
-    private:
-        Ui::DlgGroups ui;
+private:
+    Ui::DlgGroups ui;
 };
 
 #endif

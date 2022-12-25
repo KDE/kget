@@ -20,20 +20,20 @@ class KConfigSkeleton;
 class PreferencesDialog : public KConfigDialog
 {
     Q_OBJECT
-    public:
-        PreferencesDialog( QWidget * parent, KConfigSkeleton * config );
+public:
+    PreferencesDialog(QWidget *parent, KConfigSkeleton *config);
 
-    Q_SIGNALS:
-        void resetDefaults();
+Q_SIGNALS:
+    void resetDefaults();
 
-    private Q_SLOTS:
-        void slotToggleAfterFinishAction(int state);
-        void disableApplyButton();
-        void enableApplyButton();
-        void updateWidgetsDefault() override;
+private Q_SLOTS:
+    void slotToggleAfterFinishAction(int state);
+    void disableApplyButton();
+    void enableApplyButton();
+    void updateWidgetsDefault() override;
 
-    private:
-        Ui::DlgAdvanced dlgAdv;
+private:
+    Ui::DlgAdvanced dlgAdv;
 };
 
 #endif

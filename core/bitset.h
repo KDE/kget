@@ -20,57 +20,61 @@
 #ifndef BTBITSET_H
 #define BTBITSET_H
 
-#include <kget_export.h>
 #include <QObject>
+#include <kget_export.h>
 /**
-  * @author Joris Guisson
-  * @brief Simple implementation of a BitSet
-  * 
-  * Simple implementation of a BitSet, can only turn on and off bits.
-  * BitSet's are used to indicate which chunks we have or not.
-  */
+ * @author Joris Guisson
+ * @brief Simple implementation of a BitSet
+ *
+ * Simple implementation of a BitSet, can only turn on and off bits.
+ * BitSet's are used to indicate which chunks we have or not.
+ */
 class KGET_EXPORT BitSet
 {
-	quint32 num_bits,num_bytes;
-	quint8* data;
-	quint32 num_on;
-public:
-	/**
-	  * Constructor.
-	  * @param num_bits The number of bits
-	  */
-	BitSet(quint32 num_bits = 8);
-	
-	/**
-	  * Manually set data.
-	  * @param data The data
-	  * @param num_bits The number of bits
-	  */
-	BitSet(const quint8* data,quint32 num_bits);
-	
-	/**
-	  * Copy constructor.
-	  * @param bs BitSet to copy
-	  * @return 
-	  */
-	BitSet(const BitSet & bs);
-	virtual ~BitSet();
+    quint32 num_bits, num_bytes;
+    quint8 *data;
+    quint32 num_on;
 
-	/// See if the BitSet is null
-	bool isNull() const {return num_bits == 0;}
-	
-	/**
-	  * Get the value of a bit, false means 0, true 1.
-	  * @param i Index of Bit
-	  */
-	bool get(quint32 i) const;
-	
-	/**
-	  * Set the value of a bit, false means 0, true 1.
-	  * @param i Index of Bit
-	  * @param on False means 0, true 1
-	  */
-	void set(quint32 i,bool on);
+public:
+    /**
+     * Constructor.
+     * @param num_bits The number of bits
+     */
+    BitSet(quint32 num_bits = 8);
+
+    /**
+     * Manually set data.
+     * @param data The data
+     * @param num_bits The number of bits
+     */
+    BitSet(const quint8 *data, quint32 num_bits);
+
+    /**
+     * Copy constructor.
+     * @param bs BitSet to copy
+     * @return
+     */
+    BitSet(const BitSet &bs);
+    virtual ~BitSet();
+
+    /// See if the BitSet is null
+    bool isNull() const
+    {
+        return num_bits == 0;
+    }
+
+    /**
+     * Get the value of a bit, false means 0, true 1.
+     * @param i Index of Bit
+     */
+    bool get(quint32 i) const;
+
+    /**
+     * Set the value of a bit, false means 0, true 1.
+     * @param i Index of Bit
+     * @param on False means 0, true 1
+     */
+    void set(quint32 i, bool on);
 
     /**
      * Sets the value of a range of bits
@@ -79,17 +83,32 @@ public:
      * @param value to set the range to
      */
     void setRange(quint32 start, quint32 end, bool value);
-	
-	/// Set all bits on or off
-	void setAll(bool on);
-	
-	quint32 getNumBytes() const {return num_bytes;}
-	quint32 getNumBits() const {return num_bits;}
-	const quint8* getData() const {return data;}
-	quint8* getData() {return data;}
 
-	/// Get the number of on bits
-	quint32 numOnBits() const {return num_on;}
+    /// Set all bits on or off
+    void setAll(bool on);
+
+    quint32 getNumBytes() const
+    {
+        return num_bytes;
+    }
+    quint32 getNumBits() const
+    {
+        return num_bits;
+    }
+    const quint8 *getData() const
+    {
+        return data;
+    }
+    quint8 *getData()
+    {
+        return data;
+    }
+
+    /// Get the number of on bits
+    quint32 numOnBits() const
+    {
+        return num_on;
+    }
 
     /**
      * Finds a continuous range of bits that on/off
@@ -98,73 +117,73 @@ public:
      * @param on whether a continuous range of bits on (set) or off (not set) should be searched for
      */
     void getContinuousRange(qint32 *start, qint32 *end, bool on);
-	
-	/**
-	  * Set all bits to 0
-	  */
-	void clear();
 
-	/**
-	  * or this BitSet with another.
-	  * @param other The other BitSet
-	  */
-	void orBitSet(const BitSet & other);
-	
-	/**
-	  * Assignment operator.
-	  * @param bs BitSet to copy
-	  * @return *this
-	  */
-	BitSet & operator = (const BitSet & bs);
+    /**
+     * Set all bits to 0
+     */
+    void clear();
 
-	/// Check if all bit are set to 1
-	bool allOn() const;
+    /**
+     * or this BitSet with another.
+     * @param other The other BitSet
+     */
+    void orBitSet(const BitSet &other);
+
+    /**
+     * Assignment operator.
+     * @param bs BitSet to copy
+     * @return *this
+     */
+    BitSet &operator=(const BitSet &bs);
+
+    /// Check if all bit are set to 1
+    bool allOn() const;
     bool allOff() const;
 
-	/**
-	  * Check for equality of bitsets
-	  * @param bs BitSet to compare
-	  * @return true if equal 
-	  */
-	bool operator == (const BitSet & bs);
-	
-	/**
-	  * Opposite of operator == 
-	  */
-	bool operator != (const BitSet & bs) {return ! operator == (bs);}
+    /**
+     * Check for equality of bitsets
+     * @param bs BitSet to compare
+     * @return true if equal
+     */
+    bool operator==(const BitSet &bs);
 
-	static BitSet null;
+    /**
+     * Opposite of operator ==
+     */
+    bool operator!=(const BitSet &bs)
+    {
+        return !operator==(bs);
+    }
+
+    static BitSet null;
 };
 
 inline bool BitSet::get(quint32 i) const
 {
-	if (i >= num_bits)
-		return false;
-	
-	quint32 byte = i / 8;
-	quint32 bit = i % 8;
-	quint8 b = data[byte] & (0x01 << (7 - bit));
-	return b != 0x00;
+    if (i >= num_bits)
+        return false;
+
+    quint32 byte = i / 8;
+    quint32 bit = i % 8;
+    quint8 b = data[byte] & (0x01 << (7 - bit));
+    return b != 0x00;
 }
 
-inline void BitSet::set(quint32 i,bool on)
+inline void BitSet::set(quint32 i, bool on)
 {
-	if (i >= num_bits)
-		return;
-	
-	quint32 byte = i / 8;
-	quint32 bit = i % 8;
-	if (on && !get(i))
-	{
-		num_on++;
-		data[byte] |= (0x01 << (7 - bit));
-	}
-	else if (!on && get(i))
-	{
-		num_on--;
-		quint8 b = (0x01 << (7 - bit));
-		data[byte] &= (~b);
-	}
+    if (i >= num_bits)
+        return;
+
+    quint32 byte = i / 8;
+    quint32 bit = i % 8;
+    if (on && !get(i)) {
+        num_on++;
+        data[byte] |= (0x01 << (7 - bit));
+    } else if (!on && get(i)) {
+        num_on--;
+        quint8 b = (0x01 << (7 - bit));
+        data[byte] &= (~b);
+    }
 }
 
 inline void BitSet::setRange(quint32 start, quint32 end, bool value)

@@ -20,54 +20,53 @@
 #ifndef KT_CHUNKDOWNLOADVIEW_HH
 #define KT_CHUNKDOWNLOADVIEW_HH
 
-#include <QTreeWidget>
 #include <KSharedConfig>
+#include <QTreeWidget>
 
-#include <interfaces/chunkdownloadinterface.h>
 #include "ui_chunkdownloadview.h"
-
+#include <interfaces/chunkdownloadinterface.h>
 
 namespace bt
 {
-	class TorrentInterface;
+class TorrentInterface;
 }
 
 namespace kt
 {
-	class ChunkDownloadModel;
+class ChunkDownloadModel;
 
+/**
+ * View which shows a list of downloading chunks, of a torrent.
+ * */
+class ChunkDownloadView : public QWidget, public Ui_ChunkDownloadView
+{
+    Q_OBJECT
+public:
+    ChunkDownloadView(QWidget *parent);
+    ~ChunkDownloadView() override;
 
-	/**
-	 * View which shows a list of downloading chunks, of a torrent.
-	 * */
-	class ChunkDownloadView : public QWidget,public Ui_ChunkDownloadView
-	{
-		Q_OBJECT
-	public:
-		ChunkDownloadView(QWidget* parent);
-		~ChunkDownloadView() override;
+    /// A peer has been added
+    void downloadAdded(bt::ChunkDownloadInterface *cd);
 
-		/// A peer has been added
-		void downloadAdded(bt::ChunkDownloadInterface* cd);
+    /// A download has been removed
+    void downloadRemoved(bt::ChunkDownloadInterface *cd);
 
-		/// A download has been removed
-		void downloadRemoved(bt::ChunkDownloadInterface* cd);
+    /// Check to see if the GUI needs to be updated
+    void update();
 
-		/// Check to see if the GUI needs to be updated
-		void update();
+    /// Change the torrent to display
+    void changeTC(bt::TorrentInterface *tc);
 
-		/// Change the torrent to display
-		void changeTC(bt::TorrentInterface* tc);
+    /// Remove all items
+    void removeAll();
 
-		/// Remove all items
-		void removeAll();
-		
-		void saveState(KSharedConfigPtr cfg);
-		void loadState(KSharedConfigPtr cfg);
-	private:
-		bt::TorrentInterface* curr_tc;
-		ChunkDownloadModel* model;
-	};
+    void saveState(KSharedConfigPtr cfg);
+    void loadState(KSharedConfigPtr cfg);
+
+private:
+    bt::TorrentInterface *curr_tc;
+    ChunkDownloadModel *model;
+};
 }
 
 #endif

@@ -17,9 +17,9 @@ class TransferTreeSelectionModel : public QItemSelectionModel
 {
     Q_OBJECT
 
-    public:
-        TransferTreeSelectionModel(QAbstractItemModel * model);
-        ~TransferTreeSelectionModel() override;
+public:
+    TransferTreeSelectionModel(QAbstractItemModel *model);
+    ~TransferTreeSelectionModel() override;
 };
 
 #endif

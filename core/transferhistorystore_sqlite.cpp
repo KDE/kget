@@ -17,13 +17,14 @@
 #include <QSqlRecord>
 
 #include <QFile>
-    
+
 #include "kget_debug.h"
 #include <QDebug>
 
-SQLiteStore::SQLiteStore(const QString &database) : TransferHistoryStore(),
-    m_dbName(database),
-    m_sql()
+SQLiteStore::SQLiteStore(const QString &database)
+    : TransferHistoryStore()
+    , m_dbName(database)
+    , m_sql()
 {
 }
 
@@ -46,8 +47,7 @@ void SQLiteStore::load()
 
         if (query.lastError().isValid()) {
             qCDebug(KGET_DEBUG) << query.lastError().text();
-        }
-        else {
+        } else {
             QSqlRecord rec = query.record();
 
             while (query.next()) {
@@ -91,11 +91,11 @@ void SQLiteStore::saveItems(const QList<TransferHistoryItem> &items)
         }
 
         foreach (const TransferHistoryItem &item, items) {
-            QSqlQuery query = sql().exec("insert into transfer_history_item(source, dest, size, time, state)"
-                                "values ('"+item.source()+"', '"+item.dest()+"', "
-                                + QString::number(item.size()) + ", "
-                                + QString::number(item.dateTime().toSecsSinceEpoch()) + ", '"
-                                + QString::number(item.state())+"')");
+            QSqlQuery query = sql().exec(
+                "insert into transfer_history_item(source, dest, size, time, state)"
+                "values ('"
+                + item.source() + "', '" + item.dest() + "', " + QString::number(item.size()) + ", " + QString::number(item.dateTime().toSecsSinceEpoch())
+                + ", '" + QString::number(item.state()) + "')");
 
             if (query.lastError().isValid()) {
                 qCDebug(KGET_DEBUG) << query.lastError().text();
@@ -119,8 +119,10 @@ void SQLiteStore::deleteItem(const TransferHistoryItem &item)
             createTables();
         }
 
-        QSqlQuery query = sql().exec("delete from transfer_history_item where "
-                                            " source = '" + item.source() + "';");
+        QSqlQuery query = sql().exec(
+            "delete from transfer_history_item where "
+            " source = '"
+            + item.source() + "';");
 
         if (query.lastError().isValid()) {
             qCDebug(KGET_DEBUG) << query.lastError().text();
@@ -146,9 +148,10 @@ QSqlDatabase SQLiteStore::sql()
 
 void SQLiteStore::createTables()
 {
-    QSqlQuery query = sql().exec("CREATE TABLE transfer_history_item(dest VARCHAR NOT NULL, "
-                                "source VARCHAR NOT NULL, size int NOT NULL, time int not null, "
-                                "state int, PRIMARY KEY(dest, source));");
+    QSqlQuery query = sql().exec(
+        "CREATE TABLE transfer_history_item(dest VARCHAR NOT NULL, "
+        "source VARCHAR NOT NULL, size int NOT NULL, time int not null, "
+        "state int, PRIMARY KEY(dest, source));");
 
     if (query.lastError().isValid()) {
         qCDebug(KGET_DEBUG) << query.lastError().text();
@@ -156,4 +159,3 @@ void SQLiteStore::createTables()
 }
 
 #endif
-

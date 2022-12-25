@@ -22,9 +22,11 @@ public:
     KGetGlobalJob(QObject *parent = nullptr);
     ~KGetGlobalJob() override;
 
-    void update();    
-    
-    void start() override {};
+    void update();
+
+    void start() override
+    {
+    }
 
 Q_SIGNALS:
     /**

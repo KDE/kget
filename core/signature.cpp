@@ -1,32 +1,32 @@
 /**************************************************************************
-*   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
-#include "signature_p.h"
 #include "keydownloader.h"
 #include "settings.h"
+#include "signature_p.h"
 
 #include "kget_debug.h"
 #include <QDebug>
 
-#include <kwidgetsaddons_version.h>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <kwidgetsaddons_version.h>
 
 #include <QDomElement>
 #include <QGlobalStatic>
@@ -41,15 +41,15 @@
 
 #ifdef HAVE_QGPGME
 Q_GLOBAL_STATIC(KeyDownloader, signatureDownloader)
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 
 SignaturePrivate::SignaturePrivate(Signature *signature)
-  : q(signature),
-    type(Signature::NoType),
-    status(Signature::NoResult),
-    verifyTried(false),
-    sigSummary(0),
-    error(0)
+    : q(signature)
+    , type(Signature::NoType)
+    , status(Signature::NoResult)
+    , verifyTried(false)
+    , sigSummary(0)
+    , error(0)
 {
 }
 
@@ -96,18 +96,17 @@ GpgME::VerificationResult SignaturePrivate::verify(const QUrl &dest, const QByte
 
     return context->verifyDetachedSignature(signature, dFile);
 }
-#endif //HAVE_QGPGME
-
+#endif // HAVE_QGPGME
 
 Signature::Signature(const QUrl &dest, QObject *object)
-  : QObject(object),
-    d(new SignaturePrivate(this))
+    : QObject(object)
+    , d(new SignaturePrivate(this))
 {
     d->dest = dest;
 #ifdef HAVE_QGPGME
     qRegisterMetaType<GpgME::VerificationResult>("GpgME::VerificationResult");
     connect(&d->thread, &SignatureThread::verified, this, &Signature::slotVerified);
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 }
 
 Signature::~Signature()
@@ -135,7 +134,7 @@ GpgME::VerificationResult Signature::verificationResult()
 {
     return d->verificationResult;
 }
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 
 QByteArray Signature::signature()
 {
@@ -163,9 +162,9 @@ void Signature::setSignature(const QByteArray &signature, SignatureType type)
 
 #ifdef HAVE_QGPGME
     d->verificationResult = GpgME::VerificationResult();
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 
-    Q_EMIT verified(d->status);//FIXME
+    Q_EMIT verified(d->status); // FIXME
 }
 
 Signature::SignatureType Signature::type() const
@@ -185,7 +184,7 @@ void Signature::downloadKey(QString fingerprint) // krazy:exclude=passbyvalue
     signatureDownloader->downloadKey(fingerprint, this);
 #else
     Q_UNUSED(fingerprint)
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 }
 
 bool Signature::isVerifyable()
@@ -194,14 +193,14 @@ bool Signature::isVerifyable()
     return QFile::exists(d->dest.toDisplayString(QUrl::PreferLocalFile)) && !d->signature.isEmpty();
 #else
     return false;
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 }
 
 void Signature::verify()
 {
 #ifdef HAVE_QGPGME
     d->thread.verify(d->dest, d->signature);
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 }
 
 #ifdef HAVE_QGPGME
@@ -233,13 +232,14 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
 #else
             (KMessageBox::warningYesNo(nullptr,
 #endif
-                 i18n("The key to verify the signature is missing, do you want to download it?"), QString(),
-                 KGuiItem(i18nc("@action:button", "Download"), QStringLiteral("document-save")),
-                 KGuiItem(i18nc("@action:button", "Continue Without"), QStringLiteral("dialog-cancel")))
+                                            i18n("The key to verify the signature is missing, do you want to download it?"),
+                                            QString(),
+                                            KGuiItem(i18nc("@action:button", "Download"), QStringLiteral("document-save")),
+                                            KGuiItem(i18nc("@action:button", "Continue Without"), QStringLiteral("dialog-cancel")))
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-            == KMessageBox::PrimaryAction)) {
+             == KMessageBox::PrimaryAction)) {
 #else
-            == KMessageBox::Yes)) {
+             == KMessageBox::Yes)) {
 #endif
             d->verifyTried = true;
             downloadKey(d->fingerprint);
@@ -258,18 +258,18 @@ void Signature::slotVerified(const GpgME::VerificationResult &result)
         if ((d->sigSummary & GpgME::Signature::KeyExpired) || (d->sigSummary & GpgME::Signature::KeyRevoked)) {
             d->status = Signature::VerifiedWarning;
         }
-        if (d->sigSummary & GpgME::Signature::Red) {//TODO handle more cases!
+        if (d->sigSummary & GpgME::Signature::Red) { // TODO handle more cases!
             d->status = Signature::NotVerified;
-            //TODO handle that dialog better in 4.5
+            // TODO handle that dialog better in 4.5
             KMessageBox::error(nullptr,
-                            i18n("The signature could not be verified for %1. See transfer settings for more information.", d->dest.fileName()),
-                            i18n("Signature not verified"));
+                               i18n("The signature could not be verified for %1. See transfer settings for more information.", d->dest.fileName()),
+                               i18n("Signature not verified"));
         }
     }
 
     Q_EMIT verified(d->status);
 }
-#endif //HAVE_QGPGME
+#endif // HAVE_QGPGME
 
 void Signature::save(const QDomElement &element)
 {
@@ -283,16 +283,15 @@ void Signature::save(const QDomElement &element)
     verification.setAttribute("type", d->type);
     QDomText value;
     switch (d->type) {
-        case NoType:
-        case AsciiDetached:
-            value = e.ownerDocument().createTextNode(d->signature);
-            break;
-        case BinaryDetached:
-            value = e.ownerDocument().createTextNode(d->signature.toBase64());
-            break;
+    case NoType:
+    case AsciiDetached:
+        value = e.ownerDocument().createTextNode(d->signature);
+        break;
+    case BinaryDetached:
+        value = e.ownerDocument().createTextNode(d->signature.toBase64());
+        break;
     }
     verification.appendChild(value);
-
 
     e.appendChild(verification);
 }
@@ -306,13 +305,11 @@ void Signature::load(const QDomElement &e)
     d->fingerprint = verification.attribute("fingerprint");
     d->type = static_cast<SignatureType>(verification.attribute("type").toInt());
     switch (d->type) {
-        case NoType:
-        case AsciiDetached:
-            d->signature = verification.text().toLatin1();
-            break;
-        case BinaryDetached:
-            d->signature = QByteArray::fromBase64(verification.text().toLatin1());
+    case NoType:
+    case AsciiDetached:
+        d->signature = verification.text().toLatin1();
+        break;
+    case BinaryDetached:
+        d->signature = QByteArray::fromBase64(verification.text().toLatin1());
     }
 }
-
-

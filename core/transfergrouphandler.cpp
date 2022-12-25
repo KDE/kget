@@ -11,22 +11,22 @@
 
 #include "core/transfergrouphandler.h"
 
+#include "core/kget.h"
 #include "core/kgetkjobadapter.h"
+#include "core/transfer.h"
 #include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
-#include "core/transfer.h"
-#include "core/kget.h"
 
 #include "kget_debug.h"
-#include <QDebug>
-#include <QAction>
 #include <KLocalizedString>
+#include <QAction>
+#include <QDebug>
 #include <QIcon>
 
-TransferGroupHandler::TransferGroupHandler(Scheduler * scheduler, TransferGroup * parent)
-  : Handler(scheduler, parent),
-    m_group(parent),
-    m_changesFlags(Transfer::Tc_None)
+TransferGroupHandler::TransferGroupHandler(Scheduler *scheduler, TransferGroup *parent)
+    : Handler(scheduler, parent)
+    , m_group(parent)
+    , m_changesFlags(Transfer::Tc_None)
 {
 }
 
@@ -37,39 +37,38 @@ TransferGroupHandler::~TransferGroupHandler()
 void TransferGroupHandler::start()
 {
     qCDebug(KGET_DEBUG) << "TransferGroupHandler::start()";
-    m_group->setStatus( JobQueue::Running );
+    m_group->setStatus(JobQueue::Running);
 }
 
 void TransferGroupHandler::stop()
 {
     qCDebug(KGET_DEBUG) << "TransferGroupHandler::stop()";
-    m_group->setStatus( JobQueue::Stopped );
+    m_group->setStatus(JobQueue::Stopped);
 }
 
-void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHandler * after)
+void TransferGroupHandler::move(QList<TransferHandler *> transfers, TransferHandler *after)
 {
-    //Check that the given transfer (after) belongs to this group
-    if( after && (after->group() != this) )
+    // Check that the given transfer (after) belongs to this group
+    if (after && (after->group() != this))
         return;
 
     QList<TransferHandler *>::iterator it = transfers.begin();
     QList<TransferHandler *>::iterator itEnd = transfers.end();
 
-    for( ; it!=itEnd ; ++it )
-    {
-        //Move the transfers in the JobQueue
-        if(after)
-            m_group->move( (*it)->m_transfer, after->m_transfer );
+    for (; it != itEnd; ++it) {
+        // Move the transfers in the JobQueue
+        if (after)
+            m_group->move((*it)->m_transfer, after->m_transfer);
         else
-            m_group->move( (*it)->m_transfer, nullptr );
+            m_group->move((*it)->m_transfer, nullptr);
 
         after = *it;
     }
 }
 
-TransferHandler * TransferGroupHandler::operator[] (int i)
+TransferHandler *TransferGroupHandler::operator[](int i)
 {
-//     qCDebug(KGET_DEBUG) << "TransferGroupHandler::operator[" << i << "]";
+    //     qCDebug(KGET_DEBUG) << "TransferGroupHandler::operator[" << i << "]";
 
     return (*m_group)[i]->handler();
 }
@@ -81,37 +80,34 @@ void TransferGroupHandler::setName(const QString &name)
 
 QVariant TransferGroupHandler::data(int column)
 {
-//     qCDebug(KGET_DEBUG) << "TransferGroupHandler::data(" << column << ")";
+    //     qCDebug(KGET_DEBUG) << "TransferGroupHandler::data(" << column << ")";
 
-    switch(column)
-    {
-        case 0:
-            /*if (!m_group->supportsSpeedLimits() && 
-                             (m_group->downloadLimit(Transfer::VisibleSpeedLimit) != 0 || m_group->uploadLimit(Transfer::VisibleSpeedLimit) != 0))
-                return name() + " - Does not supports SpeedLimits";//FIXME: Do a better text here
-            else*/
-                return name();
-        case 2:
-            if(m_group->size())
-                return i18np("1 Item", "%1 Items", m_group->size());
-            else
-                return QString();
-/*            if (totalSize() != 0)
-                return KIO::convertSize(totalSize());
-            else
-                return i18nc("not available", "n/a");*/
-        case 3:
-//             return QString::number(percent())+'%'; // display progressbar instead
-            return QVariant();
-        case 4:
-            if (downloadSpeed() == 0)
-            {
-                return QString();
-            }
-            else
-                return i18n("%1/s", KIO::convertSize(downloadSpeed()));
-        default:
-            return QVariant();
+    switch (column) {
+    case 0:
+        /*if (!m_group->supportsSpeedLimits() &&
+                         (m_group->downloadLimit(Transfer::VisibleSpeedLimit) != 0 || m_group->uploadLimit(Transfer::VisibleSpeedLimit) != 0))
+            return name() + " - Does not supports SpeedLimits";//FIXME: Do a better text here
+        else*/
+        return name();
+    case 2:
+        if (m_group->size())
+            return i18np("1 Item", "%1 Items", m_group->size());
+        else
+            return QString();
+        /*            if (totalSize() != 0)
+                        return KIO::convertSize(totalSize());
+                    else
+                        return i18nc("not available", "n/a");*/
+    case 3:
+        //             return QString::number(percent())+'%'; // display progressbar instead
+        return QVariant();
+    case 4:
+        if (downloadSpeed() == 0) {
+            return QString();
+        } else
+            return i18n("%1/s", KIO::convertSize(downloadSpeed()));
+    default:
+        return QVariant();
     }
 }
 
@@ -125,7 +121,7 @@ void TransferGroupHandler::resetChangesFlags()
     m_changesFlags = 0;
 }
 
-int TransferGroupHandler::indexOf(TransferHandler * transfer)
+int TransferGroupHandler::indexOf(TransferHandler *transfer)
 {
     return m_group->indexOf(transfer->m_transfer);
 }
@@ -137,14 +133,13 @@ const QList<TransferHandler *> TransferGroupHandler::transfers()
     TransferGroup::iterator it = m_group->begin();
     TransferGroup::iterator itEnd = m_group->end();
 
-    for( ; it!=itEnd ; ++it )
-    {
+    for (; it != itEnd; ++it) {
         transfers.append((static_cast<Transfer *>(*it))->handler());
     }
     return transfers;
 }
 
-const QList<QAction *> & TransferGroupHandler::actions()
+const QList<QAction *> &TransferGroupHandler::actions()
 {
     createActions();
 
@@ -161,7 +156,7 @@ void TransferGroupHandler::setGroupChange(ChangesFlags change, bool notifyModel)
 
 void TransferGroupHandler::createActions()
 {
-    if( !m_actions.empty() )
+    if (!m_actions.empty())
         return;
 
     QAction *startAction = KGet::actionCollection()->addAction("transfer_group_start");
@@ -175,7 +170,4 @@ void TransferGroupHandler::createActions()
     stopAction->setIcon(QIcon::fromTheme("media-playback-pause"));
     QObject::connect(stopAction, SIGNAL(triggered()), SLOT(stop()));
     m_actions.append(stopAction);
-
 }
-
-

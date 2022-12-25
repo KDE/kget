@@ -11,10 +11,10 @@
 
 #include <KCategorizedSortFilterProxyModel>
 
-#include <QStandardItem>
-#include <QVariant>
 #include <QDate>
+#include <QStandardItem>
 #include <QUrl>
+#include <QVariant>
 
 #include <KLocalizedString>
 
@@ -26,7 +26,8 @@ TransferHistoryCategorizedDelegate::~TransferHistoryCategorizedDelegate()
 {
 }
 
-DateCategorizedDelegate::DateCategorizedDelegate() : TransferHistoryCategorizedDelegate()
+DateCategorizedDelegate::DateCategorizedDelegate()
+    : TransferHistoryCategorizedDelegate()
 {
 }
 
@@ -43,16 +44,13 @@ void DateCategorizedDelegate::categorizeItem(QStandardItem *item)
 
     if (date == QDate::currentDate()) {
         value = QVariant(i18n("Today"));
-    }
-    else if (date.daysTo(QDate::currentDate()) <= 7) {
+    } else if (date.daysTo(QDate::currentDate()) <= 7) {
         categorySort = 1;
         value = QVariant(i18n("Last week"));
-    }
-    else if (date.daysTo(QDate::currentDate()) <= 30) {
+    } else if (date.daysTo(QDate::currentDate()) <= 30) {
         categorySort = 2;
         value = QVariant(i18n("Last Month"));
-    }
-    else {
+    } else {
         categorySort = 3;
         value = QVariant(i18n("A long time ago"));
     }
@@ -61,11 +59,14 @@ void DateCategorizedDelegate::categorizeItem(QStandardItem *item)
     item->setData(categorySort, KCategorizedSortFilterProxyModel::CategorySortRole);
 }
 
-SizeCategorizedDelegate::SizeCategorizedDelegate() : TransferHistoryCategorizedDelegate()
-{}
+SizeCategorizedDelegate::SizeCategorizedDelegate()
+    : TransferHistoryCategorizedDelegate()
+{
+}
 
 SizeCategorizedDelegate::~SizeCategorizedDelegate()
-{}
+{
+}
 
 void SizeCategorizedDelegate::categorizeItem(QStandardItem *item)
 {
@@ -75,16 +76,13 @@ void SizeCategorizedDelegate::categorizeItem(QStandardItem *item)
 
     if (size < 10 * 1024 * 1024) {
         value = QVariant(i18n("Under 10MiB"));
-    }
-    else if (size >= 10 * 1024 * 1024  && size < 50 * 1024 *  1024) {
+    } else if (size >= 10 * 1024 * 1024 && size < 50 * 1024 * 1024) {
         value = QVariant(i18n("Between 10MiB and 50MiB"));
         categorySort = 1;
-    }
-    else if (size >= 50 * 1024 * 1024  && size < 100 * 1024 *  1024) {
+    } else if (size >= 50 * 1024 * 1024 && size < 100 * 1024 * 1024) {
         value = QVariant(i18n("Between 50MiB and 100MiB"));
         categorySort = 2;
-    }
-    else {
+    } else {
         categorySort = 3;
         value = QVariant(i18n("More than 100MiB"));
     }
@@ -93,7 +91,8 @@ void SizeCategorizedDelegate::categorizeItem(QStandardItem *item)
     item->setData(categorySort, KCategorizedSortFilterProxyModel::CategorySortRole);
 }
 
-HostCategorizedDelegate::HostCategorizedDelegate() : TransferHistoryCategorizedDelegate()
+HostCategorizedDelegate::HostCategorizedDelegate()
+    : TransferHistoryCategorizedDelegate()
 {
 }
 

@@ -17,15 +17,11 @@
 #include <QDebug>
 
 TransferFactory::TransferFactory(QObject *parent, const QVariantList &args)
-  : KGetPlugin(parent, args)
+    : KGetPlugin(parent, args)
 {
-
 }
 
-Transfer * TransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl,
-                                               TransferGroup * parent,
-                                               Scheduler * scheduler,
-                                               const QDomElement * n)
+Transfer *TransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *n)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(destUrl)
@@ -35,18 +31,18 @@ Transfer * TransferFactory::createTransfer(const QUrl &srcUrl, const QUrl &destU
     return nullptr;
 }
 
-TransferHandler * TransferFactory::createTransferHandler(Transfer * transfer, Scheduler * scheduler)
+TransferHandler *TransferFactory::createTransferHandler(Transfer *transfer, Scheduler *scheduler)
 {
     return new TransferHandler(transfer, scheduler);
 }
 
-QWidget * TransferFactory::createDetailsWidget(TransferHandler * transfer)
+QWidget *TransferFactory::createDetailsWidget(TransferHandler *transfer)
 {
     Q_UNUSED(transfer)
     return nullptr;
 }
-        
-QDialog * TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler * defaultGroup)
+
+QDialog *TransferFactory::createNewTransferDialog(const QUrl &srcUrl, const QString &suggestedFileName, TransferGroupHandler *defaultGroup)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(suggestedFileName)
@@ -60,7 +56,7 @@ const QList<QAction *> TransferFactory::actions(TransferHandler *handler)
     return QList<QAction *>();
 }
 
-TransferDataSource * TransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
+TransferDataSource *TransferFactory::createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent)
 {
     Q_UNUSED(srcUrl)
     Q_UNUSED(type)
@@ -83,4 +79,3 @@ QString TransferFactory::displayName() const
 {
     return QStringLiteral("Undefined");
 }
-

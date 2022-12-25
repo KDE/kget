@@ -23,7 +23,7 @@
 K_PLUGIN_CLASS_WITH_JSON(MetalinkFactory, "kget_metalinkfactory.json")
 
 MetalinkFactory::MetalinkFactory(QObject *parent, const QVariantList &args)
-  : TransferFactory(parent, args)
+    : TransferFactory(parent, args)
 {
 }
 
@@ -31,10 +31,7 @@ MetalinkFactory::~MetalinkFactory()
 {
 }
 
-Transfer * MetalinkFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
-                                               TransferGroup * parent,
-                                               Scheduler * scheduler,
-                                               const QDomElement * e )
+Transfer *MetalinkFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e)
 {
     qCDebug(KGET_DEBUG) << "metalinkFactory::createTransfer";
     auto *metalinkHttpChecker = new KGetMetalink::MetalinkHttpParser(srcUrl);
@@ -47,7 +44,7 @@ Transfer * MetalinkFactory::createTransfer( const QUrl &srcUrl, const QUrl &dest
     metalinkHttpChecker->deleteLater();
 
     if (isSupported(srcUrl)) {
-        return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);        
+        return new MetalinkXml(parent, this, scheduler, srcUrl, destUrl, e);
     }
 
     return nullptr;

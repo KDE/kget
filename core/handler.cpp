@@ -11,9 +11,9 @@
 
 #include "scheduler.h"
 
-Handler::Handler(Scheduler * scheduler, QObject * parent)
-  : QObject(parent),
-    m_scheduler(scheduler)
+Handler::Handler(Scheduler *scheduler, QObject *parent)
+    : QObject(parent)
+    , m_scheduler(scheduler)
 {
 }
 

@@ -12,18 +12,18 @@
 
 #include "core/kget.h"
 
-#include <KLocalizedString>
 #include <KIO/Global>
+#include <KLocalizedString>
 
 #include "kget_debug.h"
 
 #include <QDebug>
-#include <QVBoxLayout>
 #include <QStyle>
+#include <QVBoxLayout>
 
-TransferDetails::TransferDetails(TransferHandler * transfer)
-  : QWidget(nullptr),
-    m_transfer(transfer)
+TransferDetails::TransferDetails(TransferHandler *transfer)
+    : QWidget(nullptr)
+    , m_transfer(transfer)
 {
     m_genericWidget = new QWidget(this);
 
@@ -36,11 +36,10 @@ TransferDetails::TransferDetails(TransferHandler * transfer)
     frm.sourceContentEdit->setText(m_transfer->source().toString());
     frm.destContentEdit->setText(m_transfer->dest().toLocalFile());
 
-    //This updates the widget with the right values
+    // This updates the widget with the right values
     slotTransferChanged(transfer, 0xFFFFFFFF);
 
-    connect(transfer, &TransferHandler::transferChangedEvent,
-            this,     &TransferDetails::slotTransferChanged);
+    connect(transfer, &TransferHandler::transferChangedEvent, this, &TransferDetails::slotTransferChanged);
 }
 
 TransferDetails::~TransferDetails()
@@ -58,14 +57,15 @@ QWidget *TransferDetails::detailsWidget(TransferHandler *handler)
     return details;
 }
 
-void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags)
+void TransferDetails::slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags flags)
 {
     qCDebug(KGET_DEBUG) << "TransferDetails::slotTransferChanged";
 
     Q_UNUSED(transfer)
 
-    if(flags & Transfer::Tc_Status) {
-        frm.statusPixmapContentLabel->setPixmap(QIcon::fromTheme(m_transfer->statusIconName()).pixmap(style()->pixelMetric(QStyle::PixelMetric::PM_SmallIconSize)));
+    if (flags & Transfer::Tc_Status) {
+        frm.statusPixmapContentLabel->setPixmap(
+            QIcon::fromTheme(m_transfer->statusIconName()).pixmap(style()->pixelMetric(QStyle::PixelMetric::PM_SmallIconSize)));
         frm.statusTextContentLabel->setText(m_transfer->statusText());
 
         if (m_transfer->status() == Job::Finished) {
@@ -85,8 +85,8 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
         int speed = m_transfer->downloadSpeed();
 
         if (speed == 0) {
-            if(m_transfer->status() == Job::Running)
-                frm.speedContentLabel->setText(i18n("Stalled") );
+            if (m_transfer->status() == Job::Running)
+                frm.speedContentLabel->setText(i18n("Stalled"));
             else
                 frm.speedContentLabel->setText(QString());
         } else {
@@ -94,15 +94,13 @@ void TransferDetails::slotTransferChanged(TransferHandler * transfer, TransferHa
         }
     }
 
-    if(flags & Transfer::Tc_FileName) {
+    if (flags & Transfer::Tc_FileName) {
         frm.destContentEdit->setText(m_transfer->dest().toLocalFile());
     }
-    
+
     if (flags & Transfer::Tc_Source) {
         frm.sourceContentEdit->setText(m_transfer->source().toString());
     }
 
     frm.remainingTimeLabel->setText(KIO::convertSeconds(m_transfer->remainingTime()));
 }
-
-

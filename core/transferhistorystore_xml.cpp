@@ -17,17 +17,19 @@
 #include "kget_debug.h"
 #include <QDebug>
 
-XmlStore::SaveThread::SaveThread(QObject *parent, const QString &url, const QList<TransferHistoryItem> &list) : QThread(parent),
-    m_url(url),
-    m_items(list),
-    m_item()
+XmlStore::SaveThread::SaveThread(QObject *parent, const QString &url, const QList<TransferHistoryItem> &list)
+    : QThread(parent)
+    , m_url(url)
+    , m_items(list)
+    , m_item()
 {
 }
 
-XmlStore::SaveThread::SaveThread(QObject *parent, const QString &url, const TransferHistoryItem &item) : QThread(parent),
-    m_url(url),
-    m_items(),
-    m_item(item)
+XmlStore::SaveThread::SaveThread(QObject *parent, const QString &url, const TransferHistoryItem &item)
+    : QThread(parent)
+    , m_url(url)
+    , m_items()
+    , m_item(item)
 {
 }
 
@@ -37,14 +39,11 @@ void XmlStore::SaveThread::run()
     QDomDocument *doc;
     QDomElement root;
 
-    if (!file.exists())
-    {
+    if (!file.exists()) {
         doc = new QDomDocument("Transfers");
         root = doc->createElement("Transfers");
         doc->appendChild(root);
-    }
-    else
-    {
+    } else {
         doc = new QDomDocument();
         doc->setContent(&file);
         file.close();
@@ -62,17 +61,18 @@ void XmlStore::SaveThread::run()
     e.setAttribute("State", QString::number(m_item.state()));
 
     if (file.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream stream( &file );
-        doc->save( stream, 0 );
+        QTextStream stream(&file);
+        doc->save(stream, 0);
         file.close();
     }
     delete doc;
 }
 
-XmlStore::DeleteThread::DeleteThread(QObject *parent, const QString &url, const TransferHistoryItem &item) : QThread(parent),
-    m_url(url),
-    m_item(item),
-    m_items()
+XmlStore::DeleteThread::DeleteThread(QObject *parent, const QString &url, const TransferHistoryItem &item)
+    : QThread(parent)
+    , m_url(url)
+    , m_item(item)
+    , m_items()
 {
 }
 
@@ -85,8 +85,7 @@ void XmlStore::DeleteThread::run()
     int line;
     int column;
 
-    if (!doc.setContent(&file, &error, &line, &column)) 
-    {
+    if (!doc.setContent(&file, &error, &line, &column)) {
         qCDebug(KGET_DEBUG) << "Error1" << error << line << column;
         return;
     }
@@ -98,13 +97,12 @@ void XmlStore::DeleteThread::run()
 
     int nItems = list.length();
 
-    for (int i = 0 ; i < nItems ; i++) {
+    for (int i = 0; i < nItems; i++) {
         QDomElement element = list.item(i).toElement();
 
-        if(QString::compare(element.attribute("Source"), m_item.source()) == 0) {
+        if (QString::compare(element.attribute("Source"), m_item.source()) == 0) {
             root.removeChild(element);
-        }
-        else {
+        } else {
             TransferHistoryItem item;
             item.setDest(element.attribute("Dest"));
             item.setSource(element.attribute("Source"));
@@ -116,15 +114,16 @@ void XmlStore::DeleteThread::run()
     }
 
     if (file.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream stream( &file );
+        QTextStream stream(&file);
         doc.save(stream, 0);
         file.close();
         doc.clear();
     }
 }
 
-XmlStore::LoadThread::LoadThread(QObject *parent, const QString &url) : QThread(parent),
-    m_url(url)
+XmlStore::LoadThread::LoadThread(QObject *parent, const QString &url)
+    : QThread(parent)
+    , m_url(url)
 {
 }
 
@@ -139,8 +138,7 @@ void XmlStore::LoadThread::run()
     int column;
     int total;
 
-    if (!doc.setContent(&file, &error, &line, &column)) 
-    {
+    if (!doc.setContent(&file, &error, &line, &column)) {
         qCDebug(KGET_DEBUG) << "Error1" << error << line << column;
         file.close();
         return;
@@ -153,10 +151,9 @@ void XmlStore::LoadThread::run()
 
     int nItems = list.length();
 
-    for (int i = 0 ; i < nItems ; i++)
-    {
+    for (int i = 0; i < nItems; i++) {
         QDomElement dom = list.item(i).toElement();
-        
+
         TransferHistoryItem item;
         item.setDest(dom.attribute("Dest"));
         item.setSource(dom.attribute("Source"));
@@ -170,25 +167,26 @@ void XmlStore::LoadThread::run()
     file.close();
 }
 
-XmlStore::XmlStore(const QString &url) : TransferHistoryStore(),
-    m_storeUrl(url),
-    m_loadThread(nullptr),
-    m_saveThread(nullptr),
-    m_deleteThread(nullptr)
+XmlStore::XmlStore(const QString &url)
+    : TransferHistoryStore()
+    , m_storeUrl(url)
+    , m_loadThread(nullptr)
+    , m_saveThread(nullptr)
+    , m_deleteThread(nullptr)
 {
 }
 
 XmlStore::~XmlStore()
 {
-    if(m_loadThread && m_loadThread->isRunning()) {
+    if (m_loadThread && m_loadThread->isRunning()) {
         m_loadThread->terminate();
     }
 
-    if(m_saveThread && m_saveThread->isRunning()) {
+    if (m_saveThread && m_saveThread->isRunning()) {
         m_saveThread->terminate();
     }
 
-    if(m_deleteThread && m_deleteThread->isRunning()) {
+    if (m_deleteThread && m_deleteThread->isRunning()) {
         m_deleteThread->terminate();
     }
 
@@ -204,10 +202,8 @@ void XmlStore::load()
     m_loadThread = new XmlStore::LoadThread(this, m_storeUrl);
 
     connect(m_loadThread, &QThread::finished, this, &TransferHistoryStore::loadFinished);
-    connect(m_loadThread, &LoadThread::elementLoaded,
-                        this, &TransferHistoryStore::elementLoaded);
-    connect(m_loadThread, &LoadThread::elementLoaded,
-                        this, &XmlStore::slotLoadElement);
+    connect(m_loadThread, &LoadThread::elementLoaded, this, &TransferHistoryStore::elementLoaded);
+    connect(m_loadThread, &LoadThread::elementLoaded, this, &XmlStore::slotLoadElement);
     m_loadThread->start();
 }
 
@@ -221,8 +217,7 @@ void XmlStore::saveItem(const TransferHistoryItem &item)
     m_saveThread = new XmlStore::SaveThread(this, m_storeUrl, item);
 
     connect(m_saveThread, &QThread::finished, this, &TransferHistoryStore::saveFinished);
-    connect(m_saveThread, &SaveThread::elementLoaded,
-                        this, &TransferHistoryStore::elementLoaded);
+    connect(m_saveThread, &SaveThread::elementLoaded, this, &TransferHistoryStore::elementLoaded);
     m_saveThread->start();
 }
 
@@ -251,5 +246,3 @@ void XmlStore::slotDeleteElement()
 
     Q_EMIT loadFinished();
 }
-
-

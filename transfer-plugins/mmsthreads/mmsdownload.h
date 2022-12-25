@@ -20,62 +20,59 @@
 #ifndef MMSDOWNLOAD_H
 #define MMSDOWNLOAD_H
 
-#include <libmms/mmsx.h>
+#include <QDataStream>
+#include <QFile>
+#include <QMap>
 #include <QString>
 #include <QTimer>
-#include <QMap>
-#include <QFile>
-#include <QDataStream>
-
+#include <libmms/mmsx.h>
 
 #include "mmsthread.h"
-
 
 class MmsDownload : public QThread
 {
     Q_OBJECT
-    public:
-        MmsDownload(const QString& url, const QString& name, const QString& temp,
-                    int amountsThread);
-        ~MmsDownload() override;
-        void run() override;
-        void stopTransfer();
-        int threadsAlive();
-        
-    public Q_SLOTS:
-        void slotThreadFinish();
-        void slotRead(int reading, int thread_end, int thead_ini);
-        void slotSpeedChanged();
-        void slotIsThreadConnected(bool connected);
+public:
+    MmsDownload(const QString &url, const QString &name, const QString &temp, int amountsThread);
+    ~MmsDownload() override;
+    void run() override;
+    void stopTransfer();
+    int threadsAlive();
 
-    Q_SIGNALS:
-        void signBrokenUrl();
-        void signNotAllowMultiDownload();
-        void signThreadFinish();
-        qulonglong signDownloaded(qulonglong reading);
-        qulonglong signTotalSize(qulonglong size);
-        unsigned long signSpeed(unsigned long bytes_per_second);
-        void signRestartDownload(int connections);
+public Q_SLOTS:
+    void slotThreadFinish();
+    void slotRead(int reading, int thread_end, int thead_ini);
+    void slotSpeedChanged();
+    void slotIsThreadConnected(bool connected);
 
-    private:
-        bool isWorkingUrl();
-        void splitTransfer();
-        void startTransfer();
-        void unSerialization();
-        void serialization();
-        
-        QString m_sourceUrl;
-        QString m_fileName;
-        QString m_fileTemp;
-        int m_amountThreads;
-        int m_connectionsFails;
-        int m_connectionsSuccessfully;
-        qulonglong m_downloadedSize;
-        QList<qulonglong> m_prevDownloadedSizes;
-        mmsx_t* m_mms;
-        QTimer* m_speedTimer;
-        QList<MmsThread*> m_threadList;
-        QMap<int, int> m_mapEndIni;
+Q_SIGNALS:
+    void signBrokenUrl();
+    void signNotAllowMultiDownload();
+    void signThreadFinish();
+    qulonglong signDownloaded(qulonglong reading);
+    qulonglong signTotalSize(qulonglong size);
+    unsigned long signSpeed(unsigned long bytes_per_second);
+    void signRestartDownload(int connections);
+
+private:
+    bool isWorkingUrl();
+    void splitTransfer();
+    void startTransfer();
+    void unSerialization();
+    void serialization();
+
+    QString m_sourceUrl;
+    QString m_fileName;
+    QString m_fileTemp;
+    int m_amountThreads;
+    int m_connectionsFails;
+    int m_connectionsSuccessfully;
+    qulonglong m_downloadedSize;
+    QList<qulonglong> m_prevDownloadedSizes;
+    mmsx_t *m_mms;
+    QTimer *m_speedTimer;
+    QList<MmsThread *> m_threadList;
+    QMap<int, int> m_mapEndIni;
 };
 
 #endif // MMSDOWNLOAD_H

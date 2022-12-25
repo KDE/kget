@@ -10,7 +10,6 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-
 #ifndef VIEWSCONTAINER_H
 #define VIEWSCONTAINER_H
 
@@ -22,16 +21,16 @@ class TransferHandler;
 class ViewsContainer : public QWidget
 {
     Q_OBJECT
-    public:
-        ViewsContainer(QWidget * parent = nullptr);
+public:
+    ViewsContainer(QWidget *parent = nullptr);
 
-    public Q_SLOTS:
-        void showTransferDetails(TransferHandler * transfer);
-        void closeTransferDetails(TransferHandler * transfer);
-        void selectAll();
+public Q_SLOTS:
+    void showTransferDetails(TransferHandler *transfer);
+    void closeTransferDetails(TransferHandler *transfer);
+    void selectAll();
 
-    private:
-        TransfersView   * m_transfersView = nullptr;
+private:
+    TransfersView *m_transfersView = nullptr;
 };
 
 #endif

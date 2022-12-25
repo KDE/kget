@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "checksumsearchtransferdatasource.h"
 #include "checksumsearch.h"
@@ -27,11 +27,10 @@
 #include <KIO/DeleteJob>
 #include <QStandardPaths>
 
-
 ChecksumSearchController ChecksumSearchTransferDataSource::s_controller;
 
 ChecksumSearchController::ChecksumSearchController(QObject *parent)
-  : QObject(parent)
+    : QObject(parent)
 {
 }
 
@@ -59,7 +58,8 @@ void ChecksumSearchController::registerSearch(ChecksumSearchTransferDataSource *
             qCDebug(KGET_DEBUG) << "Creating download for" << baseUrl;
             static int files = 0;
 
-            const QUrl dest = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/checksumsearch/") + QString::number(files++));
+            const QUrl dest = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/checksumsearch/")
+                                                  + QString::number(files++));
             if (QFile::exists(dest.toLocalFile())) {
                 KIO::Job *del = KIO::del(dest, KIO::HideProgressInfo);
                 if (!del->exec()) {
@@ -139,7 +139,7 @@ void ChecksumSearchController::slotResult(KJob *job)
 
     m_finished[baseUrl] = urlToFile;
 
-    const QList<ChecksumSearchTransferDataSource*> searches = m_searches.values(baseUrl);
+    const QList<ChecksumSearchTransferDataSource *> searches = m_searches.values(baseUrl);
     m_searches.remove(baseUrl);
     foreach (ChecksumSearchTransferDataSource *search, searches) {
         search->gotBaseUrl(urlToFile);
@@ -147,7 +147,7 @@ void ChecksumSearchController::slotResult(KJob *job)
 }
 
 ChecksumSearchTransferDataSource::ChecksumSearchTransferDataSource(const QUrl &srcUrl, QObject *parent)
-  : TransferDataSource(srcUrl, parent)
+    : TransferDataSource(srcUrl, parent)
 {
 }
 
@@ -197,7 +197,7 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const QUrl &urlToFile)
     if (urls.count() && types.count()) {
         auto *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
 
-        connect(search, SIGNAL(data(QString,QString)), this, SIGNAL(data(QString,QString)));
+        connect(search, SIGNAL(data(QString, QString)), this, SIGNAL(data(QString, QString)));
     }
 }
 
@@ -212,5 +212,3 @@ void ChecksumSearchTransferDataSource::addSegments(const QPair<KIO::fileoffset_t
     Q_UNUSED(segmentRange)
     qCDebug(KGET_DEBUG);
 }
-
-

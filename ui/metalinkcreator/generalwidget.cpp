@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "generalwidget.h"
 
@@ -24,7 +24,7 @@
 #include "metalinker.h"
 
 GeneralWidget::GeneralWidget(QWidget *parent)
-  : QWidget (parent)
+    : QWidget(parent)
 {
     ui.setupUi(this);
 
@@ -56,7 +56,7 @@ void GeneralWidget::load(const KGetMetalink::Metalink &metalink) const
         time = time.addSecs(abs(offset));
         ui.publishedoffset->setTime(time);
 
-        //to not enable publishedNegative block the signals
+        // to not enable publishedNegative block the signals
         ui.use_publishedtimeoffset->blockSignals(true);
         ui.use_publishedtimeoffset->setChecked(true);
         ui.use_publishedtimeoffset->blockSignals(false);
@@ -80,7 +80,7 @@ void GeneralWidget::load(const KGetMetalink::Metalink &metalink) const
         time = time.addSecs(abs(offset));
         ui.updatedoffset->setTime(time);
 
-        //to not enable publishedNegative block the signals
+        // to not enable publishedNegative block the signals
         ui.use_updatedtimeoffset->blockSignals(true);
         ui.use_updatedtimeoffset->setChecked(true);
         ui.use_updatedtimeoffset->blockSignals(false);
@@ -124,6 +124,3 @@ void GeneralWidget::slotUpdatedEnabled(bool enabled)
         ui.updatedNegative->setEnabled(ui.use_updatedtimeoffset->isChecked());
     }
 }
-
-
-

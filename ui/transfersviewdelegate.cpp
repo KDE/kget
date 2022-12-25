@@ -13,20 +13,20 @@
 
 #include "ui/transfersviewdelegate.h"
 
-#include "transferdetails.h"
-#include "ui/contextmenu.h"
 #include "core/kget.h"
-#include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
+#include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 #include "settings.h"
+#include "transferdetails.h"
+#include "ui/contextmenu.h"
 
 #include "kget_debug.h"
 #include <KLocalizedString>
 
-#include <QApplication>
 #include <QAbstractItemView>
+#include <QApplication>
 #include <QButtonGroup>
 #include <QDebug>
 #include <QHBoxLayout>
@@ -35,67 +35,62 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-GroupStatusButton::GroupStatusButton(const QModelIndex & index, QWidget * parent)
-    : QToolButton(parent),
-      m_status(None),
-      m_index(index),
-      m_timerId(-1),
-      m_iconSize(22),
-      m_gradientId(0)
+GroupStatusButton::GroupStatusButton(const QModelIndex &index, QWidget *parent)
+    : QToolButton(parent)
+    , m_status(None)
+    , m_index(index)
+    , m_timerId(-1)
+    , m_iconSize(22)
+    , m_gradientId(0)
 {
     setAttribute(Qt::WA_NoSystemBackground);
 }
 
 void GroupStatusButton::checkStateSet()
 {
-//     qCDebug(KGET_DEBUG) << "GroupStatusButton::checkStateSet";
+    //     qCDebug(KGET_DEBUG) << "GroupStatusButton::checkStateSet";
 
     QToolButton::checkStateSet();
 
-    if(isChecked())
-    {
-        if(m_status == None)
+    if (isChecked()) {
+        if (m_status == None)
             m_gradientId = 0.9;
         m_status = Selecting;
-    }
-    else
-    {
-        if(m_status == None)
+    } else {
+        if (m_status == None)
             m_gradientId = 1;
         m_status = Deselecting;
     }
 
     setMouseTracking(!isChecked());
 
-    if(m_timerId == -1)
+    if (m_timerId == -1)
         m_timerId = startTimer(100);
 }
 
-void GroupStatusButton::enterEvent(QEvent * event)
+void GroupStatusButton::enterEvent(QEvent *event)
 {
     Q_UNUSED(event)
-    if(!isChecked())
-    {
+    if (!isChecked()) {
         m_status = Blinking;
 
-        if(m_timerId == -1)
-        {
+        if (m_timerId == -1) {
             m_timerId = startTimer(100);
 
-            if(m_status == !BlinkingExiting)
+            if (m_status == !BlinkingExiting)
                 m_gradientId = 1;
         }
     }
 }
 
-void GroupStatusButton::leaveEvent(QEvent * event)
+void GroupStatusButton::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event)
-    if(m_status == Blinking)
+    if (m_status == Blinking)
         m_status = BlinkingExiting;
 }
 
-void GroupStatusButton::paintEvent(QPaintEvent * event)
+void GroupStatusButton::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
 
@@ -103,22 +98,19 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
 
     const int offset = (rect().width() - m_iconSize) / 2;
 
-    if(m_gradientId == 0)
+    if (m_gradientId == 0)
         m_gradientId = isChecked() ? 1 : 0.7;
 
     QRadialGradient gradient(height() / 2.0, height() / 2.0, height() / 2);
 
     QPen pen;
 
-    if(KGet::selectionModel()->isSelected(m_index))
-    {
+    if (KGet::selectionModel()->isSelected(m_index)) {
         gradient.setColorAt(0, palette().color(QPalette::AlternateBase));
         gradient.setColorAt(m_gradientId, Qt::transparent);
         gradient.setColorAt(1, Qt::transparent);
         pen.setColor(palette().color(QPalette::AlternateBase));
-    }
-    else
-    {
+    } else {
         gradient.setColorAt(0, palette().color(QPalette::Highlight));
         gradient.setColorAt(m_gradientId, Qt::transparent);
         gradient.setColorAt(1, Qt::transparent);
@@ -131,68 +123,54 @@ void GroupStatusButton::paintEvent(QPaintEvent * event)
 
     p.setRenderHint(QPainter::Antialiasing);
 
-    if(isChecked())
-    {
+    if (isChecked()) {
         pen.setWidth(1);
         p.setPen(pen);
-        p.drawEllipse(rect().x()+5, rect().y()+4, rect().width()-10, rect().width()-10);
+        p.drawEllipse(rect().x() + 5, rect().y() + 4, rect().width() - 10, rect().width() - 10);
     }
 
     p.drawPixmap(rect().topLeft() + QPoint(offset, offset - 1),
-                 icon().pixmap(m_iconSize, isChecked() || m_status == Blinking ?
-                                           QIcon::Normal : QIcon::Disabled));
+                 icon().pixmap(m_iconSize, isChecked() || m_status == Blinking ? QIcon::Normal : QIcon::Disabled));
 }
 
 void GroupStatusButton::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
 
-    if(m_status == Selecting)
-    {
-        m_gradientId+=0.04;
+    if (m_status == Selecting) {
+        m_gradientId += 0.04;
 
-        if(m_gradientId >= 1)
-        {
+        if (m_gradientId >= 1) {
             m_status = None;
             m_gradientId = 1;
             killTimer(m_timerId);
             m_timerId = -1;
         }
-    }
-    else if(m_status == Deselecting)
-    {
-        m_gradientId-=0.04;
+    } else if (m_status == Deselecting) {
+        m_gradientId -= 0.04;
 
-        if(m_gradientId <= 0.7)
-        {
+        if (m_gradientId <= 0.7) {
             m_status = None;
             m_gradientId = 0.7;
             killTimer(m_timerId);
             m_timerId = -1;
         }
-    }
-    else if(m_status == Blinking)
-    {
-        if(isChecked())
-        {
+    } else if (m_status == Blinking) {
+        if (isChecked()) {
             m_status = Selecting;
             m_gradientId = 0.9;
             return;
         }
 
-        m_gradientId-=0.04;
+        m_gradientId -= 0.04;
 
-        if(m_gradientId <= 0.7)
-        {
+        if (m_gradientId <= 0.7) {
             m_gradientId = 1;
         }
-    }
-    else if(m_status == BlinkingExiting)
-    {
-        m_gradientId-=0.04;
+    } else if (m_status == BlinkingExiting) {
+        m_gradientId -= 0.04;
 
-        if(m_gradientId <= 0.7)
-        {
+        if (m_gradientId <= 0.7) {
             m_status = None;
             m_gradientId = 0.7;
             killTimer(m_timerId);
@@ -204,8 +182,8 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
 }
 
 GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
-    : QWidget(parent),
-      m_index(index)
+    : QWidget(parent)
+    , m_index(index)
 {
     setMinimumWidth(80);
 
@@ -244,10 +222,10 @@ GroupStatusEditor::GroupStatusEditor(const QModelIndex &index, QWidget *parent)
 
 void GroupStatusEditor::setRunning(bool running)
 {
-    if(running == m_startBt->isChecked())
+    if (running == m_startBt->isChecked())
         return;
 
-    if(running)
+    if (running)
         m_startBt->setChecked(true);
     else
         m_stopBt->setChecked(true);
@@ -263,9 +241,8 @@ void GroupStatusEditor::slotStatusChanged()
     Q_EMIT changedStatus(this);
 }
 
-
 BasicTransfersViewDelegate::BasicTransfersViewDelegate(QAbstractItemView *parent)
-  : KExtendableItemDelegate(parent)
+    : KExtendableItemDelegate(parent)
 {
 }
 
@@ -288,7 +265,7 @@ void BasicTransfersViewDelegate::slotGroupStatusChanged(GroupStatusEditor *edito
 void BasicTransfersViewDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     if (index.column() == TransferTreeModel::Status) {
-        auto *groupEditor = static_cast<GroupStatusEditor*>(editor);
+        auto *groupEditor = static_cast<GroupStatusEditor *>(editor);
         groupEditor->setRunning(KGet::model()->itemFromIndex(index)->asGroup()->groupHandler()->status() == JobQueue::Running);
     } else {
         KExtendableItemDelegate::setEditorData(editor, index);
@@ -319,32 +296,26 @@ TransfersViewDelegate::TransfersViewDelegate(QAbstractItemView *parent)
     setContractPixmap(QIcon::fromTheme("arrow-down").pixmap(16));
 }
 
-void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
+void TransfersViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    TransferTreeModel * transferTreeModel = KGet::model();
-    
-    ModelItem * item = transferTreeModel->itemFromIndex(index);
+    TransferTreeModel *transferTreeModel = KGet::model();
 
-    if (item->isGroup())
-    {
+    ModelItem *item = transferTreeModel->itemFromIndex(index);
+
+    if (item->isGroup()) {
         painter->save();
 
-        if (option.state & QStyle::State_Selected)
-        {
-        }
-        else
-        {
+        if (option.state & QStyle::State_Selected) {
+        } else {
             static bool backgroundInitialized = false;
             static QPixmap groupBackground(64, 35);
             static QPalette palette(QApplication::palette());
 
-            if(!backgroundInitialized || palette!= QApplication::palette())
-            {
+            if (!backgroundInitialized || palette != QApplication::palette()) {
                 const QRect rect = groupBackground.rect();
                 QPainter p(&groupBackground);
 
-                QLinearGradient gradient(rect.x(), rect.y(),
-                                        rect.x(), (rect.y() + rect.height()));
+                QLinearGradient gradient(rect.x(), rect.y(), rect.x(), (rect.y() + rect.height()));
 
                 gradient.setColorAt(0, QApplication::palette().color(QPalette::Base));
                 gradient.setColorAt(0.5, QApplication::palette().color(QPalette::AlternateBase).darker(110));
@@ -360,12 +331,10 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
         KExtendableItemDelegate::paint(painter, option, index);
 
         painter->restore();
-    }
-    else {
+    } else {
         if (KGet::selectionModel()->isSelected(index))
-                painter->fillRect(option.rect, QApplication::palette().color(option.state & QStyle::State_Active ?
-                                                                            QPalette::Active : QPalette::Inactive,
-                                                                            QPalette::Highlight));
+            painter->fillRect(option.rect,
+                              QApplication::palette().color(option.state & QStyle::State_Active ? QPalette::Active : QPalette::Inactive, QPalette::Highlight));
 
         KExtendableItemDelegate::paint(painter, option, index);
 
@@ -394,8 +363,7 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
                 progressBarOption.text = i18nc("not available", "n/a");
             }
 
-            progressBarOption.rect.setY(progressBarOption.rect.y() +
-                                        (option.rect.height() - QApplication::fontMetrics().height()) / 2);
+            progressBarOption.rect.setY(progressBarOption.rect.y() + (option.rect.height() - QApplication::fontMetrics().height()) / 2);
             progressBarOption.rect.setHeight(QApplication::fontMetrics().height());
 
             // Draw the progress bar onto the view.
@@ -403,23 +371,22 @@ void TransfersViewDelegate::paint(QPainter * painter, const QStyleOptionViewItem
         }
     }
 
-///    These lines are just for testing purposes. Uncomment them to show on the view the repaint events.
-//     static int i=0;
-//     qCDebug(KGET_DEBUG) << "paint!!! " << i++ << " " << index.internalPointer() << " " << index.column();
-//
-//     painter->drawRect(option.rect);
-//     painter->drawText(option.rect.topLeft(), QString::number(i));
+    ///    These lines are just for testing purposes. Uncomment them to show on the view the repaint events.
+    //     static int i=0;
+    //     qCDebug(KGET_DEBUG) << "paint!!! " << i++ << " " << index.internalPointer() << " " << index.column();
+    //
+    //     painter->drawRect(option.rect);
+    //     painter->drawText(option.rect.topLeft(), QString::number(i));
 }
 
-void TransfersViewDelegate::drawFocus(QPainter * painter, const QStyleOptionViewItem & option, const
-        QRect & rect) const
+void TransfersViewDelegate::drawFocus(QPainter *painter, const QStyleOptionViewItem &option, const QRect &rect) const
 {
     Q_UNUSED(painter)
     Q_UNUSED(option)
     Q_UNUSED(rect)
 }
 
-QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
+QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     Q_UNUSED(option)
 
@@ -431,48 +398,41 @@ QSize TransfersViewDelegate::sizeHint(const QStyleOptionViewItem & option, const
         return QSize();
     }
 
-    if (transferTreeModel->itemFromIndex(index)->isGroup())
-    {
+    if (transferTreeModel->itemFromIndex(index)->isGroup()) {
         return QSize(0, 35);
-    }
-    else {
+    } else {
         QSize ret(KExtendableItemDelegate::sizeHint(option, index));
         ret.rheight() += 8;
         return ret;
     }
 }
 
-bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
+bool TransfersViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
     Q_UNUSED(model)
     Q_UNUSED(option)
 
-    if (event->type() == QEvent::MouseButtonRelease)
-    {
-        auto * mouseEvent = static_cast<QMouseEvent *>(event);
-        if (mouseEvent->button() == Qt::RightButton)
-        {
-//             qCDebug(KGET_DEBUG) << "TransfersViewDelegate::editorEvent() -> rightClick";
+    if (event->type() == QEvent::MouseButtonRelease) {
+        auto *mouseEvent = static_cast<QMouseEvent *>(event);
+        if (mouseEvent->button() == Qt::RightButton) {
+            //             qCDebug(KGET_DEBUG) << "TransfersViewDelegate::editorEvent() -> rightClick";
 
             QMenu *popup = nullptr;
 
-            TransferTreeModel * transferTreeModel = KGet::model();
+            TransferTreeModel *transferTreeModel = KGet::model();
 
-            ModelItem * item = transferTreeModel->itemFromIndex(index);
-            if (item->isGroup())
-            {
-//                 qCDebug(KGET_DEBUG) << "isTransferGroup = true";
-                TransferGroupHandler * transferGroupHandler = item->asGroup()->groupHandler();
+            ModelItem *item = transferTreeModel->itemFromIndex(index);
+            if (item->isGroup()) {
+                //                 qCDebug(KGET_DEBUG) << "isTransferGroup = true";
+                TransferGroupHandler *transferGroupHandler = item->asGroup()->groupHandler();
 
-                popup = ContextMenu::createTransferGroupContextMenu(transferGroupHandler, qobject_cast<QWidget*>(this));
-            }
-            else
-            {
-//                 qCDebug(KGET_DEBUG) << "isTransferGroup = false";
+                popup = ContextMenu::createTransferGroupContextMenu(transferGroupHandler, qobject_cast<QWidget *>(this));
+            } else {
+                //                 qCDebug(KGET_DEBUG) << "isTransferGroup = false";
 
-                TransferHandler * transferHandler = item->asTransfer()->transferHandler();
+                TransferHandler *transferHandler = item->asTransfer()->transferHandler();
 
-                popup = ContextMenu::createTransferContextMenu(transferHandler, qobject_cast<QWidget*>(this));
+                popup = ContextMenu::createTransferContextMenu(transferHandler, qobject_cast<QWidget *>(this));
             }
 
             if (popup) {
@@ -484,5 +444,3 @@ bool TransfersViewDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 
     return false;
 }
-
-

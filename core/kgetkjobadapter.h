@@ -18,8 +18,8 @@
 #include <KIO/Job>
 
 /**
-* Allows kget to register all transfers in kuiserver as kjobs
-*/
+ * Allows kget to register all transfers in kuiserver as kjobs
+ */
 class KGetKJobAdapter : public KJob
 {
     Q_OBJECT
@@ -27,7 +27,9 @@ public:
     KGetKJobAdapter(QObject *parent, TransferHandler *transfer);
     ~KGetKJobAdapter() override;
 
-    void start() override {};
+    void start() override
+    {
+    }
 
     qulonglong processedAmount(Unit unit) const;
     qulonglong totalAmount(Unit unit) const;

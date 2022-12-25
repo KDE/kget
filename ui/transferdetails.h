@@ -13,8 +13,8 @@
 
 #include <QWidget>
 
-#include "core/transferhandler.h"
 #include "core/plugin/transferfactory.h"
+#include "core/transferhandler.h"
 #include "ui_transferdetailsfrm.h"
 
 class QVBoxLayout;
@@ -22,22 +22,22 @@ class QVBoxLayout;
 class TransferDetails : public QWidget
 {
     Q_OBJECT
-    public:
-        TransferDetails(TransferHandler * transfer);
-        ~TransferDetails() override;
+public:
+    TransferDetails(TransferHandler *transfer);
+    ~TransferDetails() override;
 
-        // gets the generic details widget if the transfer factory doesn't override it
-        static QWidget *detailsWidget(TransferHandler *transfer);
-        
-    public Q_SLOTS:
-        void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
-        
-    private:
-        TransferHandler * m_transfer = nullptr;
-        QVBoxLayout     * m_layout = nullptr;
-        QWidget         * m_genericWidget = nullptr;
+    // gets the generic details widget if the transfer factory doesn't override it
+    static QWidget *detailsWidget(TransferHandler *transfer);
 
-        Ui::TransferDetailsFrm frm;
+public Q_SLOTS:
+    void slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags flags);
+
+private:
+    TransferHandler *m_transfer = nullptr;
+    QVBoxLayout *m_layout = nullptr;
+    QWidget *m_genericWidget = nullptr;
+
+    Ui::TransferDetailsFrm frm;
 };
 
 #endif

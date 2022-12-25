@@ -1,21 +1,21 @@
 /**************************************************************************
-*   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "verificationmodel.h"
 #include "verifier.h"
@@ -23,12 +23,11 @@
 #include <QStringList>
 
 #include "kget_debug.h"
+#include <KLocalizedString>
 #include <QDebug>
 #include <QIcon>
-#include <KLocalizedString>
 
-struct VerificationModelPrivate
-{
+struct VerificationModelPrivate {
     VerificationModelPrivate()
     {
     }
@@ -43,8 +42,8 @@ struct VerificationModelPrivate
 };
 
 VerificationModel::VerificationModel(QObject *parent)
-  : QAbstractTableModel(parent),
-    d(new VerificationModelPrivate)
+    : QAbstractTableModel(parent)
+    , d(new VerificationModelPrivate)
 {
 }
 
@@ -62,13 +61,13 @@ QVariant VerificationModel::data(const QModelIndex &index, int role) const
         const int status = d->verificationStatus.at(index.row());
         if (role == Qt::DecorationRole) {
             switch (status) {
-                case Verifier::Verified:
-                    return QIcon::fromTheme("dialog-ok");
-                case Verifier::NotVerified:
-                    return QIcon::fromTheme("dialog-close");
-                case Verifier::NoResult:
-                default:
-                    return QIcon::fromTheme(QString());
+            case Verifier::Verified:
+                return QIcon::fromTheme("dialog-ok");
+            case Verifier::NotVerified:
+                return QIcon::fromTheme("dialog-close");
+            case Verifier::NoResult:
+            default:
+                return QIcon::fromTheme(QString());
             }
         } else if (role == Qt::EditRole) {
             return status;
@@ -85,12 +84,9 @@ Qt::ItemFlags VerificationModel::flags(const QModelIndex &index) const
     }
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-    if (index.column() == VerificationModel::Type)
-    {
+    if (index.column() == VerificationModel::Type) {
         flags |= Qt::ItemIsEditable;
-    }
-    else if (index.column() == VerificationModel::Checksum)
-    {
+    } else if (index.column() == VerificationModel::Checksum) {
         flags |= Qt::ItemIsEditable;
     }
 
@@ -184,7 +180,7 @@ void VerificationModel::addChecksum(const QString &type, const QString &checksum
         return;
     }
 
-    //if the hashtype already exists in the model, then replace it
+    // if the hashtype already exists in the model, then replace it
     int position = d->types.indexOf(type);
     if (position > -1) {
         d->checksums[position] = checksum;

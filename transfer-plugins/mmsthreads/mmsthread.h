@@ -19,32 +19,32 @@
 
 #ifndef MMSTHREAD_HPP
 #define MMSTHREAD_HPP
-#include <libmms/mmsx.h>
-#include <QThread>
 #include <QFile>
 #include <QMutex>
+#include <QThread>
+#include <libmms/mmsx.h>
 
 using namespace std;
 
 class MmsThread : public QThread
 {
     Q_OBJECT
-    public:
-        MmsThread(const QString& url, const QString& name, int begin, int end);
-        void run() override;
-        void stop();
+public:
+    MmsThread(const QString &url, const QString &name, int begin, int end);
+    void run() override;
+    void stop();
 
-    private:
-        QString m_sourceUrl;
-        QString m_fileName;
-        int m_begin;
-        int m_end;
-        QMutex m_locker;
-        bool m_download;
+private:
+    QString m_sourceUrl;
+    QString m_fileName;
+    int m_begin;
+    int m_end;
+    QMutex m_locker;
+    bool m_download;
 
-    Q_SIGNALS:
-        void signReading(int data, int m_end, int m_begin);
-        void signIsConnected(bool connected);
+Q_SIGNALS:
+    void signReading(int data, int m_end, int m_begin);
+    void signIsConnected(bool connected);
 };
 
 #endif // MMSTHREAD_HPP

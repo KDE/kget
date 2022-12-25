@@ -22,7 +22,7 @@
 K_PLUGIN_CLASS_WITH_JSON(ChecksumSearchFactory, "kget_checksumsearchfactory.json")
 
 ChecksumSearchFactory::ChecksumSearchFactory(QObject *parent, const QVariantList &args)
-  : TransferFactory(parent, args)
+    : TransferFactory(parent, args)
 {
 }
 

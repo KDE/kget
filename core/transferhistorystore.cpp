@@ -22,11 +22,13 @@
 #include <KIO/Global>
 #include <QStandardPaths>
 
+TransferHistoryItem::TransferHistoryItem()
+    : QObject()
+{
+}
 
-TransferHistoryItem::TransferHistoryItem() : QObject()
-{}
-
-TransferHistoryItem::TransferHistoryItem(const Transfer &transfer) : QObject()
+TransferHistoryItem::TransferHistoryItem(const Transfer &transfer)
+    : QObject()
 {
     setDest(transfer.dest().toLocalFile());
     setSource(transfer.source().url());
@@ -36,7 +38,8 @@ TransferHistoryItem::TransferHistoryItem(const Transfer &transfer) : QObject()
     setState(transfer.status());
 }
 
-TransferHistoryItem::TransferHistoryItem(const TransferHistoryItem &item) : QObject()
+TransferHistoryItem::TransferHistoryItem(const TransferHistoryItem &item)
+    : QObject()
 {
     setDest(item.dest());
     setSource(item.source());
@@ -95,7 +98,7 @@ QDateTime TransferHistoryItem::dateTime() const
     return m_dateTime;
 }
 
-TransferHistoryItem& TransferHistoryItem::operator=(const TransferHistoryItem &item)
+TransferHistoryItem &TransferHistoryItem::operator=(const TransferHistoryItem &item)
 {
     setDest(item.dest());
     setSource(item.source());
@@ -106,13 +109,14 @@ TransferHistoryItem& TransferHistoryItem::operator=(const TransferHistoryItem &i
     return *this;
 }
 
-bool TransferHistoryItem::operator==(const TransferHistoryItem& item) const
+bool TransferHistoryItem::operator==(const TransferHistoryItem &item) const
 {
     return dest() == item.dest() && source() == item.source();
 }
 
-TransferHistoryStore::TransferHistoryStore() : QObject(),
-    m_items()
+TransferHistoryStore::TransferHistoryStore()
+    : QObject()
+    , m_items()
 {
 }
 
@@ -120,7 +124,7 @@ TransferHistoryStore::~TransferHistoryStore()
 {
 }
 
-QList <TransferHistoryItem> TransferHistoryStore::items() const
+QList<TransferHistoryItem> TransferHistoryStore::items() const
 {
     return m_items;
 }
@@ -131,17 +135,14 @@ TransferHistoryStore *TransferHistoryStore::getStore()
     if (!QFileInfo::exists(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))) {
         QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     }
-    switch(Settings::historyBackend())
-    {
-        case TransferHistoryStore::SQLite:
+    switch (Settings::historyBackend()) {
+    case TransferHistoryStore::SQLite:
 #ifdef HAVE_SQLITE
-            return new SQLiteStore(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transferhistory.db"));
-            break;
+        return new SQLiteStore(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transferhistory.db"));
+        break;
 #endif
-        case TransferHistoryStore::Xml:
-        default:
-            return new XmlStore(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transferhistory.kgt"));
+    case TransferHistoryStore::Xml:
+    default:
+        return new XmlStore(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transferhistory.kgt"));
     }
 }
-
-

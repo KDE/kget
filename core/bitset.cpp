@@ -23,58 +23,63 @@
 
 BitSet BitSet::null;
 
-BitSet::BitSet(quint32 num_bits) : num_bits(num_bits),data(nullptr)
+BitSet::BitSet(quint32 num_bits)
+    : num_bits(num_bits)
+    , data(nullptr)
 {
-	num_bytes = (num_bits / 8) + ((num_bits % 8 > 0) ? 1 : 0);
-	data = new quint8[num_bytes];
-	std::fill(data,data+num_bytes,0x00);
-	num_on = 0;
+    num_bytes = (num_bits / 8) + ((num_bits % 8 > 0) ? 1 : 0);
+    data = new quint8[num_bytes];
+    std::fill(data, data + num_bytes, 0x00);
+    num_on = 0;
 }
 
-BitSet::BitSet(const quint8* d,quint32 num_bits)  : num_bits(num_bits),data(nullptr)
+BitSet::BitSet(const quint8 *d, quint32 num_bits)
+    : num_bits(num_bits)
+    , data(nullptr)
 {
-	num_bytes = (num_bits / 8) + ((num_bits % 8 > 0) ? 1 : 0);
-	data = new quint8[num_bytes];
-	memcpy(data,d,num_bytes);
-	num_on = 0;
-	quint32 i = 0;
-	while (i < num_bits)
-	{
-		if (get(i))
-			num_on++;
-		i++;
-	}
+    num_bytes = (num_bits / 8) + ((num_bits % 8 > 0) ? 1 : 0);
+    data = new quint8[num_bytes];
+    memcpy(data, d, num_bytes);
+    num_on = 0;
+    quint32 i = 0;
+    while (i < num_bits) {
+        if (get(i))
+            num_on++;
+        i++;
+    }
 }
 
-BitSet::BitSet(const BitSet & bs) : num_bits(bs.num_bits),num_bytes(bs.num_bytes),data(nullptr),num_on(bs.num_on)
+BitSet::BitSet(const BitSet &bs)
+    : num_bits(bs.num_bits)
+    , num_bytes(bs.num_bytes)
+    , data(nullptr)
+    , num_on(bs.num_on)
 {
-	data = new quint8[num_bytes];
-	std::copy(bs.data,bs.data+num_bytes,data);
+    data = new quint8[num_bytes];
+    std::copy(bs.data, bs.data + num_bytes, data);
 }
-		
+
 BitSet::~BitSet()
 {
-	delete [] data;
+    delete[] data;
 }
 
-
-
-BitSet & BitSet::operator = (const BitSet & bs)
+BitSet &BitSet::operator=(const BitSet &bs)
 {
-	if (data)
-		delete [] data;
-	num_bytes = bs.num_bytes;
-	num_bits = bs.num_bits;
-	data = new quint8[num_bytes];
-	std::copy(bs.data,bs.data+num_bytes,data);
-	num_on = bs.num_on;
-	return *this;
+    if (data)
+        delete[] data;
+    num_bytes = bs.num_bytes;
+    num_bits = bs.num_bits;
+    data = new quint8[num_bytes];
+    std::copy(bs.data, bs.data + num_bytes, data);
+    num_on = bs.num_on;
+    return *this;
 }
 
 void BitSet::setAll(bool on)
 {
-	std::fill(data,data+num_bytes,on ? 0xFF : 0x00);
-	num_on = on ? num_bits : 0;
+    std::fill(data, data + num_bytes, on ? 0xFF : 0x00);
+    num_on = on ? num_bits : 0;
 }
 
 void BitSet::getContinuousRange(qint32 *start, qint32 *end, bool on)
@@ -90,7 +95,7 @@ void BitSet::getContinuousRange(qint32 *start, qint32 *end, bool on)
     const bool everythingMatches = on ? allOn() : allOff();
     if (everythingMatches) {
         *start = 0;
-        *end = num_bits -1;
+        *end = num_bits - 1;
         return;
     }
 
@@ -110,23 +115,22 @@ void BitSet::getContinuousRange(qint32 *start, qint32 *end, bool on)
 
 void BitSet::clear()
 {
-	setAll(false);
+    setAll(false);
 }
 
-void BitSet::orBitSet(const BitSet & other)
+void BitSet::orBitSet(const BitSet &other)
 {
-	quint32 i = 0;
-	while (i < num_bits)
-	{
-		bool val = get(i) || other.get(i);
-		set(i,val);
-		i++;
-	}
+    quint32 i = 0;
+    while (i < num_bits) {
+        bool val = get(i) || other.get(i);
+        set(i, val);
+        i++;
+    }
 }
 
 bool BitSet::allOn() const
 {
-	return num_on == num_bits;
+    return num_on == num_bits;
 }
 
 bool BitSet::allOff() const
@@ -134,12 +138,10 @@ bool BitSet::allOff() const
     return !num_on;
 }
 
-bool BitSet::operator == (const BitSet & bs)
+bool BitSet::operator==(const BitSet &bs)
 {
-	if (this->getNumBits() != bs.getNumBits())
-		return false;
+    if (this->getNumBits() != bs.getNumBits())
+        return false;
 
-	return memcmp(data,bs.data,num_bytes) == 0;
+    return memcmp(data, bs.data, num_bytes) == 0;
 }
-
-

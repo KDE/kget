@@ -19,26 +19,26 @@ class Transfer;
 class TransferGroup;
 class Scheduler;
 
-
 class MetalinkFactory : public TransferFactory
 {
     Q_OBJECT
-    public:
-        MetalinkFactory(QObject *parent, const QVariantList &args);
-        ~MetalinkFactory() override;
+public:
+    MetalinkFactory(QObject *parent, const QVariantList &args);
+    ~MetalinkFactory() override;
 
-        Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
-                                   TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = nullptr ) override;
+    Transfer *createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e = nullptr) override;
 
-        QString displayName() const override { return "MetaLink"; }
-        /**
-         * Checks if a URL is supported by this plugin.
-         *
-         * @param url The URL to be tested
-         * @return True if the URL is a metalink (xml or http).
-         */
-        bool isSupported(const QUrl &url) const override;
+    QString displayName() const override
+    {
+        return "MetaLink";
+    }
+    /**
+     * Checks if a URL is supported by this plugin.
+     *
+     * @param url The URL to be tested
+     * @return True if the URL is a metalink (xml or http).
+     */
+    bool isSupported(const QUrl &url) const override;
 };
 
 #endif

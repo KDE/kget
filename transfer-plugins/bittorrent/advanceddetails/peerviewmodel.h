@@ -30,65 +30,63 @@
 namespace kt
 {
 
-	/**
-		@author Joris Guisson
-		Model for the PeerView
-	*/
-	class PeerViewModel : public QAbstractTableModel
-	{
-		Q_OBJECT
-	public:
-		PeerViewModel(QObject* parent);
-		~PeerViewModel() override;
-		
-		/// A peer has been added
-		void peerAdded(bt::PeerInterface* peer);
+/**
+    @author Joris Guisson
+    Model for the PeerView
+*/
+class PeerViewModel : public QAbstractTableModel
+{
+    Q_OBJECT
+public:
+    PeerViewModel(QObject *parent);
+    ~PeerViewModel() override;
 
-		/// A peer has been removed
-		void peerRemoved(bt::PeerInterface* peer);
-		
-		/**
-		 * Update the model
-		 */
-		void update();
-		
-		void clear();
+    /// A peer has been added
+    void peerAdded(bt::PeerInterface *peer);
 
-		int rowCount(const QModelIndex & parent) const override;
-		int columnCount(const QModelIndex & parent) const override;
-		QVariant headerData(int section, Qt::Orientation orientation,int role) const override;
-		QVariant data(const QModelIndex & index,int role) const override;
-		bool removeRows(int row,int count,const QModelIndex & parent) override;
-		bool insertRows(int row,int count,const QModelIndex & parent) override;
-		QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const override;
-		
-		bt::PeerInterface* indexToPeer(const QModelIndex & idx);
-		
-	public Q_SLOTS:
-		void sort(int col, Qt::SortOrder order) override;
-		
-	
-	public:	
-		struct Item
-		{
-			bt::PeerInterface* peer;
-			mutable bt::PeerInterface::Stats stats;
-			QString country;
-			QIcon flag;
-			
-			Item(bt::PeerInterface* peer);
-			
-			bool changed(int col,bool & modified) const;
-			QVariant data(int col) const;
-			QVariant decoration(int col) const;
-			bool lessThan(int col,const Item* other) const;
-		};
-	private:
-		QList<Item*> items;
-		int sort_column;
-		Qt::SortOrder sort_order;
-	};
+    /// A peer has been removed
+    void peerRemoved(bt::PeerInterface *peer);
 
+    /**
+     * Update the model
+     */
+    void update();
+
+    void clear();
+
+    int rowCount(const QModelIndex &parent) const override;
+    int columnCount(const QModelIndex &parent) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+    bool removeRows(int row, int count, const QModelIndex &parent) override;
+    bool insertRows(int row, int count, const QModelIndex &parent) override;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+
+    bt::PeerInterface *indexToPeer(const QModelIndex &idx);
+
+public Q_SLOTS:
+    void sort(int col, Qt::SortOrder order) override;
+
+public:
+    struct Item {
+        bt::PeerInterface *peer;
+        mutable bt::PeerInterface::Stats stats;
+        QString country;
+        QIcon flag;
+
+        Item(bt::PeerInterface *peer);
+
+        bool changed(int col, bool &modified) const;
+        QVariant data(int col) const;
+        QVariant decoration(int col) const;
+        bool lessThan(int col, const Item *other) const;
+    };
+
+private:
+    QList<Item *> items;
+    int sort_column;
+    Qt::SortOrder sort_order;
+};
 }
 
 #endif

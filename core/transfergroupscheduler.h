@@ -23,51 +23,56 @@
 class TransferGroupScheduler : public Scheduler
 {
     Q_OBJECT
-    public:
-        explicit TransferGroupScheduler(QObject *parent = nullptr);
-        ~TransferGroupScheduler() override;
+public:
+    explicit TransferGroupScheduler(QObject *parent = nullptr);
+    ~TransferGroupScheduler() override;
 
-        /**
-         * Calculates the whole SpeedLimits
-         */
-        void calculateSpeedLimits();
+    /**
+     * Calculates the whole SpeedLimits
+     */
+    void calculateSpeedLimits();
 
-        /**
-         * Calculates the DownloadLimits
-         */
-        void calculateDownloadLimit();
+    /**
+     * Calculates the DownloadLimits
+     */
+    void calculateDownloadLimit();
 
-        /**
-         * Calculates the DownloadLimits
-         */
-        void calculateUploadLimit();
+    /**
+     * Calculates the DownloadLimits
+     */
+    void calculateUploadLimit();
 
-        /**
-         * Sets a download limit to the scheduler
-         * @param limit the download limit
-         */
-        void setDownloadLimit(int limit);
+    /**
+     * Sets a download limit to the scheduler
+     * @param limit the download limit
+     */
+    void setDownloadLimit(int limit);
 
-        /**
-         * @return the transfergroupschedulers download limit
-         */
-        int downloadLimit() const {return m_downloadLimit;}
+    /**
+     * @return the transfergroupschedulers download limit
+     */
+    int downloadLimit() const
+    {
+        return m_downloadLimit;
+    }
 
-        /**
-         * Sets a upload limit to the scheduler
-         * @param limit the upload limit
-         */
-        void setUploadLimit(int limit);
+    /**
+     * Sets a upload limit to the scheduler
+     * @param limit the upload limit
+     */
+    void setUploadLimit(int limit);
 
-        /**
-         * @return the transfergroupschedulers upload limit
-         */
-        int uploadLimit() const {return m_uploadLimit;}
+    /**
+     * @return the transfergroupschedulers upload limit
+     */
+    int uploadLimit() const
+    {
+        return m_uploadLimit;
+    }
 
-    private:
-        int m_downloadLimit;
-        int m_uploadLimit;
+private:
+    int m_downloadLimit;
+    int m_uploadLimit;
 };
 
 #endif
- 

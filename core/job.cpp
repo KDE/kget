@@ -16,12 +16,12 @@
 #include "kget_debug.h"
 #include <QDebug>
 
-Job::Job(Scheduler * scheduler, JobQueue * parent)
-    : QObject(parent),
-      m_jobQueue(parent),
-      m_scheduler(scheduler),
-      m_status(Stopped),
-      m_policy(None)
+Job::Job(Scheduler *scheduler, JobQueue *parent)
+    : QObject(parent)
+    , m_jobQueue(parent)
+    , m_scheduler(scheduler)
+    , m_status(Stopped)
+    , m_policy(None)
 {
     m_error.id = -1;
     m_error.type = AutomaticRetry;
@@ -33,7 +33,7 @@ Job::~Job()
 
 void Job::setStatus(Status jobStatus)
 {
-    if(jobStatus == m_status)
+    if (jobStatus == m_status)
         return;
     if (m_status == Aborted) {
         m_error.id = -1;
@@ -53,7 +53,7 @@ void Job::setStartStatus(Status jobStatus)
 
 void Job::setPolicy(Policy jobPolicy)
 {
-    if(jobPolicy == m_policy)
+    if (jobPolicy == m_policy)
         return;
 
     qCDebug(KGET_DEBUG) << "Job::setPolicy(" << jobPolicy << ")";

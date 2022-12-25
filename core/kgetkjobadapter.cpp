@@ -11,12 +11,12 @@
 #include "kgetkjobadapter.h"
 
 #include "kget_debug.h"
-#include <QDebug>
 #include <KLocalizedString>
+#include <QDebug>
 
 KGetKJobAdapter::KGetKJobAdapter(QObject *parent, TransferHandler *transfer)
-  : KJob(parent),
-    m_transferHandler(transfer)
+    : KJob(parent)
+    , m_transferHandler(transfer)
 {
     setCapabilities(Killable | Suspendable);
 }
@@ -44,9 +44,10 @@ unsigned long KGetKJobAdapter::percent() const
 
 void KGetKJobAdapter::slotUpdateDescription()
 {
-    Q_EMIT description(this, i18n("KGet Transfer"), 
-                    qMakePair(QString("source"), m_transferHandler->source().toString()),
-                    qMakePair(QString("destination"), m_transferHandler->dest().toString()));
+    Q_EMIT description(this,
+                       i18n("KGet Transfer"),
+                       qMakePair(QString("source"), m_transferHandler->source().toString()),
+                       qMakePair(QString("destination"), m_transferHandler->dest().toString()));
 
     emitSpeed(m_transferHandler->downloadSpeed());
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes));

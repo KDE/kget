@@ -15,8 +15,8 @@
 #include <QDebug>
 
 Download::Download(const QUrl &srcUrl, const QUrl &destUrl)
-  : m_srcUrl(srcUrl),
-    m_destUrl(destUrl)
+    : m_srcUrl(srcUrl)
+    , m_destUrl(destUrl)
 {
     qCDebug(KGET_DEBUG) << "DownloadFile: " << m_srcUrl.url() << " to dest: " << m_destUrl.url();
     m_copyJob = KIO::get(m_srcUrl, KIO::NoReload, KIO::HideProgressInfo);
@@ -28,7 +28,7 @@ Download::~Download()
 {
 }
 
-void Download::slotData(KIO::Job *job, const QByteArray& data)
+void Download::slotData(KIO::Job *job, const QByteArray &data)
 {
     Q_UNUSED(job)
     qCDebug(KGET_DEBUG);
@@ -40,36 +40,33 @@ void Download::slotData(KIO::Job *job, const QByteArray& data)
     m_data.append(data);
 }
 
-void Download::slotResult(KJob * job)
+void Download::slotResult(KJob *job)
 {
     qCDebug(KGET_DEBUG);
-    switch (job->error())
+    switch (job->error()) {
+    case 0: // The download has finished
     {
-        case 0://The download has finished
-        {
-            qCDebug(KGET_DEBUG) << "Downloading successfully finished" << m_destUrl.url();
-            QFile torrentFile(m_destUrl.toLocalFile());
-            if (!torrentFile.open(QIODevice::WriteOnly | QIODevice::Text)) {}
-                //TODO: Do a Message box here
-            torrentFile.write(m_data);
-            torrentFile.close();
-            Q_EMIT finishedSuccessfully(m_destUrl, m_data);
-            m_data = nullptr;
-            break;
-        }
-        case KIO::ERR_FILE_ALREADY_EXIST:
-        {
-            qCDebug(KGET_DEBUG) << "ERROR - File already exists";
-            QFile file(m_destUrl.toLocalFile());
-            Q_EMIT finishedSuccessfully(m_destUrl, file.readAll());
-            m_data = nullptr;
-            break;
-        }
-        default:
-            qCDebug(KGET_DEBUG) << "We are sorry to say you, that there were errors while downloading :(";
-            m_data = nullptr;
-            Q_EMIT finishedWithError();
-            break;
+        qCDebug(KGET_DEBUG) << "Downloading successfully finished" << m_destUrl.url();
+        QFile torrentFile(m_destUrl.toLocalFile());
+        if (!torrentFile.open(QIODevice::WriteOnly | QIODevice::Text)) { }
+        // TODO: Do a Message box here
+        torrentFile.write(m_data);
+        torrentFile.close();
+        Q_EMIT finishedSuccessfully(m_destUrl, m_data);
+        m_data = nullptr;
+        break;
+    }
+    case KIO::ERR_FILE_ALREADY_EXIST: {
+        qCDebug(KGET_DEBUG) << "ERROR - File already exists";
+        QFile file(m_destUrl.toLocalFile());
+        Q_EMIT finishedSuccessfully(m_destUrl, file.readAll());
+        m_data = nullptr;
+        break;
+    }
+    default:
+        qCDebug(KGET_DEBUG) << "We are sorry to say you, that there were errors while downloading :(";
+        m_data = nullptr;
+        Q_EMIT finishedWithError();
+        break;
     }
 }
-  

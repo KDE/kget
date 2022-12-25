@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de> 
+   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -11,15 +11,13 @@
 
 #include "core/kget.h"
 
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <QDialog>
-#include <KSharedConfig>
-#include <KConfigGroup>
 
-
-PluginSelector::PluginSelector(QDialog * parent)
-  : KPluginWidget(parent)
+PluginSelector::PluginSelector(QDialog *parent)
+    : KPluginWidget(parent)
 {
     setConfig(KConfigGroup(KSharedConfig::openConfig(), "Plugins"));
     addPlugins(KGet::self()->plugins(), i18n("Plugins"));
@@ -42,5 +40,3 @@ void PluginSelector::loadDefaults()
 {
     defaults();
 }
-
-

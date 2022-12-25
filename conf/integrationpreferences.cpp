@@ -1,37 +1,37 @@
 /***************************************************************************
-*   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2010 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "integrationpreferences.h"
 #include "autopastemodel.h"
 #include "settings.h"
 
 #include <KConfigDialog>
-#include <KLocalizedString>
 #include <KGuiItem>
+#include <KLocalizedString>
 #include <KStandardGuiItem>
 
 IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::WindowFlags f)
-  : QWidget(parent, f)
+    : QWidget(parent, f)
 {
     ui.setupUi(this);
 
-    //AutoPaste stuff
+    // AutoPaste stuff
     ui.type->addItem(QIcon::fromTheme("list-add"), i18n("Include"), AutoPasteModel::Include);
     ui.type->addItem(QIcon::fromTheme("list-remove"), i18n("Exclude"), AutoPasteModel::Exclude);
 
@@ -57,7 +57,7 @@ IntegrationPreferences::IntegrationPreferences(KConfigDialog *parent, Qt::Window
     }
 
     connect(m_model, &AutoPasteModel::dataChanged, this, &IntegrationPreferences::changed);
-    connect(ui.list->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotUpdateButtons()));
+    connect(ui.list->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(slotUpdateButtons()));
     connect(ui.pattern, &KLineEdit::textChanged, this, &IntegrationPreferences::slotUpdateButtons);
     connect(ui.pattern, &KLineEdit::returnPressed, this, &IntegrationPreferences::slotAddItem);
     connect(ui.add, &QPushButton::clicked, this, &IntegrationPreferences::slotAddItem);
@@ -95,7 +95,8 @@ void IntegrationPreferences::slotAddItem()
     }
 
     AutoPasteModel::TypeData type = static_cast<AutoPasteModel::TypeData>(ui.type->itemData(ui.type->currentIndex()).toInt());
-    AutoPasteModel::PatternSyntaxData syntax = static_cast<AutoPasteModel::PatternSyntaxData>(ui.patternSyntax->itemData(ui.patternSyntax->currentIndex()).toInt());
+    AutoPasteModel::PatternSyntaxData syntax =
+        static_cast<AutoPasteModel::PatternSyntaxData>(ui.patternSyntax->itemData(ui.patternSyntax->currentIndex()).toInt());
     m_model->addItem(type, syntax, pattern);
 
     ui.pattern->clear();
@@ -130,4 +131,3 @@ void IntegrationPreferences::slotDecreasePriority()
     slotUpdateButtons();
     Q_EMIT changed();
 }
-

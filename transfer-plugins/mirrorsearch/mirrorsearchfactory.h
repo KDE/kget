@@ -19,11 +19,11 @@ class TransferDataSource;
 class MirrorSearchFactory : public TransferFactory
 {
     Q_OBJECT
-    public:
-        MirrorSearchFactory(QObject *parent, const QVariantList &args);
-        ~MirrorSearchFactory() override;
+public:
+    MirrorSearchFactory(QObject *parent, const QVariantList &args);
+    ~MirrorSearchFactory() override;
 
-        TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent) override;
+    TransferDataSource *createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent) override;
 };
 
 #endif

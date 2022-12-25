@@ -18,25 +18,25 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 
-#include <QMenu>
 #include <QClipboard>
+#include <QMenu>
 
 /** class Tray
-  * Reimplementation of the KStatusNotifierItem class
-  */
-Tray::Tray(MainWindow * parent)
+ * Reimplementation of the KStatusNotifierItem class
+ */
+Tray::Tray(MainWindow *parent)
     : KStatusNotifierItem(parent)
 {
     // set up the context menu
-    QMenu * cm = contextMenu();
-    cm->addAction( parent->actionCollection()->action("new_download") );
-    cm->addAction( parent->actionCollection()->action("import_links") );
+    QMenu *cm = contextMenu();
+    cm->addAction(parent->actionCollection()->action("new_download"));
+    cm->addAction(parent->actionCollection()->action("import_links"));
     cm->addSeparator();
-    cm->addAction( parent->actionCollection()->action("start_all_download") );
-    cm->addAction( parent->actionCollection()->action("stop_all_download") );
+    cm->addAction(parent->actionCollection()->action("start_all_download"));
+    cm->addAction(parent->actionCollection()->action("stop_all_download"));
     cm->addSeparator();
-    cm->addAction( parent->actionCollection()->action("konqueror_integration") );
-    cm->addAction( parent->actionCollection()->action("options_configure") );
+    cm->addAction(parent->actionCollection()->action("konqueror_integration"));
+    cm->addAction(parent->actionCollection()->action("options_configure"));
 
     // Set up basic tray parameters
     setCategory(ApplicationStatus);
@@ -53,7 +53,6 @@ Tray::Tray(MainWindow * parent)
     connect(this, &Tray::secondaryActivateRequested, this, &Tray::slotActivated);
 }
 
-
 // filter middle mouse clicks to ask scheduler to paste URL
 void Tray::slotActivated()
 {
@@ -61,31 +60,27 @@ void Tray::slotActivated()
     QString newtransfer = QApplication::clipboard()->text();
     newtransfer = newtransfer.trimmed();
 
-    if(!newtransfer.isEmpty())
+    if (!newtransfer.isEmpty())
         NewTransferDialogHandler::showNewTransferDialog(QUrl(newtransfer));
 }
 
-
 // display a play icon when downloading and
 // switch between Active or Passive state
-void Tray::setDownloading( bool downloading )
+void Tray::setDownloading(bool downloading)
 {
     qCDebug(KGET_DEBUG) << "Tray::setDownloading";
 
-    if (downloading)
-    {
+    if (downloading) {
         if (status() == KStatusNotifierItem::Active)
             return;
         setStatus(KStatusNotifierItem::Active);
         setOverlayIconByName("media-playback-start");
-    }
-    else
-    {
+    } else {
         if (status() == KStatusNotifierItem::Passive)
             return;
         setStatus(KStatusNotifierItem::Passive);
         setOverlayIconByName(QString());
-    } 	
+    }
 }
 
 bool Tray::isDownloading()
@@ -94,5 +89,3 @@ bool Tray::isDownloading()
     // as we do not use it.
     return (status() == KStatusNotifierItem::Active);
 }
-
-

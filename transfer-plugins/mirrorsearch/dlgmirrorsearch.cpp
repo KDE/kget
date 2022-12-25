@@ -10,12 +10,12 @@
 
 #include "dlgmirrorsearch.h"
 
-#include "kget_macro.h"
 #include "kget_debug.h"
+#include "kget_macro.h"
 #include "mirrorsearchsettings.h"
 
-#include <KLocalizedString>
 #include <KConfigGroup>
+#include <KLocalizedString>
 
 #include <QDebug>
 #include <QDialogButtonBox>
@@ -33,7 +33,7 @@ DlgEngineEditing::DlgEngineEditing(QWidget *parent)
 
     setWindowTitle(i18n("Insert Engine"));
     setModal(true);
-    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     okButton = buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
@@ -43,8 +43,8 @@ DlgEngineEditing::DlgEngineEditing(QWidget *parent)
 
     ui.engineNameLabel->setText(i18n("Engine name:"));
     ui.urlLabel->setText(i18n("URL:"));
-    connect(ui.urlEdit,&QLineEdit::textChanged, this, &DlgEngineEditing::slotChangeText);
-    connect(ui.engineNameEdit,&QLineEdit::textChanged,this, &DlgEngineEditing::slotChangeText);
+    connect(ui.urlEdit, &QLineEdit::textChanged, this, &DlgEngineEditing::slotChangeText);
+    connect(ui.engineNameEdit, &QLineEdit::textChanged, this, &DlgEngineEditing::slotChangeText);
     slotChangeText();
 }
 
@@ -87,7 +87,7 @@ DlgSettingsWidget::~DlgSettingsWidget()
 void DlgSettingsWidget::slotNewEngine()
 {
     DlgEngineEditing dialog;
-    if(dialog.exec()) {
+    if (dialog.exec()) {
         addSearchEngineItem(dialog.engineName(), dialog.engineUrl());
         Q_EMIT markAsChanged();
     }
@@ -97,8 +97,8 @@ void DlgSettingsWidget::slotRemoveEngine()
 {
     QList<QTreeWidgetItem *> selectedItems = ui.enginesTreeWidget->selectedItems();
 
-    foreach(QTreeWidgetItem * selectedItem, selectedItems)
-        delete(selectedItem);
+    foreach (QTreeWidgetItem *selectedItem, selectedItems)
+        delete (selectedItem);
     Q_EMIT markAsChanged();
 }
 
@@ -115,13 +115,12 @@ void DlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &
 
 void DlgSettingsWidget::loadSearchEnginesSettings()
 {
-    ui.enginesTreeWidget->clear();//Cleanup things first
+    ui.enginesTreeWidget->clear(); // Cleanup things first
 
     QStringList enginesNames = MirrorSearchSettings::self()->searchEnginesNameList();
     QStringList enginesUrls = MirrorSearchSettings::self()->searchEnginesUrlList();
 
-    for(int i = 0; i < enginesNames.size(); i++)
-    {
+    for (int i = 0; i < enginesNames.size(); i++) {
         addSearchEngineItem(enginesNames[i], enginesUrls[i]);
     }
 }
@@ -131,8 +130,7 @@ void DlgSettingsWidget::saveSearchEnginesSettings()
     QStringList enginesNames;
     QStringList enginesUrls;
 
-    for(int i = 0; i < ui.enginesTreeWidget->topLevelItemCount(); i++)
-    {
+    for (int i = 0; i < ui.enginesTreeWidget->topLevelItemCount(); i++) {
         enginesNames.append(ui.enginesTreeWidget->topLevelItem(i)->text(0));
         enginesUrls.append(ui.enginesTreeWidget->topLevelItem(i)->text(1));
     }

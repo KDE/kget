@@ -13,31 +13,40 @@
 #include "linkimporter.h"
 
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QIODevice>
 #include <QMap>
 #include <QRegExp>
-#include <QDir>
 #include <QTextStream>
 
-#include <KLocalizedString>
 #include <KIO/CopyJob>
+#include <KLocalizedString>
 
-//static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
-// static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";
-static QString REGULAR_EXPRESSION = "(\\w+[:]//)?(((([\\w-]+[.]){1,}(ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|com|cr|cs|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gd|ge|gf|gg|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|int|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|mil|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|net|nf|ng|ni|nl|no|np|nr|nt|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|sv|st|sy|sz|tc|td|tf|tg|th|tj|tk|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw|aero|biz|coop|info|museum|name|pro|travel))|([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)))([:][0-9]*)?([?/][\\w~#\\-;%?@&=/.+]*)?(?!\\w)";
+// static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
+//  static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";
+static QString REGULAR_EXPRESSION =
+    "(\\w+[:]//"
+    ")?(((([\\w-]+[.]){1,}(ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|"
+    "cl|cm|cn|co|com|cr|cs|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gd|ge|gf|gg|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|"
+    "gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|int|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|"
+    "mil|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|net|nf|ng|ni|nl|no|np|nr|nt|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|"
+    "ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|sv|st|sy|sz|tc|td|tf|tg|th|tj|tk|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|"
+    "wf|ws|ye|yt|yu|za|zm|zw|aero|biz|coop|info|museum|name|pro|travel))|([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)))([:][0-9]*)?([?/][\\w~#\\-;%?@&=/.+]*)?(?!\\w)";
 
-LinkImporter::LinkImporter(const QUrl &url, QObject *parent) : QThread(parent),
-    m_url(url),
-    m_transfers(),
-    m_tempFile()
+LinkImporter::LinkImporter(const QUrl &url, QObject *parent)
+    : QThread(parent)
+    , m_url(url)
+    , m_transfers()
+    , m_tempFile()
 {
 }
 
-LinkImporter::LinkImporter(QObject *parent) : QThread(parent),
-    m_url(),
-    m_transfers(),
-    m_tempFile()
+LinkImporter::LinkImporter(QObject *parent)
+    : QThread(parent)
+    , m_url()
+    , m_transfers()
+    , m_tempFile()
 {
 }
 
@@ -62,10 +71,9 @@ void LinkImporter::checkClipboard(const QString &clipboardContent)
 
 void LinkImporter::run()
 {
-    if(!m_url.isLocalFile() && !m_tempFile.isEmpty()) {
+    if (!m_url.isLocalFile() && !m_tempFile.isEmpty()) {
         slotReadFile(QUrl(m_tempFile));
-    }
-    else {
+    } else {
         slotReadFile(m_url);
     }
 
@@ -79,7 +87,7 @@ void LinkImporter::copyRemoteFile()
     QUrl aux(m_tempFile);
     KIO::CopyJob *job = KIO::copy(m_url, aux, KIO::HideProgressInfo);
 
-    if(!job->exec()) {
+    if (!job->exec()) {
         Q_EMIT error(ki18n("Error trying to get %1").subs(m_url.url()));
     }
 }
@@ -117,7 +125,7 @@ void LinkImporter::slotReadFile(const QUrl &url)
         Q_EMIT progress(position * 100 / size);
     }
 
-    if(!m_url.isLocalFile()) {
+    if (!m_url.isLocalFile()) {
         file.remove();
     }
 }
@@ -125,17 +133,14 @@ void LinkImporter::slotReadFile(const QUrl &url)
 void LinkImporter::addTransfer(QString &link)
 {
     QUrl auxUrl;
-    
+
     if (link.contains("://")) {
         auxUrl = QUrl(link);
     } else {
         auxUrl = QUrl(QString("http://") + link);
     }
 
-    if(!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 &&
-       !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
+    if (!link.isEmpty() && auxUrl.isValid() && m_transfers.indexOf(link) < 0 && !auxUrl.scheme().isEmpty() && !auxUrl.host().isEmpty()) {
         m_transfers << link;
     }
 }
-
-

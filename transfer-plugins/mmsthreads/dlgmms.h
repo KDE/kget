@@ -26,15 +26,15 @@
 class DlgMmsSettings : public KCModule
 {
     Q_OBJECT
-    public:
-        explicit DlgMmsSettings(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
+public:
+    explicit DlgMmsSettings(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
 
-    public Q_SLOTS:
-        void save() override;
-        void load() override;
+public Q_SLOTS:
+    void save() override;
+    void load() override;
 
-    private:
-        Ui::DlgMms ui;
+private:
+    Ui::DlgMms ui;
 };
 
 #endif // DLGMMSTHREAD_H

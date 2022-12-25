@@ -16,31 +16,30 @@
 
 #include "mainwindow.h"
 
+#include "conf/autopastemodel.h"
+#include "conf/preferencesdialog.h"
 #include "core/kget.h"
-#include "core/transferhandler.h"
 #include "core/transfergrouphandler.h"
+#include "core/transferhandler.h"
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 #include "core/verifier.h"
 #include "settings.h"
-#include "conf/autopastemodel.h"
-#include "conf/preferencesdialog.h"
-#include "ui/viewscontainer.h"
 #include "ui/droptarget.h"
-#include "ui/newtransferdialog.h"
-#include "ui/history/transferhistory.h"
 #include "ui/groupsettingsdialog.h"
-#include "ui/transfersettingsdialog.h"
+#include "ui/history/transferhistory.h"
 #include "ui/linkview/kget_linkview.h"
 #include "ui/metalinkcreator/metalinkcreator.h"
+#include "ui/newtransferdialog.h"
+#include "ui/transfersettingsdialog.h"
+#include "ui/viewscontainer.h"
 #ifdef DO_KGET_TEST
-    #include "tests/testkget.h"
+#include "tests/testkget.h"
 #endif
 
 #include "kget_debug.h"
 #include <QDebug>
 
-#include <kwidgetsaddons_version.h>
 #include <KActionMenu>
 #include <KIconDialog>
 #include <KLocalizedString>
@@ -49,6 +48,7 @@
 #include <KRun>
 #include <KSelectAction>
 #include <KStandardAction>
+#include <kwidgetsaddons_version.h>
 
 #include <QApplication>
 #include <QClipboard>
@@ -61,17 +61,17 @@
 #include <QStandardPaths>
 #include <QTimer>
 #ifdef DO_KGET_TEST
-    #include <QtTest>
+#include <QtTest>
 #endif
 
 MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doTesting, QWidget *parent)
-    : KXmlGuiWindow( parent ),
-      m_drop(nullptr),
-      m_dock(nullptr),
-      clipboardTimer(nullptr),
-      m_startWithoutAnimation(startWithoutAnimation),
-      m_doTesting(doTesting)/*,
-      m_webinterface(nullptr)*/
+    : KXmlGuiWindow(parent)
+    , m_drop(nullptr)
+    , m_dock(nullptr)
+    , clipboardTimer(nullptr)
+    , m_startWithoutAnimation(startWithoutAnimation)
+    , m_doTesting(doTesting) /*,
+       m_webinterface(nullptr)*/
 {
     // do not quit the app when it has been minimized to system tray and a new transfer dialog
     // gets opened and closed again.
@@ -79,7 +79,7 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     setAttribute(Qt::WA_DeleteOnClose, false);
 
     // create the model
-    m_kget = KGet::self( this );
+    m_kget = KGet::self(this);
 
     m_viewsContainer = new ViewsContainer(this);
 
@@ -91,12 +91,12 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
     setCentralWidget(m_viewsContainer);
 
     // restore position, size and visibility
-    move( Settings::mainPosition() );
+    move(Settings::mainPosition());
     setPlainCaption(i18n("KGet"));
-    
+
     init();
 
-    if ( Settings::showMain() && showMainwindow)
+    if (Settings::showMain() && showMainwindow)
         show();
     else
         hide();
@@ -104,12 +104,12 @@ MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doT
 
 MainWindow::~MainWindow()
 {
-    //Save the user's transfers
+    // Save the user's transfers
     KGet::save();
 
     slotSaveMyself();
     // reset konqueror integration (necessary if user enabled / disabled temporarily integration from tray)
-    slotKonquerorIntegration( Settings::konquerorIntegration() );
+    slotKonquerorIntegration(Settings::konquerorIntegration());
     // the following call saves options set in above dtors
     Settings::self()->save();
 
@@ -128,15 +128,14 @@ int MainWindow::transfersPercent()
     int activeTransfers = 0;
     foreach (const TransferHandler *handler, KGet::allTransfers()) {
         if (handler->status() == Job::Running) {
-            activeTransfers ++;
+            activeTransfers++;
             percent += handler->percent();
         }
     }
 
     if (activeTransfers > 0) {
-        return percent/activeTransfers;
-    }
-    else {
+        return percent / activeTransfers;
+    } else {
         return -1;
     }
 }
@@ -146,63 +145,63 @@ void MainWindow::setupActions()
     QAction *newDownloadAction = actionCollection()->addAction("new_download");
     newDownloadAction->setText(i18n("&New Download..."));
     newDownloadAction->setIcon(QIcon::fromTheme("document-new"));
-    //newDownloadAction->setHelpText(i18n("Opens a dialog to add a transfer to the list"));
+    // newDownloadAction->setHelpText(i18n("Opens a dialog to add a transfer to the list"));
     actionCollection()->setDefaultShortcut(newDownloadAction, QKeySequence(Qt::CTRL + Qt::Key_N));
     connect(newDownloadAction, &QAction::triggered, this, &MainWindow::slotNewTransfer);
 
     QAction *openAction = actionCollection()->addAction("import_transfers");
     openAction->setText(i18n("&Import Transfers..."));
     openAction->setIcon(QIcon::fromTheme("document-open"));
-    //openAction->setHelpText(i18n("Imports a list of transfers"));
+    // openAction->setHelpText(i18n("Imports a list of transfers"));
     actionCollection()->setDefaultShortcut(openAction, QKeySequence(Qt::CTRL + Qt::Key_I));
     connect(openAction, &QAction::triggered, this, &MainWindow::slotImportTransfers);
 
     QAction *exportAction = actionCollection()->addAction("export_transfers");
     exportAction->setText(i18n("&Export Transfers List..."));
     exportAction->setIcon(QIcon::fromTheme("document-export"));
-    //exportAction->setHelpText(i18n("Exports the current transfers into a file"));
+    // exportAction->setHelpText(i18n("Exports the current transfers into a file"));
     actionCollection()->setDefaultShortcut(exportAction, QKeySequence(Qt::CTRL + Qt::Key_E));
     connect(exportAction, &QAction::triggered, this, &MainWindow::slotExportTransfers);
 
     QAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
     createMetalinkAction->setText(i18n("&Create a Metalink..."));
     createMetalinkAction->setIcon(QIcon::fromTheme("journal-new"));
-    //createMetalinkAction->setHelpText(i18n("Creates or modifies a metalink and saves it on disk"));
+    // createMetalinkAction->setHelpText(i18n("Creates or modifies a metalink and saves it on disk"));
     connect(createMetalinkAction, &QAction::triggered, this, &MainWindow::slotCreateMetalink);
 
     QAction *priorityTop = actionCollection()->addAction("priority_top");
     priorityTop->setText(i18n("Top Priority"));
     priorityTop->setIcon(QIcon::fromTheme("arrow-up-double"));
-    //priorityTop->setHelpText(i18n("Download selected transfer first"));
+    // priorityTop->setHelpText(i18n("Download selected transfer first"));
     actionCollection()->setDefaultShortcut(priorityTop, QKeySequence(Qt::CTRL + Qt::Key_PageUp));
     connect(priorityTop, &QAction::triggered, this, &MainWindow::slotPriorityTop);
 
     QAction *priorityBottom = actionCollection()->addAction("priority_bottom");
     priorityBottom->setText(i18n("Least Priority"));
     priorityBottom->setIcon(QIcon::fromTheme("arrow-down-double"));
-    //priorityBottom->setHelpText(i18n("Download selected transfer last"));
+    // priorityBottom->setHelpText(i18n("Download selected transfer last"));
     actionCollection()->setDefaultShortcut(priorityBottom, QKeySequence(Qt::CTRL + Qt::Key_PageDown));
     connect(priorityBottom, &QAction::triggered, this, &MainWindow::slotPriorityBottom);
 
     QAction *priorityUp = actionCollection()->addAction("priority_up");
     priorityUp->setText(i18n("Increase Priority"));
     priorityUp->setIcon(QIcon::fromTheme("arrow-up"));
-    //priorityUp->setHelpText(i18n("Increase priority for selected transfer"));
+    // priorityUp->setHelpText(i18n("Increase priority for selected transfer"));
     actionCollection()->setDefaultShortcut(priorityUp, QKeySequence(Qt::CTRL + Qt::Key_Up));
     connect(priorityUp, &QAction::triggered, this, &MainWindow::slotPriorityUp);
 
     QAction *priorityDown = actionCollection()->addAction("priority_down");
     priorityDown->setText(i18n("Decrease Priority"));
     priorityDown->setIcon(QIcon::fromTheme("arrow-down"));
-    //priorityDown->setHelpText(i18n("Decrease priority for selected transfer"));
+    // priorityDown->setHelpText(i18n("Decrease priority for selected transfer"));
     actionCollection()->setDefaultShortcut(priorityDown, QKeySequence(Qt::CTRL + Qt::Key_Down));
     connect(priorityDown, &QAction::triggered, this, &MainWindow::slotPriorityDown);
 
-    //FIXME: Not needed maybe because the normal delete already deletes groups?
+    // FIXME: Not needed maybe because the normal delete already deletes groups?
     QAction *deleteGroupAction = actionCollection()->addAction("delete_groups");
     deleteGroupAction->setText(i18nc("@action", "Delete Group"));
     deleteGroupAction->setIcon(QIcon::fromTheme("edit-delete"));
-    //deleteGroupAction->setHelpText(i18n("Delete selected group"));
+    // deleteGroupAction->setHelpText(i18n("Delete selected group"));
     connect(deleteGroupAction, &QAction::triggered, this, &MainWindow::slotDeleteGroup);
 
     QAction *renameGroupAction = actionCollection()->addAction("rename_groups");
@@ -213,20 +212,19 @@ void MainWindow::setupActions()
     QAction *setIconGroupAction = actionCollection()->addAction("seticon_groups");
     setIconGroupAction->setText(i18n("Set Icon..."));
     setIconGroupAction->setIcon(QIcon::fromTheme("preferences-desktop-icons"));
-    //setIconGroupAction->setHelpText(i18n("Select a custom icon for the selected group"));
+    // setIconGroupAction->setHelpText(i18n("Select a custom icon for the selected group"));
     connect(setIconGroupAction, &QAction::triggered, this, &MainWindow::slotSetIconGroup);
 
-    m_autoPasteAction = new KToggleAction(QIcon::fromTheme("edit-paste"),
-                                          i18n("Auto-Paste Mode"), actionCollection());
+    m_autoPasteAction = new KToggleAction(QIcon::fromTheme("edit-paste"), i18n("Auto-Paste Mode"), actionCollection());
     actionCollection()->addAction("auto_paste", m_autoPasteAction);
     m_autoPasteAction->setChecked(Settings::autoPaste());
-    m_autoPasteAction->setWhatsThis(i18n("<b>Auto paste</b> button toggles the auto-paste mode "
-                                         "on and off.\nWhen set, KGet will periodically scan "
-                                         "the clipboard for URLs and paste them automatically."));
+    m_autoPasteAction->setWhatsThis(
+        i18n("<b>Auto paste</b> button toggles the auto-paste mode "
+             "on and off.\nWhen set, KGet will periodically scan "
+             "the clipboard for URLs and paste them automatically."));
     connect(m_autoPasteAction, &QAction::triggered, this, &MainWindow::slotToggleAutoPaste);
 
-    m_konquerorIntegration = new KToggleAction(QIcon::fromTheme("konqueror"),
-                                               i18n("Use KGet as Konqueror Download Manager"), actionCollection());
+    m_konquerorIntegration = new KToggleAction(QIcon::fromTheme("konqueror"), i18n("Use KGet as Konqueror Download Manager"), actionCollection());
     actionCollection()->addAction("konqueror_integration", m_konquerorIntegration);
     connect(m_konquerorIntegration, &QAction::triggered, this, &MainWindow::slotTrayKonquerorIntegration);
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
@@ -246,20 +244,20 @@ void MainWindow::setupActions()
     QAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
     deleteSelectedAction->setText(i18nc("delete selected transfer item", "Remove Selected"));
     deleteSelectedAction->setIcon(QIcon::fromTheme("edit-delete"));
-//     deleteSelectedAction->setHelpText(i18n("Removes selected transfer and deletes files from disk if it's not finished"));
+    //     deleteSelectedAction->setHelpText(i18n("Removes selected transfer and deletes files from disk if it's not finished"));
     actionCollection()->setDefaultShortcut(deleteSelectedAction, QKeySequence(Qt::Key_Delete));
     connect(deleteSelectedAction, &QAction::triggered, this, &MainWindow::slotDeleteSelected);
 
     QAction *deleteAllFinishedAction = actionCollection()->addAction("delete_all_finished");
     deleteAllFinishedAction->setText(i18nc("delete all finished transfers", "Remove All Finished"));
     deleteAllFinishedAction->setIcon(QIcon::fromTheme("edit-clear-list"));
-//     deleteAllFinishedAction->setHelpText(i18n("Removes all finished transfers and leaves all files on disk"));
+    //     deleteAllFinishedAction->setHelpText(i18n("Removes all finished transfers and leaves all files on disk"));
     connect(deleteAllFinishedAction, &QAction::triggered, this, &MainWindow::slotDeleteFinished);
-    
+
     QAction *deleteSelectedIncludingFilesAction = actionCollection()->addAction("delete_selected_download_including_files");
     deleteSelectedIncludingFilesAction->setText(i18nc("delete selected transfer item and files", "Remove Selected and Delete Files"));
     deleteSelectedIncludingFilesAction->setIcon(QIcon::fromTheme("edit-delete"));
-//     deleteSelectedIncludingFilesAction->setHelpText(i18n("Removes selected transfer and deletes files from disk in any case"));
+    //     deleteSelectedIncludingFilesAction->setHelpText(i18n("Removes selected transfer and deletes files from disk in any case"));
     connect(deleteSelectedIncludingFilesAction, &QAction::triggered, this, &MainWindow::slotDeleteSelectedIncludingFiles);
 
     QAction *redownloadSelectedAction = actionCollection()->addAction("redownload_selected_download");
@@ -270,45 +268,43 @@ void MainWindow::setupActions()
     QAction *startAllAction = actionCollection()->addAction("start_all_download");
     startAllAction->setText(i18n("Start All"));
     startAllAction->setIcon(QIcon::fromTheme("media-seek-forward"));
-//     startAllAction->setHelpText(i18n("Starts / resumes all transfers"));
+    //     startAllAction->setHelpText(i18n("Starts / resumes all transfers"));
     actionCollection()->setDefaultShortcut(startAllAction, QKeySequence(Qt::CTRL + Qt::Key_R));
     connect(startAllAction, &QAction::triggered, this, &MainWindow::slotStartAllDownload);
 
     QAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
     startSelectedAction->setText(i18n("Start Selected"));
     startSelectedAction->setIcon(QIcon::fromTheme("media-playback-start"));
-//     startSelectedAction->setHelpText(i18n("Starts / resumes selected transfer"));
+    //     startSelectedAction->setHelpText(i18n("Starts / resumes selected transfer"));
     connect(startSelectedAction, &QAction::triggered, this, &MainWindow::slotStartSelectedDownload);
 
     QAction *stopAllAction = actionCollection()->addAction("stop_all_download");
     stopAllAction->setText(i18n("Pause All"));
     stopAllAction->setIcon(QIcon::fromTheme("media-playback-pause"));
-//     stopAllAction->setHelpText(i18n("Pauses all transfers"));
+    //     stopAllAction->setHelpText(i18n("Pauses all transfers"));
     actionCollection()->setDefaultShortcut(stopAllAction, QKeySequence(Qt::CTRL + Qt::Key_P));
     connect(stopAllAction, &QAction::triggered, this, &MainWindow::slotStopAllDownload);
 
     QAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
     stopSelectedAction->setText(i18n("Stop Selected"));
     stopSelectedAction->setIcon(QIcon::fromTheme("media-playback-pause"));
-    //stopSelectedAction->setHelpText(i18n("Pauses selected transfer"));
+    // stopSelectedAction->setHelpText(i18n("Pauses selected transfer"));
     connect(stopSelectedAction, &QAction::triggered, this, &MainWindow::slotStopSelectedDownload);
 
-    auto *startActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-start"), i18n("Start"),
-                                                     actionCollection());
+    auto *startActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-start"), i18n("Start"), actionCollection());
     actionCollection()->addAction("start_menu", startActionMenu);
     startActionMenu->setDelayed(true);
     startActionMenu->addAction(startSelectedAction);
     startActionMenu->addAction(startAllAction);
     connect(startActionMenu, &QAction::triggered, this, &MainWindow::slotStartDownload);
 
-    auto *stopActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-pause"), i18n("Pause"),
-                                                    actionCollection());
+    auto *stopActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-pause"), i18n("Pause"), actionCollection());
     actionCollection()->addAction("stop_menu", stopActionMenu);
     stopActionMenu->setDelayed(true);
     stopActionMenu->addAction(stopSelectedAction);
     stopActionMenu->addAction(stopAllAction);
     connect(stopActionMenu, &QAction::triggered, this, &MainWindow::slotStopDownload);
-    
+
     QAction *openDestAction = actionCollection()->addAction("transfer_open_dest");
     openDestAction->setText(i18n("Open Destination"));
     openDestAction->setIcon(QIcon::fromTheme("document-open"));
@@ -352,10 +348,10 @@ void MainWindow::setupActions()
     actionCollection()->setDefaultShortcut(listLinksAction, QKeySequence(Qt::CTRL + Qt::Key_L));
     connect(listLinksAction, &QAction::triggered, this, &MainWindow::slotShowListLinks);
 
-    //create the download finished actions which can be displayed in the toolbar
-    auto *downloadFinishedActions = new KSelectAction(i18n("After downloads finished action"), this);//TODO maybe with name??
+    // create the download finished actions which can be displayed in the toolbar
+    auto *downloadFinishedActions = new KSelectAction(i18n("After downloads finished action"), this); // TODO maybe with name??
     actionCollection()->addAction("download_finished_actions", downloadFinishedActions);
-    //downloadFinishedActions->setHelpText(i18n("Choose an action that is executed after all downloads have been finished."));
+    // downloadFinishedActions->setHelpText(i18n("Choose an action that is executed after all downloads have been finished."));
 
     QAction *noAction = downloadFinishedActions->addAction(i18n("No Action"));
     connect(noAction, &QAction::triggered, this, &MainWindow::slotDownloadFinishedActions);
@@ -392,14 +388,14 @@ void MainWindow::setupActions()
 
 void MainWindow::slotDownloadFinishedActions()
 {
-    auto *action = static_cast<QAction*>(QObject::sender());
+    auto *action = static_cast<QAction *>(QObject::sender());
     bool ok;
     const int type = action->data().toInt(&ok);
     if (ok) {
         Settings::self()->setAfterFinishAction(type);
     }
 
-    //only after finish actions have a number assigned
+    // only after finish actions have a number assigned
     Settings::self()->setAfterFinishActionEnabled(ok);
     Settings::self()->save();
     slotNewConfig();
@@ -407,10 +403,10 @@ void MainWindow::slotDownloadFinishedActions()
 
 void MainWindow::init()
 {
-    //Here we import the user's transfers.
-    KGet::load( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transfers.kgt")) ;
+    // Here we import the user's transfers.
+    KGet::load(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transfers.kgt"));
 
-    if(Settings::enableSystemTray()) {
+    if (Settings::enableSystemTray()) {
         m_dock = new Tray(this);
     }
 
@@ -440,15 +436,15 @@ void MainWindow::init()
 #else
         if (KMessageBox::questionYesNo(this,
 #endif
-                                       i18n("This is the first time you have run KGet.\n"
-                                             "Would you like to enable KGet as the download manager for Konqueror?"),
-                                       i18n("Konqueror Integration"),
-                                       KGuiItem(i18n("Enable")),
-                                       KGuiItem(i18n("Do Not Enable")))
+                                            i18n("This is the first time you have run KGet.\n"
+                                                 "Would you like to enable KGet as the download manager for Konqueror?"),
+                                            i18n("Konqueror Integration"),
+                                            KGuiItem(i18n("Enable")),
+                                            KGuiItem(i18n("Do Not Enable")))
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-                                             == KMessageBox::PrimaryAction) {
+            == KMessageBox::PrimaryAction) {
 #else
-                                             == KMessageBox::Yes) {
+            == KMessageBox::Yes) {
 #endif
             Settings::setKonquerorIntegration(true);
             m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
@@ -464,37 +460,35 @@ void MainWindow::init()
     if (Settings::showDropTarget() && !m_startWithoutAnimation)
         m_drop->setDropTargetVisible(true);
 
-    //auto paste stuff
-    lastClipboard = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
+    // auto paste stuff
+    lastClipboard = QApplication::clipboard()->text(QClipboard::Clipboard).trimmed();
     clipboardTimer = new QTimer(this);
     connect(clipboardTimer, &QTimer::timeout, this, &MainWindow::slotCheckClipboard);
-    if ( Settings::autoPaste() )
+    if (Settings::autoPaste())
         clipboardTimer->start(1000);
 
     /*if (Settings::webinterfaceEnabled())
         m_webinterface = new HttpServer(this);*///TODO: Port to KF5
 
-    if (Settings::speedLimit())
-    {
+    if (Settings::speedLimit()) {
         KGet::setGlobalDownloadLimit(Settings::globalDownloadLimit());
         KGet::setGlobalUploadLimit(Settings::globalUploadLimit());
-    }
-    else
-    {
+    } else {
         KGet::setGlobalDownloadLimit(0);
         KGet::setGlobalUploadLimit(0);
     }
 
     connect(KGet::model(), &TransferTreeModel::transfersAddedEvent, this, &MainWindow::slotUpdateTitlePercent);
     connect(KGet::model(), &TransferTreeModel::transfersRemovedEvent, this, &MainWindow::slotUpdateTitlePercent);
-    connect(KGet::model(), SIGNAL(transfersChangedEvent(QMap<TransferHandler*,Transfer::ChangesFlags>)), 
-                           SLOT(slotTransfersChanged(QMap<TransferHandler*,Transfer::ChangesFlags>)));
-    connect(KGet::model(), SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)),
-                           SLOT(slotGroupsChanged(QMap<TransferGroupHandler*,TransferGroup::ChangesFlags>)));
+    connect(KGet::model(),
+            SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
+            SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
+    connect(KGet::model(),
+            SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)),
+            SLOT(slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)));
 
 #ifdef DO_KGET_TEST
-    if (m_doTesting)
-    {
+    if (m_doTesting) {
         // Unit testing
         TestKGet unitTest;
         QTest::qExec(&unitTest);
@@ -514,17 +508,18 @@ void MainWindow::slotNewTransfer()
 
 void MainWindow::slotImportTransfers()
 {
-    QString filename = QFileDialog::getOpenFileName(nullptr, i18nc("@title:window", "Open File"), QString(),
+    QString filename = QFileDialog::getOpenFileName(nullptr,
+                                                    i18nc("@title:window", "Open File"),
+                                                    QString(),
                                                     i18n("All Openable Files") + " (*.kgt *.metalink *.meta4 *.torrent)");
 
-    if(filename.endsWith(QLatin1String(".kgt")))
-    {
+    if (filename.endsWith(QLatin1String(".kgt"))) {
         KGet::load(filename);
         return;
     }
 
-    if(!filename.isEmpty())
-        KGet::addTransfer( QUrl( filename ) );
+    if (!filename.isEmpty())
+        KGet::addTransfer(QUrl(filename));
 }
 
 void MainWindow::slotUpdateTitlePercent()
@@ -537,38 +532,36 @@ void MainWindow::slotUpdateTitlePercent()
     }
 }
 
-void MainWindow::slotTransfersChanged(QMap<TransferHandler*, Transfer::ChangesFlags> transfers)
+void MainWindow::slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags> transfers)
 {
-    QMapIterator<TransferHandler*, Transfer::ChangesFlags> it(transfers);
-    
-    //QList<TransferHandler *> finishedTransfers;
+    QMapIterator<TransferHandler *, Transfer::ChangesFlags> it(transfers);
+
+    // QList<TransferHandler *> finishedTransfers;
     bool update = false;
-    
+
     while (it.hasNext()) {
         it.next();
-        
-        //TransferHandler * transfer = it.key();
+
+        // TransferHandler * transfer = it.key();
         Transfer::ChangesFlags transferFlags = it.value();
 
         if (transferFlags & Transfer::Tc_Percent || transferFlags & Transfer::Tc_Status) {
             update = true;
             break;
         }
-        
-//         qCDebug(KGET_DEBUG) << it.key() << ": " << it.value() << endl;
+
+        //         qCDebug(KGET_DEBUG) << it.key() << ": " << it.value() << endl;
     }
-    
+
     if (update)
         slotUpdateTitlePercent();
 }
 
-void MainWindow::slotGroupsChanged(QMap<TransferGroupHandler*, TransferGroup::ChangesFlags> groups)
+void MainWindow::slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags> groups)
 {
     bool update = false;
-    foreach (const TransferGroup::ChangesFlags &groupFlags, groups)
-    {
-        if (groupFlags & TransferGroup::Gc_Percent)
-        {
+    foreach (const TransferGroup::ChangesFlags &groupFlags, groups) {
+        if (groupFlags & TransferGroup::Gc_Percent) {
             update = true;
             break;
         }
@@ -585,11 +578,12 @@ void MainWindow::slotQuit()
 #else
         if (KMessageBox::warningYesNo(this,
 #endif
-                i18n("Some transfers are still running.\n"
-                     "Are you sure you want to close KGet?"),
-                i18n("Confirm Quit"),
-                KStandardGuiItem::quit(), KStandardGuiItem::cancel(),
-                "ExitWithActiveTransfers")
+                                           i18n("Some transfers are still running.\n"
+                                                "Are you sure you want to close KGet?"),
+                                           i18n("Confirm Quit"),
+                                           KStandardGuiItem::quit(),
+                                           KStandardGuiItem::cancel(),
+                                           "ExitWithActiveTransfers")
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             == KMessageBox::SecondaryAction)
 #else
@@ -604,23 +598,22 @@ void MainWindow::slotQuit()
 
 void MainWindow::slotPreferences()
 {
-    //never reuse the preference dialog, to make sure its settings are always reloaded
-    auto * dialog = new PreferencesDialog( this, Settings::self() );
+    // never reuse the preference dialog, to make sure its settings are always reloaded
+    auto *dialog = new PreferencesDialog(this, Settings::self());
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     // keep us informed when the user changes settings
-    connect( dialog, &KConfigDialog::settingsChanged,
-             this, &MainWindow::slotNewConfig );
+    connect(dialog, &KConfigDialog::settingsChanged, this, &MainWindow::slotNewConfig);
 
     dialog->show();
 }
 
 void MainWindow::slotExportTransfers()
 {
-    const QString filename = QFileDialog::getSaveFileName
-        (this, i18nc("@title:window", "Export Transfers"), QString(),
-         i18n("KGet Transfer List") + " (*.kgt);;" + i18n("Text File") + " (*.txt)"
-        );
+    const QString filename = QFileDialog::getSaveFileName(this,
+                                                          i18nc("@title:window", "Export Transfers"),
+                                                          QString(),
+                                                          i18n("KGet Transfer List") + " (*.kgt);;" + i18n("Text File") + " (*.txt)");
 
     if (!filename.isEmpty()) {
         const bool plain = !filename.endsWith(QLatin1String(".kgt"));
@@ -637,7 +630,7 @@ void MainWindow::slotCreateMetalink()
 
 void MainWindow::slotDeleteGroup()
 {
-    QList<TransferGroupHandler*> groups = KGet::selectedTransferGroups();
+    QList<TransferGroupHandler *> groups = KGet::selectedTransferGroups();
     if (groups.count() != KGet::allTransferGroups().count()) {
         KGet::delGroups(groups);
     }
@@ -648,11 +641,9 @@ void MainWindow::slotRenameGroup()
     bool ok = true;
     QString groupName;
 
-    foreach(TransferGroupHandler * it, KGet::selectedTransferGroups())
-    {
-        groupName = QInputDialog::getText(this, i18n("Enter Group Name"),
-                                          i18n("Group name:"), QLineEdit::Normal, it->name(), &ok);
-        if(ok)
+    foreach (TransferGroupHandler *it, KGet::selectedTransferGroups()) {
+        groupName = QInputDialog::getText(this, i18n("Enter Group Name"), i18n("Group name:"), QLineEdit::Normal, it->name(), &ok);
+        if (ok)
             it->setName(groupName);
     }
 }
@@ -665,14 +656,12 @@ void MainWindow::slotSetIconGroup()
 
     QModelIndexList indexList = selModel->selectedRows();
 
-    if (!iconName.isEmpty())
-    {
-        foreach (TransferGroupHandler *group, KGet::selectedTransferGroups())
-        {
+    if (!iconName.isEmpty()) {
+        foreach (TransferGroupHandler *group, KGet::selectedTransferGroups()) {
             group->setIconName(iconName);
         }
     }
-    //Q_EMIT dataChanged(indexList.first(),indexList.last());
+    // Q_EMIT dataChanged(indexList.first(),indexList.last());
 }
 
 void MainWindow::slotStartDownload()
@@ -713,10 +702,10 @@ void MainWindow::slotStopDownload()
 void MainWindow::slotStopAllDownload()
 {
     KGet::setSchedulerRunning(false);
-    
+
     // This line ensures that each transfer is stopped. In the handler class
     // the policy of the transfer will be correctly set to None
-    foreach (TransferHandler * it, KGet::allTransfers())
+    foreach (TransferHandler *it, KGet::allTransfers())
         it->stop();
 }
 
@@ -734,18 +723,19 @@ void MainWindow::slotStopSelectedDownload()
 
 void MainWindow::slotDeleteSelected()
 {
-    foreach (TransferHandler * it, KGet::selectedTransfers())
-    {
+    foreach (TransferHandler *it, KGet::selectedTransfers()) {
         if (it->status() != Job::Finished && it->status() != Job::FinishedKeepAlive) {
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             if (KMessageBox::warningTwoActions(this,
 #else
             if (KMessageBox::warningYesNo(this,
 #endif
-                    i18np("Are you sure you want to delete the selected transfer?", 
-                          "Are you sure you want to delete the selected transfers?", KGet::selectedTransfers().count()),
-                    i18n("Confirm transfer delete"),
-                    KStandardGuiItem::remove(), KStandardGuiItem::cancel())
+                                               i18np("Are you sure you want to delete the selected transfer?",
+                                                     "Are you sure you want to delete the selected transfers?",
+                                                     KGet::selectedTransfers().count()),
+                                               i18n("Confirm transfer delete"),
+                                               KStandardGuiItem::remove(),
+                                               KStandardGuiItem::cancel())
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
                 == KMessageBox::SecondaryAction)
 #else
@@ -758,21 +748,21 @@ void MainWindow::slotDeleteSelected()
         }
     }
 
-    const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
+    const QList<TransferHandler *> selectedTransfers = KGet::selectedTransfers();
     if (!selectedTransfers.isEmpty()) {
         foreach (TransferHandler *it, selectedTransfers) {
-            m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
+            m_viewsContainer->closeTransferDetails(it); // TODO make it take QList?
         }
         KGet::delTransfers(KGet::selectedTransfers());
     } else {
-        //no transfers selected, delete groups if any are selected
+        // no transfers selected, delete groups if any are selected
         slotDeleteGroup();
     }
 }
 
 void MainWindow::slotDeleteSelectedIncludingFiles()
 {
-    const QList<TransferHandler*> selectedTransfers = KGet::selectedTransfers();
+    const QList<TransferHandler *> selectedTransfers = KGet::selectedTransfers();
 
     if (!selectedTransfers.isEmpty()) {
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
@@ -780,10 +770,12 @@ void MainWindow::slotDeleteSelectedIncludingFiles()
 #else
         if (KMessageBox::warningYesNo(this,
 #endif
-                i18np("Are you sure you want to delete the selected transfer including files?", 
-                        "Are you sure you want to delete the selected transfers including files?", selectedTransfers.count()),
-                i18n("Confirm transfer delete"),
-                KStandardGuiItem::remove(), KStandardGuiItem::cancel())
+                                           i18np("Are you sure you want to delete the selected transfer including files?",
+                                                 "Are you sure you want to delete the selected transfers including files?",
+                                                 selectedTransfers.count()),
+                                           i18n("Confirm transfer delete"),
+                                           KStandardGuiItem::remove(),
+                                           KStandardGuiItem::cancel())
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             == KMessageBox::SecondaryAction) {
 #else
@@ -792,26 +784,25 @@ void MainWindow::slotDeleteSelectedIncludingFiles()
             return;
         }
         foreach (TransferHandler *it, selectedTransfers) {
-            m_viewsContainer->closeTransferDetails(it);//TODO make it take QList?
+            m_viewsContainer->closeTransferDetails(it); // TODO make it take QList?
         }
         KGet::delTransfers(KGet::selectedTransfers(), KGet::DeleteFiles);
     } else {
-        //no transfers selected, delete groups if any are selected
+        // no transfers selected, delete groups if any are selected
         slotDeleteGroup();
     }
 }
 
 void MainWindow::slotRedownloadSelected()
 {
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-    {
+    foreach (TransferHandler *it, KGet::selectedTransfers()) {
         KGet::redownloadTransfer(it);
     }
 }
 
 void MainWindow::slotPriorityTop()
 {
-    QList<TransferHandler*> selected = KGet::selectedTransfers();
+    QList<TransferHandler *> selected = KGet::selectedTransfers();
     TransferHandler *after = nullptr;
     TransferGroupHandler *group = nullptr;
     foreach (TransferHandler *transfer, selected) {
@@ -819,7 +810,7 @@ void MainWindow::slotPriorityTop()
             continue;
         }
 
-        //previous transfer was not of the same group, so after has to be reset as the group
+        // previous transfer was not of the same group, so after has to be reset as the group
         if (!group || (group != transfer->group())) {
             after = nullptr;
             group = transfer->group();
@@ -831,8 +822,8 @@ void MainWindow::slotPriorityTop()
 
 void MainWindow::slotPriorityBottom()
 {
-    QList<TransferHandler*> selected = KGet::selectedTransfers();
-    QList<TransferHandler*> groupTransfers;
+    QList<TransferHandler *> selected = KGet::selectedTransfers();
+    QList<TransferHandler *> groupTransfers;
     TransferHandler *after = nullptr;
     TransferGroupHandler *group = nullptr;
     foreach (TransferHandler *transfer, selected) {
@@ -840,7 +831,7 @@ void MainWindow::slotPriorityBottom()
             continue;
         }
 
-        //previous transfer was not of the same group, so after has to be reset as the group
+        // previous transfer was not of the same group, so after has to be reset as the group
         if (!group || (group != transfer->group())) {
             group = transfer->group();
             groupTransfers = group->transfers();
@@ -858,8 +849,8 @@ void MainWindow::slotPriorityBottom()
 
 void MainWindow::slotPriorityUp()
 {
-    QList<TransferHandler*> selected = KGet::selectedTransfers();
-    QList<TransferHandler*> groupTransfers;
+    QList<TransferHandler *> selected = KGet::selectedTransfers();
+    QList<TransferHandler *> groupTransfers;
     TransferHandler *after = nullptr;
     int newIndex = -1;
     TransferGroupHandler *group = nullptr;
@@ -868,7 +859,7 @@ void MainWindow::slotPriorityUp()
             continue;
         }
 
-        //previous transfer was not of the same group, so group has to be reset
+        // previous transfer was not of the same group, so group has to be reset
         if (!group || (group != transfer->group())) {
             group = transfer->group();
             groupTransfers = group->transfers();
@@ -878,16 +869,16 @@ void MainWindow::slotPriorityUp()
         if (!groupTransfers.isEmpty()) {
             int index = groupTransfers.indexOf(transfer);
 
-            //do not move higher than the first place
+            // do not move higher than the first place
             if (index > 0) {
-                //if only Transfers at the top are select do not change their order
+                // if only Transfers at the top are select do not change their order
                 if ((index - 1) != newIndex) {
                     newIndex = index - 1;
                     if (newIndex - 1 >= 0) {
                         after = groupTransfers[newIndex - 1];
                     }
 
-                    //keep the list with the actual movements synchronized
+                    // keep the list with the actual movements synchronized
                     groupTransfers.move(index, newIndex);
 
                     KGet::model()->moveTransfer(transfer, group, after);
@@ -903,8 +894,8 @@ void MainWindow::slotPriorityUp()
 
 void MainWindow::slotPriorityDown()
 {
-    QList<TransferHandler*> selected = KGet::selectedTransfers();
-    QList<TransferHandler*> groupTransfers;
+    QList<TransferHandler *> selected = KGet::selectedTransfers();
+    QList<TransferHandler *> groupTransfers;
     int newIndex = -1;
     TransferGroupHandler *group = nullptr;
     for (int i = selected.count() - 1; i >= 0; --i) {
@@ -913,7 +904,7 @@ void MainWindow::slotPriorityDown()
             continue;
         }
 
-        //previous transfer was not of the same group, so group has to be reset
+        // previous transfer was not of the same group, so group has to be reset
         if (!group || (group != transfer->group())) {
             group = transfer->group();
             groupTransfers = group->transfers();
@@ -922,15 +913,14 @@ void MainWindow::slotPriorityDown()
         if (!groupTransfers.isEmpty()) {
             int index = groupTransfers.indexOf(transfer);
 
-            //do not move lower than the last place
+            // do not move lower than the last place
             if ((index != -1) && (index + 1 < groupTransfers.count())) {
-                //if only Transfers at the top are select do not change their order
+                // if only Transfers at the top are select do not change their order
                 if ((index + 1) != newIndex) {
                     newIndex = index + 1;
                     TransferHandler *after = groupTransfers[newIndex];
 
-
-                    //keep the list with the actual movements synchronized
+                    // keep the list with the actual movements synchronized
                     groupTransfers.move(index, newIndex);
 
                     KGet::model()->moveTransfer(transfer, group, after);
@@ -947,37 +937,32 @@ void MainWindow::slotPriorityDown()
 void MainWindow::slotTransfersOpenDest()
 {
     QStringList openedDirs;
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-    {
+    foreach (TransferHandler *it, KGet::selectedTransfers()) {
         QString directory = it->dest().adjusted(QUrl::RemoveFilename).toString();
-        if( !openedDirs.contains( directory ) )
-        {
+        if (!openedDirs.contains(directory)) {
             new KRun(QUrl(directory), this);
-            openedDirs.append( directory );
+            openedDirs.append(directory);
         }
     }
 }
 
 void MainWindow::slotTransfersOpenFile()
 {
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-    {
+    foreach (TransferHandler *it, KGet::selectedTransfers()) {
         new KRun(it->dest(), this);
     }
 }
 
 void MainWindow::slotTransfersShowDetails()
 {
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-    {
+    foreach (TransferHandler *it, KGet::selectedTransfers()) {
         m_viewsContainer->showTransferDetails(it);
     }
 }
 
 void MainWindow::slotTransfersCopySourceUrl()
 {
-    foreach(TransferHandler * it, KGet::selectedTransfers())
-    {
+    foreach (TransferHandler *it, KGet::selectedTransfers()) {
         QString sourceurl = it->source().url();
         QClipboard *cb = QApplication::clipboard();
         cb->setText(sourceurl, QClipboard::Selection);
@@ -987,7 +972,7 @@ void MainWindow::slotTransfersCopySourceUrl()
 
 void MainWindow::slotDeleteFinished()
 {
-    foreach(TransferHandler * it, KGet::finishedTransfers()) {
+    foreach (TransferHandler *it, KGet::finishedTransfers()) {
         m_viewsContainer->closeTransferDetails(it);
     }
     KGet::delTransfers(KGet::finishedTransfers());
@@ -998,11 +983,10 @@ void MainWindow::slotConfigureNotifications()
     KNotifyConfigWidget::configure(this);
 }
 
-
 void MainWindow::slotSaveMyself()
 {
     // save last parameters ..
-    Settings::setMainPosition( pos() );
+    Settings::setMainPosition(pos());
     // .. and write config to disk
     Settings::self()->save();
 }
@@ -1049,13 +1033,10 @@ void MainWindow::slotNewConfig()
         m_webinterface->settingsChanged();
     }*///TODO: Port to KF5
 
-    if (Settings::speedLimit())
-    {
+    if (Settings::speedLimit()) {
         KGet::setGlobalDownloadLimit(Settings::globalDownloadLimit());
         KGet::setGlobalUploadLimit(Settings::globalUploadLimit());
-    }
-    else
-    {
+    } else {
         KGet::setGlobalDownloadLimit(0);
         KGet::setGlobalUploadLimit(0);
     }
@@ -1066,7 +1047,7 @@ void MainWindow::slotNewConfig()
 void MainWindow::slotToggleAutoPaste()
 {
     bool autoPaste = !Settings::autoPaste();
-    Settings::setAutoPaste( autoPaste );
+    Settings::setAutoPaste(autoPaste);
 
     if (autoPaste)
         clipboardTimer->start(1000);
@@ -1077,7 +1058,7 @@ void MainWindow::slotToggleAutoPaste()
 
 void MainWindow::slotCheckClipboard()
 {
-    const QString clipData = QApplication::clipboard()->text( QClipboard::Clipboard ).trimmed();
+    const QString clipData = QApplication::clipboard()->text(QClipboard::Clipboard).trimmed();
 
     if (clipData != lastClipboard) {
         lastClipboard = clipData;
@@ -1089,7 +1070,7 @@ void MainWindow::slotCheckClipboard()
             bool add = false;
             const QString urlString = url.url();
 
-            //check the combined whitelist and blacklist
+            // check the combined whitelist and blacklist
             const QList<int> types = Settings::autoPasteTypes();
             const QList<int> syntaxes = Settings::autoPastePatternSyntaxes();
             const QStringList patterns = Settings::autoPastePatterns();
@@ -1113,13 +1094,13 @@ void MainWindow::slotCheckClipboard()
 void MainWindow::slotTrayKonquerorIntegration(bool enable)
 {
     slotKonquerorIntegration(enable);
-    if (!enable && Settings::konquerorIntegration())
-    {
-        KGet::showNotification(this, "notification",
-                                     i18n("KGet has been temporarily disabled as download manager for Konqueror. "
-            "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
-            "as download manager for Konqueror\"."),
-                                     "dialog-info");
+    if (!enable && Settings::konquerorIntegration()) {
+        KGet::showNotification(this,
+                               "notification",
+                               i18n("KGet has been temporarily disabled as download manager for Konqueror. "
+                                    "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
+                                    "as download manager for Konqueror\"."),
+                               "dialog-info");
         /*KMessageBox::information(this,
             i18n("KGet has been temporarily disabled as download manager for Konqueror. "
             "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
@@ -1132,8 +1113,7 @@ void MainWindow::slotTrayKonquerorIntegration(bool enable)
 void MainWindow::slotKonquerorIntegration(bool konquerorIntegration)
 {
     KConfig cfgKonqueror("konquerorrc", KConfig::NoGlobals);
-    cfgKonqueror.group("HTML Settings").writeEntry("DownloadManager",
-                                                   QString(konquerorIntegration ? "kget" : QString()));
+    cfgKonqueror.group("HTML Settings").writeEntry("DownloadManager", QString(konquerorIntegration ? "kget" : QString()));
     cfgKonqueror.sync();
 }
 
@@ -1162,9 +1142,8 @@ void MainWindow::slotTransferHistory()
 void MainWindow::slotTransferGroupSettings()
 {
     qCDebug(KGET_DEBUG);
-    QList<TransferGroupHandler*> list = KGet::selectedTransferGroups();
-    foreach(TransferGroupHandler* group, list)
-    {
+    QList<TransferGroupHandler *> list = KGet::selectedTransferGroups();
+    foreach (TransferGroupHandler *group, list) {
         QPointer<GroupSettingsDialog> settings = new GroupSettingsDialog(this, group);
         settings->exec();
         delete settings;
@@ -1174,9 +1153,8 @@ void MainWindow::slotTransferGroupSettings()
 void MainWindow::slotTransferSettings()
 {
     qCDebug(KGET_DEBUG);
-    QList<TransferHandler*> list = KGet::selectedTransfers();
-    foreach(TransferHandler* transfer, list)
-    {
+    QList<TransferHandler *> list = KGet::selectedTransfers();
+    foreach (TransferHandler *transfer, list) {
         QPointer<TransferSettingsDialog> settings = new TransferSettingsDialog(this, transfer);
         settings->exec();
         delete settings;
@@ -1199,13 +1177,13 @@ void MainWindow::slotImportUrl(const QString &url)
 }
 
 /** widget events **/
-void MainWindow::closeEvent( QCloseEvent * e )
+void MainWindow::closeEvent(QCloseEvent *e)
 {
     // if the event comes from out the application (close event) we decide between close or hide
     // if the event comes from the application (system shutdown) we say goodbye
-    if(e->spontaneous()) {
+    if (e->spontaneous()) {
         e->ignore();
-        if(!Settings::enableSystemTray())
+        if (!Settings::enableSystemTray())
             slotQuit();
         else
             hide();
@@ -1222,53 +1200,47 @@ void MainWindow::showEvent(QShowEvent *)
     Settings::setShowMain(true);
 }
 
-void MainWindow::dragEnterEvent(QDragEnterEvent * event)
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
     event->setAccepted(event->mimeData()->hasUrls());
 }
 
-void MainWindow::dropEvent(QDropEvent * event)
+void MainWindow::dropEvent(QDropEvent *event)
 {
     QList<QUrl> list = event->mimeData()->urls();
 
-    if (!list.isEmpty())
-    {
-        if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt")))
-        {
+    if (!list.isEmpty()) {
+        if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt"))) {
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             int msgBoxResult = KMessageBox::questionTwoActionsCancel(this,
 #else
             int msgBoxResult = KMessageBox::questionYesNoCancel(this,
 #endif
-                                                                i18n("The dropped file is a KGet Transfer List"), "KGet",
-                                   KGuiItem(i18n("&Download"), QIcon::fromTheme("document-save")), 
-                                       KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")), KStandardGuiItem::cancel());
+                                                                     i18n("The dropped file is a KGet Transfer List"),
+                                                                     "KGet",
+                                                                     KGuiItem(i18n("&Download"), QIcon::fromTheme("document-save")),
+                                                                     KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")),
+                                                                     KStandardGuiItem::cancel());
 
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-            if (msgBoxResult == KMessageBox::PrimaryAction) //Download
+            if (msgBoxResult == KMessageBox::PrimaryAction) // Download
 #else
-            if (msgBoxResult == KMessageBox::Yes) //Download
+            if (msgBoxResult == KMessageBox::Yes) // Download
 #endif
                 NewTransferDialogHandler::showNewTransferDialog(list.first());
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-            if (msgBoxResult == KMessageBox::SecondaryAction) //Load
+            if (msgBoxResult == KMessageBox::SecondaryAction) // Load
 #else
-            if (msgBoxResult == KMessageBox::No) //Load
+            if (msgBoxResult == KMessageBox::No) // Load
 #endif
                 KGet::load(list.first().url());
-        }
-        else
-        {
+        } else {
             if (list.count() == 1)
                 NewTransferDialogHandler::showNewTransferDialog(list.first());
             else
                 NewTransferDialogHandler::showNewTransferDialog(list);
         }
-    }
-    else
-    {
+    } else {
         NewTransferDialogHandler::showNewTransferDialog(QUrl());
     }
 }
-
-

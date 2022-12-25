@@ -22,49 +22,49 @@
 #define TRACKERVIEW_H
 
 #include "ui_trackerview.h"
-#include <QSortFilterProxyModel>
 #include <KSharedConfig>
+#include <QSortFilterProxyModel>
 
 namespace bt
 {
-	class TorrentInterface;
+class TorrentInterface;
 }
 
 namespace kt
 {
-	class TrackerModel;
+class TrackerModel;
 
-	/**
-	 * @author Ivan Vasic <ivan@ktorrent.org>
-	 */
-	class TrackerView: public QWidget, public Ui_TrackerView
-	{
-		Q_OBJECT
-	public:
-		TrackerView(QWidget *parent);			
-		~TrackerView() override;
-			
-		void update();
-		void changeTC(bt::TorrentInterface* ti);
-		void saveState(KSharedConfigPtr cfg);
-		void loadState(KSharedConfigPtr cfg);
-			
-	public Q_SLOTS:
-		virtual void updateClicked();
-		virtual void restoreClicked();
-		virtual void changeClicked();
-		virtual void removeClicked();
-		virtual void addClicked();
-		virtual void scrapeClicked();
-		void currentChanged(const QModelIndex & current,const QModelIndex & previous);
-			
-	private:
-		void torrentChanged(bt::TorrentInterface* ti);
-			
-	private:
-		bt::TorrentInterface* tc;
-		TrackerModel* model;
-		QSortFilterProxyModel* proxy_model;
-	};
+/**
+ * @author Ivan Vasic <ivan@ktorrent.org>
+ */
+class TrackerView : public QWidget, public Ui_TrackerView
+{
+    Q_OBJECT
+public:
+    TrackerView(QWidget *parent);
+    ~TrackerView() override;
+
+    void update();
+    void changeTC(bt::TorrentInterface *ti);
+    void saveState(KSharedConfigPtr cfg);
+    void loadState(KSharedConfigPtr cfg);
+
+public Q_SLOTS:
+    virtual void updateClicked();
+    virtual void restoreClicked();
+    virtual void changeClicked();
+    virtual void removeClicked();
+    virtual void addClicked();
+    virtual void scrapeClicked();
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
+
+private:
+    void torrentChanged(bt::TorrentInterface *ti);
+
+private:
+    bt::TorrentInterface *tc;
+    TrackerModel *model;
+    QSortFilterProxyModel *proxy_model;
+};
 }
 #endif

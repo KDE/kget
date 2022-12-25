@@ -13,8 +13,8 @@
 #include "core/transfergrouphandler.h"
 
 GroupSettingsDialog::GroupSettingsDialog(QWidget *parent, TransferGroupHandler *group)
-  : KGetSaveSizeDialog("GroupSettingsDialog", parent),
-    m_group(group)
+    : KGetSaveSizeDialog("GroupSettingsDialog", parent)
+    , m_group(group)
 {
     setWindowTitle(i18n("Group Settings for %1", group->name()));
 
@@ -50,7 +50,7 @@ QSize GroupSettingsDialog::sizeHint() const
 
 void GroupSettingsDialog::save()
 {
-    //check needed, otherwise "/" would be added as folder if the line was empty!
+    // check needed, otherwise "/" would be added as folder if the line was empty!
     if (ui.defaultFolderRequester->text().isEmpty()) {
         m_group->setDefaultFolder(QString());
     } else {
@@ -63,7 +63,4 @@ void GroupSettingsDialog::save()
     QRegExp regExp;
     regExp.setPattern(ui.regExpEdit->text());
     m_group->setRegExp(regExp);
-
 }
-
-

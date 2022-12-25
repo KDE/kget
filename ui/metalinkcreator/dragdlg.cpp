@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "dragdlg.h"
 #include "metalinker.h"
@@ -28,10 +28,14 @@
 
 #include <KLocalizedString>
 
-DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *commonData, QSortFilterProxyModel *countrySort, QSortFilterProxyModel *languageSort, QWidget *parent)
-  : KGetSaveSizeDialog("DragDlg", parent),
-    m_resources(resources),
-    m_commonData(commonData)
+DragDlg::DragDlg(KGetMetalink::Resources *resources,
+                 KGetMetalink::CommonData *commonData,
+                 QSortFilterProxyModel *countrySort,
+                 QSortFilterProxyModel *languageSort,
+                 QWidget *parent)
+    : KGetSaveSizeDialog("DragDlg", parent)
+    , m_resources(resources)
+    , m_commonData(commonData)
 {
     ui.setupUi(this);
 
@@ -47,7 +51,7 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
     QStringList verifierTypes = Verifier::supportedVerficationTypes();
     verifierTypes.sort();
 
-    //NOTE only supports the types that are supported by the Metalink 4.0 specification -- "Hash Function Textual Names"
+    // NOTE only supports the types that are supported by the Metalink 4.0 specification -- "Hash Function Textual Names"
     foreach (const QString &type, verifierTypes) {
         if (type.contains("sha", Qt::CaseInsensitive) || type.contains("md5", Qt::CaseInsensitive)) {
             auto *checkBox = new QCheckBox(type, this);
@@ -58,7 +62,7 @@ DragDlg::DragDlg(KGetMetalink::Resources *resources, KGetMetalink::CommonData *c
 
     ui.groupBox->setLayout(layout);
 
-    //create the language selection
+    // create the language selection
     uiData.language->setModel(languageSort);
     uiData.language->setCurrentIndex(-1);
 
@@ -74,10 +78,8 @@ void DragDlg::slotFinished()
     m_urlWidget->save();
 
     QStringList used;
-    foreach (QCheckBox *checkbox, m_checkBoxes)
-    {
-        if (checkbox->isChecked())
-        {
+    foreach (QCheckBox *checkbox, m_checkBoxes) {
+        if (checkbox->isChecked()) {
             used.append(checkbox->text().remove('&'));
         }
     }
@@ -98,5 +100,3 @@ void DragDlg::slotFinished()
 
     Q_EMIT usedTypes(used, ui.partialChecksums->isChecked());
 }
-
-

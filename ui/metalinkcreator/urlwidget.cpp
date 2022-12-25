@@ -1,37 +1,37 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "urlwidget.h"
-#include "metalinker.h"
 #include "../mirror/mirrormodel.h"
 #include "../mirror/mirrorsettings.h"
+#include "metalinker.h"
 #include <KGuiItem>
 #include <KStandardGuiItem>
 #include <QSortFilterProxyModel>
 
 UrlWidget::UrlWidget(QObject *parent)
-  : QObject(parent),
-    m_resources(nullptr),
-    m_countrySort(nullptr),
-    m_widget(nullptr)
+    : QObject(parent)
+    , m_resources(nullptr)
+    , m_countrySort(nullptr)
+    , m_widget(nullptr)
 {
-    m_widget = new QWidget;//TODO inherit from qWidget and set this widget as mainwidget?
+    m_widget = new QWidget; // TODO inherit from qWidget and set this widget as mainwidget?
     ui.setupUi(m_widget);
 
     m_mirrorModel = new MirrorModel(this);
@@ -66,16 +66,14 @@ QWidget *UrlWidget::widget()
 
 void UrlWidget::init(KGetMetalink::Resources *resources, QSortFilterProxyModel *countrySort)
 {
-    if (m_resources)
-    {
+    if (m_resources) {
         m_mirrorModel->removeRows(0, m_mirrorModel->rowCount());
     }
 
     m_resources = resources;
     m_countrySort = countrySort;
 
-    foreach (const KGetMetalink::Url &url, m_resources->urls)
-    {
+    foreach (const KGetMetalink::Url &url, m_resources->urls) {
         m_mirrorModel->addMirror(url.url, 0, url.priority, url.location);
     }
 
@@ -111,10 +109,8 @@ void UrlWidget::slotRemoveMirror()
 
 void UrlWidget::save()
 {
-    if (m_resources)
-    {
-        for (int i = 0; i < m_mirrorModel->rowCount(); ++i)
-        {
+    if (m_resources) {
+        for (int i = 0; i < m_mirrorModel->rowCount(); ++i) {
             KGetMetalink::Url url;
             url.url = QUrl(m_mirrorModel->index(i, MirrorItem::Url).data(Qt::UserRole).toUrl());
             url.priority = m_mirrorModel->index(i, MirrorItem::Priority).data(Qt::UserRole).toInt();
@@ -123,6 +119,3 @@ void UrlWidget::save()
         }
     }
 }
-
-
-

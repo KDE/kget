@@ -11,29 +11,29 @@
 #include "transfersettingsdialog.h"
 #include "mirror/mirrorsettings.h"
 #include "renamefile.h"
+#include "settings.h"
 #include "signaturedlg.h"
 #include "verificationdialog.h"
-#include "settings.h"
 
-#include "core/transferhandler.h"
 #include "core/filemodel.h"
+#include "core/transferhandler.h"
 #include "core/verifier.h"
 
-#include <KMessageBox>
 #include <KLocalizedString>
+#include <KMessageBox>
 
 #include <QLineEdit>
 #include <QSortFilterProxyModel>
 
 TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler *transfer)
-  : KGetSaveSizeDialog("TransferSettingsDialog", parent),
-    m_transfer(transfer),
-    m_model(m_transfer->fileModel())
+    : KGetSaveSizeDialog("TransferSettingsDialog", parent)
+    , m_transfer(transfer)
+    , m_model(m_transfer->fileModel())
 {
     setWindowTitle(i18n("Transfer Settings for %1", m_transfer->source().fileName()));
-    
+
     ui.setupUi(this);
-    
+
     ui.ktitlewidget->setPixmap(QIcon::fromTheme("preferences-other").pixmap(16));
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
@@ -45,8 +45,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     ui.signature->setIcon(QIcon::fromTheme("application-pgp-signature"));
     ui.verification->setIcon(QIcon::fromTheme("document-decrypt"));
 
-    if (m_model)
-    {
+    if (m_model) {
         m_model->watchCheckState();
         m_proxy = new QSortFilterProxyModel(this);
         m_proxy->setSourceModel(m_model);
@@ -71,7 +70,7 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
     connect(ui.mirrors, &QPushButton::clicked, this, &TransferSettingsDialog::slotMirrors);
     connect(ui.verification, &QPushButton::clicked, this, &TransferSettingsDialog::slotVerification);
     connect(ui.signature, &QPushButton::clicked, this, &TransferSettingsDialog::slotSignature);
-    
+
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
@@ -143,12 +142,10 @@ void TransferSettingsDialog::slotSignature()
 void TransferSettingsDialog::slotSelectionChanged()
 {
     bool enabled = false;
-    //only enable rename when one item is selected and when this item is a file
-    if (ui.treeView->selectionModel()->selectedRows().count() == 1)
-    {
+    // only enable rename when one item is selected and when this item is a file
+    if (ui.treeView->selectionModel()->selectedRows().count() == 1) {
         const QModelIndex index = m_proxy->mapToSource(ui.treeView->selectionModel()->selectedIndexes().first());
-        if (index.isValid() && !(static_cast<FileItem*>(index.internalPointer()))->childCount())
-        {
+        if (index.isValid() && !(static_cast<FileItem *>(index.internalPointer()))->childCount()) {
             enabled = true;
         }
     }
@@ -159,11 +156,10 @@ void TransferSettingsDialog::slotSelectionChanged()
 }
 
 void TransferSettingsDialog::save()
-{//TODO: Set to -1 when no limit
+{ // TODO: Set to -1 when no limit
     QUrl oldDirectory = m_transfer->directory();
     QUrl newDirectory = ui.destination->url();
-    if ((oldDirectory != newDirectory) && !m_transfer->setDirectory(newDirectory))
-    {
+    if ((oldDirectory != newDirectory) && !m_transfer->setDirectory(newDirectory)) {
         KMessageBox::error(this, i18n("Changing the destination did not work, the destination stays unmodified."), i18n("Destination unmodified"));
     }
 
@@ -174,10 +170,7 @@ void TransferSettingsDialog::save()
 
 void TransferSettingsDialog::slotFinished()
 {
-    if (m_model)
-    {
+    if (m_model) {
         m_model->stopWatchCheckState();
     }
 }
-
-

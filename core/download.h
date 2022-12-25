@@ -13,8 +13,8 @@
 
 #include "kget_export.h"
 
-#include <QObject>
 #include <QByteArray>
+#include <QObject>
 
 #include <QUrl>
 
@@ -23,24 +23,24 @@
 class KGET_EXPORT Download : public QObject
 {
     Q_OBJECT
-    public:
-        Download(const QUrl &srcUrl, const QUrl &destUrl);
-        ~Download() override;
+public:
+    Download(const QUrl &srcUrl, const QUrl &destUrl);
+    ~Download() override;
 
-    Q_SIGNALS:
-        void finishedSuccessfully(QUrl dest, QByteArray data);
-        void finishedWithError();
+Q_SIGNALS:
+    void finishedSuccessfully(QUrl dest, QByteArray data);
+    void finishedWithError();
 
-    private Q_SLOTS:
-        void slotResult(KJob * job);
-        void slotData(KIO::Job *job, const QByteArray& data);
+private Q_SLOTS:
+    void slotResult(KJob *job);
+    void slotData(KIO::Job *job, const QByteArray &data);
 
-    private:
-        KIO::TransferJob *m_copyJob = nullptr;
-        QUrl m_srcUrl;
-        QUrl m_destUrl;
-        QUrl m_destFile;
-        QByteArray m_data;
+private:
+    KIO::TransferJob *m_copyJob = nullptr;
+    QUrl m_srcUrl;
+    QUrl m_destUrl;
+    QUrl m_destFile;
+    QByteArray m_data;
 };
 
 #endif

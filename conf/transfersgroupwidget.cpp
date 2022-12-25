@@ -24,7 +24,7 @@
 
 #include <QPushButton>
 
-TransfersGroupWidget::TransfersGroupWidget(QWidget *parent) 
+TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     : QWidget(parent)
 {
     ui.setupUi(this);
@@ -46,7 +46,7 @@ TransfersGroupWidget::TransfersGroupWidget(QWidget *parent)
     connect(ui.rename, &QPushButton::clicked, ui.treeView, &TransfersGroupTree::renameSelectedGroup);
     connect(ui.selectIcon, &KIconButton::iconChanged, ui.treeView, &TransfersGroupTree::changeIcon);
     connect(ui.configure, SIGNAL(clicked()), KGet::actionCollection()->action("transfer_group_settings"), SLOT(trigger()));
-    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slotSelectionChanged()));
+    connect(ui.treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(slotSelectionChanged()));
 
     slotSelectionChanged();
 }

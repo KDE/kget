@@ -18,14 +18,13 @@
 class BTSettingsWidget : public KCModule, public Ui::BTSettingsWidget
 {
     Q_OBJECT
-    public:
-        BTSettingsWidget(QWidget * parent = nullptr, const QVariantList &args = QVariantList());
+public:
+    BTSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
 
-    public Q_SLOTS:
-        void load() override;
-        void save() override;
-        void defaults() override;
+public Q_SLOTS:
+    void load() override;
+    void save() override;
+    void defaults() override;
 };
 
 #endif
-

@@ -19,5 +19,3 @@ TransferContainer::TransferContainer()
 TransferContainer::~TransferContainer()
 {
 }
-
-

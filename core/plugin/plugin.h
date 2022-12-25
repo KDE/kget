@@ -49,10 +49,10 @@
 #include <QVariantList>
 
 /**
- * Bump this number whenever the plugin framework gets 
- * incompatible with older versions 
+ * Bump this number whenever the plugin framework gets
+ * incompatible with older versions
  */
- const int FrameworkVersion = 2;
+const int FrameworkVersion = 2;
 
 /**
  * @short Base class for kget plugins.
@@ -61,25 +61,23 @@
 class KGET_EXPORT KGetPlugin : public QObject
 {
     Q_OBJECT
-    public:
-        KGetPlugin(QObject *parent, const QVariantList &args);
-        ~KGetPlugin() override;
+public:
+    KGetPlugin(QObject *parent, const QVariantList &args);
+    ~KGetPlugin() override;
 
-        /*
-        // set and retrieve properties
-        void addPluginProperty( const QString & key, const QString & value );
-        bool hasPluginProperty( const QString & key );
-        QString pluginProperty( const QString & key );
+    /*
+    // set and retrieve properties
+    void addPluginProperty( const QString & key, const QString & value );
+    bool hasPluginProperty( const QString & key );
+    QString pluginProperty( const QString & key );
 
-         reimplement this to set the type of the plugin
-        enum PluginType { PreProcessing, Factory, PostProcessing }
-        virtual PluginType pluginType() = 0;
-        */
+     reimplement this to set the type of the plugin
+    enum PluginType { PreProcessing, Factory, PostProcessing }
+    virtual PluginType pluginType() = 0;
+    */
 
-    private:
-        //QMap< QString, QString > m_properties;
-
-
+private:
+    // QMap< QString, QString > m_properties;
 };
 
 #endif

@@ -20,40 +20,40 @@ class TransfersView : public QTreeView
 {
     Q_OBJECT
 
-    public:
-        TransfersView(QWidget * parent = nullptr);
-        ~TransfersView() override;
+public:
+    TransfersView(QWidget *parent = nullptr);
+    ~TransfersView() override;
 
-        void setModel(QAbstractItemModel * model) override;
+    void setModel(QAbstractItemModel *model) override;
 
-    private:
-        void dropEvent(QDropEvent * event) override;
-        void rowsInserted(const QModelIndex &, int, int) override;
+private:
+    void dropEvent(QDropEvent *event) override;
+    void rowsInserted(const QModelIndex &, int, int) override;
 
-    protected:
-        void dragMoveEvent ( QDragMoveEvent * event ) override;
-        void rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end) override;
+protected:
+    void dragMoveEvent(QDragMoveEvent *event) override;
+    void rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end) override;
 
-    public Q_SLOTS:
-        void closeExpandableDetails(const QModelIndex &index = QModelIndex());
-        void closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd);
-        void slotItemActivated(const QModelIndex & index);
-        void slotItemCollapsed(const QModelIndex & index);
+public Q_SLOTS:
+    void closeExpandableDetails(const QModelIndex &index = QModelIndex());
+    void closeExpandableDetails(const QModelIndex &parent, int rowStart, int rowEnd);
+    void slotItemActivated(const QModelIndex &index);
+    void slotItemCollapsed(const QModelIndex &index);
 
-    private Q_SLOTS:
-        void toggleMainGroup();// show or hide the first group header if there's only one download group
-        void slotShowHeaderMenu(const QPoint &point);
-        void selectionChanged(const QItemSelection & selected, const QItemSelection & deselected) override;
-        void slotHideSection(int logicalIndex);
-        void slotSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
-        void slotSaveHeader();
-        void populateHeaderActions();
+private Q_SLOTS:
+    void toggleMainGroup(); // show or hide the first group header if there's only one download group
+    void slotShowHeaderMenu(const QPoint &point);
+    void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) override;
+    void slotHideSection(int logicalIndex);
+    void slotSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
+    void slotSaveHeader();
+    void populateHeaderActions();
 
-    private:
-        QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
+private:
+    QWidget *getDetailsWidgetForTransfer(TransferHandler *handler);
 
-        QList<QModelIndex> m_editingIndexes;
-        QMenu *m_headerMenu = nullptr;
+    QList<QModelIndex> m_editingIndexes;
+    QMenu *m_headerMenu = nullptr;
 };
 
 #endif

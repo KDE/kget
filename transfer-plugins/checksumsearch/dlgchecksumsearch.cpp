@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "dlgchecksumsearch.h"
 
@@ -29,29 +29,26 @@
 #include <QStandardItemModel>
 #include <QStringListModel>
 
-#include <KStandardGuiItem>
 #include <KPluginFactory>
-
+#include <KStandardGuiItem>
 
 const QUrl ChecksumSearchAddDlg::URL = QUrl("http://www.example.com/file.zip");
 
-K_PLUGIN_FACTORY( KGetFactory, registerPlugin<DlgChecksumSettingsWidget>(); )
+K_PLUGIN_FACTORY(KGetFactory, registerPlugin<DlgChecksumSettingsWidget>();)
 
 ChecksumSearchAddDlg::ChecksumSearchAddDlg(QStringListModel *modesModel, QStringListModel *typesModel, QWidget *parent, Qt::WindowFlags flags)
-  : QDialog(parent, flags),
-    m_modesModel(modesModel),
-    m_typesModel(typesModel)
+    : QDialog(parent, flags)
+    , m_modesModel(modesModel)
+    , m_typesModel(typesModel)
 {
     setWindowTitle(i18n("Add item"));
-    
+
     ui.setupUi(this);
 
-    if (m_modesModel)
-    {
+    if (m_modesModel) {
         ui.mode->setModel(m_modesModel);
     }
-    if (m_typesModel)
-    {
+    if (m_typesModel) {
         ui.type->setModel(m_typesModel);
     }
 
@@ -80,16 +77,16 @@ void ChecksumSearchAddDlg::slotAccpeted()
 }
 
 ChecksumDelegate::ChecksumDelegate(QObject *parent)
-  : QStyledItemDelegate(parent),
-    m_modesModel(nullptr),
-    m_typesModel(nullptr)
+    : QStyledItemDelegate(parent)
+    , m_modesModel(nullptr)
+    , m_typesModel(nullptr)
 {
 }
 
 ChecksumDelegate::ChecksumDelegate(QStringListModel *modesModel, QStringListModel *typesModel, QObject *parent)
-  : QStyledItemDelegate(parent),
-    m_modesModel(modesModel),
-    m_typesModel(typesModel)
+    : QStyledItemDelegate(parent)
+    , m_modesModel(modesModel)
+    , m_typesModel(typesModel)
 {
 }
 
@@ -97,28 +94,20 @@ QWidget *ChecksumDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 {
     Q_UNUSED(option)
 
-    if (index.isValid())
-    {
-        if (index.column() == 0l)
-        {
+    if (index.isValid()) {
+        if (index.column() == 0l) {
             auto *line = new KLineEdit(parent);
 
             return line;
-        }
-        else if (index.column() == 1)
-        {
-            if (m_modesModel)
-            {
+        } else if (index.column() == 1) {
+            if (m_modesModel) {
                 auto *modesBox = new KComboBox(parent);
                 modesBox->setModel(m_modesModel);
 
                 return modesBox;
             }
-        }
-        else if (index.column() == 2)
-        {
-            if (m_typesModel)
-            {
+        } else if (index.column() == 2) {
+            if (m_typesModel) {
                 auto *typesBox = new KComboBox(parent);
                 typesBox->setModel(m_typesModel);
 
@@ -134,14 +123,14 @@ void ChecksumDelegate::setEditorData(QWidget *editor, const QModelIndex &index) 
 {
     if (index.isValid() && editor) {
         if (index.column() == 0) {
-            auto *line = static_cast<KLineEdit*>(editor);
+            auto *line = static_cast<KLineEdit *>(editor);
             line->setText(index.data(Qt::EditRole).toString());
         } else if (index.column() == 1) {
-            auto *modesBox = static_cast<KComboBox*>(editor);
+            auto *modesBox = static_cast<KComboBox *>(editor);
             const QString mode = index.data(Qt::EditRole).toString();
             modesBox->setCurrentIndex(modesBox->findText(mode));
         } else if (index.column() == 2) {
-            auto *typesBox = static_cast<KComboBox*>(editor);
+            auto *typesBox = static_cast<KComboBox *>(editor);
             const QString type = index.data(Qt::EditRole).toString();
             typesBox->setCurrentIndex(typesBox->findText(type));
         }
@@ -150,25 +139,18 @@ void ChecksumDelegate::setEditorData(QWidget *editor, const QModelIndex &index) 
 
 void ChecksumDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    if (index.isValid() && editor && model)
-    {
-        if (index.column() == 0)
-        {
-            auto *line = static_cast<KLineEdit*>(editor);
-            if (!line->text().isEmpty())
-            {
+    if (index.isValid() && editor && model) {
+        if (index.column() == 0) {
+            auto *line = static_cast<KLineEdit *>(editor);
+            if (!line->text().isEmpty()) {
                 model->setData(index, line->text());
             }
-        }
-        else if (index.column() == 1)
-        {
-            auto *modesBox = static_cast<KComboBox*>(editor);
+        } else if (index.column() == 1) {
+            auto *modesBox = static_cast<KComboBox *>(editor);
             model->setData(index, modesBox->currentText());
             model->setData(index, modesBox->currentIndex(), Qt::UserRole);
-        }
-        else if (index.column() == 2)
-        {
-            auto *typesBox = static_cast<KComboBox*>(editor);
+        } else if (index.column() == 2) {
+            auto *typesBox = static_cast<KComboBox *>(editor);
             model->setData(index, typesBox->currentText());
         }
     }
@@ -181,7 +163,7 @@ void ChecksumDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionV
 }
 
 DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVariantList &args)
-  : KCModule(parent, args)
+    : KCModule(parent, args)
 {
     ui.setupUi(this);
 
@@ -211,9 +193,9 @@ DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVar
     connect(ui.add, &QAbstractButton::clicked, this, &DlgChecksumSettingsWidget::slotAdd);
     connect(ui.remove, &QAbstractButton::clicked, this, &DlgChecksumSettingsWidget::slotRemove);
     connect(ui.treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DlgChecksumSettingsWidget::slotUpdate);
-    connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(changed()));
-    connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(changed()));
-    connect(m_model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(changed()));
+    connect(m_model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(changed()));
+    connect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(changed()));
+    connect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this, SLOT(changed()));
 }
 
 DlgChecksumSettingsWidget::~DlgChecksumSettingsWidget()
@@ -241,7 +223,7 @@ void DlgChecksumSettingsWidget::slotAddItem(const QString &change, int mode, con
     auto *item = new QStandardItem(m_modes.value(mode));
     item->setData(QVariant(mode), Qt::UserRole);
 
-    QList<QStandardItem*> items;
+    QList<QStandardItem *> items;
     items << new QStandardItem(change);
     items << item;
     items << new QStandardItem(type);
@@ -259,8 +241,7 @@ void DlgChecksumSettingsWidget::load()
     QList<int> modes = ChecksumSearchSettings::self()->urlChangeModeList();
     QStringList types = ChecksumSearchSettings::self()->checksumTypeList();
 
-    for(int i = 0; i < changes.size(); ++i)
-    {
+    for (int i = 0; i < changes.size(); ++i) {
         slotAddItem(changes.at(i), modes.at(i), types.at(i));
     }
 }
@@ -272,8 +253,7 @@ void DlgChecksumSettingsWidget::save()
     QList<int> modes;
     QStringList types;
 
-    for (int row = 0; row < m_model->rowCount(); ++row)
-    {
+    for (int row = 0; row < m_model->rowCount(); ++row) {
         changes.append(m_model->data(m_model->index(row, 0)).toString());
         modes.append(m_model->data(m_model->index(row, 1), Qt::UserRole).toInt());
         types.append(m_model->data(m_model->index(row, 2)).toString());
@@ -287,4 +267,3 @@ void DlgChecksumSettingsWidget::save()
 }
 
 #include "dlgchecksumsearch.moc"
-

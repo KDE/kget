@@ -13,24 +13,24 @@
 #include "core/transfertreemodel.h"
 
 #include "core/kget.h"
-#include "core/transfertreeselectionmodel.h"
 #include "core/transfergrouphandler.h"
 #include "core/transferhandler.h"
-#include "transferadaptor.h"
+#include "core/transfertreeselectionmodel.h"
 #include "dbus/dbustransferwrapper.h"
-#include "settings.h"
-#include "transfergroupscheduler.h"
 #include "kget_debug.h"
+#include "settings.h"
+#include "transferadaptor.h"
+#include "transfergroupscheduler.h"
 
 #include <algorithm>
 
 #include <QDebug>
 
-#include <KLocalizedString>
 #include <KIO/Global>
+#include <KLocalizedString>
 
 ItemMimeData::ItemMimeData()
-  : QMimeData()
+    : QMimeData()
 {
 }
 
@@ -43,14 +43,14 @@ void ItemMimeData::appendTransfer(const QPointer<TransferHandler> &transfer)
     m_transfers.append(transfer);
 }
 
-QList<QPointer<TransferHandler> > ItemMimeData::transfers() const
+QList<QPointer<TransferHandler>> ItemMimeData::transfers() const
 {
     return m_transfers;
 }
 
-ModelItem::ModelItem(Handler * handler)
-  : QStandardItem(),
-    m_handler(handler)
+ModelItem::ModelItem(Handler *handler)
+    : QStandardItem()
+    , m_handler(handler)
 {
 }
 
@@ -63,7 +63,7 @@ void ModelItem::emitDataChanged()
     QStandardItem::emitDataChanged();
 }
 
-Handler * ModelItem::handler()
+Handler *ModelItem::handler()
 {
     return m_handler;
 }
@@ -73,20 +73,19 @@ bool ModelItem::isGroup()
     return false;
 }
 
-GroupModelItem * ModelItem::asGroup()
+GroupModelItem *ModelItem::asGroup()
 {
-    return dynamic_cast<GroupModelItem*>(this);
+    return dynamic_cast<GroupModelItem *>(this);
 }
 
-TransferModelItem * ModelItem::asTransfer()
+TransferModelItem *ModelItem::asTransfer()
 {
-    return dynamic_cast<TransferModelItem*>(this);
+    return dynamic_cast<TransferModelItem *>(this);
 }
-
 
 TransferModelItem::TransferModelItem(TransferHandler *handler)
-  : ModelItem(handler),
-    m_transferHandler(handler)
+    : ModelItem(handler)
+    , m_transferHandler(handler)
 {
 }
 
@@ -98,37 +97,32 @@ QVariant TransferModelItem::data(int role) const
 {
     if (role == Qt::DisplayRole)
         return m_transferHandler->data(column());
-    else if (role == Qt::DecorationRole)
-    {
-        switch (column())
-        {
-            case 0: {
-                //store the icon for speed improvements, KIconLoader should make sure, that
-                //the icon data gets shared
-                if (m_mimeType.isNull()) {
-                    m_mimeType = QIcon::fromTheme(KIO::iconNameForUrl(m_transferHandler->dest()));
-                }
-
-                return m_mimeType;
+    else if (role == Qt::DecorationRole) {
+        switch (column()) {
+        case 0: {
+            // store the icon for speed improvements, KIconLoader should make sure, that
+            // the icon data gets shared
+            if (m_mimeType.isNull()) {
+                m_mimeType = QIcon::fromTheme(KIO::iconNameForUrl(m_transferHandler->dest()));
             }
-            case 1:
-                return QIcon::fromTheme(m_transferHandler->statusIconName());
+
+            return m_mimeType;
+        }
+        case 1:
+            return QIcon::fromTheme(m_transferHandler->statusIconName());
         }
     }
-    if (role == Qt::TextAlignmentRole)
-    {
-        switch (column())
-        {
-            case 0: // name
-                return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
-            default:
-                return Qt::AlignCenter;
+    if (role == Qt::TextAlignmentRole) {
+        switch (column()) {
+        case 0: // name
+            return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
+        default:
+            return Qt::AlignCenter;
         }
     }
     // KextendableItemDelegate::ShowExtensionIndicatorRole
     // tells the KExtendableItemDelegate which column contains the extender icon
-    if (role == Qt::UserRole + 200)
-    {
+    if (role == Qt::UserRole + 200) {
         if (column() == 0)
             return true;
         else
@@ -137,15 +131,14 @@ QVariant TransferModelItem::data(int role) const
     return QVariant();
 }
 
-TransferHandler * TransferModelItem::transferHandler()
+TransferHandler *TransferModelItem::transferHandler()
 {
     return m_transferHandler;
 }
 
-
 GroupModelItem::GroupModelItem(TransferGroupHandler *handler)
-  : ModelItem(handler),
-    m_groupHandler(handler)
+    : ModelItem(handler)
+    , m_groupHandler(handler)
 {
 }
 
@@ -158,18 +151,16 @@ QVariant GroupModelItem::data(int role) const
     if (role == Qt::DisplayRole) {
         return m_groupHandler->data(column());
     }
-    if (role == Qt::TextAlignmentRole)
-    {
-        switch (column())
-        {
-            case 0: // name
-                return Qt::AlignVCenter;
-            case 2: // size
-            case 3: // speed
-            case 4: //progress
-                return Qt::AlignCenter;
-            default:
-                return QVariant(Qt::AlignLeft | Qt::AlignBottom);
+    if (role == Qt::TextAlignmentRole) {
+        switch (column()) {
+        case 0: // name
+            return Qt::AlignVCenter;
+        case 2: // size
+        case 3: // speed
+        case 4: // progress
+            return Qt::AlignCenter;
+        default:
+            return QVariant(Qt::AlignLeft | Qt::AlignBottom);
         }
     }
     if (role == Qt::DecorationRole && column() == 0)
@@ -177,9 +168,9 @@ QVariant GroupModelItem::data(int role) const
     return QVariant();
 }
 
-TransferGroupHandler * GroupModelItem::groupHandler()
+TransferGroupHandler *GroupModelItem::groupHandler()
 {
-    //qDebug() << m_groupHandler->name();
+    // qDebug() << m_groupHandler->name();
     return m_groupHandler;
 }
 
@@ -188,11 +179,10 @@ bool GroupModelItem::isGroup()
     return true;
 }
 
-
-TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
-    : QStandardItemModel(),
-      m_scheduler(scheduler),
-      m_timerId(-1)
+TransferTreeModel::TransferTreeModel(Scheduler *scheduler)
+    : QStandardItemModel()
+    , m_scheduler(scheduler)
+    , m_timerId(-1)
 {
     m_transferGroups.clear();
     m_transfers.clear();
@@ -200,38 +190,37 @@ TransferTreeModel::TransferTreeModel(Scheduler * scheduler)
 
 TransferTreeModel::~TransferTreeModel()
 {
-
 }
 
-void TransferTreeModel::addGroup(TransferGroup * group)
+void TransferTreeModel::addGroup(TransferGroup *group)
 {
-    QList<QStandardItem*> items;
+    QList<QStandardItem *> items;
     for (int i = 0; i != group->handler()->columnCount(); i++)
         items << new GroupModelItem(group->handler());
 
     appendRow(items);
 
-    m_transferGroups.append(static_cast<GroupModelItem*>(items.first()));
+    m_transferGroups.append(static_cast<GroupModelItem *>(items.first()));
 
     Q_EMIT groupAddedEvent(group->handler());
 
     KGet::m_scheduler->addQueue(group);
 }
 
-void TransferTreeModel::delGroup(TransferGroup * group)
+void TransferTreeModel::delGroup(TransferGroup *group)
 {
-    if (m_transferGroups.count() <= 1) //If there is only one group left, we should not remove it
+    if (m_transferGroups.count() <= 1) // If there is only one group left, we should not remove it
         return;
     GroupModelItem *item = itemFromTransferGroupHandler(group->handler());
     if (!item) {
         return;
     }
 
-    QList<Transfer*> transfers;
+    QList<Transfer *> transfers;
     JobQueue::iterator it;
     JobQueue::iterator itEnd = group->end();
     for (it = group->begin(); it != itEnd; ++it) {
-        transfers << static_cast<Transfer*>(*it);
+        transfers << static_cast<Transfer *>(*it);
     }
     delTransfers(transfers);
 
@@ -245,55 +234,55 @@ void TransferTreeModel::delGroup(TransferGroup * group)
     KGet::m_scheduler->delQueue(group);
 }
 
-void TransferTreeModel::addTransfers(const QList<Transfer*> &transfers, TransferGroup *group)
+void TransferTreeModel::addTransfers(const QList<Transfer *> &transfers, TransferGroup *group)
 {
     ModelItem *parentItem = itemFromTransferGroupHandler(group->handler());
     beginInsertRows(parentItem->index(), parentItem->rowCount(), parentItem->rowCount() + transfers.count() - 1);
 
-    //HACK blocks all signals from the model when adding multiple items,
-    //that way rowsInserted gets only emitted once, and not constantly when doing appendRow
-    //change this once there is a better way to append many transfers at once
+    // HACK blocks all signals from the model when adding multiple items,
+    // that way rowsInserted gets only emitted once, and not constantly when doing appendRow
+    // change this once there is a better way to append many transfers at once
     blockSignals(true);
 
-    //now create and add the new items
-    QList<TransferHandler*> handlers;
+    // now create and add the new items
+    QList<TransferHandler *> handlers;
     group->append(transfers);
     foreach (Transfer *transfer, transfers) {
         TransferHandler *handler = transfer->handler();
         handlers << handler;
 
-        QList<QStandardItem*> items;
+        QList<QStandardItem *> items;
         for (int i = 0; i != handler->columnCount(); ++i) {
             items << new TransferModelItem(handler);
         }
 
         parentItem->appendRow(items);
 
-        m_transfers.append(static_cast<TransferModelItem*>(items.first()));
+        m_transfers.append(static_cast<TransferModelItem *>(items.first()));
 
-        auto * wrapper = new DBusTransferWrapper(handler);
+        auto *wrapper = new DBusTransferWrapper(handler);
         new TransferAdaptor(wrapper);
         QDBusConnection::sessionBus().registerObject(handler->dBusObjectPath(), wrapper);
     }
 
-    //notify the rest of the changes
+    // notify the rest of the changes
     blockSignals(false);
     endInsertRows();
     Q_EMIT transfersAddedEvent(handlers);
 }
 
-void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
+void TransferTreeModel::delTransfers(const QList<Transfer *> &t)
 {
-    QList<Transfer*> transfers = t;
-    QList<TransferHandler*> handlers;
+    QList<Transfer *> transfers = t;
+    QList<TransferHandler *> handlers;
 
-    //find all valid items and sort them according to their groups
-    QHash<TransferGroup*, QList<TransferModelItem*> > groups;
-    QHash<TransferGroup*, QList<Transfer*> > groupsTransfer;
+    // find all valid items and sort them according to their groups
+    QHash<TransferGroup *, QList<TransferModelItem *>> groups;
+    QHash<TransferGroup *, QList<Transfer *>> groupsTransfer;
     {
-        QList<Transfer*>::iterator it;
-        QList<Transfer*>::iterator itEnd = transfers.end();
-        for (it = transfers.begin(); it != itEnd; ) { 
+        QList<Transfer *>::iterator it;
+        QList<Transfer *>::iterator itEnd = transfers.end();
+        for (it = transfers.begin(); it != itEnd;) {
             TransferModelItem *item = itemFromTransferHandler((*it)->handler());
             if (item) {
                 handlers << (*it)->handler();
@@ -308,10 +297,10 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
 
     Q_EMIT transfersAboutToBeRemovedEvent(handlers);
 
-    //remove the items from the model
+    // remove the items from the model
     {
-        QHash<TransferGroup*, QList<TransferModelItem*> >::iterator it;
-        QHash<TransferGroup*, QList<TransferModelItem*> >::iterator itEnd = groups.end();
+        QHash<TransferGroup *, QList<TransferModelItem *>>::iterator it;
+        QHash<TransferGroup *, QList<TransferModelItem *>>::iterator itEnd = groups.end();
         for (it = groups.begin(); it != itEnd; ++it) {
             const int numItems = (*it).count();
             QStandardItem *parentItem = (*it).first()->parent();
@@ -328,10 +317,10 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
             int numRows = 1;
             m_transfers.removeAll((*it).first());
             for (int i = 1; i < numItems; ++i) {
-                //previous item is neighbour
+                // previous item is neighbour
                 if (rowStart + numRows == (*it)[i]->row()) {
                     ++numRows;
-                //no neighbour, so start again
+                    // no neighbour, so start again
                 } else {
                     removeRows(rowStart, numRows, parentIndex);
                     rowStart = (*it)[i]->row();
@@ -339,19 +328,19 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
                 }
                 m_transfers.removeAll((*it)[i]);
             }
-            //remove last items
+            // remove last items
             removeRows(rowStart, numRows, parentIndex);
         }
     }
 
-    foreach(Transfer *transfer, transfers) {
+    foreach (Transfer *transfer, transfers) {
         QDBusConnection::sessionBus().unregisterObject(transfer->handler()->dBusObjectPath());
         m_changedTransfers.removeAll(transfer->handler());
     }
 
     {
-        QHash<TransferGroup*, QList<Transfer*> >::iterator it;
-        QHash<TransferGroup*, QList<Transfer*> >::iterator itEnd = groupsTransfer.end();
+        QHash<TransferGroup *, QList<Transfer *>>::iterator it;
+        QHash<TransferGroup *, QList<Transfer *>>::iterator itEnd = groupsTransfer.end();
         for (it = groupsTransfer.begin(); it != itEnd; ++it) {
             it.key()->remove(it.value());
         }
@@ -360,64 +349,59 @@ void TransferTreeModel::delTransfers(const QList<Transfer*> &t)
     Q_EMIT transfersRemovedEvent(handlers);
 }
 
-TransferModelItem * TransferTreeModel::itemFromTransferHandler(TransferHandler * handler)
+TransferModelItem *TransferTreeModel::itemFromTransferHandler(TransferHandler *handler)
 {
-    foreach (TransferModelItem * item, m_transfers)
-    {
+    foreach (TransferModelItem *item, m_transfers) {
         if (handler == item->transferHandler())
             return item;
     }
     return nullptr;
 }
 
-GroupModelItem * TransferTreeModel::itemFromTransferGroupHandler(TransferGroupHandler * handler)
+GroupModelItem *TransferTreeModel::itemFromTransferGroupHandler(TransferGroupHandler *handler)
 {
-    foreach (GroupModelItem * item, m_transferGroups)
-    {
+    foreach (GroupModelItem *item, m_transferGroups) {
         if (handler == item->groupHandler())
             return item;
     }
     return nullptr;
 }
-    
-ModelItem * TransferTreeModel::itemFromHandler(Handler * handler)
+
+ModelItem *TransferTreeModel::itemFromHandler(Handler *handler)
 {
-    auto *transfer = qobject_cast<TransferHandler*>(handler);
+    auto *transfer = qobject_cast<TransferHandler *>(handler);
     if (transfer) {
         return itemFromTransferHandler(transfer);
     }
-    return itemFromTransferGroupHandler(qobject_cast<TransferGroupHandler*>(handler));
+    return itemFromTransferGroupHandler(qobject_cast<TransferGroupHandler *>(handler));
 }
 
-ModelItem * TransferTreeModel::itemFromIndex(const QModelIndex &index) const
+ModelItem *TransferTreeModel::itemFromIndex(const QModelIndex &index) const
 {
     QStandardItem *item = QStandardItemModel::itemFromIndex(index);
     if (item)
-        return dynamic_cast<ModelItem*>(item);
+        return dynamic_cast<ModelItem *>(item);
     return nullptr;
 }
 
-void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGroup, Transfer * after)
+void TransferTreeModel::moveTransfer(Transfer *transfer, TransferGroup *destGroup, Transfer *after)
 {
-    if( (after) && (destGroup != after->group()) )
+    if ((after) && (destGroup != after->group()))
         return;
-    
+
     int position = transfer->group()->indexOf(transfer);
-    
-    TransferGroup * oldGroup = transfer->group();
+
+    TransferGroup *oldGroup = transfer->group();
 
     bool sameGroup = false;
 
-    if (destGroup == transfer->group())
-    {
+    if (destGroup == transfer->group()) {
         sameGroup = true;
         if (after)
             destGroup->move(transfer, after);
         else
             destGroup->move(transfer, nullptr);
-    }
-    else
-    {
+    } else {
         transfer->group()->remove(transfer);
 
         if (after)
@@ -427,9 +411,9 @@ void TransferTreeModel::moveTransfer(Transfer * transfer, TransferGroup * destGr
 
         transfer->m_jobQueue = destGroup;
     }
-    QList<QStandardItem*> items = itemFromHandler(oldGroup->handler())->takeRow(position);
+    QList<QStandardItem *> items = itemFromHandler(oldGroup->handler())->takeRow(position);
     itemFromHandler(destGroup->handler())->insertRow(destGroup->indexOf(transfer), items);
-    
+
     if (!sameGroup)
         Q_EMIT transferMovedEvent(transfer->handler(), destGroup->handler());
 
@@ -447,25 +431,24 @@ void TransferTreeModel::moveTransfer(TransferHandler *transfer, TransferGroupHan
 
 QList<TransferGroup *> TransferTreeModel::transferGroups()
 {
-    QList<TransferGroup*> transferGroups;
-    foreach (GroupModelItem * item, m_transferGroups) {
+    QList<TransferGroup *> transferGroups;
+    foreach (GroupModelItem *item, m_transferGroups) {
         transferGroups << item->groupHandler()->m_group;
     }
 
     return transferGroups;
 }
 
-TransferGroup * TransferTreeModel::findGroup(const QString & groupName)
+TransferGroup *TransferTreeModel::findGroup(const QString &groupName)
 {
-    foreach (GroupModelItem * group, m_transferGroups)
-    {
+    foreach (GroupModelItem *group, m_transferGroups) {
         if (group->groupHandler()->name() == groupName)
             return group->groupHandler()->m_group;
     }
     return nullptr;
 }
 
-Transfer * TransferTreeModel::findTransfer(const QUrl &src)
+Transfer *TransferTreeModel::findTransfer(const QUrl &src)
 {
     /*foreach (TransferGroup * group, transferGroups())
     {
@@ -473,8 +456,7 @@ Transfer * TransferTreeModel::findTransfer(const QUrl &src)
         if (t)
             return t;
     }*/
-    foreach (TransferModelItem * transfer, m_transfers)
-    {
+    foreach (TransferModelItem *transfer, m_transfers) {
         if (transfer->transferHandler()->source() == src)
             return transfer->transferHandler()->m_transfer;
     }
@@ -489,60 +471,56 @@ Transfer *TransferTreeModel::findTransferByDestination(const QUrl &dest)
         if (t)
             return t;
     }*/
-    foreach (TransferModelItem * transfer, m_transfers)
-    {
+    foreach (TransferModelItem *transfer, m_transfers) {
         if (transfer->transferHandler()->dest() == dest)
             return transfer->transferHandler()->m_transfer;
     }
     return nullptr;
 }
 
-Transfer * TransferTreeModel::findTransferByDBusObjectPath(const QString & dbusObjectPath)
+Transfer *TransferTreeModel::findTransferByDBusObjectPath(const QString &dbusObjectPath)
 {
-    foreach (TransferModelItem * transfer, m_transfers)
-    {
+    foreach (TransferModelItem *transfer, m_transfers) {
         if (transfer->transferHandler()->dBusObjectPath() == dbusObjectPath)
             return transfer->transferHandler()->m_transfer;
     }
     return nullptr;
 }
 
-void TransferTreeModel::postDataChangedEvent(TransferHandler * transfer)
+void TransferTreeModel::postDataChangedEvent(TransferHandler *transfer)
 {
-    if(m_timerId == -1)
+    if (m_timerId == -1)
         m_timerId = startTimer(500);
 
     m_changedTransfers.append(transfer);
 }
 
-void TransferTreeModel::postDataChangedEvent(TransferGroupHandler * group)
+void TransferTreeModel::postDataChangedEvent(TransferGroupHandler *group)
 {
-    if(m_timerId == -1)
+    if (m_timerId == -1)
         m_timerId = startTimer(500);
 
     m_changedGroups.append(group);
 }
 
-Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
+Qt::ItemFlags TransferTreeModel::flags(const QModelIndex &index) const
 {
-//     qCDebug(KGET_DEBUG) << "TransferTreeModel::flags()";
+    //     qCDebug(KGET_DEBUG) << "TransferTreeModel::flags()";
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
-    if (!index.parent().isValid())
-    {
-        if(index.column() == 0)
+    if (!index.parent().isValid()) {
+        if (index.column() == 0)
             flags |= Qt::ItemIsDropEnabled;
-    }
-    else
+    } else
         flags |= Qt::ItemIsDragEnabled;
 
-    //flags |= Qt::ItemIsDropEnabled;
+    // flags |= Qt::ItemIsDropEnabled;
 
     // We can edit all the groups but the default one
-    if(index.row() > 0) {
+    if (index.row() > 0) {
         flags |= Qt::ItemIsEditable;
     }
 
@@ -551,8 +529,7 @@ Qt::ItemFlags TransferTreeModel::flags (const QModelIndex & index) const
 
 QVariant TransferTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) 
-    {
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         return columnName(section);
     }
 
@@ -571,12 +548,14 @@ QStringList TransferTreeModel::mimeTypes() const
     return types;
 }
 
-QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
+QMimeData *TransferTreeModel::mimeData(const QModelIndexList &indexes) const
 {
     auto *mimeData = new ItemMimeData();
 
     QModelIndexList sortedIndexes = indexes;
-    std::sort(sortedIndexes.begin(), sortedIndexes.end(), [](const QModelIndex &a, const QModelIndex &b) { return b < a; });
+    std::sort(sortedIndexes.begin(), sortedIndexes.end(), [](const QModelIndex &a, const QModelIndex &b) {
+        return b < a;
+    });
     foreach (const QModelIndex &index, sortedIndexes) {
         if (index.isValid() && index.column() == 0 && index.parent().isValid()) {
             ModelItem *item = itemFromIndex(index);
@@ -590,12 +569,12 @@ QMimeData * TransferTreeModel::mimeData(const QModelIndexList &indexes) const
     return mimeData;
 }
 
-bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+bool TransferTreeModel::dropMimeData(const QMimeData *mdata, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
     if (action == Qt::IgnoreAction)
         return true;
 
-    const auto *itemData = qobject_cast<const ItemMimeData*>(mdata);
+    const auto *itemData = qobject_cast<const ItemMimeData *>(mdata);
     if (!itemData) {
         qCWarning(KGET_DEBUG) << "Unsupported mime data dropped.";
         return false;
@@ -608,14 +587,14 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
     }
 
     if (parent.isValid())
-        qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData" << " " << row << " " 
-                                                          << column;
+        qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData"
+                            << " " << row << " " << column;
 
-    QList<QPointer<TransferHandler> > transfers = itemData->transfers();
+    QList<QPointer<TransferHandler>> transfers = itemData->transfers();
     qCDebug(KGET_DEBUG) << "TransferTreeModel::dropMimeData:" << transfers.count() << "transfers.";
 
     const bool droppedInsideGroup = parent.isValid();
-    Transfer * after = nullptr;
+    Transfer *after = nullptr;
     for (int i = 0; i < transfers.count(); ++i) {
         bool b = destGroup->size() > row && row - 1 >= 0;
         if (b)
@@ -626,7 +605,7 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
         if (!after) {
             bool rowValid = (row - 1 >= 0) && (destGroup->size() >= row);
             if (droppedInsideGroup && rowValid) {
-                after = destGroup->operator[](row - 1);//insert at the correct position
+                after = destGroup->operator[](row - 1); // insert at the correct position
             }
         }
 
@@ -641,59 +620,59 @@ bool TransferTreeModel::dropMimeData(const QMimeData * mdata, Qt::DropAction act
 
 QString TransferTreeModel::columnName(int column)
 {
-    switch(column) {
-        case 0:
-            return i18nc("name of download", "Name");
-        case 1:
-            return i18nc("status of download", "Status");
-        case 2:
-            return i18nc("size of download", "Size");
-        case 3:
-            return i18nc("progress of download", "Progress");
-        case 4:
-            return i18nc("speed of download", "Speed");
-        case 5:
-            return i18nc("remaining time of download", "Remaining Time");
+    switch (column) {
+    case 0:
+        return i18nc("name of download", "Name");
+    case 1:
+        return i18nc("status of download", "Status");
+    case 2:
+        return i18nc("size of download", "Size");
+    case 3:
+        return i18nc("progress of download", "Progress");
+    case 4:
+        return i18nc("speed of download", "Speed");
+    case 5:
+        return i18nc("remaining time of download", "Remaining Time");
     }
     return QString();
 }
 
 int TransferTreeModel::column(Transfer::TransferChange flag)
 {
-    switch(flag) {
-        case Transfer::Tc_FileName:
-            return 0;
-        case Transfer::Tc_Status:
-            return 1;
-        case Transfer::Tc_TotalSize:
-            return 2;
-        case Transfer::Tc_Percent:
-            return 3;
-        case Transfer::Tc_DownloadSpeed:
-            return 4;
-        case Transfer::Tc_RemainingTime:
-            return 5;
-        default:
-            return -1;
+    switch (flag) {
+    case Transfer::Tc_FileName:
+        return 0;
+    case Transfer::Tc_Status:
+        return 1;
+    case Transfer::Tc_TotalSize:
+        return 2;
+    case Transfer::Tc_Percent:
+        return 3;
+    case Transfer::Tc_DownloadSpeed:
+        return 4;
+    case Transfer::Tc_RemainingTime:
+        return 5;
+    default:
+        return -1;
     }
     return -1;
 }
 
 int TransferTreeModel::column(TransferGroup::GroupChange flag)
 {
-    switch(flag) {
-        case TransferGroup::Gc_GroupName:
-            return 0;
-        case TransferGroup::Gc_Status:
-            return 1;
-        case TransferGroup::Gc_TotalSize:
-            return 2;
-        case TransferGroup::Gc_Percent:
-            return 3;
-        case TransferGroup::Gc_DownloadSpeed:
-            return 4;
-        default:
-            return -1;
+    switch (flag) {
+    case TransferGroup::Gc_GroupName:
+        return 0;
+    case TransferGroup::Gc_Status:
+        return 1;
+    case TransferGroup::Gc_TotalSize:
+        return 2;
+    case TransferGroup::Gc_Percent:
+        return 3;
+    case TransferGroup::Gc_DownloadSpeed:
+        return 4;
+    default:
+        return -1;
     }
     return -1;
 }
@@ -701,69 +680,66 @@ int TransferTreeModel::column(TransferGroup::GroupChange flag)
 void TransferTreeModel::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
-//     qCDebug(KGET_DEBUG) << "TransferTreeModel::timerEvent";
+    //     qCDebug(KGET_DEBUG) << "TransferTreeModel::timerEvent";
 
     QMap<TransferHandler *, Transfer::ChangesFlags> updatedTransfers;
     QMap<TransferGroupHandler *, TransferGroup::ChangesFlags> updatedGroups;
 
-    foreach (TransferHandler * transfer, m_changedTransfers)
-    {
+    foreach (TransferHandler *transfer, m_changedTransfers) {
         if (!updatedTransfers.contains(transfer)) {
-            TransferGroupHandler * group = transfer->group();
-            ModelItem * item = itemFromHandler(group);
+            TransferGroupHandler *group = transfer->group();
+            ModelItem *item = itemFromHandler(group);
             Transfer::ChangesFlags changesFlags = transfer->changesFlags();
 
             Q_EMIT transfer->transferChangedEvent(transfer, changesFlags);
-            
+
             int row = group->indexOf(transfer);
 
-//             qCDebug(KGET_DEBUG) << "CHILD = " << item->child(row, column(Transfer::Tc_FileName));
-            
+            //             qCDebug(KGET_DEBUG) << "CHILD = " << item->child(row, column(Transfer::Tc_FileName));
+
             // Now, check that model child items already exist (there are some cases when the transfer
             // can notify for changes before the gui has been correctly initialized)
-            if(item->child(row, 0)) {
+            if (item->child(row, 0)) {
                 if (changesFlags & Transfer::Tc_FileName)
-                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_FileName)))->emitDataChanged();
+                    static_cast<ModelItem *>(item->child(row, column(Transfer::Tc_FileName)))->emitDataChanged();
                 if (changesFlags & Transfer::Tc_Status)
-                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_Status)))->emitDataChanged();
+                    static_cast<ModelItem *>(item->child(row, column(Transfer::Tc_Status)))->emitDataChanged();
                 if (changesFlags & Transfer::Tc_TotalSize)
-                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_TotalSize)))->emitDataChanged();
+                    static_cast<ModelItem *>(item->child(row, column(Transfer::Tc_TotalSize)))->emitDataChanged();
                 if (changesFlags & Transfer::Tc_Percent)
-                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_Percent)))->emitDataChanged();
+                    static_cast<ModelItem *>(item->child(row, column(Transfer::Tc_Percent)))->emitDataChanged();
                 if (changesFlags & Transfer::Tc_DownloadSpeed)
-                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_DownloadSpeed)))->emitDataChanged();
+                    static_cast<ModelItem *>(item->child(row, column(Transfer::Tc_DownloadSpeed)))->emitDataChanged();
                 if (changesFlags & Transfer::Tc_RemainingTime)
-                    static_cast<ModelItem*>(item->child(row, column(Transfer::Tc_RemainingTime)))->emitDataChanged();
+                    static_cast<ModelItem *>(item->child(row, column(Transfer::Tc_RemainingTime)))->emitDataChanged();
 
                 transfer->resetChangesFlags();
-                updatedTransfers.insert(transfer,changesFlags);            
-            }    
+                updatedTransfers.insert(transfer, changesFlags);
+            }
         }
     }
 
-    if(!updatedTransfers.isEmpty())
+    if (!updatedTransfers.isEmpty())
         Q_EMIT transfersChangedEvent(updatedTransfers);
 
-    foreach(TransferGroupHandler * group, m_changedGroups)
-    {
-        if(!updatedGroups.contains(group))
-        {
+    foreach (TransferGroupHandler *group, m_changedGroups) {
+        if (!updatedGroups.contains(group)) {
             TransferGroup::ChangesFlags changesFlags = group->changesFlags();
 
             Q_EMIT group->groupChangedEvent(group, changesFlags);
-            
+
             int row = itemFromHandler(group)->row();
-            
+
             if (changesFlags & TransferGroup::Gc_GroupName)
-                static_cast<ModelItem*>(item(row, column(TransferGroup::Gc_GroupName)))->emitDataChanged();
+                static_cast<ModelItem *>(item(row, column(TransferGroup::Gc_GroupName)))->emitDataChanged();
             if (changesFlags & TransferGroup::Gc_Status)
-                static_cast<ModelItem*>(item(row, column(TransferGroup::Gc_Status)))->emitDataChanged();
+                static_cast<ModelItem *>(item(row, column(TransferGroup::Gc_Status)))->emitDataChanged();
             if (changesFlags & TransferGroup::Gc_TotalSize)
-                static_cast<ModelItem*>(item(row, column(TransferGroup::Gc_TotalSize)))->emitDataChanged();
+                static_cast<ModelItem *>(item(row, column(TransferGroup::Gc_TotalSize)))->emitDataChanged();
             if (changesFlags & TransferGroup::Gc_Percent)
-                static_cast<ModelItem*>(item(row, column(TransferGroup::Gc_Percent)))->emitDataChanged();
+                static_cast<ModelItem *>(item(row, column(TransferGroup::Gc_Percent)))->emitDataChanged();
             if (changesFlags & TransferGroup::Gc_DownloadSpeed)
-                static_cast<ModelItem*>(item(row, column(TransferGroup::Gc_DownloadSpeed)))->emitDataChanged();
+                static_cast<ModelItem *>(item(row, column(TransferGroup::Gc_DownloadSpeed)))->emitDataChanged();
 
             /*for(int i=0; i<8; i++)
             {
@@ -781,7 +757,7 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
         }
     }
 
-    if(!updatedGroups.isEmpty())
+    if (!updatedGroups.isEmpty())
         Q_EMIT groupsChangedEvent(updatedGroups);
 
     m_changedTransfers.clear();
@@ -790,5 +766,3 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     killTimer(m_timerId);
     m_timerId = -1;
 }
-
-

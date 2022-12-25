@@ -8,7 +8,6 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-
 #ifndef TRANSFERDATASOURCE_H
 #define TRANSFERDATASOURCE_H
 
@@ -26,230 +25,236 @@
 class KGET_EXPORT TransferDataSource : public QObject
 {
     Q_OBJECT
-    public:
-        TransferDataSource(const QUrl &srcUrl, QObject *parent);
-        ~TransferDataSource() override;
+public:
+    TransferDataSource(const QUrl &srcUrl, QObject *parent);
+    ~TransferDataSource() override;
 
-        /**
-         * @enum Error
-         * @brief Error type enum
-         */
-        enum Error
-        {
-            Unknown,
-            WrongDownloadSize,
-            NotResumeable
-        };
+    /**
+     * @enum Error
+     * @brief Error type enum
+     */
+    enum Error { Unknown, WrongDownloadSize, NotResumeable };
 
-        /**
-         * Returns the capabilities this TransferDataSource supports
-         */
-        Transfer::Capabilities capabilities() const;
+    /**
+     * Returns the capabilities this TransferDataSource supports
+     */
+    Transfer::Capabilities capabilities() const;
 
-        virtual void start() = 0;
-        virtual void stop() = 0;
+    virtual void start() = 0;
+    virtual void stop() = 0;
 
-        /**
-         * Tries to find the filesize if this capability is supported,
-         * if successful it emits foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)
-         * and assigns all segments to itself
-         * if not successful it will try to download the file nevertheless
-         * @note if stop is called and no size is found yet then this is aborted, i.e. needs to be
-         * called again if start is later called
-         * @param segmentSize the segments should have
-         */
-        virtual void findFileSize(KIO::fileoffset_t segmentSize);
+    /**
+     * Tries to find the filesize if this capability is supported,
+     * if successful it emits foundFileSize(TransferDataSource*,KIO::filesize_t,QPair<int,int>)
+     * and assigns all segments to itself
+     * if not successful it will try to download the file nevertheless
+     * @note if stop is called and no size is found yet then this is aborted, i.e. needs to be
+     * called again if start is later called
+     * @param segmentSize the segments should have
+     */
+    virtual void findFileSize(KIO::fileoffset_t segmentSize);
 
-        /**
-         * Adds multiple continuous segments that should be downloaded by this TransferDataSource
-         * @param segmentSize first is always the general segmentSize, second the segmentSize
-         * of the last segment in the range. If just one (the last) segment was assigned, then
-         * first would not equal second, this is to ensure that first can be used to calculate the offset
-         * TransferDataSources have to handle all that internally.
-         * @param segmentRange first the beginning, second the end
-         */
-        virtual void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) = 0;
+    /**
+     * Adds multiple continuous segments that should be downloaded by this TransferDataSource
+     * @param segmentSize first is always the general segmentSize, second the segmentSize
+     * of the last segment in the range. If just one (the last) segment was assigned, then
+     * first would not equal second, this is to ensure that first can be used to calculate the offset
+     * TransferDataSources have to handle all that internally.
+     * @param segmentRange first the beginning, second the end
+     */
+    virtual void addSegments(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange) = 0;
 
-        /**
-         * Removes one connection, useful when setMaximumParallelDownloads was called with a lower number
-         * @return the segments that are removed (unassigned) now
-         *
-         */
-        virtual QPair<int, int> removeConnection();
+    /**
+     * Removes one connection, useful when setMaximumParallelDownloads was called with a lower number
+     * @return the segments that are removed (unassigned) now
+     *
+     */
+    virtual QPair<int, int> removeConnection();
 
-        QUrl sourceUrl() const {return m_sourceUrl;}//TODO
+    QUrl sourceUrl() const
+    {
+        return m_sourceUrl;
+    } // TODO
 
-        /**
-         * returns the current speed of this data source
-         * @return the speed
-         */
-        ulong currentSpeed() const {return m_speed;}
+    /**
+     * returns the current speed of this data source
+     * @return the speed
+     */
+    ulong currentSpeed() const
+    {
+        return m_speed;
+    }
 
-        /**
-         * Set the size the server used for downloading should report
-         * @param supposedSize the size the file should have
-         */
-        virtual void setSupposedSize(KIO::filesize_t supposedSize) {m_supposedSize = supposedSize;}
+    /**
+     * Set the size the server used for downloading should report
+     * @param supposedSize the size the file should have
+     */
+    virtual void setSupposedSize(KIO::filesize_t supposedSize)
+    {
+        m_supposedSize = supposedSize;
+    }
 
-        /**
-         * Returns the assignedSegments to this TransferDataSource
-         * Each connection is represented by a QPair, where the first int is the beginning
-         * segment and the last the ending segment
-         * @note an empty list is returned by default, the elements can also be (-1, -1)
-         */
-        virtual QList<QPair<int, int> > assignedSegments() const;
+    /**
+     * Returns the assignedSegments to this TransferDataSource
+     * Each connection is represented by a QPair, where the first int is the beginning
+     * segment and the last the ending segment
+     * @note an empty list is returned by default, the elements can also be (-1, -1)
+     */
+    virtual QList<QPair<int, int>> assignedSegments() const;
 
-        /**
-         * Returns the number of unfinished Segments of the connection with the most
-         * unfinished segments
-         * Each TransferDataSource can have multiple connections and each connection
-         * can have multiple segments assigned
-         * @note default implementation returns 0
-         */
-        virtual int countUnfinishedSegments() const;
+    /**
+     * Returns the number of unfinished Segments of the connection with the most
+     * unfinished segments
+     * Each TransferDataSource can have multiple connections and each connection
+     * can have multiple segments assigned
+     * @note default implementation returns 0
+     */
+    virtual int countUnfinishedSegments() const;
 
-        /**
-         * If a connection of this TransferDataSource is assigned multiple (continuous) segments, then
-         * this method will split them (the unfinished ones) in half, it returns the beginning
-         * and the end of the now unassigned segments; (-1, -1) if there are none
-         * @note if only one segment is assigned to a connection split will also return (-1, -1)
-         */
-        virtual QPair<int, int> split();//TODO should split also take the current running segment into account?
+    /**
+     * If a connection of this TransferDataSource is assigned multiple (continuous) segments, then
+     * this method will split them (the unfinished ones) in half, it returns the beginning
+     * and the end of the now unassigned segments; (-1, -1) if there are none
+     * @note if only one segment is assigned to a connection split will also return (-1, -1)
+     */
+    virtual QPair<int, int> split(); // TODO should split also take the current running segment into account?
 
+    // the following methods are used for managing the number of parallel connections
+    // subclasses have to keep track of the currentSegments
+    /**
+     * @return the number of parallel segments this DataSource is allowed to use,
+     * default is 1
+     */
+    virtual int parallelSegments() const;
 
-        //the following methods are used for managing the number of parallel connections
-        //subclasses have to keep track of the currentSegments
-        /**
-         * @return the number of parallel segments this DataSource is allowed to use,
-         * default is 1
-         */
-        virtual int parallelSegments() const;
+    /**
+     * Sets the number of parallel segments this DataSource is allowed to use
+     */
+    virtual void setParallelSegments(int parallelSegments);
 
-        /**
-         * Sets the number of parallel segments this DataSource is allowed to use
-         */
-        virtual void setParallelSegments(int parallelSegments);
+    /**
+     * @return the number of parallel segments this DataSources currently uses
+     */
+    virtual int currentSegments() const;
 
-        /**
-         * @return the number of parallel segments this DataSources currently uses
-         */
-        virtual int currentSegments() const;
+    /**
+     * Returns the mismatch of parallelSegments() and currentSegments()
+     * @return the number of segments to add/remove e.g. -1 means one segment to remove
+     */
+    virtual int changeNeeded() const;
 
-        /**
-         * Returns the mismatch of parallelSegments() and currentSegments()
-         * @return the number of segments to add/remove e.g. -1 means one segment to remove
-         */
-        virtual int changeNeeded() const;
+Q_SIGNALS:
+    /**
+     * Emitted after findFileSize is called successfully
+     * @param source that found the filesize
+     * @param fileSize that was found
+     * @param segmentRange that was calculated based on the segmentSize and that was assigned to
+     * source automatically
+     */
+    void foundFileSize(TransferDataSource *source, KIO::filesize_t fileSize, const QPair<int, int> &segmentRange);
 
-    Q_SIGNALS:
-        /**
-         * Emitted after findFileSize is called successfully
-         * @param source that found the filesize
-         * @param fileSize that was found
-         * @param segmentRange that was calculated based on the segmentSize and that was assigned to
-         * source automatically
-         */
-        void foundFileSize(TransferDataSource *source, KIO::filesize_t fileSize, const QPair<int, int> &segmentRange);
+    /**
+     * Emitted when the capabilities of the TransferDataSource change
+     */
+    void capabilitiesChanged();
 
-        /**
-         * Emitted when the capabilities of the TransferDataSource change
-         */
-        void capabilitiesChanged();
+    /**
+     * Emitted when the TransferDataSource finished the download on its own, e.g. when findFileSize
+     * is being called but no fileSize is found and instead the download finishes
+     * @param source the source that emitted this signal
+     * @param fileSize the fileSize of the finished file (calculated by the downloaded bytes)
+     */
+    void finishedDownload(TransferDataSource *source, KIO::filesize_t fileSize);
 
-        /**
-         * Emitted when the TransferDataSource finished the download on its own, e.g. when findFileSize
-         * is being called but no fileSize is found and instead the download finishes
-         * @param source the source that emitted this signal
-         * @param fileSize the fileSize of the finished file (calculated by the downloaded bytes)
-         */
-        void finishedDownload(TransferDataSource *source, KIO::filesize_t fileSize);
+    /**
+     * Returns data in the forms of chucks
+     * @note if the receiver set worked to wrong the TransferDataSource should cache the data
+     * @param offset the offset in the file
+     * @param data the downloaded data
+     * @param worked if the receiver could handle the data, if not, the sender should cache the data
+     */
+    void data(KIO::fileoffset_t offset, const QByteArray &data, bool &worked);
 
-        /**
-         * Returns data in the forms of chucks
-         * @note if the receiver set worked to wrong the TransferDataSource should cache the data
-         * @param offset the offset in the file
-         * @param data the downloaded data
-         * @param worked if the receiver could handle the data, if not, the sender should cache the data
-         */
-        void data(KIO::fileoffset_t offset, const QByteArray &data, bool &worked);
+    /**
+     * Returns data in the forms of URL List
+     * @param data in form of QUrl list
+     */
+    void data(const QList<QUrl> &data);
 
-        /**
-         * Returns data in the forms of URL List
-         * @param data in form of QUrl list
-         */
-        void data(const QList<QUrl> &data);
+    /**
+     * Returns found checksums with their type
+     * @param type the type of the checksum
+     * @param checksum the checksum
+     */
+    void data(const QString type, const QString checksum);
 
-        /**
-         * Returns found checksums with their type
-         * @param type the type of the checksum
-         * @param checksum the checksum
-         */
-        void data(const QString type, const QString checksum);
+    /**
+     * emitted when there is no more data
+     */
+    void finished();
 
-        /**
-         * emitted when there is no more data
-         */
-        void finished();
+    /**
+     * emitted when an assigned segment finishes
+     * @param source the source that emitted this signal
+     * @param segmentNumber the number of the segment, to identify it
+     * @param connectionFinished true if all segments of this connection have been finished,
+     * if one segment (instead of a group of segments) has been assigned this is always true
+     */
+    void finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished = true);
 
-        /**
-         * emitted when an assigned segment finishes
-         * @param source the source that emitted this signal
-         * @param segmentNumber the number of the segment, to identify it
-         * @param connectionFinished true if all segments of this connection have been finished,
-         * if one segment (instead of a group of segments) has been assigned this is always true
-         */
-        void finishedSegment(TransferDataSource *source, int segmentNumber, bool connectionFinished = true);
+    /**
+     * Alert that datasource is no able to send any data
+     * @param source the datasource, sending the signal
+     * @param error the error type
+     */
+    void broken(TransferDataSource *source, TransferDataSource::Error error);
 
-        /**
-         * Alert that datasource is no able to send any data
-         * @param source the datasource, sending the signal
-         * @param error the error type
-         */
-        void broken(TransferDataSource *source, TransferDataSource::Error error);
+    /**
+     * emitted when an assigned segment is broken
+     * @param source the source that emitted this signal
+     * @param segmentRange the range of the segments e.g. (1,1,) or (0, 10)
+     */
+    void brokenSegments(TransferDataSource *source, QPair<int, int> segmentRange);
 
-        /**
-         * emitted when an assigned segment is broken
-         * @param source the source that emitted this signal
-         * @param segmentRange the range of the segments e.g. (1,1,) or (0, 10)
-         */
-        void brokenSegments(TransferDataSource *source, QPair<int, int> segmentRange);
+    /**
+     * The speed of the download
+     * @param speed speed of the download
+     */
+    void speed(ulong speed);
 
-        /**
-         * The speed of the download
-         * @param speed speed of the download
-         */
-        void speed(ulong speed);
+    /**
+     * Emitted when a Datasource itself decides to not download a specific segmentRange,
+     * e.g. when there are too many connections for this TransferDataSource
+     */
+    void freeSegments(TransferDataSource *source, QPair<int, int> segmentRange);
 
-        /**
-         * Emitted when a Datasource itself decides to not download a specific segmentRange,
-         * e.g. when there are too many connections for this TransferDataSource
-         */
-        void freeSegments(TransferDataSource *source, QPair<int, int> segmentRange);
+    void log(const QString &message, Transfer::LogLevel logLevel);
 
-        void log(const QString &message, Transfer::LogLevel logLevel);
-        
-        /**
-         * Emitted when the filename of a url changes, e.g. when a link redirects
-         */
-        void urlChanged(const QUrl &old, const QUrl &newUrl);
+    /**
+     * Emitted when the filename of a url changes, e.g. when a link redirects
+     */
+    void urlChanged(const QUrl &old, const QUrl &newUrl);
 
-    protected:
-        /**
-         * Sets the capabilities and automatically emits capabilitiesChanged
-         */
-        void setCapabilities(Transfer::Capabilities capabilities);
+protected:
+    /**
+     * Sets the capabilities and automatically emits capabilitiesChanged
+     */
+    void setCapabilities(Transfer::Capabilities capabilities);
 
-    private Q_SLOTS:
-        virtual void slotSpeed(ulong speed) {Q_UNUSED(speed)}
+private Q_SLOTS:
+    virtual void slotSpeed(ulong speed)
+    {
+        Q_UNUSED(speed)
+    }
 
-    protected:
-        QUrl m_sourceUrl;
-        ulong m_speed;
-        KIO::filesize_t m_supposedSize;
-        int m_parallelSegments;
-        int m_currentSegments;
+protected:
+    QUrl m_sourceUrl;
+    ulong m_speed;
+    KIO::filesize_t m_supposedSize;
+    int m_parallelSegments;
+    int m_currentSegments;
 
-    private:
-        Transfer::Capabilities m_capabilities;
+private:
+    Transfer::Capabilities m_capabilities;
 };
 #endif

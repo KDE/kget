@@ -20,19 +20,20 @@ class Scheduler;
 class TransferKioFactory : public TransferFactory
 {
     Q_OBJECT
-    public:
-        TransferKioFactory(QObject *parent, const QVariantList &args);
-        ~TransferKioFactory() override;
+public:
+    TransferKioFactory(QObject *parent, const QVariantList &args);
+    ~TransferKioFactory() override;
 
-    public Q_SLOTS:
-        Transfer * createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
-                                   TransferGroup * parent, Scheduler * scheduler,
-                                   const QDomElement * e = nullptr ) override;
+public Q_SLOTS:
+    Transfer *createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e = nullptr) override;
 
-        QString displayName() const override {return "HTTP(s) / FTP(s)";}
-        
-        bool isSupported(const QUrl &url) const override;
-        QStringList addsProtocols() const override;
+    QString displayName() const override
+    {
+        return "HTTP(s) / FTP(s)";
+    }
+
+    bool isSupported(const QUrl &url) const override;
+    QStringList addsProtocols() const override;
 };
 
 #endif

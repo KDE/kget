@@ -9,24 +9,24 @@
 */
 
 #include "testkget.h"
-#include "core/transfergrouphandler.h"
 #include "core/kget.h"
+#include "core/transfergrouphandler.h"
 #include "core/transfertreemodel.h"
 
 TestKGet::TestKGet()
-    : QObject(nullptr),
-      m_addedGH(nullptr)
+    : QObject(nullptr)
+    , m_addedGH(nullptr)
 {
     connect(KGet::model(), &TransferTreeModel::groupAddedEvent, this, &TestKGet::addedTransferGroupEvent);
     connect(KGet::model(), &TransferTreeModel::groupRemovedEvent, this, &TestKGet::removedTransferGroupEvent);
 }
 
-void TestKGet::addedTransferGroupEvent(TransferGroupHandler * group)
+void TestKGet::addedTransferGroupEvent(TransferGroupHandler *group)
 {
     m_addedGH = group;
 }
 
-void TestKGet::removedTransferGroupEvent(TransferGroupHandler * group)
+void TestKGet::removedTransferGroupEvent(TransferGroupHandler *group)
 {
     m_removedGH = group;
 }
@@ -38,15 +38,15 @@ void TestKGet::simpleTest()
 
 void TestKGet::transferGroupTest()
 {
-    KGet::delGroup(KGet::findGroup("testGroup"));            // In case you already have one
+    KGet::delGroup(KGet::findGroup("testGroup")); // In case you already have one
 
     m_addedGH = nullptr;
     m_removedGH = nullptr;
-    
+
     // Add Group
     QVERIFY(KGet::addGroup("testGroup"));
-    QVERIFY(m_addedGH != nullptr);   // Should already have received the added group notification
-    
+    QVERIFY(m_addedGH != nullptr); // Should already have received the added group notification
+
     // Verify default Group parameters
     QVERIFY(m_addedGH->name() == "testGroup");
     QVERIFY(m_addedGH->status() == JobQueue::Running);
@@ -57,31 +57,27 @@ void TestKGet::transferGroupTest()
     QVERIFY(m_addedGH->percent() == 0);
     QVERIFY(m_addedGH->downloadSpeed() == 0);
     QVERIFY(m_addedGH->uploadSpeed() == 0);
-    
+
     // Delete newly added Group
     KGet::delGroup(KGet::findGroup("testGroup"), false);
-    QVERIFY(m_removedGH != nullptr);   // Should already have received the removed group notification
+    QVERIFY(m_removedGH != nullptr); // Should already have received the removed group notification
 
     QVERIFY(m_removedGH->name() == "testGroup");
 }
 
 void TestKGet::transferGroupRepetitiveAddTest()
 {
-    for(int i=0; i < 100; i++)
-    {
+    for (int i = 0; i < 100; i++) {
         // Adding...
         QVERIFY(KGet::addGroup("testGroup" + QString::number(i)));
-        QVERIFY(m_addedGH != nullptr);   // Should already have received the added group notification
+        QVERIFY(m_addedGH != nullptr); // Should already have received the added group notification
         QVERIFY(m_addedGH->name() == "testGroup" + QString::number(i));
     }
-    
-    for(int i=0; i < 100; i++)
-    {
+
+    for (int i = 0; i < 100; i++) {
         // Removing...
         KGet::delGroup(KGet::findGroup("testGroup" + QString::number(i)), false);
-        QVERIFY(m_removedGH != nullptr);   // Should already have received the removed group notification
-        QVERIFY(m_removedGH->name() == "testGroup" + QString::number(i));        
+        QVERIFY(m_removedGH != nullptr); // Should already have received the removed group notification
+        QVERIFY(m_removedGH->name() == "testGroup" + QString::number(i));
     }
 }
-
-

@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
 
-   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de> 
+   Copyright (C) 2008 Lukas Appelhans <l.appelhans@gmx.de>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -17,13 +17,13 @@ class QDialog;
 class PluginSelector : public KPluginWidget
 {
     Q_OBJECT
-    public:
-        PluginSelector(QDialog * parent);
-        ~PluginSelector() override;
+public:
+    PluginSelector(QDialog *parent);
+    ~PluginSelector() override;
 
-    private Q_SLOTS:
-        void saveState();
-        void loadDefaults();
+private Q_SLOTS:
+    void saveState();
+    void loadDefaults();
 };
 
 #endif

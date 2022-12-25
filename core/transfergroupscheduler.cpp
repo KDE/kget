@@ -10,16 +10,16 @@
 #include "transfergroupscheduler.h"
 
 #include "kget.h"
-#include "transfergrouphandler.h"
 #include "settings.h"
+#include "transfergrouphandler.h"
 
 #include "kget_debug.h"
 #include <QDebug>
 
 TransferGroupScheduler::TransferGroupScheduler(QObject *parent)
-  : Scheduler(parent),
-    m_downloadLimit(0),
-    m_uploadLimit(0)
+    : Scheduler(parent)
+    , m_downloadLimit(0)
+    , m_uploadLimit(0)
 {
 }
 
@@ -36,40 +36,32 @@ void TransferGroupScheduler::calculateSpeedLimits()
 void TransferGroupScheduler::calculateDownloadLimit()
 {
     int n = KGet::allTransferGroups().count();
-    int pool = 0;//We create a pool where we have some KiB/s to go to other groups...
-    QList<TransferGroupHandler*> transfergroupsNeedSpeed;
-    foreach (TransferGroupHandler *handler, KGet::allTransferGroups())
-    {
+    int pool = 0; // We create a pool where we have some KiB/s to go to other groups...
+    QList<TransferGroupHandler *> transfergroupsNeedSpeed;
+    foreach (TransferGroupHandler *handler, KGet::allTransferGroups()) {
         if (!Settings::speedLimit())
             handler->setDownloadLimit(handler->downloadLimit(Transfer::VisibleSpeedLimit), Transfer::InvisibleSpeedLimit);
-        else if (handler->transfers().count() < 1)
-        {
+        else if (handler->transfers().count() < 1) {
             pool = pool + downloadLimit() / n;
-        }
-        else if (downloadLimit() == 0 && handler->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
+        } else if (downloadLimit() == 0 && handler->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
             continue;
         else if (downloadLimit() == 0 && handler->downloadLimit(Transfer::VisibleSpeedLimit) == 0)
             handler->setDownloadLimit(0, Transfer::InvisibleSpeedLimit);
-        else if (handler->downloadLimit(Transfer::VisibleSpeedLimit) < downloadLimit() / n 
-                                               && handler->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
-            /*If the handler's visible download limit is under the new one, 
+        else if (handler->downloadLimit(Transfer::VisibleSpeedLimit) < downloadLimit() / n && handler->downloadLimit(Transfer::VisibleSpeedLimit) != 0)
+            /*If the handler's visible download limit is under the new one,
                            we move the KiB/s which are different to the pool*/
             pool = pool + (downloadLimit() / n - handler->downloadLimit(Transfer::VisibleSpeedLimit));
-        else if (handler->downloadSpeed() + 10 < downloadLimit() / n)
-        {
-            /*When the downloadSpeed of the handler is under the new downloadLimit + 10 then we 
+        else if (handler->downloadSpeed() + 10 < downloadLimit() / n) {
+            /*When the downloadSpeed of the handler is under the new downloadLimit + 10 then we
                     set the downloadLimit to the downloadSpeed + 10*/
             pool = pool + downloadLimit() / n - handler->downloadSpeed() + 10;
             handler->setDownloadLimit(handler->downloadSpeed() + 10, Transfer::InvisibleSpeedLimit);
-        }
-        else
-        {
+        } else {
             handler->setDownloadLimit(downloadLimit() / n, Transfer::InvisibleSpeedLimit);
             transfergroupsNeedSpeed.append(handler);
         }
     }
-    foreach (TransferGroupHandler *handler, transfergroupsNeedSpeed)
-    {
+    foreach (TransferGroupHandler *handler, transfergroupsNeedSpeed) {
         handler->setDownloadLimit(downloadLimit() / n + pool / transfergroupsNeedSpeed.count(), Transfer::InvisibleSpeedLimit);
     }
 }
@@ -78,10 +70,9 @@ void TransferGroupScheduler::calculateUploadLimit()
 {
     int n = KGet::allTransferGroups().count();
     qCDebug(KGET_DEBUG) << n;
-    int pool = 0;//We create a pool where we have some KiB/s to go to other groups...
-    QList<TransferGroupHandler*> transfergroupsNeedSpeed;
-    foreach (TransferGroupHandler *handler, KGet::allTransferGroups())
-    {
+    int pool = 0; // We create a pool where we have some KiB/s to go to other groups...
+    QList<TransferGroupHandler *> transfergroupsNeedSpeed;
+    foreach (TransferGroupHandler *handler, KGet::allTransferGroups()) {
         if (!Settings::speedLimit())
             handler->setUploadLimit(handler->uploadLimit(Transfer::VisibleSpeedLimit), Transfer::InvisibleSpeedLimit);
         else if (handler->transfers().count() < 1)
@@ -91,24 +82,20 @@ void TransferGroupScheduler::calculateUploadLimit()
         else if (uploadLimit() == 0 && handler->uploadLimit(Transfer::VisibleSpeedLimit) == 0)
             handler->setUploadLimit(0, Transfer::InvisibleSpeedLimit);
         else if (handler->uploadLimit(Transfer::VisibleSpeedLimit) < uploadLimit() / n && handler->uploadLimit(Transfer::VisibleSpeedLimit) != 0)
-            /*If the handler's visible download limit is under the new one, 
+            /*If the handler's visible download limit is under the new one,
                            we move the KiB/s which are different to the pool*/
-            pool = pool + (uploadLimit() / n - handler->uploadLimit(Transfer::VisibleSpeedLimit));       
-        else if (handler->uploadSpeed() + 10 < uploadLimit() / n)
-        {
-            /*When the downloadSpeed of the handler is under the new downloadLimit + 10 then we 
+            pool = pool + (uploadLimit() / n - handler->uploadLimit(Transfer::VisibleSpeedLimit));
+        else if (handler->uploadSpeed() + 10 < uploadLimit() / n) {
+            /*When the downloadSpeed of the handler is under the new downloadLimit + 10 then we
                     set the downloadLimit to the downloadSpeed + 10*/
             pool = pool + uploadLimit() / n - handler->uploadSpeed() + 10;
             handler->setUploadLimit(handler->uploadSpeed() + 10, Transfer::InvisibleSpeedLimit);
-        }
-        else
-        {
+        } else {
             handler->setUploadLimit(uploadLimit() / n, Transfer::InvisibleSpeedLimit);
             transfergroupsNeedSpeed.append(handler);
         }
     }
-    foreach (TransferGroupHandler *handler, transfergroupsNeedSpeed)
-    {
+    foreach (TransferGroupHandler *handler, transfergroupsNeedSpeed) {
         handler->setUploadLimit(uploadLimit() / n + pool / transfergroupsNeedSpeed.count(), Transfer::InvisibleSpeedLimit);
     }
 }
@@ -124,5 +111,3 @@ void TransferGroupScheduler::setUploadLimit(int limit)
     m_uploadLimit = limit;
     calculateUploadLimit();
 }
-
-

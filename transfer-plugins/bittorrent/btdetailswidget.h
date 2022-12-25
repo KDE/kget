@@ -24,18 +24,18 @@ class QShowEvent;
 class BTDetailsWidget : public QWidget, public Ui::BTDetailsWidgetFrm
 {
     Q_OBJECT
-    public:
-        BTDetailsWidget(BTTransferHandler * transfer);
-        ~BTDetailsWidget() override;
+public:
+    BTDetailsWidget(BTTransferHandler *transfer);
+    ~BTDetailsWidget() override;
 
-    public Q_SLOTS:
-        void slotTransferChanged(TransferHandler * transfer, TransferHandler::ChangesFlags flags);
-        
-    protected:
-        void showEvent(QShowEvent * event) override;
+public Q_SLOTS:
+    void slotTransferChanged(TransferHandler *transfer, TransferHandler::ChangesFlags flags);
 
-    private:
-        BTTransferHandler * m_transfer;
+protected:
+    void showEvent(QShowEvent *event) override;
+
+private:
+    BTTransferHandler *m_transfer;
 };
 
 #endif

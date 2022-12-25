@@ -17,17 +17,17 @@ class Scheduler;
 class Handler : public QObject
 {
     Q_OBJECT
-    public:
-        Handler(Scheduler * scheduler, QObject * parent);
-        ~Handler() override;
+public:
+    Handler(Scheduler *scheduler, QObject *parent);
+    ~Handler() override;
 
-        virtual void start() = 0;
-        virtual void stop() = 0;
-        
-        virtual QVariant data(int column) = 0;
+    virtual void start() = 0;
+    virtual void stop() = 0;
 
-    protected:
-        Scheduler * m_scheduler;
+    virtual QVariant data(int column) = 0;
+
+protected:
+    Scheduler *m_scheduler;
 };
 
 #endif

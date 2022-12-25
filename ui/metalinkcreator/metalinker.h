@@ -1,33 +1,33 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*   Copyright (C) 2012 Aish Raj Dahal <dahalaishraj@gmail.com>            *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *   Copyright (C) 2012 Aish Raj Dahal <dahalaishraj@gmail.com>            *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #ifndef Metalinker_H
 #define Metalinker_H
 
 #include <KIO/Job>
-#include <QUrl>
 #include <QDate>
 #include <QDomElement>
 #include <QEventLoop>
-#include <QString>
 #include <QObject>
+#include <QString>
+#include <QUrl>
 
 /**
  * The following classes try to resemble the structure of a Metalink-document, they partially support
@@ -41,25 +41,25 @@ namespace KGetMetalink
 
 class DateConstruct
 {
-    public:
-        DateConstruct()
-          : negativeOffset(false)
-        {
-        }
+public:
+    DateConstruct()
+        : negativeOffset(false)
+    {
+    }
 
-        void setData(const QDateTime &dateTime, const QTime &timeZoneOffset = QTime(), bool negativeOffset = false);
-        void setData(const QString &dateConstruct);
+    void setData(const QDateTime &dateTime, const QTime &timeZoneOffset = QTime(), bool negativeOffset = false);
+    void setData(const QString &dateConstruct);
 
-        void clear();
+    void clear();
 
-        bool isNull() const;
-        bool isValid() const;
+    bool isNull() const;
+    bool isValid() const;
 
-        QString toString() const;
+    QString toString() const;
 
-        QDateTime dateTime;
-        QTime timeZoneOffset;
-        bool negativeOffset;
+    QDateTime dateTime;
+    QTime timeZoneOffset;
+    bool negativeOffset;
 };
 
 /**
@@ -67,238 +67,254 @@ class DateConstruct
  */
 class UrlText
 {
-    public:
-        UrlText() {}
+public:
+    UrlText()
+    {
+    }
 
-        bool isEmpty() const {return name.isEmpty() && url.isEmpty();}
+    bool isEmpty() const
+    {
+        return name.isEmpty() && url.isEmpty();
+    }
 
-        void clear();
+    void clear();
 
-        QString name;
-        QUrl url;
+    QString name;
+    QUrl url;
 };
 
 /**
-* Files, File and Metadata contain this
-* Metadata not as member and only for compatibility
-*/
+ * Files, File and Metadata contain this
+ * Metadata not as member and only for compatibility
+ */
 class CommonData
 {
-    public:
-        CommonData() {}
+public:
+    CommonData()
+    {
+    }
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        void clear();
+    void clear();
 
-        QString identity;
-        QString version;
-        QString description;
-        QStringList oses;
-        QUrl logo;
-        QStringList languages;
-        UrlText publisher;
-        QString copyright;
+    QString identity;
+    QString version;
+    QString description;
+    QStringList oses;
+    QUrl logo;
+    QStringList languages;
+    UrlText publisher;
+    QString copyright;
 };
 
 class Metaurl
 {
-    public:
-        Metaurl()
-          : priority(0)
-        {
-        }
+public:
+    Metaurl()
+        : priority(0)
+    {
+    }
 
-        /**
-         * "smaller" urls are less important than larger, larger urls should be preferred
-         */
-        bool operator<(const Metaurl &other) const;
+    /**
+     * "smaller" urls are less important than larger, larger urls should be preferred
+     */
+    bool operator<(const Metaurl &other) const;
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        bool isValid();
+    bool isValid();
 
-        void clear();
+    void clear();
 
-        QString type;
+    QString type;
 
-        /**
-         * the priority of the urls, 1 is highest priority, 999999 lowest
-         * default is 0 as in not set and thus is ranked even behind 999999
-         */
-        uint priority;
+    /**
+     * the priority of the urls, 1 is highest priority, 999999 lowest
+     * default is 0 as in not set and thus is ranked even behind 999999
+     */
+    uint priority;
 
-        /**
-         * Optional the name of a file that should be get of that metaurl
-         */
-        QString name;
+    /**
+     * Optional the name of a file that should be get of that metaurl
+     */
+    QString name;
 
-        QUrl url;
+    QUrl url;
 };
 
 class Url
 {
-    public:
-        Url()
-          : priority(0)
-        {
-        }
+public:
+    Url()
+        : priority(0)
+    {
+    }
 
-        /**
-         * "smaller" urls are less important than larger, larger urls should be preferred
-         */
-        bool operator<(const Url &other) const;
+    /**
+     * "smaller" urls are less important than larger, larger urls should be preferred
+     */
+    bool operator<(const Url &other) const;
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        bool isValid();
+    bool isValid();
 
-        void clear();
+    void clear();
 
-        /**
-         * the priority of the urls, 1 is highest priority, 999999 lowest
-         * default is 0 as in not set and thus is ranked even behind 999999
-         */
-        uint priority;
+    /**
+     * the priority of the urls, 1 is highest priority, 999999 lowest
+     * default is 0 as in not set and thus is ranked even behind 999999
+     */
+    uint priority;
 
-        /**
-         * the location of the server eg. "uk"
-         */
-        QString location;
+    /**
+     * the location of the server eg. "uk"
+     */
+    QString location;
 
-        QUrl url;
+    QUrl url;
 };
 
 class Resources
 {
-    public:
-        Resources() {}
+public:
+    Resources()
+    {
+    }
 
-        bool isValid() const {return !urls.isEmpty() || !metaurls.isEmpty();}
+    bool isValid() const
+    {
+        return !urls.isEmpty() || !metaurls.isEmpty();
+    }
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        void clear();
+    void clear();
 
-        QList<Url> urls;
-        QList<Metaurl> metaurls;
+    QList<Url> urls;
+    QList<Metaurl> metaurls;
 };
 
 class Pieces
 {
-    public:
-        Pieces()
-          : length(0)
-        {
-        }
+public:
+    Pieces()
+        : length(0)
+    {
+    }
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        void clear();
+    void clear();
 
-        QString type;
-        KIO::filesize_t length;
-        QStringList hashes;
+    QString type;
+    KIO::filesize_t length;
+    QStringList hashes;
 };
 
 class Verification
 {
-    public:
-        Verification() {}
+public:
+    Verification()
+    {
+    }
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        void clear();
+    void clear();
 
-        QHash<QString, QString> hashes;
-        QList<Pieces> pieces;
-        QHash<QString, QString> signatures;
+    QHash<QString, QString> hashes;
+    QList<Pieces> pieces;
+    QHash<QString, QString> signatures;
 };
 
 class File
 {
-    public:
-        File()
-          : size(0)
-        {
-        }
+public:
+    File()
+        : size(0)
+    {
+    }
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        void clear();
+    void clear();
 
-        bool isValid() const;
+    bool isValid() const;
 
-        /**
-         * Controls if the name attribute is valid, i.e. it is not empty and
-         * does not contain any directory traversal directives or information,
-         * as described in the Metalink 4.0 specification 4.1.2.1.
-         */
-        bool isValidNameAttribute() const;
+    /**
+     * Controls if the name attribute is valid, i.e. it is not empty and
+     * does not contain any directory traversal directives or information,
+     * as described in the Metalink 4.0 specification 4.1.2.1.
+     */
+    bool isValidNameAttribute() const;
 
-        QString name;
-        Verification verification;
-        KIO::filesize_t size;
-        CommonData data;
-        Resources resources;
+    QString name;
+    Verification verification;
+    KIO::filesize_t size;
+    CommonData data;
+    Resources resources;
 };
 
 class Files
 {
-    public:
-        Files() {}
+public:
+    Files()
+    {
+    }
 
-        bool isValid() const;
+    bool isValid() const;
 
-        void load(const QDomElement &e);
-        void save(QDomElement &e) const;
+    void load(const QDomElement &e);
+    void save(QDomElement &e) const;
 
-        void clear();
+    void clear();
 
-        QList<File> files;
+    QList<File> files;
 };
 
 class Metalink
 {
-    public:
-        Metalink()
-          : dynamic(false)
-        {
-        }
+public:
+    Metalink()
+        : dynamic(false)
+    {
+    }
 
-        /**
-         * checks if the minimum requirements of a metalink are met
-         * @return true if the minimum requirements are met
-         */
-        bool isValid() const;
+    /**
+     * checks if the minimum requirements of a metalink are met
+     * @return true if the minimum requirements are met
+     */
+    bool isValid() const;
 
-        void load(const QDomElement &e);
+    void load(const QDomElement &e);
 
-        /**
-         * Save the metalink
-         * @return the QDomDocument containing the metalink
-         */
-        QDomDocument save() const;
+    /**
+     * Save the metalink
+     * @return the QDomDocument containing the metalink
+     */
+    QDomDocument save() const;
 
-        void clear();
+    void clear();
 
-        bool dynamic;
-        QString xmlns; //the xmlns value is ignored when saving, instead the data format described in the specification is always used
-        DateConstruct published; //when the metalink was published
-        QUrl origin;
-        QString generator;
-        DateConstruct updated; //when the metalink was updated
-        Files files;
+    bool dynamic;
+    QString xmlns; // the xmlns value is ignored when saving, instead the data format described in the specification is always used
+    DateConstruct published; // when the metalink was published
+    QUrl origin;
+    QString generator;
+    DateConstruct updated; // when the metalink was updated
+    Files files;
 
-        static const QString KGET_DESCRIPTION;
-        static const uint MAX_URL_PRIORITY; //maximum priority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
+    static const QString KGET_DESCRIPTION;
+    static const uint MAX_URL_PRIORITY; // maximum priority a Metalink 4.0 Url or Metaurl can have, not to be mixed up with the highest priority
 };
 
 /**
@@ -308,41 +324,41 @@ class Metalink
  */
 class Metalink_v3
 {
-    public:
-        Metalink_v3();
+public:
+    Metalink_v3();
 
-        Metalink metalink();
-        void setMetalink(const Metalink &metalink);
+    Metalink metalink();
+    void setMetalink(const Metalink &metalink);
 
-        void load(const QDomElement &e);
+    void load(const QDomElement &e);
 
-        /**
-         * Save the metalink
-         * @return the QDomDocument containing the metalink
-         */
-        QDomDocument save() const;
+    /**
+     * Save the metalink
+     * @return the QDomDocument containing the metalink
+     */
+    QDomDocument save() const;
 
-    private:
-        void parseFiles(const QDomElement &e);
-        Resources parseResources(const QDomElement &e);
-        DateConstruct parseDateConstruct(const QString &data);
-        CommonData parseCommonData(const QDomElement &e);
+private:
+    void parseFiles(const QDomElement &e);
+    Resources parseResources(const QDomElement &e);
+    DateConstruct parseDateConstruct(const QString &data);
+    CommonData parseCommonData(const QDomElement &e);
 
-        /**
-         * Inherits CommonData, the inheritor inherits every settings
-         * from the ancestor it has not set itself
-         */
-        void inheritCommonData(const CommonData &ancestor, CommonData *inheritor);
+    /**
+     * Inherits CommonData, the inheritor inherits every settings
+     * from the ancestor it has not set itself
+     */
+    void inheritCommonData(const CommonData &ancestor, CommonData *inheritor);
 
-        void saveFiles(QDomElement &e) const;
-        void saveResources(const Resources &resources, QDomElement &e) const;
-        void saveVerification(const Verification &verification, QDomElement &e) const;
-        void saveCommonData(const CommonData &data, QDomElement &e) const;
-        QString dateConstructToString(const DateConstruct &date) const;
+    void saveFiles(QDomElement &e) const;
+    void saveResources(const Resources &resources, QDomElement &e) const;
+    void saveVerification(const Verification &verification, QDomElement &e) const;
+    void saveCommonData(const CommonData &data, QDomElement &e) const;
+    QString dateConstructToString(const DateConstruct &date) const;
 
-    private:
-        Metalink m_metalink;
-        static const uint MAX_PREFERENCE;
+private:
+    Metalink m_metalink;
+    static const uint MAX_PREFERENCE;
 };
 
 /**
@@ -350,110 +366,109 @@ class Metalink_v3
  */
 class HandleMetalink
 {
-    public:
-        /**
-         * Loads destination into metalink
-         * @param destination the place of the metalink in the filesystem
-         * @param metalink the instance of Metalink where the metalink will be stored
-         * @return return true if it worked
-         */
-        static bool load(const QUrl &destination, Metalink *metalink);
+public:
+    /**
+     * Loads destination into metalink
+     * @param destination the place of the metalink in the filesystem
+     * @param metalink the instance of Metalink where the metalink will be stored
+     * @return return true if it worked
+     */
+    static bool load(const QUrl &destination, Metalink *metalink);
 
-        /**
-         * Loads data into metalink
-         * @param data the contents of a metalink
-         * @param metalink the instance of Metalink where the metalink will be stored
-         * @return return true if it worked
-         */
-        static bool load(const QByteArray &data, Metalink *metalink);
+    /**
+     * Loads data into metalink
+     * @param data the contents of a metalink
+     * @param metalink the instance of Metalink where the metalink will be stored
+     * @return return true if it worked
+     */
+    static bool load(const QByteArray &data, Metalink *metalink);
 
-        /**
-         * Saves metalink to destination
-         * @param destination the place where the metlink will be saved, the ending defines
-         * what version should be used: *.meta4 --> Metalink 4.0; *.metalink --> Metalink 3.0
-         * @param metalink the instance of metalink that will be written to the filesystem
-         * @return return true if it worked
-         */
-        static bool save(const QUrl &destination, Metalink *metalink);
-
+    /**
+     * Saves metalink to destination
+     * @param destination the place where the metlink will be saved, the ending defines
+     * what version should be used: *.meta4 --> Metalink 4.0; *.metalink --> Metalink 3.0
+     * @param metalink the instance of metalink that will be written to the filesystem
+     * @return return true if it worked
+     */
+    static bool save(const QUrl &destination, Metalink *metalink);
 };
 
 class MetalinkHttpParser : public QObject
 {
     Q_OBJECT
-    public:
-        MetalinkHttpParser(const QUrl& Url)
-            : m_Url(Url), m_MetalinkHSatus(false) , m_EtagValue(QString(""))
-        {
-            checkMetalinkHttp();
-        }
+public:
+    MetalinkHttpParser(const QUrl &Url)
+        : m_Url(Url)
+        , m_MetalinkHSatus(false)
+        , m_EtagValue(QString(""))
+    {
+        checkMetalinkHttp();
+    }
 
-        ~MetalinkHttpParser() override;
+    ~MetalinkHttpParser() override;
 
-        /**
-         * @return true if m_Url is a metalink/http supported URL.
-         */
+    /**
+     * @return true if m_Url is a metalink/http supported URL.
+     */
 
-        bool isMetalinkHttp();
+    bool isMetalinkHttp();
 
-        /**
-         * @return the Url m_Url which is being tested for metalink
-         */
+    /**
+     * @return the Url m_Url which is being tested for metalink
+     */
 
-        QUrl getUrl();
-        QMultiMap<QString, QString>* getHeaderInfo();
+    QUrl getUrl();
+    QMultiMap<QString, QString> *getHeaderInfo();
 
-        /**
-         * @return Returns the ETag if present in the HTTP headers
-         */
+    /**
+     * @return Returns the ETag if present in the HTTP headers
+     */
 
-        QString* getEtag();
+    QString *getEtag();
 
-    private Q_SLOTS:
-        void slotHeaderResult(KJob* kjob);
-        void checkMetalinkHttp();
-        void detectMime(KIO::Job *  job, const QString &  type);
-        void slotRedirection(KIO::Job*, const QUrl&);
+private Q_SLOTS:
+    void slotHeaderResult(KJob *kjob);
+    void checkMetalinkHttp();
+    void detectMime(KIO::Job *job, const QString &type);
+    void slotRedirection(KIO::Job *, const QUrl &);
 
+private:
+    QUrl m_Url;
+    QUrl m_redirectionUrl;
+    bool m_MetalinkHSatus;
+    QEventLoop m_loop;
+    QMultiMap<QString, QString> m_headerInfo;
+    QString m_EtagValue;
 
-    private:
-        QUrl m_Url;
-        QUrl m_redirectionUrl;
-        bool m_MetalinkHSatus;
-        QEventLoop m_loop;
-        QMultiMap<QString, QString> m_headerInfo;
-        QString m_EtagValue ;
+    /**
+     * Parsees the Metalink values from QString to the Map
+     * @param Value of the QString ie raw HTTP headers
+     */
+    void parseHeaders(const QString &);
 
-        /**
-         * Parsees the Metalink values from QString to the Map
-         * @param Value of the QString ie raw HTTP headers
-         */
-        void parseHeaders(const QString&);
-
-        /**
-         * Sets the status of m_MetalinkHStatus to true if the URL is a Metalink
-         */
-        void setMetalinkHSatus();
-
+    /**
+     * Sets the status of m_MetalinkHStatus to true if the URL is a Metalink
+     */
+    void setMetalinkHSatus();
 };
 
 class HttpLinkHeader : public Metaurl
 {
-    public:
-        HttpLinkHeader(const QString &headerLine);
+public:
+    HttpLinkHeader(const QString &headerLine);
 
-        QString reltype;
-        bool pref;
-        int depth;
-        QString geo;
+    QString reltype;
+    bool pref;
+    int depth;
+    QString geo;
 
-        /**
-         * Loads information from a header value into metalink header structure.
-         * @param line Value of the "link" HTTP header response.
-         */
-        void parseHeaderLine(const QString &);
+    /**
+     * Loads information from a header value into metalink header structure.
+     * @param line Value of the "link" HTTP header response.
+     */
+    void parseHeaderLine(const QString &);
 
-        bool operator<(const HttpLinkHeader &) const;
+    bool operator<(const HttpLinkHeader &) const;
 };
 
 }

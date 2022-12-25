@@ -15,13 +15,13 @@
 #include "transferKio.h"
 
 #include "kget_debug.h"
-#include <QDebug>
 #include <KPluginFactory>
+#include <QDebug>
 
 K_PLUGIN_CLASS_WITH_JSON(TransferKioFactory, "kget_kiofactory.json")
 
 TransferKioFactory::TransferKioFactory(QObject *parent, const QVariantList &args)
-  : TransferFactory(parent, args)
+    : TransferFactory(parent, args)
 {
 }
 
@@ -29,16 +29,12 @@ TransferKioFactory::~TransferKioFactory()
 {
 }
 
-Transfer * TransferKioFactory::createTransfer( const QUrl &srcUrl, const QUrl &destUrl,
-                                               TransferGroup * parent,
-                                               Scheduler * scheduler, 
-                                               const QDomElement * e )
+Transfer *TransferKioFactory::createTransfer(const QUrl &srcUrl, const QUrl &destUrl, TransferGroup *parent, Scheduler *scheduler, const QDomElement *e)
 {
     qCDebug(KGET_DEBUG) << "TransferKioFactory::createTransfer";
     qWarning(KGET_DEBUG) << "KIOFACTORY createTRANSFER";
 
-    if (isSupported(srcUrl))
-    {
+    if (isSupported(srcUrl)) {
         return new TransferKio(parent, this, scheduler, srcUrl, destUrl, e);
     }
     return nullptr;
@@ -53,9 +49,11 @@ bool TransferKioFactory::isSupported(const QUrl &url) const
 
 QStringList TransferKioFactory::addsProtocols() const
 {
-    static const QStringList protocols = QStringList() << "http" << "https" << "ftp" << "sftp";
+    static const QStringList protocols = QStringList() << "http"
+                                                       << "https"
+                                                       << "ftp"
+                                                       << "sftp";
     return protocols;
 }
 
 #include "transferKioFactory.moc"
-

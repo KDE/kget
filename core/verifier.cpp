@@ -1,30 +1,30 @@
 /**************************************************************************
-*   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009-2011 Matthias Fuchs <mat69@gmx.net>                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
-#include "verifier_p.h"
-#include "verificationmodel.h"
 #include "../dbus/dbusverifierwrapper.h"
-#include "verifieradaptor.h"
 #include "settings.h"
+#include "verificationmodel.h"
+#include "verifier_p.h"
+#include "verifieradaptor.h"
 
-#include <QFile>
 #include <QDomElement>
+#include <QFile>
 
 #include "kget_debug.h"
 #include <QDebug>
@@ -33,8 +33,14 @@
 #include <qca_basic.h>
 #endif
 
-//TODO use mutable to make some methods const?
-const QStringList VerifierPrivate::SUPPORTED = (QStringList() << "sha512" << "sha384" << "sha256" << "ripmed160" << "sha1" << "md5" << "md4");
+// TODO use mutable to make some methods const?
+const QStringList VerifierPrivate::SUPPORTED = (QStringList() << "sha512"
+                                                              << "sha384"
+                                                              << "sha256"
+                                                              << "ripmed160"
+                                                              << "sha1"
+                                                              << "md5"
+                                                              << "md4");
 const QString VerifierPrivate::MD5 = QString("md5");
 const int VerifierPrivate::DIGGESTLENGTH[] = {128, 96, 64, 40, 40, 32, 32};
 const int VerifierPrivate::MD5LENGTH = 32;
@@ -46,56 +52,53 @@ VerifierPrivate::~VerifierPrivate()
     qDeleteAll(partialSums.begin(), partialSums.end());
 }
 
-QString VerifierPrivate::calculatePartialChecksum(QFile *file, const QString &type, KIO::fileoffset_t startOffset, int pieceLength, KIO::filesize_t fileSize, bool *abortPtr)
+QString VerifierPrivate::calculatePartialChecksum(QFile *file,
+                                                  const QString &type,
+                                                  KIO::fileoffset_t startOffset,
+                                                  int pieceLength,
+                                                  KIO::filesize_t fileSize,
+                                                  bool *abortPtr)
 {
-    if (!file)
-    {
+    if (!file) {
         return QString();
     }
 
-    if (!fileSize)
-    {
+    if (!fileSize) {
         fileSize = file->size();
     }
-    //longer than the file, so adapt it
-    if (static_cast<KIO::fileoffset_t>(fileSize) < startOffset + pieceLength)
-    {
+    // longer than the file, so adapt it
+    if (static_cast<KIO::fileoffset_t>(fileSize) < startOffset + pieceLength) {
         pieceLength = fileSize - startOffset;
     }
 
 #ifdef HAVE_QCA2
     QCA::Hash hash(type);
 
-    //it can be that QCA2 does not support md5, e.g. when Qt is compiled locally
+    // it can be that QCA2 does not support md5, e.g. when Qt is compiled locally
     QCryptographicHash md5Hash(QCryptographicHash::Md5);
     const bool useMd5 = (type == MD5);
-#else //NO QCA2
-    if (type != MD5)
-    {
+#else // NO QCA2
+    if (type != MD5) {
         return QString();
     }
     QCryptographicHash hash(QCryptographicHash::Md5);
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
 
-    //we only read 512kb each time, to save RAM
+    // we only read 512kb each time, to save RAM
     int numData = pieceLength / PARTSIZE;
     KIO::fileoffset_t dataRest = pieceLength % PARTSIZE;
 
-    if (!numData && !dataRest)
-    {
+    if (!numData && !dataRest) {
         return QString();
     }
 
     int k = 0;
-    for (k = 0; k < numData; ++k)
-    {
-        if (!file->seek(startOffset + PARTSIZE * k))
-        {
+    for (k = 0; k < numData; ++k) {
+        if (!file->seek(startOffset + PARTSIZE * k)) {
             return QString();
         }
 
-        if (abortPtr && *abortPtr)
-        {
+        if (abortPtr && *abortPtr) {
             return QString();
         }
 
@@ -106,16 +109,14 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file, const QString &ty
         } else {
             hash.update(data);
         }
-#else //NO QCA2
+#else // NO QCA2
         hash.addData(data);
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
     }
 
-    //now read the rest
-    if (dataRest)
-    {
-        if (!file->seek(startOffset + PARTSIZE * k))
-        {
+    // now read the rest
+    if (dataRest) {
+        if (!file->seek(startOffset + PARTSIZE * k)) {
             return QString();
         }
 
@@ -126,16 +127,16 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file, const QString &ty
         } else {
             hash.update(data);
         }
-#else //NO QCA2
+#else // NO QCA2
         hash.addData(data);
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
     }
 
 #ifdef HAVE_QCA2
     return (useMd5 ? QString(md5Hash.result()) : QString(QCA::arrayToHex(hash.final().toByteArray())));
-#else //NO QCA2
+#else // NO QCA2
     return QString(hash.result());
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
 }
 
 QStringList VerifierPrivate::orderChecksumTypes(Verifier::ChecksumStrength strength) const
@@ -145,13 +146,13 @@ QStringList VerifierPrivate::orderChecksumTypes(Verifier::ChecksumStrength stren
         for (int i = SUPPORTED.count() - 1; i >= 0; --i) {
             checksumTypes.append(SUPPORTED.at(i));
         }
-        checksumTypes.move(0, 1); //md4 second position
+        checksumTypes.move(0, 1); // md4 second position
     } else if (strength == Verifier::Strong) {
         for (int i = SUPPORTED.count() - 1; i >= 0; --i) {
             checksumTypes.append(SUPPORTED.at(i));
         }
-        checksumTypes.move(1, checksumTypes.count() - 1); //md5 second last position
-        checksumTypes.move(0, checksumTypes.count() - 1); //md4 last position
+        checksumTypes.move(1, checksumTypes.count() - 1); // md5 second last position
+        checksumTypes.move(0, checksumTypes.count() - 1); // md4 last position
     } else if (strength == Verifier::Strongest) {
         checksumTypes = SUPPORTED;
     }
@@ -160,8 +161,8 @@ QStringList VerifierPrivate::orderChecksumTypes(Verifier::ChecksumStrength stren
 }
 
 Verifier::Verifier(const QUrl &dest, QObject *parent)
-  : QObject(parent),
-    d(new VerifierPrivate(this))
+    : QObject(parent)
+    , d(new VerifierPrivate(this))
 {
     d->dest = dest;
     d->status = NoResult;
@@ -175,11 +176,11 @@ Verifier::Verifier(const QUrl &dest, QObject *parent)
 
     qRegisterMetaType<KIO::filesize_t>("KIO::filesize_t");
     qRegisterMetaType<KIO::fileoffset_t>("KIO::fileoffset_t");
-    qRegisterMetaType<QList<KIO::fileoffset_t> >("QList<KIO::fileoffset_t>");
+    qRegisterMetaType<QList<KIO::fileoffset_t>>("QList<KIO::fileoffset_t>");
 
     d->model = new VerificationModel();
-    connect(&d->thread, SIGNAL(verified(QString,bool,QUrl)), this, SLOT(changeStatus(QString,bool)));
-    connect(&d->thread, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)), this, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>,KIO::filesize_t)));
+    connect(&d->thread, SIGNAL(verified(QString, bool, QUrl)), this, SLOT(changeStatus(QString, bool)));
+    connect(&d->thread, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>, KIO::filesize_t)), this, SIGNAL(brokenPieces(QList<KIO::fileoffset_t>, KIO::filesize_t)));
 }
 
 Verifier::~Verifier()
@@ -217,37 +218,31 @@ QStringList Verifier::supportedVerficationTypes()
     QStringList supported;
 #ifdef HAVE_QCA2
     QStringList supportedTypes = QCA::Hash::supportedTypes();
-    for (int i = 0; i < VerifierPrivate::SUPPORTED.count(); ++i)
-    {
-        if (supportedTypes.contains(VerifierPrivate::SUPPORTED.at(i)))
-        {
+    for (int i = 0; i < VerifierPrivate::SUPPORTED.count(); ++i) {
+        if (supportedTypes.contains(VerifierPrivate::SUPPORTED.at(i))) {
             supported << VerifierPrivate::SUPPORTED.at(i);
         }
     }
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
 
-    if (!supported.contains(VerifierPrivate::MD5))
-    {
+    if (!supported.contains(VerifierPrivate::MD5)) {
         supported << VerifierPrivate::MD5;
     }
 
     return supported;
-
 }
 
 int Verifier::diggestLength(const QString &type)
 {
-    if (type == VerifierPrivate::MD5)
-    {
+    if (type == VerifierPrivate::MD5) {
         return VerifierPrivate::MD5LENGTH;
     }
 
 #ifdef HAVE_QCA2
-    if (QCA::isSupported(type.toLatin1()))
-    {
+    if (QCA::isSupported(type.toLatin1())) {
         return VerifierPrivate::DIGGESTLENGTH[VerifierPrivate::SUPPORTED.indexOf(type)];
     }
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
 
     return 0;
 }
@@ -256,9 +251,8 @@ bool Verifier::isChecksum(const QString &type, const QString &checksum)
 {
     const int length = diggestLength(type);
     const QString pattern = QString("[0-9a-z]{%1}").arg(length);
-    //needs correct length and only word characters
-    if (length && (checksum.length() == length) && checksum.toLower().contains(QRegExp(pattern)))
-    {
+    // needs correct length and only word characters
+    if (length && (checksum.length() == length) && checksum.toLower().contains(QRegExp(pattern))) {
         return true;
     }
 
@@ -283,12 +277,10 @@ bool Verifier::isVerifyable() const
 bool Verifier::isVerifyable(const QModelIndex &index) const
 {
     int row = -1;
-    if (index.isValid())
-    {
+    if (index.isValid()) {
         row = index.row();
     }
-    if (QFile::exists(d->dest.toString()) && (row >= 0) && (row < d->model->rowCount()))
-    {
+    if (QFile::exists(d->dest.toString()) && (row >= 0) && (row < d->model->rowCount())) {
         return true;
     }
     return false;
@@ -298,10 +290,9 @@ Checksum Verifier::availableChecksum(Verifier::ChecksumStrength strength) const
 {
     Checksum pair;
 
-    //check if there is at least one entry
+    // check if there is at least one entry
     QModelIndex index = d->model->index(0, 0);
-    if (!index.isValid())
-    {
+    if (!index.isValid()) {
         return pair;
     }
 
@@ -333,9 +324,9 @@ QList<Checksum> Verifier::availableChecksums() const
     return checksums;
 }
 
-QPair<QString, PartialChecksums*> Verifier::availablePartialChecksum(Verifier::ChecksumStrength strength) const
+QPair<QString, PartialChecksums *> Verifier::availablePartialChecksum(Verifier::ChecksumStrength strength) const
 {
-    QPair<QString, PartialChecksums*> pair;
+    QPair<QString, PartialChecksums *> pair;
     QString type;
     PartialChecksums *checksum = nullptr;
 
@@ -344,12 +335,12 @@ QPair<QString, PartialChecksums*> Verifier::availablePartialChecksum(Verifier::C
     for (int i = 0; i < supported.size(); ++i) {
         if (d->partialSums.contains(supported.at(i)) && available.contains(supported.at(i))) {
             type = supported.at(i);
-            checksum =  d->partialSums[type];
+            checksum = d->partialSums[type];
             break;
         }
     }
 
-    return QPair<QString, PartialChecksums*>(type, checksum);
+    return QPair<QString, PartialChecksums *>(type, checksum);
 }
 
 void Verifier::changeStatus(const QString &type, bool isVerified)
@@ -384,7 +375,7 @@ void Verifier::verify(const QModelIndex &index)
 
 void Verifier::brokenPieces() const
 {
-    QPair<QString, PartialChecksums*> pair = availablePartialChecksum(static_cast<Verifier::ChecksumStrength>(Settings::checksumStrength()));
+    QPair<QString, PartialChecksums *> pair = availablePartialChecksum(static_cast<Verifier::ChecksumStrength>(Settings::checksumStrength()));
     QList<QString> checksums;
     KIO::filesize_t length = 0;
     if (pair.second) {
@@ -397,14 +388,12 @@ void Verifier::brokenPieces() const
 QString Verifier::checksum(const QUrl &dest, const QString &type, bool *abortPtr)
 {
     QStringList supported = supportedVerficationTypes();
-    if (!supported.contains(type))
-    {
+    if (!supported.contains(type)) {
         return QString();
     }
 
     QFile file(dest.toString());
-    if (!file.open(QIODevice::ReadOnly))
-    {
+    if (!file.open(QIODevice::ReadOnly)) {
         return QString();
     }
 
@@ -416,30 +405,27 @@ QString Verifier::checksum(const QUrl &dest, const QString &type, bool *abortPtr
         return final;
     }
 
-
 #ifdef HAVE_QCA2
     QCA::Hash hash(type);
 
-    //BEGIN taken from qca_basic.h and slightly adopted to allow abort
+    // BEGIN taken from qca_basic.h and slightly adopted to allow abort
     char buffer[1024];
     int len;
 
-    while ((len=file.read(reinterpret_cast<char*>(buffer), sizeof(buffer))) > 0)
-    {
+    while ((len = file.read(reinterpret_cast<char *>(buffer), sizeof(buffer))) > 0) {
         hash.update(buffer, len);
-        if (abortPtr && *abortPtr)
-        {
+        if (abortPtr && *abortPtr) {
             hash.final();
             file.close();
             return QString();
         }
     }
-    //END
+    // END
 
     QString final = QString(QCA::arrayToHex(hash.final().toByteArray()));
     file.close();
     return final;
-#endif //HAVE_QCA2
+#endif // HAVE_QCA2
 
     return QString();
 }
@@ -449,55 +435,45 @@ PartialChecksums Verifier::partialChecksums(const QUrl &dest, const QString &typ
     QStringList checksums;
 
     QStringList supported = supportedVerficationTypes();
-    if (!supported.contains(type))
-    {
+    if (!supported.contains(type)) {
         return PartialChecksums();
     }
 
     QFile file(dest.toString());
-    if (!file.open(QIODevice::ReadOnly))
-    {
+    if (!file.open(QIODevice::ReadOnly)) {
         return PartialChecksums();
     }
 
     const KIO::filesize_t fileSize = file.size();
-    if (!fileSize)
-    {
+    if (!fileSize) {
         return PartialChecksums();
     }
 
     int numPieces = 0;
 
-    //the piece length has been defined
-    if (length)
-    {
+    // the piece length has been defined
+    if (length) {
         numPieces = fileSize / length;
-    }
-    else
-    {
+    } else {
         length = VerifierPrivate::PARTSIZE;
         numPieces = fileSize / length;
-        if (numPieces > 100)
-        {
+        if (numPieces > 100) {
             numPieces = 100;
             length = fileSize / numPieces;
         }
     }
 
-    //there is a rest, so increase numPieces by one
-    if (fileSize % length)
-    {
+    // there is a rest, so increase numPieces by one
+    if (fileSize % length) {
         ++numPieces;
     }
 
     PartialChecksums partialChecksums;
 
-    //create all the checksums for the pieces
-    for (int i = 0; i < numPieces; ++i)
-    {
+    // create all the checksums for the pieces
+    for (int i = 0; i < numPieces; ++i) {
         QString hash = VerifierPrivate::calculatePartialChecksum(&file, type, length * i, length, fileSize, abortPtr);
-        if (hash.isEmpty())
-        {
+        if (hash.isEmpty()) {
             file.close();
             return PartialChecksums();
         }
@@ -522,8 +498,7 @@ void Verifier::addChecksums(const QHash<QString, QString> &checksums)
 
 void Verifier::addPartialChecksums(const QString &type, KIO::filesize_t length, const QStringList &checksums)
 {
-    if (!d->partialSums.contains(type) && length && !checksums.isEmpty())
-    {
+    if (!d->partialSums.contains(type) && length && !checksums.isEmpty()) {
         d->partialSums[type] = new PartialChecksums(length, checksums);
     }
 }
@@ -532,10 +507,8 @@ KIO::filesize_t Verifier::partialChunkLength() const
 {
     QStringList::const_iterator it;
     QStringList::const_iterator itEnd = VerifierPrivate::SUPPORTED.constEnd();
-    for (it = VerifierPrivate::SUPPORTED.constBegin(); it != itEnd; ++it)
-    {
-        if (d->partialSums.contains(*it))
-        {
+    for (it = VerifierPrivate::SUPPORTED.constBegin(); it != itEnd; ++it) {
+        if (d->partialSums.contains(*it)) {
             return d->partialSums[*it]->length();
         }
     }
@@ -549,8 +522,7 @@ void Verifier::save(const QDomElement &element)
     e.setAttribute("verificationStatus", d->status);
 
     QDomElement verification = e.ownerDocument().createElement("verification");
-    for (int i = 0; i < d->model->rowCount(); ++i)
-    {
+    for (int i = 0; i < d->model->rowCount(); ++i) {
         QDomElement hash = e.ownerDocument().createElement("hash");
         hash.setAttribute("type", d->model->index(i, VerificationModel::Type).data().toString());
         hash.setAttribute("verified", d->model->index(i, VerificationModel::Verified).data(Qt::EditRole).toInt());
@@ -559,16 +531,14 @@ void Verifier::save(const QDomElement &element)
         verification.appendChild(hash);
     }
 
-    QHash<QString, PartialChecksums*>::const_iterator it;
-    QHash<QString, PartialChecksums*>::const_iterator itEnd = d->partialSums.constEnd();
-    for (it = d->partialSums.constBegin(); it != itEnd; ++it)
-    {
+    QHash<QString, PartialChecksums *>::const_iterator it;
+    QHash<QString, PartialChecksums *>::const_iterator itEnd = d->partialSums.constEnd();
+    for (it = d->partialSums.constBegin(); it != itEnd; ++it) {
         QDomElement pieces = e.ownerDocument().createElement("pieces");
         pieces.setAttribute("type", it.key());
         pieces.setAttribute("length", (*it)->length());
         QList<QString> checksums = (*it)->checksums();
-        for (int i = 0; i < checksums.size(); ++i)
-        {
+        for (int i = 0; i < checksums.size(); ++i) {
             QDomElement hash = e.ownerDocument().createElement("hash");
             hash.setAttribute("piece", i);
             QDomText value = e.ownerDocument().createTextNode(checksums[i]);
@@ -582,45 +552,40 @@ void Verifier::save(const QDomElement &element)
 
 void Verifier::load(const QDomElement &e)
 {
-    if (e.hasAttribute("verificationStatus"))
-    {
+    if (e.hasAttribute("verificationStatus")) {
         const int status = e.attribute("verificationStatus").toInt();
-        switch (status)
-        {
-            case NoResult:
-                d->status = NoResult;
-                break;
-            case NotVerified:
-                d->status = NotVerified;
-                break;
-            case Verified:
-                d->status = Verified;
-                break;
-            default:
-                d->status = NotVerified;
-                break;
+        switch (status) {
+        case NoResult:
+            d->status = NoResult;
+            break;
+        case NotVerified:
+            d->status = NotVerified;
+            break;
+        case Verified:
+            d->status = Verified;
+            break;
+        default:
+            d->status = NotVerified;
+            break;
         }
     }
 
     QDomElement verification = e.firstChildElement("verification");
     QDomNodeList const hashList = verification.elementsByTagName("hash");
 
-    for (int i = 0; i < hashList.length(); ++i)
-    {
+    for (int i = 0; i < hashList.length(); ++i) {
         const QDomElement hash = hashList.item(i).toElement();
         const QString value = hash.text();
         const QString type = hash.attribute("type");
         const int verificationStatus = hash.attribute("verified").toInt();
-        if (!type.isEmpty() && !value.isEmpty())
-        {
+        if (!type.isEmpty() && !value.isEmpty()) {
             d->model->addChecksum(type, value, verificationStatus);
         }
     }
 
     QDomNodeList const piecesList = verification.elementsByTagName("pieces");
 
-    for (int i = 0; i < piecesList.length(); ++i)
-    {
+    for (int i = 0; i < piecesList.length(); ++i) {
         QDomElement pieces = piecesList.at(i).toElement();
 
         const QString type = pieces.attribute("type");
@@ -628,11 +593,11 @@ void Verifier::load(const QDomElement &e)
         QStringList partialChecksums;
 
         const QDomNodeList partialHashList = pieces.elementsByTagName("hash");
-        for (int j = 0; j < partialHashList.size(); ++j)//TODO give this function the size of the file, to calculate how many hashs are needed as an additional check, do that check in addPartialChecksums?!
+        for (int j = 0; j < partialHashList.size(); ++j) // TODO give this function the size of the file, to calculate how many hashs are needed as an
+                                                         // additional check, do that check in addPartialChecksums?!
         {
             const QString hash = partialHashList.at(j).toElement().text();
-            if (hash.isEmpty())
-            {
+            if (hash.isEmpty()) {
                 break;
             }
             partialChecksums.append(hash);
@@ -641,5 +606,3 @@ void Verifier::load(const QDomElement &e)
         addPartialChecksums(type, length, partialChecksums);
     }
 }
-
-

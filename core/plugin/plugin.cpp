@@ -14,7 +14,7 @@
 #include <QDebug>
 
 KGetPlugin::KGetPlugin(QObject *parent, const QVariantList &args)
-  : QObject(parent)
+    : QObject(parent)
 {
     Q_UNUSED(args)
 }
@@ -42,4 +42,3 @@ bool Plugin::hasPluginProperty( const QString& key )
     return m_properties.find( key.toLower() ) != m_properties.end();
 }
 */
-

@@ -24,72 +24,70 @@
 #include <QAbstractTableModel>
 #include <interfaces/chunkdownloadinterface.h>
 
-
 namespace bt
 {
-	class TorrentInterface;
+class TorrentInterface;
 }
 
 namespace kt
 {
 
-	/**
-		@author
-	*/
-	class ChunkDownloadModel : public QAbstractTableModel
-	{			
-		Q_OBJECT
-	public:
-		ChunkDownloadModel(QObject* parent);
-		~ChunkDownloadModel() override;
+/**
+    @author
+*/
+class ChunkDownloadModel : public QAbstractTableModel
+{
+    Q_OBJECT
+public:
+    ChunkDownloadModel(QObject *parent);
+    ~ChunkDownloadModel() override;
 
-		/// A peer has been added
-		void downloadAdded(bt::ChunkDownloadInterface* cd);
+    /// A peer has been added
+    void downloadAdded(bt::ChunkDownloadInterface *cd);
 
-		/// A download has been removed
-		void downloadRemoved(bt::ChunkDownloadInterface* cd);
-		
-		/// change the current torrent
-		void changeTC(bt::TorrentInterface* tc);
-		
-		/**
-		 * Update the model
-		 */
-		void update();
-		
-		void clear();
+    /// A download has been removed
+    void downloadRemoved(bt::ChunkDownloadInterface *cd);
 
-		int rowCount(const QModelIndex & parent) const override;
-		int columnCount(const QModelIndex & parent) const override;
-		QVariant headerData(int section, Qt::Orientation orientation,int role) const override;
-		QVariant data(const QModelIndex & index,int role) const override;
-		bool removeRows(int row,int count,const QModelIndex & parent) override;
-		bool insertRows(int row,int count,const QModelIndex & parent) override;
-		QModelIndex index(int row,int column,const QModelIndex & parent = QModelIndex()) const override;
-		
-	public Q_SLOTS:
-		void sort(int col, Qt::SortOrder order) override;
-		
-	public:
-		struct Item
-		{
-			mutable bt::ChunkDownloadInterface::Stats stats;
-			bt::ChunkDownloadInterface* cd;
-			QString files;
-			
-			Item(bt::ChunkDownloadInterface* cd,const QString & files);
-			
-			bool changed(int col,bool & modified) const;
-			QVariant data(int col) const;
-			bool lessThan(int col,const Item* other) const;
-		};
-	private:
-		QList<Item*> items;
-		bt::TorrentInterface* tc;
-		int sort_column;
-		Qt::SortOrder sort_order;
-	};
+    /// change the current torrent
+    void changeTC(bt::TorrentInterface *tc);
 
+    /**
+     * Update the model
+     */
+    void update();
+
+    void clear();
+
+    int rowCount(const QModelIndex &parent) const override;
+    int columnCount(const QModelIndex &parent) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+    bool removeRows(int row, int count, const QModelIndex &parent) override;
+    bool insertRows(int row, int count, const QModelIndex &parent) override;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+
+public Q_SLOTS:
+    void sort(int col, Qt::SortOrder order) override;
+
+public:
+    struct Item {
+        mutable bt::ChunkDownloadInterface::Stats stats;
+        bt::ChunkDownloadInterface *cd;
+        QString files;
+
+        Item(bt::ChunkDownloadInterface *cd, const QString &files);
+
+        bool changed(int col, bool &modified) const;
+        QVariant data(int col) const;
+        bool lessThan(int col, const Item *other) const;
+    };
+
+private:
+    QList<Item *> items;
+    bt::TorrentInterface *tc;
+    int sort_column;
+    Qt::SortOrder sort_order;
+};
 }
 
 #endif

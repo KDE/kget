@@ -19,11 +19,11 @@ class TransferDataSource;
 class ChecksumSearchFactory : public TransferFactory
 {
     Q_OBJECT
-    public:
-        ChecksumSearchFactory(QObject *parent, const QVariantList &args);
-        ~ChecksumSearchFactory() override;
+public:
+    ChecksumSearchFactory(QObject *parent, const QVariantList &args);
+    ~ChecksumSearchFactory() override;
 
-        TransferDataSource * createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent) override;
+    TransferDataSource *createTransferDataSource(const QUrl &srcUrl, const QDomElement &type, QObject *parent) override;
 };
 
 #endif

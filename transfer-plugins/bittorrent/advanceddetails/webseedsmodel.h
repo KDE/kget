@@ -26,51 +26,48 @@
 
 namespace bt
 {
-	class TorrentInterface;
+class TorrentInterface;
 }
 
 namespace kt
 {
 
-	/**
-		@author
-	*/
-	class WebSeedsModel : public QAbstractTableModel
-	{
-		Q_OBJECT
-	
-	public:
-		WebSeedsModel(QObject* parent);
-		~WebSeedsModel() override;
-		
-		
-		/**
-		 * Change the current torrent.
-		 * @param tc 
-		 */
-		void changeTC(bt::TorrentInterface* tc);
-		
-		/**
-		 *  See if we need to update the model
-		 */
-		bool update();
-		
-		int rowCount(const QModelIndex & parent) const override;
-		int columnCount(const QModelIndex & parent) const override;
-		QVariant headerData(int section, Qt::Orientation orientation,int role) const override;
-		QVariant data(const QModelIndex & index, int role) const override;
-		
-	private:
-		struct Item
-		{
-			QString status;
-			bt::Uint64 downloaded;
-			bt::Uint32 speed;
-		};
-		bt::TorrentInterface* curr_tc;
-		QList<Item> items;
-	};
+/**
+    @author
+*/
+class WebSeedsModel : public QAbstractTableModel
+{
+    Q_OBJECT
 
+public:
+    WebSeedsModel(QObject *parent);
+    ~WebSeedsModel() override;
+
+    /**
+     * Change the current torrent.
+     * @param tc
+     */
+    void changeTC(bt::TorrentInterface *tc);
+
+    /**
+     *  See if we need to update the model
+     */
+    bool update();
+
+    int rowCount(const QModelIndex &parent) const override;
+    int columnCount(const QModelIndex &parent) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+
+private:
+    struct Item {
+        QString status;
+        bt::Uint64 downloaded;
+        bt::Uint32 speed;
+    };
+    bt::TorrentInterface *curr_tc;
+    QList<Item> items;
+};
 }
 
 #endif

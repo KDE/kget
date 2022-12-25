@@ -21,9 +21,9 @@ class QWidget;
 
 namespace ContextMenu
 {
-    QMenu * createTransferContextMenu(QList<TransferHandler*> transfer, QWidget *parent);
-    QMenu * createTransferContextMenu(TransferHandler* handler, QWidget *parent);
-    QMenu * createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent);
+QMenu *createTransferContextMenu(QList<TransferHandler *> transfer, QWidget *parent);
+QMenu *createTransferContextMenu(TransferHandler *handler, QWidget *parent);
+QMenu *createTransferGroupContextMenu(TransferGroupHandler *handler, QWidget *parent);
 }
 
 #endif

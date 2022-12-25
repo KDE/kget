@@ -13,9 +13,9 @@
 #define _TESTTRANSFERS_H
 
 #include <QDBusVariant>
-#include <QtTest>
 #include <QDomElement>
 #include <QTemporaryDir>
+#include <QtTest>
 class OrgKdeKgetTransferInterface;
 class OrgKdeKgetVerifierInterface;
 class TestTransfers;
@@ -24,29 +24,30 @@ class Commands : public QObject
 {
     Q_OBJECT
 
-    public:
-        Commands(const QString &source, QObject *parent);
+public:
+    Commands(const QString &source, QObject *parent);
 
-        QString source() const;
-        bool hasCommands() const;
-        void setCommands(const QList<QPair<int, QVariant> > &commands);
-        void executeCommands();
-        void associateTransfer(OrgKdeKgetTransferInterface *transfer);
+    QString source() const;
+    bool hasCommands() const;
+    void setCommands(const QList<QPair<int, QVariant>> &commands);
+    void executeCommands();
+    void associateTransfer(OrgKdeKgetTransferInterface *transfer);
 
-        static QList<QPair<int, QVariant> > parseCommands(const QDomElement &e, TestTransfers *transfer);
+    static QList<QPair<int, QVariant>> parseCommands(const QDomElement &e, TestTransfers *transfer);
 
     enum Action {
         Start,
         Stop,
-        AddChecksum,        //QStringList() << type << hash
-        AddPartialChecksums, //QList<QVariant>() << QString typ << qulonglong length << QStringList checksums
-        IsVerifyable,   //bool if verifyable
+        AddChecksum, // QStringList() << type << hash
+        AddPartialChecksums, // QList<QVariant>() << QString typ << qulonglong length << QStringList checksums
+        IsVerifyable, // bool if verifyable
         Verify,
         FindBrokenPieces,
-        Repair,         //bool if it works
+        Repair, // bool if it works
         SetDirectory,
-        Wait,           //int time; waits until time is over and then proceeds to executeCommands
-        RandomAction,  //QList<QVariant> << bool false OR QList<QVariant> << bool true << int timeBetweenActions; chooses automatically periodically Start or Stop
+        Wait, // int time; waits until time is over and then proceeds to executeCommands
+        RandomAction, // QList<QVariant> << bool false OR QList<QVariant> << bool true << int timeBetweenActions; chooses automatically periodically Start or
+                      // Stop
         CustomEvent = 100
     };
 
@@ -55,53 +56,55 @@ class Commands : public QObject
      * is blocked, unless the event happens, that way one can start a Repair when Verified returns false
      */
     enum Event {
-        Verified = CustomEvent + 1,         //bool verified
-        ChangedEvent = CustomEvent + 2,      //QList<Variant>() << int TransferChange << int triggerValue = optional; when the event and the triggervalue match then executing continues; e.g. QList<Variant>() << Transfer::Tc_Percent << 50; //goes on when more than 50% have been downloaded
+        Verified = CustomEvent + 1, // bool verified
+        ChangedEvent =
+            CustomEvent + 2, // QList<Variant>() << int TransferChange << int triggerValue = optional; when the event and the triggervalue match then executing
+                             // continues; e.g. QList<Variant>() << Transfer::Tc_Percent << 50; //goes on when more than 50% have been downloaded
         BrokenPieces = CustomEvent + 3
     };
 
-    protected:
-        void timerEvent(QTimerEvent *event) override;
+protected:
+    void timerEvent(QTimerEvent *event) override;
 
-    private Q_SLOTS:
-        void slotVerified(bool verified);
-        void slotBrokenPieces(const QStringList &offsets, qulonglong length);
-        void slotChangedEvent(int event);
-        void slotWaitEvent();
+private Q_SLOTS:
+    void slotVerified(bool verified);
+    void slotBrokenPieces(const QStringList &offsets, qulonglong length);
+    void slotChangedEvent(int event);
+    void slotWaitEvent();
 
-    private:
-        int m_timerId;
-        const QString m_source;
-        QList<QPair<int, QVariant> > m_commands;
-        OrgKdeKgetTransferInterface *m_transfer;
-        OrgKdeKgetVerifierInterface *m_verifier;
+private:
+    int m_timerId;
+    const QString m_source;
+    QList<QPair<int, QVariant>> m_commands;
+    OrgKdeKgetTransferInterface *m_transfer;
+    OrgKdeKgetVerifierInterface *m_verifier;
 
-        static QHash<QString, int> s_stringCommands;
-        static QHash<QString, int> s_transferChangeEvents;
+    static QHash<QString, int> s_stringCommands;
+    static QHash<QString, int> s_transferChangeEvents;
 };
 
-class TestTransfers: public QObject
+class TestTransfers : public QObject
 {
     Q_OBJECT
 
-    public:
-        TestTransfers();
+public:
+    TestTransfers();
 
-        QString tempDir() const;
+    QString tempDir() const;
 
-    public Q_SLOTS:
-        void createTransfer();
+public Q_SLOTS:
+    void createTransfer();
 
-    private Q_SLOTS:
-        void simpleTest();
+private Q_SLOTS:
+    void simpleTest();
 
-    private:
-        void parseFile();
+private:
+    void parseFile();
 
-    private:
-        QList<OrgKdeKgetTransferInterface *> m_transferIfaces;
-        QList<Commands*> m_commands;
-        QScopedPointer<QTemporaryDir> m_dir;
+private:
+    QList<OrgKdeKgetTransferInterface *> m_transferIfaces;
+    QList<Commands *> m_commands;
+    QScopedPointer<QTemporaryDir> m_dir;
 };
 
 #endif

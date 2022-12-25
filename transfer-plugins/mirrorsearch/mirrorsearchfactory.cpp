@@ -22,7 +22,7 @@
 K_PLUGIN_CLASS_WITH_JSON(MirrorSearchFactory, "kget_mirrorsearchfactory.json")
 
 MirrorSearchFactory::MirrorSearchFactory(QObject *parent, const QVariantList &args)
-  : TransferFactory(parent, args)
+    : TransferFactory(parent, args)
 {
 }
 

@@ -12,11 +12,11 @@
 #ifndef DROPTARGET_H
 #define DROPTARGET_H
 
-#include <QWidget>
-#include <QDragEnterEvent>
-#include <QMouseEvent>
-#include <QDropEvent>
 #include <QCloseEvent>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMouseEvent>
+#include <QWidget>
 
 #include "core/transfer.h"
 
@@ -25,42 +25,42 @@ class QTimer;
 class QMenu;
 
 class MainWindow;
-    
+
 class DropTarget : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    DropTarget(MainWindow * parent);
+    DropTarget(MainWindow *parent);
     ~DropTarget() override;
 
     void playAnimationShow();
     void playAnimationHide();
     void playAnimationSync();
-    void setDropTargetVisible( bool shown, bool internal = true );
-    
+    void setDropTargetVisible(bool shown, bool internal = true);
+
 protected:
     // drag and drop
     void dragEnterEvent(QDragEnterEvent *) override;
     void dropEvent(QDropEvent *) override;
 
     // handle quit events as hide events
-    void closeEvent( QCloseEvent * ) override;
+    void closeEvent(QCloseEvent *) override;
 
-    void mousePressEvent(QMouseEvent * e) override;
-    void mouseReleaseEvent(QMouseEvent * e) override;
-    void mouseDoubleClickEvent(QMouseEvent * e) override;
-    void mouseMoveEvent(QMouseEvent * e) override;
-    void enterEvent(QEvent * event) override;
-    void leaveEvent(QEvent * event) override;
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
+    void mouseDoubleClickEvent(QMouseEvent *e) override;
+    void mouseMoveEvent(QMouseEvent *e) override;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 
     // paint the drop target
-    void paintEvent(QPaintEvent*) override;
-    
+    void paintEvent(QPaintEvent *) override;
+
 private Q_SLOTS:
     void toggleSticky();
     void toggleMinimizeRestore();
-    void slotStartStopToggled( bool );
+    void slotStartStopToggled(bool);
     void slotAnimateShow();
     void slotAnimateHide();
     void slotAnimateSync();
@@ -69,14 +69,14 @@ private Q_SLOTS:
     void slotClose();
 
 private:
-    QMenu * popupMenu = nullptr;
-    MainWindow * parentWidget = nullptr;
-    QTimer * animTimer = nullptr;
-    QTimer * popupTimer = nullptr;
+    QMenu *popupMenu = nullptr;
+    MainWindow *parentWidget = nullptr;
+    QTimer *animTimer = nullptr;
+    QTimer *popupTimer = nullptr;
     QPixmap cachedPixmap;
 
-    QAction * pop_sticky = nullptr;
-    QAction * pop_show = nullptr;
+    QAction *pop_sticky = nullptr;
+    QAction *pop_show = nullptr;
 
     QPoint position;
 
@@ -90,4 +90,4 @@ private:
     float ani_y, ani_vy;
 };
 
-#endif                          // _DROPTARGET_H
+#endif // _DROPTARGET_H

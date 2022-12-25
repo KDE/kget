@@ -17,21 +17,22 @@
 #include <QAbstractItemModel>
 #include <QAction>
 #include <QApplication>
+#include <QDate>
 #include <QMenu>
 #include <QModelIndex>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QDate>
 #include <QPainterPath>
 
-#include <QDebug>
-#include <kio/global.h>
-#include <QIcon>
 #include <KLocalizedString>
 #include <KRun>
+#include <QDebug>
+#include <QIcon>
+#include <kio/global.h>
 
-TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent) : QStyledItemDelegate(),
-    m_selectedIndex()
+TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent)
+    : QStyledItemDelegate()
+    , m_selectedIndex()
 {
     m_view = parent;
 
@@ -56,20 +57,17 @@ TransferHistoryItemDelegate::~TransferHistoryItemDelegate()
 {
 }
 
-void TransferHistoryItemDelegate::paint(QPainter *painter,
-        const QStyleOptionViewItem &option, const QModelIndex &index) const
+void TransferHistoryItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     if (!option.state.testFlag(QStyle::State_Selected) && !option.state.testFlag(QStyle::State_MouseOver)) {
         // draw a separator
         painter->save();
 
-        QRect roundRect(option.rect.left() + 1, option.rect.top() + 1,
-                        option.rect.width() - 2, option.rect.height() - 2);
+        QRect roundRect(option.rect.left() + 1, option.rect.top() + 1, option.rect.width() - 2, option.rect.height() - 2);
 
         QPainterPath path;
         path.addRoundRect(roundRect, 2, 2);
-        QLinearGradient gradient(roundRect.left(), roundRect.top(),
-                                 roundRect.left(), roundRect.bottom());
+        QLinearGradient gradient(roundRect.left(), roundRect.top(), roundRect.left(), roundRect.bottom());
         gradient.setColorAt(0, Qt::transparent);
         gradient.setColorAt(0.95, option.palette.color(QPalette::AlternateBase).darker(130));
         QBrush brush(gradient);
@@ -85,7 +83,7 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
 
-    const auto *model = static_cast <const QAbstractItemModel *> (index.model());
+    const auto *model = static_cast<const QAbstractItemModel *>(index.model());
     QUrl url(model->data(index, TransferHistoryCategorizedDelegate::RoleUrl).toString());
     QString name = url.path().mid(url.path().lastIndexOf("/") + 1);
     const QString iconName = KIO::iconNameForUrl(QUrl::fromLocalFile(model->data(index, TransferHistoryCategorizedDelegate::RoleDest).toString()));
@@ -98,52 +96,42 @@ void TransferHistoryItemDelegate::paint(QPainter *painter,
     painter->save();
     painter->setPen(option.palette.color(QPalette::Link));
     // draw the host
-    painter->drawText(option.rect.left() + PADDING,
-                      option.rect.top() + PADDING,
-                      option.rect.width() - PADDING * 2, 15,
-                      Qt::AlignTop | Qt::AlignLeft, host);
+    painter->drawText(option.rect.left() + PADDING, option.rect.top() + PADDING, option.rect.width() - PADDING * 2, 15, Qt::AlignTop | Qt::AlignLeft, host);
     painter->restore();
 
     // draw the transfer icon
     icon.paint(painter,
-            option.rect.left() + option.rect.width() / 2 - ICON_SIZE / 2,
-            option.rect.top() + option.rect.height() / 2 - ICON_SIZE / 2 - PADDING * 2,
-            ICON_SIZE, ICON_SIZE, Qt::AlignCenter, QIcon::Active);
+               option.rect.left() + option.rect.width() / 2 - ICON_SIZE / 2,
+               option.rect.top() + option.rect.height() / 2 - ICON_SIZE / 2 - PADDING * 2,
+               ICON_SIZE,
+               ICON_SIZE,
+               Qt::AlignCenter,
+               QIcon::Active);
 
     painter->save();
-    QColor subcolor = (option.state.testFlag(QStyle::State_Selected) || (option.state.testFlag(QStyle::State_MouseOver))) ?
-                    option.palette.color(QPalette::Text) :
-                    option.palette.color(QPalette::BrightText);
+    QColor subcolor = (option.state.testFlag(QStyle::State_Selected) || (option.state.testFlag(QStyle::State_MouseOver)))
+        ? option.palette.color(QPalette::Text)
+        : option.palette.color(QPalette::BrightText);
 
     // draw a separator line between the file name and his size and date
     painter->setPen(option.palette.color(QPalette::AlternateBase).darker(190));
-    painter->drawLine(option.rect.left() + 2, option.rect.bottom() + PADDING - 27,
-                      option.rect.right() - 2, option.rect.bottom() + PADDING - 27);
+    painter->drawLine(option.rect.left() + 2, option.rect.bottom() + PADDING - 27, option.rect.right() - 2, option.rect.bottom() + PADDING - 27);
     painter->setPen(subcolor);
-     // draw the size
-    painter->drawText(option.rect.right() - PADDING - 100,
-                       option.rect.bottom() + PADDING - 25,
-                       100 - PADDING * 2, 25,
-                       Qt::AlignTop | Qt::AlignRight, size);
+    // draw the size
+    painter->drawText(option.rect.right() - PADDING - 100, option.rect.bottom() + PADDING - 25, 100 - PADDING * 2, 25, Qt::AlignTop | Qt::AlignRight, size);
 
-     // draw the date
-    painter->drawText(option.rect.left() + PADDING,
-                       option.rect.bottom() + PADDING - 25,
-                       100 - PADDING * 2, 25,
-                       Qt::AlignTop | Qt::AlignLeft, date);
+    // draw the date
+    painter->drawText(option.rect.left() + PADDING, option.rect.bottom() + PADDING - 25, 100 - PADDING * 2, 25, Qt::AlignTop | Qt::AlignLeft, date);
 
     painter->restore();
 
     // draw the filenamne
     painter->save();
-    QColor foregroundColor = (option.state.testFlag(QStyle::State_Selected)) ?
-        option.palette.color(QPalette::HighlightedText):option.palette.color(QPalette::Text);
+    QColor foregroundColor =
+        (option.state.testFlag(QStyle::State_Selected)) ? option.palette.color(QPalette::HighlightedText) : option.palette.color(QPalette::Text);
     painter->setPen(foregroundColor);
     painter->setFont(option.font);
-    painter->drawText(option.rect.left() + PADDING,
-                      option.rect.bottom() - PADDING - 35,
-                      200 - PADDING * 2, 15,
-                      Qt::AlignBottom | Qt::AlignCenter, name);
+    painter->drawText(option.rect.left() + PADDING, option.rect.bottom() - PADDING - 35, 200 - PADDING * 2, 15, Qt::AlignBottom | Qt::AlignCenter, name);
     painter->restore();
 }
 
@@ -155,16 +143,15 @@ QSize TransferHistoryItemDelegate::sizeHint(const QStyleOptionViewItem &option, 
     return QSize(200, 110);
 }
 
-bool TransferHistoryItemDelegate::editorEvent(QEvent * event, QAbstractItemModel * model,
-                    const QStyleOptionViewItem &option, const QModelIndex & index)
+bool TransferHistoryItemDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
     Q_UNUSED(option)
     Q_UNUSED(model)
 
-    auto * mouseEvent = dynamic_cast<QMouseEvent *>(event);
+    auto *mouseEvent = dynamic_cast<QMouseEvent *>(event);
 
-    if(mouseEvent && index.isValid()) {
-        if(mouseEvent->button() == Qt::RightButton) {
+    if (mouseEvent && index.isValid()) {
+        if (mouseEvent->button() == Qt::RightButton) {
             m_selectedIndex = index;
 
             auto *contextMenu = new QMenu();
@@ -179,27 +166,23 @@ bool TransferHistoryItemDelegate::editorEvent(QEvent * event, QAbstractItemModel
     return false;
 }
 
-
 void TransferHistoryItemDelegate::slotOpenFile()
 {
-    const auto *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
+    const auto *model = static_cast<const QAbstractItemModel *>(m_selectedIndex.model());
 
     new KRun(QUrl::fromLocalFile(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString()), m_view, true);
 }
 
 void TransferHistoryItemDelegate::slotDownload()
 {
-   const auto *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
+    const auto *model = static_cast<const QAbstractItemModel *>(m_selectedIndex.model());
 
-    NewTransferDialogHandler::showNewTransferDialog(QUrl(model->data(m_selectedIndex,
-                                                                     TransferHistoryCategorizedDelegate::RoleUrl).toString()));
+    NewTransferDialogHandler::showNewTransferDialog(QUrl(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString()));
 }
 
 void TransferHistoryItemDelegate::slotDeleteTransfer()
 {
-    const auto *model = static_cast <const QAbstractItemModel *> (m_selectedIndex.model());
+    const auto *model = static_cast<const QAbstractItemModel *>(m_selectedIndex.model());
 
     Q_EMIT deletedTransfer(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString(), m_selectedIndex);
 }
-
-

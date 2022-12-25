@@ -48,7 +48,6 @@ private:
     DeleteThread *m_deleteThread;
 };
 
-
 class XmlStore::LoadThread : public QThread
 {
     Q_OBJECT
@@ -78,7 +77,7 @@ Q_SIGNALS:
 
 private:
     QString m_url;
-    QList <TransferHistoryItem> m_items;
+    QList<TransferHistoryItem> m_items;
     TransferHistoryItem m_item;
 };
 
@@ -89,7 +88,7 @@ public:
     DeleteThread(QObject *parent, const QString &url, const TransferHistoryItem &item);
 
     void run() override;
-    QList <TransferHistoryItem> items() const
+    QList<TransferHistoryItem> items() const
     {
         return m_items;
     };
@@ -97,6 +96,6 @@ public:
 private:
     QString m_url;
     TransferHistoryItem m_item;
-    QList <TransferHistoryItem> m_items;
+    QList<TransferHistoryItem> m_items;
 };
 #endif

@@ -13,10 +13,10 @@
 
 #include "kget_export.h"
 
-#include <QObject>
+#include <QDateTime>
 #include <QList>
 #include <QMetaType>
-#include <QDateTime>
+#include <QObject>
 
 class Transfer;
 
@@ -39,8 +39,8 @@ public:
     int size() const;
     QDateTime dateTime() const;
 
-    TransferHistoryItem& operator=(const TransferHistoryItem&);
-    bool operator==(const TransferHistoryItem&) const;
+    TransferHistoryItem &operator=(const TransferHistoryItem &);
+    bool operator==(const TransferHistoryItem &) const;
 
 private:
     QString m_dest;
@@ -67,23 +67,26 @@ public:
     static TransferHistoryStore *getStore();
 
 public Q_SLOTS:
-    virtual void load() {};
-    virtual void clear() {};
+    virtual void load()
+    {
+    }
+    virtual void clear()
+    {
+    }
     virtual void saveItem(const TransferHistoryItem &item)
     {
         Q_UNUSED(item)
-    };
-
+    }
     virtual void saveItems(const QList<TransferHistoryItem> &items)
     {
-        foreach(const TransferHistoryItem &item, items) {
+        foreach (const TransferHistoryItem &item, items) {
             saveItem(item);
         }
-    };
+    }
     virtual void deleteItem(const TransferHistoryItem &item)
     {
         Q_UNUSED(item)
-    };
+    }
 
 Q_SIGNALS:
     void elementLoaded(int number, int total, const TransferHistoryItem &item);
@@ -94,8 +97,6 @@ Q_SIGNALS:
 protected:
     QList<TransferHistoryItem> m_items;
 };
-
-
 
 Q_DECLARE_METATYPE(TransferHistoryItem)
 

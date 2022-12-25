@@ -12,8 +12,8 @@
 #ifndef GROUP_H
 #define GROUP_H
 
-#include <QRegExp>
 #include <QIcon>
+#include <QRegExp>
 
 #include <QDebug>
 
@@ -41,284 +41,331 @@ class TransferTreeModel;
 class KGET_EXPORT TransferGroup : public JobQueue
 {
     Q_OBJECT
-    public:
-        enum GroupChange
-        {
-            Gc_None                = 0x00000000,
-            // These flags respect the Model columns order
-            Gc_GroupName           = 0x00000001,
-            Gc_Status              = 0x00000002,
-            Gc_TotalSize           = 0x00000004,
-            Gc_Percent             = 0x00000008,
-            Gc_UploadSpeed         = 0x00000010,
-            Gc_DownloadSpeed       = 0x00000020,
-            // Misc
-            Gc_ProcessedSize       = 0x00010000
-        };
+public:
+    enum GroupChange {
+        Gc_None = 0x00000000,
+        // These flags respect the Model columns order
+        Gc_GroupName = 0x00000001,
+        Gc_Status = 0x00000002,
+        Gc_TotalSize = 0x00000004,
+        Gc_Percent = 0x00000008,
+        Gc_UploadSpeed = 0x00000010,
+        Gc_DownloadSpeed = 0x00000020,
+        // Misc
+        Gc_ProcessedSize = 0x00010000
+    };
 
-        typedef int ChangesFlags;
+    typedef int ChangesFlags;
 
-        TransferGroup(TransferTreeModel * model, Scheduler * parent, const QString & name=QString());
+    TransferGroup(TransferTreeModel *model, Scheduler *parent, const QString &name = QString());
 
-        ~TransferGroup() override;
+    ~TransferGroup() override;
 
-        /**
-         * This function is reimplemented by JobQueue::setStatus
-         *
-         * @param queueStatus the new JobQueue status
-         */
-        void setStatus(Status queueStatus) override;
+    /**
+     * This function is reimplemented by JobQueue::setStatus
+     *
+     * @param queueStatus the new JobQueue status
+     */
+    void setStatus(Status queueStatus) override;
 
-        /**
-         * Appends a new transfer to the list of the transfers
-         *
-         * @param transfer the transfer to append
-         */
-        void append(Transfer * transfer);
+    /**
+     * Appends a new transfer to the list of the transfers
+     *
+     * @param transfer the transfer to append
+     */
+    void append(Transfer *transfer);
 
-        /**
-         * Appends new transfers to the list of the transfers
-         *
-         * @param transfer the transfers to append
-         */
-        void append(const QList<Transfer*> &transfer);
+    /**
+     * Appends new transfers to the list of the transfers
+     *
+     * @param transfer the transfers to append
+     */
+    void append(const QList<Transfer *> &transfer);
 
-        /**
-         * Prepends a new transfer to the list of the transfers
-         *
-         * @param transfer the transfer to prepend
-         */
-        void prepend(Transfer * transfer);
+    /**
+     * Prepends a new transfer to the list of the transfers
+     *
+     * @param transfer the transfer to prepend
+     */
+    void prepend(Transfer *transfer);
 
-        /**
-         * inserts a transfer to the current group after the given transfer
-         *
-         * @param transfer The transfer to add in the current Group
-         * @param after The transfer after which to add the transfer
-         */
-        void insert(Transfer * transfer, Transfer * after);
+    /**
+     * inserts a transfer to the current group after the given transfer
+     *
+     * @param transfer The transfer to add in the current Group
+     * @param after The transfer after which to add the transfer
+     */
+    void insert(Transfer *transfer, Transfer *after);
 
-        /**
-         * Removes the given transfer from the list of the transfers
-         *
-         * @param transfer the transfer to remove
-         */
-        void remove(Transfer * transfer);
+    /**
+     * Removes the given transfer from the list of the transfers
+     *
+     * @param transfer the transfer to remove
+     */
+    void remove(Transfer *transfer);
 
-        /**
-         * Removes the given transfers from the list of the transfers
-         *
-         * @param transfers the transfers to remove
-         */
-        void remove(const QList<Transfer*> &transfers);
+    /**
+     * Removes the given transfers from the list of the transfers
+     *
+     * @param transfers the transfers to remove
+     */
+    void remove(const QList<Transfer *> &transfers);
 
-        /**
-         * Moves a transfer in the list
-         *
-         * @param transfer The transfer to move. Note that this transfer can
-         *                  belong to other groups. In this situation this
-         *                  transfer is deleted from the previous group and
-         *                  moved inside this one.
-         * @param after The transfer after which we have to move the given one
-         */
-        void move(Transfer * transfer, Transfer * after);
+    /**
+     * Moves a transfer in the list
+     *
+     * @param transfer The transfer to move. Note that this transfer can
+     *                  belong to other groups. In this situation this
+     *                  transfer is deleted from the previous group and
+     *                  moved inside this one.
+     * @param after The transfer after which we have to move the given one
+     */
+    void move(Transfer *transfer, Transfer *after);
 
-        /**
-         * Finds the first transfer with source src
-         *
-         * @param src the url of the source location
-         *
-         * @return the transfer pointer if the transfer has been found. Otherwise
-         * it returns nullptr
-         */
-        Transfer * findTransfer(const QUrl &src);
+    /**
+     * Finds the first transfer with source src
+     *
+     * @param src the url of the source location
+     *
+     * @return the transfer pointer if the transfer has been found. Otherwise
+     * it returns nullptr
+     */
+    Transfer *findTransfer(const QUrl &src);
 
-        /**
-         * Finds the first transfer with destination dest
-         *
-         * @param dest the url of the destination location
-         *
-         * @return the transfer pointer if the transfer has been found, else return nullptr
-         */
-         Transfer *findTransferByDestination(const QUrl &dest);
+    /**
+     * Finds the first transfer with destination dest
+     *
+     * @param dest the url of the destination location
+     *
+     * @return the transfer pointer if the transfer has been found, else return nullptr
+     */
+    Transfer *findTransferByDestination(const QUrl &dest);
 
-        /**
-         * @returns the Job in the queue at the given index i
-         */
-        Transfer * operator[] (int i) const {return (Transfer *)((* (JobQueue *)this)[i]);}
+    /**
+     * @returns the Job in the queue at the given index i
+     */
+    Transfer *operator[](int i) const
+    {
+        return (Transfer *)((*(JobQueue *)this)[i]);
+    }
 
-        /**Set the group name
-         * @param name group name
-         */
-        void  setName(const QString &name)    {m_name=name;}
+    /**Set the group name
+     * @param name group name
+     */
+    void setName(const QString &name)
+    {
+        m_name = name;
+    }
 
-        /**
-         * @return the group name
-         */
-        const QString & name()    {return m_name;}
+    /**
+     * @return the group name
+     */
+    const QString &name()
+    {
+        return m_name;
+    }
 
-        /**
-         * @return the sum of the sizes of the transfers belonging to 
-         * this group
-         */
-        int totalSize() const     {return m_totalSize;}
+    /**
+     * @return the sum of the sizes of the transfers belonging to
+     * this group
+     */
+    int totalSize() const
+    {
+        return m_totalSize;
+    }
 
-        /**
-         * @return the sum of the downloaded sizes of the transfers
-         * belonging to this group
-         */
-        int downloadedSize() const {return m_downloadedSize;}
+    /**
+     * @return the sum of the downloaded sizes of the transfers
+     * belonging to this group
+     */
+    int downloadedSize() const
+    {
+        return m_downloadedSize;
+    }
 
-        /**
-         * @return the sum of the uploaded sizes of the transfers
-         * belonging to this group
-         */
-        int uploadedSize() const {return m_uploadedSize;}
+    /**
+     * @return the sum of the uploaded sizes of the transfers
+     * belonging to this group
+     */
+    int uploadedSize() const
+    {
+        return m_uploadedSize;
+    }
 
-        /**
-         * @return the progress percentage
-         */
-        int percent() const       {return m_percent;}
+    /**
+     * @return the progress percentage
+     */
+    int percent() const
+    {
+        return m_percent;
+    }
 
-        /**
-         * @return the sum of the download speeds of the running transfers 
-         * belonging this group
-         */
-        int downloadSpeed();
+    /**
+     * @return the sum of the download speeds of the running transfers
+     * belonging this group
+     */
+    int downloadSpeed();
 
-        /**
-         * @return the sum of the download speeds of the running transfers 
-         * belonging this group
-         */
-        int uploadSpeed();
+    /**
+     * @return the sum of the download speeds of the running transfers
+     * belonging this group
+     */
+    int uploadSpeed();
 
-        /**
-         * Set a default Folder for the group
-         * @param folder the new default folder
-         */
-        void setDefaultFolder(QString folder) {m_defaultFolder = folder;}
+    /**
+     * Set a default Folder for the group
+     * @param folder the new default folder
+     */
+    void setDefaultFolder(QString folder)
+    {
+        m_defaultFolder = folder;
+    }
 
-        /**
-         * @return the groups default folder
-         */
-        QString defaultFolder() {return m_defaultFolder;}
+    /**
+     * @return the groups default folder
+     */
+    QString defaultFolder()
+    {
+        return m_defaultFolder;
+    }
 
-        /**
-         * Sets the regular expression of the group
-         * @param regExp the regular expression
-         */
-        void setRegExp(const QRegExp &regExp) {m_regExp = regExp;}
+    /**
+     * Sets the regular expression of the group
+     * @param regExp the regular expression
+     */
+    void setRegExp(const QRegExp &regExp)
+    {
+        m_regExp = regExp;
+    }
 
-        /**
-         * @returns the regular expression of the group
-         */
-        QRegExp regExp() {return m_regExp;}
+    /**
+     * @returns the regular expression of the group
+     */
+    QRegExp regExp()
+    {
+        return m_regExp;
+    }
 
-        /**
-         * @return true if the group supports SpeedLimits
-         */
-        bool supportsSpeedLimits();
+    /**
+     * @return true if the group supports SpeedLimits
+     */
+    bool supportsSpeedLimits();
 
-        /**
-         * Set a Download-Limit for the group
-         * @param dlLimit the new download limit
-         * @param limit the type of the new download limit
-         * @note if limit is 0, no download-limit is set
-         */
-        void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit);
+    /**
+     * Set a Download-Limit for the group
+     * @param dlLimit the new download limit
+     * @param limit the type of the new download limit
+     * @note if limit is 0, no download-limit is set
+     */
+    void setDownloadLimit(int dlLimit, Transfer::SpeedLimit limit);
 
-        /**
-         * @return the group's Download-Limit
-         */
-        int downloadLimit(Transfer::SpeedLimit limit) const;
+    /**
+     * @return the group's Download-Limit
+     */
+    int downloadLimit(Transfer::SpeedLimit limit) const;
 
-        /**
-         * Set a Upload-Limit for the group
-         * @param ulLimit the new upload limit
-         * @param limit the type of the new upload-limit
-         * @note if limit is 0, no upload-limit is set
-         */
-        void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit);
+    /**
+     * Set a Upload-Limit for the group
+     * @param ulLimit the new upload limit
+     * @param limit the type of the new upload-limit
+     * @note if limit is 0, no upload-limit is set
+     */
+    void setUploadLimit(int ulLimit, Transfer::SpeedLimit limit);
 
-        /**
-         * @return the group's Upload-Limit
-         */
-        int uploadLimit(Transfer::SpeedLimit limit) const;
+    /**
+     * @return the group's Upload-Limit
+     */
+    int uploadLimit(Transfer::SpeedLimit limit) const;
 
-        /**
-         * Set the group's icon
-         * @param name the icon's name
-         */
-        void setIconName(const QString &name) {m_iconName = name;}
+    /**
+     * Set the group's icon
+     * @param name the icon's name
+     */
+    void setIconName(const QString &name)
+    {
+        m_iconName = name;
+    }
 
-        /**
-         * @returns the group's icon's name
-         */
-        QString iconName() const {return m_iconName;}
+    /**
+     * @returns the group's icon's name
+     */
+    QString iconName() const
+    {
+        return m_iconName;
+    }
 
-        /**
-         * @return the group's icon
-         */
-        QPixmap pixmap() {return QIcon::fromTheme(m_iconName).pixmap(32);}
+    /**
+     * @return the group's icon
+     */
+    QPixmap pixmap()
+    {
+        return QIcon::fromTheme(m_iconName).pixmap(32);
+    }
 
-        /**
-         * @return the handler associated with this group
-         */
-        TransferGroupHandler * handler() const {return m_handler;}
+    /**
+     * @return the handler associated with this group
+     */
+    TransferGroupHandler *handler() const
+    {
+        return m_handler;
+    }
 
-        /**
-         * @returns the TransferTreeModel that owns this group
-         */
-        TransferTreeModel * model()     {return m_model;}
+    /**
+     * @returns the TransferTreeModel that owns this group
+     */
+    TransferTreeModel *model()
+    {
+        return m_model;
+    }
 
-        /**
-         * Calculates the whole SpeedLimits
-         */
-        void calculateSpeedLimits();
+    /**
+     * Calculates the whole SpeedLimits
+     */
+    void calculateSpeedLimits();
 
-        /**
-         * Calculates the DownloadLimits
-         */
-        void calculateDownloadLimit();
+    /**
+     * Calculates the DownloadLimits
+     */
+    void calculateDownloadLimit();
 
-        /**
-         * Calculates the DownloadLimits
-         */
-        void calculateUploadLimit();
+    /**
+     * Calculates the DownloadLimits
+     */
+    void calculateUploadLimit();
 
-        /**
-         * Saves this group object to the given QDomNode 
-         *
-         * @param e The QDomNode where the group will be saved
-         */
-        void save(QDomElement e);
+    /**
+     * Saves this group object to the given QDomNode
+     *
+     * @param e The QDomNode where the group will be saved
+     */
+    void save(QDomElement e);
 
-        /**
-         * Adds all the groups in the given QDomNode * to the group
-         *
-         * @param e The QDomNode where the group will look for the transfers to add
-         */
-        void load(const QDomElement & e);
+    /**
+     * Adds all the groups in the given QDomNode * to the group
+     *
+     * @param e The QDomNode where the group will look for the transfers to add
+     */
+    void load(const QDomElement &e);
 
-    private:
-        TransferTreeModel * m_model;
-        TransferGroupHandler * m_handler;
+private:
+    TransferTreeModel *m_model;
+    TransferGroupHandler *m_handler;
 
-        //TransferGroup info
-        QString m_name;
-        int m_totalSize;
-        int m_downloadedSize;
-        int m_uploadedSize;
-        int m_percent;
-        int m_downloadSpeed;
-        int m_uploadSpeed;
-        int m_downloadLimit;
-        int m_uploadLimit;
-        int m_visibleDownloadLimit;
-        int m_visibleUploadLimit;
-        QString m_iconName;
-        QString m_defaultFolder;
-        QRegExp m_regExp;
+    // TransferGroup info
+    QString m_name;
+    int m_totalSize;
+    int m_downloadedSize;
+    int m_uploadedSize;
+    int m_percent;
+    int m_downloadSpeed;
+    int m_uploadSpeed;
+    int m_downloadLimit;
+    int m_uploadLimit;
+    int m_visibleDownloadLimit;
+    int m_visibleUploadLimit;
+    QString m_iconName;
+    QString m_defaultFolder;
+    QRegExp m_regExp;
 };
 
 #endif

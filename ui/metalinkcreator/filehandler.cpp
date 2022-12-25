@@ -1,21 +1,21 @@
 /***************************************************************************
-*   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-***************************************************************************/
+ *   Copyright (C) 2009 Matthias Fuchs <mat69@gmx.net>                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
+ ***************************************************************************/
 
 #include "filehandler.h"
 #include "core/verifier.h"
@@ -23,8 +23,8 @@
 #include <QDir>
 
 FileHandlerThread::FileHandlerThread(QObject *parent)
-  : QThread(parent),
-    abort(false)
+    : QThread(parent)
+    , abort(false)
 {
 }
 
@@ -37,7 +37,11 @@ FileHandlerThread::~FileHandlerThread()
     wait();
 }
 
-void FileHandlerThread::setData(const QList<FileData> &files, const QStringList &types, bool createPartial, const KGetMetalink::Resources &tempResources, const KGetMetalink::CommonData &tempCommonData)
+void FileHandlerThread::setData(const QList<FileData> &files,
+                                const QStringList &types,
+                                bool createPartial,
+                                const KGetMetalink::Resources &tempResources,
+                                const KGetMetalink::CommonData &tempCommonData)
 {
     QMutexLocker locker(&mutex);
     m_files.append(files);
@@ -67,7 +71,7 @@ void FileHandlerThread::run()
         mutex.unlock();
 
         while (files.count() && !abort) {
-            //take the first file and try to handle it
+            // take the first file and try to handle it
             FileData data = files.takeFirst();
             const QUrl url = data.url;
             KGetMetalink::File file = data.file;
@@ -77,7 +81,7 @@ void FileHandlerThread::run()
                 KGetMetalink::Url mirror = metalinkUrl;
                 mirror.url.setPath(mirror.url.toString() + "/" + file.name);
 
-                //if the url has already been added, remove it and readd it
+                // if the url has already been added, remove it and readd it
                 for (int i = 0; i < file.resources.urls.count(); ++i) {
                     if (file.resources.urls[i].url == mirror.url) {
                         file.resources.urls.removeAt(i);
@@ -125,8 +129,8 @@ void FileHandlerThread::run()
 }
 
 DirectoryHandler::DirectoryHandler(QObject *parent)
-  : QObject(parent),
-    m_allJobsStarted(false)
+    : QObject(parent)
+    , m_allJobsStarted(false)
 {
 }
 
@@ -184,11 +188,11 @@ void DirectoryHandler::slotDirEntries(KIO::Job *j, const KIO::UDSEntryList &entr
     const QString baseDir = baseUrl.fileName() + '/';
 
     foreach (const KIO::UDSEntry &entry, entries) {
-        //skip all found dirs
+        // skip all found dirs
         if (!entry.isDir()) {
             const QString name = entry.stringValue(KIO::UDSEntry::UDS_NAME);
             FileData data;
-            data.url.setPath(baseUrl.toString() + "/" + name);//FIXME: Does this work?
+            data.url.setPath(baseUrl.toString() + "/" + name); // FIXME: Does this work?
             data.file.name = baseDir + name;
             data.file.size = entry.numberValue(KIO::UDSEntry::UDS_SIZE, -1);
 
@@ -207,10 +211,8 @@ void DirectoryHandler::slotFinished(KJob *job)
 
 void DirectoryHandler::evaluateFileProcess()
 {
-    //all jobs finished
+    // all jobs finished
     if (m_jobs.isEmpty() && m_allJobsStarted && !m_files.isEmpty()) {
         Q_EMIT finished();
     }
 }
-
-

@@ -22,52 +22,52 @@
 #define KT_SCANDLG_HH
 
 #include <QDialog>
-#include <QTimer>
 #include <QMutex>
+#include <QTimer>
 
-#include <version.h>
-#include <torrent/job.h>
 #include "ui_scandlg.h"
+#include <torrent/job.h>
+#include <version.h>
 
 namespace bt
 {
-       class TorrentInterface;
+class TorrentInterface;
 }
 
 namespace kt
 {
-	class TorrentInterface;
+class TorrentInterface;
 
-	class ScanDlg : public QDialog
-	{
-		Q_OBJECT
-	public:
-		ScanDlg(KJob *job, QWidget* parent);
-		~ScanDlg() override;
+class ScanDlg : public QDialog
+{
+    Q_OBJECT
+public:
+    ScanDlg(KJob *job, QWidget *parent);
+    ~ScanDlg() override;
 
-	protected:
-		/// Handle the close event
-		void closeEvent(QCloseEvent* e) override;
-     
-	protected Q_SLOTS:
-		void reject() override;
-		void accept() override;
-		
-	private Q_SLOTS:
-	        void description(KJob *job, const QString &title, const QPair<QString, QString > &field1, const QPair< QString, QString > &field2);
-		void result(KJob *job);
-		void percent(KJob *job, unsigned long percent);
+protected:
+    /// Handle the close event
+    void closeEvent(QCloseEvent *e) override;
 
-	private:
-		bt::Job * m_job;
-		QProgressBar *m_progress;
-		QPushButton *m_cancel;
-		QLabel *m_torrent_label;
-		QLabel *m_chunks_failed;
-		QLabel *m_chunks_found;
-		QLabel *m_chunks_not_downloaded;
-		QLabel *m_chunks_downloaded;
-	};
+protected Q_SLOTS:
+    void reject() override;
+    void accept() override;
+
+private Q_SLOTS:
+    void description(KJob *job, const QString &title, const QPair<QString, QString> &field1, const QPair<QString, QString> &field2);
+    void result(KJob *job);
+    void percent(KJob *job, unsigned long percent);
+
+private:
+    bt::Job *m_job;
+    QProgressBar *m_progress;
+    QPushButton *m_cancel;
+    QLabel *m_torrent_label;
+    QLabel *m_chunks_failed;
+    QLabel *m_chunks_found;
+    QLabel *m_chunks_not_downloaded;
+    QLabel *m_chunks_downloaded;
+};
 }
 
 #endif

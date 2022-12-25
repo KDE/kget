@@ -36,341 +36,421 @@ class KGET_EXPORT Transfer : public Job
     Q_OBJECT
     friend class TransferHandler;
     friend class TransferTreeModel;
-    public:
 
-        /**
-         * Here we define the flags that should be shared by all the transfers.
-         * A transfer should also be able to define additional flags, in the future.
-         */
-        enum TransferChange
-        {
-            Tc_None           = 0x00000000,
-            // These flags respect the Model columns order NOTE: The model only checks the last 8 bits, so all values which need to be updated by the model should look like: 0x000000xx
-            Tc_Source         = 0x00000001,
-            Tc_FileName       = 0x00000002,
-            Tc_Status         = 0x00000004,
-            Tc_TotalSize      = 0x00000008,
-            Tc_Percent        = 0x00000010,
-            Tc_DownloadSpeed  = 0x00000020,
-            Tc_RemainingTime  = 0x00000040,
-            // Misc
-            Tc_UploadSpeed    = 0x00000100,
-            Tc_UploadLimit    = 0x00000200,
-            Tc_DownloadLimit  = 0x00000400,
-            Tc_CanResume      = 0x00000800,
-            Tc_DownloadedSize = 0x00001000,
-            Tc_UploadedSize   = 0x00002000,
-            Tc_Log            = 0x00004000,
-            Tc_Group          = 0x00008000,
-            Tc_Selection      = 0x00010000
-        };
+public:
+    /**
+     * Here we define the flags that should be shared by all the transfers.
+     * A transfer should also be able to define additional flags, in the future.
+     */
+    enum TransferChange {
+        Tc_None = 0x00000000,
+        // These flags respect the Model columns order NOTE: The model only checks the last 8 bits, so all values which need to be updated by the model should
+        // look like: 0x000000xx
+        Tc_Source = 0x00000001,
+        Tc_FileName = 0x00000002,
+        Tc_Status = 0x00000004,
+        Tc_TotalSize = 0x00000008,
+        Tc_Percent = 0x00000010,
+        Tc_DownloadSpeed = 0x00000020,
+        Tc_RemainingTime = 0x00000040,
+        // Misc
+        Tc_UploadSpeed = 0x00000100,
+        Tc_UploadLimit = 0x00000200,
+        Tc_DownloadLimit = 0x00000400,
+        Tc_CanResume = 0x00000800,
+        Tc_DownloadedSize = 0x00001000,
+        Tc_UploadedSize = 0x00002000,
+        Tc_Log = 0x00004000,
+        Tc_Group = 0x00008000,
+        Tc_Selection = 0x00010000,
+    };
 
-        enum Capability
-        {
-            Cap_SpeedLimit = 0x00000001,
-            Cap_MultipleMirrors = 0x00000002,
-            Cap_Resuming = 0x00000004,
-            Cap_Renaming = 0x00000008,
-            Cap_Moving = 0x00000010,
-            Cap_FindFilesize = 0x00000020
-        };
-        Q_DECLARE_FLAGS(Capabilities, Capability)
+    enum Capability {
+        Cap_SpeedLimit = 0x00000001,
+        Cap_MultipleMirrors = 0x00000002,
+        Cap_Resuming = 0x00000004,
+        Cap_Renaming = 0x00000008,
+        Cap_Moving = 0x00000010,
+        Cap_FindFilesize = 0x00000020,
+    };
+    Q_DECLARE_FLAGS(Capabilities, Capability)
 
-        enum LogLevel
-        {
-            Log_Info,
-            Log_Warning,
-            Log_Error
-        };
+    enum LogLevel {
+        Log_Info,
+        Log_Warning,
+        Log_Error,
+    };
 
-        enum SpeedLimit
-        {
-            VisibleSpeedLimit   = 0x01,
-            InvisibleSpeedLimit = 0x02
-        };
-        
-        enum DeleteOption
-        {
-            DeleteTemporaryFiles = 0x00000001,
-            DeleteFiles = 0x00000002
-        };
-        Q_DECLARE_FLAGS(DeleteOptions, DeleteOption)
-        typedef int ChangesFlags;
+    enum SpeedLimit {
+        VisibleSpeedLimit = 0x01,
+        InvisibleSpeedLimit = 0x02,
+    };
 
-        Transfer(TransferGroup * parent, TransferFactory * factory,
-                 Scheduler * scheduler, const QUrl & src, const QUrl & dest,
-                 const QDomElement * e = nullptr);
+    enum DeleteOption {
+        DeleteTemporaryFiles = 0x00000001,
+        DeleteFiles = 0x00000002,
+    };
+    Q_DECLARE_FLAGS(DeleteOptions, DeleteOption)
+    typedef int ChangesFlags;
 
-        ~Transfer() override;
+    Transfer(TransferGroup *parent, TransferFactory *factory, Scheduler *scheduler, const QUrl &src, const QUrl &dest, const QDomElement *e = nullptr);
 
-        /**
-         * Returns the capabilities this Transfer supports
-         */
-        Capabilities capabilities() const {return m_capabilities;}
+    ~Transfer() override;
 
-        /**
-         * This functions gets called whenever a Transfer gets created. As opposed
-         * to init(), this isn't a virtual function and is not meant to be used in
-         * transfer plugins
-         */
-        void create();
-        
-        /**
-         * This functions gets called whenever a Transfer is going to be deleted. As opposed
-         * to deinit(), this isn't a virtual function and is not meant to be used in
-         * transfer plugins
-         */
-        void destroy(DeleteOptions options);
-        
-        /**
-         * This function is called after the creation of a Transfer
-         * In transfer plugins you can put here whatever needs to be initialized
-         * @note this function creates a NepomukHandler
-         */
-        virtual void init();
+    /**
+     * Returns the capabilities this Transfer supports
+     */
+    Capabilities capabilities() const
+    {
+        return m_capabilities;
+    }
 
-        /**
-         * This function is called before the deletion of a Transfer
-         * In transfer plugins you can put here whatever needs to be deinitialized
-         */
-        virtual void deinit(DeleteOptions options) {Q_UNUSED(options);}
+    /**
+     * This functions gets called whenever a Transfer gets created. As opposed
+     * to init(), this isn't a virtual function and is not meant to be used in
+     * transfer plugins
+     */
+    void create();
 
-        /**
-         * Tries to repair file
-         * @param file the file of a download that should be repaired,
-         * if not defined all files of a download are going to be repaired
-         * @return true if a repair started, false if it was not necessary
-         */
-        virtual bool repair(const QUrl &file = QUrl()) {Q_UNUSED(file) return false;}
+    /**
+     * This functions gets called whenever a Transfer is going to be deleted. As opposed
+     * to deinit(), this isn't a virtual function and is not meant to be used in
+     * transfer plugins
+     */
+    void destroy(DeleteOptions options);
 
-        const QUrl & source() const            {return m_source;}
-        const QUrl & dest() const              {return m_dest;}
+    /**
+     * This function is called after the creation of a Transfer
+     * In transfer plugins you can put here whatever needs to be initialized
+     * @note this function creates a NepomukHandler
+     */
+    virtual void init();
 
-        /**
-         * @returns all files of this transfer
-         */
-        virtual QList<QUrl> files() const {return QList<QUrl>() << m_dest;}
+    /**
+     * This function is called before the deletion of a Transfer
+     * In transfer plugins you can put here whatever needs to be deinitialized
+     */
+    virtual void deinit(DeleteOptions options)
+    {
+        Q_UNUSED(options);
+    }
 
-        /**
-         * @returns the directory the Transfer will be stored to
-         */
-        virtual QUrl directory() const {return KIO::upUrl(m_dest);}
+    /**
+     * Tries to repair file
+     * @param file the file of a download that should be repaired,
+     * if not defined all files of a download are going to be repaired
+     * @return true if a repair started, false if it was not necessary
+     */
+    virtual bool repair(const QUrl &file = QUrl())
+    {
+        Q_UNUSED(file)
+        return false;
+    }
 
-        /**
-         * Move the download to the new destination
-         * @param newDirectory is a directory where the download should be stored
-         * @returns true if newDestination can be used
-         */
-        virtual bool setDirectory(const QUrl &newDirectory);
+    const QUrl &source() const
+    {
+        return m_source;
+    }
+    const QUrl &dest() const
+    {
+        return m_dest;
+    }
 
-        //Transfer status
-        KIO::filesize_t totalSize() const      {return m_totalSize;}
-        KIO::filesize_t downloadedSize() const {return m_downloadedSize;}
-        KIO::filesize_t uploadedSize() const   {return m_uploadedSize;}
-        QString statusText() const             {return m_statusText;}
-        QString statusIconName() const           {return (error().iconName.isEmpty() ? m_statusIconName : error().iconName);}
+    /**
+     * @returns all files of this transfer
+     */
+    virtual QList<QUrl> files() const
+    {
+        return QList<QUrl>() << m_dest;
+    }
 
-        static QString statusText(Job::Status status);
-        static QString statusIconName(Job::Status status);
+    /**
+     * @returns the directory the Transfer will be stored to
+     */
+    virtual QUrl directory() const
+    {
+        return KIO::upUrl(m_dest);
+    }
 
-        int percent() const                    {return m_percent;}
-        int downloadSpeed() const              {return m_downloadSpeed;}
-        int averageDownloadSpeed() const;
-        int uploadSpeed() const                {return m_uploadSpeed;}
-        int remainingTime() const override {return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());}
-        int elapsedTime() const override;
-        bool isStalled() const override {return (status() == Job::Running && downloadSpeed() == 0);}
-        bool isWorking() const override {return downloadSpeed() > 0;}
+    /**
+     * Move the download to the new destination
+     * @param newDirectory is a directory where the download should be stored
+     * @returns true if newDestination can be used
+     */
+    virtual bool setDirectory(const QUrl &newDirectory);
 
-        /**
-         * The mirrors that are available
-         * bool if it is used, int how many parallel connections are allowed
-         * to the mirror
-         * @param file the file for which the availableMirrors should be get
-         */
-        virtual QHash<QUrl, QPair<bool, int> > availableMirrors(const QUrl &file) const;
+    // Transfer status
+    KIO::filesize_t totalSize() const
+    {
+        return m_totalSize;
+    }
+    KIO::filesize_t downloadedSize() const
+    {
+        return m_downloadedSize;
+    }
+    KIO::filesize_t uploadedSize() const
+    {
+        return m_uploadedSize;
+    }
+    QString statusText() const
+    {
+        return m_statusText;
+    }
+    QString statusIconName() const
+    {
+        return (error().iconName.isEmpty() ? m_statusIconName : error().iconName);
+    }
 
-        /**
-         * Set the mirrors, int the number of parallel connections to the mirror
-         * bool if the mirror should be used
-         * @param file the file for which the availableMirrors should be set
-         * @param mirrors the mirrors
-         */
-        virtual void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int> > &mirrors) {Q_UNUSED(file) Q_UNUSED(mirrors)}
+    static QString statusText(Job::Status status);
+    static QString statusIconName(Job::Status status);
 
-        /**
-         * Set the Transfer's UploadLimit
-         * @note this is not displayed in any GUI, use setVisibleUploadLimit(int) instead
-         * @param ulLimit upload Limit
-         * @param limit speed limit
-         */
-        void setUploadLimit(int ulLimit, SpeedLimit limit);
+    int percent() const
+    {
+        return m_percent;
+    }
+    int downloadSpeed() const
+    {
+        return m_downloadSpeed;
+    }
+    int averageDownloadSpeed() const;
+    int uploadSpeed() const
+    {
+        return m_uploadSpeed;
+    }
+    int remainingTime() const override
+    {
+        return KIO::calculateRemainingSeconds(totalSize(), downloadedSize(), downloadSpeed());
+    }
+    int elapsedTime() const override;
+    bool isStalled() const override
+    {
+        return (status() == Job::Running && downloadSpeed() == 0);
+    }
+    bool isWorking() const override
+    {
+        return downloadSpeed() > 0;
+    }
 
-        /**
-         * Set the Transfer's UploadLimit, which are displayed in the GUI
-         * @note this is not displayed in any GUI, use setVisibleDownloadLimit(int) instead
-         * @param dlLimit upload Limit
-         * @param limit speed limit
-         */
-        void setDownloadLimit(int dlLimit, SpeedLimit limit);
+    /**
+     * The mirrors that are available
+     * bool if it is used, int how many parallel connections are allowed
+     * to the mirror
+     * @param file the file for which the availableMirrors should be get
+     */
+    virtual QHash<QUrl, QPair<bool, int>> availableMirrors(const QUrl &file) const;
 
-        /**
-         * @return the UploadLimit, which is invisible in the GUI
-         */
-        int uploadLimit(SpeedLimit limit) const;
+    /**
+     * Set the mirrors, int the number of parallel connections to the mirror
+     * bool if the mirror should be used
+     * @param file the file for which the availableMirrors should be set
+     * @param mirrors the mirrors
+     */
+    virtual void setAvailableMirrors(const QUrl &file, const QHash<QUrl, QPair<bool, int>> &mirrors)
+    {
+        Q_UNUSED(file)
+        Q_UNUSED(mirrors)
+    }
 
-        /**
-         * @return the DownloadLimit, which is invisible in the GUI
-         */
-        int downloadLimit(SpeedLimit limit) const;
+    /**
+     * Set the Transfer's UploadLimit
+     * @note this is not displayed in any GUI, use setVisibleUploadLimit(int) instead
+     * @param ulLimit upload Limit
+     * @param limit speed limit
+     */
+    void setUploadLimit(int ulLimit, SpeedLimit limit);
 
-        /**
-         * Set the maximum share-ratio
-         * @param ratio the new maximum share-ratio
-         */
-        void setMaximumShareRatio(double ratio);
+    /**
+     * Set the Transfer's UploadLimit, which are displayed in the GUI
+     * @note this is not displayed in any GUI, use setVisibleDownloadLimit(int) instead
+     * @param dlLimit upload Limit
+     * @param limit speed limit
+     */
+    void setDownloadLimit(int dlLimit, SpeedLimit limit);
 
-        /**
-         * @return the maximum share-ratio
-         */
-        double maximumShareRatio() {return m_ratio;}
+    /**
+     * @return the UploadLimit, which is invisible in the GUI
+     */
+    int uploadLimit(SpeedLimit limit) const;
 
-        /**
-         * Recalculate the share ratio
-         */
-        void checkShareRatio();
+    /**
+     * @return the DownloadLimit, which is invisible in the GUI
+     */
+    int downloadLimit(SpeedLimit limit) const;
 
-        bool isSelected() const             {return m_isSelected;}
+    /**
+     * Set the maximum share-ratio
+     * @param ratio the new maximum share-ratio
+     */
+    void setMaximumShareRatio(double ratio);
 
-        /**
-         * Transfer history
-         */
-        const QStringList log() const;
+    /**
+     * @return the maximum share-ratio
+     */
+    double maximumShareRatio()
+    {
+        return m_ratio;
+    }
 
-        /**
-         * Defines the order between transfers
-         */
-        bool operator<(const Transfer& t2) const;
+    /**
+     * Recalculate the share ratio
+     */
+    void checkShareRatio();
 
-        /**
-         * The owner group
-         */
-        TransferGroup * group() const   {return (TransferGroup *) m_jobQueue;}
+    bool isSelected() const
+    {
+        return m_isSelected;
+    }
 
-        /**
-         * @return the associated TransferHandler
-         */
-        TransferHandler * handler();
+    /**
+     * Transfer history
+     */
+    const QStringList log() const;
 
-        /**
-         * @returns the TransferTreeModel that owns this group
-         */
-        TransferTreeModel * model();
+    /**
+     * Defines the order between transfers
+     */
+    bool operator<(const Transfer &t2) const;
 
-        /**
-         * @returns a pointer to the TransferFactory object
-         */
-        TransferFactory * factory() const   {return m_factory;}
+    /**
+     * The owner group
+     */
+    TransferGroup *group() const
+    {
+        return (TransferGroup *)m_jobQueue;
+    }
 
-        /**
-         * @returns a pointer to the FileModel containing all files of this download
-         */
-        virtual FileModel * fileModel() {return nullptr;}
+    /**
+     * @return the associated TransferHandler
+     */
+    TransferHandler *handler();
 
-        /**
-         * @param file for which to get the verifier
-         * @return Verifier that allows you to add checksums manually verify a file etc.
-         */
-        virtual Verifier * verifier(const QUrl &file) {Q_UNUSED(file) return nullptr;}
+    /**
+     * @returns the TransferTreeModel that owns this group
+     */
+    TransferTreeModel *model();
 
-        /**
-         * @param file for which to get the signature
-         * @return Signature that allows you to add signatures and verify them
-         */
-        virtual Signature * signature(const QUrl &file) {Q_UNUSED(file) return nullptr;}
+    /**
+     * @returns a pointer to the TransferFactory object
+     */
+    TransferFactory *factory() const
+    {
+        return m_factory;
+    }
 
-        /**
-         * Saves this transfer to the given QDomNode
-         *
-         * @param element The pointer to the QDomNode where the transfer will be saved
-         */
-        virtual void save(const QDomElement &element);
+    /**
+     * @returns a pointer to the FileModel containing all files of this download
+     */
+    virtual FileModel *fileModel()
+    {
+        return nullptr;
+    }
 
-        /**
-        * Loads the transfer's info from the QDomElement
-        *
-        * @param element The pointer to the QDomNode where info will be loaded from
-        */
-        virtual void load(const QDomElement *element);
+    /**
+     * @param file for which to get the verifier
+     * @return Verifier that allows you to add checksums manually verify a file etc.
+     */
+    virtual Verifier *verifier(const QUrl &file)
+    {
+        Q_UNUSED(file)
+        return nullptr;
+    }
 
-    Q_SIGNALS:
-        /**
-         * Emitted when the capabilities of the Transfer change
-         */
-        void capabilitiesChanged();
+    /**
+     * @param file for which to get the signature
+     * @return Signature that allows you to add signatures and verify them
+     */
+    virtual Signature *signature(const QUrl &file)
+    {
+        Q_UNUSED(file)
+        return nullptr;
+    }
 
-    public Q_SLOTS:
-         /**
-          * Set Transfer history
-          */
-         void setLog(const QString& message, Transfer::LogLevel level = Log_Info);
+    /**
+     * Saves this transfer to the given QDomNode
+     *
+     * @param element The pointer to the QDomNode where the transfer will be saved
+     */
+    virtual void save(const QDomElement &element);
 
-    protected:
-        /**
-         * Sets the Job status to jobStatus, the status text to text and
-         * the status icon to iconName.
-         */
-        void setStatus(Job::Status jobStatus, const QString &text = QString(), const QString &iconName = QString());
+    /**
+     * Loads the transfer's info from the QDomElement
+     *
+     * @param element The pointer to the QDomNode where info will be loaded from
+     */
+    virtual void load(const QDomElement *element);
 
-        /**
-         * Sets the capabilities and automatically emits capabilitiesChanged
-         */
-        void setCapabilities(Capabilities capabilities);
+Q_SIGNALS:
+    /**
+     * Emitted when the capabilities of the Transfer change
+     */
+    void capabilitiesChanged();
 
-        /**
-         * Makes the TransferHandler associated with this transfer know that
-         * a change in this transfer has occurred.
-         *
-         * @param change the TransferChange flags to be set
-         * @param postEvent whether the post event is taken into account
-         */
-        virtual void setTransferChange(ChangesFlags change, bool postEvent=false);
+public Q_SLOTS:
+    /**
+     * Set Transfer history
+     */
+    void setLog(const QString &message, Transfer::LogLevel level = Log_Info);
 
-        /**
-         * Function used to set the SpeedLimits to the transfer
-         */
-        virtual void setSpeedLimits(int uploadLimit, int downloadLimit) {Q_UNUSED(uploadLimit) Q_UNUSED(downloadLimit) }
+protected:
+    /**
+     * Sets the Job status to jobStatus, the status text to text and
+     * the status icon to iconName.
+     */
+    void setStatus(Job::Status jobStatus, const QString &text = QString(), const QString &iconName = QString());
 
-        // --- Transfer information ---
-        QUrl m_source;
-        QUrl m_dest;
+    /**
+     * Sets the capabilities and automatically emits capabilitiesChanged
+     */
+    void setCapabilities(Capabilities capabilities);
 
-        QStringList   m_log;
-        KIO::filesize_t m_totalSize;
-        KIO::filesize_t m_downloadedSize;
-        KIO::filesize_t m_uploadedSize;
-        int           m_percent;
-        int           m_downloadSpeed;
-        int           m_uploadSpeed;
+    /**
+     * Makes the TransferHandler associated with this transfer know that
+     * a change in this transfer has occurred.
+     *
+     * @param change the TransferChange flags to be set
+     * @param postEvent whether the post event is taken into account
+     */
+    virtual void setTransferChange(ChangesFlags change, bool postEvent = false);
 
-        int           m_uploadLimit;
-        int           m_downloadLimit;
+    /**
+     * Function used to set the SpeedLimits to the transfer
+     */
+    virtual void setSpeedLimits(int uploadLimit, int downloadLimit)
+    {
+        Q_UNUSED(uploadLimit)
+        Q_UNUSED(downloadLimit)
+    }
 
-        bool m_isSelected;
+    // --- Transfer information ---
+    QUrl m_source;
+    QUrl m_dest;
 
-    private:
-        Capabilities m_capabilities;
-        int m_visibleUploadLimit;
-        int m_visibleDownloadLimit;
-        int m_runningSeconds;
-        double m_ratio;
+    QStringList m_log;
+    KIO::filesize_t m_totalSize;
+    KIO::filesize_t m_downloadedSize;
+    KIO::filesize_t m_uploadedSize;
+    int m_percent;
+    int m_downloadSpeed;
+    int m_uploadSpeed;
 
-        QString m_statusText;
-        QString m_statusIconName;
-        QTime m_runningTime;
+    int m_uploadLimit;
+    int m_downloadLimit;
 
-        TransferHandler * m_handler;
-        TransferFactory * m_factory;
+    bool m_isSelected;
+
+private:
+    Capabilities m_capabilities;
+    int m_visibleUploadLimit;
+    int m_visibleDownloadLimit;
+    int m_runningSeconds;
+    double m_ratio;
+
+    QString m_statusText;
+    QString m_statusIconName;
+    QTime m_runningTime;
+
+    TransferHandler *m_handler;
+    TransferFactory *m_factory;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Transfer::Capabilities)

@@ -12,8 +12,7 @@
 
 #include "core/transfertreemodel.h"
 
-
-TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel * model)
+TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel *model)
     : QItemSelectionModel(model)
 {
 }
@@ -21,5 +20,3 @@ TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel * mode
 TransferTreeSelectionModel::~TransferTreeSelectionModel()
 {
 }
-
-

@@ -15,27 +15,25 @@
 #include <cstdlib>
 #include <vector>
 
-#include <util/log.h>
-#include <util/bitset.h>
-#include <peer/chunkcounter.h>
 #include <diskio/chunkmanager.h>
+#include <download/downloader.h>
 #include <interfaces/piecedownloader.h>
+#include <peer/chunkcounter.h>
 #include <peer/peer.h>
 #include <peer/peermanager.h>
-#include <download/downloader.h>
+#include <util/bitset.h>
+#include <util/log.h>
 
 using namespace bt;
 
-BTChunkSelector::BTChunkSelector(ChunkManager & cman,Downloader & downer,PeerManager & pman)
-{       
+BTChunkSelector::BTChunkSelector(ChunkManager &cman, Downloader &downer, PeerManager &pman)
+{
     this->ChunkSelector::init(&cman, &downer, &pman);
 }
-
 
 BTChunkSelector::~BTChunkSelector()
 {
 }
-
 
 BTChunkSelectorFactory::BTChunkSelectorFactory()
 {
@@ -45,11 +43,9 @@ BTChunkSelectorFactory::~BTChunkSelectorFactory()
 {
 }
 
-bt::ChunkSelectorInterface* BTChunkSelectorFactory::createChunkSelector(bt::ChunkManager & cman, bt::Downloader & downer, bt::PeerManager & pman)
+bt::ChunkSelectorInterface *BTChunkSelectorFactory::createChunkSelector(bt::ChunkManager &cman, bt::Downloader &downer, bt::PeerManager &pman)
 {
     BTChunkSelector *selector = new BTChunkSelector(cman, downer, pman);
     emit selectorAdded(selector);
     return selector;
 }
-
-

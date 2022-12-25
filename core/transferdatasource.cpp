@@ -7,27 +7,27 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 */
- 
+
 #include "transferdatasource.h"
 
 #include "kget_debug.h"
 #include <QDebug>
 
 TransferDataSource::TransferDataSource(const QUrl &srcUrl, QObject *parent)
-  : QObject(parent),
-    m_sourceUrl(srcUrl),
-    m_speed(0),
-    m_supposedSize(0),
-    m_parallelSegments(1),
-    m_currentSegments(0),
-    m_capabilities()
+    : QObject(parent)
+    , m_sourceUrl(srcUrl)
+    , m_speed(0)
+    , m_supposedSize(0)
+    , m_parallelSegments(1)
+    , m_currentSegments(0)
+    , m_capabilities()
 {
-    qCDebug(KGET_DEBUG) ;
+    qCDebug(KGET_DEBUG);
 }
 
 TransferDataSource::~TransferDataSource()
 {
-    qCDebug(KGET_DEBUG) ;
+    qCDebug(KGET_DEBUG);
 }
 
 Transfer::Capabilities TransferDataSource::capabilities() const
@@ -51,9 +51,9 @@ QPair<int, int> TransferDataSource::removeConnection()
     return QPair<int, int>(-1, -1);
 }
 
-QList<QPair<int, int> > TransferDataSource::assignedSegments() const
+QList<QPair<int, int>> TransferDataSource::assignedSegments() const
 {
-    return QList<QPair<int, int> >();
+    return QList<QPair<int, int>>();
 }
 
 int TransferDataSource::countUnfinishedSegments() const
@@ -85,6 +85,3 @@ int TransferDataSource::changeNeeded() const
 {
     return parallelSegments() - currentSegments();
 }
-
-
-
