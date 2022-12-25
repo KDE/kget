@@ -27,6 +27,8 @@ include(ECMQtDeclareLoggingCategory)
 include(ECMSetupVersion)
 include(ECMSetupQtPluginMacroNames)
 include(GenerateExportHeader)
+include(KDEClangFormat)
+include(KDEGitCommitHooks)
 
 find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS
     DBus
@@ -408,6 +410,11 @@ ecm_qt_install_logging_categories(
     DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
 )
 install(FILES org.kde.kget.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+
+# add clang-format target for all our real source files
+file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
+kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
+kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 
 ki18n_install(po)
 kdoctools_install(po)
