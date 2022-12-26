@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-18 00:53+0000\n"
+"POT-Creation-Date: 2022-12-26 00:52+0000\n"
 "PO-Revision-Date: 2009-02-26 22:16+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -53,7 +53,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "जब डाउनलोड पूरा होही तहां ए काम करना हे"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:34 mainwindow.cpp:364 ui/droptarget.cpp:92
+#: conf/dlgadvanced.ui:34 mainwindow.cpp:360 ui/droptarget.cpp:88
 #, kde-format
 msgid "Quit KGet"
 msgstr "के-गेट से बाहिर हों"
@@ -286,7 +286,7 @@ msgstr "के बाद् फिर से कोसिस करव:"
 msgid " sec"
 msgstr ""
 
-#: conf/dlgwebinterface.cpp:44 conf/dlgwebinterface.cpp:59
+#: conf/dlgwebinterface.cpp:44 conf/dlgwebinterface.cpp:56
 #, kde-format
 msgid "Could not open KWallet"
 msgstr ""
@@ -334,7 +334,7 @@ msgstr "अलावा:"
 msgid "The width of the columns in the history view"
 msgstr ""
 
-#: conf/pluginselector.cpp:25 conf/preferencesdialog.cpp:77
+#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:80
 #, kde-format
 msgid "Plugins"
 msgstr "प्लगइन्स"
@@ -349,19 +349,19 @@ msgstr "एक्सएमएल"
 msgid "Sqlite"
 msgstr "एसक्यूलाइट"
 
-#: conf/preferencesdialog.cpp:57 mainwindow.cpp:370
+#: conf/preferencesdialog.cpp:57 mainwindow.cpp:366
 #, fuzzy, kde-format
 #| msgid "Turn off the computer"
 msgid "Turn Off Computer"
 msgstr "कम्प्यूटर बन्द करव"
 
-#: conf/preferencesdialog.cpp:58 mainwindow.cpp:375
+#: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
 #, fuzzy, kde-format
 #| msgid "Turn off the computer"
 msgid "Hibernate Computer"
 msgstr "कम्प्यूटर बन्द करव"
 
-#: conf/preferencesdialog.cpp:59 mainwindow.cpp:380
+#: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
 #, fuzzy, kde-format
 #| msgid "Turn off the computer"
 msgid "Suspend Computer"
@@ -415,30 +415,30 @@ msgstr ""
 msgid "Verification"
 msgstr "गंतव्य"
 
-#: conf/preferencesdialog.cpp:75
+#: conf/preferencesdialog.cpp:76 conf/preferencesdialog.cpp:78
 #, fuzzy, kde-format
 #| msgid "Integration"
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "एकीकरन"
 
-#: conf/preferencesdialog.cpp:76
+#: conf/preferencesdialog.cpp:79
 #, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "विस्तृत"
 
-#: conf/preferencesdialog.cpp:76
+#: conf/preferencesdialog.cpp:79
 #, kde-format
 msgid "Advanced Options"
 msgstr "विस्तृत विकल्प"
 
-#: conf/preferencesdialog.cpp:77
+#: conf/preferencesdialog.cpp:80
 #, kde-format
 msgid "Transfer Plugins"
 msgstr "हस्तांतरन प्लगइन"
 
-#: conf/transfersgrouptree.cpp:113 conf/transfersgrouptree.cpp:118
+#: conf/transfersgrouptree.cpp:112 conf/transfersgrouptree.cpp:116
 #, kde-format
 msgid "New Group"
 msgstr "नवा समूह"
@@ -503,79 +503,79 @@ msgstr ""
 msgid "Keyservers:"
 msgstr "सीडर्स:"
 
-#: core/datasourcefactory.cpp:279 core/datasourcefactory.cpp:624
-#: core/kget.cpp:1450 transfer-plugins/metalink/metalink.cpp:212
-#: transfer-plugins/metalink/metalinkhttp.cpp:253
-#: transfer-plugins/metalink/metalinkxml.cpp:211
-#: ui/metalinkcreator/metalinkcreator.cpp:149
-#: ui/metalinkcreator/metalinkcreator.cpp:166
+#: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
+#: core/kget.cpp:1402 transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalinkhttp.cpp:249
+#: transfer-plugins/metalink/metalinkxml.cpp:200
+#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Error"
 msgstr "गलती"
 
-#: core/datasourcefactory.cpp:279
+#: core/datasourcefactory.cpp:267
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr ""
 
-#: core/datasourcefactory.cpp:624
+#: core/datasourcefactory.cpp:580
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
 msgstr ""
 
-#: core/filemodel.cpp:282
+#: core/filemodel.cpp:248
 #, fuzzy, kde-format
 #| msgid "File"
 msgctxt "file in a filesystem"
 msgid "File"
 msgstr "फाइल"
 
-#: core/filemodel.cpp:282
+#: core/filemodel.cpp:248
 #, fuzzy, kde-format
 #| msgid "Status"
 msgctxt "status of the download"
 msgid "Status"
 msgstr "स्थिति"
 
-#: core/filemodel.cpp:282
+#: core/filemodel.cpp:248
 #, fuzzy, kde-format
 #| msgid "Size"
 msgctxt "size of the download"
 msgid "Size"
 msgstr "आकार"
 
-#: core/filemodel.cpp:282
+#: core/filemodel.cpp:249
 #, kde-format
 msgctxt "checksum of a file"
 msgid "Checksum"
 msgstr ""
 
-#: core/filemodel.cpp:282
+#: core/filemodel.cpp:249
 #, kde-format
 msgctxt "signature of a file"
 msgid "Signature"
 msgstr ""
 
-#: core/keydownloader.cpp:74
+#: core/keydownloader.cpp:73
 #, kde-format
 msgid ""
 "No server for downloading keys is specified in settings. Downloading aborted."
 msgstr ""
 
-#: core/keydownloader.cpp:75 core/keydownloader.cpp:95
+#: core/keydownloader.cpp:73 core/keydownloader.cpp:93
 #, kde-format
 msgid "No key server"
 msgstr ""
 
-#: core/keydownloader.cpp:94
+#: core/keydownloader.cpp:92
 #, kde-format
 msgid ""
 "No useful key server found, key not downloaded. Add more servers to the "
 "settings or restart KGet and retry downloading."
 msgstr ""
 
-#: core/kget.cpp:122
+#: core/kget.cpp:120
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -585,13 +585,13 @@ msgstr ""
 "का आप मन सचमुच समूह नाम %1 \n"
 "को मिटाना चाहथो ?"
 
-#: core/kget.cpp:123
+#: core/kget.cpp:121
 #, fuzzy, kde-format
 #| msgid "Rename Group"
 msgid "Remove Group"
 msgstr "समूह ल नवा नाम देव"
 
-#: core/kget.cpp:156
+#: core/kget.cpp:155
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -601,41 +601,41 @@ msgstr ""
 "का आप मन सचमुच समूह नाम %1 \n"
 "को मिटाना चाहथो ?"
 
-#: core/kget.cpp:158
+#: core/kget.cpp:157
 #, fuzzy, kde-format
 #| msgid "Rename Group"
 msgid "Remove groups"
 msgstr "समूह ल नवा नाम देव"
 
-#: core/kget.cpp:269
+#: core/kget.cpp:267
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:270 core/kget.cpp:367
+#: core/kget.cpp:269 core/kget.cpp:362
 #, fuzzy, kde-format
 #| msgid "Downloaded"
 msgid "Download added"
 msgstr "डाउनलोडेड"
 
-#: core/kget.cpp:362
+#: core/kget.cpp:357
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr ""
 
-#: core/kget.cpp:364
+#: core/kget.cpp:359
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr ""
 
-#: core/kget.cpp:532 core/kget.cpp:581
+#: core/kget.cpp:521 core/kget.cpp:563
 #, kde-format
 msgid "My Downloads"
 msgstr "मोर डाउनलोड्स"
 
-#: core/kget.cpp:595
+#: core/kget.cpp:576
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -644,17 +644,17 @@ msgstr ""
 "एक फाइल %1 पहिली से ही मौजूद हे\n"
 " मेटाय के लिखव?"
 
-#: core/kget.cpp:596
+#: core/kget.cpp:577
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "अभी हाल के फाइल मेटाय के लिखव?"
 
-#: core/kget.cpp:623 ui/metalinkcreator/metalinkcreator.cpp:166
+#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "%1 मं सहेज नइ सके."
 
-#: core/kget.cpp:926
+#: core/kget.cpp:896
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -665,34 +665,34 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/kget.cpp:936
+#: core/kget.cpp:906
 #, kde-format
 msgid "Protocol unsupported"
 msgstr ""
 
-#: core/kget.cpp:990 ui/newtransferdialog.cpp:53
+#: core/kget.cpp:959 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "नवा डाउनलोड"
 
-#: core/kget.cpp:990
+#: core/kget.cpp:959
 #, kde-format
 msgid "Enter URL:"
 msgstr "यूआरएल भरव:"
 
-#: core/kget.cpp:1010
+#: core/kget.cpp:979
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr ""
 
-#: core/kget.cpp:1029
+#: core/kget.cpp:1000
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr ""
 
-#: core/kget.cpp:1042 core/urlchecker.cpp:366
+#: core/kget.cpp:1012 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -701,7 +701,7 @@ msgstr ""
 "गलत रूप मं यूआरएल:\n"
 "%1"
 
-#: core/kget.cpp:1049 core/urlchecker.cpp:368
+#: core/kget.cpp:1018 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -710,7 +710,7 @@ msgstr ""
 "गलत रूप मं यूआरएल, प्रोटोकाल नइ हे:\n"
 "%1"
 
-#: core/kget.cpp:1064 core/urlchecker.cpp:424
+#: core/kget.cpp:1033 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -720,30 +720,30 @@ msgid ""
 "Download it again?"
 msgstr ""
 
-#: core/kget.cpp:1065 core/urlchecker.cpp:641
+#: core/kget.cpp:1034 core/urlchecker.cpp:639
 #, fuzzy, kde-format
 #| msgid "Download again"
 msgid "Download it again?"
 msgstr "फिर से डाउनलोड करव"
 
-#: core/kget.cpp:1066 core/kget.cpp:1088 core/kget.cpp:1156
-#: transfer-plugins/kio/transferKio.cpp:288
-#: transfer-plugins/metalink/metalink.cpp:126
-#: transfer-plugins/metalink/metalinkxml.cpp:124
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
+#: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
+#: transfer-plugins/kio/transferKio.cpp:278
+#: transfer-plugins/metalink/metalink.cpp:121
+#: transfer-plugins/metalink/metalinkxml.cpp:118
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, fuzzy, kde-format
 #| msgid "Download again"
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "फिर से डाउनलोड करव"
 
-#: core/kget.cpp:1067 core/kget.cpp:1089 core/kget.cpp:1157
+#: core/kget.cpp:1036 core/kget.cpp:1057 core/kget.cpp:1120
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1086 core/urlchecker.cpp:426
+#: core/kget.cpp:1054 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -753,18 +753,18 @@ msgid ""
 "Delete it and download again?"
 msgstr ""
 
-#: core/kget.cpp:1087 core/urlchecker.cpp:638
+#: core/kget.cpp:1055 core/urlchecker.cpp:636
 #, fuzzy, kde-format
 #| msgid "Download again"
 msgid "Delete it and download again?"
 msgstr "फिर से डाउनलोड करव"
 
-#: core/kget.cpp:1115 core/kget.cpp:1122
+#: core/kget.cpp:1081 core/kget.cpp:1086
 #, kde-format
 msgid "Directory is not writable"
 msgstr ""
 
-#: core/kget.cpp:1154
+#: core/kget.cpp:1117
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -772,7 +772,7 @@ msgid ""
 "Download and delete the previous one?"
 msgstr ""
 
-#: core/kget.cpp:1155 core/urlchecker.cpp:650
+#: core/kget.cpp:1118 core/urlchecker.cpp:648
 #, fuzzy, kde-format
 #| msgid ""
 #| "URL already saved:\n"
@@ -784,14 +784,14 @@ msgstr ""
 "%1\n"
 "फिर से डाउनलोड करव?"
 
-#: core/kget.cpp:1169
+#: core/kget.cpp:1133
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr ""
 
-#: core/kget.cpp:1173 core/kget.cpp:1176 core/urlchecker.cpp:653
-#: core/urlchecker.cpp:735 transfer-plugins/metalink/abstractmetalink.cpp:493
-#: transfer-plugins/metalink/metalink.cpp:740
+#: core/kget.cpp:1139 core/kget.cpp:1141 core/urlchecker.cpp:651
+#: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:487
+#: transfer-plugins/metalink/metalink.cpp:680
 #, fuzzy, kde-format
 #| msgid ""
 #| "The file %1 already exists.\n"
@@ -801,24 +801,24 @@ msgstr ""
 "एक फाइल %1 पहिली से ही मौजूद हे\n"
 " मेटाय के लिखव?"
 
-#: core/kget.cpp:1277
+#: core/kget.cpp:1229
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr ""
 
-#: core/kget.cpp:1282
+#: core/kget.cpp:1232
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr ""
 
-#: core/kget.cpp:1296
+#: core/kget.cpp:1246
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html><p>Plugin loader could not load the plugin:<br/><i>%1</i></p></html>"
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "<html><p>प्लगइन लोडर ह प्लगइन ल लोड नइ कर सकिस:<br/><i>%1</i></p></html>"
 
-#: core/kget.cpp:1311
+#: core/kget.cpp:1258
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -829,7 +829,7 @@ msgstr ""
 "%1\n"
 "काबर कि ए एक डिरेक्टरी हे."
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1267
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -840,31 +840,31 @@ msgstr ""
 "%1\n"
 "काबर कि ए लोकल फाइल नइ हे."
 
-#: core/kget.cpp:1443
+#: core/kget.cpp:1389
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1444
+#: core/kget.cpp:1391
 #, kde-format
 msgid "Download completed"
 msgstr "डाउनलोड पूरा"
 
-#: core/kget.cpp:1447
+#: core/kget.cpp:1396
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1448
+#: core/kget.cpp:1398
 #, fuzzy, kde-format
 msgid "Download started"
 msgstr "डाउनलोडेड"
 
-#: core/kget.cpp:1450
+#: core/kget.cpp:1403
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -872,45 +872,45 @@ msgid ""
 "\">%2</p>"
 msgstr ""
 
-#: core/kget.cpp:1455
+#: core/kget.cpp:1412
 #, fuzzy, kde-format
 msgid "Resolve"
 msgstr "हटाव"
 
-#: core/kget.cpp:1505
+#: core/kget.cpp:1463
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1509
+#: core/kget.cpp:1472
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1509
+#: core/kget.cpp:1474
 #, fuzzy, kde-format
 #| msgid "Auto shutdown"
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "अपने अपन बन्द"
 
-#: core/kget.cpp:1512
+#: core/kget.cpp:1480
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1512
+#: core/kget.cpp:1482
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr ""
 
-#: core/kget.cpp:1515
+#: core/kget.cpp:1488
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1515
+#: core/kget.cpp:1490
 #, fuzzy, kde-format
 #| msgctxt "Preview pending"
 #| msgid "Pending"
@@ -918,31 +918,31 @@ msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "लंबित"
 
-#: core/kget.cpp:1523
+#: core/kget.cpp:1499
 #, fuzzy, kde-format
 #| msgid "Aborted"
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "छोड़ दे गिस"
 
-#: core/kget.cpp:1533
+#: core/kget.cpp:1508
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1534
+#: core/kget.cpp:1508
 #, fuzzy, kde-format
 #| msgid "Download completed"
 msgid "Downloads completed"
 msgstr "डाउनलोड पूरा"
 
-#: core/kget.h:369 main.cpp:102 mainwindow.cpp:95 mainwindow.cpp:536
+#: core/kget.h:367 main.cpp:101 mainwindow.cpp:95 mainwindow.cpp:531
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
 msgstr "के-गेट"
 
-#: core/kgetglobaljob.cpp:57
+#: core/kgetglobaljob.cpp:56
 #, fuzzy, kde-format
 #| msgid "KGet - Download Manager"
 msgid "KGet is downloading %1 file"
@@ -950,18 +950,18 @@ msgid_plural "KGet is downloading %1 files"
 msgstr[0] "केगेट - डाउनलोड प्रबंधक"
 msgstr[1] "केगेट - डाउनलोड प्रबंधक"
 
-#: core/kgetkjobadapter.cpp:47
+#: core/kgetkjobadapter.cpp:48
 #, fuzzy, kde-format
 #| msgid "KGet Transfer List"
 msgid "KGet Transfer"
 msgstr "केगेट ट्रांसफर सूची"
 
-#: core/linkimporter.cpp:83
+#: core/linkimporter.cpp:91
 #, kde-format
 msgid "Error trying to get %1"
 msgstr "%1 ल लाय के कोसिस मं एक गलती होइस"
 
-#: core/signature.cpp:236
+#: core/signature.cpp:235
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
@@ -991,69 +991,69 @@ msgstr ""
 msgid "Signature not verified"
 msgstr ""
 
-#: core/transfer.cpp:30
+#: core/transfer.cpp:28
 #, fuzzy
 msgid "Downloading...."
 msgstr "डाउनलोड करत हे..."
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:29
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "विलम्बित"
 
-#: core/transfer.cpp:32 core/transfer.cpp:231 core/transfer.cpp:250
-#: transfer-plugins/bittorrent/bttransfer.cpp:308
-#: transfer-plugins/mmsthreads/mmstransfer.cpp:94
+#: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
+#: transfer-plugins/bittorrent/bttransfer.cpp:289
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
 msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "रुक गिस"
 
-#: core/transfer.cpp:33
+#: core/transfer.cpp:31
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "छोड़ दे गिस"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:225
-#: transfer-plugins/bittorrent/bttransfer.cpp:304
+#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:210
+#: transfer-plugins/bittorrent/bttransfer.cpp:287
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "पूरा"
 
-#: core/transfer.cpp:36 transfer-plugins/bittorrent/bttransfer.cpp:169
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:160
 #, fuzzy, kde-format
 #| msgid "Open Destination"
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
 msgstr "गंतव्य खोलव"
 
-#: core/transfergrouphandler.cpp:96
+#: core/transfergrouphandler.cpp:94
 #, kde-format
 msgid "1 Item"
 msgid_plural "%1 Items"
 msgstr[0] "1 चीज"
 msgstr[1] "%1 चीज"
 
-#: core/transfergrouphandler.cpp:112 core/transferhandler.cpp:149
+#: core/transfergrouphandler.cpp:108 core/transferhandler.cpp:140
 #: ui/transferdetails.cpp:93
 #, kde-format
 msgid "%1/s"
 msgstr "%1/s"
 
-#: core/transfergrouphandler.cpp:168
+#: core/transfergrouphandler.cpp:163
 #, kde-format
 msgctxt "start transfergroup downloads"
 msgid "Start"
 msgstr "सुरू"
 
-#: core/transfergrouphandler.cpp:174
+#: core/transfergrouphandler.cpp:169
 #, kde-format
 msgctxt "stop transfergroup downloads"
 msgid "Stop"
 msgstr "रुकव"
 
-#: core/transferhandler.cpp:136
+#: core/transferhandler.cpp:129
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:28
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:29
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:30
@@ -1062,56 +1062,56 @@ msgstr "रुकव"
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:33
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:34
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:35
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:59
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:60
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:61
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:64
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:65
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:68
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:71
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:74
-#: transfer-plugins/bittorrent/btdetailswidget.cpp:77
-#: ui/transfersviewdelegate.cpp:394
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:69
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:72
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:75
+#: transfer-plugins/bittorrent/btdetailswidget.cpp:78
+#: ui/transfersviewdelegate.cpp:363
 #, kde-format
 msgctxt "not available"
 msgid "n/a"
 msgstr "n/a"
 
-#: core/transferhandler.cpp:144 ui/transferdetails.cpp:89
+#: core/transferhandler.cpp:136 ui/transferdetails.cpp:89
 #, kde-format
 msgid "Stalled"
 msgstr "रुका होइस"
 
-#: core/transfertreemodel.cpp:646
+#: core/transfertreemodel.cpp:625
 #, kde-format
 msgctxt "name of download"
 msgid "Name"
 msgstr "नाम"
 
-#: core/transfertreemodel.cpp:648
+#: core/transfertreemodel.cpp:627
 #, kde-format
 msgctxt "status of download"
 msgid "Status"
 msgstr "स्थिति"
 
-#: core/transfertreemodel.cpp:650
+#: core/transfertreemodel.cpp:629
 #, kde-format
 msgctxt "size of download"
 msgid "Size"
 msgstr "आकार"
 
-#: core/transfertreemodel.cpp:652
+#: core/transfertreemodel.cpp:631
 #, kde-format
 msgctxt "progress of download"
 msgid "Progress"
 msgstr "प्रगति"
 
-#: core/transfertreemodel.cpp:654
+#: core/transfertreemodel.cpp:633
 #, kde-format
 msgctxt "speed of download"
 msgid "Speed"
 msgstr "गति"
 
-#: core/transfertreemodel.cpp:656
+#: core/transfertreemodel.cpp:635
 #, kde-format
 msgctxt "remaining time of download"
 msgid "Remaining Time"
@@ -1168,8 +1168,8 @@ msgid "No URL specified."
 msgstr ""
 
 #: core/urlchecker.cpp:326
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:95
-#: transfer-plugins/bittorrent/bttransfer.cpp:266
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:91
+#: transfer-plugins/bittorrent/bttransfer.cpp:251
 #, kde-format
 msgid "Malformed URL."
 msgstr "गलत रूप मं यूआरएल."
@@ -1441,7 +1441,7 @@ msgid ""
 "Delete them and download again?"
 msgstr ""
 
-#: core/verificationmodel.cpp:152
+#: core/verificationmodel.cpp:148
 #, fuzzy, kde-format
 #| msgctxt "list header: type of file"
 #| msgid "File Type"
@@ -1449,25 +1449,25 @@ msgctxt "the type of the hash, e.g. MD5"
 msgid "Type"
 msgstr "फाइल किसिम"
 
-#: core/verificationmodel.cpp:154
+#: core/verificationmodel.cpp:150
 #, kde-format
 msgctxt "the used hash for verification"
 msgid "Hash"
 msgstr ""
 
-#: core/verificationmodel.cpp:156
+#: core/verificationmodel.cpp:152
 #, kde-format
 msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr ""
 
-#: main.cpp:104
+#: main.cpp:103
 #, fuzzy, kde-format
 #| msgid "An advanced download manager for KDE"
 msgid "An advanced download manager by KDE"
 msgstr "केडीई बर एक उन्नत डाउनलोड प्रबंधक"
 
-#: main.cpp:106
+#: main.cpp:105
 #, fuzzy, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1480,229 +1480,229 @@ msgstr ""
 "(C) 2002, कार्स्टेन पेइफर\n"
 "(C) 1998 - 2000, मातेज कास"
 
-#: main.cpp:110
+#: main.cpp:109
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "लुकास एपलहान्स"
 
-#: main.cpp:112
+#: main.cpp:111
 #, fuzzy, kde-format
 #| msgid "Developer, Torrent Plugin Author"
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "डेवलपर, टोरेंट प्लगइन लेखक"
 
-#: main.cpp:113
+#: main.cpp:112
 #, kde-format
 msgid "Dario Massarin"
 msgstr "दारियो मासारिन"
 
-#: main.cpp:113 main.cpp:114 main.cpp:116
+#: main.cpp:112 main.cpp:113 main.cpp:115
 #, kde-format
 msgid "Core Developer"
 msgstr "कोर डेवलपर"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "उर वोल्फर"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "मानोलो वाल्देस"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "कोर डेवलपर, मल्टीथ्रेडेड प्लगइन लेखक"
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr ""
 
-#: main.cpp:117
+#: main.cpp:116
 #, kde-format
 msgid "Javier Goday"
 msgstr "जेवियर गोदाय"
 
-#: main.cpp:117
+#: main.cpp:116
 #, kde-format
 msgid "Developer"
 msgstr "डेवलपर"
 
-#: main.cpp:118
+#: main.cpp:117
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr ""
 
-#: main.cpp:118
+#: main.cpp:117
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:118
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:118
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr ""
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "पैट्रिक कार्बोनियर"
 
-#: main.cpp:120 main.cpp:121 main.cpp:122
+#: main.cpp:119 main.cpp:120 main.cpp:121
 #, kde-format
 msgid "Former Developer"
 msgstr "पूर्व डेवलपर"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "कार्स्टेन फेइफर"
 
-#: main.cpp:122
+#: main.cpp:121
 #, kde-format
 msgid "Matej Koss"
 msgstr "मातेज कास"
 
-#: main.cpp:123
+#: main.cpp:122
 #, kde-format
 msgid "Joris Guisson"
 msgstr "जोरिस गुइसन"
 
-#: main.cpp:123
+#: main.cpp:122
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "बीटीकोर (केटोरेंट) डेवलपर"
 
-#: main.cpp:124
+#: main.cpp:123
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "मेन्सुर जोहिरोविक (नुकी)"
 
-#: main.cpp:124
+#: main.cpp:123
 #, fuzzy, kde-format
 msgid "Design of Web Interface"
 msgstr "वेबइंटरफेस के डिजाइन"
 
-#: main.cpp:126
+#: main.cpp:125
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "रविसंकर सिरीवास्तव, जी. करूनाकर"
 
-#: main.cpp:126
+#: main.cpp:125
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "raviratlami@aol.in,"
 
-#: main.cpp:133
+#: main.cpp:132
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "के-गेट ड्राप लक्छ्य के साथ चालू करव"
 
-#: main.cpp:134
+#: main.cpp:133
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "केगेट ल मुख्य विंडो छुपा होय चालू करव"
 
-#: main.cpp:135
+#: main.cpp:134
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "केगेट ल ड्राप लक्छ्य एनीमेसन के बिना चालू करव"
 
-#: main.cpp:137
+#: main.cpp:136
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr ""
 
-#: main.cpp:139
+#: main.cpp:138
 #, kde-format
 msgid "URL(s) to download"
 msgstr "यूआरएल जऊन ल डाउनलोड करे जाही "
 
-#: mainwindow.cpp:147
+#: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
 msgstr "नवा डाउनलोड... (&N)"
 
-#: mainwindow.cpp:154
+#: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "ट्रांसफर आयात करव... (&I)"
 
-#: mainwindow.cpp:161
+#: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "ट्रांसफर सूची निर्यात करव... (&E)"
 
-#: mainwindow.cpp:168
+#: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr ""
 
-#: mainwindow.cpp:174
+#: mainwindow.cpp:173
 #, fuzzy, kde-format
 #| msgid "Priority"
 msgid "Top Priority"
 msgstr "प्राथमिकता"
 
-#: mainwindow.cpp:181
+#: mainwindow.cpp:180
 #, fuzzy, kde-format
 #| msgid "Priority"
 msgid "Least Priority"
 msgstr "प्राथमिकता"
 
-#: mainwindow.cpp:188
+#: mainwindow.cpp:187
 #, fuzzy, kde-format
 #| msgid "Priority"
 msgid "Increase Priority"
 msgstr "प्राथमिकता"
 
-#: mainwindow.cpp:195
+#: mainwindow.cpp:194
 #, fuzzy, kde-format
 #| msgid "Priority"
 msgid "Decrease Priority"
 msgstr "प्राथमिकता"
 
-#: mainwindow.cpp:203
+#: mainwindow.cpp:202
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "समूह मेटाव"
 
-#: mainwindow.cpp:209
+#: mainwindow.cpp:208
 #, fuzzy, kde-format
 #| msgid "Rename Group"
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "समूह ल नवा नाम देव"
 
-#: mainwindow.cpp:214
+#: mainwindow.cpp:213
 #, fuzzy, kde-format
 #| msgid "Set Icon"
 msgid "Set Icon..."
 msgstr "चिनहा सेट करव"
 
-#: mainwindow.cpp:220
+#: mainwindow.cpp:218
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "अपने अपन-चिपकाव मोड"
 
-#: mainwindow.cpp:223
+#: mainwindow.cpp:222
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1710,19 +1710,19 @@ msgid ""
 "automatically."
 msgstr ""
 
-#: mainwindow.cpp:229
+#: mainwindow.cpp:227
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "केगेट ल कान्करर डाउनलोड प्रबंधक के जइसन परयोग करव"
 
-#: mainwindow.cpp:247
+#: mainwindow.cpp:245
 #, fuzzy, kde-format
 #| msgid "Remove Webseed"
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "वेबसीड मेटाव"
 
-#: mainwindow.cpp:254
+#: mainwindow.cpp:252
 #, fuzzy, kde-format
 #| msgctxt "delete all finished transfers"
 #| msgid "Delete all finished"
@@ -1730,148 +1730,148 @@ msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "सब्बो पूरा करे गे ल मेटाव"
 
-#: mainwindow.cpp:260
+#: mainwindow.cpp:258
 #, fuzzy, kde-format
 #| msgid "Remove Webseed"
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "वेबसीड मेटाव"
 
-#: mainwindow.cpp:266
+#: mainwindow.cpp:264
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "चुने गे ल फिर से डाउनलोड करव"
 
-#: mainwindow.cpp:271
+#: mainwindow.cpp:269
 #, fuzzy, kde-format
 #| msgctxt "start transfergroup downloads"
 #| msgid "Start"
 msgid "Start All"
 msgstr "सुरू"
 
-#: mainwindow.cpp:278
+#: mainwindow.cpp:276
 #, fuzzy, kde-format
 #| msgid "Stop Selected"
 msgid "Start Selected"
 msgstr "चुने गे बन्द करव"
 
-#: mainwindow.cpp:284
+#: mainwindow.cpp:282
 #, kde-format
 msgid "Pause All"
 msgstr ""
 
-#: mainwindow.cpp:291
+#: mainwindow.cpp:289
 #, kde-format
 msgid "Stop Selected"
 msgstr "चुने गे बन्द करव"
 
-#: mainwindow.cpp:296
+#: mainwindow.cpp:294
 #, fuzzy, kde-format
 #| msgctxt "start transfergroup downloads"
 #| msgid "Start"
 msgid "Start"
 msgstr "सुरू"
 
-#: mainwindow.cpp:304
+#: mainwindow.cpp:301
 #, kde-format
 msgid "Pause"
 msgstr ""
 
-#: mainwindow.cpp:313
+#: mainwindow.cpp:309
 #, kde-format
 msgid "Open Destination"
 msgstr "गंतव्य खोलव"
 
-#: mainwindow.cpp:318
+#: mainwindow.cpp:314
 #, kde-format
 msgid "Open File"
 msgstr "फाइल खोलव"
 
-#: mainwindow.cpp:322
+#: mainwindow.cpp:318
 #, kde-format
 msgid "Show Details"
 msgstr "विवरन देखाव"
 
-#: mainwindow.cpp:327
+#: mainwindow.cpp:323
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "यूआरएल के नकल क्लिपबोर्ड मं बनाव"
 
-#: mainwindow.cpp:332
+#: mainwindow.cpp:328
 #, fuzzy, kde-format
 #| msgid "Transfer History"
 msgid "&Transfer History"
 msgstr "ट्रांसफर सूची"
 
-#: mainwindow.cpp:338
+#: mainwindow.cpp:334
 #, fuzzy, kde-format
 msgid "&Group Settings"
 msgstr "समूह सेटिंग"
 
-#: mainwindow.cpp:344
+#: mainwindow.cpp:340
 #, fuzzy, kde-format
 msgid "&Transfer Settings"
 msgstr "ट्रांसफर-विवरन"
 
-#: mainwindow.cpp:350
+#: mainwindow.cpp:346
 #, kde-format
 msgid "Import &Links..."
 msgstr "संकली आयात करव... (&L)"
 
-#: mainwindow.cpp:356
+#: mainwindow.cpp:352
 #, kde-format
 msgid "After downloads finished action"
 msgstr ""
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:360
+#: mainwindow.cpp:356
 #, fuzzy, kde-format
 #| msgid "Location (URL)"
 msgid "No Action"
 msgstr "जगह (यूआरएल)"
 
-#: mainwindow.cpp:443
+#: mainwindow.cpp:439
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
 "Would you like to enable KGet as the download manager for Konqueror?"
 msgstr ""
 
-#: mainwindow.cpp:445
+#: mainwindow.cpp:441
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "कान्करर के साथ एकीकरन"
 
-#: mainwindow.cpp:446
+#: mainwindow.cpp:442
 #, kde-format
 msgid "Enable"
 msgstr "सक्छम करव"
 
-#: mainwindow.cpp:447
+#: mainwindow.cpp:443
 #, kde-format
 msgid "Do Not Enable"
 msgstr "सक्छम नइ करव"
 
-#: mainwindow.cpp:517
+#: mainwindow.cpp:512
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "फाइल खोलव"
 
-#: mainwindow.cpp:518
+#: mainwindow.cpp:514
 #, kde-format
 msgid "All Openable Files"
 msgstr "सब्बो खोले जा सके फाइल मन ल"
 
-#: mainwindow.cpp:534
+#: mainwindow.cpp:529
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "के-गेट - %1%"
 
-#: mainwindow.cpp:588
+#: mainwindow.cpp:581
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1880,40 +1880,40 @@ msgstr ""
 "कुछ हस्तांतरन अभी घलोक होवत हे.\n"
 "का आप मन सही मं के-गेट बन्द करना चाहथो ?"
 
-#: mainwindow.cpp:590
+#: mainwindow.cpp:583
 #, kde-format
 msgid "Confirm Quit"
 msgstr "बाहिर जाय के पुस्टि करव"
 
-#: mainwindow.cpp:621
+#: mainwindow.cpp:614
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "ट्रांसफर निर्यात करव"
 
-#: mainwindow.cpp:622
+#: mainwindow.cpp:616
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "केगेट ट्रांसफर सूची"
 
-#: mainwindow.cpp:622
+#: mainwindow.cpp:616
 #, fuzzy, kde-format
 #| msgid "Move File"
 msgid "Text File"
 msgstr "फाइल खिसकाव"
 
-#: mainwindow.cpp:653
+#: mainwindow.cpp:645
 #, kde-format
 msgid "Enter Group Name"
 msgstr "समूह नाम भरव"
 
-#: mainwindow.cpp:654
+#: mainwindow.cpp:645
 #, kde-format
 msgid "Group name:"
 msgstr "समूह नामः"
 
-#: mainwindow.cpp:745
+#: mainwindow.cpp:733
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1927,12 +1927,12 @@ msgstr[1] ""
 "का आप मन सचमुच समूह नाम %1 \n"
 "को मिटाना चाहथो ?"
 
-#: mainwindow.cpp:747 mainwindow.cpp:785
+#: mainwindow.cpp:736 mainwindow.cpp:776
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "ट्रांसफर सूची लोड करव (&L)"
 
-#: mainwindow.cpp:783
+#: mainwindow.cpp:773
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1947,7 +1947,7 @@ msgstr[1] ""
 "का आप मन सचमुच समूह नाम %1 \n"
 "को मिटाना चाहथो ?"
 
-#: mainwindow.cpp:1119
+#: mainwindow.cpp:1100
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1955,85 +1955,85 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1243 ui/droptarget.cpp:226
+#: mainwindow.cpp:1219 ui/droptarget.cpp:212
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "केगेट ट्रांसफर सूची"
 
-#: mainwindow.cpp:1244 ui/droptarget.cpp:227
+#: mainwindow.cpp:1221 ui/droptarget.cpp:214
 #, kde-format
 msgid "&Download"
 msgstr "डाउनलोड (&D)"
 
-#: mainwindow.cpp:1245 ui/droptarget.cpp:228
+#: mainwindow.cpp:1222 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "ट्रांसफर सूची लोड करव (&L)"
 
-#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:54
-#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:58
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:53
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:57
 #, kde-format
 msgid "Advanced Details for %1"
 msgstr "%1 बर विस्तृत विवरन"
 
-#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:66
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:216
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:65
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
 #, kde-format
 msgid "Files"
 msgstr "फाइल"
 
-#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:74
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:73
 #, kde-format
 msgid "Trackers"
 msgstr "ट्रेकर"
 
-#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:76
 #, kde-format
 msgid "Webseeds"
 msgstr "वेबसीड"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:212
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
 #, kde-format
 msgid "Chunk"
 msgstr "चंक"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:213
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:220
 #, kde-format
 msgid "Progress"
 msgstr "प्रगति"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:214
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:222
 #, kde-format
 msgid "Peer"
 msgstr "पीअर"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:215
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:313
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:224
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:328
 #, kde-format
 msgid "Down Speed"
 msgstr "डाउन गति"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:224
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:233
 #, fuzzy, kde-format
 msgid "Number of the chunk"
 msgstr "थ्रेड की संख्या:"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:225
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:235
 #, kde-format
 msgid "Download progress of the chunk"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:237
 #, kde-format
 msgid "Which peer we are downloading it from"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:227
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:239
 #, fuzzy, kde-format
 msgid "Download speed of the chunk"
 msgstr "चेक करे ल डाउनलोड करव"
 
-#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:228
+#: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:241
 #, kde-format
 msgid "Which files the chunk is located in"
 msgstr ""
@@ -2086,53 +2086,53 @@ msgstr "बाकी:"
 msgid "Size:"
 msgstr "आकारः"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:65
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "खोलव"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:67
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download first"
 msgstr "पहलि डाउनलोड करव"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download normally"
 msgstr "सामान्य डाउनलोड"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download last"
 msgstr "आखिरी मं डाउनलोड करव"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Do Not Download"
 msgstr "डाउनलोड नइ करव"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Delete File(s)"
 msgstr "फाइल मेटाव"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Move File"
 msgstr "फाइल खिसकाव"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:265
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:251
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2140,127 +2140,127 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:291
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:311
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:278
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:67
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
 #, kde-format
 msgid "Priority"
 msgstr "प्राथमिकता"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:68
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:70
 #, kde-format
 msgid "Preview"
 msgstr "प्रिव्यू"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:71
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:73
-#, no-c-format, kde-format
+#, kde-format
 msgctxt "Percent of File Downloaded"
 msgid "% Complete"
 msgstr "% पूरा"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:80
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:83
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:82
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:84
 #, kde-format
 msgctxt "Download first"
 msgid "First"
 msgstr "पहिली"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:82
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:85
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:85
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:87
 #, kde-format
 msgctxt "Download last"
 msgid "Last"
 msgstr "आखरी"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:87
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:91
 #, kde-format
 msgctxt "Download Normal (not as first or last)"
 msgid "Normal"
 msgstr "सामान्य"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:122
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:145
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:149
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:124
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:143
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:147
 #, kde-format
 msgctxt "Preview available"
 msgid "Available"
 msgstr "मिलत "
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:124
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:147
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:128
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:151
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:126
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:145
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:129
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:149
 #, kde-format
 msgctxt "Preview pending"
 msgid "Pending"
 msgstr "लंबित"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:127
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:150
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:128
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:147
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:131
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:151
 #, kde-format
 msgctxt "No preview available"
 msgid "No"
 msgstr "नइ"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:131
-#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:150
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:136
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:156
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:162
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:153
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:158
 #, kde-format
 msgid "%1 %"
 msgstr "%1 %"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:90
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:93
 #, kde-format
 msgctxt "Download normally(not as first or last)"
 msgid "Normal"
 msgstr "सामान्य"
 
-#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:126
+#: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:127
 #, kde-format
 msgctxt "preview available"
 msgid "Available"
 msgstr "मिलत "
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:52
 #, kde-format
 msgid "Kick Peer"
 msgstr "किक पीअर"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:54
+#: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
 #, kde-format
 msgid "Ban Peer"
 msgstr "बेन पीअर"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:146
 #, kde-format
 msgctxt "Choked"
 msgid "Yes"
 msgstr "हाँ"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:155
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:146
 #, kde-format
 msgctxt "Not choked"
 msgid "No"
 msgstr "नइ"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:148
 #, kde-format
 msgctxt "Snubbed"
 msgid "Yes"
 msgstr "हाँ"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:156
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:148
 #, kde-format
 msgctxt "Not snubbed"
 msgid "No"
@@ -2278,229 +2278,229 @@ msgctxt "Not Interested"
 msgid "No"
 msgstr "नइ"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
 #, fuzzy, kde-format
 msgctxt "Interesting"
 msgid "Yes"
 msgstr "हाँ"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:165
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
 #, fuzzy, kde-format
 msgctxt "Not Interesting"
 msgid "No"
 msgstr "नइ"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:311
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
 #, kde-format
 msgid "IP Address"
 msgstr "आईपी पता"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:312
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
 #, kde-format
 msgid "Client"
 msgstr "क्लायंट"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:314
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:330
 #, kde-format
 msgid "Up Speed"
 msgstr "अपलोड गति"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:315
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:332
 #, kde-format
 msgid "Choked"
 msgstr "चोक्ड"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:316
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
 #, kde-format
 msgid "Snubbed"
 msgstr "स्नब्ड"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:317
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, kde-format
 msgid "Availability"
 msgstr "मिलत"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:318
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
 #, kde-format
 msgid "DHT"
 msgstr "डीएचटी"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:319
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
 #, kde-format
 msgid "Score"
 msgstr "अंक"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:320
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
 #, kde-format
 msgid "Upload Slot"
 msgstr "अपलोड स्लाट"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:321
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
 msgid "Requests"
 msgstr "निवेदन"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:322
-#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:129
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:124
 #, kde-format
 msgid "Downloaded"
 msgstr "डाउनलोडेड"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:323
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
 #, kde-format
 msgid "Uploaded"
 msgstr "अपलोड कर दे गिस"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:350
 #, kde-format
 msgid "Interested"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:325
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:352
 #, fuzzy, kde-format
 msgid "Interesting"
 msgstr "एकीकरन"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:333
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:359
 #, kde-format
 msgid "IP address of the peer"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:361
 #, kde-format
 msgid "Which client the peer is using"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:335
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
 #, fuzzy, kde-format
 msgid "Download speed"
 msgstr "डाउनलोडेड"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:365
 #, fuzzy, kde-format
 msgid "Upload speed"
 msgstr "अपलोड कर दे गिस"
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:337
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:367
 #, kde-format
 msgid ""
 "Whether or not the peer has choked us. If we are choked, the peer will not "
 "send us any data."
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:369
 #, kde-format
 msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:339
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:371
 #, kde-format
 msgid "How much of the torrent's data the peer has"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:373
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:341
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:375
 #, kde-format
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:377
 #, kde-format
 msgid "Only peers which have an upload slot will get data from us"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:343
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:379
 #, kde-format
 msgid "The number of download and upload requests"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:381
 #, kde-format
 msgid "How much data we have downloaded from this peer"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:345
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:383
 #, kde-format
 msgid "How much data we have uploaded to this peer"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:385
 #, kde-format
 msgid "Whether the peer is interested in downloading data from us"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:347
+#: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:387
 #, kde-format
 msgid "Whether we are interested in downloading from this peer"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:72
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:380
+#: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:348
 #, kde-format
 msgid "File"
 msgstr "फाइल"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:381
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:350
 #: ui/history/transferhistory.ui:90
 #, kde-format
 msgid "Size"
 msgstr "आकार"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:149
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:134
 #, fuzzy, kde-format
 msgid "Url"
 msgstr "कमइया:"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:150
-#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:130
-#: ui/history/transferhistory.cpp:248
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
+#: ui/history/transferhistory.cpp:243
 #, kde-format
 msgid "Status"
 msgstr "स्थिति"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:151
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:138
 #, fuzzy, kde-format
 #| msgid "Seeders:"
 msgid "Seeders"
 msgstr "सीडर्स:"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:152
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:140
 #, fuzzy, kde-format
 #| msgid "Leechers:"
 msgid "Leechers"
 msgstr "लीचर्स:"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:153
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:142
 #, fuzzy, kde-format
 #| msgid "Times Downloaded:"
 msgid "Times Downloaded"
 msgstr "अतेक बार डाउनलोडेड:"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:154
+#: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:144
 #, kde-format
 msgid "Next Update"
 msgstr "अपडेट"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
 #, kde-format
 msgid "Add Tracker"
 msgstr "ट्रैकर जोड़व"
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:87
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #, kde-format
 msgid "Enter the URL of the tracker:"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:102
+#: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
 msgstr ""
@@ -2531,24 +2531,24 @@ msgid "Restore Defaults"
 msgstr "डिफाल्ट बहाल करव"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
-#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:127
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:120
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:32
 #: ui/linkview/kget_linkview.cpp:90
 #, kde-format
 msgid "URL"
 msgstr "यूआरएल"
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:128
+#: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:122
 #, kde-format
 msgid "Speed"
 msgstr "गति"
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:96
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:94
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:113
+#: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:109
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
 msgstr ""
@@ -2726,61 +2726,61 @@ msgstr "डिफाल्ट अस्थाई फोल्डर"
 msgid "Pre-allocate disk space"
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:139
+#: transfer-plugins/bittorrent/bttransfer.cpp:134
 #, fuzzy, kde-format
 msgid "Downloading Torrent File...."
 msgstr "टोरेंट फाइल डाउनलोड करत हे..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:183
-#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#: transfer-plugins/bittorrent/bttransfer.cpp:174
+#: transfer-plugins/bittorrent/bttransfer.cpp:271
 #, fuzzy, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
 msgstr "डाउनलोड करत हे..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:260
+#: transfer-plugins/bittorrent/bttransfer.cpp:245
 #, kde-format
 msgid "Cannot add a tracker to a private torrent."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:422
+#: transfer-plugins/bittorrent/bttransfer.cpp:384
 #, fuzzy, kde-format
 #| msgid "The directory %1 does not exist"
 msgid "Torrent file does not exist"
 msgstr "डिरेक्टरी %1 मौजूद नइ हे"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:427
+#: transfer-plugins/bittorrent/bttransfer.cpp:390
 #, fuzzy, kde-format
 msgid "Analyzing torrent...."
 msgstr "टोरेंट एनलाइज करत हे..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:439
+#: transfer-plugins/bittorrent/bttransfer.cpp:406
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:510
+#: transfer-plugins/bittorrent/bttransfer.cpp:476
 #, fuzzy, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
 msgstr "सीडिंग..."
 
-#: transfer-plugins/bittorrent/bttransferfactory.cpp:33
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
 msgid "Cannot initialize libktorrent. Torrent support might not work."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransferfactory.cpp:82
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:75
 #, kde-format
 msgid "&Advanced Details"
 msgstr "विस्तृत विवरन (&A)"
 
-#: transfer-plugins/bittorrent/bttransferfactory.cpp:88
+#: transfer-plugins/bittorrent/bttransferfactory.cpp:81
 #, kde-format
 msgid "&Scan Files"
 msgstr "फाइल स्कैन करव (&S)"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:107
+#: transfer-plugins/bittorrent/scandlg.cpp:104
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "डाटा %1 स्कैन करे मं गलती"
@@ -2881,31 +2881,31 @@ msgstr ""
 msgid "label"
 msgstr ""
 
-#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:45
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:44
 #, kde-format
 msgid "Add item"
 msgstr ""
 
-#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:73
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:70
 #, kde-format
 msgid "%1 would become %2"
 msgstr ""
 
-#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:195
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:177
 #, fuzzy, kde-format
 #| msgid "Change appearance settings"
 msgctxt "the string that is used to modify an url"
 msgid "Change string"
 msgstr "रूप सेटिंग बदलव"
 
-#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:196
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:178
 #, fuzzy, kde-format
 #| msgid "Change Tracker"
 msgctxt "the mode defines how the url should be changed"
 msgid "Change mode"
 msgstr "ट्रैकर बदलव"
 
-#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:197
+#: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:179
 #, kde-format
 msgctxt "the type of the checksum e.g. md5"
 msgid "Checksum type"
@@ -2935,42 +2935,42 @@ msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "कनेक्सन होवत हे..."
 
-#: transfer-plugins/kio/transferKio.cpp:284
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
+#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:285
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/metalink/abstractmetalink.cpp:224
-#: transfer-plugins/metalink/metalink.cpp:508
-#: transfer-plugins/metalink/metalinkhttp.cpp:167
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/metalink/metalink.cpp:469
+#: transfer-plugins/metalink/metalinkhttp.cpp:164
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:287
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:296
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
+#: transfer-plugins/kio/transferKio.cpp:286
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
 #, kde-format
 msgid "Verification failed."
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:298
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
+#: transfer-plugins/kio/transferKio.cpp:288
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
 msgstr ""
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:222
-#: transfer-plugins/metalink/metalink.cpp:506
+#: transfer-plugins/metalink/abstractmetalink.cpp:221
+#: transfer-plugins/metalink/metalink.cpp:466
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2978,10 +2978,10 @@ msgid ""
 msgstr ""
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:225
-#: transfer-plugins/metalink/metalink.cpp:127
-#: transfer-plugins/metalink/metalink.cpp:509
-#: transfer-plugins/metalink/metalinkhttp.cpp:168
-#: transfer-plugins/metalink/metalinkxml.cpp:125
+#: transfer-plugins/metalink/metalink.cpp:122
+#: transfer-plugins/metalink/metalink.cpp:470
+#: transfer-plugins/metalink/metalinkhttp.cpp:165
+#: transfer-plugins/metalink/metalinkxml.cpp:119
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
@@ -3021,35 +3021,35 @@ msgstr ""
 msgid "File Selection"
 msgstr "सेटिंग सहेजव"
 
-#: transfer-plugins/metalink/metalink.cpp:81
-#: transfer-plugins/metalink/metalinkxml.cpp:78
+#: transfer-plugins/metalink/metalink.cpp:76
+#: transfer-plugins/metalink/metalinkxml.cpp:73
 #, fuzzy, kde-format
 msgid "Downloading Metalink File...."
 msgstr "टोरेंट फाइल डाउनलोड करत हे..."
 
-#: transfer-plugins/metalink/metalink.cpp:124
-#: transfer-plugins/metalink/metalinkxml.cpp:122
+#: transfer-plugins/metalink/metalink.cpp:119
+#: transfer-plugins/metalink/metalinkxml.cpp:116
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr ""
 
-#: transfer-plugins/metalink/metalink.cpp:125
-#: transfer-plugins/metalink/metalinkxml.cpp:123
+#: transfer-plugins/metalink/metalink.cpp:120
+#: transfer-plugins/metalink/metalinkxml.cpp:117
 #, fuzzy, kde-format
 #| msgctxt "redownload selected transfer item"
 #| msgid "Redownload Selected"
 msgid "Redownload Metalink"
 msgstr "चुने गे ल फिर से डाउनलोड करव"
 
-#: transfer-plugins/metalink/metalink.cpp:212
-#: transfer-plugins/metalink/metalinkhttp.cpp:253
-#: transfer-plugins/metalink/metalinkxml.cpp:211
+#: transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalinkhttp.cpp:249
+#: transfer-plugins/metalink/metalinkxml.cpp:200
 #, kde-format
 msgid "Download failed, no working URLs were found."
 msgstr ""
 
-#: transfer-plugins/metalink/metalinkhttp.cpp:165
+#: transfer-plugins/metalink/metalinkhttp.cpp:161
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
 msgstr ""
@@ -3099,13 +3099,13 @@ msgstr ""
 msgid "Remove"
 msgstr "हटाव"
 
-#: transfer-plugins/mmsthreads/mmstransfer.cpp:60
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:57
 #, fuzzy, kde-format
 msgctxt "transfer state: running"
 msgid "Running...."
 msgstr "चलत हे"
 
-#: transfer-plugins/mmsthreads/mmstransfer.cpp:125
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:116
 #, fuzzy, kde-format
 #| msgctxt "transfer state: finished"
 #| msgid "Finished"
@@ -3113,12 +3113,12 @@ msgctxt "Transfer State:Finished"
 msgid "Finished"
 msgstr "पूरा"
 
-#: transfer-plugins/mmsthreads/mmstransfer.cpp:171
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:162
 #, kde-format
 msgid "Download failed, could not access this URL."
 msgstr ""
 
-#: transfer-plugins/mmsthreads/mmstransfer.cpp:181
+#: transfer-plugins/mmsthreads/mmstransfer.cpp:173
 #, kde-format
 msgid ""
 "This URL does not allow multiple connections,\n"
@@ -3137,13 +3137,13 @@ msgstr "खोज इंजिन उपयोग करव"
 msgid "Search for verification information"
 msgstr ""
 
-#: transfer-plugins/multisegmentkio/segment.cpp:296
+#: transfer-plugins/multisegmentkio/segment.cpp:284
 #, fuzzy, kde-format
 #| msgid "Failed to write to file %1 : %2"
 msgid "Failed to write to the file."
 msgstr "फाइल %1 : %2 लिखे मं असफल."
 
-#: ui/contextmenu.cpp:116
+#: ui/contextmenu.cpp:115
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 msgid "Delete Group"
@@ -3151,7 +3151,7 @@ msgid_plural "Delete Groups"
 msgstr[0] "समूह मेटाव"
 msgstr[1] "समूह मेटाव"
 
-#: ui/contextmenu.cpp:120
+#: ui/contextmenu.cpp:119
 #, fuzzy, kde-format
 #| msgid "Rename Group"
 msgid "Rename Group..."
@@ -3159,46 +3159,46 @@ msgid_plural "Rename Groups..."
 msgstr[0] "समूह ल नवा नाम देव"
 msgstr[1] "समूह ल नवा नाम देव"
 
-#: ui/droptarget.cpp:85
+#: ui/droptarget.cpp:81
 #, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "स्टिकी"
 
-#: ui/droptarget.cpp:292
+#: ui/droptarget.cpp:267
 #, kde-format
 msgid "Show Main Window"
 msgstr "मुख्य विंडो देखाव"
 
-#: ui/droptarget.cpp:293
+#: ui/droptarget.cpp:267
 #, kde-format
 msgid "Hide Main Window"
 msgstr "मुख्य विंडो लुकाव"
 
-#: ui/droptarget.cpp:384
+#: ui/droptarget.cpp:348
 #, kde-format
 msgid "Drop Target"
 msgstr "ड्राप लक्छ्य"
 
-#: ui/droptarget.cpp:385
+#: ui/droptarget.cpp:348
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "आप डाउनलोड संकली ल ड्ऱाप लक्छ्य मं खींच कर ला सकथो ."
 
-#: ui/droptarget.cpp:430
+#: ui/droptarget.cpp:392
 #, fuzzy, kde-format
 #| msgid "%1 %"
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1 %"
 
-#: ui/droptarget.cpp:436
+#: ui/droptarget.cpp:399
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr ""
 
-#: ui/droptarget.cpp:444
+#: ui/droptarget.cpp:408
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3206,7 +3206,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr ""
 
-#: ui/droptarget.cpp:458
+#: ui/droptarget.cpp:422
 #, kde-format
 msgid "Ready"
 msgstr ""
@@ -3284,99 +3284,99 @@ msgstr "ट्रांसफर सूची"
 msgid "&Open File"
 msgstr "फाइल खोलव (&O)"
 
-#: ui/history/transferhistory.cpp:214
+#: ui/history/transferhistory.cpp:210
 #, kde-format
 msgctxt "The transfer is running"
 msgid "Running"
 msgstr "चलत हे"
 
-#: ui/history/transferhistory.cpp:216
+#: ui/history/transferhistory.cpp:212
 #, kde-format
 msgctxt "The transfer is stopped"
 msgid "Stopped"
 msgstr "रुक गिस"
 
-#: ui/history/transferhistory.cpp:218
+#: ui/history/transferhistory.cpp:214
 #, kde-format
 msgctxt "The transfer is aborted"
 msgid "Aborted"
 msgstr "छोड़ दे गिस"
 
-#: ui/history/transferhistory.cpp:220
+#: ui/history/transferhistory.cpp:216
 #, kde-format
 msgctxt "The transfer is finished"
 msgid "Finished"
 msgstr "पूरा"
 
-#: ui/history/transferhistory.cpp:248
+#: ui/history/transferhistory.cpp:243
 #, fuzzy, kde-format
 msgid "Source File"
 msgstr "स्रोत फाइल"
 
-#: ui/history/transferhistory.cpp:248
+#: ui/history/transferhistory.cpp:243
 #, kde-format
 msgid "Destination"
 msgstr "गंतव्य"
 
-#: ui/history/transferhistory.cpp:248
+#: ui/history/transferhistory.cpp:243
 #, kde-format
 msgid "Time"
 msgstr "समय"
 
-#: ui/history/transferhistory.cpp:248
+#: ui/history/transferhistory.cpp:243
 #, kde-format
 msgid "File Size"
 msgstr "फाइल आकार"
 
-#: ui/history/transferhistory.cpp:258
+#: ui/history/transferhistory.cpp:251
 #, kde-format
 msgid "Less than 1MiB"
 msgstr "१ मेबा से कम"
 
-#: ui/history/transferhistory.cpp:260
+#: ui/history/transferhistory.cpp:252
 #, kde-format
 msgid "Between 1MiB-10MiB"
 msgstr "१-१० मेबा के बीच"
 
-#: ui/history/transferhistory.cpp:262
+#: ui/history/transferhistory.cpp:253
 #, kde-format
 msgid "Between 10MiB-100MiB"
 msgstr "१०-१०० मेबा के बीच"
 
-#: ui/history/transferhistory.cpp:264
+#: ui/history/transferhistory.cpp:254
 #, kde-format
 msgid "Between 100MiB-1GiB"
 msgstr "१०० मेबा - १ जीबा के बीच"
 
-#: ui/history/transferhistory.cpp:266
+#: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "More than 1GiB"
 msgstr "१ जीबा से अधिक"
 
-#: ui/history/transferhistory.cpp:269
-#: ui/history/transferhistorycategorizeddelegate.cpp:45
+#: ui/history/transferhistory.cpp:258
+#: ui/history/transferhistorycategorizeddelegate.cpp:46
 #, kde-format
 msgid "Today"
 msgstr "आज"
 
-#: ui/history/transferhistory.cpp:270
+#: ui/history/transferhistory.cpp:259
 #: ui/history/transferhistorycategorizeddelegate.cpp:49
 #, kde-format
 msgid "Last week"
 msgstr "पिछले हफ्ता"
 
-#: ui/history/transferhistory.cpp:271
+#: ui/history/transferhistory.cpp:260
 #, kde-format
 msgid "Last month"
 msgstr "पिछले महिना"
 
-#: ui/history/transferhistory.cpp:272
-#: ui/history/transferhistorycategorizeddelegate.cpp:57
+#: ui/history/transferhistory.cpp:261
+#: ui/history/transferhistorycategorizeddelegate.cpp:55
 #, kde-format
 msgid "A long time ago"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:292
+#: ui/history/transferhistory.cpp:277
 #, kde-format
 msgctxt "the transfer has been finished"
 msgid "Finished"
@@ -3435,12 +3435,12 @@ msgstr "चुने गे ल मेटाव"
 msgid "Download"
 msgstr "डाउनलोड"
 
-#: ui/history/transferhistorycategorizeddelegate.cpp:53
+#: ui/history/transferhistorycategorizeddelegate.cpp:52
 #, kde-format
 msgid "Last Month"
 msgstr "पिछले महिना"
 
-#: ui/history/transferhistorycategorizeddelegate.cpp:77
+#: ui/history/transferhistorycategorizeddelegate.cpp:78
 #, kde-format
 msgid "Under 10MiB"
 msgstr ""
@@ -3450,28 +3450,28 @@ msgstr ""
 msgid "Between 10MiB and 50MiB"
 msgstr ""
 
-#: ui/history/transferhistorycategorizeddelegate.cpp:84
+#: ui/history/transferhistorycategorizeddelegate.cpp:83
 #, kde-format
 msgid "Between 50MiB and 100MiB"
 msgstr ""
 
-#: ui/history/transferhistorycategorizeddelegate.cpp:89
+#: ui/history/transferhistorycategorizeddelegate.cpp:87
 #, kde-format
 msgid "More than 100MiB"
 msgstr ""
 
-#: ui/history/transferhistoryitemdelegate.cpp:40
+#: ui/history/transferhistoryitemdelegate.cpp:41
 #, kde-format
 msgid "Download again"
 msgstr "फिर से डाउनलोड करव"
 
-#: ui/history/transferhistoryitemdelegate.cpp:45
+#: ui/history/transferhistoryitemdelegate.cpp:46
 #, kde-format
 msgctxt "Delete selected history-item"
 msgid "Delete selected"
 msgstr "चुने गे ल मेटाव"
 
-#: ui/history/transferhistoryitemdelegate.cpp:50
+#: ui/history/transferhistoryitemdelegate.cpp:51
 #, kde-format
 msgid "Open file"
 msgstr "फाइल खोलव"
@@ -3544,14 +3544,14 @@ msgid "Filter files here...."
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:189 ui/linkview/kget_linkview.cpp:337
+#: ui/linkview/importlinkdialog.ui:189 ui/linkview/kget_linkview.cpp:318
 #, fuzzy, kde-format
 #| msgid "Select all"
 msgid "&Select All"
 msgstr "सब्बो चुनव"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:205 ui/linkview/kget_linkview.cpp:338
+#: ui/linkview/importlinkdialog.ui:205 ui/linkview/kget_linkview.cpp:319
 #, fuzzy, kde-format
 #| msgid "Deselect all"
 msgid "D&eselect All"
@@ -3633,57 +3633,57 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "नाम"
 
-#: ui/linkview/kget_linkview.cpp:117
+#: ui/linkview/kget_linkview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Download"
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "डाउनलोड (&D)"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:153
 #, kde-format
 msgid "Auxiliary header"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:154
 #, kde-format
 msgid "File Name"
 msgstr "फाइल नाम"
 
-#: ui/linkview/kget_linkview.cpp:159
+#: ui/linkview/kget_linkview.cpp:155
 #, kde-format
 msgid "Description"
 msgstr "वर्नन"
 
-#: ui/linkview/kget_linkview.cpp:160
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "फाइल किसिम"
 
-#: ui/linkview/kget_linkview.cpp:161
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgid "Location (URL)"
 msgstr "जगह (यूआरएल)"
 
-#: ui/linkview/kget_linkview.cpp:266
+#: ui/linkview/kget_linkview.cpp:257
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:337
+#: ui/linkview/kget_linkview.cpp:318
 #, fuzzy, kde-format
 #| msgid "Select all filtered"
 msgid "&Select All Filtered"
 msgstr "सब्बो छनइया चुनव"
 
-#: ui/linkview/kget_linkview.cpp:338
+#: ui/linkview/kget_linkview.cpp:319
 #, fuzzy, kde-format
 #| msgid "Deselect all filtered"
 msgid "D&eselect All Filtered"
 msgstr "सब्बो छनइया मत चुनव"
 
-#: ui/linkview/kget_linkview.cpp:461
+#: ui/linkview/kget_linkview.cpp:429
 #, kde-format
 msgid "Filter Column"
 msgstr ""
@@ -3780,13 +3780,13 @@ msgstr "थ्रेड की संख्या:"
 msgid "URL to the publisher"
 msgstr "थ्रेड की संख्या:"
 
-#: ui/metalinkcreator/dragdlg.cpp:69
+#: ui/metalinkcreator/dragdlg.cpp:73
 #, kde-format
 msgid "Import dropped files"
 msgstr ""
 
-#: ui/metalinkcreator/dragdlg.cpp:92 ui/metalinkcreator/filedlg.cpp:68
-#: ui/metalinkcreator/filedlg.cpp:178
+#: ui/metalinkcreator/dragdlg.cpp:94 ui/metalinkcreator/filedlg.cpp:73
+#: ui/metalinkcreator/filedlg.cpp:181
 #, kde-format
 msgctxt "comma, to separate members of a list"
 msgid ","
@@ -3860,23 +3860,23 @@ msgstr ""
 msgid "Enter information that all chosen files share."
 msgstr ""
 
-#: ui/metalinkcreator/filedlg.cpp:119
+#: ui/metalinkcreator/filedlg.cpp:122
 #, fuzzy, kde-format
 msgid "File Properties"
 msgstr "सेटिंग सहेजव"
 
-#: ui/metalinkcreator/filedlg.cpp:131
+#: ui/metalinkcreator/filedlg.cpp:134
 #, fuzzy, kde-format
 #| msgid "Enter Group Name"
 msgid "Enter a filename."
 msgstr "समूह नाम भरव"
 
-#: ui/metalinkcreator/filedlg.cpp:134
+#: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
 msgid "The filename exists already, choose a different one."
 msgstr ""
 
-#: ui/metalinkcreator/filedlg.cpp:137
+#: ui/metalinkcreator/filedlg.cpp:140
 #, fuzzy, kde-format
 #| msgid "Enter Group Name"
 msgid "Enter at least one URL."
@@ -4052,51 +4052,51 @@ msgstr ""
 msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
 msgstr "फाइल खोलव"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:84
+#: ui/metalinkcreator/metalinkcreator.cpp:82
 #, kde-format
 msgid "Create a Metalink"
 msgstr ""
 
-#: ui/metalinkcreator/metalinkcreator.cpp:103
+#: ui/metalinkcreator/metalinkcreator.cpp:100
 #, fuzzy, kde-format
 #| msgid "Enter Group Name"
 msgid "Add at least one file."
 msgstr "समूह नाम भरव"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:105
+#: ui/metalinkcreator/metalinkcreator.cpp:102
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr ""
 
-#: ui/metalinkcreator/metalinkcreator.cpp:118
+#: ui/metalinkcreator/metalinkcreator.cpp:115
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr ""
 
-#: ui/metalinkcreator/metalinkcreator.cpp:149
+#: ui/metalinkcreator/metalinkcreator.cpp:144
 #, fuzzy, kde-format
 #| msgid "Unable to save to: %1"
 msgid "Unable to load: %1"
 msgstr "%1 मं सहेज नइ सके."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:169
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Metalink Version 4.0 file (*.meta4)"
 msgstr "फाइल खोलव"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:169
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Metalink Version 3.0 file (*.metalink)"
 msgstr "फाइल खोलव"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:183
+#: ui/metalinkcreator/metalinkcreator.cpp:176
 #, kde-format
 msgid "Define the saving location."
 msgstr ""
 
-#: ui/metalinkcreator/metalinkcreator.cpp:229
+#: ui/metalinkcreator/metalinkcreator.cpp:222
 #, fuzzy, kde-format
 #| msgid "Files"
 msgctxt "file as in file on hard drive"
@@ -4138,8 +4138,8 @@ msgid "Optional: The priority of the mirror, 1 highest 999999 lowest."
 msgstr ""
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, priority)
-#: ui/mirror/mirroradddlg.ui:72 ui/mirror/mirrormodel.cpp:213
-#: ui/mirror/mirrormodel.cpp:231
+#: ui/mirror/mirroradddlg.ui:72 ui/mirror/mirrormodel.cpp:179
+#: ui/mirror/mirrormodel.cpp:189
 #, kde-format
 msgid "not specified"
 msgstr ""
@@ -4151,27 +4151,27 @@ msgstr ""
 msgid "Location:"
 msgstr "जगह (यूआरएल)"
 
-#: ui/mirror/mirrormodel.cpp:366
+#: ui/mirror/mirrormodel.cpp:290
 #, fuzzy, kde-format
 #| msgid "Error"
 msgctxt "Mirror as in server, in url"
 msgid "Mirror"
 msgstr "गलती"
 
-#: ui/mirror/mirrormodel.cpp:369
+#: ui/mirror/mirrormodel.cpp:293
 #, fuzzy, kde-format
 #| msgid "Priority"
 msgctxt "The priority of the mirror"
 msgid "Priority"
 msgstr "प्राथमिकता"
 
-#: ui/mirror/mirrormodel.cpp:374
+#: ui/mirror/mirrormodel.cpp:298
 #, fuzzy, kde-format
 msgctxt "Number of parallel connections to the mirror"
 msgid "Connections"
 msgstr "कनेक्सन होवत हे"
 
-#: ui/mirror/mirrormodel.cpp:376
+#: ui/mirror/mirrormodel.cpp:300
 #, fuzzy, kde-format
 #| msgid "Location (URL)"
 msgctxt "Location = country"
@@ -4183,7 +4183,7 @@ msgstr "जगह (यूआरएल)"
 msgid "Add mirror"
 msgstr ""
 
-#: ui/mirror/mirrorsettings.cpp:148
+#: ui/mirror/mirrorsettings.cpp:144
 #, kde-format
 msgid "Modify the used mirrors"
 msgstr ""
@@ -4194,12 +4194,12 @@ msgstr ""
 msgid "PushButton"
 msgstr ""
 
-#: ui/newtransferdialog.cpp:322
+#: ui/newtransferdialog.cpp:321
 #, fuzzy, kde-format
 msgid "Select at least one source url."
 msgstr "डिफाल्ट टोरेंट फोल्डर चुनव"
 
-#: ui/newtransferdialog.cpp:340
+#: ui/newtransferdialog.cpp:339
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
 msgstr ""
@@ -4261,125 +4261,125 @@ msgctxt "trust level"
 msgid "Marginal"
 msgstr ""
 
-#: ui/signaturedlg.cpp:42
+#: ui/signaturedlg.cpp:43
 #, kde-format
 msgctxt "trust level"
 msgid "Full"
 msgstr ""
 
-#: ui/signaturedlg.cpp:42
+#: ui/signaturedlg.cpp:43
 #, kde-format
 msgctxt "trust level"
 msgid "Ultimate"
 msgstr ""
 
-#: ui/signaturedlg.cpp:49
+#: ui/signaturedlg.cpp:50
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr ""
 
-#: ui/signaturedlg.cpp:72
+#: ui/signaturedlg.cpp:73
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr ""
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:101
 #, fuzzy, kde-format
 msgid "Load Signature File"
 msgstr "स्रोत फाइल"
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:103
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:104
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:154
+#: ui/signaturedlg.cpp:157
 #, kde-format
 msgid "You need to define a signature."
 msgstr ""
 
-#: ui/signaturedlg.cpp:158
+#: ui/signaturedlg.cpp:161
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr ""
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:195
 #, kde-format
 msgid "The key has been revoked."
 msgstr ""
 
-#: ui/signaturedlg.cpp:196
+#: ui/signaturedlg.cpp:199
 #, kde-format
 msgid "The key is disabled."
 msgstr ""
 
-#: ui/signaturedlg.cpp:200
+#: ui/signaturedlg.cpp:203
 #, kde-format
 msgid "The key is invalid."
 msgstr ""
 
-#: ui/signaturedlg.cpp:205
+#: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is expired."
 msgstr ""
 
-#: ui/signaturedlg.cpp:220
+#: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr ""
 
-#: ui/signaturedlg.cpp:225
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr ""
 
-#: ui/signaturedlg.cpp:238
+#: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr ""
 
-#: ui/signaturedlg.cpp:267
+#: ui/signaturedlg.cpp:269
 #, kde-format
 msgid "Unlimited"
 msgstr "असीमित"
 
-#: ui/signaturedlg.cpp:285
+#: ui/signaturedlg.cpp:287
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr ""
 
-#: ui/signaturedlg.cpp:288
+#: ui/signaturedlg.cpp:290
 #, fuzzy, kde-format
 #| msgid "File"
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "फाइल"
 
-#: ui/signaturedlg.cpp:291
+#: ui/signaturedlg.cpp:293
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
 "data has been modified."
 msgstr ""
 
-#: ui/signaturedlg.cpp:296
+#: ui/signaturedlg.cpp:299
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:313
+#: ui/signaturedlg.cpp:317
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""
@@ -4494,13 +4494,13 @@ msgstr "बाकी समय"
 msgid "Transfer Settings for %1"
 msgstr "%1 बर हस्तांरन सेटिंग"
 
-#: ui/transfersettingsdialog.cpp:167
+#: ui/transfersettingsdialog.cpp:163
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
 msgstr ""
 
-#: ui/transfersettingsdialog.cpp:167
+#: ui/transfersettingsdialog.cpp:163
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgid "Destination unmodified"
@@ -4561,12 +4561,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "गंतव्य"
 
-#: ui/transfersview.cpp:126
+#: ui/transfersview.cpp:121
 #, kde-format
 msgid "Select columns"
 msgstr "खंभा चुनव"
 
-#: ui/transfersview.cpp:314
+#: ui/transfersview.cpp:307
 #, fuzzy, kde-format
 #| msgid "Transfer details"
 msgid "Transfer Details"
@@ -4607,12 +4607,12 @@ msgstr ""
 msgid "Transfer Verification for %1"
 msgstr "%1 बर हस्तांरन सेटिंग"
 
-#: ui/verificationdialog.cpp:206
+#: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "%1 was successfully verified."
 msgstr ""
 
-#: ui/verificationdialog.cpp:207
+#: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "Verification successful"
 msgstr ""
