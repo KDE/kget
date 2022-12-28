@@ -41,6 +41,7 @@
 #include <QDir>
 #include <QDomElement>
 #include <QFile>
+#include <QFileDialog>
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QUrl>
@@ -116,6 +117,29 @@ bool BTTransfer::isWorking() const
         return false;
     const bt::TorrentStats stats = torrent->getStats();
     return (stats.status != bt::ERROR) && (stats.status != bt::STALLED) && (stats.status != bt::NO_SPACE_LEFT) && (stats.status != bt::INVALID_STATUS);
+}
+
+void BTTransfer::resolveError(int errorId)
+{
+    switch (errorId) {
+    case TorrentFileNotFoundError: {
+        QFileDialog *dlg = new QFileDialog(nullptr, i18nc("@title", "Select a New Torrent File"));
+        dlg->setFileMode(QFileDialog::ExistingFile);
+        dlg->setMimeTypeFilters(QStringList{QStringLiteral("application/x-bittorrent")});
+        dlg->setAttribute(Qt::WA_DeleteOnClose);
+        connect(dlg, &QDialog::accepted, this, [this, dlg] {
+            QUrl url = dlg->selectedUrls().value(0);
+            if (url.isValid()) {
+                btTransferInit(url);
+            }
+        });
+        dlg->show();
+
+        break;
+    }
+    default:
+        return;
+    }
 }
 
 void BTTransfer::start()
@@ -381,8 +405,9 @@ void BTTransfer::btTransferInit(const QUrl &src, const QByteArray &data)
     QFile file(m_source.toLocalFile());
 
     if (!file.open(QIODevice::ReadOnly)) {
-        setError(i18n("Torrent file does not exist"), "dialog-cancel", Job::NotSolveable);
+        setError(i18n("Torrent file does not exist"), "dialog-cancel", Job::NotSolveable, TorrentFileNotFoundError);
         setTransferChange(Tc_Status, true);
+        resolveError(TorrentFileNotFoundError);
         return;
     }
 

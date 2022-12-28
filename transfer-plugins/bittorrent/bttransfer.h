@@ -49,6 +49,10 @@ public:
         Tc_TrackersList = 0x10000000
     };
 
+    enum ErrorId {
+        TorrentFileNotFoundError = 1,
+    };
+
     BTTransfer(TransferGroup *parent, TransferFactory *factory, Scheduler *scheduler, const QUrl &src, const QUrl &dest, const QDomElement *e = nullptr);
     ~BTTransfer() override;
 
@@ -61,6 +65,11 @@ public:
     int remainingTime() const override;
     bool isStalled() const override;
     bool isWorking() const override;
+
+    /**
+     * Open a file dialog to select a new torrent file
+     */
+    void resolveError(int errorId) override;
 
     /**
      * @returns the directory the Transfer will be stored to
