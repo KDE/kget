@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-26 00:52+0000\n"
-"PO-Revision-Date: 2022-10-24 06:22+0200\n"
+"PO-Revision-Date: 2022-12-27 08:35+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -435,19 +435,19 @@ msgstr "გამოყენებული საკონტროლო ჯ�
 #: conf/verificationpreferences.ui:51
 #, kde-format
 msgid "Weak (fastest)"
-msgstr ""
+msgstr "სუსტი (უსწრაფესი)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_5)
 #: conf/verificationpreferences.ui:61
 #, kde-format
 msgid "Strong (recommended)"
-msgstr ""
+msgstr "ძლიერი (რეკომენდებული)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_6)
 #: conf/verificationpreferences.ui:71
 #, kde-format
 msgid "Strongest (slowest)"
-msgstr ""
+msgstr "ყველაზე ძლიერი (ყველაზე ნელი)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, signatureGroup)
 #. i18n: ectx: property (title), widget (QGroupBox, sigGroup)
@@ -462,7 +462,7 @@ msgstr "ხელმოწერა"
 #: conf/verificationpreferences.ui:93
 #, kde-format
 msgid "Automatic verification"
-msgstr ""
+msgstr "ავტომატური გადამოწმება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticDownloading)
 #: conf/verificationpreferences.ui:100
@@ -2131,7 +2131,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, kde-format
 msgid "Availability"
-msgstr ""
+msgstr "წვდომადობა"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
 #, kde-format
@@ -2172,7 +2172,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:352
 #, kde-format
 msgid "Interesting"
-msgstr ""
+msgstr "საინტერესო"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:359
 #, kde-format
@@ -3403,7 +3403,7 @@ msgstr "რეგულარული ექსპრესია"
 #, kde-format
 msgctxt "name of a file"
 msgid "Name"
-msgstr ""
+msgstr "სახელი"
 
 #: ui/linkview/kget_linkview.cpp:115
 #, kde-format
@@ -3414,7 +3414,7 @@ msgstr "&გადმოწერა"
 #: ui/linkview/kget_linkview.cpp:153
 #, kde-format
 msgid "Auxiliary header"
-msgstr ""
+msgstr "დამატებითი თავსართი"
 
 #: ui/linkview/kget_linkview.cpp:154
 #, kde-format
@@ -3503,7 +3503,7 @@ msgstr "ენა:"
 #: ui/metalinkcreator/commondata.ui:86
 #, kde-format
 msgid "Operating systems:"
-msgstr ""
+msgstr "ოპერაციული სისტემები:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, os)
 #: ui/metalinkcreator/commondata.ui:93
@@ -4002,7 +4002,7 @@ msgstr "არასდროს"
 #, kde-format
 msgctxt "trust level"
 msgid "Marginal"
-msgstr ""
+msgstr "საბოლოო"
 
 #: ui/signaturedlg.cpp:43
 #, kde-format
@@ -4014,7 +4014,7 @@ msgstr "სრული"
 #, kde-format
 msgctxt "trust level"
 msgid "Ultimate"
-msgstr ""
+msgstr "უკანასკნელი"
 
 #: ui/signaturedlg.cpp:50
 #, kde-format
@@ -4058,12 +4058,12 @@ msgstr ""
 #: ui/signaturedlg.cpp:195
 #, kde-format
 msgid "The key has been revoked."
-msgstr ""
+msgstr "გასაღები გაუქმდა."
 
 #: ui/signaturedlg.cpp:199
 #, kde-format
 msgid "The key is disabled."
-msgstr ""
+msgstr "გასაღები გამორთულია."
 
 #: ui/signaturedlg.cpp:203
 #, kde-format
@@ -4073,7 +4073,7 @@ msgstr ""
 #: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is expired."
-msgstr ""
+msgstr "გასაღები ვადაგასულია."
 
 #: ui/signaturedlg.cpp:222
 #, kde-format
