@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-26 00:52+0000\n"
-"PO-Revision-Date: 2022-12-27 08:35+0100\n"
+"PO-Revision-Date: 2022-12-28 09:23+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -859,7 +859,7 @@ msgstr ""
 #: core/kget.cpp:1508
 #, kde-format
 msgid "Downloads completed"
-msgstr ""
+msgstr "გადმოწერები დასრულდა"
 
 #: core/kget.h:367 main.cpp:101 mainwindow.cpp:95 mainwindow.cpp:531
 #: ui/tray.cpp:44
@@ -1138,7 +1138,7 @@ msgstr ""
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
 #, kde-format
 msgid "File already exists. Overwrite it?"
-msgstr ""
+msgstr "ფაილი უკვე არსებობს. გადავაწერო?"
 
 #: core/urlchecker.cpp:388 core/urlchecker.cpp:414
 #, kde-format
@@ -1174,6 +1174,9 @@ msgid ""
 "%1\n"
 "Overwrite it?"
 msgstr ""
+"ფაილი უკვე არსებობს:\n"
+"%1\n"
+"გადავაწერო?"
 
 #: core/urlchecker.cpp:456
 #, kde-format
@@ -1486,7 +1489,7 @@ msgstr ""
 #: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
-msgstr ""
+msgstr "&ახალი გადმოწერა..."
 
 #: mainwindow.cpp:153
 #, kde-format
