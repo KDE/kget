@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-26 00:52+0000\n"
-"PO-Revision-Date: 2022-12-28 09:23+0100\n"
+"PO-Revision-Date: 2022-12-29 10:06+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -272,7 +272,7 @@ msgstr " წმ"
 #: conf/dlgwebinterface.cpp:44 conf/dlgwebinterface.cpp:56
 #, kde-format
 msgid "Could not open KWallet"
-msgstr ""
+msgstr "KWallet-ის გახსნის შეცდომა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
 #: conf/dlgwebinterface.ui:20
@@ -343,7 +343,7 @@ msgstr "პროგრამული ძილი"
 #: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
-msgstr ""
+msgstr "კომპიუტერის დაძინება"
 
 #: conf/preferencesdialog.cpp:70
 #, kde-format
@@ -353,7 +353,7 @@ msgstr "გარემოს იერსახე"
 #: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Change appearance settings"
-msgstr ""
+msgstr "გარეგნობის პარამეტრების შეცვლა"
 
 #: conf/preferencesdialog.cpp:71
 #, kde-format
@@ -423,7 +423,7 @@ msgstr "ახალი ჯგუფი"
 #: conf/verificationpreferences.ui:17
 #, kde-format
 msgid "Automatic checksums verification"
-msgstr ""
+msgstr "საკონტროლო ჯამების ავტომატური გადამოწმება"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: conf/verificationpreferences.ui:32
@@ -474,7 +474,7 @@ msgstr ""
 #: conf/verificationpreferences.ui:123
 #, kde-format
 msgid "Keyservers:"
-msgstr ""
+msgstr "გასაღების სერვერები:"
 
 #: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
 #: core/kget.cpp:1402 transfer-plugins/metalink/metalink.cpp:202
