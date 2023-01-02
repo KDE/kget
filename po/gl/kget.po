@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-26 00:52+0000\n"
+"POT-Creation-Date: 2023-01-02 01:00+0000\n"
 "PO-Revision-Date: 2019-07-13 12:48+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <kde-i18n-doc@kde.org>\n"
@@ -984,7 +984,7 @@ msgid "Delayed"
 msgstr "Adiado"
 
 #: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
-#: transfer-plugins/bittorrent/bttransfer.cpp:289
+#: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
 msgctxt "transfer state: stopped"
@@ -996,14 +996,14 @@ msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "Interrompido"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:210
-#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "Rematado"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:160
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -1146,7 +1146,7 @@ msgstr "Non se indicou un enderezo URL."
 
 #: core/urlchecker.cpp:326
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:91
-#: transfer-plugins/bittorrent/bttransfer.cpp:251
+#: transfer-plugins/bittorrent/bttransfer.cpp:275
 #, kde-format
 msgid "Malformed URL."
 msgstr "URL mal formado."
@@ -2691,39 +2691,46 @@ msgstr "Cartafol temporal predeterminado:"
 msgid "Pre-allocate disk space"
 msgstr "Reservar espazo en disco"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:134
+#: transfer-plugins/bittorrent/bttransfer.cpp:126
+#, fuzzy, kde-format
+#| msgid "Select a default torrent folder"
+msgctxt "@title"
+msgid "Select a New Torrent File"
+msgstr "Escoller un cartafol predeterminado para torrents"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
 msgstr "Descargando ficheiro torrent…"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:174
-#: transfer-plugins/bittorrent/bttransfer.cpp:271
+#: transfer-plugins/bittorrent/bttransfer.cpp:198
+#: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
 msgstr "Descargando…"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:245
+#: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Non se pode engadir un localizador a un torrent privado."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:384
+#: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "O ficheiro de torrente non existe."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:390
+#: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Analizando torrent…"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:406
+#: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Non se pode inicializar o porto…"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:476
+#: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -4748,9 +4755,6 @@ msgstr "Pechar"
 #~ msgctxt "@label text in footer"
 #~ msgid "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS"
 #~ msgstr "Interface web de Kget | XHTML 1.0 Strict correcto &amp; CSS"
-
-#~ msgid "Select a default torrent folder"
-#~ msgstr "Escoller un cartafol predeterminado para torrents"
 
 #~ msgid "Select a default temporary folder"
 #~ msgstr "Escoller un cartafol predeterminado para ficheiros temporais"

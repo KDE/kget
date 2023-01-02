@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-26 00:52+0000\n"
+"POT-Creation-Date: 2023-01-02 01:00+0000\n"
 "PO-Revision-Date: 2019-05-01 21:10+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -954,7 +954,7 @@ msgid "Delayed"
 msgstr "延遲"
 
 #: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
-#: transfer-plugins/bittorrent/bttransfer.cpp:289
+#: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
 msgctxt "transfer state: stopped"
@@ -966,14 +966,14 @@ msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "已中止"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:210
-#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "已完成"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:160
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -1115,7 +1115,7 @@ msgstr "未指定網址。"
 
 #: core/urlchecker.cpp:326
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:91
-#: transfer-plugins/bittorrent/bttransfer.cpp:251
+#: transfer-plugins/bittorrent/bttransfer.cpp:275
 #, kde-format
 msgid "Malformed URL."
 msgstr "不正確的網址。"
@@ -2641,39 +2641,45 @@ msgstr "預設暫存資料夾："
 msgid "Pre-allocate disk space"
 msgstr "預先配置磁碟空間"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:134
+#: transfer-plugins/bittorrent/bttransfer.cpp:126
+#, kde-format
+msgctxt "@title"
+msgid "Select a New Torrent File"
+msgstr ""
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
 msgstr "下載 Torrent 檔案中..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:174
-#: transfer-plugins/bittorrent/bttransfer.cpp:271
+#: transfer-plugins/bittorrent/bttransfer.cpp:198
+#: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
 msgstr "下載中..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:245
+#: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
 msgid "Cannot add a tracker to a private torrent."
 msgstr "無法新增追蹤器到私有的 torrent。"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:384
+#: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "Torrent 檔不存在"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:390
+#: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "分析 torrent 中..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:406
+#: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "無法初始化連接埠..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:476
+#: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."

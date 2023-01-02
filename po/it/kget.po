@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-26 00:52+0000\n"
+"POT-Creation-Date: 2023-01-02 01:00+0000\n"
 "PO-Revision-Date: 2022-10-24 16:20+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -989,7 +989,7 @@ msgid "Delayed"
 msgstr "Rimandato"
 
 #: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
-#: transfer-plugins/bittorrent/bttransfer.cpp:289
+#: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
 msgctxt "transfer state: stopped"
@@ -1001,14 +1001,14 @@ msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "Annullato"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:210
-#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "Completato"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:160
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -1151,7 +1151,7 @@ msgstr "Nessun URL specificato."
 
 #: core/urlchecker.cpp:326
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:91
-#: transfer-plugins/bittorrent/bttransfer.cpp:251
+#: transfer-plugins/bittorrent/bttransfer.cpp:275
 #, kde-format
 msgid "Malformed URL."
 msgstr "URL non valido."
@@ -2700,39 +2700,47 @@ msgstr "Cartella temporanea predefinita:"
 msgid "Pre-allocate disk space"
 msgstr "Spazio su disco preallocato"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:134
+# | msgid "Default Folder"
+#: transfer-plugins/bittorrent/bttransfer.cpp:126
+#, fuzzy, kde-format
+#| msgid "Select a default torrent folder"
+msgctxt "@title"
+msgid "Select a New Torrent File"
+msgstr "Seleziona una cartella predefinita per i torrent"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
 msgstr "Scaricamento in corso del file torrent..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:174
-#: transfer-plugins/bittorrent/bttransfer.cpp:271
+#: transfer-plugins/bittorrent/bttransfer.cpp:198
+#: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
 msgstr "Scaricamento in corso..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:245
+#: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Impossibile aggiungere server traccia ad un torrent privato."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:384
+#: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "Il file torrent non esiste"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:390
+#: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Analisi del torrent in corso..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:406
+#: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Impossibile analizzare la porta..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:476
+#: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -4768,10 +4776,6 @@ msgstr "Chiudi"
 #~ msgctxt "Number of paralell connections to the mirror"
 #~ msgid "Connections"
 #~ msgstr "Connessioni"
-
-# | msgid "Default Folder"
-#~ msgid "Select a default torrent folder"
-#~ msgstr "Seleziona una cartella predefinita per i torrent"
 
 # | msgid "Default Folder"
 #~ msgid "Select a default temporary folder"

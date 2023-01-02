@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-26 00:52+0000\n"
+"POT-Creation-Date: 2023-01-02 01:00+0000\n"
 "PO-Revision-Date: 2010-03-04 21:36+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -1011,7 +1011,7 @@ msgid "Delayed"
 msgstr "ถูกหน่วงเวลาแล้ว"
 
 #: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
-#: transfer-plugins/bittorrent/bttransfer.cpp:289
+#: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
 msgctxt "transfer state: stopped"
@@ -1023,14 +1023,14 @@ msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "ยุติแล้ว"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:210
-#: transfer-plugins/bittorrent/bttransfer.cpp:287
+#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "เสร็จสิ้น"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:160
+#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -1178,7 +1178,7 @@ msgstr "ยังไม่ระบุ"
 
 #: core/urlchecker.cpp:326
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:91
-#: transfer-plugins/bittorrent/bttransfer.cpp:251
+#: transfer-plugins/bittorrent/bttransfer.cpp:275
 #, kde-format
 msgid "Malformed URL."
 msgstr "รูปแบบที่อยู่ URL ไม่ถูกต้อง"
@@ -2868,40 +2868,47 @@ msgstr "โฟลเดอร์ชั่วคราวปริยาย"
 msgid "Pre-allocate disk space"
 msgstr "จองเนื้อที่บนดิสก์ไว้ก่อน"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:134
+#: transfer-plugins/bittorrent/bttransfer.cpp:126
+#, fuzzy, kde-format
+#| msgid "Select a default torrent folder"
+msgctxt "@title"
+msgid "Select a New Torrent File"
+msgstr "เลือกโฟลเดอร์ทอร์เรนต์ปริยาย"
+
+#: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
 msgstr "กำลังดาวน์โหลดแฟ้มทอร์เรนต์..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:174
-#: transfer-plugins/bittorrent/bttransfer.cpp:271
+#: transfer-plugins/bittorrent/bttransfer.cpp:198
+#: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
 msgstr "กำลังดาวน์โหลด..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:245
+#: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
 msgid "Cannot add a tracker to a private torrent."
 msgstr "ไม่สามารถเพิ่มแทร็กเกอร์ไปยังทอร์เรนต์ส่วนตัวได้"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:384
+#: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, fuzzy, kde-format
 #| msgid "The directory %1 does not exist"
 msgid "Torrent file does not exist"
 msgstr "ยังไม่มีไดเรกทอรี %1 อยู่"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:390
+#: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "กำลังวิเคราะห์แฟ้มทอร์เรนต์..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:406
+#: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:476
+#: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -4968,9 +4975,6 @@ msgstr ""
 #~ msgctxt "Number of paralell connections to the mirror"
 #~ msgid "Connections"
 #~ msgstr "การเชื่อมต่อต่าง ๆ"
-
-#~ msgid "Select a default torrent folder"
-#~ msgstr "เลือกโฟลเดอร์ทอร์เรนต์ปริยาย"
 
 #~ msgid "Select a default temporary folder"
 #~ msgstr "เลือกโฟลเดอร์ทอร์เรนต์ชั่วคราวปริยาย"
