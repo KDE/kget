@@ -6,13 +6,13 @@
 # Andriy Rysin <rysin@kde.org>, 2002, 2003.
 # Eugene Onischenko <oneugene@ukr.net>, 2002, 2003, 2004, 2005.
 # Ivan Petrouchtchak <fr.ivan@ukrainian-orthodox.org>, 2004, 2005, 2006, 2007, 2008.
-# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2019, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2019, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:00+0000\n"
-"PO-Revision-Date: 2022-10-22 09:34+0300\n"
+"PO-Revision-Date: 2023-01-02 08:55+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -2691,11 +2691,10 @@ msgid "Pre-allocate disk space"
 msgstr "Попереднє виділення простору на диску"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "Виберіть типову теку торента"
+msgstr "Виберіть новий файл торента"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format

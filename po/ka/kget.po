@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:00+0000\n"
-"PO-Revision-Date: 2023-01-01 08:04+0100\n"
+"PO-Revision-Date: 2023-01-02 05:13+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1721,12 +1721,12 @@ msgstr "გასვლის დადასტურება"
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
-msgstr ""
+msgstr "გადმოწერების გატანა"
 
 #: mainwindow.cpp:616
 #, kde-format
 msgid "KGet Transfer List"
-msgstr ""
+msgstr "KGet -ის გადმოწერების სია"
 
 #: mainwindow.cpp:616
 #, kde-format
@@ -1784,7 +1784,7 @@ msgstr "&გადმოწერა"
 #: mainwindow.cpp:1222 ui/droptarget.cpp:215
 #, kde-format
 msgid "&Load transfer list"
-msgstr ""
+msgstr "&გადმოწერების სიის ჩატვირთვა"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:53
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:57
@@ -1872,7 +1872,7 @@ msgstr "ჯამი:"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:59
 #, kde-format
 msgid "Currently downloading:"
-msgstr ""
+msgstr "ამჟამად მიმდინარეობს გადმოწერა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
@@ -2170,7 +2170,7 @@ msgstr "ატვირთულია"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:350
 #, kde-format
 msgid "Interested"
-msgstr ""
+msgstr "დაინტერესებულია"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:352
 #, kde-format
@@ -2943,7 +2943,7 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/segment.cpp:284
 #, kde-format
 msgid "Failed to write to the file."
-msgstr ""
+msgstr "ფაილში ჩაწერის შეცდომა."
 
 #: ui/contextmenu.cpp:115
 #, kde-format
@@ -3344,13 +3344,13 @@ msgstr "ყვე&ლაფრის მონიშვნა"
 #: ui/linkview/importlinkdialog.ui:205 ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "D&eselect All"
-msgstr ""
+msgstr "&მონიშვნის ყველაფერზე მოხსნა"
 
 #. i18n: ectx: property (text), widget (QPushButton, invertSelection)
 #: ui/linkview/importlinkdialog.ui:221
 #, kde-format
 msgid "Inver&t Selection"
-msgstr ""
+msgstr "&მონიშვნის ინვერსია"
 
 #: ui/linkview/kget_linkview.cpp:41
 #, kde-format
