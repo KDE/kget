@@ -3,7 +3,7 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2017, 2019, 2020.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2010, 2012, 2013.
 # Lukáš Tinkl <ltinkl@redhat.com>, 2010.
-# Vit Pelcak <vpelcak@suse.cz>, 2021, 2022.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2022.
 #
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
 "PO-Revision-Date: 2022-07-14 14:25+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -709,11 +709,10 @@ msgstr "Stáhnout znovu?"
 #: transfer-plugins/metalink/metalink.cpp:126
 #: transfer-plugins/metalink/metalinkxml.cpp:124
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:265
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr "Stáhnout znovu"
+msgstr ""
 
 #: core/kget.cpp:1069 core/kget.cpp:1091 core/kget.cpp:1159
 #, kde-format
@@ -937,11 +936,10 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Chybí klíč na ověření podpisu. Přejete si jej stáhnout?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "Stahování"
+msgstr ""
 
 #: core/signature.cpp:238
 #, kde-format
@@ -2914,7 +2912,7 @@ msgstr "Ověřování selhalo."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorovat"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:222
 #: transfer-plugins/metalink/metalink.cpp:506
@@ -2934,7 +2932,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorovat"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
