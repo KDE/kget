@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:00+0000\n"
-"PO-Revision-Date: 2023-01-02 05:13+0100\n"
+"PO-Revision-Date: 2023-01-03 09:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1220,11 +1220,13 @@ msgid ""
 "Destinations are not writable:\n"
 "%1"
 msgstr ""
+"სამიზნე ჩაწერადი არაა:\n"
+"%1"
 
 #: core/urlchecker.cpp:500
 #, kde-format
 msgid "Files exist already. Overwrite them?"
-msgstr ""
+msgstr "ფაილები უკვე არსებობს. გადავაწერო?"
 
 #: core/urlchecker.cpp:502
 #, kde-format
@@ -1504,7 +1506,7 @@ msgstr ""
 #: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr ""
+msgstr "&მეტაბმულის შექმნა..."
 
 #: mainwindow.cpp:173
 #, kde-format
