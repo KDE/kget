@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:00+0000\n"
-"PO-Revision-Date: 2023-01-03 09:17+0100\n"
+"PO-Revision-Date: 2023-01-04 07:20+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -832,7 +832,7 @@ msgstr ""
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
-msgstr ""
+msgstr "კომპიუტერის ჰიბერნაცია"
 
 #: core/kget.cpp:1488
 #, kde-format
@@ -843,7 +843,7 @@ msgstr ""
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
-msgstr ""
+msgstr "პროგრამული ძილი"
 
 #: core/kget.cpp:1499
 #, kde-format
@@ -1055,27 +1055,27 @@ msgstr "გადმოწერის საქაღალდე მითი�
 #: core/urlchecker.cpp:302
 #, kde-format
 msgid "Invalid download directory specified."
-msgstr ""
+msgstr "მითითებული გადმოწერის საქაღალდე არასწორია."
 
 #: core/urlchecker.cpp:304
 #, kde-format
 msgid "Download directory is not writeable."
-msgstr ""
+msgstr "გადმოწერის საქაღალდე ჩაწერადი არაა"
 
 #: core/urlchecker.cpp:312 core/urlchecker.cpp:352
 #, kde-format
 msgid "No download destination specified."
-msgstr ""
+msgstr "გადმოწერის სამიზნე მითითებული არაა."
 
 #: core/urlchecker.cpp:314
 #, kde-format
 msgid "Invalid download destination specified."
-msgstr ""
+msgstr "გადმოწერის სამიზნე არასწორია."
 
 #: core/urlchecker.cpp:316
 #, kde-format
 msgid "Download destination is not writeable."
-msgstr ""
+msgstr "გადმოწერის სამიზნე ჩაწერადი არაა."
 
 #: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
 #: core/urlchecker.cpp:468
@@ -1106,6 +1106,8 @@ msgid ""
 "Invalid download directory specified:\n"
 "%1"
 msgstr ""
+"მითითებული გადმოწერის საქაღალდე არასწორია:\n"
+"%1"
 
 #: core/urlchecker.cpp:344
 #, kde-format
@@ -1113,6 +1115,8 @@ msgid ""
 "Download directory is not writeable:\n"
 "%1"
 msgstr ""
+"გადმოწერის საქაღალდე ჩაწერადი არაა:\n"
+"%1"
 
 #: core/urlchecker.cpp:354
 #, kde-format
@@ -1120,6 +1124,8 @@ msgid ""
 "Invalid download destination specified:\n"
 "%1"
 msgstr ""
+"გადმოწერის სამიზნე არასწორია:\n"
+"%1"
 
 #: core/urlchecker.cpp:356
 #, kde-format
@@ -1127,6 +1133,8 @@ msgid ""
 "Download destination is not writeable:\n"
 "%1"
 msgstr ""
+"გადმოწერის სამიზნე ჩაწერადი არაა:\n"
+"%1"
 
 #: core/urlchecker.cpp:370
 #, kde-format
@@ -1409,7 +1417,7 @@ msgstr "Ernesto Rodriguez Ortiz"
 #: main.cpp:118
 #, kde-format
 msgid "Mms Plugin Author"
-msgstr ""
+msgstr "MMS-ის დამატების ავტორი"
 
 #: main.cpp:119
 #, kde-format
@@ -1439,7 +1447,7 @@ msgstr "Joris Guisson"
 #: main.cpp:122
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
-msgstr ""
+msgstr "BTCore (KTorrent) -ის პროგრამისტი"
 
 #: main.cpp:123
 #, kde-format
@@ -1449,7 +1457,7 @@ msgstr "Mensur Zahirovic (Nookie)"
 #: main.cpp:123
 #, kde-format
 msgid "Design of Web Interface"
-msgstr ""
+msgstr "ვებ ინტერფეისის დიზაინი"
 
 #: main.cpp:125
 #, kde-format
@@ -1486,7 +1494,7 @@ msgstr ""
 #: main.cpp:138
 #, kde-format
 msgid "URL(s) to download"
-msgstr ""
+msgstr "გადმოწერის URL(-ებ)-ი"
 
 #: mainwindow.cpp:146
 #, kde-format
@@ -1496,7 +1504,7 @@ msgstr "&ახალი გადმოწერა..."
 #: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
-msgstr ""
+msgstr "გადმოწერების &შემოტანა..."
 
 #: mainwindow.cpp:160
 #, kde-format
