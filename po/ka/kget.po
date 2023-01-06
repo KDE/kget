@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:00+0000\n"
-"PO-Revision-Date: 2023-01-04 07:20+0100\n"
+"PO-Revision-Date: 2023-01-05 05:28+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -761,6 +761,9 @@ msgid ""
 "%1\n"
 "as it is a directory."
 msgstr ""
+"%1\n"
+"არ წაიშლება\n"
+"რადგან ის საქაღალდეა."
 
 #: core/kget.cpp:1267
 #, kde-format
@@ -769,6 +772,9 @@ msgid ""
 "%1\n"
 "as it is not a local file."
 msgstr ""
+"%1\n"
+"არ წაიშლება.\n"
+"ის ლოკალური ფაილი არაა."
 
 #: core/kget.cpp:1389
 #, kde-format
@@ -1060,7 +1066,7 @@ msgstr "მითითებული გადმოწერის საქ�
 #: core/urlchecker.cpp:304
 #, kde-format
 msgid "Download directory is not writeable."
-msgstr "გადმოწერის საქაღალდე ჩაწერადი არაა"
+msgstr "გადმოწერის საქაღალდე ჩაწერადი არაა."
 
 #: core/urlchecker.cpp:312 core/urlchecker.cpp:352
 #, kde-format
