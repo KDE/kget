@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:00+0000\n"
-"PO-Revision-Date: 2023-01-05 05:28+0100\n"
+"PO-Revision-Date: 2023-01-06 07:19+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -31,7 +31,7 @@ msgstr "სინტაქსი"
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
 #, kde-format
 msgid "Escape sequences"
-msgstr ""
+msgstr "მმართველი მიმდევრობები"
 
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:39
 #, kde-format
@@ -66,7 +66,7 @@ msgstr "გაშვებისას:"
 #: conf/dlgadvanced.ui:50
 #, kde-format
 msgid "Restore Download State"
-msgstr ""
+msgstr "გადმოწერის მდგომარეობის აღდგენა"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:55
@@ -96,19 +96,19 @@ msgstr ""
 #: conf/dlgadvanced.ui:92
 #, kde-format
 msgid "Show every single download "
-msgstr ""
+msgstr "ყველა გადმოწერის ჩვენება "
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
 #: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Show overall progress"
-msgstr ""
+msgstr "სრული მიმდინარეობის ჩვენება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: conf/dlgadvanced.ui:109
 #, kde-format
 msgid "Handle existing Files/Transfers"
-msgstr ""
+msgstr "არსებული ფაილების/გადმოწერების დამუშავება"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
 #: conf/dlgadvanced.ui:115
@@ -132,7 +132,7 @@ msgstr "თავზე გადაწერა"
 #: conf/dlgappearance.ui:17
 #, kde-format
 msgid "Use Drop Target"
-msgstr ""
+msgstr "სამიზნის გადათრევის გამოყენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
 #: conf/dlgappearance.ui:29
@@ -198,7 +198,7 @@ msgstr "პრიორიტეტის &დაწევა"
 #: conf/dlgnetwork.ui:19
 #, kde-format
 msgid "Maximum downloads per group:"
-msgstr ""
+msgstr "მაქსიმუმ გადმოწერები თითოეული ჯგუფისთვის:"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_MaxConnections)
 #: conf/dlgnetwork.ui:26
@@ -1827,7 +1827,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
 #, kde-format
 msgid "Chunk"
-msgstr ""
+msgstr "ნაგლეჯი"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:220
 #, kde-format
@@ -1853,7 +1853,7 @@ msgstr "ნაჭრების რაოდენობა"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:235
 #, kde-format
 msgid "Download progress of the chunk"
-msgstr ""
+msgstr "ნაგლეჯის გადმოწერის მიმდინარეობა"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:237
 #, kde-format
@@ -1876,7 +1876,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:154
 #, kde-format
 msgid "Chunks"
-msgstr ""
+msgstr "ნაგლეჯები"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:23
@@ -1904,7 +1904,7 @@ msgstr "გადმოწერილია:"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:205
 #, kde-format
 msgid "Excluded:"
-msgstr ""
+msgstr "გამორიცხული:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4_2)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:167
@@ -2300,17 +2300,17 @@ msgstr "სტატუსი"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:138
 #, kde-format
 msgid "Seeders"
-msgstr ""
+msgstr "სიდერები"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:140
 #, kde-format
 msgid "Leechers"
-msgstr ""
+msgstr "ლიჩერები"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:142
 #, kde-format
 msgid "Times Downloaded"
-msgstr ""
+msgstr "გადმოწერების რაოდენობა"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:144
 #, kde-format
@@ -2327,7 +2327,7 @@ msgstr "ტრეკერის დამატება"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #, kde-format
 msgid "Enter the URL of the tracker:"
-msgstr ""
+msgstr "შეიყვანეთ ტრეკერის URL:"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
@@ -2424,7 +2424,7 @@ msgstr "სტატისტიკა"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:47
 #, kde-format
 msgid "Seeders:"
-msgstr ""
+msgstr "სიდერები:"
 
 #. i18n: ectx: property (text), widget (QLabel, seederLabel)
 #. i18n: ectx: property (text), widget (QLabel, dlSpeedLabel)
@@ -2456,7 +2456,7 @@ msgstr "გადმოწერის სიჩქარე:"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:99
 #, kde-format
 msgid "Leechers:"
-msgstr ""
+msgstr "ლიჩერები:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:125
