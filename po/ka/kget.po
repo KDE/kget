@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:00+0000\n"
-"PO-Revision-Date: 2023-01-06 07:19+0100\n"
+"PO-Revision-Date: 2023-01-07 08:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -821,7 +821,7 @@ msgstr ""
 #: core/kget.cpp:1472
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
-msgstr ""
+msgstr "კომპიუტერი გამოირთვება, რადგან ყველა გადმოწერა დასრულდა."
 
 #: core/kget.cpp:1474
 #, kde-format
@@ -832,7 +832,7 @@ msgstr "გამორთვა"
 #: core/kget.cpp:1480
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
-msgstr ""
+msgstr "კომპიუტერი პროგრამულად დაიძინებს, რადგან ყველა გადმოწერა დასრულდა."
 
 #: core/kget.cpp:1482
 #, kde-format
@@ -843,7 +843,7 @@ msgstr "კომპიუტერის ჰიბერნაცია"
 #: core/kget.cpp:1488
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
-msgstr ""
+msgstr "კომპიუტერი დაიძინებს, რადგან ყველა გადმოწერა დასრულდა."
 
 #: core/kget.cpp:1490
 #, kde-format
@@ -860,7 +860,7 @@ msgstr "შეწყვეტა"
 #: core/kget.cpp:1508
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
-msgstr ""
+msgstr "<p>ყველა გადმოწერა გაუქმდა.</p>"
 
 #: core/kget.cpp:1508
 #, kde-format
@@ -1099,12 +1099,12 @@ msgstr "არასწორი ღ₾."
 #: core/urlchecker.cpp:328
 #, kde-format
 msgid "Malformed URL, protocol missing."
-msgstr ""
+msgstr "არასწორი URL. აკლია პროტოკოლი."
 
 #: core/urlchecker.cpp:330
 #, kde-format
 msgid "Malformed URL, host missing."
-msgstr ""
+msgstr "არასწორი URL. აკლია ჰოსტი."
 
 #: core/urlchecker.cpp:342
 #, kde-format
@@ -1148,6 +1148,8 @@ msgid ""
 "Malformed URL, host missing:\n"
 "%1"
 msgstr ""
+"არასწორი URL. აკლია ჰოსტი:\n"
+"%1"
 
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
 #, kde-format
@@ -1195,17 +1197,17 @@ msgstr ""
 #: core/urlchecker.cpp:456
 #, kde-format
 msgid "Malformed URLs."
-msgstr ""
+msgstr "არასწორი URL-ები."
 
 #: core/urlchecker.cpp:458
 #, kde-format
 msgid "Malformed URLs, protocol missing."
-msgstr ""
+msgstr "არასწორი URL-ები, პროტოკოლი აკლია."
 
 #: core/urlchecker.cpp:460
 #, kde-format
 msgid "Malformed URLs, host missing."
-msgstr ""
+msgstr "არასწორი URL-ები, ჰოსტი აკლია."
 
 #: core/urlchecker.cpp:470
 #, kde-format
@@ -1213,6 +1215,8 @@ msgid ""
 "Malformed URLs:\n"
 "%1"
 msgstr ""
+"არასწორი URL-ები:\n"
+"%1"
 
 #: core/urlchecker.cpp:472
 #, kde-format
@@ -1220,6 +1224,8 @@ msgid ""
 "Malformed URLs, protocol missing:\n"
 "%1"
 msgstr ""
+"არასწორი URL-ები, პროტოკოლი აკლია:\n"
+"%1"
 
 #: core/urlchecker.cpp:474
 #, kde-format
@@ -1227,6 +1233,8 @@ msgid ""
 "Malformed URLs, host missing:\n"
 "%1"
 msgstr ""
+"არასწორი URL-ები, ჰოსტი აკლია:\n"
+"%1"
 
 #: core/urlchecker.cpp:476
 #, kde-format
@@ -1769,7 +1777,7 @@ msgstr[1] ""
 #: mainwindow.cpp:736 mainwindow.cpp:776
 #, kde-format
 msgid "Confirm transfer delete"
-msgstr ""
+msgstr "გადმოწერის წაშლის დადასტურება"
 
 #: mainwindow.cpp:773
 #, kde-format
@@ -2525,7 +2533,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/btsettingswidget.ui:89
 #, kde-format
 msgid "Enable UTP protocol"
-msgstr ""
+msgstr "UTP პროტოკოლის ჩართვა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, folderGroupBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:105
@@ -2537,30 +2545,30 @@ msgstr "საქაღალდეები"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:117
 #, kde-format
 msgid "Default torrent folder:"
-msgstr ""
+msgstr "Torrent-ის ნაგულისხმები საქაღალდე:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:137
 #, kde-format
 msgid "Default temporary folder:"
-msgstr ""
+msgstr "ნაგულისხმები დროებითი საქაღალდე:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:154
 #, kde-format
 msgid "Pre-allocate disk space"
-msgstr ""
+msgstr "დისკზე ადგილის წინასწარი გამოყოფა"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
 #, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr ""
+msgstr "აირჩიეთ ახალი Torrent ფაილი"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
-msgstr ""
+msgstr "Torrent ფაილის გადმოწერა..."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:198
 #: transfer-plugins/bittorrent/bttransfer.cpp:295
