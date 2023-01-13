@@ -24,7 +24,7 @@ DlgWebinterface::DlgWebinterface(QDialog *parent)
     readConfig();
 
     connect(parent, &QDialog::accepted, this, &DlgWebinterface::saveSettings);
-    connect(webinterfacePwd, &KLineEdit::textChanged, this, &DlgWebinterface::changed);
+    connect(webinterfacePwd, &KPasswordLineEdit::passwordChanged, this, &DlgWebinterface::changed);
 }
 
 DlgWebinterface::~DlgWebinterface()
@@ -51,7 +51,7 @@ void DlgWebinterface::walletOpened(bool opened)
     if (opened && (m_wallet->hasFolder("KGet") || m_wallet->createFolder("KGet")) && m_wallet->setFolder("KGet")) {
         QString pwd;
         m_wallet->readPassword("Webinterface", pwd);
-        webinterfacePwd->setText(pwd);
+        webinterfacePwd->setPassword(pwd);
     } else {
         KMessageBox::error(nullptr, i18n("Could not open KWallet"));
     }
@@ -60,7 +60,7 @@ void DlgWebinterface::walletOpened(bool opened)
 void DlgWebinterface::saveSettings()
 {
     if (m_wallet) {
-        m_wallet->writePassword("Webinterface", webinterfacePwd->text());
+        m_wallet->writePassword("Webinterface", webinterfacePwd->password());
     }
     Q_EMIT saved();
 }

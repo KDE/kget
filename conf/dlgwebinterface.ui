@@ -11,7 +11,16 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -62,12 +71,12 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="webinterfacePwd">
-        <property name="showClearButton" stdset="0">
+       <widget class="KPasswordLineEdit" name="webinterfacePwd">
+        <property name="clearButtonEnabled">
          <bool>true</bool>
         </property>
-        <property name="passwordMode">
-         <bool>true</bool>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
@@ -93,7 +102,12 @@
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>KLineEdit</header>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPasswordLineEdit</class>
+   <extends>QWidget</extends>
+   <header>kpasswordlineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
