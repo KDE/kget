@@ -293,14 +293,14 @@ void MainWindow::setupActions()
 
     auto *startActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-start"), i18n("Start"), actionCollection());
     actionCollection()->addAction("start_menu", startActionMenu);
-    startActionMenu->setDelayed(true);
+    startActionMenu->setPopupMode(QToolButton::DelayedPopup);
     startActionMenu->addAction(startSelectedAction);
     startActionMenu->addAction(startAllAction);
     connect(startActionMenu, &QAction::triggered, this, &MainWindow::slotStartDownload);
 
     auto *stopActionMenu = new KActionMenu(QIcon::fromTheme("media-playback-pause"), i18n("Pause"), actionCollection());
     actionCollection()->addAction("stop_menu", stopActionMenu);
-    stopActionMenu->setDelayed(true);
+    stopActionMenu->setPopupMode(QToolButton::DelayedPopup);
     stopActionMenu->addAction(stopSelectedAction);
     stopActionMenu->addAction(stopAllAction);
     connect(stopActionMenu, &QAction::triggered, this, &MainWindow::slotStopDownload);
