@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-14 00:56+0000\n"
-"PO-Revision-Date: 2023-01-12 19:08+0100\n"
+"PO-Revision-Date: 2023-01-13 08:32+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -2719,7 +2719,7 @@ msgstr "Dossier temporaire par défaut :"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:154
 #, kde-format
 msgid "Pre-allocate disk space"
-msgstr "Préallouer l'espace disque"
+msgstr "Pré-allouer l'espace disque"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
 #, kde-format
@@ -2924,7 +2924,7 @@ msgstr "Liste des moteurs de recherche disponibles"
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
 #, kde-format
 msgid "List of the available search engine URLs"
-msgstr "Liste des URLs des moteurs de recherche disponibles"
+msgstr "Liste des URL des moteurs de recherche disponibles"
 
 #: transfer-plugins/kio/transferKio.cpp:100
 #, kde-format
@@ -3047,7 +3047,7 @@ msgstr "Re-télécharger le Metalink"
 #: transfer-plugins/metalink/metalinkxml.cpp:200
 #, kde-format
 msgid "Download failed, no working URLs were found."
-msgstr "Échec du téléchargement, aucune des URLs ne fonctionne."
+msgstr "Échec du téléchargement, aucune des URL ne fonctionne."
 
 #: transfer-plugins/metalink/metalinkhttp.cpp:161
 #, kde-format
@@ -3809,9 +3809,9 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
-"Saisissez ici les URLs si les fichiers déposés sont sur ce serveur et dans "
-"le même dossier. Pour chaque fichier déposé, l'URL sera formée avec la "
-"partie saisie et le nom du fichier."
+"Saisissez ici les URL si les fichiers déposés sont sur ce serveur et dans le "
+"même dossier. Pour chaque fichier déposé, l'URL sera formée avec la partie "
+"saisie et le nom du fichier."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/metalinkcreator/dragdlg.ui:102
@@ -4374,7 +4374,7 @@ msgstr "Possède une signature PGP."
 #: ui/signaturedlg.ui:87
 #, kde-format
 msgid "Ascii PGP signature:"
-msgstr "Signature PGP Ascii :"
+msgstr "Signature PGP en ASCII :"
 
 #. i18n: ectx: property (text), widget (QPushButton, loadSignature)
 #: ui/signaturedlg.ui:112
