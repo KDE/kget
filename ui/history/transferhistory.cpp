@@ -272,9 +272,9 @@ void TransferHistory::slotLoadRangeType(int type)
         } else {
             range_view->setColumnWidth(0, 200);
             range_view->setColumnWidth(1, 250);
-            range_view->setColumnWidth(2, font->width(QDate::currentDate().toString()));
-            range_view->setColumnWidth(3, font->width("1500000 KiB"));
-            range_view->setColumnWidth(4, font->width(i18nc("the transfer has been finished", "Finished")));
+            range_view->setColumnWidth(2, font->horizontalAdvance(QDate::currentDate().toString()));
+            range_view->setColumnWidth(3, font->horizontalAdvance("1500000 KiB"));
+            range_view->setColumnWidth(4, font->horizontalAdvance(i18nc("the transfer has been finished", "Finished")));
         }
     }
 
