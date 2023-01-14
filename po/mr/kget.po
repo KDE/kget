@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 01:00+0000\n"
+"POT-Creation-Date: 2023-01-14 00:56+0000\n"
 "PO-Revision-Date: 2013-04-01 10:57+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -681,7 +681,7 @@ msgid "Download it again?"
 msgstr "ते पुन्हा डाउनलोड करायचे का?"
 
 #: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
-#: transfer-plugins/kio/transferKio.cpp:278
+#: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
@@ -2748,19 +2748,19 @@ msgstr ""
 msgid "List of the available search engine URLs"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:101
+#: transfer-plugins/kio/transferKio.cpp:100
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "जुळवत आहे..."
 
-#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/kio/transferKio.cpp:272
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:275
+#: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/metalink/abstractmetalink.cpp:224
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:164
@@ -2770,19 +2770,19 @@ msgctxt "@action:button"
 msgid "Repair"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:286
+#: transfer-plugins/kio/transferKio.cpp:284
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
 #, kde-format
 msgid "Verification failed."
 msgstr "तपासणी अपयशी झाली."
 
-#: transfer-plugins/kio/transferKio.cpp:288
+#: transfer-plugins/kio/transferKio.cpp:286
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"

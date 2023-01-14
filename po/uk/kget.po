@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 01:00+0000\n"
+"POT-Creation-Date: 2023-01-14 00:56+0000\n"
 "PO-Revision-Date: 2023-01-02 08:55+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -710,7 +710,7 @@ msgid "Download it again?"
 msgstr "Повторити отримання?"
 
 #: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
-#: transfer-plugins/kio/transferKio.cpp:278
+#: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
@@ -2895,19 +2895,19 @@ msgstr "Список доступних пошукових рушіїв"
 msgid "List of the available search engine URLs"
 msgstr "Список адрес доступних пошукових рушіїв"
 
-#: transfer-plugins/kio/transferKio.cpp:101
+#: transfer-plugins/kio/transferKio.cpp:100
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "Встановлення з’єднання..."
 
-#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/kio/transferKio.cpp:272
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "Не вдалося перевірити отримання (%1). Бажаєте полагодити його?"
 
-#: transfer-plugins/kio/transferKio.cpp:275
+#: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/metalink/abstractmetalink.cpp:224
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:164
@@ -2917,19 +2917,19 @@ msgctxt "@action:button"
 msgid "Repair"
 msgstr "Виправити"
 
-#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "Не вдалося перевірити отримання (%1). Бажаєте повторно отримати його?"
 
-#: transfer-plugins/kio/transferKio.cpp:286
+#: transfer-plugins/kio/transferKio.cpp:284
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
 #, kde-format
 msgid "Verification failed."
 msgstr "Спроба перевірки зазнала невдачі."
 
-#: transfer-plugins/kio/transferKio.cpp:288
+#: transfer-plugins/kio/transferKio.cpp:286
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"

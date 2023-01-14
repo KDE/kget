@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 01:00+0000\n"
+"POT-Creation-Date: 2023-01-14 00:56+0000\n"
 "PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -689,7 +689,7 @@ msgid "Download it again?"
 msgstr "要重新下载吗？"
 
 #: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
-#: transfer-plugins/kio/transferKio.cpp:278
+#: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
@@ -2836,19 +2836,19 @@ msgstr "可用搜索引擎列表"
 msgid "List of the available search engine URLs"
 msgstr "可用搜索引擎 URL 的列表"
 
-#: transfer-plugins/kio/transferKio.cpp:101
+#: transfer-plugins/kio/transferKio.cpp:100
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "正在连接..."
 
-#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/kio/transferKio.cpp:272
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "无法验证下载(%1)。您想要修复它吗？"
 
-#: transfer-plugins/kio/transferKio.cpp:275
+#: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/metalink/abstractmetalink.cpp:224
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:164
@@ -2858,19 +2858,19 @@ msgctxt "@action:button"
 msgid "Repair"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "无法验证下载(%1)。您想要重新下载它吗？"
 
-#: transfer-plugins/kio/transferKio.cpp:286
+#: transfer-plugins/kio/transferKio.cpp:284
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
 #, kde-format
 msgid "Verification failed."
 msgstr "验证失败。"
 
-#: transfer-plugins/kio/transferKio.cpp:288
+#: transfer-plugins/kio/transferKio.cpp:286
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"

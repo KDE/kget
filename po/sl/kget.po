@@ -1,7 +1,7 @@
 # translation of kget.po to
 # Translation of kget.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
-# $Id: kget.po 1641398 2023-01-04 03:31:44Z scripty $
+# $Id: kget.po 1642205 2023-01-14 01:48:08Z scripty $
 # $Source$
 #
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2002,2003, 2005, 2007.
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 01:00+0000\n"
+"POT-Creation-Date: 2023-01-14 00:56+0000\n"
 "PO-Revision-Date: 2023-01-03 16:37+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -714,7 +714,7 @@ msgid "Download it again?"
 msgstr "Želite prejem opraviti znova?"
 
 #: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
-#: transfer-plugins/kio/transferKio.cpp:278
+#: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
@@ -2915,19 +2915,19 @@ msgstr "Seznam razpoložljivih iskalnikov"
 msgid "List of the available search engine URLs"
 msgstr "Seznam razpoložljivih naslovov URL iskalnikov"
 
-#: transfer-plugins/kio/transferKio.cpp:101
+#: transfer-plugins/kio/transferKio.cpp:100
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "Povezovanje ..."
 
-#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/kio/transferKio.cpp:272
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "Prejetega (%1) ni bilo mogoče preveriti. Ali ga želite popraviti?"
 
-#: transfer-plugins/kio/transferKio.cpp:275
+#: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/metalink/abstractmetalink.cpp:224
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:164
@@ -2937,19 +2937,19 @@ msgctxt "@action:button"
 msgid "Repair"
 msgstr "Popravi"
 
-#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "Prejetega (%1) ni bilo mogoče preveriti. Ali ga želite prejeti znova?"
 
-#: transfer-plugins/kio/transferKio.cpp:286
+#: transfer-plugins/kio/transferKio.cpp:284
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
 #, kde-format
 msgid "Verification failed."
 msgstr "Preverjanje ni uspelo."
 
-#: transfer-plugins/kio/transferKio.cpp:288
+#: transfer-plugins/kio/transferKio.cpp:286
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
