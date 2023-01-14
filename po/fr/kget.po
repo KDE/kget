@@ -27,15 +27,15 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:44+0000\n"
-"PO-Revision-Date: 2022-10-23 09:32+0200\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
+"PO-Revision-Date: 2023-01-12 19:08+0100\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -1543,7 +1543,7 @@ msgstr "Ernesto Rodriguez Ortiz"
 #: main.cpp:119
 #, kde-format
 msgid "Mms Plugin Author"
-msgstr "Auteur du module Mms"
+msgstr "Auteur du module « MMS »"
 
 #: main.cpp:120
 #, kde-format
@@ -1642,7 +1642,7 @@ msgstr "&Exporter la liste des transferts..."
 #: mainwindow.cpp:169
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr "&Créer un Métalink..."
+msgstr "&Créer un Metalink..."
 
 #: mainwindow.cpp:175
 #, kde-format
@@ -3934,7 +3934,7 @@ msgstr "Informations générales :"
 msgid "Here you can enter optional general information on the metalink."
 msgstr ""
 "Vous pouvez saisir ici des informations générales et optionnelles sur le "
-"Métalink."
+"Metalink."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/generalwidget.ui:61
@@ -3946,14 +3946,14 @@ msgstr "Origine :"
 #: ui/metalinkcreator/generalwidget.ui:68
 #, kde-format
 msgid "Web URL to the metalink"
-msgstr "URL Web vers le Métalink"
+msgstr "URL Web vers le Metalink"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:75
 #, kde-format
 msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
 msgstr ""
-"« Dynamique » signifie que les Métalink actualisés peuvent être trouvés dans "
+"« Dynamique » signifie que les Metalink actualisés peuvent être trouvés dans "
 "« Origine »."
 
 #. i18n: ectx: property (text), widget (QLabel, labelDynamic)
@@ -3966,7 +3966,7 @@ msgstr "Dynamique :"
 #: ui/metalinkcreator/generalwidget.ui:110
 #, kde-format
 msgid "Metalink published"
-msgstr "Métalink publié"
+msgstr "Metalink publié"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #. i18n: ectx: property (text), widget (QLabel, label_29)
@@ -3996,7 +3996,7 @@ msgstr "Décalage négatif :"
 #: ui/metalinkcreator/generalwidget.ui:182
 #, kde-format
 msgid "Metalink updated"
-msgstr "Métalink actualisé"
+msgstr "Metalink actualisé"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/introduction.ui:17
@@ -4007,7 +4007,7 @@ msgid ""
 "enter them if desired. The minimum is a save location, at least one file and "
 "one URL."
 msgstr ""
-"Cet assistant vous permet de créer des Métalink à partir de rien, ou de les "
+"Cet assistant vous permet de créer des Metalink à partir de rien, ou de les "
 "baser à partir de fichiers existants. Beaucoup des champs sont optionnels ou "
 "recommandés, donc ne les saisissez que si vous le souhaitez. Le minimum "
 "reste l'emplacement d'enregistrement, au moins un fichier et une URL."
@@ -4016,30 +4016,30 @@ msgstr ""
 #: ui/metalinkcreator/introduction.ui:48
 #, kde-format
 msgid "Save created Metalink at:"
-msgstr "Enregistrer le Métalink créé sur :"
+msgstr "Enregistrer le Metalink créé sur :"
 
 #. i18n: ectx: property (text), widget (QRadioButton, createButton)
 #: ui/metalinkcreator/introduction.ui:78
 #, kde-format
 msgid "Create new Metalink"
-msgstr "Créer un nouveau Métalink"
+msgstr "Créer un nouveau Metalink"
 
 #. i18n: ectx: property (text), widget (QRadioButton, loadButton)
 #: ui/metalinkcreator/introduction.ui:88
 #, kde-format
 msgid "Load existing Metalink:"
-msgstr "Ouvrir un lien Métalink existant :"
+msgstr "Ouvrir un lien Metalink existant :"
 
 #. i18n: ectx: property (filter), widget (KUrlRequester, load)
 #: ui/metalinkcreator/introduction.ui:98
 #, kde-format
 msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Fichier Métalink (« *.metalink » « *.meta4 »)"
+msgstr "*.metalink *.meta4|Fichier Metalink (« *.metalink » « *.meta4 »)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:84
 #, kde-format
 msgid "Create a Metalink"
-msgstr "Créer un Métalink"
+msgstr "Créer un Metalink"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:103
 #, kde-format
@@ -4054,7 +4054,7 @@ msgstr "Vous devez définir les miroirs des entrées avec une icône."
 #: ui/metalinkcreator/metalinkcreator.cpp:118
 #, kde-format
 msgid "General optional information for the metalink."
-msgstr "Informations générales optionnelles sur le Métalink."
+msgstr "Informations générales optionnelles sur le Metalink."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:149
 #, kde-format
@@ -4064,12 +4064,12 @@ msgstr "Impossible de charger : %1"
 #: ui/metalinkcreator/metalinkcreator.cpp:176
 #, kde-format
 msgid "Metalink Version 4.0 file (*.meta4)"
-msgstr "Fichier Métalink version 4.0 (« *.meta4 »)"
+msgstr "Fichier Metalink version 4.0 (« *.meta4 »)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:176
 #, kde-format
 msgid "Metalink Version 3.0 file (*.metalink)"
-msgstr "Fichier Métalink version 3.0 (« *.metalink »)"
+msgstr "Fichier Metalink version 3.0 (« *.metalink »)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:183
 #, kde-format
