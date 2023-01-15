@@ -23,14 +23,14 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-14 00:56+0000\n"
-"PO-Revision-Date: 2023-01-02 12:09+0100\n"
+"PO-Revision-Date: 2023-01-13 10:40+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: conf/autopastemodel.cpp:174
@@ -783,7 +783,7 @@ msgstr "U bent hetzelfde bestand al aan het downloaden"
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
-msgstr "Bestand bestaat reeds"
+msgstr "Bestand bestaat al"
 
 #: core/kget.cpp:1229
 #, kde-format
