@@ -502,7 +502,12 @@ private:
     QTimer *m_finishAction;
     QHash<KNotification *, TransferHandler *> m_notifications;
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    // Silence deprecation warnings as there is no Qt 5 substitute for QNetworkConfigurationManager
+    QT_WARNING_PUSH
+    QT_WARNING_DISABLE_CLANG("-Wdeprecated-declarations")
+    QT_WARNING_DISABLE_GCC("-Wdeprecated-declarations")
     QNetworkConfigurationManager m_networkConfig;
+    QT_WARNING_POP
 #endif
 };
 #endif
