@@ -1765,7 +1765,7 @@ msgstr "Configuració de &grup"
 #: mainwindow.cpp:340
 #, kde-format
 msgid "&Transfer Settings"
-msgstr "Configuració de les &transferències"
+msgstr "Configureu les &transferències"
 
 #: mainwindow.cpp:346
 #, kde-format
@@ -2980,7 +2980,7 @@ msgstr "Seleccioneu els fitxers que voleu baixar."
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
 #, kde-format
 msgid "File Selection"
-msgstr "Seleccioneu el fitxer"
+msgstr "Seleccioneu un fitxer"
 
 #: transfer-plugins/metalink/metalink.cpp:76
 #: transfer-plugins/metalink/metalinkxml.cpp:73
@@ -4437,7 +4437,7 @@ msgstr "Destinació sense modificar"
 #: ui/transfersettingsdialog.ui:23
 #, kde-format
 msgid "Transfer Settings"
-msgstr "Configuració de les transferències"
+msgstr "Configureu les transferències"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/transfersettingsdialog.ui:35
