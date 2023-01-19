@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-14 00:56+0000\n"
-"PO-Revision-Date: 2023-01-04 22:36+0300\n"
+"PO-Revision-Date: 2023-01-18 22:32+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -2538,7 +2538,7 @@ msgstr ""
 "p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Not: </span>Sadece http web paylaşımları destekleniyor.</p></"
+"weight:600;\">Not: </span>Yalnızca http web paylaşımları destekleniyor.</p></"
 "body></html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add)
@@ -4268,7 +4268,7 @@ msgstr "Anahtara marjinal olarak güvenilmeli."
 #: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
-msgstr "Anahtarın güven seviyesi belli değil."
+msgstr "Anahtarın güven düzeyi belli değil."
 
 #: ui/signaturedlg.cpp:269
 #, kde-format
