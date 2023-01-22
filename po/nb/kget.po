@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 01:00+0000\n"
+"POT-Creation-Date: 2023-01-14 00:56+0000\n"
 "PO-Revision-Date: 2014-04-28 17:48+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -702,7 +702,7 @@ msgid "Download it again?"
 msgstr "Laste ned på nytt?"
 
 #: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
-#: transfer-plugins/kio/transferKio.cpp:278
+#: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
@@ -2877,19 +2877,19 @@ msgstr "Liste over tilgjengelige søkemotorer"
 msgid "List of the available search engine URLs"
 msgstr "Liste over tilgjengelige søkemotor-URLer"
 
-#: transfer-plugins/kio/transferKio.cpp:101
+#: transfer-plugins/kio/transferKio.cpp:100
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "Kobler til …"
 
-#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/kio/transferKio.cpp:272
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "Nedlastingen (%1) kunne ikke verifiseres. Vil du reparere den?"
 
-#: transfer-plugins/kio/transferKio.cpp:275
+#: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/metalink/abstractmetalink.cpp:224
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:164
@@ -2899,20 +2899,20 @@ msgctxt "@action:button"
 msgid "Repair"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr ""
 "Nedlastingen (%1) kunne ikke verifiseres. Vil du laste den ned på nytt?"
 
-#: transfer-plugins/kio/transferKio.cpp:286
+#: transfer-plugins/kio/transferKio.cpp:284
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
 #, kde-format
 msgid "Verification failed."
 msgstr "Verifisering mislykket ."
 
-#: transfer-plugins/kio/transferKio.cpp:288
+#: transfer-plugins/kio/transferKio.cpp:286
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
