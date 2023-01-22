@@ -299,7 +299,7 @@ void Commands::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
 
-    const int value = QRandomGenerator::global()->generate() % 10;
+    const int value = QRandomGenerator::global()->bounded(10);
     // 70% of the cases start, in 30% stop
     if (value > 2) {
         qCDebug(KGET_DEBUG) << this << "is randomly started.";
