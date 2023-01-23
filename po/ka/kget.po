@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-14 00:56+0000\n"
-"PO-Revision-Date: 2023-01-07 08:17+0100\n"
+"PO-Revision-Date: 2023-01-22 09:25+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -48,7 +48,7 @@ msgstr "სისტემის კუთხეში ხატულის ჩ
 #: conf/dlgadvanced.ui:26
 #, kde-format
 msgid "Execute action after all downloads have been finished:"
-msgstr ""
+msgstr "ქმედების შესრულება ყველა გადმოწერის დასრულების შემდეგ:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
 #: conf/dlgadvanced.ui:34 mainwindow.cpp:360 ui/droptarget.cpp:88
@@ -90,7 +90,7 @@ msgstr "ისტორიის უკანაბოლო:"
 #: conf/dlgadvanced.ui:80
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
-msgstr ""
+msgstr "KDE-ის გლობალური მიმდინარეობის ტრეკინგის ჩართვა"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
 #: conf/dlgadvanced.ui:92
@@ -144,13 +144,13 @@ msgstr "ანიმაციების ჩართვა"
 #: conf/dlggroups.ui:17
 #, kde-format
 msgid "Use default folders for groups as suggestion"
-msgstr ""
+msgstr "ჯგუფებისთვის რჩევის სახით ნაგულისხმები საქაღალდეების გამოყენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr ""
+msgstr "სამიზნის კითხვა, თუ ნაგულისხმები საქაღალდეები მითითებული არაა"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -168,13 +168,13 @@ msgstr "არჩიეთ ხატულა…"
 #: conf/dlgintegration.ui:17
 #, kde-format
 msgid "Use as download manager for Konqueror"
-msgstr ""
+msgstr "Konqueror-ის გადმოწერების მმართველად გამოყენება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
 #: conf/dlgintegration.ui:24
 #, kde-format
 msgid "Monitor Clipboard for Files to Download"
-msgstr ""
+msgstr "გადმოსაწერი ფაილებისთვის ბუფერის მონტორინგი"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: conf/dlgintegration.ui:36
@@ -249,7 +249,7 @@ msgstr "ყოველ გადაწერაზე:"
 #: conf/dlgnetwork.ui:119
 #, kde-format
 msgid "Reconnect on Broken Connection"
-msgstr ""
+msgstr "ხელახლა დაკავშირება კავშირის დაკარგვისას"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_retries_2)
 #: conf/dlgnetwork.ui:128
@@ -313,7 +313,7 @@ msgstr "გამორიცხვა"
 #: conf/kget.kcfg:176
 #, kde-format
 msgid "The width of the columns in the history view"
-msgstr ""
+msgstr "ისტორიის ხედის სვეტების სიგანე"
 
 #: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:80
 #, kde-format
@@ -598,6 +598,8 @@ msgid ""
 "The file %1 already exists.\n"
 "Overwrite?"
 msgstr ""
+"ფაილი %1 უკვე არსებობს.\n"
+"გადავაწერო?"
 
 #: core/kget.cpp:577
 #, kde-format
@@ -725,12 +727,12 @@ msgstr ""
 #: core/kget.cpp:1118 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
-msgstr ""
+msgstr "ფაილი უკვე გადმოწერილია. მაინც გადმოვწერო?"
 
 #: core/kget.cpp:1133
 #, kde-format
 msgid "You are already downloading the same file"
-msgstr ""
+msgstr "ამ ფაილს უკვე იწერთ"
 
 #: core/kget.cpp:1139 core/kget.cpp:1141 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:487
@@ -742,12 +744,12 @@ msgstr "ფაილი უკვე არსებობს"
 #: core/kget.cpp:1229
 #, kde-format
 msgid "Internet connection established, resuming transfers."
-msgstr ""
+msgstr "ინტერნეტკავშირი აღდგა. ვაგრძელებ გადმოწერას."
 
 #: core/kget.cpp:1232
 #, kde-format
 msgid "No internet connection, stopping transfers."
-msgstr ""
+msgstr "ინტერნეტკავშირი გაწყდა. გადმოწერებ შეჩერდება."
 
 #: core/kget.cpp:1246
 #, kde-format
@@ -1285,6 +1287,9 @@ msgid ""
 "%1\n"
 "Overwrite them?"
 msgstr ""
+"ფაილები უკვე არსებობს:\n"
+"%1\n"
+"გადავაწერო?"
 
 #: core/urlchecker.cpp:525
 #, kde-format
@@ -1347,7 +1352,7 @@ msgstr "დამოწმებულია"
 #: main.cpp:103
 #, kde-format
 msgid "An advanced download manager by KDE"
-msgstr ""
+msgstr "KDE-ის გაუმჯობესებული გადმოწერების მმართველი"
 
 #: main.cpp:105
 #, kde-format
@@ -1357,6 +1362,10 @@ msgid ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
+"(C) 2005 - 2014, KGet-ის პროგრამისტები\n"
+"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2002, Carsten Pfeiffer\n"
+"(C) 1998 - 2000, Matej Koss"
 
 #: main.cpp:109
 #, kde-format
@@ -1523,7 +1532,7 @@ msgstr "გადმოწერების &შემოტანა..."
 #: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
-msgstr ""
+msgstr "გადმოწერების სიის &გატანა..."
 
 #: mainwindow.cpp:167
 #, kde-format
@@ -1601,13 +1610,13 @@ msgstr "ყველა დასრულებულის წაშლა"
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
-msgstr ""
+msgstr "მონიშნულის მოცილება და ფაილების წაშლა"
 
 #: mainwindow.cpp:264
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
-msgstr ""
+msgstr "მონიშნულის თავიდან გადმოწერა"
 
 #: mainwindow.cpp:269
 #, kde-format
@@ -1682,7 +1691,7 @@ msgstr "&ბმულების შემოტანა..."
 #: mainwindow.cpp:352
 #, kde-format
 msgid "After downloads finished action"
-msgstr ""
+msgstr "როცა გადმოწერა დასრულდება"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
 #: mainwindow.cpp:356
@@ -1830,7 +1839,7 @@ msgstr "ტრეკერები"
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:76
 #, kde-format
 msgid "Webseeds"
-msgstr ""
+msgstr "სრული წყაროები"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
 #, kde-format
@@ -1866,17 +1875,17 @@ msgstr "ნაგლეჯის გადმოწერის მიმდი�
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:237
 #, kde-format
 msgid "Which peer we are downloading it from"
-msgstr ""
+msgstr "რომელი პარტნიორიდან ვიწერთ"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:239
 #, kde-format
 msgid "Download speed of the chunk"
-msgstr ""
+msgstr "ნაგლეჯის გადმოწერის სიჩქარე"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:241
 #, kde-format
 msgid "Which files the chunk is located in"
-msgstr ""
+msgstr "რომელ ფაილშია ეს ნაგლეჯი"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChunkDownloadView)
@@ -1984,7 +1993,7 @@ msgstr[1] ""
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
 #, kde-format
 msgid "Select a directory to move the data to"
-msgstr ""
+msgstr "აირჩიეთ საქაღალდე, სადაც მონაცემებს გადავიტან"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
@@ -2148,12 +2157,12 @@ msgstr "ატვირთვის სიჩქარე"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:332
 #, kde-format
 msgid "Choked"
-msgstr ""
+msgstr "უარყოფილია"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
 #, kde-format
 msgid "Snubbed"
-msgstr ""
+msgstr "დაეკიდა"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, kde-format
@@ -2173,7 +2182,7 @@ msgstr "ქულები"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
 #, kde-format
 msgid "Upload Slot"
-msgstr ""
+msgstr "ატვირთვის სლოტი"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
@@ -2209,7 +2218,7 @@ msgstr "პარტნიორის IP მისამართი"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:361
 #, kde-format
 msgid "Which client the peer is using"
-msgstr ""
+msgstr "რომელ კლიენტს იყენებს პარტნიორი"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
 #, kde-format
@@ -2257,7 +2266,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:379
 #, kde-format
 msgid "The number of download and upload requests"
-msgstr ""
+msgstr "გადმოწერისა და ატვირთვის მოთხოვნების რაოდენობა"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:381
 #, kde-format
@@ -2409,18 +2418,33 @@ msgid ""
 "weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
 "html>"
 msgstr ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">ტორენტისთვის ვებსიდის "
+"დამატება.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">შენიშვნა: </span>მხარდაჭერილია მხოლოდ HTTP ვებსიდები.</p></"
+"body></html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
 #, kde-format
 msgid "Add Webseed"
-msgstr ""
+msgstr "სრული წყაროებ"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
 #, kde-format
 msgid "Remove Webseed"
-msgstr ""
+msgstr "წყაროს წაშლა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:29
@@ -2505,7 +2529,7 @@ msgstr "შენახვა:"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
 #, kde-format
 msgid "Upload limit per transfer:"
-msgstr ""
+msgstr "თითოეული ატვირთვის შეზღუდვა:"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
@@ -2527,7 +2551,7 @@ msgstr "კიბ"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:69
 #, kde-format
 msgid "Download limit per transfer:"
-msgstr ""
+msgstr "თითოეული გადმოწერის შეზღუდვა:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, utpBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:89
@@ -2585,28 +2609,29 @@ msgstr ""
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
 msgid "Torrent file does not exist"
-msgstr ""
+msgstr "ტორენტის ფაილი არ არსებობს"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
-msgstr ""
+msgstr "ტორენტის ანალიზი..."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
-msgstr ""
+msgstr "პორტის ინიციალიზაციის შეცდომა..."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
-msgstr ""
+msgstr "გაცემა...."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
 msgid "Cannot initialize libktorrent. Torrent support might not work."
 msgstr ""
+"შეცდომა libktorrent-ის ინიციალიზაციისას. ტორენტის მხარდაჭერა არ იმუშავებს."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:75
 #, kde-format
@@ -2627,31 +2652,31 @@ msgstr "მონაცემების სკანირების შე�
 #: transfer-plugins/bittorrent/scandlg.ui:16
 #, kde-format
 msgid "Scanning data of torrent:"
-msgstr ""
+msgstr "ტორენტის მონაცემების სკანირება:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: transfer-plugins/bittorrent/scandlg.ui:30
 #, kde-format
 msgid "Number of chunks found:"
-msgstr ""
+msgstr "აღმოჩენილი ნაგლეჯების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: transfer-plugins/bittorrent/scandlg.ui:40
 #, kde-format
 msgid "Number of chunks failed:"
-msgstr ""
+msgstr "ავარიული ნაგლეჯების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/bittorrent/scandlg.ui:50
 #, kde-format
 msgid "Number of chunks not downloaded:"
-msgstr ""
+msgstr "არ-გადმოწერილი ნაგლეჯების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/bittorrent/scandlg.ui:57
 #, kde-format
 msgid "Number of chunks downloaded:"
-msgstr ""
+msgstr "გადმოწერილი ნაგლეჯების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, chunks_found)
 #. i18n: ectx: property (text), widget (QLabel, chunks_failed)
@@ -2684,7 +2709,7 @@ msgstr "ფაილის ჩანაცვლება"
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:30
 #, kde-format
 msgid "Replace file-ending"
-msgstr ""
+msgstr "ფაილის გაფართოების შეცვლა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
@@ -2724,13 +2749,13 @@ msgstr "ელემენტის დამატება"
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:70
 #, kde-format
 msgid "%1 would become %2"
-msgstr ""
+msgstr "%1 გახდებოდა %2"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:177
 #, kde-format
 msgctxt "the string that is used to modify an url"
 msgid "Change string"
-msgstr ""
+msgstr "სტრიქონის შეცვლა"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:178
 #, kde-format
@@ -2750,7 +2775,7 @@ msgstr "საკონტროლო ჯამის ტიპი"
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:12
 #, kde-format
 msgid "List of the available search engines"
-msgstr ""
+msgstr "ხელმისაწვდომი საძიებო სისტემების სია"
 
 #. i18n: ectx: label, entry (UrlChangeModeList), group (ChecksumSearch)
 #. i18n: ectx: label, entry (ChecksumTypeList), group (ChecksumSearch)
@@ -2760,7 +2785,7 @@ msgstr ""
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
 #, kde-format
 msgid "List of the available search engine URLs"
-msgstr ""
+msgstr "ხელმისაწვდომი საძიებო სისტემების URL-ების სია"
 
 #: transfer-plugins/kio/transferKio.cpp:100
 #, kde-format
@@ -2824,13 +2849,13 @@ msgstr "იგნორი"
 #: transfer-plugins/metalink/dlgmetalink.ui:22
 #, kde-format
 msgid "Number of simultaneous file downloads:"
-msgstr ""
+msgstr "ფაილის ერთდროული გადმოწერების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/metalink/dlgmetalink.ui:39
 #, kde-format
 msgid "Number of mirrors per file:"
-msgstr ""
+msgstr "თითოეული ფაილის სარკეების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -2839,13 +2864,13 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:22
 #, kde-format
 msgid "Number of connections per URL:"
-msgstr ""
+msgstr "თითოეულ URL-ზე მიერთებების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: transfer-plugins/metalink/fileselection.ui:17
 #, kde-format
 msgid "Select the files you want to be downloaded."
-msgstr ""
+msgstr "აირჩიეთ ფაილები, რომლებიც გნებავთ, გადმოწეროთ."
 
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
 #, kde-format
@@ -2856,7 +2881,7 @@ msgstr "ფაილის არჩევანი"
 #: transfer-plugins/metalink/metalinkxml.cpp:73
 #, kde-format
 msgid "Downloading Metalink File...."
-msgstr ""
+msgstr "მეტაბმულის ფაილის გადმოწერა..."
 
 #: transfer-plugins/metalink/metalink.cpp:119
 #: transfer-plugins/metalink/metalinkxml.cpp:116
@@ -2962,7 +2987,7 @@ msgstr "საძიებო ძრავების გამოყენე�
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
 #, kde-format
 msgid "Search for verification information"
-msgstr ""
+msgstr "გადამოწმების ინფორმაციის მოძებნა"
 
 #: transfer-plugins/multisegmentkio/segment.cpp:284
 #, kde-format
@@ -3002,7 +3027,7 @@ msgstr "მთავარი ფანჯრის დამალვა"
 #: ui/droptarget.cpp:348
 #, kde-format
 msgid "Drop Target"
-msgstr ""
+msgstr "გადათრევის სამიზნე"
 
 #: ui/droptarget.cpp:348
 #, kde-format
@@ -3037,7 +3062,7 @@ msgstr "მზადაა"
 #: ui/groupsettingsdialog.cpp:19
 #, kde-format
 msgid "Group Settings for %1"
-msgstr ""
+msgstr "ჯგუფის პარამეტრები %1-სთვის"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: ui/groupsettingsdialog.ui:32
@@ -3326,7 +3351,7 @@ msgstr "ხელსაწყოთა მთავარი ზოლი"
 #: ui/linkview/importlinkdialog.ui:34
 #, kde-format
 msgid "File with &links to import:"
-msgstr ""
+msgstr "&ბმულების შემცველი ფაილების შემოტანა:"
 
 #. i18n: ectx: property (text), widget (QPushButton, importLinks)
 #: ui/linkview/importlinkdialog.ui:50
@@ -3350,13 +3375,13 @@ msgstr "&ვებ შემცველობის ჩვენება"
 #: ui/linkview/importlinkdialog.ui:115
 #, kde-format
 msgid "You can use wildcards for filtering."
-msgstr ""
+msgstr "ფილტრისთვის შეგიძლიათ ვაილდკარდები გამოიყენოთ."
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, textFilter)
 #: ui/linkview/importlinkdialog.ui:118
 #, kde-format
 msgid "Filter files here...."
-msgstr ""
+msgstr "ფაილები გაფილტრეთ აქ..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
 #: ui/linkview/importlinkdialog.ui:189 ui/linkview/kget_linkview.cpp:318
@@ -3425,7 +3450,7 @@ msgstr "შაბლონის სინტაქსი"
 #: ui/linkview/kget_linkview.cpp:74
 #, kde-format
 msgid "Escape Sequences"
-msgstr ""
+msgstr "სპეციალური მიმდევრობები"
 
 #: ui/linkview/kget_linkview.cpp:77
 #, kde-format
@@ -3473,17 +3498,17 @@ msgstr "მდებარეობა (URL)"
 #: ui/linkview/kget_linkview.cpp:257
 #, kde-format
 msgid "Links in: %1 - KGet"
-msgstr ""
+msgstr "ბმულები: %1 - KGet"
 
 #: ui/linkview/kget_linkview.cpp:318
 #, kde-format
 msgid "&Select All Filtered"
-msgstr ""
+msgstr "&ყველა გაფილტრულის მონიშვნა"
 
 #: ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "D&eselect All Filtered"
-msgstr ""
+msgstr "ყველა &გაფილტრულის მონიშვნის მოხსნა"
 
 #: ui/linkview/kget_linkview.cpp:429
 #, kde-format
@@ -3542,7 +3567,7 @@ msgstr "ოპერაციული სისტემები:"
 #: ui/metalinkcreator/commondata.ui:93
 #, kde-format
 msgid "Supported OSes, separated with commas"
-msgstr ""
+msgstr "მხარდაჭერილი ოს-ები, მძიმით გამოყოფილი"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: ui/metalinkcreator/commondata.ui:103
@@ -3673,12 +3698,12 @@ msgstr "შეყვანეთ ფაილის სახელი."
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
 msgid "The filename exists already, choose a different one."
-msgstr ""
+msgstr "ფაილის სახელი უკვე არსებობს, აირჩიეთ სხვა."
 
 #: ui/metalinkcreator/filedlg.cpp:140
 #, kde-format
 msgid "Enter at least one URL."
-msgstr ""
+msgstr "შეიყვანეთ მინიმუმ ერთი ბმული."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/metalinkcreator/filedlg.ui:24
@@ -3763,7 +3788,7 @@ msgstr "საწყისი:"
 #: ui/metalinkcreator/generalwidget.ui:68
 #, kde-format
 msgid "Web URL to the metalink"
-msgstr ""
+msgstr "ბმული მეტაბმულამდე"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:75
@@ -3781,7 +3806,7 @@ msgstr "დინამიკური:"
 #: ui/metalinkcreator/generalwidget.ui:110
 #, kde-format
 msgid "Metalink published"
-msgstr ""
+msgstr "მეტაბმული გამოქვეყნებოდა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #. i18n: ectx: property (text), widget (QLabel, label_29)
@@ -3827,7 +3852,7 @@ msgstr ""
 #: ui/metalinkcreator/introduction.ui:48
 #, kde-format
 msgid "Save created Metalink at:"
-msgstr ""
+msgstr "შექმნილი მეტაბმული შეინახება:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, createButton)
 #: ui/metalinkcreator/introduction.ui:78
@@ -3845,7 +3870,7 @@ msgstr "არსებული მეტაბმულის ჩატვი�
 #: ui/metalinkcreator/introduction.ui:98
 #, kde-format
 msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
-msgstr ""
+msgstr "*.metalink *.meta4|მეტაბმულის ფაილი (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:82
 #, kde-format
@@ -3875,12 +3900,12 @@ msgstr "ჩატვირთვის შეცდომა: %1"
 #: ui/metalinkcreator/metalinkcreator.cpp:169
 #, kde-format
 msgid "Metalink Version 4.0 file (*.meta4)"
-msgstr ""
+msgstr "Metalink ვერსია 4.0 ფაილი (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:169
 #, kde-format
 msgid "Metalink Version 3.0 file (*.metalink)"
-msgstr ""
+msgstr "Metalink ვერსია 3.0 ფაილი (*.metalink)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:176
 #, kde-format
@@ -3979,7 +4004,7 @@ msgstr "დააჭირეთ ღილაკს"
 #: ui/newtransferdialog.cpp:321
 #, kde-format
 msgid "Select at least one source url."
-msgstr ""
+msgstr "აირჩიეთ სულ ცოტა ერთი წყაროს ბმული."
 
 #: ui/newtransferdialog.cpp:339
 #, kde-format
@@ -4079,7 +4104,7 @@ msgstr ""
 #: ui/signaturedlg.cpp:157
 #, kde-format
 msgid "You need to define a signature."
-msgstr ""
+msgstr "საჭიროა ხელმოწერის აღწერა."
 
 #: ui/signaturedlg.cpp:161
 #, kde-format
@@ -4121,7 +4146,7 @@ msgstr ""
 #: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
-msgstr ""
+msgstr "გასაღების ნდობის დონე უცნობია."
 
 #: ui/signaturedlg.cpp:269
 #, kde-format
@@ -4163,13 +4188,13 @@ msgstr ""
 #: ui/signaturedlg.ui:80
 #, kde-format
 msgid "Has binary PGP signature."
-msgstr ""
+msgstr "აქვს ბინარული PGP ხელმოწერა."
 
 #. i18n: ectx: property (text), widget (QLabel, asciiLabel)
 #: ui/signaturedlg.ui:87
 #, kde-format
 msgid "Ascii PGP signature:"
-msgstr ""
+msgstr "Ascii PGP ხელმოწერა:"
 
 #. i18n: ectx: property (text), widget (QPushButton, loadSignature)
 #: ui/signaturedlg.ui:112
@@ -4263,7 +4288,7 @@ msgstr "დარჩენილი დრო:"
 #: ui/transfersettingsdialog.cpp:33
 #, kde-format
 msgid "Transfer Settings for %1"
-msgstr ""
+msgstr "%1-ის გადმოწერის მორგება"
 
 #: ui/transfersettingsdialog.cpp:163
 #, kde-format
@@ -4274,7 +4299,7 @@ msgstr ""
 #: ui/transfersettingsdialog.cpp:163
 #, kde-format
 msgid "Destination unmodified"
-msgstr ""
+msgstr "სამიზნე არ შეცვლილა"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: ui/transfersettingsdialog.ui:23
@@ -4346,7 +4371,7 @@ msgstr "გადმოწერების მმართველი"
 #, kde-format
 msgctxt "hash type as in md5t, sha1 etc."
 msgid "Hash type:"
-msgstr ""
+msgstr "ჰეშის ტიპი:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/verificationadddlg.ui:26
@@ -4369,12 +4394,12 @@ msgstr "საკონტროლო ჯამის დამატება"
 #: ui/verificationdialog.cpp:94
 #, kde-format
 msgid "Transfer Verification for %1"
-msgstr ""
+msgstr "მიმოცვლის გადამოწმება %1-სთვის"
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "%1 was successfully verified."
-msgstr ""
+msgstr "%1 წარმატებით გადამოწმდა."
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
