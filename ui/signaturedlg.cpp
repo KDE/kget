@@ -39,8 +39,6 @@
 #include <QFileDialog>
 #include <KLocalizedString>
 
-const QStringList SignatureDlg::OWNERTRUST = QStringList() << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal") << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
-
 SignatureDlg::SignatureDlg(TransferHandler *transfer, const QUrl &dest, QWidget *parent, Qt::WindowFlags flags)
   : KGetSaveSizeDialog("SignatureDlg", parent, flags),
     m_signature(transfer->signature(dest)),
@@ -188,6 +186,10 @@ void SignatureDlg::updateData()
             if (err || key.isNull() || !key.numUserIDs() || !key.numSubkeys()) {
                 qCDebug(KGET_DEBUG) << "There was an error while loading the key:" << err;
             } else {
+                static const QStringList OWNERTRUST = QStringList()
+                    << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal")
+                    << i18nc("trust level", "Full") << i18nc("trust level", "Ultimate");
+
                 if (key.isRevoked()) {
                     information << i18n("The key has been revoked.");
                     problem = true;
