@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-14 00:56+0000\n"
-"PO-Revision-Date: 2023-01-22 09:25+0100\n"
+"PO-Revision-Date: 2023-01-23 05:50+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -489,13 +489,13 @@ msgstr "შეცდომა"
 #: core/datasourcefactory.cpp:267
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
-msgstr ""
+msgstr "ფაილის ზომა VFAT-ის მიერ მხარდაჭერილ მაქსიმალურ ზომაზე დიდია."
 
 #: core/datasourcefactory.cpp:580
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
-msgstr ""
+msgstr "%1 წაიშალა, რადგან მისი ზომა არასწორი იყო."
 
 #: core/filemodel.cpp:248
 #, kde-format
@@ -558,7 +558,7 @@ msgstr "ჯგუფის წაშლა"
 #: core/kget.cpp:155
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ ჯგუფების პაკეტების წაშლა?"
 
 #: core/kget.cpp:157
 #, kde-format
@@ -664,6 +664,8 @@ msgid ""
 "Malformed URL, protocol missing:\n"
 "%1"
 msgstr ""
+"არასწორი URL. აკლია პროტოკოლი:\n"
+"%1"
 
 #: core/kget.cpp:1033 core/urlchecker.cpp:424
 #, kde-format
@@ -674,6 +676,11 @@ msgid ""
 "\n"
 "Download it again?"
 msgstr ""
+"გადმოწერა მდებარეობიდან უკვე დასრულებულია:\n"
+"\n"
+"%1\n"
+"\n"
+"გადმოვწერო კიდევ ერთხელ?"
 
 #: core/kget.cpp:1034 core/urlchecker.cpp:639
 #, kde-format
@@ -754,7 +761,7 @@ msgstr "ინტერნეტკავშირი გაწყდა. გა
 #: core/kget.cpp:1246
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr ""
+msgstr "დამატებების ჩამტვირთავის შეცდომა დამატების (%1) ჩატვირთვისას: %2."
 
 #: core/kget.cpp:1258
 #, kde-format
@@ -818,7 +825,7 @@ msgstr "გადაჭრა"
 #: core/kget.cpp:1463
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
-msgstr ""
+msgstr "KGet დახურება, რადგან ყველა ფაილი გადმოწერილია.."
 
 #: core/kget.cpp:1472
 #, kde-format
@@ -895,7 +902,7 @@ msgstr "შეცდომა %1-ის მიღებისას"
 #: core/signature.cpp:235
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
-msgstr ""
+msgstr "ხელმოწერის გადასამოწმებელი გასაღები არ გამაჩნია. გნებავთ, გადმოვწერო?"
 
 #: core/signature.cpp:237
 #, kde-format
@@ -915,6 +922,8 @@ msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
 "information."
 msgstr ""
+"%1-ის ხელმოწერის გადამოწმება შეუძლებელია. მეტი ინფორმაციისთვის იხილეთ "
+"გადმოცემის პარამეტრები."
 
 #: core/signature.cpp:266
 #, kde-format
@@ -1164,6 +1173,8 @@ msgid ""
 "You have already downloaded that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
+"ეს ფაილი უკვე გაქვთ გადმოწერილი, სხვა მდებარეობიდან.\n"
+"გადმოვწერო ეს და წავშალო წინა ვარიანტი?"
 
 #: core/urlchecker.cpp:390 core/urlchecker.cpp:416
 #, kde-format
@@ -1171,12 +1182,16 @@ msgid ""
 "You are already downloading that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
+"ამ ფაილს უკვე იწერთ სხვა მდებარეობიდან.\n"
+"გადმოვწერო ეს და წავშალო წინა ვარიანტი?"
 
 #: core/urlchecker.cpp:400
 #, kde-format
 msgid ""
 "You have already completed a download from that location. Download it again?"
 msgstr ""
+"გადმოწერა მდებარეობიდან უკვე დასრულებულია:\n"
+"გადმოვწერო კიდევ ერთხელ?"
 
 #: core/urlchecker.cpp:402
 #, kde-format
@@ -1184,6 +1199,8 @@ msgid ""
 "You have a download in progress from that location.\n"
 "Delete it and download again?"
 msgstr ""
+"გადმოწერა მდებარეობიდან ჯერ კიდევ მიმდინარეობს:\n"
+"წავშალო და გადმოვწერო კიდევ ერთხელ?"
 
 #: core/urlchecker.cpp:412
 #, kde-format
@@ -1257,7 +1274,7 @@ msgstr "ფაილები უკვე არსებობს. გად�
 msgid ""
 "You have already completed downloads at those destinations. Download them "
 "again?"
-msgstr ""
+msgstr "ამ მდებარეობიდან გადმოწერა უკვე დაასრულეთ. გადმოვწერო კიდევ ერთხელ?"
 
 #: core/urlchecker.cpp:504
 #, kde-format
@@ -1265,13 +1282,15 @@ msgid ""
 "You have downloads in progress to these destinations.\n"
 "Delete them and download again?"
 msgstr ""
+"ამ სამიზნეებში უკვე იწერთ.\n"
+"გნებავთ, წაშალოთ ისინი და თავიდან გადმოწეროთ?"
 
 #: core/urlchecker.cpp:512
 #, kde-format
 msgid ""
 "You have already completed downloads from these locations. Download them "
 "again?"
-msgstr ""
+msgstr "ამ მდებარეობიდან გადმოწერა უკვე დაასრულეთ. გადმოვწერო კიდევ ერთხელ?"
 
 #: core/urlchecker.cpp:514
 #, kde-format
@@ -1279,6 +1298,8 @@ msgid ""
 "You have downloads in progress from these locations.\n"
 "Delete them and download again?"
 msgstr ""
+"ამ მდებარეობებიდან გადმოწერა ჯერ კიდევ მიმდინარებს.\n"
+"გნებავთ, წაშალოთ ისინი და თავიდან გადმოწეროთ?"
 
 #: core/urlchecker.cpp:523
 #, kde-format
@@ -2250,7 +2271,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:373
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
-msgstr ""
+msgstr "აქვს თუა რა პარტნიორს ჩართული DHT"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:375
 #, kde-format
@@ -2901,12 +2922,12 @@ msgstr "მეტაბმულის თავიდან გადმოწ�
 #: transfer-plugins/metalink/metalinkxml.cpp:200
 #, kde-format
 msgid "Download failed, no working URLs were found."
-msgstr ""
+msgstr "გადმოწერის შეცდომა. მუშა URL-ები ნაპოვნი არაა."
 
 #: transfer-plugins/metalink/metalinkhttp.cpp:161
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
-msgstr ""
+msgstr "გადმოწერის გადამოწმება შეუძლებელია. ვცადო, შევაკეთო ის?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
@@ -2968,7 +2989,7 @@ msgstr "დასრულდა"
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:162
 #, kde-format
 msgid "Download failed, could not access this URL."
-msgstr ""
+msgstr "გადმოწერის შეცდომა. URL-სთან წვდომა შეუძლებელია."
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:173
 #, kde-format
