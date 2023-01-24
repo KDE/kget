@@ -52,7 +52,6 @@ private:
     Signature *m_signature = nullptr;
     FileModel *m_fileModel = nullptr;
     QModelIndex m_file;
-    static const QStringList OWNERTRUST;
 };
 
 #endif
