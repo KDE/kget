@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:44+0000\n"
+"POT-Creation-Date: 2023-01-25 02:53+0000\n"
 "PO-Revision-Date: 2012-07-09 10:43+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -4134,134 +4134,134 @@ msgstr "ប្ដូរ​ឈ្មោះ %1 ទៅ​ជា ៖"
 msgid "&Rename"
 msgstr "ប្ដូរ​ឈ្មោះ"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr "មិនស្គាល់"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr "មិន​បានកំណត់​ទេ"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "កុំ"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr "បន្ទប់បន្សំ"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr "ពេញលេញ"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr "ចុងក្រោយ"
-
-#: ui/signaturedlg.cpp:49
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "ហត្ថលេខា​ %1 ។"
 
-#: ui/signaturedlg.cpp:72
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "ជម្រើស​នេះ​មិន​ត្រូវ​បានគាំទ្រ​សម្រាប់​ការ​ផ្ទេរ​បច្ចុប្បន្ន​នោះ​ទេ ។"
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr "ផ្ទុក​ឯកសារ​ហត្ថលេខា"
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:98
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "ផ្ដាច់​ហត្ថលេខា OpenPGP ASCII (*.asc)"
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "ផ្ដាច់​ហត្ថលេខា​គោល​ពីរ​របស់ OpenPGP (*.sig)"
 
-#: ui/signaturedlg.cpp:154
+#: ui/signaturedlg.cpp:152
 #, kde-format
 msgid "You need to define a signature."
 msgstr "អ្នក​ត្រូវតែ​កំណត់​ហត្ថលេខា ។"
 
-#: ui/signaturedlg.cpp:158
+#: ui/signaturedlg.cpp:156
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr "រក​មិនឃើញ​ស្នាមម្រាមដៃ​ទេ សូម​ពិនិត្យ​មើល ប្រសិនបើ​ហត្ថលេខា​ត្រឹមត្រូវ ឬ​ផ្ទៀងផ្ទាត់​ការ​ទាញយក ។"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "មិនស្គាល់"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "មិន​បានកំណត់​ទេ"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "កុំ"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "បន្ទប់បន្សំ"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "ពេញលេញ"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "ចុងក្រោយ"
+
+#: ui/signaturedlg.cpp:194
 #, kde-format
 msgid "The key has been revoked."
 msgstr "សោ​​ត្រូវ​បានដកហូ​តវិញ ។"
 
-#: ui/signaturedlg.cpp:196
+#: ui/signaturedlg.cpp:198
 #, kde-format
 msgid "The key is disabled."
 msgstr "សោ​ត្រូវ​បានបិទ ។"
 
-#: ui/signaturedlg.cpp:200
+#: ui/signaturedlg.cpp:202
 #, kde-format
 msgid "The key is invalid."
 msgstr "សោ​មិន​ត្រឹមត្រូវ​ទេ ។"
 
-#: ui/signaturedlg.cpp:205
+#: ui/signaturedlg.cpp:207
 #, kde-format
 msgid "The key is expired."
 msgstr "សោ​ផុត​កំណត់​ហើយ ។"
 
-#: ui/signaturedlg.cpp:220
+#: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr "មិន​ត្រូវ​ទុកចិត្ត​សោ​ទេ ។"
 
-#: ui/signaturedlg.cpp:225
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr "ត្រូវ​តែ​ទុកចិត្ត​សោ​បន្ទាប់បន្សំ ។​"
 
-#: ui/signaturedlg.cpp:238
+#: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr "កម្រិត​ដែលទុកចិត្ត​របស់​សោ​មិន​ច្បាស់​ទេ ។"
 
-#: ui/signaturedlg.cpp:267
+#: ui/signaturedlg.cpp:269
 #, kde-format
 msgid "Unlimited"
 msgstr "គ្មាន​ដែន​កំណត់"
 
-#: ui/signaturedlg.cpp:285
+#: ui/signaturedlg.cpp:287
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "បាន​ផ្ទៀងផ្ទាត់"
 
-#: ui/signaturedlg.cpp:288
+#: ui/signaturedlg.cpp:290
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "បានបរាជ័យ"
 
-#: ui/signaturedlg.cpp:291
+#: ui/signaturedlg.cpp:293
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
@@ -4269,7 +4269,7 @@ msgid ""
 msgstr ""
 "ប្រយ័ត្ន ៖ ការ​ផ្ទៀងផ្ទាត់​បានបរាជ័យ ។ អ្នក​បាន​បញ្ចូល​ហត្ថលេខា​មិន​ត្រឹមត្រូវ ឬ​ទិន្នន័យ​ត្រូវ​បានកែប្រែ ។"
 
-#: ui/signaturedlg.cpp:296
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
@@ -4278,7 +4278,7 @@ msgstr ""
 "មិនអាច​ធ្វើការ​ផ្ទៀងផ្ទាត់​បានទេ ។ សូម​ពិនិត្យ​មើលទិន្នន័យ​ដែលបានបញ្ចូល ថាតើ​ gpg-agent កំពុង​តែ​រត់​ ឬ​"
 "ថាតើ​អ្នក​មាន​​កា​រតភ្ជាប់​អ៊ីនធឺណិត​ដែរឬទេ (សម្រាប់សោ​ទៅ​យក ។)"
 
-#: ui/signaturedlg.cpp:313
+#: ui/signaturedlg.cpp:315
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""

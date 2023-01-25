@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:44+0000\n"
+"POT-Creation-Date: 2023-01-25 02:53+0000\n"
 "PO-Revision-Date: 2022-10-22 07:15+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -4144,75 +4144,39 @@ msgstr "Преименуване на %1 в:"
 msgid "&Rename"
 msgstr "&Преименуване"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr "Непознато"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr "Неопределено"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "Никога"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr "Ограничено"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr "Пълно"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr "Ултимативно"
-
-#: ui/signaturedlg.cpp:49
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "Подпис на %1."
 
-#: ui/signaturedlg.cpp:72
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "Тази опция не се поддържа за текущия трансфер."
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr "Зареждане на файл с подпис"
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:98
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "Самостоятелен OpenPGP ASCII подпис (* .asc)"
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "Самостоятелен OpenPGP двоичен подпис (* .sig)"
 
-#: ui/signaturedlg.cpp:154
+#: ui/signaturedlg.cpp:152
 #, kde-format
 msgid "You need to define a signature."
 msgstr "Трябва да определите подпис."
 
-#: ui/signaturedlg.cpp:158
+#: ui/signaturedlg.cpp:156
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4221,59 +4185,95 @@ msgstr ""
 "Не може да бъде намерен отпечатък, проверете дали подписът е правилен или "
 "проверете изтеглянето."
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Непознато"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "Неопределено"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Никога"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "Ограничено"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "Пълно"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "Ултимативно"
+
+#: ui/signaturedlg.cpp:194
 #, kde-format
 msgid "The key has been revoked."
 msgstr "Ключът е анулиран."
 
-#: ui/signaturedlg.cpp:196
+#: ui/signaturedlg.cpp:198
 #, kde-format
 msgid "The key is disabled."
 msgstr "Ключът е изключен."
 
-#: ui/signaturedlg.cpp:200
+#: ui/signaturedlg.cpp:202
 #, kde-format
 msgid "The key is invalid."
 msgstr "Ключът е неправилен."
 
-#: ui/signaturedlg.cpp:205
+#: ui/signaturedlg.cpp:207
 #, kde-format
 msgid "The key is expired."
 msgstr "Клъчют е изтекъл."
 
-#: ui/signaturedlg.cpp:220
+#: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr "Ключът не е доверен."
 
-#: ui/signaturedlg.cpp:225
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr "Ключът е с ограничена довереност."
 
-#: ui/signaturedlg.cpp:238
+#: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr "Довереността на ключа е неясна."
 
-#: ui/signaturedlg.cpp:267
+#: ui/signaturedlg.cpp:269
 #, kde-format
 msgid "Unlimited"
 msgstr "Неограничено"
 
-#: ui/signaturedlg.cpp:285
+#: ui/signaturedlg.cpp:287
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "Проверено"
 
-#: ui/signaturedlg.cpp:288
+#: ui/signaturedlg.cpp:290
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "Неуспешно"
 
-#: ui/signaturedlg.cpp:291
+#: ui/signaturedlg.cpp:293
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
@@ -4282,7 +4282,7 @@ msgstr ""
 "Внимание: Неуспешна проверка. Или сте въвели грешен подпис, или данните са "
 "променени."
 
-#: ui/signaturedlg.cpp:296
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
@@ -4291,7 +4291,7 @@ msgstr ""
 "Проверката не е възможна. Проверете въведените данни, или с GPG-агент, или "
 "през интернет (за извличане на ключове)."
 
-#: ui/signaturedlg.cpp:313
+#: ui/signaturedlg.cpp:315
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:44+0000\n"
+"POT-Creation-Date: 2023-01-25 02:53+0000\n"
 "PO-Revision-Date: 2023-01-21 15:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -4152,75 +4152,39 @@ msgstr "%1 ögesini yeniden adlandır:"
 msgid "&Rename"
 msgstr "&Yeniden Adlandır"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr "Bilinmeyen"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr "Tanımlanmamış"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "Asla"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr "Kısmen"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr "Tam"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr "Sınırsız"
-
-#: ui/signaturedlg.cpp:49
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "%1 imzası."
 
-#: ui/signaturedlg.cpp:72
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "Mevcut aktarım için bu seçenek desteklenmiyor."
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr "İmza Dosyası Yükle"
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:98
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "Bağımsız OpenPGP ASCII imza (*.asc)"
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "Bağımsız OpenPGP ikili imza (*.sig)"
 
-#: ui/signaturedlg.cpp:154
+#: ui/signaturedlg.cpp:152
 #, kde-format
 msgid "You need to define a signature."
 msgstr "Bir imza tanımlamanız gerekiyor."
 
-#: ui/signaturedlg.cpp:158
+#: ui/signaturedlg.cpp:156
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4229,59 +4193,95 @@ msgstr ""
 "Parmak izi bulunamadı, imza doğru mu diye denetleyin veya indirme işlemini "
 "doğrulayın."
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "Tanımlanmamış"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Asla"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "Kısmen"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "Tam"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "Sınırsız"
+
+#: ui/signaturedlg.cpp:194
 #, kde-format
 msgid "The key has been revoked."
 msgstr "Anahtar iptal edildi."
 
-#: ui/signaturedlg.cpp:196
+#: ui/signaturedlg.cpp:198
 #, kde-format
 msgid "The key is disabled."
 msgstr "Anahtar devre dışı."
 
-#: ui/signaturedlg.cpp:200
+#: ui/signaturedlg.cpp:202
 #, kde-format
 msgid "The key is invalid."
 msgstr "Anahtar geçersiz."
 
-#: ui/signaturedlg.cpp:205
+#: ui/signaturedlg.cpp:207
 #, kde-format
 msgid "The key is expired."
 msgstr "Anahtar zaman aşımına uğramış."
 
-#: ui/signaturedlg.cpp:220
+#: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr "Anahtara güvenilmiyor."
 
-#: ui/signaturedlg.cpp:225
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr "Anahtara marjinal olarak güvenilmeli."
 
-#: ui/signaturedlg.cpp:238
+#: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr "Anahtarın güven seviyesi belli değil."
 
-#: ui/signaturedlg.cpp:267
+#: ui/signaturedlg.cpp:269
 #, kde-format
 msgid "Unlimited"
 msgstr "Sınırsız"
 
-#: ui/signaturedlg.cpp:285
+#: ui/signaturedlg.cpp:287
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "Doğrulanmış"
 
-#: ui/signaturedlg.cpp:288
+#: ui/signaturedlg.cpp:290
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "Başarısız"
 
-#: ui/signaturedlg.cpp:291
+#: ui/signaturedlg.cpp:293
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
@@ -4289,7 +4289,7 @@ msgid ""
 msgstr ""
 "Uyarı: Doğrulama başarısız. Ya yanlış imza girdiniz, ya da veri değiştirildi."
 
-#: ui/signaturedlg.cpp:296
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
@@ -4299,7 +4299,7 @@ msgstr ""
 "çalışıp çalışmadığını veya Internet bağlantınız olup olmadığını denetleyin "
 "(anahtarları almak için)"
 
-#: ui/signaturedlg.cpp:313
+#: ui/signaturedlg.cpp:315
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr "KGet QPGME desteği ile derlenmediğinden bu özellik desteklenmiyor."
