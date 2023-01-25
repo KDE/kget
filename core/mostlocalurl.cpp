@@ -28,7 +28,15 @@
 QUrl mostLocalUrl(const QUrl &url)
 {
     qCDebug(KGET_DEBUG);
+    if (!url.isValid()) {
+        qCDebug(KGET_DEBUG) << "Invalid URL: " << qUtf8Printable(url.toString());
+        return url;
+    }
+
     const QString protocol = url.scheme();
+    if (protocol.isEmpty())
+        return url;
+
     foreach (TransferFactory *factory, KGet::factories()) {
         if (factory->addsProtocols().contains(protocol)) {
             return url;
