@@ -66,7 +66,7 @@ void TransferHistoryItemDelegate::paint(QPainter *painter, const QStyleOptionVie
         QRect roundRect(option.rect.left() + 1, option.rect.top() + 1, option.rect.width() - 2, option.rect.height() - 2);
 
         QPainterPath path;
-        path.addRoundRect(roundRect, 2, 2);
+        path.addRoundedRect(roundRect, 2, 2, Qt::RelativeSize);
         QLinearGradient gradient(roundRect.left(), roundRect.top(), roundRect.left(), roundRect.bottom());
         gradient.setColorAt(0, Qt::transparent);
         gradient.setColorAt(0.95, option.palette.color(QPalette::AlternateBase).darker(130));
@@ -75,7 +75,7 @@ void TransferHistoryItemDelegate::paint(QPainter *painter, const QStyleOptionVie
         painter->fillPath(path, brush);
 
         painter->setPen(option.palette.color(QPalette::AlternateBase).darker(190));
-        painter->drawRoundRect(roundRect, 2, 2);
+        painter->drawRoundedRect(roundRect, 2, 2, Qt::RelativeSize);
         painter->restore();
     }
 
