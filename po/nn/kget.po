@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:44+0000\n"
+"POT-Creation-Date: 2023-01-25 02:53+0000\n"
 "PO-Revision-Date: 2020-12-13 13:52+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -574,8 +574,8 @@ msgstr "Fjern grupper"
 #: core/kget.cpp:271
 #, kde-format
 msgid ""
-"<p>The following transfer has been added to the download list:</p><p style="
-"\"font-size: small;\">%1</p>"
+"<p>The following transfer has been added to the download list:</p><p "
+"style=\"font-size: small;\">%1</p>"
 msgstr ""
 "<p>Denne overføringa er lagd til på overføringslista:</p><p style=\"font-"
 "size: small;\">%1</p>"
@@ -2521,8 +2521,8 @@ msgstr "Du kan ikkje fjerna vevkjelda «%1», då ho er ein del av torrenten."
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
 #, kde-format
 msgid ""
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+"css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
 "size:8pt; font-weight:400; font-style:normal;\">\n"
@@ -2537,8 +2537,8 @@ msgid ""
 "weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
 "html>"
 msgstr ""
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+"css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
 "size:8pt; font-weight:400; font-style:normal;\">\n"
@@ -4159,148 +4159,148 @@ msgstr "Endra namn på %1"
 msgid "&Rename"
 msgstr "&Endra namn"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr ""
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr ""
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "Aldri"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr ""
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr ""
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr ""
-
-#: ui/signaturedlg.cpp:49
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr ""
 
-#: ui/signaturedlg.cpp:72
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr ""
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr ""
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:98
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:154
+#: ui/signaturedlg.cpp:152
 #, kde-format
 msgid "You need to define a signature."
 msgstr ""
 
-#: ui/signaturedlg.cpp:158
+#: ui/signaturedlg.cpp:156
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr ""
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr ""
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr ""
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Aldri"
+
+#: ui/signaturedlg.cpp:190
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr ""
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr ""
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr ""
+
+#: ui/signaturedlg.cpp:194
 #, kde-format
 msgid "The key has been revoked."
 msgstr ""
 
-#: ui/signaturedlg.cpp:196
+#: ui/signaturedlg.cpp:198
 #, kde-format
 msgid "The key is disabled."
 msgstr ""
 
-#: ui/signaturedlg.cpp:200
+#: ui/signaturedlg.cpp:202
 #, kde-format
 msgid "The key is invalid."
 msgstr ""
 
-#: ui/signaturedlg.cpp:205
+#: ui/signaturedlg.cpp:207
 #, kde-format
 msgid "The key is expired."
 msgstr ""
 
-#: ui/signaturedlg.cpp:220
+#: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr ""
 
-#: ui/signaturedlg.cpp:225
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr ""
 
-#: ui/signaturedlg.cpp:238
+#: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr ""
 
-#: ui/signaturedlg.cpp:267
+#: ui/signaturedlg.cpp:269
 #, kde-format
 msgid "Unlimited"
 msgstr ""
 
-#: ui/signaturedlg.cpp:285
+#: ui/signaturedlg.cpp:287
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "Stadfesta"
 
-#: ui/signaturedlg.cpp:288
+#: ui/signaturedlg.cpp:290
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr ""
 
-#: ui/signaturedlg.cpp:291
+#: ui/signaturedlg.cpp:293
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
 "data has been modified."
 msgstr ""
 
-#: ui/signaturedlg.cpp:296
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:313
+#: ui/signaturedlg.cpp:315
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""
