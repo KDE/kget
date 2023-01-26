@@ -18,6 +18,7 @@
 */
 
 #include "mmsthread.h"
+#include <vector>
 
 MmsThread::MmsThread(const QString &url, const QString &name, int begin, int end)
     : QThread()
@@ -50,23 +51,23 @@ void MmsThread::run()
         while ((m_begin < m_end) && m_download) {
             if ((m_begin + 1024) > m_end) {
                 const int var = m_end - m_begin;
-                char data[var];
-                readed = mmsx_read(nullptr, mms, data, var);
+		std::vector<char> data(var);
+                readed = mmsx_read(nullptr, mms, data.data(), var);
                 m_locker.lock();
                 Q_EMIT signReading(var, m_end, m_begin = m_end);
                 /** Writing the readed to the file */
                 if (readed) {
-                    file.write(data, readed);
+                    file.write(data.data(), readed);
                 }
                 m_locker.unlock();
             } else {
-                char data[1024];
-                readed = mmsx_read(nullptr, mms, data, 1024);
+		std::vector<char> data(1024);
+                readed = mmsx_read(nullptr, mms, data.data(), 1024);
                 m_locker.lock();
                 Q_EMIT signReading(1024, m_end, m_begin += 1024);
                 /** Writing the readed to the file */
                 if (readed) {
-                    file.write(data, readed);
+                    file.write(data.data(), readed);
                 }
                 m_locker.unlock();
             }
