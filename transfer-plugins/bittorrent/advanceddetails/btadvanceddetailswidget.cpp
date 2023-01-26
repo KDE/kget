@@ -25,13 +25,13 @@
 
 #include "kget_debug.h"
 
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KSharedConfig>
+#include <KTitleWidget>
 #include <QDialog>
 #include <QGridLayout>
 #include <QTabWidget>
-
-#include <KConfigGroup>
-#include <KSharedConfig>
-#include <KTitleWidget>
 
 using namespace kt;
 
@@ -55,7 +55,7 @@ void BTAdvancedDetailsWidget::init()
     auto *layout = new QGridLayout();
     auto *titleWidget = new KTitleWidget(this);
     titleWidget->setText(i18n("Advanced Details for %1", m_transfer->source().fileName()));
-    titleWidget->setPixmap(QIcon::fromTheme("dialog-information"));
+    titleWidget->setIcon(QIcon::fromTheme("dialog-information"));
     layout->addWidget(titleWidget);
     tabWidget = new QTabWidget(this);
     layout->addWidget(tabWidget);

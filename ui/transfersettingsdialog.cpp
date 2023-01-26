@@ -34,7 +34,8 @@ TransferSettingsDialog::TransferSettingsDialog(QWidget *parent, TransferHandler 
 
     ui.setupUi(this);
 
-    ui.ktitlewidget->setPixmap(QIcon::fromTheme("preferences-other").pixmap(16));
+    ui.ktitlewidget->setIcon(QIcon::fromTheme("preferences-other"));
+    ui.ktitlewidget->setIconSize(QSize(16, 16));
     ui.downloadSpin->setValue(m_transfer->downloadLimit(Transfer::VisibleSpeedLimit));
     ui.uploadSpin->setValue(m_transfer->uploadLimit(Transfer::VisibleSpeedLimit));
     ui.ratioSpin->setValue(m_transfer->maximumShareRatio());
