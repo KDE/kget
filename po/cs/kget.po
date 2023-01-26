@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-14 00:56+0000\n"
+"POT-Creation-Date: 2023-01-26 00:56+0000\n"
 "PO-Revision-Date: 2022-07-14 14:25+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -4146,75 +4146,39 @@ msgstr "Přejmenovat %1 na:"
 msgid "&Rename"
 msgstr "&Přejmenovat"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr "Neznámý"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr "Nedefinovaný"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "Nikdy"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr "Okrajový"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr "Plný"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr "Maximální"
-
-#: ui/signaturedlg.cpp:50
+#: ui/signaturedlg.cpp:46
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "Podpis %1."
 
-#: ui/signaturedlg.cpp:73
+#: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "Pro aktuální přenos není tato možnost podporována."
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr "Načíst soubor s podpisem"
 
-#: ui/signaturedlg.cpp:103
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "Samostatný podepisovací OpenPGP ASCII klíč (*.asc)"
 
-#: ui/signaturedlg.cpp:104
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "Samostatný podepisovací OpenPGP binární klíč (*.sig)"
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:153
 #, kde-format
 msgid "You need to define a signature."
 msgstr "Musíte určit podpis."
 
-#: ui/signaturedlg.cpp:161
+#: ui/signaturedlg.cpp:157
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4222,6 +4186,42 @@ msgid ""
 msgstr ""
 "Nebyl nalezen žádný otisk šifrovacího klíče. Zkontrolujte správnost podpisu, "
 "nebo ověřte stahování."
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Neznámý"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "Nedefinovaný"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Nikdy"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "Okrajový"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "Plný"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "Maximální"
 
 #: ui/signaturedlg.cpp:195
 #, kde-format

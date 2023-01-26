@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-14 00:56+0000\n"
+"POT-Creation-Date: 2023-01-26 00:56+0000\n"
 "PO-Revision-Date: 2012-07-09 10:43+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -4141,80 +4141,80 @@ msgstr "ប្ដូរ​ឈ្មោះ %1 ទៅ​ជា ៖"
 msgid "&Rename"
 msgstr "ប្ដូរ​ឈ្មោះ"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr "មិនស្គាល់"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr "មិន​បានកំណត់​ទេ"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "កុំ"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr "បន្ទប់បន្សំ"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr "ពេញលេញ"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr "ចុងក្រោយ"
-
-#: ui/signaturedlg.cpp:50
+#: ui/signaturedlg.cpp:46
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "ហត្ថលេខា​ %1 ។"
 
-#: ui/signaturedlg.cpp:73
+#: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "ជម្រើស​នេះ​មិន​ត្រូវ​បានគាំទ្រ​សម្រាប់​ការ​ផ្ទេរ​បច្ចុប្បន្ន​នោះ​ទេ ។"
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr "ផ្ទុក​ឯកសារ​ហត្ថលេខា"
 
-#: ui/signaturedlg.cpp:103
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "ផ្ដាច់​ហត្ថលេខា OpenPGP ASCII (*.asc)"
 
-#: ui/signaturedlg.cpp:104
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "ផ្ដាច់​ហត្ថលេខា​គោល​ពីរ​របស់ OpenPGP (*.sig)"
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:153
 #, kde-format
 msgid "You need to define a signature."
 msgstr "អ្នក​ត្រូវតែ​កំណត់​ហត្ថលេខា ។"
 
-#: ui/signaturedlg.cpp:161
+#: ui/signaturedlg.cpp:157
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr "រក​មិនឃើញ​ស្នាមម្រាមដៃ​ទេ សូម​ពិនិត្យ​មើល ប្រសិនបើ​ហត្ថលេខា​ត្រឹមត្រូវ ឬ​ផ្ទៀងផ្ទាត់​ការ​ទាញយក ។"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "មិនស្គាល់"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "មិន​បានកំណត់​ទេ"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "កុំ"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "បន្ទប់បន្សំ"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "ពេញលេញ"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "ចុងក្រោយ"
 
 #: ui/signaturedlg.cpp:195
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-14 00:56+0000\n"
+"POT-Creation-Date: 2023-01-26 00:56+0000\n"
 "PO-Revision-Date: 2011-11-07 19:17+0200\n"
 "Last-Translator: Tomas Straupis <tomasstraupis@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -4209,75 +4209,39 @@ msgstr "Pervadinti %1 į:"
 msgid "&Rename"
 msgstr "&Pervadinti"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr "Nežinomas"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr "Nenurodytas"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "Niekada"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr "Dalinai"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr "Pilnas"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr "Galutinis"
-
-#: ui/signaturedlg.cpp:50
+#: ui/signaturedlg.cpp:46
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "%1 parašas."
 
-#: ui/signaturedlg.cpp:73
+#: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "Ši parinktis dabartiniam siuntimui nepalaikoma."
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr "Įkelti parašo failą"
 
-#: ui/signaturedlg.cpp:103
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "Atjungtas OpenPGP ASCII parašas (*.asc)"
 
-#: ui/signaturedlg.cpp:104
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "Atjungtas OpenPGP skaitmeninis parašas (*.sig)"
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:153
 #, kde-format
 msgid "You need to define a signature."
 msgstr "Turite nurodyti parašą."
 
-#: ui/signaturedlg.cpp:161
+#: ui/signaturedlg.cpp:157
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4285,6 +4249,42 @@ msgid ""
 msgstr ""
 "Nerastas pirštų atspaudas, patikrinkite, ar teisingas parašas arba "
 "patikrinkite atsiuntimą."
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Nežinomas"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "Nenurodytas"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Niekada"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "Dalinai"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "Pilnas"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "Galutinis"
 
 #: ui/signaturedlg.cpp:195
 #, kde-format
