@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:56+0000\n"
+"POT-Creation-Date: 2023-01-27 00:57+0000\n"
 "PO-Revision-Date: 2021-06-19 07:59+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -284,26 +284,26 @@ msgid "Could not open KWallet"
 msgstr "Αδυναμία ανοίγματος του KWallet"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
-#: conf/dlgwebinterface.ui:20
+#: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
 msgstr "Ενεργοποίηση διασύνδεσης ιστού"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
-#: conf/dlgwebinterface.ui:32
+#: conf/dlgwebinterface.ui:41
 #: transfer-plugins/bittorrent/btsettingswidget.ui:32
 #, kde-format
 msgid "Port:"
 msgstr "Θύρα:"
 
 #. i18n: ectx: property (text), widget (QLabel, userLabel)
-#: conf/dlgwebinterface.ui:46
+#: conf/dlgwebinterface.ui:55
 #, kde-format
 msgid "User:"
 msgstr "Χρήστης:"
 
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: conf/dlgwebinterface.ui:60
+#: conf/dlgwebinterface.ui:69
 #, kde-format
 msgid "Password:"
 msgstr "Κωδικός πρόσβασης:"
@@ -4447,14 +4447,14 @@ msgstr "Χρόνος που απομένει:"
 msgid "Transfer Settings for %1"
 msgstr "Ρυθμίσεις μεταφοράς για το %1"
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
 msgstr ""
 "Η αλλαγή του προορισμού δεν δούλεψε, ο προορισμός παραμένει αμετάβλητος."
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid "Destination unmodified"
 msgstr "Αμετάβλητος προορισμός"

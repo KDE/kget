@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:56+0000\n"
+"POT-Creation-Date: 2023-01-27 00:57+0000\n"
 "PO-Revision-Date: 2002-09-27 16:40+0200\n"
 "Last-Translator: WEB-Translator <http://kde.af.org.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -284,26 +284,26 @@ msgstr ""
 "%1"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
-#: conf/dlgwebinterface.ui:20
+#: conf/dlgwebinterface.ui:29
 #, fuzzy, kde-format
 msgid "Enable Web Interface"
 msgstr "Gebruik animasie"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
-#: conf/dlgwebinterface.ui:32
+#: conf/dlgwebinterface.ui:41
 #: transfer-plugins/bittorrent/btsettingswidget.ui:32
 #, fuzzy, kde-format
 msgid "Port:"
 msgstr "Maand:"
 
 #. i18n: ectx: property (text), widget (QLabel, userLabel)
-#: conf/dlgwebinterface.ui:46
+#: conf/dlgwebinterface.ui:55
 #, kde-format
 msgid "User:"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: conf/dlgwebinterface.ui:60
+#: conf/dlgwebinterface.ui:69
 #, kde-format
 msgid "Password:"
 msgstr ""
@@ -4418,13 +4418,13 @@ msgstr "Oorbleiwende. Tyd"
 msgid "Transfer Settings for %1"
 msgstr "Verstek Gids"
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
 msgstr ""
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, fuzzy, kde-format
 #| msgid "Destination:"
 msgid "Destination unmodified"

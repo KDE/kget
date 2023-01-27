@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:56+0000\n"
+"POT-Creation-Date: 2023-01-27 00:57+0000\n"
 "PO-Revision-Date: 2023-01-21 15:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -286,26 +286,26 @@ msgid "Could not open KWallet"
 msgstr "K Cüzdan açılamadı"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
-#: conf/dlgwebinterface.ui:20
+#: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
 msgstr "Web Arayüzünü Etkinleştir"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
-#: conf/dlgwebinterface.ui:32
+#: conf/dlgwebinterface.ui:41
 #: transfer-plugins/bittorrent/btsettingswidget.ui:32
 #, kde-format
 msgid "Port:"
 msgstr "Port:"
 
 #. i18n: ectx: property (text), widget (QLabel, userLabel)
-#: conf/dlgwebinterface.ui:46
+#: conf/dlgwebinterface.ui:55
 #, kde-format
 msgid "User:"
 msgstr "Kullanıcı:"
 
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: conf/dlgwebinterface.ui:60
+#: conf/dlgwebinterface.ui:69
 #, kde-format
 msgid "Password:"
 msgstr "Parola:"
@@ -4416,14 +4416,14 @@ msgstr "Kalan Süre:"
 msgid "Transfer Settings for %1"
 msgstr "%1 için Aktarım Ayarları"
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
 msgstr ""
 "Hedefin değiştirilmesi başarısız, hedef değiştirilmeden önceki gibi kalacak."
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid "Destination unmodified"
 msgstr "Hedef değiştirilmedi"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:56+0000\n"
+"POT-Creation-Date: 2023-01-27 00:57+0000\n"
 "PO-Revision-Date: 2019-05-01 21:10+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -280,26 +280,26 @@ msgid "Could not open KWallet"
 msgstr "無法開啟 KWallet"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
-#: conf/dlgwebinterface.ui:20
+#: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
 msgstr "開啟網頁介面"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
-#: conf/dlgwebinterface.ui:32
+#: conf/dlgwebinterface.ui:41
 #: transfer-plugins/bittorrent/btsettingswidget.ui:32
 #, kde-format
 msgid "Port:"
 msgstr "連接埠："
 
 #. i18n: ectx: property (text), widget (QLabel, userLabel)
-#: conf/dlgwebinterface.ui:46
+#: conf/dlgwebinterface.ui:55
 #, kde-format
 msgid "User:"
 msgstr "帳號："
 
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: conf/dlgwebinterface.ui:60
+#: conf/dlgwebinterface.ui:69
 #, kde-format
 msgid "Password:"
 msgstr "密碼："
@@ -4353,13 +4353,13 @@ msgstr "剩餘時間："
 msgid "Transfer Settings for %1"
 msgstr "%1 的傳輸設定"
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
 msgstr "變更目的地沒有成功。目的地並未被改變。"
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid "Destination unmodified"
 msgstr "目的地未變更"

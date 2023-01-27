@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:56+0000\n"
+"POT-Creation-Date: 2023-01-27 00:57+0000\n"
 "PO-Revision-Date: 2023-01-10 16:15+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -274,26 +274,26 @@ msgid "Could not open KWallet"
 msgstr "Il non pote aperir KWallet"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
-#: conf/dlgwebinterface.ui:20
+#: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
 msgstr "habilita interfacie de web"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
-#: conf/dlgwebinterface.ui:32
+#: conf/dlgwebinterface.ui:41
 #: transfer-plugins/bittorrent/btsettingswidget.ui:32
 #, kde-format
 msgid "Port:"
 msgstr "Porto:"
 
 #. i18n: ectx: property (text), widget (QLabel, userLabel)
-#: conf/dlgwebinterface.ui:46
+#: conf/dlgwebinterface.ui:55
 #, kde-format
 msgid "User:"
 msgstr "Usator:"
 
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: conf/dlgwebinterface.ui:60
+#: conf/dlgwebinterface.ui:69
 #, kde-format
 msgid "Password:"
 msgstr "Contrasigno:"
@@ -4414,7 +4414,7 @@ msgstr "Tempore remanente:"
 msgid "Transfer Settings for %1"
 msgstr "Preferentias de transferimento per %1"
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
@@ -4422,7 +4422,7 @@ msgstr ""
 "Modificar le destination non functionara, le destination remane non "
 "modificate."
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid "Destination unmodified"
 msgstr "Destination non modificate"
