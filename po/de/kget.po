@@ -6,7 +6,7 @@
 # Thomas Reitelbach <tr@erdfunkstelle.de>, 2005, 2007, 2008, 2009, 2010.
 # Burkhard Lück <lueck@hube-lueck.de>, 2008, 2009, 2010, 2011, 2013, 2014, 2017, 2019, 2021.
 # Rolf Eike Beer <kde@opensource.sf-tec.de>, 2009.
-# Frederik Schwarzer <schwarzer@kde.org>, 2009, 2010, 2011, 2012, 2016, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2009, 2010, 2011, 2012, 2016, 2022, 2023.
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2009, 2010, 2011.
 # Markus Slopianka <markus.s@kdemail.net>, 2010.
 # Johannes Obermayr <johannesobermayr@gmx.de>, 2010.
@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2022-12-19 10:35+0100\n"
+"PO-Revision-Date: 2023-01-15 00:17+0100\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -2716,11 +2716,10 @@ msgid "Pre-allocate disk space"
 msgstr "Speicherplatz vorbelegen"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "Torrent-Standardordner auswählen"
+msgstr "Eine neue Torrent-Datei auswählen"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
