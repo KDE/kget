@@ -3,14 +3,14 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2017, 2019, 2020.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2010, 2012, 2013.
 # Lukáš Tinkl <ltinkl@redhat.com>, 2010.
-# Vit Pelcak <vit@pelcak.org>, 2021, 2022.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2022-07-14 14:25+0200\n"
+"PO-Revision-Date: 2023-01-30 09:11+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -712,13 +712,13 @@ msgstr "Stáhnout znovu?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr ""
+msgstr "Stáhnout znovu"
 
 #: core/kget.cpp:1036 core/kget.cpp:1057 core/kget.cpp:1120
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Přeskočit"
 
 #: core/kget.cpp:1054 core/urlchecker.cpp:426
 #, kde-format
@@ -939,13 +939,13 @@ msgstr "Chybí klíč na ověření podpisu. Přejete si jej stáhnout?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr ""
+msgstr "Stahování"
 
 #: core/signature.cpp:238
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Pokračovat bez"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2681,7 +2681,7 @@ msgstr "Předalokovat místo na disku"
 #, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr ""
+msgstr "Vyberte nový soubor torrentu"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -2900,7 +2900,7 @@ msgstr "Stažený soubor (%1) nelze ověřit. Přejete si jej opravit?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Opravit"
 
 #: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
