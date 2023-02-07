@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2023-02-05 11:28+0300\n"
+"PO-Revision-Date: 2023-02-07 00:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -65,7 +65,7 @@ msgstr "Aktarımlar tamamlanınca yürütülecek eylem:"
 #: conf/dlgadvanced.ui:34 mainwindow.cpp:360 ui/droptarget.cpp:88
 #, kde-format
 msgid "Quit KGet"
-msgstr "KGet'ten Çık"
+msgstr "K İndir'ten Çık"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgadvanced.ui:42
@@ -396,7 +396,7 @@ msgstr "Web Arayüzü"
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
-msgstr "KGet Uygulamasını Ağ ya da İnternet Üzerinden Yönet"
+msgstr "K İndir Uygulamasını Ağ ya da İnternet Üzerinden Yönet"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
@@ -558,7 +558,7 @@ msgid ""
 "settings or restart KGet and retry downloading."
 msgstr ""
 "Kullanılabilir anahtar sunucusu bulunamadı, anahtar indirilmedi. Ayarlardan "
-"daha fazla sunucu ekleyin veya KGet'i tekrar başlatarak deneyin."
+"daha fazla sunucu ekleyin veya K İndir'i yeniden başlatarak deneyin."
 
 #: core/kget.cpp:120
 #, kde-format
@@ -637,9 +637,10 @@ msgid_plural ""
 "<p>The following URLs cannot be downloaded, their protocols are not "
 "supported by KGet:</p>"
 msgstr[0] ""
-"<p>Bu URL indirilemez. Protokolü KGet tarafından desteklenmiyor:</p>"
+"<p>Bu URL indirilemez. Protokolü K İndir tarafından desteklenmiyor:</p>"
 msgstr[1] ""
-"<p>Bu URL'ler indirilemez. Protokolleri KGet tarafından desteklenmiyor:</p>"
+"<p>Bu URL'ler indirilemez. Protokolleri K İndir tarafından desteklenmiyor:</"
+"p>"
 
 #: core/kget.cpp:906
 #, kde-format
@@ -858,7 +859,7 @@ msgstr "Çözümle"
 #: core/kget.cpp:1463
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
-msgstr "Tüm aktarımlar tamamlandı, KGet uygulamasından çıkılıyor."
+msgstr "Tüm aktarımlar tamamlandı, K İndir uygulamasından çıkılıyor."
 
 #: core/kget.cpp:1472
 #, kde-format
@@ -915,19 +916,19 @@ msgstr "İndirmeler tamamlandı"
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
-msgstr "KGet"
+msgstr "K İndir"
 
 #: core/kgetglobaljob.cpp:56
 #, kde-format
 msgid "KGet is downloading %1 file"
 msgid_plural "KGet is downloading %1 files"
-msgstr[0] "KGet %1 dosya indiriyor"
-msgstr[1] "KGet %1 dosya indiriyor"
+msgstr[0] "K İndir %1 dosya indiriyor"
+msgstr[1] "K İndir %1 dosya indiriyor"
 
 #: core/kgetkjobadapter.cpp:48
 #, kde-format
 msgid "KGet Transfer"
-msgstr "KGet Aktarımı"
+msgstr "K İndir Aktarımı"
 
 #: core/linkimporter.cpp:91
 #, kde-format
@@ -1442,7 +1443,7 @@ msgid ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
-"(C) 2005 - 2014, The KGet developers\n"
+"(C) 2005 - 2014, K İndir geliştiricileri\n"
 "(C) 2001 - 2002, Patrick Charbonnier\n"
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
@@ -1577,17 +1578,17 @@ msgstr "muhammet.k@gmail.com, tulliana@gmail.com, volkangezer@gmail.com"
 #: main.cpp:132
 #, kde-format
 msgid "Start KGet with drop target"
-msgstr "KGet uygulamasını masaüstü simgesi ile birlikte başlat"
+msgstr "K İndir uygulamasını masaüstü simgesi ile birlikte başlat"
 
 #: main.cpp:133
 #, kde-format
 msgid "Start KGet with hidden main window"
-msgstr "KGet uygulamasını ana penceresi gizli olarak başlat"
+msgstr "K İndir uygulamasını ana penceresi gizli olarak başlat"
 
 #: main.cpp:134
 #, kde-format
 msgid "Start KGet without drop target animation"
-msgstr "KGet uygulamasını masaüstü simgesi olmadan başlat"
+msgstr "K İndir uygulamasını masaüstü simgesi olmadan başlat"
 
 #: main.cpp:136
 #, kde-format
@@ -1670,13 +1671,13 @@ msgid ""
 msgstr ""
 "<b>Otomatik yapıştır</b> düğmesi otomatik yapıştırma kipini açar ve "
 "kapatır.\n"
-"Bu kullanıldığında, KGet belirli aralıklarla panoyu tarayarak adresleri "
+"Bu kullanıldığında, K İndir belirli aralıklarla panoyu tarayarak adresleri "
 "otomatik olarak yapıştırır."
 
 #: mainwindow.cpp:227
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
-msgstr "KGet'i Konqueror'un indirme yöneticisi olarak kullan"
+msgstr "K İndir'i Konqueror'un indirme yöneticisi olarak kullan"
 
 #: mainwindow.cpp:245
 #, kde-format
@@ -1789,8 +1790,9 @@ msgid ""
 "This is the first time you have run KGet.\n"
 "Would you like to enable KGet as the download manager for Konqueror?"
 msgstr ""
-"KGet uygulamasını ilk defa çalıştırıyorsunuz.\n"
-"KGet uygulamasının Konqueror için indirme yöneticisi olmasını ister misiniz?"
+"K İndir uygulamasını ilk defa çalıştırıyorsunuz.\n"
+"K İndir uygulamasının Konqueror için indirme yöneticisi olmasını ister "
+"misiniz?"
 
 #: mainwindow.cpp:441
 #, kde-format
@@ -1822,7 +1824,7 @@ msgstr "Tüm Açılabilir Dosyalar"
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
-msgstr "KGet - %​%1"
+msgstr "K İndir - %​%1"
 
 #: mainwindow.cpp:581
 #, kde-format
@@ -1831,7 +1833,7 @@ msgid ""
 "Are you sure you want to close KGet?"
 msgstr ""
 "Bazı aktarımlar hâlâ çalışıyor.\n"
-"KGet uygulamasını kapatmak istediğinizden emin misiniz?"
+"K İndir uygulamasını kapatmak istediğinizden emin misiniz?"
 
 #: mainwindow.cpp:583
 #, kde-format
@@ -1847,7 +1849,7 @@ msgstr "Aktarımları Dışa Aktar"
 #: mainwindow.cpp:616
 #, kde-format
 msgid "KGet Transfer List"
-msgstr "KGet Aktarım Listesi"
+msgstr "K İndir Aktarım Listesi"
 
 #: mainwindow.cpp:616
 #, kde-format
@@ -1895,7 +1897,7 @@ msgid ""
 "want to disable it forever, go to Settings->Advanced and disable \"Use as "
 "download manager for Konqueror\"."
 msgstr ""
-"KGet'in Konqueror'un dosya yöneticisi olarak kullanılması geçici olarak "
+"K İndir'in Konqueror'un dosya yöneticisi olarak kullanılması geçici olarak "
 "engellendi. Eğer bu tercihin kalıcı olmasını istiyorsanız, Ayarlar-"
 ">Gelişmiş'e gidin ve \"Konqueror için indirme yöneticisi olarak ayarla\" "
 "seçeneğini iptal edin."
@@ -1903,7 +1905,7 @@ msgstr ""
 #: mainwindow.cpp:1219 ui/droptarget.cpp:212
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
-msgstr "Bırakılan dosya bir KGet Aktarım Listesi"
+msgstr "Bırakılan dosya bir K İndir Aktarım Listesi"
 
 #: mainwindow.cpp:1221 ui/droptarget.cpp:214
 #, kde-format
@@ -3609,7 +3611,7 @@ msgstr "Konum (URL)"
 #: ui/linkview/kget_linkview.cpp:257
 #, kde-format
 msgid "Links in: %1 - KGet"
-msgstr "Bağlantılar: %1 - KGet"
+msgstr "Bağlantılar: %1 - K İndir"
 
 #: ui/linkview/kget_linkview.cpp:318
 #, kde-format
@@ -4308,7 +4310,7 @@ msgstr ""
 #: ui/signaturedlg.cpp:317
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
-msgstr "KGet QPGME desteği ile derlenmediğinden bu özellik desteklenmiyor."
+msgstr "K İndir QPGME desteği ile derlenmediğinden bu özellik desteklenmiyor."
 
 #. i18n: ectx: property (text), widget (QLabel, binaryLabel)
 #: ui/signaturedlg.ui:80
