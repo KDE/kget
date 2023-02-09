@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 02:53+0000\n"
-"PO-Revision-Date: 2023-01-25 07:30+0100\n"
+"PO-Revision-Date: 2023-02-08 11:29+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2709,7 +2709,7 @@ msgstr "0"
 #: transfer-plugins/bittorrent/scandlg.ui:183
 #, kde-format
 msgid "Cancel"
-msgstr "_გაუქმება"
+msgstr "გაუქმება"
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:30
 #, kde-format
@@ -2948,7 +2948,7 @@ msgstr "ძრავის ჩასმა"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:16
 #, kde-format
 msgid "Search Engines"
-msgstr "საძებნი _ძრავები"
+msgstr "საძიებო სისტემები"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:27
@@ -2996,7 +2996,7 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
 #, kde-format
 msgid "Use search engines"
-msgstr "საძიებო ძრავების გამოყენება"
+msgstr "საძიებო სისტემების გამოყენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
