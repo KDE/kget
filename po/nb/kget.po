@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-14 00:56+0000\n"
+"POT-Creation-Date: 2023-01-27 00:57+0000\n"
 "PO-Revision-Date: 2014-04-28 17:48+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -280,26 +280,26 @@ msgid "Could not open KWallet"
 msgstr "Klarte ikke åpne KWallet"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
-#: conf/dlgwebinterface.ui:20
+#: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
 msgstr "Slå på vevbrukerflate"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
-#: conf/dlgwebinterface.ui:32
+#: conf/dlgwebinterface.ui:41
 #: transfer-plugins/bittorrent/btsettingswidget.ui:32
 #, kde-format
 msgid "Port:"
 msgstr "Port:"
 
 #. i18n: ectx: property (text), widget (QLabel, userLabel)
-#: conf/dlgwebinterface.ui:46
+#: conf/dlgwebinterface.ui:55
 #, kde-format
 msgid "User:"
 msgstr "Bruker:"
 
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: conf/dlgwebinterface.ui:60
+#: conf/dlgwebinterface.ui:69
 #, kde-format
 msgid "Password:"
 msgstr "Passord:"
@@ -4143,75 +4143,39 @@ msgstr "Endre navn på %1 til:"
 msgid "&Rename"
 msgstr "&Gi nytt navn"
 
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Unknown"
-msgstr "Ukjent"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Undefined"
-msgstr "Udefinert"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Never"
-msgstr "Aldri"
-
-#: ui/signaturedlg.cpp:42
-#, kde-format
-msgctxt "trust level"
-msgid "Marginal"
-msgstr "Marginalt"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Full"
-msgstr "Fullstendig"
-
-#: ui/signaturedlg.cpp:43
-#, kde-format
-msgctxt "trust level"
-msgid "Ultimate"
-msgstr "Ytterst"
-
-#: ui/signaturedlg.cpp:50
+#: ui/signaturedlg.cpp:46
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "Signatur for %1."
 
-#: ui/signaturedlg.cpp:73
+#: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "Dette valget er ikke støttet for den gjeldende overføringen."
 
-#: ui/signaturedlg.cpp:101
+#: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
 msgstr "Last inn signaturfil"
 
-#: ui/signaturedlg.cpp:103
+#: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "Frakoblet OpenPGP ASCII-signatur (*.asc)"
 
-#: ui/signaturedlg.cpp:104
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "Frakoblet OpenPGP binær-signatur (*.sig)"
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:153
 #, kde-format
 msgid "You need to define a signature."
 msgstr "Du må definere en signatur."
 
-#: ui/signaturedlg.cpp:161
+#: ui/signaturedlg.cpp:157
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4219,6 +4183,42 @@ msgid ""
 msgstr ""
 "Fant ikke noe fingeravtrykk, kontroller om signaturen er korrekt eller "
 "verifiser nedlastingen."
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Unknown"
+msgstr "Ukjent"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Undefined"
+msgstr "Udefinert"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Never"
+msgstr "Aldri"
+
+#: ui/signaturedlg.cpp:191
+#, kde-format
+msgctxt "trust level"
+msgid "Marginal"
+msgstr "Marginalt"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Full"
+msgstr "Fullstendig"
+
+#: ui/signaturedlg.cpp:192
+#, kde-format
+msgctxt "trust level"
+msgid "Ultimate"
+msgstr "Ytterst"
 
 #: ui/signaturedlg.cpp:195
 #, kde-format
@@ -4402,13 +4402,13 @@ msgstr "Tid som gjenstår:"
 msgid "Transfer Settings for %1"
 msgstr "Overføringsinnstillinger for %1"
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
 msgstr "Det virket ikke å endre målet, målet forblir uendret."
 
-#: ui/transfersettingsdialog.cpp:163
+#: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid "Destination unmodified"
 msgstr "Mål uendret"
