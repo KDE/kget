@@ -193,6 +193,7 @@
       <li xml:lang="ia">Pausar e resumer discargamento de files, assi comole habilitate de reinitiar un discargamento.</li>
       <li xml:lang="id">Menjeda dan melanjutkan pengunduhan file-file, begitu pula kemampuan untuk memulai kembali sebuah unduh-an.</li>
       <li xml:lang="it">Interruzione e ripresa dello scaricamento dei file, oltre alla capacità di riavviare uno scaricamento.</li>
+      <li xml:lang="ka">ფაილების გადმოწერის შეჩერება და გაგრძელება, ისევე, როგორც გადმოწერის თავიდან დაწყება.</li>
       <li xml:lang="ko">파일 다운로드를 일시 정지 및 재시작할 수 있습니다.</li>
       <li xml:lang="nl">Pauzeren en hervatten van downloaden van bestanden, evenals de mogelijkheid om een download opnieuw te starten.</li>
       <li xml:lang="pl">Wstrzymywanie i wznawianie pobieranych plików, a także możliwość pobrania ich na nowo.</li>
@@ -225,6 +226,7 @@
       <li xml:lang="ia">Dice multe information re discargamentos currente e pendente.</li>
       <li xml:lang="id">Memberikan banyak informasi tentang unduh-an yang ada sekarang dan yang sedang dihentikan.</li>
       <li xml:lang="it">Fornisce molte informazioni sugli scaricamenti in corso e in attesa.</li>
+      <li xml:lang="ka">მოგაწვდით ინფორმაციას მიმდინარე და დარჩენილი გადმოწერების შესახებ.</li>
       <li xml:lang="ko">현재 및 진행 예정인 다운로드 항목에 대한 정보를 제공합니다.</li>
       <li xml:lang="nl">Vertelt veel informatie over huidige en in behandeling zijnde downloads.</li>
       <li xml:lang="pl">Mówi wiele informacji o obecnych i oczekujących pobieraniach.</li>
@@ -323,6 +325,7 @@
       <li xml:lang="ia">Supporto de metalink que contine URLs multiple per discargamentos, preter checksums e altere information.</li>
       <li xml:lang="id">Dukungan Metalink yang terdiri dari banyak bagian URL untuk unduh-an, bersamaan dengan checksums dan informasi lain.</li>
       <li xml:lang="it">Supporto per Metalink che contiene diversi URL da scaricare, oltre a codici di controllo ed altre informazioni.</li>
+      <li xml:lang="ka">მეტაბმულების, რომლებიც გადმოსაწერად ბევრ ბმულს შეიცავენ, მხარდაჭერა, საკონტროლო ჯამებისა და სხვა ინფორმაციასთან ერთად.</li>
       <li xml:lang="ko">다운로드 URL 여러 개 및 체크섬 등 정보가 들어 있는 Metalink를 지원합니다.</li>
       <li xml:lang="nl">Ondersteuning van Metalink die meerdere URL's voor downloads bevat, samen met controlesommen en andere informatie.</li>
       <li xml:lang="pl">Obsługa metałączy, które zawierają wiele adresów URL do pobrania, wraz z sumami sprawdzającymi i innymi informacjami.</li>
