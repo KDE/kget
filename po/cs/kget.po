@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 02:53+0000\n"
-"PO-Revision-Date: 2023-01-30 09:11+0100\n"
+"PO-Revision-Date: 2023-02-21 09:37+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -3666,7 +3666,7 @@ msgstr "Podporované operační systémy, oddělené čárkami"
 #: ui/metalinkcreator/commondata.ui:103
 #, kde-format
 msgid "Copyright:"
-msgstr "Copyright:"
+msgstr "Autorská práva:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_20)
 #: ui/metalinkcreator/commondata.ui:141
