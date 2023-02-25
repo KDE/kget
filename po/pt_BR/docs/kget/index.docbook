@@ -1,12 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!-- Define an entity for your application if it is not part of KDE CVS -->
-  <!ENTITY kget "<application
->KGet</application
->">
-  <!ENTITY kappname "&kget;"
-><!-- replace kget here do *not* replace kappname-->
-  <!ENTITY package "kdenetwork">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Brazilian-Portuguese "INCLUDE"
 > 
@@ -56,15 +50,15 @@
 >&FDLNotice;</legalnotice>
 
 <date
->17/07/2010</date>
+>21/11/2017</date>
 <releaseinfo
->2.4.93 (&kde; 4.5)</releaseinfo>
+>2.95.0 (Applications 17.12)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para
->O &kget; é o gerenciador de transferências do &kde; </para>
+>O &kget; é o gerenciador de transferências avançados do &kde; </para>
 </abstract>
 
 <keywordset>
@@ -180,22 +174,6 @@
       </para>
      </listitem>
     </varlistentry>
-<!-- no longer in 4.5
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Show Drop Target</guimenuitem>
-	</menuchoice>
-      </term>
-    <listitem>
-      <para>
-	<action
->Uncheck this box to make the &kget; Drop Target go away.</action>
-      </para>
-     </listitem>
-    </varlistentry>
--->
     <varlistentry>
       <term>
 	<menuchoice>
@@ -289,21 +267,7 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Mostrar a tela inicial</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->Assinale esta opção para ativar uma tela inicial antes da inicialização.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Mostrar o alvo</guimenuitem>
+>Usar o alvo</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -327,22 +291,6 @@
 	</para>
       </listitem>
     </varlistentry>
-<!-- what is this?
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Enable popup tooltip</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->???</action>
-	</para>
-      </listitem>
-    </varlistentry>
--->
   </variablelist>
 </para>
 </sect1>
@@ -419,22 +367,6 @@
 	</para>
       </listitem>
     </varlistentry>
-    
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Número de transferências</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->Você poderá definir com esta opção o número máximo de transferências simultâneas.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-
     <varlistentry>
       <term>
 	<menuchoice>
@@ -484,7 +416,7 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Reconectar quando ocorrer erro ou problema de conexão</guimenuitem>
+>Reconectar quando ocorrer problema de conexão</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -576,14 +508,50 @@
   </screenshot>
 
 <para
->Se usar os dois métodos <guilabel
->Códigos de validação</guilabel
+>Usando os dois métodos <guilabel
+>Verificação automática da soma de verificação</guilabel
 > e <guilabel
 >Assinatura</guilabel
->, poderá verificar as suas transferências. Você apenas terá que assinalar as opções de verificação automática.</para>
+>, você poderá verificar as suas transferências. Você apenas terá que assinalar a opção <guilabel
+>Verificação automática</guilabel
+> .</para>
 </sect1>
 
-<sect1 id='Advanced'>
+<sect1 id="Integration">
+<title
+>Integração</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Usar como gerenciador de download do Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Você pode definir o &kget; como gerenciador de download do &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Monitorar a área de transferência por arquivos para download</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Você pode ativar este recurso que pergunta se você quer ter a &URL; do download copiada para a área de transferência. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
 <title
 >Avançado</title>
   <para
@@ -603,21 +571,6 @@
   </screenshot>
 
   <variablelist>
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Desabilitar os diálogos de confirmação (menos detalhamento)</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para
-><action
->Desativa as janelas de confirmação</action
->, as quais provocam alguma descrição desnecessária. </para>
-      </listitem>
-    </varlistentry>
-
     <varlistentry>
       <term>
 	<menuchoice>
@@ -667,38 +620,6 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Usar como gerenciador de download do Konqueror</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->Você pode definir o &kget; como gerenciador de download do &konqueror;.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Monitorar a área de transferência por arquivos para download</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-<!--
-	  <action
->Blank</action>
--->
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
 >Ativar o registro de progresso global do &kde;</guimenuitem>
 	</menuchoice>
       </term>
@@ -711,6 +632,31 @@
     </varlistentry>
   </variablelist>
 </sect1>
+
+<sect1 id="Plugins">
+<title
+>Plugins</title>
+  <screenshot>
+    <screeninfo
+>Opções de plugin do &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Opções de plugin do &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>Nesta página você pode selecionar os plugins de transferência a serem usados. Use o botão <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> para alterar as configurações padrão de um plugin.</para>
+
+ </sect1>
 
 </chapter>
 
@@ -735,9 +681,7 @@
 
 <sect1 id='File_Options'>
 <title
->Menu <guimenu
->Arquivo</guimenu
-></title>
+>O menu Arquivo</title>
 <variablelist>
 <varlistentry>
 <term
@@ -758,75 +702,6 @@
 ><para
 ><action
 >Adiciona um novo arquivo a transferir</action
-></para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->I</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Arquivo</guimenu
-> <guimenuitem
->Importar as Transferências...</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Carrega um arquivo *.kgt, *.metalink, *.meta4 ou *.torrent.</action
-></para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->E</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Arquivo</guimenu
-> <guimenuitem
->Exportar a Lista de Transferências...</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Exporta as referências realçadas para um arquivo .kgt, para transferência posterior.</action
-></para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->P</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Arquivo</guimenu
-> <guimenuitem
->Exportar as Transferências como Texto Simples...</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Exporta as ligações a serem transferidas como texto simples.</action
 ></para
 ></listitem>
 </varlistentry>
@@ -871,6 +746,62 @@
 > e <guilabel
 >Pacotes</guilabel
 >. Existe também um campo de texto para filtrar os resultados.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Importar as Transferências...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Carrega um arquivo <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> ou <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Exportar a Lista de Transferências...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Exporta as referências realçadas para um arquivo <filename class="extension"
+>.kgt</filename
+>, para transferência posterior.</action
 ></para
 ></listitem>
 </varlistentry>
@@ -1042,23 +973,7 @@
 >Tradução de Marcus Gama <email
 >marcus.gama@gmail.com</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
-
-<appendix id="installation">
-<title
->Instalação</title>
-
-<sect1 id="getting-KGet">
-<title
->Como obter o &kget;</title>
-&install.intro.documentation; </sect1>
-
-<sect1 id="compilation">
-<title
->Compilação e instalação</title>
-&install.compile.documentation; </sect1>
-</appendix>
+> &underFDL; &underGPL; </chapter>
 
 &documentation.index;
 </book>

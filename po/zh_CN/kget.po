@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 02:53+0000\n"
-"PO-Revision-Date: 2023-02-15 11:07\n"
+"PO-Revision-Date: 2023-02-24 12:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -696,13 +696,13 @@ msgstr "要重新下载吗？"
 #, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr ""
+msgstr "重新下载"
 
 #: core/kget.cpp:1069 core/kget.cpp:1091 core/kget.cpp:1159
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "跳过"
 
 #: core/kget.cpp:1088 core/urlchecker.cpp:426
 #, kde-format
@@ -918,13 +918,13 @@ msgstr "用于验证签名的密钥丢失，您想要下载它吗？"
 #, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 #: core/signature.cpp:238
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "继续并跳过"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2850,7 +2850,7 @@ msgstr "无法验证下载(%1)。您想要修复它吗？"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "修复"
 
 #: transfer-plugins/kio/transferKio.cpp:287
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
@@ -2868,7 +2868,7 @@ msgstr "验证失败。"
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:275
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "忽略"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:222
 #: transfer-plugins/metalink/metalink.cpp:506
@@ -2886,7 +2886,7 @@ msgstr "无法验证下载，您想要修复 (如果修复无效，将重新开�
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "忽略"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
