@@ -1,14 +1,14 @@
 # Translation of kget to Korean.
 # Copyright (C) 2007-2008 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kdenetwork package.
-# Shinjo Park <kde@peremen.name>, 2007, 2008, 2009, 2010, 2015, 2017, 2019, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2007, 2008, 2009, 2010, 2015, 2017, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2022-07-13 12:53+0200\n"
+"PO-Revision-Date: 2023-03-01 02:08+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -696,8 +696,7 @@ msgstr "다시 다운로드하시겠습니까?"
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "다시 다운로드"
@@ -706,7 +705,7 @@ msgstr "다시 다운로드"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "건너뛰기"
 
 #: core/kget.cpp:1054 core/urlchecker.cpp:426
 #, kde-format
@@ -921,8 +920,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "서명을 검증할 수 있는 키가 없습니다. 그래도 다운로드하시겠습니까?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "다운로드"
@@ -931,7 +929,7 @@ msgstr "다운로드"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "빠진 채로 계속"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2647,11 +2645,10 @@ msgid "Pre-allocate disk space"
 msgstr "디스크 공간 미리 할당하기"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "기본 토렌트 폴더 선택"
+msgstr "새 토렌트 파일 선택"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -2872,7 +2869,7 @@ msgstr "다운로드(%1)를 검증할 수 없습니다. 복구하시겠습니까
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "복구"
 
 #: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
@@ -2890,7 +2887,7 @@ msgstr "검증이 실패했습니다."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "무시"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:221
 #: transfer-plugins/metalink/metalink.cpp:466
@@ -2910,7 +2907,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "무시"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
