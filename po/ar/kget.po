@@ -99,7 +99,7 @@ msgstr "النهاية الخلفية للتاريخ"
 #: conf/dlgadvanced.ui:80
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
-msgstr "فعّل تتبع تقدم كدي العام"
+msgstr "فعّل تتبع تقدم كِيدِي العام"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
 #: conf/dlgadvanced.ui:92
@@ -1371,7 +1371,7 @@ msgstr "متحقّق منه"
 #, fuzzy, kde-format
 #| msgid "An advanced download manager for KDE"
 msgid "An advanced download manager by KDE"
-msgstr "مدير تنزيل متقدم لكدي"
+msgstr "مدير تنزيل متقدم لكِيدِي"
 
 #: main.cpp:105
 #, fuzzy, kde-format
