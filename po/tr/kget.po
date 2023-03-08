@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 02:53+0000\n"
-"PO-Revision-Date: 2023-02-05 11:28+0300\n"
+"PO-Revision-Date: 2023-03-07 20:32+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -1597,7 +1597,7 @@ msgstr "Birim Sınamalarını Yürüt"
 #: main.cpp:139
 #, kde-format
 msgid "URL(s) to download"
-msgstr "İndirilecek Adres(ler)"
+msgstr "İndirilecek URL('ler)"
 
 #: mainwindow.cpp:148
 #, kde-format
@@ -3071,7 +3071,7 @@ msgstr "Tamamlandı"
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:171
 #, kde-format
 msgid "Download failed, could not access this URL."
-msgstr "İndirme başarısız oldu, adrese erişilemedi."
+msgstr "İndirme başarısız oldu, URL'ye erişilemedi."
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:181
 #, kde-format
@@ -3079,7 +3079,7 @@ msgid ""
 "This URL does not allow multiple connections,\n"
 "the download will take longer."
 msgstr ""
-"Bu adres çoklu bağlantılara izin vermiyor,\n"
+"Bu URL çoklu bağlantılara izin vermiyor,\n"
 "indirme işlemi uzun sürecek."
 
 #. i18n: ectx: property (text), widget (QCheckBox, enginesCheckBox)
@@ -3760,8 +3760,8 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
-"Eğer bırakılan tüm dosyalar o sunucuda ve aynı dizindeyse buraya adreslerini "
-"girin. Her bırakılan dosya için adres, girilen kısım ve dosya adından oluşur."
+"Eğer bırakılan tüm dosyalar o sunucuda ve aynı dizindeyse buraya URL'lerini "
+"girin. Her bırakılan dosya için URL, girilen kısım ve dosya adından oluşur."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/metalinkcreator/dragdlg.ui:102
