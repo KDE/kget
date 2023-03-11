@@ -10,7 +10,7 @@
 # Elias Julkunen <elias.julkunen@gmail.com>, 2008.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2010.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014.
-# Tommi Nieminen <translator@legisign.org>, 2011, 2018, 2019, 2020, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2011, 2018, 2019, 2020, 2021, 2022, 2023.
 # Copyright © 2003, 2005, 2007, 2008 Free Software Foundation, Inc.
 #
 # KDE Finnish translation sprint participants:
@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2022-08-22 21:56+0300\n"
+"PO-Revision-Date: 2023-01-18 12:41+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -716,17 +716,16 @@ msgstr "Ladataanko uudestaan?"
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr "Lataa uudestaan"
+msgstr "Lataa uudelleen"
 
 #: core/kget.cpp:1036 core/kget.cpp:1057 core/kget.cpp:1120
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Ohita"
 
 #: core/kget.cpp:1054 core/urlchecker.cpp:426
 #, kde-format
@@ -945,8 +944,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Avain allekirjoituksen todentamiseen puuttuu, haluatko ladata sen?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Lataa"
@@ -955,7 +953,7 @@ msgstr "Lataa"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Jatka ilman"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2921,7 +2919,7 @@ msgstr "Latausta (%1) ei voitu todentaa. Haluatko korjata sen?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Korjaa"
 
 #: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
@@ -2939,7 +2937,7 @@ msgstr "Todennus epäonnistui."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Sivuuta"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:221
 #: transfer-plugins/metalink/metalink.cpp:466
@@ -2959,7 +2957,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Sivuuta"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
