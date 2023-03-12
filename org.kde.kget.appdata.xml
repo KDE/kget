@@ -32,7 +32,7 @@
   <name xml:lang="sk">KGet</name>
   <name xml:lang="sl">KGet</name>
   <name xml:lang="sv">Kget</name>
-  <name xml:lang="tr">KGet</name>
+  <name xml:lang="tr">K İndir</name>
   <name xml:lang="uk">KGet</name>
   <name xml:lang="x-test">xxKGetxx</name>
   <name xml:lang="zh-CN">KGet</name>
@@ -102,7 +102,7 @@
     <p xml:lang="sk">KGet je univerzálny a ľahko použiteľný správca sťahovania.</p>
     <p xml:lang="sl">KGet je vsestranski in uporabniku prijazen upravljalnik prenosov datotek.</p>
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
-    <p xml:lang="tr">KGet, geniş kapsamlı ve kullanıcı dostu bir indirme yöneticisidir.</p>
+    <p xml:lang="tr">K İndir, geniş kapsamlı ve kullanıcı dostu bir indirme yöneticisidir.</p>
     <p xml:lang="uk">KGet — гнучка і зручна програма для отримання даних з мережі.</p>
     <p xml:lang="x-test">xxKGet is a versatile and user-friendly download manager.xx</p>
     <p xml:lang="zh-CN">KGet 是一个功能多样且用户友好的下载管理器。</p>
@@ -377,7 +377,7 @@
       <caption xml:lang="sk">Sťahovanie súborov s KGet</caption>
       <caption xml:lang="sl">Prenos datotek s programom KGet</caption>
       <caption xml:lang="sv">Nerladdning av filer med Kget</caption>
-      <caption xml:lang="tr">KGet ile dosya indirme</caption>
+      <caption xml:lang="tr">K İndir ile dosya indirme</caption>
       <caption xml:lang="uk">Отримання файлів за допомогою KGet</caption>
       <caption xml:lang="x-test">xxDownloading files with KGetxx</caption>
       <caption xml:lang="zh-CN">使用 KGet 下载文件</caption>
