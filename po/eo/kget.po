@@ -1,4 +1,6 @@
-# Translation of kget into esperanto.
+# Translation of kget.pot into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kget package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 #
 msgid ""
@@ -6,8 +8,8 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-03-20 22:43+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -182,32 +184,28 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
 #: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
-#, fuzzy, kde-format
-#| msgid "Priority"
+#, kde-format
 msgid "&Increase Priority"
-msgstr "Prioritato"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
 #: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
-#, fuzzy, kde-format
-#| msgid "Priority"
+#, kde-format
 msgid "&Decrease Priority"
-msgstr "Prioritato"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
 #: conf/dlgnetwork.ui:19
-#, fuzzy, kde-format
-#| msgid "Maximum download speed:"
+#, kde-format
 msgid "Maximum downloads per group:"
-msgstr "Maksimuma elŝuta rapido:"
+msgstr ""
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_MaxConnections)
 #: conf/dlgnetwork.ui:26
-#, fuzzy, kde-format
-#| msgid "No Limit"
+#, kde-format
 msgctxt "no limit for maximum downloads has been set"
 msgid "No limit"
-msgstr "Senlima"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_SpeedLimit)
 #: conf/dlgnetwork.ui:35
@@ -231,10 +229,9 @@ msgstr ""
 #: conf/dlgnetwork.ui:54 conf/dlgnetwork.ui:80 conf/dlgnetwork.ui:103
 #: ui/groupsettingsdialog.ui:90 ui/groupsettingsdialog.ui:109
 #: ui/transfersettingsdialog.ui:54 ui/transfersettingsdialog.ui:70
-#, fuzzy, kde-format
-#| msgid " KB/s"
+#, kde-format
 msgid " KiB/s"
-msgstr " KB/s"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgnetwork.ui:70
@@ -303,16 +300,14 @@ msgid "Password:"
 msgstr "Pasvorto:"
 
 #: conf/integrationpreferences.cpp:35
-#, fuzzy, kde-format
-#| msgid "Excluded:"
+#, kde-format
 msgid "Include"
-msgstr "Ekskluzivis:"
+msgstr ""
 
 #: conf/integrationpreferences.cpp:36
-#, fuzzy, kde-format
-#| msgid "Excluded:"
+#, kde-format
 msgid "Exclude"
-msgstr "Ekskluzivis:"
+msgstr ""
 
 #. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
 #: conf/kget.kcfg:176
@@ -341,16 +336,14 @@ msgid "Turn Off Computer"
 msgstr "Malŝalti komputilon"
 
 #: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
-#, fuzzy, kde-format
-#| msgid "Turn Off Computer"
+#, kde-format
 msgid "Hibernate Computer"
-msgstr "Malŝalti komputilon"
+msgstr ""
 
 #: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
-#, fuzzy, kde-format
-#| msgid "Turn Off Computer"
+#, kde-format
 msgid "Suspend Computer"
-msgstr "Malŝalti komputilon"
+msgstr ""
 
 #: conf/preferencesdialog.cpp:70
 #, kde-format
@@ -400,11 +393,10 @@ msgid "Verification"
 msgstr ""
 
 #: conf/preferencesdialog.cpp:76 conf/preferencesdialog.cpp:78
-#, fuzzy, kde-format
-#| msgid "Interesting"
+#, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
-msgstr "Interesa"
+msgstr ""
 
 #: conf/preferencesdialog.cpp:79
 #, kde-format
@@ -581,10 +573,9 @@ msgid ""
 msgstr ""
 
 #: core/kget.cpp:269 core/kget.cpp:362
-#, fuzzy, kde-format
-#| msgid "Downloaded"
+#, kde-format
 msgid "Download added"
-msgstr "Elŝutis"
+msgstr ""
 
 #: core/kget.cpp:357
 #, kde-format
@@ -651,8 +642,7 @@ msgid "Choose Directory"
 msgstr ""
 
 #: core/kget.cpp:1000
-#, fuzzy, kde-format
-#| msgid "Save As"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "Konservi kiel"
@@ -691,11 +681,10 @@ msgstr ""
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
-#, fuzzy, kde-format
-#| msgid "Download last"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr "Elŝuti laste"
+msgstr ""
 
 #: core/kget.cpp:1036 core/kget.cpp:1057 core/kget.cpp:1120
 #, kde-format
@@ -799,10 +788,9 @@ msgid ""
 msgstr ""
 
 #: core/kget.cpp:1398
-#, fuzzy, kde-format
-#| msgid "Downloaded"
+#, kde-format
 msgid "Download started"
-msgstr "Elŝutis"
+msgstr ""
 
 #: core/kget.cpp:1403
 #, kde-format
@@ -813,10 +801,9 @@ msgid ""
 msgstr ""
 
 #: core/kget.cpp:1412
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgid "Resolve"
-msgstr "Forigi"
+msgstr ""
 
 #: core/kget.cpp:1463
 #, kde-format
@@ -851,12 +838,10 @@ msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 
 #: core/kget.cpp:1490
-#, fuzzy, kde-format
-#| msgctxt "Preview pending"
-#| msgid "Pending"
+#, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
-msgstr "Pritraktota"
+msgstr ""
 
 #: core/kget.cpp:1499
 #, kde-format
@@ -903,8 +888,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Elŝuti"
@@ -932,11 +916,9 @@ msgid "Downloading...."
 msgstr ""
 
 #: core/transfer.cpp:29
-#, fuzzy
-#| msgid "Delete"
 msgctxt "transfer state: delayed"
 msgid "Delayed"
-msgstr "Forigi"
+msgstr ""
 
 #: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
@@ -1107,16 +1089,14 @@ msgid "Malformed URL."
 msgstr "Misformita retadreso."
 
 #: core/urlchecker.cpp:328
-#, fuzzy, kde-format
-#| msgid "Malformed URL."
+#, kde-format
 msgid "Malformed URL, protocol missing."
-msgstr "Misformita retadreso."
+msgstr ""
 
 #: core/urlchecker.cpp:330
-#, fuzzy, kde-format
-#| msgid "Malformed URL."
+#, kde-format
 msgid "Malformed URL, host missing."
-msgstr "Misformita retadreso."
+msgstr ""
 
 #: core/urlchecker.cpp:342
 #, kde-format
@@ -1154,10 +1134,9 @@ msgid ""
 msgstr ""
 
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
-#, fuzzy, kde-format
-#| msgid "File already exists"
+#, kde-format
 msgid "File already exists. Overwrite it?"
-msgstr "Dosiero jam ekzistas"
+msgstr ""
 
 #: core/urlchecker.cpp:388 core/urlchecker.cpp:414
 #, kde-format
@@ -1187,19 +1166,17 @@ msgid ""
 msgstr ""
 
 #: core/urlchecker.cpp:412
-#, fuzzy, kde-format
-#| msgid "File already exists"
+#, kde-format
 msgid ""
 "File already exists:\n"
 "%1\n"
 "Overwrite it?"
-msgstr "Dosiero jam ekzistas"
+msgstr ""
 
 #: core/urlchecker.cpp:456
-#, fuzzy, kde-format
-#| msgid "Malformed URL."
+#, kde-format
 msgid "Malformed URLs."
-msgstr "Misformita retadreso."
+msgstr ""
 
 #: core/urlchecker.cpp:458
 #, kde-format
@@ -1207,18 +1184,16 @@ msgid "Malformed URLs, protocol missing."
 msgstr ""
 
 #: core/urlchecker.cpp:460
-#, fuzzy, kde-format
-#| msgid "Malformed URL."
+#, kde-format
 msgid "Malformed URLs, host missing."
-msgstr "Misformita retadreso."
+msgstr ""
 
 #: core/urlchecker.cpp:470
-#, fuzzy, kde-format
-#| msgid "Malformed URL."
+#, kde-format
 msgid ""
 "Malformed URLs:\n"
 "%1"
-msgstr "Misformita retadreso."
+msgstr ""
 
 #: core/urlchecker.cpp:472
 #, kde-format
@@ -1435,10 +1410,9 @@ msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
 #: main.cpp:119 main.cpp:120 main.cpp:121
-#, fuzzy, kde-format
-#| msgid "Developer"
+#, kde-format
 msgid "Former Developer"
-msgstr "Programinto"
+msgstr ""
 
 #: main.cpp:120
 #, kde-format
@@ -1528,42 +1502,36 @@ msgid "&Create a Metalink..."
 msgstr ""
 
 #: mainwindow.cpp:173
-#, fuzzy, kde-format
-#| msgid "Priority"
+#, kde-format
 msgid "Top Priority"
-msgstr "Prioritato"
+msgstr ""
 
 #: mainwindow.cpp:180
-#, fuzzy, kde-format
-#| msgid "Priority"
+#, kde-format
 msgid "Least Priority"
-msgstr "Prioritato"
+msgstr ""
 
 #: mainwindow.cpp:187
-#, fuzzy, kde-format
-#| msgid "Priority"
+#, kde-format
 msgid "Increase Priority"
-msgstr "Prioritato"
+msgstr ""
 
 #: mainwindow.cpp:194
-#, fuzzy, kde-format
-#| msgid "Priority"
+#, kde-format
 msgid "Decrease Priority"
-msgstr "Prioritato"
+msgstr ""
 
 #: mainwindow.cpp:202
-#, fuzzy, kde-format
-#| msgid "Remove Group"
+#, kde-format
 msgctxt "@action"
 msgid "Delete Group"
-msgstr "Elpreni grupon"
+msgstr ""
 
 #: mainwindow.cpp:208
-#, fuzzy, kde-format
-#| msgid "Remove Group"
+#, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Elpreni grupon"
+msgstr ""
 
 #: mainwindow.cpp:213
 #, kde-format
@@ -1613,11 +1581,9 @@ msgid "Redownload Selected"
 msgstr ""
 
 #: mainwindow.cpp:269
-#, fuzzy, kde-format
-#| msgctxt "start transfergroup downloads"
-#| msgid "Start"
+#, kde-format
 msgid "Start All"
-msgstr "Komenci"
+msgstr ""
 
 #: mainwindow.cpp:276
 #, kde-format
@@ -1691,11 +1657,9 @@ msgstr ""
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
 #: mainwindow.cpp:356
-#, fuzzy, kde-format
-#| msgctxt "Location = country"
-#| msgid "Location"
+#, kde-format
 msgid "No Action"
-msgstr "Malfermi lokon"
+msgstr ""
 
 #: mainwindow.cpp:439
 #, kde-format
@@ -1720,8 +1684,7 @@ msgid "Do Not Enable"
 msgstr "Ne ŝalti"
 
 #: mainwindow.cpp:512
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Malfermu dosieron"
@@ -1761,10 +1724,9 @@ msgid "KGet Transfer List"
 msgstr ""
 
 #: mainwindow.cpp:616
-#, fuzzy, kde-format
-#| msgid "Move File"
+#, kde-format
 msgid "Text File"
-msgstr "Movi dosieron"
+msgstr ""
 
 #: mainwindow.cpp:645
 #, kde-format
@@ -1837,10 +1799,9 @@ msgid "Trackers"
 msgstr "Kunordigaj serviloj"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:76
-#, fuzzy, kde-format
-#| msgid "Seeders"
+#, kde-format
 msgid "Webseeds"
-msgstr "Fontoj"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
 #, kde-format
@@ -1864,16 +1825,14 @@ msgid "Down Speed"
 msgstr "Elŝuta rapido"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:233
-#, fuzzy, kde-format
-#| msgid "Size of each chunk:"
+#, kde-format
 msgid "Number of the chunk"
-msgstr "Grando de ĉiu peco:"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:235
-#, fuzzy, kde-format
-#| msgid "Downloaded chunks:"
+#, kde-format
 msgid "Download progress of the chunk"
-msgstr "Elŝutitaj pecoj:"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:237
 #, kde-format
@@ -1881,10 +1840,9 @@ msgid "Which peer we are downloading it from"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:239
-#, fuzzy, kde-format
-#| msgid "Downloaded chunks:"
+#, kde-format
 msgid "Download speed of the chunk"
-msgstr "Elŝutitaj pecoj:"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:241
 #, kde-format
@@ -1981,10 +1939,9 @@ msgid "Collapse Folder Tree"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Scan Folder"
+#, kde-format
 msgid "Expand Folder Tree"
-msgstr "Serĉi dosierujon"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:251
 #, kde-format
@@ -1996,10 +1953,9 @@ msgstr[1] ""
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:278
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
-#, fuzzy, kde-format
-#| msgid "Select a directory to move the data to."
+#, kde-format
 msgid "Select a directory to move the data to"
-msgstr "Elektu dosierujon al kie vi volas movi la datumojn."
+msgstr "Elektu dosierujon al kiu vi volas movi la datumojn"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
@@ -2227,16 +2183,14 @@ msgid "Which client the peer is using"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
-#, fuzzy, kde-format
-#| msgid "Downloaded"
+#, kde-format
 msgid "Download speed"
-msgstr "Elŝutis"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:365
-#, fuzzy, kde-format
-#| msgid "Uploaded"
+#, kde-format
 msgid "Upload speed"
-msgstr "Alŝutis"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:367
 #, kde-format
@@ -2277,16 +2231,14 @@ msgid "The number of download and upload requests"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:381
-#, fuzzy, kde-format
-#| msgid "Do you want to download or save the torrent?"
+#, kde-format
 msgid "How much data we have downloaded from this peer"
-msgstr "Ĉu vi volas elŝuti aŭ konservi la fontan torenton?"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:383
-#, fuzzy, kde-format
-#| msgid "Do you want to download or save the torrent?"
+#, kde-format
 msgid "How much data we have uploaded to this peer"
-msgstr "Ĉu vi volas elŝuti aŭ konservi la fontan torenton?"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:385
 #, kde-format
@@ -2335,16 +2287,14 @@ msgid "Leechers"
 msgstr "Ricevantoj"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:142
-#, fuzzy, kde-format
-#| msgid "Time Downloaded"
+#, kde-format
 msgid "Times Downloaded"
-msgstr "Elŝutis dum"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:144
-#, fuzzy, kde-format
-#| msgid "Next update in:"
+#, kde-format
 msgid "Next Update"
-msgstr "Ĝisdatigos post:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
@@ -2377,10 +2327,9 @@ msgstr "Ŝanĝi servilon"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_scrape)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
-#, fuzzy, kde-format
-#| msgid "Update Tracker"
+#, kde-format
 msgid "Update Trackers"
-msgstr "Ĝisdatigi servilon"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_restore_defaults)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
@@ -2413,23 +2362,7 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#| "css\">\n"
-#| "p, li { white-space: pre-wrap; }\n"
-#| "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
-#| "font-weight:400; font-style:normal;\">\n"
-#| "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#| "right:0px; -qt-block-indent:0; text-indent:0px;\">Scan the folder "
-#| "recursively for torrents.</p>\n"
-#| "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-#| "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"
-#| "\"></p>\n"
-#| "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#| "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#| "weight:600;\">Note:</span> This will not be done for any folder named "
-#| "loaded.</p></body></html>"
+#, kde-format
 msgid ""
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
 "\">\n"
@@ -2447,35 +2380,18 @@ msgid ""
 "weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
 "html>"
 msgstr ""
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Rekursie serĉi torentojn "
-"en la dosierujo.</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
-"p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Noto:</span> Ignoros dosierujon nomita ŝargita.</p></body></"
-"html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
-#, fuzzy, kde-format
-#| msgid "Seeders"
+#, kde-format
 msgid "Add Webseed"
-msgstr "Fontoj"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
-#, fuzzy, kde-format
-#| msgid "Remove Item"
+#, kde-format
 msgid "Remove Webseed"
-msgstr "Elpreni eron"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:29
@@ -2638,10 +2554,9 @@ msgid "Cannot add a tracker to a private torrent."
 msgstr "Ne povas aldoni kunordigan servilon al privata torento."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
-#, fuzzy, kde-format
-#| msgid "The directory %1 does not exist"
+#, kde-format
 msgid "Torrent file does not exist"
-msgstr "La dosierujo %1 ne ekzistas"
+msgstr ""
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
@@ -2681,10 +2596,9 @@ msgstr "Eraro okazis dum la legado de datumo: %1"
 
 #. i18n: ectx: property (text), widget (QLabel, torrent_label)
 #: transfer-plugins/bittorrent/scandlg.ui:16
-#, fuzzy, kde-format
-#| msgid "Scanning data of torrent :"
+#, kde-format
 msgid "Scanning data of torrent:"
-msgstr "Legas datumojn de torento :"
+msgstr "Legas datumojn de torento:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: transfer-plugins/bittorrent/scandlg.ui:30
@@ -2924,10 +2838,9 @@ msgstr ""
 
 #: transfer-plugins/metalink/metalink.cpp:120
 #: transfer-plugins/metalink/metalinkxml.cpp:117
-#, fuzzy, kde-format
-#| msgid "Downloading"
+#, kde-format
 msgid "Redownload Metalink"
-msgstr "Elŝutas"
+msgstr ""
 
 #: transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:249
@@ -3023,10 +2936,9 @@ msgid "Search for verification information"
 msgstr ""
 
 #: transfer-plugins/multisegmentkio/segment.cpp:284
-#, fuzzy, kde-format
-#| msgid "Failed to create %1 : %2"
+#, kde-format
 msgid "Failed to write to the file."
-msgstr "Ne povas krei %1 : %2"
+msgstr ""
 
 #: ui/contextmenu.cpp:115
 #, kde-format
@@ -3118,10 +3030,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:64
-#, fuzzy, kde-format
-#| msgid "Regular &expression:"
+#, kde-format
 msgid "Re&gular expression:"
-msgstr "Regula esprimo:"
+msgstr "Re&gula esprimo:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, regExpEdit)
 #: ui/groupsettingsdialog.ui:74
@@ -3144,17 +3055,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/groupsettingsdialog.ui:119
-#, fuzzy, kde-format
-#| msgid "Maximum download speed:"
+#, kde-format
 msgid "Ma&ximum download speed:"
-msgstr "Maksimuma elŝuta rapido:"
+msgstr "Ma&ksimuma elŝuta rapido:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/groupsettingsdialog.ui:129
-#, fuzzy, kde-format
-#| msgid "Maximum upload speed:"
+#, kde-format
 msgid "Maximum &upload speed:"
-msgstr "Maksimuma alŝuta rapido:"
+msgstr "Maksimuma alŝ&uta rapido:"
 
 #: ui/history/transferhistory.cpp:51
 #, kde-format
@@ -3272,10 +3181,9 @@ msgstr "Forviŝi la historion"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/history/transferhistory.ui:47
-#, fuzzy, kde-format
-#| msgid "Mode:"
+#, kde-format
 msgid "View Modes:"
-msgstr "Moduso:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/history/transferhistory.ui:77
@@ -3297,10 +3205,9 @@ msgstr "Gastiganto"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:106
-#, fuzzy, kde-format
-#| msgid "Clear History"
+#, kde-format
 msgid "Filter history"
-msgstr "Forviŝi la historion"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:120
@@ -3652,9 +3559,7 @@ msgstr ""
 
 #: ui/metalinkcreator/dragdlg.cpp:94 ui/metalinkcreator/filedlg.cpp:73
 #: ui/metalinkcreator/filedlg.cpp:181
-#, fuzzy, kde-format
-#| msgctxt "comma, to seperate members of a list"
-#| msgid ","
+#, kde-format
 msgctxt "comma, to separate members of a list"
 msgid ","
 msgstr ","
@@ -3853,9 +3758,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_29)
 #: ui/metalinkcreator/generalwidget.ui:122
 #: ui/metalinkcreator/generalwidget.ui:231
-#, fuzzy, kde-format
+#, kde-format
 msgid "Date and time:"
-msgstr "Elektu lokon"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, use_publishedtimeoffset)
 #. i18n: ectx: property (text), widget (QCheckBox, use_updatedtimeoffset)
@@ -4015,8 +3920,7 @@ msgid "Priority"
 msgstr "Prioritato"
 
 #: ui/mirror/mirrormodel.cpp:298
-#, fuzzy, kde-format
-#| msgid "Connections"
+#, kde-format
 msgctxt "Number of parallel connections to the mirror"
 msgid "Connections"
 msgstr "Konektoj"
@@ -4093,10 +3997,9 @@ msgid "This option is not supported for the current transfer."
 msgstr ""
 
 #: ui/signaturedlg.cpp:97
-#, fuzzy, kde-format
-#| msgid "Signature"
+#, kde-format
 msgid "Load Signature File"
-msgstr "Subskribo"
+msgstr ""
 
 #: ui/signaturedlg.cpp:99
 #, kde-format
@@ -4241,10 +4144,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, loadSignature)
 #: ui/signaturedlg.ui:112
-#, fuzzy, kde-format
-#| msgid "Signature"
+#, kde-format
 msgid "Load Signature"
-msgstr "Subskribo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
 #: ui/signaturedlg.ui:119
@@ -4312,11 +4214,10 @@ msgstr "%1 de %2"
 
 #. i18n: ectx: property (text), widget (QLabel, sourceLabel)
 #: ui/transferdetailsfrm.ui:51
-#, fuzzy, kde-format
-#| msgid "Score"
+#, kde-format
 msgctxt "@label transfer source"
 msgid "Source:"
-msgstr "Poentoj"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, statusLabel)
 #: ui/transferdetailsfrm.ui:114
@@ -4354,24 +4255,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/transfersettingsdialog.ui:35
-#, fuzzy, kde-format
-#| msgid "Downloaded"
+#, kde-format
 msgid "Download des&tination:"
-msgstr "Elŝutis"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelUpload)
 #: ui/transfersettingsdialog.ui:90
-#, fuzzy, kde-format
-#| msgid "Upload Slot"
+#, kde-format
 msgid "&Upload limit:"
-msgstr "Alŝuta fako"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelDownload)
 #: ui/transfersettingsdialog.ui:100
-#, fuzzy, kde-format
-#| msgid "Download last"
+#, kde-format
 msgid "Download &limit:"
-msgstr "Elŝuti laste"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
 #: ui/transfersettingsdialog.ui:110
@@ -4477,416 +4375,3 @@ msgstr "&Kontroli"
 #, kde-format
 msgid "Close"
 msgstr ""
-
-#~ msgctxt "Transfer State: Finished"
-#~ msgid "Finished"
-#~ msgstr "Finita"
-
-#~ msgctxt "Transfer State: Aborted"
-#~ msgid "Aborted"
-#~ msgstr "Ĉesigita"
-
-#~ msgid "Path"
-#~ msgstr "Vojo"
-
-#, fuzzy
-#~| msgid "Add Tracker"
-#~ msgid "Edit Script"
-#~ msgstr "Aldoni kunordigan servilon"
-
-#~ msgid "Path:"
-#~ msgstr "Pado:"
-
-#~ msgid "Quality:"
-#~ msgstr "Kvalito:"
-
-#~ msgid "Username:"
-#~ msgstr "Uzantnomo:"
-
-#, fuzzy
-#~| msgid "Unable to create %1 : %2"
-#~ msgctxt "@info"
-#~ msgid "Unable to start WebInterface: %1"
-#~ msgstr "Ne povas krei %1 : %2"
-
-#~ msgctxt "@item speed of transfer per seconds"
-#~ msgid "%1/s"
-#~ msgstr "%1/s"
-
-#~ msgctxt "@label Progress of transfer"
-#~ msgid "Finished"
-#~ msgstr "Finita"
-
-#~ msgctxt "@label Speed of transfer"
-#~ msgid "Speed"
-#~ msgstr "Rapido"
-
-#~ msgctxt "@label Status of transfer"
-#~ msgid "Status"
-#~ msgstr "Stato"
-
-#~ msgctxt "@action:button start a transfer"
-#~ msgid "Start"
-#~ msgstr "Komenco"
-
-#~ msgctxt "@action:button"
-#~ msgid "Stop"
-#~ msgstr "Halti"
-
-#~ msgctxt "@action:button"
-#~ msgid "Remove"
-#~ msgstr "Forpreni"
-
-#~ msgctxt "@label Title in header"
-#~ msgid "Web Interface"
-#~ msgstr "RetInterfaco"
-
-#~ msgctxt "@action"
-#~ msgid "Settings"
-#~ msgstr "Agordo"
-
-#~ msgctxt "@action"
-#~ msgid "Refresh"
-#~ msgstr "Rekrei"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "Bone"
-
-#~ msgctxt "@action (Refresh very x )seconds"
-#~ msgid "seconds"
-#~ msgstr "sekundoj"
-
-#~ msgctxt "@title"
-#~ msgid "Downloads"
-#~ msgstr "Elŝutoj"
-
-#~ msgctxt "Number of paralell connections to the mirror"
-#~ msgid "Connections"
-#~ msgstr "Konektoj"
-
-#~ msgid "0123456789"
-#~ msgstr "0123456789"
-
-#~ msgid "Nepomuk"
-#~ msgstr "Nepomuk"
-
-#, fuzzy
-#~| msgid "Download first"
-#~ msgid "Download selected transfer first"
-#~ msgstr "Elŝuti unue"
-
-#~ msgid "Scanning data of <b>%1</b> :"
-#~ msgstr "Legas datumon de <b>%1</b> :"
-
-#, fuzzy
-#~| msgctxt "Download normally(not as first or last)"
-#~| msgid "Normal"
-#~ msgctxt "on a question"
-#~ msgid "No all"
-#~ msgstr "Normale"
-
-#~ msgid "Stop All"
-#~ msgstr "Ĉesigi ĉiujn"
-
-#~ msgid "Stop"
-#~ msgstr "Halti"
-
-#~ msgid "Move &Up"
-#~ msgstr "Movu s&upren"
-
-#~ msgid "Move &Down"
-#~ msgstr "Movi &malsupren"
-
-#~ msgid "Startup"
-#~ msgstr "Lanĉo"
-
-#~ msgid " KiB"
-#~ msgstr " KiB"
-
-#~ msgid "History"
-#~ msgstr "Historio"
-
-#, fuzzy
-#~| msgid "Error"
-#~ msgctxt "an error happened in connection with the user input"
-#~ msgid "Error:"
-#~ msgstr "Eraro"
-
-#~ msgid "TextLabel"
-#~ msgstr "TextLabel"
-
-#~ msgid "Communication Error"
-#~ msgstr "Komunikada eraro"
-
-#~ msgid "&Tools"
-#~ msgstr "&Iloj"
-
-#~ msgid "Form"
-#~ msgstr "Formo"
-
-#, fuzzy
-#~| msgid "Add Header"
-#~ msgid "Add Tag"
-#~ msgstr "Aldoni kapon"
-
-#~ msgid "OK"
-#~ msgstr "Bone"
-
-#~ msgid "Announcing"
-#~ msgstr "Konektas"
-
-#~ msgid "Error: %1"
-#~ msgstr "Eraro: %1"
-
-#~ msgid "Unknown client"
-#~ msgstr "Nekonata kliento"
-
-#~ msgid "Cannot open log file %1 : %2"
-#~ msgstr "Ne povas malfermi protokolon %1 : %2"
-
-#~ msgid "Cannot write to %1 : %2"
-#~ msgstr "Ne povas skribi al %1 : %2"
-
-#~ msgid "Cannot read from %1"
-#~ msgstr "Ne povas legi el %1"
-
-#, fuzzy
-#~| msgid "Cannot create directory %1: %2"
-#~ msgid "Cannot create directory %1"
-#~ msgstr "Ne povas krei dosierujon %1: %2"
-
-#~ msgid "Cannot symlink %1 to %2: %3"
-#~ msgstr "Ne povas krei simbolan ligilon de %1 al %2: %3"
-
-#~ msgid "Cannot move %1 to %2: %3"
-#~ msgstr "Ne povas movi %1 al %2: %3"
-
-#~ msgid "Cannot copy %1 to %2: %3"
-#~ msgstr "Ne povas kopii %1 al %2: %3"
-
-#~ msgid "Cannot delete %1: %2"
-#~ msgstr "Ne povas forigi %1: %2"
-
-#~ msgid "Cannot create %1: %2"
-#~ msgstr "Ne povas krei %1: %2"
-
-#~ msgid "Cannot calculate the filesize of %1: %2"
-#~ msgstr "Ne povas kalkuli la dosiergrandecon de %1: %2"
-
-#~ msgid "Cannot calculate the filesize : %1"
-#~ msgstr "Ne povas kalkuli la dosiergrandecon : %1"
-
-#~ msgid "Cannot open %1 : %2"
-#~ msgstr "Ne povas malfermi %1 : %2"
-
-#, fuzzy
-#~| msgid "Cannot expand file : %1"
-#~ msgid "Cannot expand file: %1"
-#~ msgstr "Ne povas malpaki dosieron: %1"
-
-#~ msgid "Cannot seek in file : %1"
-#~ msgstr "Ne povas serĉi dosieron: %1"
-
-#~ msgid "General"
-#~ msgstr "Ĝeneralo"
-
-#, fuzzy
-#~| msgid "Trackers"
-#~ msgid "Tracker"
-#~ msgstr "Kunordigaj serviloj"
-
-#, fuzzy
-#~| msgid "Disk I/O:"
-#~ msgid "Disk Input/Output"
-#~ msgstr "Diska en/eligo:"
-
-#, fuzzy
-#~| msgid "Seeds connected"
-#~ msgid "Not connected"
-#~ msgstr "Fontoj konektitaj"
-
-#, fuzzy
-#~| msgid "Notice"
-#~ msgid "Not in use"
-#~ msgstr "Rimarku"
-
-#~ msgid "Connection closed"
-#~ msgstr "Konekto malfermiĝis"
-
-#~ msgid "Connected"
-#~ msgstr "Konektinta"
-
-#, fuzzy
-#~| msgid "Connections"
-#~ msgid "Connecting"
-#~ msgstr "Konektoj"
-
-#~ msgid "Illegal token: %1"
-#~ msgstr "Maltaŭga ĵetono: %1"
-
-#~ msgid "Decode error"
-#~ msgstr "Malkoda eraro"
-
-#~ msgid "Unexpected end of input"
-#~ msgstr "Neatendita fino de enigo"
-
-#~ msgid "Cannot convert %1 to an int"
-#~ msgstr "Ne povas konverti %1 en entjeron"
-
-#, fuzzy
-#~| msgid "Torrent is incomplete!"
-#~ msgid "Torrent is incomplete."
-#~ msgstr "Torento estas nekompleta!"
-
-#~ msgid "Failed to open %1 : %2"
-#~ msgstr "Ne povas malfermi %1 : %2"
-
-#~ msgid "Failed to create %1 : %2"
-#~ msgstr "Ne povas krei %1 : %2"
-
-#~ msgid "Cannot open index file %1 : %2"
-#~ msgstr "Ne povas malfermi indekshavan dosieron %1 : %2"
-
-#~ msgid "Cannot create file %1 : %2"
-#~ msgstr "Ne povas krei dosieron %1 : %2"
-
-#~ msgid "Failed to write first chunk to DND file : %1"
-#~ msgstr "Malsukcesis skribi unuan pecon al DND-dosiero : %1"
-
-#~ msgid "Failed to write last chunk to DND file : %1"
-#~ msgstr "Malsukcesis skribi lastan pecon al DND-dosiero : %1"
-
-#~ msgid "Cannot open %1 for writing : readonly filesystem"
-#~ msgstr "Ne povas malfermi %1 por skribi : nurlega dosiersistemo"
-
-#~ msgid "Cannot expand file %1 : %2"
-#~ msgstr "Ne povas malpaki dosieron: %1 : %2"
-
-#~ msgid "Error : Reading past the end of the file %1"
-#~ msgstr "Eraro : Legas preter fino de la dosiero %1"
-
-#, fuzzy
-#~| msgid "Failed to create %1 : %2"
-#~ msgid "Failed to seek file %1 : %2"
-#~ msgstr "Ne povas krei %1 : %2"
-
-#~ msgid "Error reading from %1"
-#~ msgstr "Eraro okazis dum legado de %1"
-
-#~ msgid "Cannot preallocate diskspace : %1"
-#~ msgstr "Ne povas antaŭdisponigi diskspacon : %1"
-
-#~ msgid "Cannot open file %1 : %2"
-#~ msgstr "Ne povas malfermi dosieron %1 : %2"
-
-#, fuzzy
-#~| msgid "Corrupted torrent!"
-#~ msgid "Corrupted torrent."
-#~ msgstr "Malbona torento!"
-
-#~ msgid " Unable to open torrent file %1 : %2"
-#~ msgstr "Ne povas malfermi torentan dosieron %1 : %2"
-
-#~ msgid "Parse Error"
-#~ msgstr "Sintaksa eraro"
-
-#, fuzzy
-#~| msgid ""
-#~| "An error occurred while loading the torrent. The torrent is probably "
-#~| "corrupt or is not a torrent file."
-#~ msgid ""
-#~ "An error occurred while loading the torrent <b>%1</b>:<br/><b>%2</b><br/"
-#~ ">The torrent is probably corrupt or is not a valid torrent file."
-#~ msgstr ""
-#~ "Eraro okazis dum la ŝargado de la torento. Kompreneble aŭ la torento "
-#~ "estas malbona, aŭ eĉ ne estas torentdosiero."
-
-#, fuzzy
-#~| msgid ""
-#~| "An error occurred while loading the torrent. The torrent is probably "
-#~| "corrupt or is not a torrent file."
-#~ msgid ""
-#~ "An error occurred while loading the torrent:<br/><b>%1</b><br/>The "
-#~ "torrent is probably corrupt or is not a valid torrent file."
-#~ msgstr ""
-#~ "Eraro okazis dum la ŝargado de la torento. Kompreneble aŭ la torento "
-#~ "estas malbona, aŭ eĉ ne estas torentdosiero."
-
-#~ msgid ""
-#~ "You are already downloading this torrent %1, the list of trackers of both "
-#~ "torrents has been merged."
-#~ msgstr ""
-#~ "Vi jam elŝutas tiun ĉi torenton %1, la listo de kunordigaj serviloj de "
-#~ "ambaŭ jam kunfandiĝis."
-
-#~ msgid "You are already downloading the torrent %1"
-#~ msgstr "Vi jam elŝutas la torenton %1"
-
-#~ msgid "Not started"
-#~ msgstr "Ne lanĉiĝis"
-
-#~ msgid "Seeding completed"
-#~ msgstr "Finis la fontsendon"
-
-#~ msgctxt "Status of a torrent file"
-#~ msgid "Seeding"
-#~ msgstr "Fontsendas"
-
-#~ msgid "Stopped"
-#~ msgstr "Ĉesis"
-
-#~ msgid "Allocating diskspace"
-#~ msgstr "Disponigas diskspacon"
-
-#, fuzzy
-#~| msgid "Currently downloading:"
-#~ msgid "Queued for downloading"
-#~ msgstr "Nun elŝutas:"
-
-#~ msgid "Checking data"
-#~ msgstr "Kontrolas datumojn"
-
-#~ msgid "Stopped. No space left on device."
-#~ msgstr "Ĉesis: disponaĵo estas plenplena."
-
-#~ msgid "Cannot open file %1: %2"
-#~ msgstr "Ne povas malfermi dosieron %1: %2"
-
-#~ msgid "Cannot create index file: %1"
-#~ msgstr "Ne povas krei indekshavan dosieron: %1"
-
-#, fuzzy
-#~| msgid "Unable to create %1 : %2"
-#~ msgid "Unable to resolve hostname %1"
-#~ msgstr "Ne povas krei %1 : %2"
-
-#~ msgid "Cannot bind to udp port %1 or the 10 following ports."
-#~ msgstr "Ne povas uzi udp-pordon %1 aŭ la sekvantajn 10 pordojn."
-
-#~ msgid "Invalid response from tracker"
-#~ msgstr "Nevalida respondo de servilo"
-
-#~ msgid "Invalid data from tracker"
-#~ msgstr "Nevalida datumo de servilo"
-
-#~ msgid "Invalid tracker URL"
-#~ msgstr "Nevalida servila retadreso"
-
-#~ msgid "Cannot open file : %1 : %2"
-#~ msgstr "Ne povas malfermi dosieron : %1 : %2"
-
-#~ msgid "Add"
-#~ msgstr "Aldoni"
-
-#~ msgid "Configure..."
-#~ msgstr "Agordu..."
-
-#~ msgid "Downloads"
-#~ msgstr "Elŝutoj"
-
-#~ msgid "Threads"
-#~ msgstr "Fadenojn"
-
-#~ msgid "License:"
-#~ msgstr "Permesilo:"
