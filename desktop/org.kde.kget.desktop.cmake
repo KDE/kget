@@ -169,6 +169,7 @@ Comment[da]=KGET er en alsidig og brugervenlig downloadhåndtering
 Comment[de]=KGet ist ein vielseitiges und einfach zu benutzendes Download-Verwaltungsprogramm
 Comment[el]=Το KGet είναι ένας ευέλικτος και εύκολος στη χρήση διαχειριστής λήψεων αρχείων
 Comment[en_GB]=KGet is a versatile and user-friendly download manager
+Comment[eo]=KGet estas diverspova kay uzant-amika elŝutadministrilo
 Comment[es]=KGet es un versátil y amigable gestor de descargas
 Comment[eu]=KGet gaitasun anitzeko zama-jaisteko kudeatzaile erabilerraza da
 Comment[fi]=KGet on monipuolinen ja helppokäyttöinen latauksenhallinta
