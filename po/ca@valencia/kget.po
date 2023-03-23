@@ -3112,7 +3112,7 @@ msgstr[1] "Suprimix els grups"
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
-msgstr[0] "Canvia el nom d'un grup..."
+msgstr[0] "Canvia el nom del grup..."
 msgstr[1] "Canvia el nom dels grups..."
 
 #: ui/droptarget.cpp:81
