@@ -18,7 +18,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -644,7 +644,6 @@ msgid_plural ""
 "<p>The following URLs cannot be downloaded, their protocols are not "
 "supported by KGet:</p>"
 msgstr[0] ""
-msgstr[1] ""
 
 #: core/kget.cpp:906
 #, kde-format
@@ -936,7 +935,6 @@ msgstr "KGet"
 msgid "KGet is downloading %1 file"
 msgid_plural "KGet is downloading %1 files"
 msgstr[0] "KGet - %1 個のファイルをダウンロード中"
-msgstr[1] "KGet - %1 個のファイルをダウンロード中"
 
 #: core/kgetkjobadapter.cpp:48
 #, kde-format
@@ -1018,8 +1016,7 @@ msgstr "保存先を変更"
 #, kde-format
 msgid "1 Item"
 msgid_plural "%1 Items"
-msgstr[0] "1 アイテム"
-msgstr[1] "%1 アイテム"
+msgstr[0] "%1 アイテム"
 
 #: core/transfergrouphandler.cpp:108 core/transferhandler.cpp:140
 #: ui/transferdetails.cpp:93
@@ -2034,7 +2031,6 @@ msgstr "グループ名:"
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "本当に選択した転送を削除しますか？"
-msgstr[1] "本当に選択した転送を削除しますか？"
 
 #: mainwindow.cpp:736 mainwindow.cpp:776
 #, kde-format
@@ -2049,7 +2045,6 @@ msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "本当に選択した転送を削除しますか？"
-msgstr[1] "本当に選択した転送を削除しますか？"
 
 #: mainwindow.cpp:1100
 #, kde-format
@@ -2245,8 +2240,6 @@ msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] ""
-"このファイルのすべてのデータを失うことになります。本当によろしいですか？"
-msgstr[1] ""
 "これらのファイルのすべてのデータを失うことになります。本当によろしいですか？"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:278
@@ -3267,14 +3260,12 @@ msgstr ""
 msgid "Delete Group"
 msgid_plural "Delete Groups"
 msgstr[0] "グループを削除"
-msgstr[1] "グループを削除"
 
 #: ui/contextmenu.cpp:119
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
 msgstr[0] "グループ名を変更..."
-msgstr[1] "グループ名を変更..."
 
 #: ui/droptarget.cpp:81
 #, kde-format
