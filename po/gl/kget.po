@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2023-04-30 11:33+0200\n"
+"PO-Revision-Date: 2023-06-05 14:27+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -1672,7 +1672,7 @@ msgstr ""
 "O botón <b>Pegar automaticamente</b> conmuta o modo de pegar "
 "automaticamente.\n"
 "Se activa o modo, KGet examinará periodicamente o portapapeis en busca de "
-"URLs, e os pegará automaticamente."
+"URL, e os pegará automaticamente."
 
 #: mainwindow.cpp:227
 #, kde-format
@@ -2001,7 +2001,7 @@ msgstr "Total:"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:59
 #, kde-format
 msgid "Currently downloading:"
-msgstr "Descargando actualmente:"
+msgstr "Descargando:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
@@ -3008,7 +3008,7 @@ msgstr "Descargar de novo a metaligazón"
 #: transfer-plugins/metalink/metalinkxml.cpp:200
 #, kde-format
 msgid "Download failed, no working URLs were found."
-msgstr "Fallou a descarga. Non se atoparon URLs que funcionasen."
+msgstr "Fallou a descarga. Non se atoparon URL que funcionasen."
 
 #: transfer-plugins/metalink/metalinkhttp.cpp:161
 #, kde-format
@@ -3764,8 +3764,8 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
-"Insira aquí URLs se todos os ficheiros soltados están nese servidor e no "
-"mesmo directorio. Por cada ficheiro soltado o url consiste na parte inserida "
+"Insira aquí URL se todos os ficheiros soltados están nese servidor e no "
+"mesmo directorio. Por cada ficheiro soltado o URL consiste na parte inserida "
 "e no nome de ficheiro."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
