@@ -192,6 +192,7 @@ Comment[tr]=K İndir, çok kapsamlı ve kullanıcı dostu bir indirme yöneticis
 Comment[uk]=KGet — гнучка і зручна програма для отримання даних з мережі
 Comment[x-test]=xxKGet is a versatile and user-friendly download managerxx
 Comment[zh_CN]=KGet 是一个功能多样且用户友好的下载管理器
+Comment[zh_TW]=KGet 是一個多功能且對使用者友善的檔案下載管理員
 Categories=Qt;KDE;Network;FileTransfer;
 X-DBUS-ServiceType=Unique
 X-DocPath=kget/index.html
