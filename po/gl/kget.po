@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2023-06-05 14:27+0200\n"
+"PO-Revision-Date: 2023-06-17 14:16+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -1443,10 +1443,10 @@ msgid ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
-"© 2005 - 2014, The KGet developers\n"
-"© 2001 - 2002, Patrick Charbonnier\n"
-"© 2002, Carsten Pfeiffer\n"
-"© 1998 - 2000, Matej Koss"
+"© 1998-2000 Matej Koss\n"
+"© 2001-2002 Patrick Charbonnier\n"
+"© 2002 Carsten Pfeiffer\n"
+"© 2005-2014 Equipo de desenvolvemento de KGet"
 
 #: main.cpp:109
 #, kde-format
