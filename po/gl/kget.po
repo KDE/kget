@@ -106,13 +106,13 @@ msgstr "Activar o seguimento global do progreso para KDE."
 #: conf/dlgadvanced.ui:92
 #, kde-format
 msgid "Show every single download "
-msgstr "Mostrar cada unha das descargas"
+msgstr "Amosar cada unha das descargas"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
 #: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Show overall progress"
-msgstr "Mostrar o progreso total"
+msgstr "Amosar o progreso total"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: conf/dlgadvanced.ui:109
@@ -142,7 +142,7 @@ msgstr "Substituír"
 #: conf/dlgappearance.ui:17
 #, kde-format
 msgid "Use Drop Target"
-msgstr "Empregar o destino do arrastre"
+msgstr "Usar o destino do arrastre"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
 #: conf/dlgappearance.ui:29
@@ -154,7 +154,7 @@ msgstr "Activar as animacións"
 #: conf/dlggroups.ui:17
 #, kde-format
 msgid "Use default folders for groups as suggestion"
-msgstr "Empregar os cartafoles predeterminados dos grupos como suxestións."
+msgstr "Usar os cartafoles predeterminados dos grupos como suxestións."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
 #: conf/dlggroups.ui:24
@@ -179,7 +179,7 @@ msgstr "Escoller unha icona…"
 #: conf/dlgintegration.ui:17
 #, kde-format
 msgid "Use as download manager for Konqueror"
-msgstr "Empregar como xestor de descargas para Konqueror."
+msgstr "Usar como xestor de descargas para Konqueror."
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
 #: conf/dlgintegration.ui:24
@@ -1655,7 +1655,7 @@ msgstr "Cambiar o nome do grupo…"
 #: mainwindow.cpp:213
 #, kde-format
 msgid "Set Icon..."
-msgstr "Estabelecer unha icona…"
+msgstr "Definir unha icona…"
 
 #: mainwindow.cpp:218
 #, kde-format
@@ -1746,7 +1746,7 @@ msgstr "Abrir un ficheiro"
 #: mainwindow.cpp:318
 #, kde-format
 msgid "Show Details"
-msgstr "Mostrar os detalles"
+msgstr "Amosar os detalles"
 
 #: mainwindow.cpp:323
 #, kde-format
@@ -2315,7 +2315,7 @@ msgstr "Enderezo IP do parceiro"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:361
 #, kde-format
 msgid "Which client the peer is using"
-msgstr "Cliente que emprega o parceiro"
+msgstr "Cliente que usa o parceiro"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
 #, kde-format
@@ -2358,8 +2358,7 @@ msgstr "Se o parceiro ten DHT activado ou non"
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
 msgstr ""
-"A puntuación do parceiro. KTorrent emprega isto para determinar a quen "
-"enviar."
+"A puntuación do parceiro. KTorrent usa isto para determinar a quen enviar."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:377
 #, kde-format
@@ -3090,7 +3089,7 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
 #, kde-format
 msgid "Use search engines"
-msgstr "Empregar buscadores"
+msgstr "Usar buscadores"
 
 #. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
@@ -3126,7 +3125,7 @@ msgstr "Pegañento"
 #: ui/droptarget.cpp:267
 #, kde-format
 msgid "Show Main Window"
-msgstr "Mostrar a xanela principal"
+msgstr "Amosar a xanela principal"
 
 #: ui/droptarget.cpp:267
 #, kde-format
@@ -3472,19 +3471,19 @@ msgstr "Importar &ligazóns"
 #: ui/linkview/importlinkdialog.ui:67
 #, kde-format
 msgid "Show:"
-msgstr "Mostrar:"
+msgstr "Amosar:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWebContent)
 #: ui/linkview/importlinkdialog.ui:77
 #, kde-format
 msgid "Show &web content"
-msgstr "Mostrar contido &web"
+msgstr "Amosar contido &web"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, textFilter)
 #: ui/linkview/importlinkdialog.ui:115
 #, kde-format
 msgid "You can use wildcards for filtering."
-msgstr "Para filtrar pode empregar comodíns (*, ?)."
+msgstr "Para filtrar pode usar comodíns (*, ?)."
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, textFilter)
 #: ui/linkview/importlinkdialog.ui:118
