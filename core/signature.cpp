@@ -313,3 +313,5 @@ void Signature::load(const QDomElement &e)
         d->signature = QByteArray::fromBase64(verification.text().toLatin1());
     }
 }
+
+#include "moc_signature.cpp"

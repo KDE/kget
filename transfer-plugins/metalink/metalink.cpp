@@ -815,3 +815,5 @@ void Metalink::slotUpdateCapabilities()
         setCapabilities(newCap);
     }
 }
+
+#include "moc_metalink.cpp"

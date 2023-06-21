@@ -97,3 +97,5 @@ void MetalinkTest::testMetaUrl_data()
 }
 
 QTEST_MAIN(MetalinkTest)
+
+#include "moc_metalinktest.cpp"

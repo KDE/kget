@@ -451,3 +451,5 @@ void VerfierTest::testBrokenPieces_data()
 }
 
 QTEST_MAIN(VerfierTest)
+
+#include "moc_verifiertest.cpp"

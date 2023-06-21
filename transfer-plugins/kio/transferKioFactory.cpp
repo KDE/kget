@@ -56,4 +56,5 @@ QStringList TransferKioFactory::addsProtocols() const
     return protocols;
 }
 
+#include "moc_transferKioFactory.cpp"
 #include "transferKioFactory.moc"

@@ -70,3 +70,5 @@ void Download::slotResult(KJob *job)
         break;
     }
 }
+
+#include "moc_download.cpp"

@@ -41,3 +41,4 @@ TransferDataSource *MirrorSearchFactory::createTransferDataSource(const QUrl &sr
 }
 
 #include "mirrorsearchfactory.moc"
+#include "moc_mirrorsearchfactory.cpp"

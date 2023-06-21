@@ -72,3 +72,5 @@ void BTTransferHandler::createScanDlg()
     scanDlg = new kt::ScanDlg(m_transfer->torrentControl()->startDataCheck(false, 0, m_transfer->chunksTotal()), nullptr); // TODO: Maybe start/stop it
     scanDlg->exec();
 }
+
+#include "moc_bttransferhandler.cpp"

@@ -48,3 +48,4 @@ void DlgSettingsWidget::save()
 }
 
 #include "dlgmultisegkio.moc"
+#include "moc_dlgmultisegkio.cpp"

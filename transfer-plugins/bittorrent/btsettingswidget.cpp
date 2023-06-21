@@ -63,3 +63,4 @@ void BTSettingsWidget::defaults()
 }
 
 #include "btsettingswidget.moc"
+#include "moc_btsettingswidget.cpp"

@@ -68,3 +68,5 @@ bool KGetGlobalJob::doKill()
     Q_EMIT requestStop(this, nullptr);
     return KJob::doKill();
 }
+
+#include "moc_kgetglobaljob.cpp"

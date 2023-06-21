@@ -347,3 +347,5 @@ void TransferGroup::load(const QDomElement &e)
                         << "add" << nItems << "transfers";
     KGet::addTransfers(elements, name());
 }
+
+#include "moc_transfergroup.cpp"

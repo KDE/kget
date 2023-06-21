@@ -175,3 +175,5 @@ void TransferSettingsDialog::slotFinished()
         m_model->stopWatchCheckState();
     }
 }
+
+#include "moc_transfersettingsdialog.cpp"

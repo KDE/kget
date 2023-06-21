@@ -205,3 +205,5 @@ void VerificationDialog::slotVerified(bool verified)
         KMessageBox::information(this, i18n("%1 was successfully verified.", fileName), i18n("Verification successful"));
     }
 }
+
+#include "moc_verificationdialog.cpp"

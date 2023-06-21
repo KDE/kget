@@ -159,3 +159,5 @@ void SQLiteStore::createTables()
 }
 
 #endif
+
+#include "moc_transferhistorystore_sqlite_p.cpp"

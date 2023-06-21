@@ -432,3 +432,5 @@ void DropTarget::slotClose()
 {
     setVisible(false);
 }
+
+#include "moc_droptarget.cpp"

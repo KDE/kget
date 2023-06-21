@@ -169,3 +169,5 @@ bool DBusTransferWrapper::repair(const QString &file)
 {
     return m_transfer->repair(QUrl(file));
 }
+
+#include "moc_dbustransferwrapper.cpp"

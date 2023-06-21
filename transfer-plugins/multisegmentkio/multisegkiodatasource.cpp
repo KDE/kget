@@ -253,3 +253,5 @@ void MultiSegKioDataSource::slotRestartBrokenSegment()
     qCDebug(KGET_DEBUG) << this;
     start();
 }
+
+#include "moc_multisegkiodatasource.cpp"

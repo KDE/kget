@@ -79,3 +79,5 @@ bool FileDeleter::isFileBeingDeleted(const QUrl &dest)
 {
     return fileDeleter->d->isFileBeingDeleted(dest);
 }
+
+#include "moc_filedeleter_p.cpp"

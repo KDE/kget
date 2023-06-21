@@ -77,3 +77,5 @@ void SignatureThread::run()
     qCWarning(KGET_DEBUG) << "No QGPGME support.";
 #endif // HAVE_QGPGME
 }
+
+#include "moc_signaturethread.cpp"

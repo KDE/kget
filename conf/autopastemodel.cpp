@@ -352,3 +352,5 @@ void AutoPasteModel::resetDefaults()
 
     load();
 }
+
+#include "moc_autopastemodel.cpp"

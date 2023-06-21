@@ -36,3 +36,5 @@ KGetSaveSizeDialog::~KGetSaveSizeDialog()
     grp.writeEntry(m_name.constData(), size());
     grp.sync();
 }
+
+#include "moc_basedialog.cpp"

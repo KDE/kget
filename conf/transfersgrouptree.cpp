@@ -148,3 +148,5 @@ void TransfersGroupTree::changeIcon(const QString &icon)
     }
     Q_EMIT dataChanged(indexList.first(), indexList.last());
 }
+
+#include "moc_transfersgrouptree.cpp"

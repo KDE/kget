@@ -70,3 +70,5 @@ void VerificationPreferences::slotDefaultClicked()
         ui.keyservers->setItems(Settings::signatureKeyServers());
     }
 }
+
+#include "moc_verificationpreferences.cpp"

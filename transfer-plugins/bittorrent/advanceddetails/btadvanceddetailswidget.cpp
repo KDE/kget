@@ -113,3 +113,5 @@ void BTAdvancedDetailsWidget::slotTransferChanged(TransferHandler *transfer, Tra
         //cd_view->removeAll();
     }*/
 }
+
+#include "moc_btadvanceddetailswidget.cpp"

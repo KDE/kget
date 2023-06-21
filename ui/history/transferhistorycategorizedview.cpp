@@ -115,3 +115,5 @@ void TransferHistoryCategorizedView::update()
     m_view->setModel(m_proxyModel);
     oldProxy->deleteLater();
 }
+
+#include "moc_transferhistorycategorizedview.cpp"

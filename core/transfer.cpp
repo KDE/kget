@@ -321,3 +321,5 @@ QString Transfer::statusIconName(Job::Status status)
 {
     return STATUSICONS[status];
 }
+
+#include "moc_transfer.cpp"

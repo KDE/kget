@@ -1359,3 +1359,5 @@ void KGetMetalink::HttpLinkHeader::parseHeaderLine(const QString &line)
         }
     }
 }
+
+#include "moc_metalinker.cpp"

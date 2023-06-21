@@ -204,3 +204,5 @@ void FileDlg::slotOkClicked()
         Q_EMIT addFile();
     }
 }
+
+#include "moc_filedlg.cpp"

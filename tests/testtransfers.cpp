@@ -671,3 +671,5 @@ void TestTransfers::simpleTest()
 }
 
 QTEST_MAIN(TestTransfers)
+
+#include "moc_testtransfers.cpp"

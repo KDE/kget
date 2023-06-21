@@ -150,3 +150,4 @@ void DlgSettingsWidget::save()
 }
 
 #include "dlgmirrorsearch.moc"
+#include "moc_dlgmirrorsearch.cpp"

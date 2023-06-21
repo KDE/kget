@@ -787,3 +787,5 @@ void NewTransferDialogHandler::createDialog(const QList<QUrl> &urls, const QStri
     m_dialog->m_window = KGet::m_mainWindow;
     m_dialog->showDialog(urls, suggestedFileName);
 }
+
+#include "moc_newtransferdialog.cpp"

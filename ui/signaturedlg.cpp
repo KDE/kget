@@ -375,3 +375,5 @@ void SignatureDlg::handleWidgets(bool isAsciiSig)
         ui.verticalLayout_2->addStretch(1);
     }
 }
+
+#include "moc_signaturedlg.cpp"

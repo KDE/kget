@@ -131,3 +131,5 @@ void IntegrationPreferences::slotDecreasePriority()
     slotUpdateButtons();
     Q_EMIT changed();
 }
+
+#include "moc_integrationpreferences.cpp"

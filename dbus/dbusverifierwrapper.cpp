@@ -85,3 +85,5 @@ void DBusVerifierWrapper::slotBrokenPieces(const QList<KIO::fileoffset_t> &offse
 
     Q_EMIT brokenPieces(broken, length);
 }
+
+#include "moc_dbusverifierwrapper.cpp"

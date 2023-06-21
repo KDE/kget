@@ -146,3 +146,5 @@ TransferHistoryStore *TransferHistoryStore::getStore()
         return new XmlStore(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/transferhistory.kgt"));
     }
 }
+
+#include "moc_transferhistorystore.cpp"

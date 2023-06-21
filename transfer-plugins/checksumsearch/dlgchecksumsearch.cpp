@@ -267,3 +267,4 @@ void DlgChecksumSettingsWidget::save()
 }
 
 #include "dlgchecksumsearch.moc"
+#include "moc_dlgchecksumsearch.cpp"

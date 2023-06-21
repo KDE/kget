@@ -64,3 +64,5 @@ void GroupSettingsDialog::save()
     regExp.setPattern(ui.regExpEdit->text());
     m_group->setRegExp(regExp);
 }
+
+#include "moc_groupsettingsdialog.cpp"

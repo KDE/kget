@@ -89,3 +89,5 @@ void MmsThread::stop()
 {
     m_download = false;
 }
+
+#include "moc_mmsthread.cpp"

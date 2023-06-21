@@ -439,3 +439,5 @@ void KGetLinkView::wildcardPatternToggled(bool enabled)
         Settings::setLinkViewFilterPatternSyntax(RegExp);
     }
 }
+
+#include "moc_kget_linkview.cpp"

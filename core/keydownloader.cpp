@@ -180,3 +180,5 @@ void KeyDownloader::slotDownloaded(KJob *job)
     qCWarning(KGET_DEBUG) << "No QGPGME support.";
 #endif // HAVE_QGPGME
 }
+
+#include "moc_keydownloader.cpp"

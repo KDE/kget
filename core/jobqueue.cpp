@@ -134,3 +134,5 @@ void JobQueue::move(Job *job, Job *after)
 
     m_scheduler->jobQueueMovedJobEvent(this, job);
 }
+
+#include "moc_jobqueue.cpp"

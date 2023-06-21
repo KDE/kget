@@ -215,3 +215,5 @@ void VerificationModel::setVerificationStatus(const QString &type, int verified)
         Q_EMIT dataChanged(index, index);
     }
 }
+
+#include "moc_verificationmodel.cpp"

@@ -41,3 +41,4 @@ TransferDataSource *ChecksumSearchFactory::createTransferDataSource(const QUrl &
 }
 
 #include "checksumsearchfactory.moc"
+#include "moc_checksumsearchfactory.cpp"

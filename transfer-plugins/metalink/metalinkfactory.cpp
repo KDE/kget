@@ -56,3 +56,4 @@ bool MetalinkFactory::isSupported(const QUrl &url) const
 }
 
 #include "metalinkfactory.moc"
+#include "moc_metalinkfactory.cpp"

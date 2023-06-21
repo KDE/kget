@@ -68,3 +68,5 @@ void TransfersGroupWidget::slotSelectionChanged()
         ui.selectIcon->setIcon(QIcon::fromTheme("preferences-desktop-icons"));
     }
 }
+
+#include "moc_transfersgroupwidget.cpp"

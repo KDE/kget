@@ -338,3 +338,5 @@ void TransferHistory::slotLoadFinished()
 {
     m_progressBar->hide();
 }
+
+#include "moc_transferhistory.cpp"

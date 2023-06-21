@@ -446,3 +446,5 @@ void FileView::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottom
     redraw = true;
 }
 }
+
+#include "moc_fileview.cpp"

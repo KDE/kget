@@ -655,3 +655,5 @@ void TorrentFileTreeModel::changePriority(const QModelIndexList &indexes, bt::Pr
     }
 }
 }
+
+#include "moc_torrentfiletreemodel.cpp"

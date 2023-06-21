@@ -64,3 +64,5 @@ void DlgWebinterface::saveSettings()
     }
     Q_EMIT saved();
 }
+
+#include "moc_dlgwebinterface.cpp"

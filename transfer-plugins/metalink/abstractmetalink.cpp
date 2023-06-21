@@ -552,3 +552,5 @@ void AbstractMetalink::stop()
         }
     }
 }
+
+#include "moc_abstractmetalink.cpp"

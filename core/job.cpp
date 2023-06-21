@@ -75,3 +75,5 @@ void Job::resolveError(int errorId)
 {
     Q_UNUSED(errorId)
 }
+
+#include "moc_job.cpp"

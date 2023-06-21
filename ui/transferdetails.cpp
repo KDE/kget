@@ -104,3 +104,5 @@ void TransferDetails::slotTransferChanged(TransferHandler *transfer, TransferHan
 
     frm.remainingTimeLabel->setText(KIO::convertSeconds(m_transfer->remainingTime()));
 }
+
+#include "moc_transferdetails.cpp"

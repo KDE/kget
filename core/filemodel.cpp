@@ -605,3 +605,5 @@ void FileModel::stopWatchCheckState()
 
     m_checkStateChanged = false;
 }
+
+#include "moc_filemodel.cpp"

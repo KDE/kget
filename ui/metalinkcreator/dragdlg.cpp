@@ -100,3 +100,5 @@ void DragDlg::slotFinished()
 
     Q_EMIT usedTypes(used, ui.partialChecksums->isChecked());
 }
+
+#include "moc_dragdlg.cpp"

@@ -311,3 +311,5 @@ QString MetalinkHttp::adaptDigestType(const QString &hashType)
         return hashType;
     }
 }
+
+#include "moc_metalinkhttp.cpp"

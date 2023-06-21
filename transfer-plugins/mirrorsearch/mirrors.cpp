@@ -93,3 +93,5 @@ void MirrorSearch(const QString &fileName, QObject *receiver, const char *member
     auto *searcher = new mirror();
     searcher->search(fileName, receiver, member);
 }
+
+#include "moc_mirrors.cpp"

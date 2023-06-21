@@ -92,4 +92,5 @@ QStringList TransferMultiSegKioFactory::addsProtocols() const
     return protocols;
 }
 
+#include "moc_transfermultisegkiofactory.cpp"
 #include "transfermultisegkiofactory.moc"

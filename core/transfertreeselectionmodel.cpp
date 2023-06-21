@@ -20,3 +20,5 @@ TransferTreeSelectionModel::TransferTreeSelectionModel(QAbstractItemModel *model
 TransferTreeSelectionModel::~TransferTreeSelectionModel()
 {
 }
+
+#include "moc_transfertreeselectionmodel.cpp"

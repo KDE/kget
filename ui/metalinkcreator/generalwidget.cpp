@@ -124,3 +124,5 @@ void GeneralWidget::slotUpdatedEnabled(bool enabled)
         ui.updatedNegative->setEnabled(ui.use_updatedtimeoffset->isChecked());
     }
 }
+
+#include "moc_generalwidget.cpp"

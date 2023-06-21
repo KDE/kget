@@ -174,3 +174,5 @@ bool DBusKGetWrapper::isSupported(const QString &url) const
     }
     return false;
 }
+
+#include "moc_dbuskgetwrapper.cpp"

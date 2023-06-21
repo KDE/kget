@@ -299,3 +299,5 @@ void IWFileTreeModel::update()
     }
 }
 }
+
+#include "moc_iwfiletreemodel.cpp"

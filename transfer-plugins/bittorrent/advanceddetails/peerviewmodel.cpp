@@ -459,3 +459,5 @@ void PeerViewModel::sort(int col, Qt::SortOrder order)
     Q_EMIT layoutChanged();
 }
 }
+
+#include "moc_peerviewmodel.cpp"

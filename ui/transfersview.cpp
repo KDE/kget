@@ -312,3 +312,5 @@ QWidget *TransfersView::getDetailsWidgetForTransfer(TransferHandler *handler)
 
     return groupBox;
 }
+
+#include "moc_transfersview.cpp"

@@ -89,3 +89,5 @@ void TorrentFileModel::filePreviewChanged(bt::TorrentFileInterface *file, bool p
     Q_UNUSED(preview)
 }
 }
+
+#include "moc_torrentfilemodel.cpp"

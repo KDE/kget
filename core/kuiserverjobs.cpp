@@ -222,3 +222,5 @@ void KUiServerJobs::slotRequestResume(KJob *job, TransferHandler *transfer)
         transfer->start();
     }
 }
+
+#include "moc_kuiserverjobs.cpp"

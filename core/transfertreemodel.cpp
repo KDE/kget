@@ -766,3 +766,5 @@ void TransferTreeModel::timerEvent(QTimerEvent *event)
     killTimer(m_timerId);
     m_timerId = -1;
 }
+
+#include "moc_transfertreemodel.cpp"

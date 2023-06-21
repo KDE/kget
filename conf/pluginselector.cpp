@@ -40,3 +40,5 @@ void PluginSelector::loadDefaults()
 {
     defaults();
 }
+
+#include "moc_pluginselector.cpp"

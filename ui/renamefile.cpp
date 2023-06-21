@@ -64,3 +64,5 @@ void RenameFile::rename()
     const QString newName = ui.name->text();
     m_model->rename(m_index, newName);
 }
+
+#include "moc_renamefile.cpp"

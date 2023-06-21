@@ -79,3 +79,5 @@ QString TransferFactory::displayName() const
 {
     return QStringLiteral("Undefined");
 }
+
+#include "moc_transferfactory.cpp"

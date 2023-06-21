@@ -820,3 +820,5 @@ void UrlChecker::displayErrorMessages()
         }
     }
 }
+
+#include "moc_urlchecker_p.cpp"

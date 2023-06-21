@@ -104,3 +104,5 @@ void MostLocalUrlJob::slotResult(KJob *job)
     qCDebug(KGET_DEBUG) << "Setting mostLocalUrl to" << m_mostLocalUrl;
     emitResult();
 }
+
+#include "moc_mostlocalurl.cpp"

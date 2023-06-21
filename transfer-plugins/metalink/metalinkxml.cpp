@@ -315,3 +315,5 @@ void MetalinkXml::save(const QDomElement &element)
         factory->save(e);
     }
 }
+
+#include "moc_metalinkxml.cpp"

@@ -162,3 +162,5 @@ void WebSeedsTab::loadState(KSharedConfigPtr cfg)
         m_webseed_list->header()->restoreState(s);
 }
 }
+
+#include "moc_webseedstab.cpp"

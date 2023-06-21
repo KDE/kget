@@ -90,3 +90,5 @@ void BTDetailsWidget::showEvent(QShowEvent *event)
 
     slotTransferChanged(m_transfer, 0xFFFFFFFF);
 }
+
+#include "moc_btdetailswidget.cpp"

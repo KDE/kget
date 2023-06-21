@@ -375,3 +375,5 @@ void MetalinkCreator::slotThreadFinished()
     uiFiles.dragDrop->hide();
     slotUpdateAssistantButtons(nullptr, m_files);
 }
+
+#include "moc_metalinkcreator.cpp"

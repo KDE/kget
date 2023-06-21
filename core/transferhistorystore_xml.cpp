@@ -246,3 +246,5 @@ void XmlStore::slotDeleteElement()
 
     Q_EMIT loadFinished();
 }
+
+#include "moc_transferhistorystore_xml_p.cpp"

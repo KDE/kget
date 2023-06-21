@@ -55,3 +55,5 @@ void ViewsContainer::selectAll()
 {
     m_transfersView->selectAll();
 }
+
+#include "moc_viewscontainer.cpp"

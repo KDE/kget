@@ -49,3 +49,5 @@ bt::ChunkSelectorInterface *BTChunkSelectorFactory::createChunkSelector(bt::Chun
     emit selectorAdded(selector);
     return selector;
 }
+
+#include "moc_btchunkselector.cpp"

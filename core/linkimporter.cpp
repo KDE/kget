@@ -144,3 +144,5 @@ void LinkImporter::addTransfer(QString &link)
         m_transfers << link;
     }
 }
+
+#include "moc_linkimporter.cpp"

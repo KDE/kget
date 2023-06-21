@@ -214,3 +214,5 @@ void TrackerView::loadState(KSharedConfigPtr cfg)
     }
 }
 }
+
+#include "moc_trackerview.cpp"

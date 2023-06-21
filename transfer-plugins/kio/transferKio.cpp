@@ -354,3 +354,5 @@ Signature *TransferKio::signature(const QUrl &file)
 
     return m_signature;
 }
+
+#include "moc_transferKio.cpp"

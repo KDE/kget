@@ -114,3 +114,5 @@ void ChunkDownloadView::loadState(KSharedConfigPtr cfg)
     }
 }
 }
+
+#include "moc_chunkdownloadview.cpp"

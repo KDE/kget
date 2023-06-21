@@ -185,3 +185,5 @@ QUrl ChecksumSearch::createUrl(const QUrl &src, const QString &change, ChecksumS
 
     return url;
 }
+
+#include "moc_checksumsearch.cpp"

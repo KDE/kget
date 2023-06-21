@@ -798,3 +798,5 @@ FileModel *BTTransfer::fileModel() // TODO correct file model for one-file-torre
 
     return m_fileModel;
 }
+
+#include "moc_bttransfer.cpp"

@@ -134,3 +134,5 @@ bool KGetSortFilterProxyModel::acceptText(const QString &text) const
 
     return accept;
 }
+
+#include "moc_kget_sortfilterproxymodel.cpp"

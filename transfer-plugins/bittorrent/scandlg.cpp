@@ -114,3 +114,5 @@ void ScanDlg::percent(KJob *job, unsigned long percent)
     m_progress->setValue(percent);
 }
 }
+
+#include "moc_scandlg.cpp"

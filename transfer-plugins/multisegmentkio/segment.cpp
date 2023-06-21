@@ -356,3 +356,5 @@ bool Segment::merge(const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSi
 
     return false;
 }
+
+#include "moc_segment.cpp"

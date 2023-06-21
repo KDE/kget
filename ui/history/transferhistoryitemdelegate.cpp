@@ -186,3 +186,5 @@ void TransferHistoryItemDelegate::slotDeleteTransfer()
 
     Q_EMIT deletedTransfer(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleUrl).toString(), m_selectedIndex);
 }
+
+#include "moc_transferhistoryitemdelegate.cpp"

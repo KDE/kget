@@ -409,3 +409,5 @@ QHash<QUrl, QPair<bool, int>> MirrorModel::availableMirrors() const
     }
     return mirrors;
 }
+
+#include "moc_mirrormodel.cpp"

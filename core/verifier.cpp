@@ -606,3 +606,5 @@ void Verifier::load(const QDomElement &e)
         addPartialChecksums(type, length, partialChecksums);
     }
 }
+
+#include "moc_verifier.cpp"

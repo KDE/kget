@@ -167,3 +167,5 @@ void BTDataSource::getData(const KIO::fileoffset_t &off, const QByteArray &dataA
     if (m_offset + m_bytes == off + dataArray.size())
         emit finished();
 }
+
+#include "moc_btdatasource.cpp"

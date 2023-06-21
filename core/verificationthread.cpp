@@ -170,3 +170,5 @@ void VerificationThread::doBrokenPieces()
 
     Q_EMIT brokenPieces(broken, length);
 }
+
+#include "moc_verificationthread.cpp"

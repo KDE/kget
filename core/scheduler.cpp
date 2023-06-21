@@ -401,3 +401,5 @@ void Scheduler::timerEvent(QTimerEvent *event)
         }
     }
 }
+
+#include "moc_scheduler.cpp"

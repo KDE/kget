@@ -189,3 +189,5 @@ void MmsTransfer::slotConnectionsErrors(int connections)
         m_amountThreads--;
     }
 }
+
+#include "moc_mmstransfer.cpp"

@@ -85,3 +85,5 @@ int TransferDataSource::changeNeeded() const
 {
     return parallelSegments() - currentSegments();
 }
+
+#include "moc_transferdatasource.cpp"

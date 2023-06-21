@@ -77,3 +77,5 @@ bool KGetKJobAdapter::doResume()
     Q_EMIT requestResume(this, m_transferHandler);
     return true;
 }
+
+#include "moc_kgetkjobadapter.cpp"

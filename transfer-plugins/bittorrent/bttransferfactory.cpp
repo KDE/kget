@@ -107,3 +107,4 @@ bool BTTransferFactory::isSupported(const QUrl &url) const
 }
 
 #include "bttransferfactory.moc"
+#include "moc_bttransferfactory.cpp"

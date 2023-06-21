@@ -119,3 +119,5 @@ void LanguageModel::setupModelData()
     }
     endResetModel();
 }
+
+#include "moc_localemodels.cpp"

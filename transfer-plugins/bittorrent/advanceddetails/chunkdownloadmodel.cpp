@@ -310,3 +310,5 @@ void ChunkDownloadModel::sort(int col, Qt::SortOrder order)
     Q_EMIT layoutChanged();
 }
 }
+
+#include "moc_chunkdownloadmodel.cpp"

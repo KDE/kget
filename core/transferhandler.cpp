@@ -209,3 +209,5 @@ QList<QAction *> TransferHandler::factoryActions()
         actions.append(action);
     return actions;
 }
+
+#include "moc_transferhandler.cpp"

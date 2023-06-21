@@ -19,3 +19,5 @@ TransferContainer::TransferContainer()
 TransferContainer::~TransferContainer()
 {
 }
+
+#include "moc_transfercontainer.cpp"

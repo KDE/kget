@@ -171,3 +171,5 @@ void TransferGroupHandler::createActions()
     QObject::connect(stopAction, SIGNAL(triggered()), SLOT(stop()));
     m_actions.append(stopAction);
 }
+
+#include "moc_transfergrouphandler.cpp"

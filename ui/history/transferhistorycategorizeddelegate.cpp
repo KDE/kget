@@ -107,3 +107,5 @@ void HostCategorizedDelegate::categorizeItem(QStandardItem *item)
     item->setData(host.host(), KCategorizedSortFilterProxyModel::CategoryDisplayRole);
     item->setData(host.host(), KCategorizedSortFilterProxyModel::CategorySortRole);
 }
+
+#include "moc_transferhistorycategorizeddelegate.cpp"

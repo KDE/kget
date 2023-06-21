@@ -216,3 +216,5 @@ void DirectoryHandler::evaluateFileProcess()
         Q_EMIT finished();
     }
 }
+
+#include "moc_filehandler.cpp"

@@ -1244,3 +1244,5 @@ void MainWindow::dropEvent(QDropEvent *event)
         NewTransferDialogHandler::showNewTransferDialog(QUrl());
     }
 }
+
+#include "moc_mainwindow.cpp"

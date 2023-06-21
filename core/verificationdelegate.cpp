@@ -106,3 +106,5 @@ QSize VerificationDelegate::sizeHint(const QStyleOptionViewItem &option, const Q
     hint.setHeight(option.fontMetrics.height() + 7);
     return hint;
 }
+
+#include "moc_verificationdelegate.cpp"

@@ -54,3 +54,5 @@ FileSelectionDlg::FileSelectionDlg(FileModel *model, QWidget *parent)
     connect(buttonBox, &QDialogButtonBox::rejected, this, &FileSelectionDlg::reject);
     mainLayout->addWidget(buttonBox);
 }
+
+#include "moc_fileselectiondlg.cpp"

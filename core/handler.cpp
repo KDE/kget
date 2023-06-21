@@ -20,3 +20,5 @@ Handler::Handler(Scheduler *scheduler, QObject *parent)
 Handler::~Handler()
 {
 }
+
+#include "moc_handler.cpp"

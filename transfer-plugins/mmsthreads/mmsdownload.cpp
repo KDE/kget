@@ -216,3 +216,5 @@ void MmsDownload::unSerialization()
     in >> m_mapEndIni >> m_downloadedSize >> m_prevDownloadedSizes;
     file.close();
 }
+
+#include "moc_mmsdownload.cpp"

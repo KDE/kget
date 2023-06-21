@@ -1186,3 +1186,5 @@ void DataSourceFactory::slotUpdateCapabilities()
         Q_EMIT capabilitiesChanged();
     }
 }
+
+#include "moc_datasourcefactory.cpp"

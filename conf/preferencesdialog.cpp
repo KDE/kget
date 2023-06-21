@@ -103,3 +103,5 @@ void PreferencesDialog::updateWidgetsDefault()
     Q_EMIT resetDefaults();
     KConfigDialog::updateWidgetsDefault();
 }
+
+#include "moc_preferencesdialog.cpp"

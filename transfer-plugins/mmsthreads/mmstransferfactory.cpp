@@ -69,3 +69,4 @@ bool MmsTransferFactory::isSupported(const QUrl &url) const
 }
 
 #include "mmstransferfactory.moc"
+#include "moc_mmstransferfactory.cpp"

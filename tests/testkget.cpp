@@ -81,3 +81,5 @@ void TestKGet::transferGroupRepetitiveAddTest()
         QVERIFY(m_removedGH->name() == "testGroup" + QString::number(i));
     }
 }
+
+#include "moc_testkget.cpp"

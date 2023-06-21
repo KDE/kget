@@ -119,3 +119,5 @@ void UrlWidget::save()
         }
     }
 }
+
+#include "moc_urlwidget.cpp"
