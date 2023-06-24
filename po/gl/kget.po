@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2023-06-17 14:16+0200\n"
+"PO-Revision-Date: 2023-06-23 22:55+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -94,7 +94,7 @@ msgstr "Deter todas as descargas"
 #: conf/dlgadvanced.ui:71
 #, kde-format
 msgid "History backend:"
-msgstr "Infraestrutura do historial:"
+msgstr "Motor do historial:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_EnableKUIServerIntegration)
 #: conf/dlgadvanced.ui:80
@@ -440,7 +440,7 @@ msgstr "Verificación automática de sumas de comprobación"
 #: conf/verificationpreferences.ui:32
 #, kde-format
 msgid "Used checksum:"
-msgstr "Empregouse a suma de comprobación:"
+msgstr "Usouse a suma de comprobación:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_4)
 #: conf/verificationpreferences.ui:51
@@ -544,7 +544,7 @@ msgstr "Sinatura"
 msgid ""
 "No server for downloading keys is specified in settings. Downloading aborted."
 msgstr ""
-"Non hai servidores especificados na configuración dos que obter as chaves. "
+"Non hai servidores indicados na configuración dos que obter as chaves. "
 "Interrompeuse a descarga."
 
 #: core/keydownloader.cpp:73 core/keydownloader.cpp:93
@@ -618,12 +618,12 @@ msgid ""
 "Overwrite?"
 msgstr ""
 "O ficheiro %1 xa existe.\n"
-"Desexa substituílo?"
+"Quere substituílo?"
 
 #: core/kget.cpp:577
 #, kde-format
 msgid "Overwrite existing file?"
-msgstr "Desexa substituír o ficheiro xa existente?"
+msgstr "Quere substituír o ficheiro existente?"
 
 #: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
@@ -664,7 +664,7 @@ msgstr "Insira o URL:"
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
-msgstr "Escoller un directorio"
+msgstr "Escoller un cartafol"
 
 #: core/kget.cpp:1000
 #, kde-format
@@ -749,7 +749,7 @@ msgstr "Eliminar e descargar de novo?"
 #: core/kget.cpp:1081 core/kget.cpp:1086
 #, kde-format
 msgid "Directory is not writable"
-msgstr "O directorio non permite escritura"
+msgstr "O cartafol non permite escritura"
 
 #: core/kget.cpp:1117
 #, kde-format
@@ -803,7 +803,7 @@ msgid ""
 msgstr ""
 "Non se elimina\n"
 "%1\n"
-"xa que é un directorio."
+"xa que é un cartafol."
 
 #: core/kget.cpp:1267
 #, kde-format
@@ -1109,17 +1109,17 @@ msgstr "Aplicar a &todos"
 #: core/urlchecker.cpp:300 core/urlchecker.cpp:340
 #, kde-format
 msgid "No download directory specified."
-msgstr "Non se indicou un directorio de descarga."
+msgstr "Non se indicou un cartafol de descarga."
 
 #: core/urlchecker.cpp:302
 #, kde-format
 msgid "Invalid download directory specified."
-msgstr "Indicouse un directorio de descarga incorrecto."
+msgstr "Indicouse un cartafol de descarga incorrecto."
 
 #: core/urlchecker.cpp:304
 #, kde-format
 msgid "Download directory is not writeable."
-msgstr "O directorio de descarga non permite escritura."
+msgstr "O cartafol de descarga non permite escritura."
 
 #: core/urlchecker.cpp:312 core/urlchecker.cpp:352
 #, kde-format
@@ -1165,7 +1165,7 @@ msgid ""
 "Invalid download directory specified:\n"
 "%1"
 msgstr ""
-"Indicouse un directorio de descarga incorrecto:\n"
+"Indicouse un cartafol de descarga incorrecto:\n"
 "%1"
 
 #: core/urlchecker.cpp:344
@@ -1174,7 +1174,7 @@ msgid ""
 "Download directory is not writeable:\n"
 "%1"
 msgstr ""
-"O directorio de descarga non permite escritura:\n"
+"O cartafol de descarga non permite escritura:\n"
 "%1"
 
 #: core/urlchecker.cpp:354
@@ -1650,7 +1650,7 @@ msgstr "Eliminar o grupo"
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Cambiar o nome do grupo…"
+msgstr "Renomear o grupo…"
 
 #: mainwindow.cpp:213
 #, kde-format
@@ -1671,7 +1671,7 @@ msgid ""
 msgstr ""
 "O botón <b>Pegar automaticamente</b> conmuta o modo de pegar "
 "automaticamente.\n"
-"Se activa o modo, KGet examinará periodicamente o portapapeis en busca de "
+"Se define o modo, KGet examinará periodicamente o portapapeis en busca de "
 "URL, e os pegará automaticamente."
 
 #: mainwindow.cpp:227
@@ -2090,7 +2090,7 @@ msgstr[1] ""
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
 #, kde-format
 msgid "Select a directory to move the data to"
-msgstr "Seleccione un directorio onde mover os datos"
+msgstr "Seleccione un cartafol onde mover os datos"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
@@ -2284,7 +2284,7 @@ msgstr "Rañura de envío"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
 msgid "Requests"
-msgstr "Pedidos"
+msgstr "Solicitudes"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:124
@@ -3012,7 +3012,7 @@ msgstr "Fallou a descarga. Non se atoparon URL que funcionasen."
 #: transfer-plugins/metalink/metalinkhttp.cpp:161
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
-msgstr "Non se puido verificar a descarga, desexa reparala?"
+msgstr "Non se puido verificar a descarga, quere reparala?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
@@ -3763,9 +3763,9 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
-"Insira aquí URL se todos os ficheiros soltados están nese servidor e no "
-"mesmo directorio. Por cada ficheiro soltado o URL consiste na parte inserida "
-"e no nome de ficheiro."
+"Insira aquí enderezos URL se todos os ficheiros soltados están nese servidor "
+"e no mesmo cartafol. Por cada ficheiro soltado o URL consiste na parte "
+"inserida e no nome de ficheiro."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/metalinkcreator/dragdlg.ui:102
@@ -3834,7 +3834,7 @@ msgstr "Nome do ficheiro:"
 #: ui/metalinkcreator/filedlg.ui:95
 #, kde-format
 msgid "Used Mirrors:"
-msgstr "Réplicas empregadas:"
+msgstr "Réplicas usadas:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: ui/metalinkcreator/filedlg.ui:103
@@ -4054,7 +4054,7 @@ msgstr "Número de conexións:"
 #: ui/mirror/mirroradddlg.ui:33
 #, kde-format
 msgid "Enter a URL"
-msgstr "Insira o URL:"
+msgstr "Escriba un URL"
 
 #. i18n: ectx: property (text), widget (QLabel, labelPriority)
 #: ui/mirror/mirroradddlg.ui:53
@@ -4073,7 +4073,7 @@ msgstr "Opcional: a prioridade da réplica, 1 o máis alto, 999999 o máis baixo
 #: ui/mirror/mirrormodel.cpp:189
 #, kde-format
 msgid "not specified"
-msgstr "sen especificar"
+msgstr "sen indicar"
 
 #. i18n: ectx: property (text), widget (QLabel, labelLocation)
 #: ui/mirror/mirroradddlg.ui:79
@@ -4113,7 +4113,7 @@ msgstr "Engadir unha réplica"
 #: ui/mirror/mirrorsettings.cpp:144
 #, kde-format
 msgid "Modify the used mirrors"
-msgstr "Modificar as réplicas empregadas"
+msgstr "Modificar as réplicas usadas"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/mirror/mirrorsettings.ui:36
@@ -4463,7 +4463,7 @@ msgstr "Taxa má&xima de compartición:"
 #: ui/transfersettingsdialog.ui:139
 #, kde-format
 msgid "Modify the mirrors used for downloading."
-msgstr "Modificar as réplicas empregadas para as descargas."
+msgstr "Modificar as réplicas usadas para as descargas."
 
 #. i18n: ectx: property (text), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:142
