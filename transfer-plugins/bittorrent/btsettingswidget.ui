@@ -126,9 +126,6 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="filter">
-         <string/>
-        </property>
        </widget>
       </item>
       <item row="1" column="0">
