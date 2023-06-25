@@ -94,9 +94,6 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="filter">
-        <string>*.metalink *.meta4|Metalink file (*.metalink *.meta4)</string>
-       </property>
       </widget>
      </item>
     </layout>

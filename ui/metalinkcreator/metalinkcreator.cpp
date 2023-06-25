@@ -170,8 +170,10 @@ void MetalinkCreator::createIntroduction()
 #if KIO_VERSION >= QT_VERSION_CHECK(5, 108, 0)
     uiIntroduction.save->setNameFilters(
         {i18n("Metalink Version 4.0 file)") + QLatin1String(" (*.meta4)"), i18n("Metalink Version 3.0 file") + QLatin1String(" (*.metalink)")});
+    uiIntroduction.load->setNameFilter(i18n("Metalink file (*.metalink *.meta4)") + QLatin1String(" (*.metalink *.meta4)"));
 #else
     uiIntroduction.save->setFilter("*.meta4|" + i18n("Metalink Version 4.0 file (*.meta4)") + "\n*.metalink|" + i18n("Metalink Version 3.0 file (*.metalink)"));
+    uiIntroduction.load->setFilter("*.metalink *.meta4|" + i18n("Metalink file (*.metalink *.meta4)"));
 #endif
     uiIntroduction.save->setAcceptMode(QFileDialog::AcceptSave);
 
