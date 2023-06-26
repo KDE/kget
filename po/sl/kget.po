@@ -1,7 +1,7 @@
 # translation of kget.po to
 # Translation of kget.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
-# $Id: kget.po 1643254 2023-01-27 01:48:38Z scripty $
+# $Id: kget.po 1654672 2023-06-26 01:36:42Z scripty $
 # $Source$
 #
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2002,2003, 2005, 2007.
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-27 00:57+0000\n"
+"POT-Creation-Date: 2023-06-26 00:49+0000\n"
 "PO-Revision-Date: 2023-01-03 16:37+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -489,8 +489,8 @@ msgstr "Strežniki ključev:"
 #: core/kget.cpp:1402 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:249
 #: transfer-plugins/metalink/metalinkxml.cpp:200
-#: ui/metalinkcreator/metalinkcreator.cpp:144
-#: ui/metalinkcreator/metalinkcreator.cpp:159
+#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Error"
 msgstr "Napaka"
@@ -622,7 +622,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "Prepišem obstoječo datoteko?"
 
-#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:159
+#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "Ni bilo mogoče shraniti v: %1"
@@ -2699,13 +2699,13 @@ msgid "Default torrent folder:"
 msgstr "Privzeta mapa za torrente:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
-#: transfer-plugins/bittorrent/btsettingswidget.ui:137
+#: transfer-plugins/bittorrent/btsettingswidget.ui:134
 #, kde-format
 msgid "Default temporary folder:"
 msgstr "Privzeta začasna mapa:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
-#: transfer-plugins/bittorrent/btsettingswidget.ui:154
+#: transfer-plugins/bittorrent/btsettingswidget.ui:151
 #, kde-format
 msgid "Pre-allocate disk space"
 msgstr "Vnaprej dodeli prostor na disku"
@@ -4013,53 +4013,66 @@ msgstr "Ustvari nov Metalink"
 msgid "Load existing Metalink:"
 msgstr "Naloži obstoječ Metalink:"
 
-#. i18n: ectx: property (filter), widget (KUrlRequester, load)
-#: ui/metalinkcreator/introduction.ui:98
-#, kde-format
-msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Datoteka Metalink (*.metalink *.meta4)"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:82
+#: ui/metalinkcreator/metalinkcreator.cpp:83
 #, kde-format
 msgid "Create a Metalink"
 msgstr "Ustvari Metalink"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:100
+#: ui/metalinkcreator/metalinkcreator.cpp:101
 #, kde-format
 msgid "Add at least one file."
 msgstr "Dodajte vsaj eno datoteko."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:102
+#: ui/metalinkcreator/metalinkcreator.cpp:103
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "Za vnose z ikono morate nastaviti zrcalne strežnike."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:115
+#: ui/metalinkcreator/metalinkcreator.cpp:116
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "Dodatni splošni podatki za Metalink."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:145
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "Ni bilo mogoče naložiti: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:169
+#: ui/metalinkcreator/metalinkcreator.cpp:172
+#, fuzzy, kde-format
+#| msgid "Metalink Version 4.0 file (*.meta4)"
+msgid "Metalink Version 4.0 file)"
+msgstr "Datoteka Metalink različice 4.0 (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:172
+#, fuzzy, kde-format
+#| msgid "Metalink Version 4.0 file (*.meta4)"
+msgid "Metalink Version 3.0 file"
+msgstr "Datoteka Metalink različice 4.0 (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:173
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, fuzzy, kde-format
+#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+msgid "Metalink file (*.metalink *.meta4)"
+msgstr "*.metalink *.meta4|Datoteka Metalink (*.metalink *.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 4.0 file (*.meta4)"
 msgstr "Datoteka Metalink različice 4.0 (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:169
+#: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 3.0 file (*.metalink)"
 msgstr "Datoteka Metalink različice 3.0 (*.metalink)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:184
 #, kde-format
 msgid "Define the saving location."
 msgstr "Določite mesto za shranjevanje."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:222
+#: ui/metalinkcreator/metalinkcreator.cpp:230
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"

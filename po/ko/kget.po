@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-27 00:57+0000\n"
+"POT-Creation-Date: 2023-06-26 00:49+0000\n"
 "PO-Revision-Date: 2023-03-01 02:08+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -480,8 +480,8 @@ msgstr "키 서버:"
 #: core/kget.cpp:1402 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:249
 #: transfer-plugins/metalink/metalinkxml.cpp:200
-#: ui/metalinkcreator/metalinkcreator.cpp:144
-#: ui/metalinkcreator/metalinkcreator.cpp:159
+#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Error"
 msgstr "오류"
@@ -610,7 +610,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "존재하는 파일을 덮어쓰시겠습니까?"
 
-#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:159
+#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "다음에 저장할 수 없음: %1"
@@ -2633,13 +2633,13 @@ msgid "Default torrent folder:"
 msgstr "기본 토렌트 폴더:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
-#: transfer-plugins/bittorrent/btsettingswidget.ui:137
+#: transfer-plugins/bittorrent/btsettingswidget.ui:134
 #, kde-format
 msgid "Default temporary folder:"
 msgstr "기본 임시 폴더:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
-#: transfer-plugins/bittorrent/btsettingswidget.ui:154
+#: transfer-plugins/bittorrent/btsettingswidget.ui:151
 #, kde-format
 msgid "Pre-allocate disk space"
 msgstr "디스크 공간 미리 할당하기"
@@ -3938,53 +3938,66 @@ msgstr "새 메타링크 만들기"
 msgid "Load existing Metalink:"
 msgstr "기존 메타링크 불러오기:"
 
-#. i18n: ectx: property (filter), widget (KUrlRequester, load)
-#: ui/metalinkcreator/introduction.ui:98
-#, kde-format
-msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|메타링크 파일 (*.metalink *.meta4)"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:82
+#: ui/metalinkcreator/metalinkcreator.cpp:83
 #, kde-format
 msgid "Create a Metalink"
 msgstr "메타링크 만들기"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:100
+#: ui/metalinkcreator/metalinkcreator.cpp:101
 #, kde-format
 msgid "Add at least one file."
 msgstr "최소한 하나의 파일을 추가하십시오."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:102
+#: ui/metalinkcreator/metalinkcreator.cpp:103
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "아이콘이 있는 항목의 미러를 지정해야 합니다."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:115
+#: ui/metalinkcreator/metalinkcreator.cpp:116
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "메타링크의 추가적인 일반 정보입니다."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:145
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "불러올 수 없음: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:169
+#: ui/metalinkcreator/metalinkcreator.cpp:172
+#, fuzzy, kde-format
+#| msgid "Metalink Version 4.0 file (*.meta4)"
+msgid "Metalink Version 4.0 file)"
+msgstr "메타링크 버전 4.0 파일 (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:172
+#, fuzzy, kde-format
+#| msgid "Metalink Version 4.0 file (*.meta4)"
+msgid "Metalink Version 3.0 file"
+msgstr "메타링크 버전 4.0 파일 (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:173
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, fuzzy, kde-format
+#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+msgid "Metalink file (*.metalink *.meta4)"
+msgstr "*.metalink *.meta4|메타링크 파일 (*.metalink *.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 4.0 file (*.meta4)"
 msgstr "메타링크 버전 4.0 파일 (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:169
+#: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 3.0 file (*.metalink)"
 msgstr "메타링크 버전 3.0 파일 (*.metalink)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:184
 #, kde-format
 msgid "Define the saving location."
 msgstr "저장 위치를 정합니다."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:222
+#: ui/metalinkcreator/metalinkcreator.cpp:230
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"

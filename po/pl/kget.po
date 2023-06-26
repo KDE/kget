@@ -1,5 +1,5 @@
 # translation of kget.po to
-# Version: $Revision: 1643254 $
+# Version: $Revision: 1654664 $
 # Copyright (C) 2002,2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 #
 # Wojciech Milewski <Wojciech.Milewski@wp.pl>, 2002.
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-27 00:57+0000\n"
+"POT-Creation-Date: 2023-06-26 00:49+0000\n"
 "PO-Revision-Date: 2023-01-02 20:48+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -486,8 +486,8 @@ msgstr "Serwery kluczy:"
 #: core/kget.cpp:1402 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:249
 #: transfer-plugins/metalink/metalinkxml.cpp:200
-#: ui/metalinkcreator/metalinkcreator.cpp:144
-#: ui/metalinkcreator/metalinkcreator.cpp:159
+#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Error"
 msgstr "Błąd"
@@ -619,7 +619,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "Czy zastąpić istniejący plik?"
 
-#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:159
+#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "Nie można zapisać: %1"
@@ -2675,13 +2675,13 @@ msgid "Default torrent folder:"
 msgstr "Domyślny katalog torrentów:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
-#: transfer-plugins/bittorrent/btsettingswidget.ui:137
+#: transfer-plugins/bittorrent/btsettingswidget.ui:134
 #, kde-format
 msgid "Default temporary folder:"
 msgstr "Domyślny katalog tymczasowy:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
-#: transfer-plugins/bittorrent/btsettingswidget.ui:154
+#: transfer-plugins/bittorrent/btsettingswidget.ui:151
 #, kde-format
 msgid "Pre-allocate disk space"
 msgstr "Przydziel przestrzeń na dysku"
@@ -3987,53 +3987,66 @@ msgstr "Utwórz nowy plik Metalink"
 msgid "Load existing Metalink:"
 msgstr "Wczytaj istniejący plik typu Metalink:"
 
-#. i18n: ectx: property (filter), widget (KUrlRequester, load)
-#: ui/metalinkcreator/introduction.ui:98
-#, kde-format
-msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Plik Metalink (*.metalink *.meta4)"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:82
+#: ui/metalinkcreator/metalinkcreator.cpp:83
 #, kde-format
 msgid "Create a Metalink"
 msgstr "Utwórz Metalink"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:100
+#: ui/metalinkcreator/metalinkcreator.cpp:101
 #, kde-format
 msgid "Add at least one file."
 msgstr "Dodaj co najmniej jedn plik."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:102
+#: ui/metalinkcreator/metalinkcreator.cpp:103
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "Dla wpisów z ikoną trzeba ustawić serwery zwierciadlane."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:115
+#: ui/metalinkcreator/metalinkcreator.cpp:116
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "Ogólne opcjonalne informacje dla Metalink."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:145
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "Nie można wczytać: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:169
+#: ui/metalinkcreator/metalinkcreator.cpp:172
+#, fuzzy, kde-format
+#| msgid "Metalink Version 4.0 file (*.meta4)"
+msgid "Metalink Version 4.0 file)"
+msgstr "Plik Metalink wersja 4.0 (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:172
+#, fuzzy, kde-format
+#| msgid "Metalink Version 4.0 file (*.meta4)"
+msgid "Metalink Version 3.0 file"
+msgstr "Plik Metalink wersja 4.0 (*.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:173
+#: ui/metalinkcreator/metalinkcreator.cpp:176
+#, fuzzy, kde-format
+#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+msgid "Metalink file (*.metalink *.meta4)"
+msgstr "*.metalink *.meta4|Plik Metalink (*.metalink *.meta4)"
+
+#: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 4.0 file (*.meta4)"
 msgstr "Plik Metalink wersja 4.0 (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:169
+#: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 3.0 file (*.metalink)"
 msgstr "Plik Metalink wersja 3.0 (*.metalink)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:184
 #, kde-format
 msgid "Define the saving location."
 msgstr "Proszę zdefiniować lokalizację zapisywanych plików."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:222
+#: ui/metalinkcreator/metalinkcreator.cpp:230
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"
