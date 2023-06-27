@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
 "PO-Revision-Date: 2007-09-03 12:28+0330\n"
 "Last-Translator: Nazanin Kazemi <kazemi@itland.ir>\n"
 "Language-Team: Persian <kde-i18n-fa@kde.org>\n"
@@ -4000,7 +4000,7 @@ msgstr "قادر به ذخیره در %1 نیست"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
-msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
 msgstr "باز کردن پرونده"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172

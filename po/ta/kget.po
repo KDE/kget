@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
 "PO-Revision-Date: 2021-01-18 19:01+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -4080,7 +4080,7 @@ msgstr ""
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
-msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
 msgstr "கோப்பினை திற"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172

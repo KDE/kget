@@ -20,16 +20,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
-"PO-Revision-Date: 2023-01-16 22:57-0300\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
+"PO-Revision-Date: 2023-06-26 17:18-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -4033,22 +4033,20 @@ msgstr "Não foi possível carregar: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
-msgstr "Arquivo do Metalink versão 4.0 (*.meta4)"
+#| msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
+msgstr "Arquivo do Metalink versão 4.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Arquivo do Metalink versão 4.0 (*.meta4)"
+msgstr "Arquivo do Metalink versão 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Arquivo Metalink (*.metalink *.meta4)"
+msgstr "Arquivo Metalink (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format

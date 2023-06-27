@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.3\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
 "PO-Revision-Date: 2014-03-19 22:16+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -4013,7 +4013,7 @@ msgstr "Nem sikerült betölteni: %1"
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
 msgstr "Metalink 4.0-s verziójú fájl (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172

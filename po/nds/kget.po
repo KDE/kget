@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
 "PO-Revision-Date: 2014-06-29 22:07+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -4020,7 +4020,7 @@ msgstr "Lett sik nich laden: %1"
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
 msgstr "Metalink-Datei, Verschoon 4.0 (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172

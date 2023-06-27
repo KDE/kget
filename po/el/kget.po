@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
 "PO-Revision-Date: 2021-06-19 07:59+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -4040,7 +4040,7 @@ msgstr "Αδυναμία φόρτωσης: %1"
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
 msgstr "Αρχείο Metalink έκδοση 4.0 (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172

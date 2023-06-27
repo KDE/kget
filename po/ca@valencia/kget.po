@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
 "PO-Revision-Date: 2023-01-02 14:04+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -4014,7 +4014,7 @@ msgstr "No s'ha pogut carregar: %1"
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
 msgstr "Fitxer «Metalink» versió 4.0 (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172

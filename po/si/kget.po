@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
 "PO-Revision-Date: 2011-11-11 19:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com> \n"
 "Language-Team: Sinhala <info@hanthana.org> \n"
@@ -3991,7 +3991,7 @@ msgstr "පූර්‍ණය කල නොහැකි විය: %1"
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
 msgstr "මෙටාසබැඳි සංස්කරණය 4.0 (*.metalink4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172

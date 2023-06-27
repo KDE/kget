@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
-"PO-Revision-Date: 2023-05-08 11:27+0300\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
+"PO-Revision-Date: 2023-06-26 17:04+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -27,12 +27,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
 msgid "Pattern"
-msgstr "Kalıp"
+msgstr "Dizgi"
 
 #: conf/autopastemodel.cpp:176
 #, kde-format
@@ -3558,7 +3558,7 @@ msgstr "Arşivler"
 #, kde-format
 msgctxt "of a filter, e.g. RegExp or Wildcard"
 msgid "Pattern Syntax"
-msgstr "Kalıp Sözdizimi"
+msgstr "Dizgi Sözdizimi"
 
 #: ui/linkview/kget_linkview.cpp:74
 #, kde-format
@@ -4015,22 +4015,20 @@ msgstr "Yüklenemedi: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
-msgstr "Metalink Sürüm 4.0 dosyası (*.meta4)"
+#| msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
+msgstr "Metalink Sürüm 4.0 dosyası"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
 msgstr "Metalink Sürüm 4.0 dosyası (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Metalink dosyası (*.metalink *.meta4)"
+msgstr "Metalink dosyası (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format

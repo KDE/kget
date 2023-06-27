@@ -1,7 +1,7 @@
 # translation of kget.po to
 # Translation of kget.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
-# $Id: kget.po 1654672 2023-06-26 01:36:42Z scripty $
+# $Id: kget.po 1654755 2023-06-27 01:31:49Z scripty $
 # $Source$
 #
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2002,2003, 2005, 2007.
@@ -14,18 +14,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-26 00:49+0000\n"
-"PO-Revision-Date: 2023-01-03 16:37+0100\n"
+"POT-Creation-Date: 2023-06-27 00:47+0000\n"
+"PO-Revision-Date: 2023-06-26 07:18+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -2962,8 +2962,8 @@ msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
 "not work the download would be restarted) it?"
 msgstr ""
-"Prejetega ni bilo mogoče preveriti. Ali ga želite popraviti? Če popravilo ne "
-"bo delovalo, bo prejemanje znova zagnano."
+"Prejetega ni bilo mogoče preveriti, ga želite popraviti (če popravilo ne bo "
+"delovalo, bo prejemanje znova zagnano)?"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:225
 #: transfer-plugins/metalink/metalink.cpp:122
@@ -4040,22 +4040,20 @@ msgstr "Ni bilo mogoče naložiti: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
-msgid "Metalink Version 4.0 file)"
-msgstr "Datoteka Metalink različice 4.0 (*.meta4)"
+#| msgid "Metalink Version 4.0 file)"
+msgid "Metalink Version 4.0 file"
+msgstr "Datoteka Metalink različice 4.0)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Datoteka Metalink različice 4.0 (*.meta4)"
+msgstr "Datoteka Metalink različice 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Datoteka Metalink (*.metalink *.meta4)"
+msgstr "Datoteka Metalink (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
