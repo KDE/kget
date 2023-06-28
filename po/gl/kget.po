@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-27 00:47+0000\n"
-"PO-Revision-Date: 2023-06-23 22:55+0200\n"
+"PO-Revision-Date: 2023-06-27 07:32+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -4018,27 +4018,25 @@ msgid "Metalink Version 4.0 file"
 msgstr "Ficheiro de Metalink Versión 4.0 (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Ficheiro de Metalink Versión 4.0 (*.meta4)"
+msgstr "Ficheiro de Metalink versión 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Ficheiro Metalink (*.metalink *.meta4)"
+msgstr "Ficheiro de Metalink (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 4.0 file (*.meta4)"
-msgstr "Ficheiro de Metalink Versión 4.0 (*.meta4)"
+msgstr "Ficheiro de Metalink versión 4.0 (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 3.0 file (*.metalink)"
-msgstr "Ficheiro Metalink Versión 3.0 (*.metalink)"
+msgstr "Ficheiro Metalink versión 3.0 (*.metalink)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:184
 #, kde-format

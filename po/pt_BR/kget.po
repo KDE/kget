@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-27 00:47+0000\n"
-"PO-Revision-Date: 2023-06-26 17:18-0300\n"
+"PO-Revision-Date: 2023-06-27 18:39-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -4032,8 +4032,7 @@ msgid "Unable to load: %1"
 msgstr "Não foi possível carregar: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
 msgstr "Arquivo do Metalink versão 4.0"
 
