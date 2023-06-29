@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-27 00:57+0000\n"
-"PO-Revision-Date: 2023-06-27 07:32+0200\n"
+"PO-Revision-Date: 2023-06-28 07:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -52,7 +52,7 @@ msgstr "Expresión regular"
 #: conf/dlgadvanced.ui:17
 #, kde-format
 msgid "Enable system tray icon"
-msgstr "Activar a icona da barra de sistema"
+msgstr "Activar a icona da barra de sistema."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
 #: conf/dlgadvanced.ui:26
@@ -148,7 +148,7 @@ msgstr "Usar o destino do arrastre"
 #: conf/dlgappearance.ui:29
 #, kde-format
 msgid "Enable animations"
-msgstr "Activar as animacións"
+msgstr "Activar as animacións."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DirectoriesAsSuggestion)
 #: conf/dlggroups.ui:17
@@ -302,7 +302,7 @@ msgstr "Porto:"
 #: conf/dlgwebinterface.ui:55
 #, kde-format
 msgid "User:"
-msgstr "Usuario:"
+msgstr "Persoa usuaria:"
 
 #. i18n: ectx: property (text), widget (QLabel, passwordLabel)
 #: conf/dlgwebinterface.ui:69
@@ -473,13 +473,13 @@ msgstr "Sinatura"
 #: conf/verificationpreferences.ui:93
 #, kde-format
 msgid "Automatic verification"
-msgstr "Verificación automática"
+msgstr "Verificación automática."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticDownloading)
 #: conf/verificationpreferences.ui:100
 #, kde-format
 msgid "Automatic downloading of missing keys"
-msgstr "Descarga automática das chaves que faltan"
+msgstr "Descarga automática das chaves que faltan."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: conf/verificationpreferences.ui:123
@@ -1461,7 +1461,8 @@ msgstr "Lukas Appelhans"
 #: main.cpp:111
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
-msgstr "Desenvolvedor, desenvolvedor principal, autor do complemento Torrent"
+msgstr ""
+"Mantemento, desenvolvemento principal, e autoría do complemento de torrents."
 
 #: main.cpp:112
 #, kde-format
@@ -1471,7 +1472,7 @@ msgstr "Dario Massarin"
 #: main.cpp:112 main.cpp:113 main.cpp:115
 #, kde-format
 msgid "Core Developer"
-msgstr "Desenvolvedor principal"
+msgstr "Desenvolvemento principal."
 
 #: main.cpp:113
 #, kde-format
@@ -1486,7 +1487,7 @@ msgstr "Manolo Valdes"
 #: main.cpp:114
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
-msgstr "Desenvolvedor principal, autor do complemento multifío"
+msgstr "Desenvolvemento principal, autoría do complemento multifío."
 
 #: main.cpp:115
 #, kde-format
@@ -1501,7 +1502,7 @@ msgstr "Javier Goday"
 #: main.cpp:116
 #, kde-format
 msgid "Developer"
-msgstr "Desenvolvedor"
+msgstr "Desenvolvemento."
 
 #: main.cpp:117
 #, kde-format
@@ -1521,7 +1522,7 @@ msgstr "Ernesto Rodriguez Ortiz"
 #: main.cpp:118
 #, kde-format
 msgid "Mms Plugin Author"
-msgstr "Autor do complemento de MMS"
+msgstr "Autoría do complemento de MMS."
 
 #: main.cpp:119
 #, kde-format
@@ -1531,7 +1532,7 @@ msgstr "Patrick Charbonnier"
 #: main.cpp:119 main.cpp:120 main.cpp:121
 #, kde-format
 msgid "Former Developer"
-msgstr "Antigo Desenvolvedor"
+msgstr "Desenvolvemento anteriormente."
 
 #: main.cpp:120
 #, kde-format
@@ -1551,7 +1552,7 @@ msgstr "Joris Guisson"
 #: main.cpp:122
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
-msgstr "Desenvolvedor de BTCore (KTorrent)"
+msgstr "Desenvolvemento de BTCore (KTorrent)."
 
 #: main.cpp:123
 #, kde-format
@@ -1823,7 +1824,7 @@ msgstr "Todos os ficheiros que se poidan abrir"
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
-msgstr "KGet - %1%"
+msgstr "KGet — %1%"
 
 #: mainwindow.cpp:581
 #, kde-format
@@ -2070,7 +2071,7 @@ msgstr "Mover o ficheiro"
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
-msgstr "Pregar a árbore de cartafoles"
+msgstr "Recoller a árbore de cartafoles"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
@@ -2682,7 +2683,7 @@ msgstr "Cartafol temporal predeterminado:"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:154
 #, kde-format
 msgid "Pre-allocate disk space"
-msgstr "Reservar espazo en disco"
+msgstr "Reservar espazo en disco."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
 #, kde-format
@@ -3089,13 +3090,13 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
 #, kde-format
 msgid "Use search engines"
-msgstr "Usar buscadores"
+msgstr "Usar buscadores."
 
 #. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
 #, kde-format
 msgid "Search for verification information"
-msgstr "Buscar información da verificación"
+msgstr "Buscar información da verificación."
 
 #: transfer-plugins/multisegmentkio/segment.cpp:284
 #, kde-format
@@ -3188,7 +3189,7 @@ msgstr "Cartafo&l predeterminado:"
 #: ui/groupsettingsdialog.ui:61
 #, kde-format
 msgid "Moves all transfers with the regular expression to this group"
-msgstr "Move todas as transferencias coa expresión regular a este grupo"
+msgstr "Move todas as transferencias coa expresión regular a este grupo."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:64
@@ -3294,12 +3295,12 @@ msgstr "Entre 1 MiB-10 MiB"
 #: ui/history/transferhistory.cpp:253
 #, kde-format
 msgid "Between 10MiB-100MiB"
-msgstr "Entre 10 MiB - 100 MiB"
+msgstr "Entre 10 MiB e 100 MiB"
 
 #: ui/history/transferhistory.cpp:254
 #, kde-format
 msgid "Between 100MiB-1GiB"
-msgstr "Entre 100 MiB - 1GiB"
+msgstr "Entre 100 MiB e 1 GiB"
 
 #: ui/history/transferhistory.cpp:255
 #, kde-format
@@ -3477,7 +3478,7 @@ msgstr "Amosar:"
 #: ui/linkview/importlinkdialog.ui:77
 #, kde-format
 msgid "Show &web content"
-msgstr "Amosar contido &web"
+msgstr "Amosar o contido &web."
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, textFilter)
 #: ui/linkview/importlinkdialog.ui:115
@@ -3606,7 +3607,7 @@ msgstr "Localización (URL)"
 #: ui/linkview/kget_linkview.cpp:257
 #, kde-format
 msgid "Links in: %1 - KGet"
-msgstr "Ligazóns en: %1 - KGet"
+msgstr "Ligazóns en: %1 — KGet"
 
 #: ui/linkview/kget_linkview.cpp:318
 #, kde-format
@@ -3700,7 +3701,7 @@ msgstr "Nome:"
 #: ui/metalinkcreator/commondata.ui:157 ui/metalinkcreator/commondata.ui:177
 #, kde-format
 msgid "publisher"
-msgstr "quen o publica"
+msgstr "Quen o publica."
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_name)
 #: ui/metalinkcreator/commondata.ui:160
@@ -3737,7 +3738,7 @@ msgstr "Xeral"
 #: ui/metalinkcreator/dragdlg.ui:27
 #, kde-format
 msgid "Create partial checksums"
-msgstr "Crear sumas de comprobación parciais"
+msgstr "Crear sumas de comprobación parciais."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/dragdlg.ui:40
