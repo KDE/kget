@@ -71,6 +71,8 @@ TransferHistory::TransferHistory(QWidget *parent)
     actionDownload->setIcon(QIcon::fromTheme("document-new"));
     m_openFile = new QAction(QIcon::fromTheme("document-open"), i18n("&Open File"), this);
 
+    m_progressBar->setFormat(i18nc("Progress bar percent value", "%p%"));
+
     vboxLayout->addWidget(m_view);
     vboxLayout->addWidget(m_progressBar);
 

@@ -1,249 +1,258 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>BTDetailsWidgetFrm</class>
- <widget class="QWidget" name="BTDetailsWidgetFrm" >
-  <property name="geometry" >
+ <widget class="QWidget" name="BTDetailsWidgetFrm">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>606</width>
-    <height>195</height>
+    <height>208</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
-   <item row="2" column="0" >
-    <widget class="QGroupBox" name="groupBox_3" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+  <layout class="QGridLayout">
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="font" >
+     <property name="font">
       <font>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Stats</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignHCenter</set>
      </property>
-     <property name="flat" >
+     <property name="flat">
       <bool>false</bool>
      </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label_7" >
-        <property name="font" >
+     <layout class="QGridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Seeders:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="QLabel" name="seederLabel" >
-        <property name="font" >
+      <item row="0" column="1">
+       <widget class="QLabel" name="seederLabel">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
-         <string>&lt;n></string>
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="3" >
-       <widget class="QLabel" name="label_9" >
-        <property name="font" >
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_9">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Download speed:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="4" >
-       <widget class="QLabel" name="dlSpeedLabel" >
-        <property name="font" >
+      <item row="0" column="4">
+       <widget class="QLabel" name="dlSpeedLabel">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
-         <string>&lt;n></string>
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_8" >
-        <property name="font" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Leechers:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QLabel" name="leecherLabel" >
-        <property name="font" >
+      <item row="1" column="1">
+       <widget class="QLabel" name="leecherLabel">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
-         <string>&lt;n></string>
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="3" >
-       <widget class="QLabel" name="label_10" >
-        <property name="font" >
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_10">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Upload speed:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="4" >
-       <widget class="QLabel" name="ulSpeedLabel" >
-        <property name="font" >
+      <item row="1" column="4">
+       <widget class="QLabel" name="ulSpeedLabel">
+        <property name="font">
          <font>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="text" >
-         <string>&lt;n></string>
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+   <item row="2" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Chunks</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignHCenter</set>
      </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" colspan="2" >
-       <widget class="QLabel" name="label_3" >
-        <property name="text" >
+     <layout class="QGridLayout">
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
          <string>Downloaded:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2" >
-       <widget class="QLabel" name="chunksDownloadedLabel" >
-        <property name="text" >
-         <string>&lt;n></string>
+      <item row="0" column="2">
+       <widget class="QLabel" name="chunksDownloadedLabel">
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="3" >
-       <widget class="QLabel" name="label_5" >
-        <property name="text" >
-         <string comment="chunks left" >Left:</string>
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string comment="chunks left">Left:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="4" >
-       <widget class="QLabel" name="chunksLeftLabel" >
-        <property name="text" >
-         <string>&lt;n></string>
+      <item row="0" column="4">
+       <widget class="QLabel" name="chunksLeftLabel">
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_4" >
-        <property name="text" >
-         <string comment="all chunks" >All:</string>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string comment="all chunks">All:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2" >
-       <widget class="QLabel" name="chunksAllLabel" >
-        <property name="text" >
-         <string>&lt;n></string>
+      <item row="1" column="2">
+       <widget class="QLabel" name="chunksAllLabel">
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="3" >
-       <widget class="QLabel" name="label_6" >
-        <property name="text" >
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
          <string>Excluded:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="4" >
-       <widget class="QLabel" name="chunksExcludedLabel" >
-        <property name="text" >
-         <string>&lt;n></string>
+      <item row="1" column="4">
+       <widget class="QLabel" name="chunksExcludedLabel">
+        <property name="text">
+         <string>&lt;n&gt;</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item rowspan="2" row="0" column="0" colspan="2" >
-    <layout class="QVBoxLayout" >
+   <item row="0" column="0" rowspan="2" colspan="2">
+    <layout class="QVBoxLayout">
      <item>
-      <layout class="QGridLayout" >
-       <item row="1" column="1" >
-        <widget class="KLineEdit" name="destEdit" >
-         <property name="readOnly" >
+      <layout class="QGridLayout">
+       <item row="1" column="1">
+        <widget class="KLineEdit" name="destEdit">
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="KLineEdit" name="srcEdit" >
-         <property name="readOnly" >
+       <item row="0" column="1">
+        <widget class="KLineEdit" name="srcEdit">
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_11" >
-         <property name="text" >
-          <string comment="source-file" >Source:</string>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string comment="source-file">Source:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
           <string>Saving to:</string>
          </property>
         </widget>
@@ -251,9 +260,12 @@
       </layout>
      </item>
      <item>
-      <widget class="QProgressBar" name="progressBar" >
-       <property name="value" >
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
         <number>24</number>
+       </property>
+       <property name="format">
+        <string>%p%</string>
        </property>
       </widget>
      </item>
@@ -261,6 +273,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

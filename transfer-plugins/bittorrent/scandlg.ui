@@ -1,59 +1,60 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ScanDlgBase</class>
- <widget class="QWidget" name="ScanDlgBase" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ScanDlgBase">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>402</width>
-    <height>215</height>
+    <height>221</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
-   <item row="0" column="0" >
-    <widget class="QLabel" name="torrent_label" >
-     <property name="text" >
+  <layout class="QGridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="torrent_label">
+     <property name="text">
       <string>Scanning data of torrent:</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>false</bool>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <layout class="QHBoxLayout" >
+   <item row="1" column="0">
+    <layout class="QHBoxLayout">
      <item>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QLabel" name="textLabel2" >
-         <property name="text" >
+        <widget class="QLabel" name="textLabel2">
+         <property name="text">
           <string>Number of chunks found:</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="textLabel3" >
-         <property name="text" >
+        <widget class="QLabel" name="textLabel3">
+         <property name="text">
           <string>Number of chunks failed:</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label" >
-         <property name="text" >
+        <widget class="QLabel" name="label">
+         <property name="text">
           <string>Number of chunks not downloaded:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
+        <widget class="QLabel" name="label_2">
+         <property name="text">
           <string>Number of chunks downloaded:</string>
          </property>
         </widget>
@@ -61,82 +62,82 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QLabel" name="chunks_found" >
-         <property name="minimumSize" >
+        <widget class="QLabel" name="chunks_found">
+         <property name="minimumSize">
           <size>
            <width>100</width>
            <height>0</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::Box</enum>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>0</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="chunks_failed" >
-         <property name="minimumSize" >
+        <widget class="QLabel" name="chunks_failed">
+         <property name="minimumSize">
           <size>
            <width>100</width>
            <height>0</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::Box</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Plain</enum>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>0</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="chunks_not_downloaded" >
-         <property name="minimumSize" >
+        <widget class="QLabel" name="chunks_not_downloaded">
+         <property name="minimumSize">
           <size>
            <width>100</width>
            <height>0</height>
           </size>
          </property>
-         <property name="frameShape" >
+         <property name="frameShape">
           <enum>QFrame::Box</enum>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>0</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="chunks_downloaded" >
-         <property name="frameShape" >
+        <widget class="QLabel" name="chunks_downloaded">
+         <property name="frameShape">
           <enum>QFrame::Box</enum>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>0</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
@@ -145,31 +146,34 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0" >
-    <widget class="QProgressBar" name="progress" >
-     <property name="value" >
+   <item row="2" column="0">
+    <widget class="QProgressBar" name="progress">
+     <property name="value">
       <number>24</number>
+     </property>
+     <property name="format">
+      <string>%p%</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0" >
-    <widget class="Line" name="line1" >
-     <property name="frameShape" >
+   <item row="3" column="0">
+    <widget class="Line" name="line1">
+     <property name="frameShape">
       <enum>QFrame::HLine</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Sunken</enum>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" >
-    <layout class="QHBoxLayout" >
+   <item row="4" column="0">
+    <layout class="QHBoxLayout">
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -178,8 +182,8 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="cancel" >
-       <property name="text" >
+      <widget class="QPushButton" name="cancel">
+       <property name="text">
         <string>Cancel</string>
        </property>
       </widget>
@@ -188,8 +192,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

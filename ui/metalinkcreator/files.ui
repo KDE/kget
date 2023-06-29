@@ -57,7 +57,16 @@
    <item row="3" column="0">
     <widget class="QWidget" name="dragDrop" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -72,21 +81,24 @@
         <property name="value">
          <number>1</number>
         </property>
+        <property name="format">
+         <string>%p%</string>
+        </property>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item row="0" column="0" colspan="2">
-    <widget class="KMessageWidget" name="infoWidget" native="true"/>
+    <widget class="KMessageWidget" name="infoWidget"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
    <class>KMessageWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">KMessageWidget</header>
+   <extends>QFrame</extends>
+   <header>kmessagewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
