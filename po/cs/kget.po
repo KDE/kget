@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-27 00:47+0000\n"
-"PO-Revision-Date: 2023-02-21 09:37+0100\n"
+"PO-Revision-Date: 2023-06-28 14:17+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -4000,23 +4000,20 @@ msgid "Unable to load: %1"
 msgstr "Nelze načíst: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Soubor Metalink verze 4.0 (*.meta4)"
+msgstr "Soubor Metalink verze 4.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Soubor Metalink verze 4.0 (*.meta4)"
+msgstr "Soubor Metalink verze 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Soubor metalink (*.metalink *.meta4)"
+msgstr "Soubor metalink (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
