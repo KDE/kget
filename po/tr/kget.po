@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-27 00:47+0000\n"
-"PO-Revision-Date: 2023-06-27 11:54+0300\n"
+"PO-Revision-Date: 2023-06-29 05:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -42,7 +42,7 @@ msgstr "Sözdizim"
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
 #, kde-format
 msgid "Escape sequences"
-msgstr "Kaçış sıralamaları"
+msgstr "Kaçış sıraları"
 
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:39
 #, kde-format
@@ -101,7 +101,7 @@ msgstr "Geçmiş arka ucu:"
 #: conf/dlgadvanced.ui:80
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
-msgstr "KDE Genel İlerleme İzlemesini Etkinleştir"
+msgstr "KDE Global İlerleme İzlemesini Etkinleştir"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
 #: conf/dlgadvanced.ui:92
@@ -143,7 +143,7 @@ msgstr "Üzerine Yaz"
 #: conf/dlgappearance.ui:17
 #, kde-format
 msgid "Use Drop Target"
-msgstr "Üzerine Bırakma Hedefini Kullan"
+msgstr "Üzerine bırakma hedefini kullan"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
 #: conf/dlgappearance.ui:29
@@ -185,7 +185,7 @@ msgstr "Konqueror'un indirme yöneticisi olarak kullan"
 #: conf/dlgintegration.ui:24
 #, kde-format
 msgid "Monitor Clipboard for Files to Download"
-msgstr "İndirilecek Dosyalar için Panoyu İzle"
+msgstr "İndirilecek dosyalar için panoyu izle"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: conf/dlgintegration.ui:36
@@ -222,7 +222,7 @@ msgstr "Sınırsız"
 #: conf/dlgnetwork.ui:35
 #, kde-format
 msgid "Speed Limit"
-msgstr "Hız Sınırı"
+msgstr "Hız sınırı"
 
 #. i18n: ectx: property (text), widget (QLabel, dllimitlb)
 #: conf/dlgnetwork.ui:44
@@ -260,7 +260,7 @@ msgstr "Aktarım başına:"
 #: conf/dlgnetwork.ui:119
 #, kde-format
 msgid "Reconnect on Broken Connection"
-msgstr "Bağlantı Kesilirse Yeniden Bağlan"
+msgstr "Bağlantı kesilirse yeniden bağlan"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_retries_2)
 #: conf/dlgnetwork.ui:128
@@ -289,14 +289,14 @@ msgstr "K Cüzdan açılamadı"
 #: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
-msgstr "Web Arayüzünü Etkinleştir"
+msgstr "Web arayüzünü etkinleştir"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: conf/dlgwebinterface.ui:41
 #: transfer-plugins/bittorrent/btsettingswidget.ui:32
 #, kde-format
 msgid "Port:"
-msgstr "Port:"
+msgstr "Kapı:"
 
 #. i18n: ectx: property (text), widget (QLabel, userLabel)
 #: conf/dlgwebinterface.ui:55
@@ -507,7 +507,7 @@ msgstr ""
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
-msgstr "%1 yanlış dosya boyutuna sahip olduğundan silindi."
+msgstr "%1 yanlış dosya boyutuna sahip olduğundan kaldırıldı."
 
 #: core/filemodel.cpp:248
 #, kde-format
@@ -563,7 +563,7 @@ msgstr ""
 #: core/kget.cpp:120
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
-msgstr "%1 adlı grubu silmek istediğinizden emin misiniz?"
+msgstr "%1 adlı grubu kaldırmak istediğinizden emin misiniz?"
 
 #: core/kget.cpp:121
 #, kde-format
@@ -1683,7 +1683,7 @@ msgstr "K İndir'i Konqueror'un indirme yöneticisi olarak kullan"
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
-msgstr "Seçileni Kaldır"
+msgstr "Seçiliyi Kaldır"
 
 #: mainwindow.cpp:252
 #, kde-format
@@ -1695,13 +1695,13 @@ msgstr "Tamamlanmış Olanların Tümünü Kaldır"
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
-msgstr "Seçileni Kaldır ve Dosyaları Kaldır"
+msgstr "Seçiliyi Kaldır ve Dosyaları Sil"
 
 #: mainwindow.cpp:264
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
-msgstr "Seçilenleri Yeniden İndir"
+msgstr "Seçilileri Yeniden İndir"
 
 #: mainwindow.cpp:269
 #, kde-format
@@ -1711,7 +1711,7 @@ msgstr "Tümünü Başlat"
 #: mainwindow.cpp:276
 #, kde-format
 msgid "Start Selected"
-msgstr "Seçileni Başlat"
+msgstr "Seçiliyi Başlat"
 
 #: mainwindow.cpp:282
 #, kde-format
@@ -1721,7 +1721,7 @@ msgstr "Tümünü Duraklat"
 #: mainwindow.cpp:289
 #, kde-format
 msgid "Stop Selected"
-msgstr "Seçilenleri Durdur"
+msgstr "Seçilileri Durdur"
 
 #: mainwindow.cpp:294
 #, kde-format
@@ -1884,10 +1884,10 @@ msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] ""
-"Seçili aktarımı dosyaları da içerecek şekilde silmek istediğinizden emin "
+"Seçili aktarımı dosyaları da içerecek biçimde silmek istediğinizden emin "
 "misiniz?"
 msgstr[1] ""
-"Seçili aktarımları dosyaları da içerecek şekilde silmek istediğinizden emin "
+"Seçili aktarımları dosyaları da içerecek biçimde silmek istediğinizden emin "
 "misiniz?"
 
 #: mainwindow.cpp:1100
@@ -1937,7 +1937,7 @@ msgstr "İzleyiciler"
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:76
 #, kde-format
 msgid "Webseeds"
-msgstr "Web Paylaşımları"
+msgstr "Web Beslemeleri"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
 #, kde-format
@@ -1952,7 +1952,7 @@ msgstr "Süreç"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:222
 #, kde-format
 msgid "Peer"
-msgstr "Akran"
+msgstr "Eş"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:224
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:328
@@ -1973,7 +1973,7 @@ msgstr "Parçanın indirme süreci"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:237
 #, kde-format
 msgid "Which peer we are downloading it from"
-msgstr "Dosyayı hangi akrandan indiriyor olduğumuz"
+msgstr "Dosyayı hangi eşten indiriyor olduğumuz"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:239
 #, kde-format
@@ -2186,12 +2186,12 @@ msgstr "Kullanılabilir"
 #: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:52
 #, kde-format
 msgid "Kick Peer"
-msgstr "Akranı Kov"
+msgstr "Eşi Kov"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
 #, kde-format
 msgid "Ban Peer"
-msgstr "Akranı Yasakla"
+msgstr "Eşi Yasakla"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:146
 #, kde-format
@@ -2315,12 +2315,12 @@ msgstr "İlginç"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:359
 #, kde-format
 msgid "IP address of the peer"
-msgstr "Akranın IP adresi"
+msgstr "Eşin IP adresi"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:361
 #, kde-format
 msgid "Which client the peer is using"
-msgstr "Akranın hangi istemciyi kullandığı"
+msgstr "Eşin hangi istemciyi kullandığı"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
 #, kde-format
@@ -2356,14 +2356,14 @@ msgstr "Uç tarafın torrent verisinin ne kadarına sahip olduğu"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:373
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
-msgstr "Akranın DHT özelliğinin açık olup olmadığı"
+msgstr "Eşin DHT özelliğinin açık olup olmadığı"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:375
 #, kde-format
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
 msgstr ""
-"Akranın puanı, K Torrent bunu kime göndereceğini belirlemek için kullanır."
+"Eşin puanı; K Torrent bunu kime göndereceğini belirlemek için kullanır."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:377
 #, kde-format
@@ -2388,12 +2388,12 @@ msgstr "Bu paylaşımcıya ne kadar veri gönderdik"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:385
 #, kde-format
 msgid "Whether the peer is interested in downloading data from us"
-msgstr "Akranın bizden veri indirmeye istekli olup olmadığı"
+msgstr "Eşin bizden veri indirmeye istekli olup olmadığı"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:387
 #, kde-format
 msgid "Whether we are interested in downloading from this peer"
-msgstr "Bizim bu akrandan veri indirmeye istekli olup olmadığımız"
+msgstr "Bizim bu eşten veri indirmeye istekli olup olmadığımız"
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
 #: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:348
@@ -2424,7 +2424,7 @@ msgstr "Durum"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:138
 #, kde-format
 msgid "Seeders"
-msgstr "Dağıtıcılar"
+msgstr "Besleyiciler"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:140
 #, kde-format
@@ -2499,13 +2499,13 @@ msgstr "Hız"
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
 msgstr ""
-"%1 web paylaşımı eklenemiyor çünkü bu web paylaşımı web paylaşımları "
+"%1 web paylaşımı eklenemiyor; çünkü bu web paylaşımı web paylaşımları "
 "listesinin bir parçası."
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:109
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
-msgstr "%1 web paylaşımı kaldırılamıyor çünkü torrent dosyasının bir bölümü."
+msgstr "%1 web beslemesi kaldırılamıyor; çünkü torrent dosyasının bir bölümü."
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
@@ -2534,26 +2534,26 @@ msgstr ""
 "size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\">Torrent'e eklenecek Web "
-"paylaşımı.</p>\n"
+"beslemesi.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
 "p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Not: </span>Yalnızca http web paylaşımları destekleniyor.</p></"
+"weight:600;\">Not: </span>Yalnızca http web beslemeleri desteklenir.</p></"
 "body></html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
 #, kde-format
 msgid "Add Webseed"
-msgstr "Web Paylaşımı Ekle"
+msgstr "Web Beslemesi Ekle"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
 #, kde-format
 msgid "Remove Webseed"
-msgstr "Web Paylaşımı Kaldır"
+msgstr "Web Beslemesini Kaldır"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:29
@@ -2565,7 +2565,7 @@ msgstr "Durum"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:47
 #, kde-format
 msgid "Seeders:"
-msgstr "Paylaşımcılar:"
+msgstr "Besleyiciler:"
 
 #. i18n: ectx: property (text), widget (QLabel, seederLabel)
 #. i18n: ectx: property (text), widget (QLabel, dlSpeedLabel)
@@ -2734,7 +2734,7 @@ msgstr "Port başlatılamadı..."
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
-msgstr "Gönderiliyor...."
+msgstr "Besleniyor...."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
@@ -2812,12 +2812,12 @@ msgstr "Ekle"
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:30
 #, kde-format
 msgid "Replace file"
-msgstr "Dosyayı sil"
+msgstr "Dosyayı değiştir"
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:30
 #, kde-format
 msgid "Replace file-ending"
-msgstr "Dosya-sonlarını değiştir"
+msgstr "Dosya sonlarını değiştir"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
@@ -2999,7 +2999,8 @@ msgstr "Metalink Dosyası İndiriliyor...."
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr ""
-"Bu Metalink dosyasının yeni bir sürümü mevcut, tekrar indirmek ister misiniz?"
+"Bu Metalink dosyasının yeni bir sürümü olabilir, onu indirmek istiyor "
+"musunuz?"
 
 #: transfer-plugins/metalink/metalink.cpp:120
 #: transfer-plugins/metalink/metalinkxml.cpp:117
@@ -3381,7 +3382,7 @@ msgstr "Geçmişi süz"
 #, kde-format
 msgctxt "delete selected transfer"
 msgid "Delete Selected"
-msgstr "Seçileni Sil"
+msgstr "Seçiliyi Sil"
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:125
@@ -3423,7 +3424,7 @@ msgstr "Yeniden indir"
 #, kde-format
 msgctxt "Delete selected history-item"
 msgid "Delete selected"
-msgstr "Seçileni sil"
+msgstr "Seçiliyi sil"
 
 #: ui/history/transferhistoryitemdelegate.cpp:51
 #, kde-format
@@ -3563,7 +3564,7 @@ msgstr "Dizgi Sözdizimi"
 #: ui/linkview/kget_linkview.cpp:74
 #, kde-format
 msgid "Escape Sequences"
-msgstr "Kaçış Sıralamaları"
+msgstr "Kaçış Sıraları"
 
 #: ui/linkview/kget_linkview.cpp:77
 #, kde-format
@@ -3757,7 +3758,7 @@ msgid ""
 "Automatically create checksums for the selected types. Keep in mind that "
 "this might take a while."
 msgstr ""
-"Seçili türler için sağlama toplamı dosyalarını otomatik olarak oluştur. Bu "
+"Seçili türler için sağlama toplamı dosyalarını kendiliğinden oluştur. Bu "
 "işlemin biraz vakit alacağını unutmayın."
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
@@ -3966,7 +3967,7 @@ msgid ""
 "enter them if desired. The minimum is a save location, at least one file and "
 "one URL."
 msgstr ""
-"Bu sihirbaz, sizin sıfırdan veya mevcut üst bağlantıları temel alarak yeni "
+"Bu sihirbaz, sizin sıfırdan veya var olan üst bağlantıları temel alarak yeni "
 "üst bağlantı üretmenizi sağlar. Çoğu alan zorunlu değildir. Kayıt konumu, "
 "dosya ve URL bilgileri verilmelidir."
 
@@ -3986,7 +3987,7 @@ msgstr "Yeni Metalink Oluştur"
 #: ui/metalinkcreator/introduction.ui:88
 #, kde-format
 msgid "Load existing Metalink:"
-msgstr "Varolan Metalink Yükle:"
+msgstr "Var olan Metalink'i yükle:"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:83
 #, kde-format
@@ -4180,7 +4181,7 @@ msgstr "%1 imzası."
 #: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
-msgstr "Mevcut aktarım için bu seçenek desteklenmiyor."
+msgstr "Geçerli aktarım için bu seçenek desteklenmiyor."
 
 #: ui/signaturedlg.cpp:97
 #, kde-format
@@ -4474,7 +4475,7 @@ msgstr "En &yüksek paylaşım oranı:"
 #: ui/transfersettingsdialog.ui:139
 #, kde-format
 msgid "Modify the mirrors used for downloading."
-msgstr "İndirme için kullanılan yansıları düzenle."
+msgstr "İndirme için kullanılan yansıları düzenleyin."
 
 #. i18n: ectx: property (text), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:142
@@ -4555,7 +4556,7 @@ msgstr "Doğruluyor:"
 #: ui/verificationdialog.ui:118
 #, kde-format
 msgid "Verify the finished download with the selected checksum."
-msgstr "Biten indirmeleri seçili sağlama toplamı ile doğrula."
+msgstr "Biten indirmeleri seçili sağlama toplamı ile doğrulayın."
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:121
