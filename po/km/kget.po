@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-27 00:47+0000\n"
+"POT-Creation-Date: 2023-07-02 00:47+0000\n"
 "PO-Revision-Date: 2012-07-09 10:43+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1972,7 +1972,7 @@ msgstr "ឯកសារ​ណាមួយ​ដែល​កំណត់​ស្
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChunkDownloadView)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:13
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:154
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:163
 #, kde-format
 msgid "Chunks"
 msgstr "ចំណិត"
@@ -1992,7 +1992,7 @@ msgstr "កា​រទាញ​យក​បច្ចុប្បន្ន ៖"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:95
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:163
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:172
 #, kde-format
 msgid "Downloaded:"
 msgstr "បានទាញ​យក ៖"
@@ -2000,7 +2000,7 @@ msgstr "បានទាញ​យក ៖"
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:131
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:205
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:214
 #, kde-format
 msgid "Excluded:"
 msgstr "មិនបាន​រួម​បញ្ចូល ៖"
@@ -2395,7 +2395,7 @@ msgstr "Url"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
-#: ui/history/transferhistory.cpp:243
+#: ui/history/transferhistory.cpp:245
 #, kde-format
 msgid "Status"
 msgstr "ស្ថានភាព"
@@ -2533,13 +2533,13 @@ msgid "Remove Webseed"
 msgstr "យក Webseed ចេញ"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:29
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:30
 #, kde-format
 msgid "Stats"
 msgstr "ស្ថានភាព"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:47
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:49
 #, kde-format
 msgid "Seeders:"
 msgstr "ឧបករណ៍​បណ្ដុះ ៖"
@@ -2552,52 +2552,52 @@ msgstr "ឧបករណ៍​បណ្ដុះ ៖"
 #. i18n: ectx: property (text), widget (QLabel, chunksLeftLabel)
 #. i18n: ectx: property (text), widget (QLabel, chunksAllLabel)
 #. i18n: ectx: property (text), widget (QLabel, chunksExcludedLabel)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:60
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:86
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:112
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:138
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:170
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:184
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:198
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:212
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:63
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:91
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:119
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:147
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:179
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:193
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:207
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:221
 #, kde-format
 msgid "<n>"
 msgstr "<n>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:73
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:77
 #, kde-format
 msgid "Download speed:"
 msgstr "ល្បឿន​ទាញយក ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:99
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:105
 #, kde-format
 msgid "Leechers:"
 msgstr "ឧបករណ៍​ស្រូប ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:125
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:133
 #, kde-format
 msgid "Upload speed:"
 msgstr "ល្បឿន​ផ្ទុក​ឡើង ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:177
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:186
 #, kde-format
 msgctxt "chunks left"
 msgid "Left:"
 msgstr "ឆ្វេង ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:191
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:200
 #, kde-format
 msgctxt "all chunks"
 msgid "All:"
 msgstr "ទាំងអស់ ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:240
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:249
 #, kde-format
 msgctxt "source-file"
 msgid "Source:"
@@ -2605,11 +2605,21 @@ msgstr "ប្រភព ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, destLabel)
-#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:247
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:256
 #: ui/transferdetailsfrm.ui:44
 #, kde-format
 msgid "Saving to:"
 msgstr "រក្សា​ទុក​ទៅ ៖"
+
+#. i18n: ectx: property (format), widget (QProgressBar, progress)
+#. i18n: ectx: property (format), widget (QProgressBar, progressBar)
+#: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:268
+#: transfer-plugins/bittorrent/scandlg.ui:155
+#: ui/linkview/importlinkdialog.ui:167 ui/metalinkcreator/files.ui:85
+#: ui/verificationdialog.ui:81
+#, no-c-format, kde-format
+msgid "%p%"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2736,31 +2746,31 @@ msgid "Error scanning data: %1"
 msgstr "កំហុស​វិភាគ​ទិន្នន័យ ៖ %1"
 
 #. i18n: ectx: property (text), widget (QLabel, torrent_label)
-#: transfer-plugins/bittorrent/scandlg.ui:16
+#: transfer-plugins/bittorrent/scandlg.ui:17
 #, kde-format
 msgid "Scanning data of torrent:"
 msgstr "វិភាគរក​ទិន្នន័យ​របស់ torrent ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
-#: transfer-plugins/bittorrent/scandlg.ui:30
+#: transfer-plugins/bittorrent/scandlg.ui:31
 #, kde-format
 msgid "Number of chunks found:"
 msgstr "ចំនួន​កំណាត់​ដែល​បាន​រកឃើញ ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
-#: transfer-plugins/bittorrent/scandlg.ui:40
+#: transfer-plugins/bittorrent/scandlg.ui:41
 #, kde-format
 msgid "Number of chunks failed:"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​រក​ចំនួន​កំណាត់ ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: transfer-plugins/bittorrent/scandlg.ui:50
+#: transfer-plugins/bittorrent/scandlg.ui:51
 #, kde-format
 msgid "Number of chunks not downloaded:"
 msgstr "ចំនួន​កំណាត់​ដែល​មិនបាន​ទាញយក ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: transfer-plugins/bittorrent/scandlg.ui:57
+#: transfer-plugins/bittorrent/scandlg.ui:58
 #, kde-format
 msgid "Number of chunks downloaded:"
 msgstr "ចំនួន​កំណាត់​ដែល​បាន​ទាញយក ៖"
@@ -2769,16 +2779,16 @@ msgstr "ចំនួន​កំណាត់​ដែល​បាន​ទាញ
 #. i18n: ectx: property (text), widget (QLabel, chunks_failed)
 #. i18n: ectx: property (text), widget (QLabel, chunks_not_downloaded)
 #. i18n: ectx: property (text), widget (QLabel, chunks_downloaded)
-#: transfer-plugins/bittorrent/scandlg.ui:77
-#: transfer-plugins/bittorrent/scandlg.ui:102
-#: transfer-plugins/bittorrent/scandlg.ui:124
-#: transfer-plugins/bittorrent/scandlg.ui:137
+#: transfer-plugins/bittorrent/scandlg.ui:78
+#: transfer-plugins/bittorrent/scandlg.ui:103
+#: transfer-plugins/bittorrent/scandlg.ui:125
+#: transfer-plugins/bittorrent/scandlg.ui:138
 #, kde-format
 msgid "0"
 msgstr "០"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancel)
-#: transfer-plugins/bittorrent/scandlg.ui:183
+#: transfer-plugins/bittorrent/scandlg.ui:187
 #, kde-format
 msgid "Cancel"
 msgstr "បោះបង់"
@@ -3222,99 +3232,105 @@ msgstr "ប្រវត្តិ​ផ្ទេរ"
 msgid "&Open File"
 msgstr "បើក​ឯកសារ"
 
-#: ui/history/transferhistory.cpp:210
+#: ui/history/transferhistory.cpp:74
+#, kde-format
+msgctxt "Progress bar percent value"
+msgid "%p%"
+msgstr ""
+
+#: ui/history/transferhistory.cpp:212
 #, kde-format
 msgctxt "The transfer is running"
 msgid "Running"
 msgstr "កំពង់​រត់"
 
-#: ui/history/transferhistory.cpp:212
+#: ui/history/transferhistory.cpp:214
 #, kde-format
 msgctxt "The transfer is stopped"
 msgid "Stopped"
 msgstr "បាន​បញ្ឈប់"
 
-#: ui/history/transferhistory.cpp:214
+#: ui/history/transferhistory.cpp:216
 #, kde-format
 msgctxt "The transfer is aborted"
 msgid "Aborted"
 msgstr "បាន​បោះបង់"
 
-#: ui/history/transferhistory.cpp:216
+#: ui/history/transferhistory.cpp:218
 #, kde-format
 msgctxt "The transfer is finished"
 msgid "Finished"
 msgstr "បាន​បញ្ចប់"
 
-#: ui/history/transferhistory.cpp:243
+#: ui/history/transferhistory.cpp:245
 #, kde-format
 msgid "Source File"
 msgstr "ឯកសារ​ប្រភព"
 
-#: ui/history/transferhistory.cpp:243
+#: ui/history/transferhistory.cpp:245
 #, kde-format
 msgid "Destination"
 msgstr "ទិសដៅ"
 
-#: ui/history/transferhistory.cpp:243
+#: ui/history/transferhistory.cpp:245
 #, kde-format
 msgid "Time"
 msgstr "ពេលវេលា"
 
-#: ui/history/transferhistory.cpp:243
+#: ui/history/transferhistory.cpp:245
 #, kde-format
 msgid "File Size"
 msgstr "ទំហំ​ឯកសារ"
 
-#: ui/history/transferhistory.cpp:251
+#: ui/history/transferhistory.cpp:253
 #, kde-format
 msgid "Less than 1MiB"
 msgstr "តិចជាង 1MiB"
 
-#: ui/history/transferhistory.cpp:252
+#: ui/history/transferhistory.cpp:254
 #, kde-format
 msgid "Between 1MiB-10MiB"
 msgstr "រវាង ១MiB-១០MiB"
 
-#: ui/history/transferhistory.cpp:253
+#: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Between 10MiB-100MiB"
 msgstr "រវាង ១០MiB-១០០MiB"
 
-#: ui/history/transferhistory.cpp:254
+#: ui/history/transferhistory.cpp:256
 #, kde-format
 msgid "Between 100MiB-1GiB"
 msgstr "រវាង ១០០MiB-១GiB"
 
-#: ui/history/transferhistory.cpp:255
+#: ui/history/transferhistory.cpp:257
 #, kde-format
 msgid "More than 1GiB"
 msgstr "ច្រើនជាង ១GiB"
 
-#: ui/history/transferhistory.cpp:258
+#: ui/history/transferhistory.cpp:260
 #: ui/history/transferhistorycategorizeddelegate.cpp:46
 #, kde-format
 msgid "Today"
 msgstr "ថ្ងៃ​នេះ"
 
-#: ui/history/transferhistory.cpp:259
+#: ui/history/transferhistory.cpp:261
 #: ui/history/transferhistorycategorizeddelegate.cpp:49
 #, kde-format
 msgid "Last week"
 msgstr "សប្ដាហ៍​មុន"
 
-#: ui/history/transferhistory.cpp:260
+#: ui/history/transferhistory.cpp:262
 #, kde-format
 msgid "Last month"
 msgstr "ខែ​មុន"
 
-#: ui/history/transferhistory.cpp:261
+#: ui/history/transferhistory.cpp:263
 #: ui/history/transferhistorycategorizeddelegate.cpp:55
 #, kde-format
 msgid "A long time ago"
 msgstr "យូរ​ណាស់​មកហើយ"
 
-#: ui/history/transferhistory.cpp:277
+#: ui/history/transferhistory.cpp:279
 #, kde-format
 msgctxt "the transfer has been finished"
 msgid "Finished"
@@ -3478,19 +3494,19 @@ msgid "Filter files here...."
 msgstr "ត្រង​ឯកសារ​នៅ​ទីនេះ..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:189 ui/linkview/kget_linkview.cpp:318
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:318
 #, kde-format
 msgid "&Select All"
 msgstr "ជ្រើស​ទាំងអស់"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:205 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "D&eselect All"
 msgstr "ដោះជ្រើស​ទាំងអស់"
 
 #. i18n: ectx: property (text), widget (QPushButton, invertSelection)
-#: ui/linkview/importlinkdialog.ui:221
+#: ui/linkview/importlinkdialog.ui:224
 #, kde-format
 msgid "Inver&t Selection"
 msgstr "ត្រឡប់​ជម្រើស"
@@ -3859,7 +3875,7 @@ msgid "Add local files"
 msgstr "បន្ថែម​ឯកសារ​មូលដ្ឋាន"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: ui/metalinkcreator/files.ui:66
+#: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
 msgstr "បន្ថែម​ឯកសា​រមូលដ្ឋាន..."
@@ -4536,19 +4552,19 @@ msgid "Verifying:"
 msgstr "កា​រផ្ទៀងផ្ទាត់ ៖"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, verify)
-#: ui/verificationdialog.ui:118
+#: ui/verificationdialog.ui:121
 #, kde-format
 msgid "Verify the finished download with the selected checksum."
 msgstr "ផ្ទៀងផ្ទាត់​ការ​ទាញយក​ដែលបានបញ្ចប់ ជា​មួយ​នឹង​ឆេកសាំ​ដែល​បាន​ជ្រើស ។"
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
-#: ui/verificationdialog.ui:121
+#: ui/verificationdialog.ui:124
 #, kde-format
 msgid "&Verify"
 msgstr "ផ្ទៀងផ្ទាត់"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
-#: ui/verificationdialog.ui:147
+#: ui/verificationdialog.ui:150
 #, kde-format
 msgid "Close"
 msgstr ""
