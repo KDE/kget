@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-02 00:47+0000\n"
-"PO-Revision-Date: 2023-06-17 04:11\n"
+"PO-Revision-Date: 2023-07-03 11:38\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -2583,7 +2583,7 @@ msgstr "保存到："
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -3192,7 +3192,7 @@ msgstr "打开文件(&O)"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:212
 #, kde-format
@@ -3962,23 +3962,20 @@ msgid "Unable to load: %1"
 msgstr "无法加载：%1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Metalink 4.0 文件(*.meta4)"
+msgstr "Metalink 4.0 文件"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Metalink 4.0 文件(*.meta4)"
+msgstr "Metalink 3.0 文件"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Metalink 文件(*.metalink *.meta4)"
+msgstr "Metalink 文件 (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
