@@ -729,6 +729,9 @@ void KGet::settingsChanged()
 
     m_jobManager->settingsChanged();
     m_scheduler->settingsChanged();
+    if (!m_store)
+        m_store = TransferHistoryStore::getStore();
+    m_store->settingsChanged();
 }
 
 QList<TransferGroupHandler *> KGet::groupsFromExceptions(const QUrl &filename)

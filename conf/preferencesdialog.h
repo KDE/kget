@@ -20,6 +20,7 @@ class KConfigSkeleton;
 class PreferencesDialog : public KConfigDialog
 {
     Q_OBJECT
+
 public:
     PreferencesDialog(QWidget *parent, KConfigSkeleton *config);
 
@@ -28,6 +29,8 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void slotToggleAfterFinishAction(int state);
+    void slotToggleAutomaticDeletion(int state);
+    void slotCheckExpiryValue();
     void disableApplyButton();
     void enableApplyButton();
     void updateWidgetsDefault() override;

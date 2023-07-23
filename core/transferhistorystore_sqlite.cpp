@@ -33,6 +33,8 @@ SQLiteStore::~SQLiteStore()
     if (m_sql.isOpen()) {
         m_sql.close();
     }
+
+    deleteExpiredItems();
 }
 
 void SQLiteStore::load()
@@ -57,6 +59,11 @@ void SQLiteStore::load()
                 item.setState(query.value(rec.indexOf("state")).toInt());
                 item.setDateTime(QDateTime::fromSecsSinceEpoch(query.value(rec.indexOf("time")).toUInt()));
                 item.setSize(query.value(rec.indexOf("size")).toInt());
+
+                // do not load expired items
+                if (item.isExpired(expiryAge())) {
+                    continue;
+                }
 
                 m_items << item;
                 Q_EMIT elementLoaded(query.at(), query.size(), item);

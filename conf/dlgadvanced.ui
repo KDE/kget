@@ -11,6 +11,25 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+	 <item>
+		<layout class="QHBoxLayout" name="horizontalLayout">
+		 <item>
+			<widget class="QCheckBox" name="kcfg_AutomaticDeletionEnabled">
+			 <property name="text">
+				<string>Automatically delete all transfer history older than:</string>
+			 </property>
+			</widget>
+		 </item>	
+	 	 <item>
+			<widget class="KComboBox" name="kcfg_ExpiryTimeType">
+			</widget>
+		 </item>
+		 <item>
+			<widget class="QLineEdit" name="kcfg_ExpiryTimeValue">
+			</widget>
+		 </item>
+		</layout>
+	 </item>
    <item>
     <widget class="QCheckBox" name="kcfg_EnableSystemTray">
      <property name="text">

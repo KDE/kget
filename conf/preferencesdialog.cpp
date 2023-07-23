@@ -10,6 +10,7 @@
 #include "preferencesdialog.h"
 #include "core/kget.h"
 #include "core/transferhistorystore.h"
+#include "settings.h"
 
 #include "dlgwebinterface.h"
 #include "ui_dlgappearance.h"
@@ -20,8 +21,13 @@
 #include "transfersgroupwidget.h"
 #include "verificationpreferences.h"
 
+#include <KComboBox>
 #include <KConfigSkeleton>
 #include <KLocalizedString>
+
+#include <QIntValidator>
+
+#include <limits>
 
 PreferencesDialog::PreferencesDialog(QWidget *parent, KConfigSkeleton *skeleton)
     : KConfigDialog(parent, "preferences", skeleton)
@@ -63,6 +69,17 @@ PreferencesDialog::PreferencesDialog(QWidget *parent, KConfigSkeleton *skeleton)
     dlgAdv.kcfg_AfterFinishAction->setEnabled(dlgAdv.kcfg_AfterFinishActionEnabled->checkState() == Qt::Checked);
     connect(dlgAdv.kcfg_AfterFinishActionEnabled, &QCheckBox::stateChanged, this, &PreferencesDialog::slotToggleAfterFinishAction);
 
+    dlgAdv.kcfg_ExpiryTimeType->addItem(i18n("Day(s)"), QVariant(TransferHistoryStore::Day));
+    dlgAdv.kcfg_ExpiryTimeType->addItem(i18n("Hour(s)"), QVariant(TransferHistoryStore::Hour));
+    dlgAdv.kcfg_ExpiryTimeType->addItem(i18n("Minute(s)"), QVariant(TransferHistoryStore::Minute));
+    dlgAdv.kcfg_ExpiryTimeType->addItem(i18n("Second(s)"), QVariant(TransferHistoryStore::Second));
+
+    // enable or disable the SetExpiryTimeType and SetExpiryTimeValue on the EnableAutomaticDeletion checkbox state
+    dlgAdv.kcfg_ExpiryTimeType->setEnabled(dlgAdv.kcfg_AutomaticDeletionEnabled->checkState() == Qt::Checked);
+    dlgAdv.kcfg_ExpiryTimeValue->setEnabled(dlgAdv.kcfg_AutomaticDeletionEnabled->checkState() == Qt::Checked);
+    connect(dlgAdv.kcfg_AutomaticDeletionEnabled, &QCheckBox::stateChanged, this, &PreferencesDialog::slotToggleAutomaticDeletion);
+    connect(this, &PreferencesDialog::settingsChanged, this, &PreferencesDialog::slotCheckExpiryValue);
+
     // TODO: remove the following lines as soon as these features are ready
     dlgNet.lb_per_transfer->setVisible(false);
     dlgNet.kcfg_TransferSpeedLimit->setVisible(false);
@@ -96,6 +113,22 @@ void PreferencesDialog::enableApplyButton()
 void PreferencesDialog::slotToggleAfterFinishAction(int state)
 {
     dlgAdv.kcfg_AfterFinishAction->setEnabled(state == Qt::Checked);
+}
+
+void PreferencesDialog::slotToggleAutomaticDeletion(int state)
+{
+    dlgAdv.kcfg_ExpiryTimeType->setEnabled(state == Qt::Checked);
+    dlgAdv.kcfg_ExpiryTimeValue->setEnabled(state == Qt::Checked);
+    if (state)
+        dlgAdv.kcfg_ExpiryTimeValue->setValidator(new QIntValidator(1, 999));
+    else
+        delete dlgAdv.kcfg_ExpiryTimeValue->validator();
+}
+
+void PreferencesDialog::slotCheckExpiryValue()
+{
+    if (dlgAdv.kcfg_ExpiryTimeValue->text().isEmpty())
+        dlgAdv.kcfg_ExpiryTimeValue->setText(QString('1'));
 }
 
 void PreferencesDialog::updateWidgetsDefault()

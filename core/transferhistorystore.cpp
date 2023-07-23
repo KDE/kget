@@ -16,6 +16,7 @@
 #include "core/transfer.h"
 #include "settings.h"
 
+#include <QDateTime>
 #include <QDir>
 #include <QThread>
 
@@ -46,6 +47,15 @@ TransferHistoryItem::TransferHistoryItem(const TransferHistoryItem &item)
     setState(item.state());
     setSize(item.size());
     setDateTime(item.dateTime());
+}
+
+bool TransferHistoryItem::isExpired(qint64 expiryAge)
+{
+    if (expiryAge == -1)
+        return false;
+
+    const qint64 lifeSpan = dateTime().secsTo(QDateTime::currentDateTime());
+    return (lifeSpan > expiryAge);
 }
 
 void TransferHistoryItem::setDest(const QString &dest)
@@ -117,6 +127,7 @@ bool TransferHistoryItem::operator==(const TransferHistoryItem &item) const
 TransferHistoryStore::TransferHistoryStore()
     : QObject()
     , m_items()
+    , m_expiryAge(getSettingsExpiryAge())
 {
 }
 
@@ -124,9 +135,53 @@ TransferHistoryStore::~TransferHistoryStore()
 {
 }
 
+qint64 TransferHistoryStore::getSettingsExpiryAge()
+{
+    if (!Settings::automaticDeletionEnabled())
+        return -1;
+
+    qint64 timeVal = static_cast<qint64>(Settings::expiryTimeValue());
+    switch (Settings::expiryTimeType()) {
+    case Day:
+        timeVal *= 24;
+        [[fallthrough]];
+    case Hour:
+        timeVal *= 60;
+        [[fallthrough]];
+    case Minute:
+        timeVal *= 60;
+    }
+    return timeVal;
+}
+
+qint64 TransferHistoryStore::expiryAge() const
+{
+    return m_expiryAge;
+}
+
+void TransferHistoryStore::updateExpiryAge(qint64 timeVal)
+{
+    m_expiryAge = timeVal;
+    deleteExpiredItems();
+}
+
+void TransferHistoryStore::deleteExpiredItems()
+{
+    QList<TransferHistoryItem> &items = m_items;
+    for (auto &item : items) {
+        if (item.isExpired(m_expiryAge))
+            deleteItem(item);
+    }
+}
+
 QList<TransferHistoryItem> TransferHistoryStore::items() const
 {
     return m_items;
+}
+
+void TransferHistoryStore::settingsChanged()
+{
+    updateExpiryAge(getSettingsExpiryAge());
 }
 
 TransferHistoryStore *TransferHistoryStore::getStore()
