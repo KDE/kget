@@ -161,6 +161,11 @@ void XmlStore::LoadThread::run()
         item.setDateTime(QDateTime::fromSecsSinceEpoch(dom.attribute("Time").toUInt()));
         item.setState(dom.attribute("State").toInt());
 
+        // do not load expired items
+        if (item.isExpired(TransferHistoryStore::getSettingsExpiryAge())) {
+            continue;
+        }
+
         Q_EMIT elementLoaded(i, total, item);
     }
     doc.clear();
@@ -189,6 +194,8 @@ XmlStore::~XmlStore()
     if (m_deleteThread && m_deleteThread->isRunning()) {
         m_deleteThread->terminate();
     }
+
+    deleteExpiredItems();
 
     delete m_loadThread;
     delete m_saveThread;

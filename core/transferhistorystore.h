@@ -27,6 +27,8 @@ public:
     TransferHistoryItem(const Transfer &transfer);
     TransferHistoryItem(const TransferHistoryItem &);
 
+    bool isExpired(qint64 expiryAge);
+
     void setDest(const QString &dest);
     void setSource(const QString &source);
     void setState(int state);
@@ -59,12 +61,24 @@ public:
         SQLite = 1,
     };
 
+    enum Time {
+        Day = 0,
+        Hour = 1,
+        Minute = 2,
+        Second = 3,
+    };
+
     TransferHistoryStore();
     ~TransferHistoryStore() override;
 
     QList<TransferHistoryItem> items() const;
 
+    qint64 expiryAge() const;
+
     static TransferHistoryStore *getStore();
+    static qint64 getSettingsExpiryAge();
+
+    void settingsChanged();
 
 public Q_SLOTS:
     virtual void load()
@@ -95,7 +109,11 @@ Q_SIGNALS:
     void deleteFinished();
 
 protected:
+    void deleteExpiredItems();
+    void updateExpiryAge(qint64 expiry);
+
     QList<TransferHistoryItem> m_items;
+    qint64 m_expiryAge;
 };
 
 Q_DECLARE_METATYPE(TransferHistoryItem)
