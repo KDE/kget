@@ -13,15 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:47+0000\n"
-"PO-Revision-Date: 2023-01-02 18:46+0100\n"
+"POT-Creation-Date: 2023-07-24 07:33+0000\n"
+"PO-Revision-Date: 2023-07-22 16:02+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: conf/autopastemodel.cpp:174
@@ -44,92 +44,98 @@ msgstr "Ihes-sekuentziak"
 msgid "Regular expression"
 msgstr "Adierazpen erregularra"
 
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticDeletionEnabled)
+#: conf/dlgadvanced.ui:19
+#, kde-format
+msgid "Automatically delete all transfer history older than:"
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
-#: conf/dlgadvanced.ui:17
+#: conf/dlgadvanced.ui:36
 #, kde-format
 msgid "Enable system tray icon"
 msgstr "Gaitu sistemako erretiluaren ikonoa"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
-#: conf/dlgadvanced.ui:26
+#: conf/dlgadvanced.ui:45
 #, kde-format
 msgid "Execute action after all downloads have been finished:"
 msgstr "Exekutatu ekintza deskarga guztiak amaitutakoan:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:34 mainwindow.cpp:360 ui/droptarget.cpp:88
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:88
 #, kde-format
 msgid "Quit KGet"
 msgstr "Irten KGet-etik"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: conf/dlgadvanced.ui:42
+#: conf/dlgadvanced.ui:61
 #, kde-format
 msgid "At startup:"
 msgstr "Abioan:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
-#: conf/dlgadvanced.ui:50
+#: conf/dlgadvanced.ui:69
 #, kde-format
 msgid "Restore Download State"
 msgstr "Leheneratu deskargaren egoera"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
-#: conf/dlgadvanced.ui:55
+#: conf/dlgadvanced.ui:74
 #, kde-format
 msgid "Start All Downloads"
 msgstr "Hasi deskarga guztiak"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
-#: conf/dlgadvanced.ui:60
+#: conf/dlgadvanced.ui:79
 #, kde-format
 msgid "Stop All Downloads"
 msgstr "Gelditu deskarga guztiak"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: conf/dlgadvanced.ui:71
+#: conf/dlgadvanced.ui:90
 #, kde-format
 msgid "History backend:"
 msgstr "Historiaren motorra:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_EnableKUIServerIntegration)
-#: conf/dlgadvanced.ui:80
+#: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
 msgstr "Gaitu KDEren aurrerapenaren aztarnari globala"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
-#: conf/dlgadvanced.ui:92
+#: conf/dlgadvanced.ui:111
 #, kde-format
 msgid "Show every single download "
 msgstr "Erakutsi deskarga bakoitza "
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
-#: conf/dlgadvanced.ui:99
+#: conf/dlgadvanced.ui:118
 #, kde-format
 msgid "Show overall progress"
 msgstr "Erakutsi aurrerapen orokorra"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: conf/dlgadvanced.ui:109
+#: conf/dlgadvanced.ui:128
 #, kde-format
 msgid "Handle existing Files/Transfers"
 msgstr "Kudeatu dauden fitxategiak/transferentziak"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
-#: conf/dlgadvanced.ui:115
+#: conf/dlgadvanced.ui:134
 #, kde-format
 msgid "Always ask"
 msgstr "Galdetu beti"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAutomaticRename)
-#: conf/dlgadvanced.ui:122
+#: conf/dlgadvanced.ui:141
 #, kde-format
 msgid "Automatic rename"
 msgstr "Aldatu izena automatikoki"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
-#: conf/dlgadvanced.ui:129
+#: conf/dlgadvanced.ui:148
 #, kde-format
 msgid "Overwrite"
 msgstr "Gainidatzi"
@@ -316,106 +322,128 @@ msgid "Exclude"
 msgstr "Kanpoan utzi"
 
 #. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
-#: conf/kget.kcfg:176
+#: conf/kget.kcfg:185
 #, kde-format
 msgid "The width of the columns in the history view"
 msgstr "Zutabeen zabalera historiaren ikuspegian"
 
-#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:80
+#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:97
 #, kde-format
 msgid "Plugins"
 msgstr "Pluginak"
 
-#: conf/preferencesdialog.cpp:51
+#: conf/preferencesdialog.cpp:57
 #, kde-format
 msgid "Xml"
 msgstr "Xml"
 
-#: conf/preferencesdialog.cpp:53
+#: conf/preferencesdialog.cpp:59
 #, kde-format
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:57 mainwindow.cpp:366
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:366
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "Itzali ordenagailua"
 
-#: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:371
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "Hibernatu ordenagailua"
 
-#: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:65 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
 msgstr "Eseki ordenagailua"
 
-#: conf/preferencesdialog.cpp:70
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Day(s)"
+msgstr ""
+
+#: conf/preferencesdialog.cpp:73
+#, kde-format
+msgid "Hour(s)"
+msgstr ""
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Minute(s)"
+msgstr ""
+
+#: conf/preferencesdialog.cpp:75
+#, fuzzy, kde-format
+#| msgctxt "@action (Refresh very x )seconds"
+#| msgid "seconds"
+msgid "Second(s)"
+msgstr "segundoro"
+
+#: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Appearance"
 msgstr "Itxura"
 
-#: conf/preferencesdialog.cpp:70
+#: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Change appearance settings"
 msgstr "Aldatu itxuraren ezarpenak"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Groups"
 msgstr "Taldeak"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Manage the groups"
 msgstr "Kudeatu taldeak"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:89
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
 msgstr "Sarea"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:89
 #, kde-format
 msgid "Network and Downloads"
 msgstr "Sarea eta deskargak"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:90
 #, kde-format
 msgid "Web Interface"
 msgstr "Web interfazea"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:90
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr "Kontrolatu KGet sare lokaletik edo Internet bidez"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:91
 #, kde-format
 msgid "Verification"
 msgstr "Balidazioa"
 
-#: conf/preferencesdialog.cpp:76 conf/preferencesdialog.cpp:78
+#: conf/preferencesdialog.cpp:93 conf/preferencesdialog.cpp:95
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "Integrazioa"
 
-#: conf/preferencesdialog.cpp:79
+#: conf/preferencesdialog.cpp:96
 #, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "Aurreratua"
 
-#: conf/preferencesdialog.cpp:79
+#: conf/preferencesdialog.cpp:96
 #, kde-format
 msgid "Advanced Options"
 msgstr "Aukera aurreratuak"
 
-#: conf/preferencesdialog.cpp:80
+#: conf/preferencesdialog.cpp:97
 #, kde-format
 msgid "Transfer Plugins"
 msgstr "Transferentziaren pluginak"
@@ -483,7 +511,7 @@ msgid "Keyservers:"
 msgstr "Gako-zerbitzariak:"
 
 #: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1402 transfer-plugins/metalink/metalink.cpp:202
+#: core/kget.cpp:1405 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:249
 #: transfer-plugins/metalink/metalinkxml.cpp:200
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -625,7 +653,7 @@ msgstr "Dagoen fitxategia gainidatzi?"
 msgid "Unable to save to: %1"
 msgstr "Ezin da hemen gorde: %1"
 
-#: core/kget.cpp:896
+#: core/kget.cpp:899
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -640,34 +668,34 @@ msgstr[1] ""
 "<p>Ezin dira honako URLak deskargatu. KGet-ek ez ditu haien protokoloa "
 "onartzen:</p>"
 
-#: core/kget.cpp:906
+#: core/kget.cpp:909
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "Onartu gabeko protokoloa"
 
-#: core/kget.cpp:959 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:962 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "Deskarga berria"
 
-#: core/kget.cpp:959
+#: core/kget.cpp:962
 #, kde-format
 msgid "Enter URL:"
 msgstr "Sartu URLa:"
 
-#: core/kget.cpp:979
+#: core/kget.cpp:982
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "Hautatu direktorioa"
 
-#: core/kget.cpp:1000
+#: core/kget.cpp:1003
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "Gorde honela"
 
-#: core/kget.cpp:1012 core/urlchecker.cpp:366
+#: core/kget.cpp:1015 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -676,7 +704,7 @@ msgstr ""
 "Gaizki osatutako URLa:\n"
 "%1"
 
-#: core/kget.cpp:1018 core/urlchecker.cpp:368
+#: core/kget.cpp:1021 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -685,7 +713,7 @@ msgstr ""
 "Gaizki osatutako URLa, protokoloa falta da:\n"
 "%1"
 
-#: core/kget.cpp:1033 core/urlchecker.cpp:424
+#: core/kget.cpp:1036 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -700,12 +728,12 @@ msgstr ""
 "\n"
 "Deskargatu berriro?"
 
-#: core/kget.cpp:1034 core/urlchecker.cpp:639
+#: core/kget.cpp:1037 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "Berriro zama-jaitsi?"
 
-#: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
+#: core/kget.cpp:1038 core/kget.cpp:1059 core/kget.cpp:1122
 #: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
@@ -715,13 +743,13 @@ msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Berriro zama-jatsi"
 
-#: core/kget.cpp:1036 core/kget.cpp:1057 core/kget.cpp:1120
+#: core/kget.cpp:1039 core/kget.cpp:1060 core/kget.cpp:1123
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr "Saihestu"
 
-#: core/kget.cpp:1054 core/urlchecker.cpp:426
+#: core/kget.cpp:1057 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -736,17 +764,17 @@ msgstr ""
 "\n"
 "Ezabatu eta deskargatu berriro?"
 
-#: core/kget.cpp:1055 core/urlchecker.cpp:636
+#: core/kget.cpp:1058 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "Ezabatu eta deskargatu berriro?"
 
-#: core/kget.cpp:1081 core/kget.cpp:1086
+#: core/kget.cpp:1084 core/kget.cpp:1089
 #, kde-format
 msgid "Directory is not writable"
 msgstr "Direktorioan ezin da idatzi"
 
-#: core/kget.cpp:1117
+#: core/kget.cpp:1120
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -757,39 +785,39 @@ msgstr ""
 "\n"
 "Deskargatu eta aurrekoa ezabatu?"
 
-#: core/kget.cpp:1118 core/urlchecker.cpp:648
+#: core/kget.cpp:1121 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "Fitxategia dagoeneko deskargatuta. Deskargatu dena den?"
 
-#: core/kget.cpp:1133
+#: core/kget.cpp:1136
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "Jadanik fitxategi berdina deskargatu duzu"
 
-#: core/kget.cpp:1139 core/kget.cpp:1141 core/urlchecker.cpp:651
+#: core/kget.cpp:1142 core/kget.cpp:1144 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:487
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "Fitxategia badago lehendik ere"
 
-#: core/kget.cpp:1229
+#: core/kget.cpp:1232
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "Interneteko konexioa ezarrita. Transferentziak jarraitzen."
 
-#: core/kget.cpp:1232
+#: core/kget.cpp:1235
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "Ez dago Interneteko konexiorik. Transferentziak gelditzen."
 
-#: core/kget.cpp:1246
+#: core/kget.cpp:1249
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "Plugin kargatzaileak ezin du %1 plugina kargatu: %2."
 
-#: core/kget.cpp:1258
+#: core/kget.cpp:1261
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -800,7 +828,7 @@ msgstr ""
 "ez da ezabatuko\n"
 "direktorio bat delako."
 
-#: core/kget.cpp:1267
+#: core/kget.cpp:1270
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -811,7 +839,7 @@ msgstr ""
 "ez da ezabatuko\n"
 "ez delako lokaleko fitxategi bat."
 
-#: core/kget.cpp:1389
+#: core/kget.cpp:1392
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -819,12 +847,12 @@ msgid ""
 msgstr ""
 "<p>Honako fitxategia deskargatu da:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1391
+#: core/kget.cpp:1394
 #, kde-format
 msgid "Download completed"
 msgstr "Deskarga amaituta"
 
-#: core/kget.cpp:1396
+#: core/kget.cpp:1399
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -832,12 +860,12 @@ msgid ""
 msgstr ""
 "<p>Honako transferentzia hasi da:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1398
+#: core/kget.cpp:1401
 #, kde-format
 msgid "Download started"
 msgstr "Deskarga hasita"
 
-#: core/kget.cpp:1403
+#: core/kget.cpp:1406
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -847,61 +875,61 @@ msgstr ""
 "<p>Errore bat gertatu da transferentzia honekin::</p><p style=\"font-size: "
 "small;\">%1</p><p>Errore mezua da:</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1412
+#: core/kget.cpp:1415
 #, kde-format
 msgid "Resolve"
 msgstr "Ebatzi"
 
-#: core/kget.cpp:1463
+#: core/kget.cpp:1466
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "KGet itxi egingo da, deskarga guztiak osatu direlako."
 
-#: core/kget.cpp:1472
+#: core/kget.cpp:1475
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "Ordenagailua itzali egingo da orain, deskarga guztiak osatu direlako."
 
-#: core/kget.cpp:1474
+#: core/kget.cpp:1477
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Itzali"
 
-#: core/kget.cpp:1480
+#: core/kget.cpp:1483
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "Ordenagailua eseki egingo da orain, deskarga guztiak osatu direlako."
 
-#: core/kget.cpp:1482
+#: core/kget.cpp:1485
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "Hibernatzen"
 
-#: core/kget.cpp:1488
+#: core/kget.cpp:1491
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "Ordenagailuak RAM eseki egingo du, deskarga guztiak osatu direlako."
 
-#: core/kget.cpp:1490
+#: core/kget.cpp:1493
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Esekitzen"
 
-#: core/kget.cpp:1499
+#: core/kget.cpp:1502
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Abortatu"
 
-#: core/kget.cpp:1508
+#: core/kget.cpp:1511
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>Transferentzia guztiak amaitu dira.</p>"
 
-#: core/kget.cpp:1508
+#: core/kget.cpp:1511
 #, kde-format
 msgid "Downloads completed"
 msgstr "Deskargak amaituta"
@@ -2627,7 +2655,7 @@ msgstr "Hemen gordetzen:"
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%%p"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -3243,7 +3271,7 @@ msgstr "&Ireki fitxategia"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%%p"
 
 #: ui/history/transferhistory.cpp:212
 #, kde-format
@@ -4019,28 +4047,25 @@ msgid "Unable to load: %1"
 msgstr "Ezin da kargatu: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Metalink 4.0 bertsioaren fitxategia (*.meta4)"
+msgstr "Metalink 4.0 bertsioko fitxategia"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Metalink 4.0 bertsioaren fitxategia (*.meta4)"
+msgstr "Metalink 3.0 bertsioko fitxategia"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Metalink fitxategia (*.metalink *.meta4)"
+msgstr "Metalink fitxategia (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
 msgid "Metalink Version 4.0 file (*.meta4)"
-msgstr "Metalink 4.0 bertsioaren fitxategia (*.meta4)"
+msgstr "Metalink 4.0 bertsioko fitxategia (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
@@ -4751,10 +4776,6 @@ msgstr "Itxi"
 #~ msgctxt "@action Refresh download list every x (seconds)"
 #~ msgid "Refresh download list every"
 #~ msgstr "Freskatu deskargen zerrenda:"
-
-#~ msgctxt "@action (Refresh very x )seconds"
-#~ msgid "seconds"
-#~ msgstr "segundoro"
 
 #~ msgctxt "@action:button"
 #~ msgid "Save Settings"
