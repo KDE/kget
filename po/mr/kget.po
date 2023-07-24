@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:47+0000\n"
+"POT-Creation-Date: 2023-07-24 10:09+0000\n"
 "PO-Revision-Date: 2013-04-01 10:57+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -37,92 +37,98 @@ msgstr "सुटका क्रम"
 msgid "Regular expression"
 msgstr "नियमित अभिव्यक्ति"
 
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticDeletionEnabled)
+#: conf/dlgadvanced.ui:19
+#, kde-format
+msgid "Automatically delete all transfer history older than:"
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
-#: conf/dlgadvanced.ui:17
+#: conf/dlgadvanced.ui:36
 #, kde-format
 msgid "Enable system tray icon"
 msgstr "प्रणाली ट्रे चिन्ह कार्यान्वित करा"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
-#: conf/dlgadvanced.ui:26
+#: conf/dlgadvanced.ui:45
 #, kde-format
 msgid "Execute action after all downloads have been finished:"
 msgstr "सर्व डाउनलोड संपल्यावर हि क्रिया चालवा :"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:34 mainwindow.cpp:360 ui/droptarget.cpp:88
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:88
 #, kde-format
 msgid "Quit KGet"
 msgstr "के-गेट मधून बाहेर पडा"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: conf/dlgadvanced.ui:42
+#: conf/dlgadvanced.ui:61
 #, kde-format
 msgid "At startup:"
 msgstr "सुरुवातीस :"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
-#: conf/dlgadvanced.ui:50
+#: conf/dlgadvanced.ui:69
 #, kde-format
 msgid "Restore Download State"
 msgstr "डाउनलोड स्थिती पुन्हस्थापित करा"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
-#: conf/dlgadvanced.ui:55
+#: conf/dlgadvanced.ui:74
 #, kde-format
 msgid "Start All Downloads"
 msgstr "सर्व डाउनलोड सुरु करा"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
-#: conf/dlgadvanced.ui:60
+#: conf/dlgadvanced.ui:79
 #, kde-format
 msgid "Stop All Downloads"
 msgstr "सर्व डाउनलोड बंद करा"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: conf/dlgadvanced.ui:71
+#: conf/dlgadvanced.ui:90
 #, kde-format
 msgid "History backend:"
 msgstr "बॅकएन्ड इतिहास :"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_EnableKUIServerIntegration)
-#: conf/dlgadvanced.ui:80
+#: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
 msgstr "केडीई जागतिक प्रगती मागोवा कार्यान्वित करा"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
-#: conf/dlgadvanced.ui:92
+#: conf/dlgadvanced.ui:111
 #, kde-format
 msgid "Show every single download "
 msgstr "प्रत्येक डाउनलोड दर्शवा "
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
-#: conf/dlgadvanced.ui:99
+#: conf/dlgadvanced.ui:118
 #, kde-format
 msgid "Show overall progress"
 msgstr "संपूर्ण प्रगती दर्शवा"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: conf/dlgadvanced.ui:109
+#: conf/dlgadvanced.ui:128
 #, kde-format
 msgid "Handle existing Files/Transfers"
 msgstr "अस्तित्वातील फाईल्स/बदल्या हाताळा"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
-#: conf/dlgadvanced.ui:115
+#: conf/dlgadvanced.ui:134
 #, kde-format
 msgid "Always ask"
 msgstr "नेहमी विचारा"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAutomaticRename)
-#: conf/dlgadvanced.ui:122
+#: conf/dlgadvanced.ui:141
 #, kde-format
 msgid "Automatic rename"
 msgstr "स्वयंचलितरित्या नाव बदला"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
-#: conf/dlgadvanced.ui:129
+#: conf/dlgadvanced.ui:148
 #, kde-format
 msgid "Overwrite"
 msgstr "खोडून पुन्हा लिहा"
@@ -309,106 +315,128 @@ msgid "Exclude"
 msgstr "समाविष्ट करू नका"
 
 #. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
-#: conf/kget.kcfg:176
+#: conf/kget.kcfg:185
 #, kde-format
 msgid "The width of the columns in the history view"
 msgstr "इतिहास दृश्यातील स्तंभांची रुंदी"
 
-#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:80
+#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:97
 #, kde-format
 msgid "Plugins"
 msgstr "प्लगइन्स"
 
-#: conf/preferencesdialog.cpp:51
+#: conf/preferencesdialog.cpp:57
 #, kde-format
 msgid "Xml"
 msgstr "Xml"
 
-#: conf/preferencesdialog.cpp:53
+#: conf/preferencesdialog.cpp:59
 #, kde-format
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:57 mainwindow.cpp:366
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:366
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "संगणक बंद करा"
 
-#: conf/preferencesdialog.cpp:58 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:371
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "संगणक हायबरनेट करा"
 
-#: conf/preferencesdialog.cpp:59 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:65 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
 msgstr "संगणक अकार्यक्षम करा"
 
-#: conf/preferencesdialog.cpp:70
+#: conf/preferencesdialog.cpp:72
+#, kde-format
+msgid "Day(s)"
+msgstr ""
+
+#: conf/preferencesdialog.cpp:73
+#, kde-format
+msgid "Hour(s)"
+msgstr ""
+
+#: conf/preferencesdialog.cpp:74
+#, kde-format
+msgid "Minute(s)"
+msgstr ""
+
+#: conf/preferencesdialog.cpp:75
+#, fuzzy, kde-format
+#| msgctxt "@action (Refresh very x )seconds"
+#| msgid "seconds"
+msgid "Second(s)"
+msgstr "सेकंद"
+
+#: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Appearance"
 msgstr "दर्शनीयता"
 
-#: conf/preferencesdialog.cpp:70
+#: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Change appearance settings"
 msgstr "दर्शनीयता संयोजना बदला"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Groups"
 msgstr "समूह"
 
-#: conf/preferencesdialog.cpp:71
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Manage the groups"
 msgstr "समूह व्यवस्थापीत करा"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:89
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
 msgstr "संजाळ"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:89
 #, kde-format
 msgid "Network and Downloads"
 msgstr "संजाळ व डाउनलोड"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:90
 #, kde-format
 msgid "Web Interface"
 msgstr "वेब संवाद"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:90
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr "संजाळावर किंवा महाजाळावर के-गेट नियंत्रीत करा"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:91
 #, kde-format
 msgid "Verification"
 msgstr "तपासणी"
 
-#: conf/preferencesdialog.cpp:76 conf/preferencesdialog.cpp:78
+#: conf/preferencesdialog.cpp:93 conf/preferencesdialog.cpp:95
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "एकीकरण"
 
-#: conf/preferencesdialog.cpp:79
+#: conf/preferencesdialog.cpp:96
 #, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "प्रगत"
 
-#: conf/preferencesdialog.cpp:79
+#: conf/preferencesdialog.cpp:96
 #, kde-format
 msgid "Advanced Options"
 msgstr "प्रगत पर्याय"
 
-#: conf/preferencesdialog.cpp:80
+#: conf/preferencesdialog.cpp:97
 #, kde-format
 msgid "Transfer Plugins"
 msgstr "प्लगइन्स बदली करा"
@@ -476,7 +504,7 @@ msgid "Keyservers:"
 msgstr "कळ सर्व्हर्स :"
 
 #: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1402 transfer-plugins/metalink/metalink.cpp:202
+#: core/kget.cpp:1405 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:249
 #: transfer-plugins/metalink/metalinkxml.cpp:200
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -608,7 +636,7 @@ msgstr "वर्तमान फाईल खोडून पुन्हा �
 msgid "Unable to save to: %1"
 msgstr ""
 
-#: core/kget.cpp:896
+#: core/kget.cpp:899
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -619,35 +647,35 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/kget.cpp:906
+#: core/kget.cpp:909
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "असमर्थीत शिष्टाचार"
 
-#: core/kget.cpp:959 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:962 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "नवीन डाउनलोड"
 
-#: core/kget.cpp:959
+#: core/kget.cpp:962
 #, kde-format
 msgid "Enter URL:"
 msgstr "URL दाखल करा :"
 
-#: core/kget.cpp:979
+#: core/kget.cpp:982
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr ""
 
-#: core/kget.cpp:1000
+#: core/kget.cpp:1003
 #, fuzzy, kde-format
 #| msgid "Save As"
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "असे साठवा"
 
-#: core/kget.cpp:1012 core/urlchecker.cpp:366
+#: core/kget.cpp:1015 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -656,7 +684,7 @@ msgstr ""
 "सदोषीत URL:\n"
 "%1"
 
-#: core/kget.cpp:1018 core/urlchecker.cpp:368
+#: core/kget.cpp:1021 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -665,7 +693,7 @@ msgstr ""
 "सदोषीत URL, शिष्टाचार सापडला नाही :\n"
 "%1"
 
-#: core/kget.cpp:1033 core/urlchecker.cpp:424
+#: core/kget.cpp:1036 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -675,12 +703,12 @@ msgid ""
 "Download it again?"
 msgstr ""
 
-#: core/kget.cpp:1034 core/urlchecker.cpp:639
+#: core/kget.cpp:1037 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "ते पुन्हा डाउनलोड करायचे का?"
 
-#: core/kget.cpp:1035 core/kget.cpp:1056 core/kget.cpp:1119
+#: core/kget.cpp:1038 core/kget.cpp:1059 core/kget.cpp:1122
 #: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
@@ -691,13 +719,13 @@ msgctxt "@action:button"
 msgid "Download Again"
 msgstr "पुन्हा डाउनलोड करा"
 
-#: core/kget.cpp:1036 core/kget.cpp:1057 core/kget.cpp:1120
+#: core/kget.cpp:1039 core/kget.cpp:1060 core/kget.cpp:1123
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1054 core/urlchecker.cpp:426
+#: core/kget.cpp:1057 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -707,17 +735,17 @@ msgid ""
 "Delete it and download again?"
 msgstr ""
 
-#: core/kget.cpp:1055 core/urlchecker.cpp:636
+#: core/kget.cpp:1058 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "ते काढून टाकून पुन्हा डाउनलोड करायचे का?"
 
-#: core/kget.cpp:1081 core/kget.cpp:1086
+#: core/kget.cpp:1084 core/kget.cpp:1089
 #, kde-format
 msgid "Directory is not writable"
 msgstr "संचयीका लिखाणायोग्य नाही"
 
-#: core/kget.cpp:1117
+#: core/kget.cpp:1120
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -725,39 +753,39 @@ msgid ""
 "Download and delete the previous one?"
 msgstr ""
 
-#: core/kget.cpp:1118 core/urlchecker.cpp:648
+#: core/kget.cpp:1121 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr ""
 
-#: core/kget.cpp:1133
+#: core/kget.cpp:1136
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr ""
 
-#: core/kget.cpp:1139 core/kget.cpp:1141 core/urlchecker.cpp:651
+#: core/kget.cpp:1142 core/kget.cpp:1144 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:487
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "फाईल आधीपासूनच अस्तित्वात आहे"
 
-#: core/kget.cpp:1229
+#: core/kget.cpp:1232
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr ""
 
-#: core/kget.cpp:1232
+#: core/kget.cpp:1235
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "महाजाळची जुळवणी नाही, बदल्या थांबवित आहे."
 
-#: core/kget.cpp:1246
+#: core/kget.cpp:1249
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr ""
 
-#: core/kget.cpp:1258
+#: core/kget.cpp:1261
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -765,7 +793,7 @@ msgid ""
 "as it is a directory."
 msgstr ""
 
-#: core/kget.cpp:1267
+#: core/kget.cpp:1270
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -773,31 +801,31 @@ msgid ""
 "as it is not a local file."
 msgstr ""
 
-#: core/kget.cpp:1389
+#: core/kget.cpp:1392
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1391
+#: core/kget.cpp:1394
 #, kde-format
 msgid "Download completed"
 msgstr "डाउनलोड पूर्ण झाले"
 
-#: core/kget.cpp:1396
+#: core/kget.cpp:1399
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1398
+#: core/kget.cpp:1401
 #, kde-format
 msgid "Download started"
 msgstr "डाउनलोड सुरु झाले"
 
-#: core/kget.cpp:1403
+#: core/kget.cpp:1406
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -805,61 +833,61 @@ msgid ""
 "\">%2</p>"
 msgstr ""
 
-#: core/kget.cpp:1412
+#: core/kget.cpp:1415
 #, kde-format
 msgid "Resolve"
 msgstr "निवाडा करा"
 
-#: core/kget.cpp:1463
+#: core/kget.cpp:1466
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1472
+#: core/kget.cpp:1475
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1474
+#: core/kget.cpp:1477
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "बंद करा"
 
-#: core/kget.cpp:1480
+#: core/kget.cpp:1483
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1482
+#: core/kget.cpp:1485
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "हायबरनेट करत आहे"
 
-#: core/kget.cpp:1488
+#: core/kget.cpp:1491
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1490
+#: core/kget.cpp:1493
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "अकार्यक्षम करत आहे"
 
-#: core/kget.cpp:1499
+#: core/kget.cpp:1502
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "रद्द करत आहे"
 
-#: core/kget.cpp:1508
+#: core/kget.cpp:1511
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1508
+#: core/kget.cpp:1511
 #, kde-format
 msgid "Downloads completed"
 msgstr "डाउनलोड पूर्ण झाले"
@@ -4542,10 +4570,6 @@ msgstr ""
 #~ msgctxt "@action:button"
 #~ msgid "OK"
 #~ msgstr "ठीक आहे"
-
-#~ msgctxt "@action (Refresh very x )seconds"
-#~ msgid "seconds"
-#~ msgstr "सेकंद"
 
 #~ msgctxt "@action:button"
 #~ msgid "Save Settings"
