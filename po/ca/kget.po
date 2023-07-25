@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2023-07-02 10:23+0200\n"
+"PO-Revision-Date: 2023-07-24 19:54+0300\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -49,6 +49,7 @@ msgstr "Expressió regular"
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
 msgstr ""
+"Suprimeix automàticament tot l'historial de transferències més antic que:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -360,22 +361,22 @@ msgstr "Suspèn l'ordinador"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Dia/es"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Hora/es"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minut/s"
 
 #: conf/preferencesdialog.cpp:75
 #, kde-format
 msgid "Second(s)"
-msgstr ""
+msgstr "Segon/s"
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format

@@ -1,7 +1,7 @@
 # translation of kget.po to
 # Translation of kget.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
-# $Id: kget.po 1656527 2023-07-24 10:40:23Z scripty $
+# $Id: kget.po 1656592 2023-07-25 03:04:59Z scripty $
 # $Source$
 #
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2002,2003, 2005, 2007.
@@ -15,17 +15,17 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2023-07-02 07:35+0200\n"
+"PO-Revision-Date: 2023-07-24 19:50+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -51,7 +51,7 @@ msgstr "Regularni izraz"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Samodejno izbriši vso zgodovino prenosov, starejšo od:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -363,24 +363,22 @@ msgstr "Postavi računalnik v pripravljenost"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Dni"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Ur"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minut"
 
 #: conf/preferencesdialog.cpp:75
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "sekund"
+msgstr "Sekund"
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format
