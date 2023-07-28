@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2023-07-10 14:24+0200\n"
+"PO-Revision-Date: 2023-07-27 15:37+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -44,6 +44,8 @@ msgstr "Регулярен израз"
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
 msgstr ""
+"Автоматично изтриване на всички записи в историята на трансферите, по-стари "
+"от:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -355,22 +357,22 @@ msgstr "Приспиване в паметта"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Дни"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Часа"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Минути"
 
 #: conf/preferencesdialog.cpp:75
 #, kde-format
 msgid "Second(s)"
-msgstr ""
+msgstr "Секунди"
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format
