@@ -13,6 +13,7 @@
   <name xml:lang="de">KGet</name>
   <name xml:lang="el">KGet</name>
   <name xml:lang="en-GB">KGet</name>
+  <name xml:lang="eo">KGet</name>
   <name xml:lang="es">KGet</name>
   <name xml:lang="et">KGet</name>
   <name xml:lang="eu">KGet</name>
@@ -47,6 +48,7 @@
   <summary xml:lang="de">Download-Verwaltung</summary>
   <summary xml:lang="el">Διαχειριστής λήψεων</summary>
   <summary xml:lang="en-GB">Download Manager</summary>
+  <summary xml:lang="eo">Elŝuta Administranto</summary>
   <summary xml:lang="es">Gestor de descargas</summary>
   <summary xml:lang="et">Allalaadimiste haldur</summary>
   <summary xml:lang="eu">Deskarga kudeatzailea</summary>
@@ -83,6 +85,7 @@
     <p xml:lang="de">Ein vielseitiges und einfach zu benutzendes Verwaltungsprogramm zum Herunterladen.</p>
     <p xml:lang="el">Το KGet είναι ένας ευέλικτος και φιλικός διαχειριστής λήψεων.</p>
     <p xml:lang="en-GB">KGet is a versatile and user-friendly download manager.</p>
+    <p xml:lang="eo">KGet estas diverstalenta kaj uzebla elŝuta administranto.</p>
     <p xml:lang="es">KGet es un gestor de descargas versátil y amigable.</p>
     <p xml:lang="et">KGet on töökindel ja kasutajasõbralik allalaadimiste haldur.</p>
     <p xml:lang="eu">KGet trebezia anitzeko deskarga kudeatzaile lagunkoia da.</p>
@@ -117,6 +120,7 @@
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="el">Χαρακτηριστικά:</p>
     <p xml:lang="en-GB">Features:</p>
+    <p xml:lang="eo">Trajtoj:</p>
     <p xml:lang="es">Funcionalidades:</p>
     <p xml:lang="et">Omadused:</p>
     <p xml:lang="eu">Eginbideak:</p>
@@ -151,6 +155,7 @@
       <li xml:lang="de">Herunterladen von Dateien aus FTP- und HTTP(s)-Adressen.</li>
       <li xml:lang="el">Κάνει λήψη αρχείων από ftp και http(s) πηγές.</li>
       <li xml:lang="en-GB">Downloading files from FTP and HTTP(S) sources.</li>
+      <li xml:lang="eo">Elŝutante dosierojn el FTP kaj HTTP(S) fontoj.</li>
       <li xml:lang="es">Descarga de archivos de fuentes FTP y HTTP(S).</li>
       <li xml:lang="et">Failide allalaadimine FTP ja HTTP(S) allikatest.</li>
       <li xml:lang="eu">Jaitsi fitxategiak FTP eta HTTP(S) sorburuetatik.</li>
@@ -184,6 +189,7 @@
       <li xml:lang="de">Anhalten und Fortsetzen des Herunterladens von Dateien, außerdem gibt es auch die Möglichkeit, das Herunterladen neu zu starten.</li>
       <li xml:lang="el">Παύει και συνεχίζει τη λήψη αρχείων, και έχει τη δυνατότητα επανάληψης μιας λήψης.</li>
       <li xml:lang="en-GB">Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
+      <li xml:lang="eo">Paŭzo kaj rekomenco de elŝutado de dosieroj, same kiel la kapablo rekomenci elŝuton.</li>
       <li xml:lang="es">Pausa y reanudación de los archivos en descarga, así como la posibilidad de reiniciar descargas.</li>
       <li xml:lang="et">Failide allalaadimise peatamine ja taasalustamine, samuti võimalus allalaadimist taaskäivitada.</li>
       <li xml:lang="eu">Fitxategi jaitsierak eten eta berrekitea, baita jaitsiera bat berriz hasteko gaitasuna ere.</li>
@@ -217,6 +223,7 @@
       <li xml:lang="de">Viele Informationen über aktuelle und anstehende Downloads.</li>
       <li xml:lang="el">Δίνει πολλές πληροφορίες για τις τρέχουσες και τις εκκρεμείς λήψεις.</li>
       <li xml:lang="en-GB">Tells lots of information about current and pending downloads.</li>
+      <li xml:lang="eo">Rakontas multajn informojn pri aktualaj kaj pritraktataj elŝutoj.</li>
       <li xml:lang="es">Muestra gran cantidad de información sobre las descargas actuales y pendientes.</li>
       <li xml:lang="et">Mitmesuguse teabe pakkumine käimasolevate ja eesootavate allalaadimiste kohta.</li>
       <li xml:lang="eu">Informazio asko ematen du uneko eta zain dauden deskargei buruz.</li>
@@ -250,6 +257,7 @@
       <li xml:lang="de">Eingebettet in den Systemabschnitt der Kontrollleiste.</li>
       <li xml:lang="el">Ενσωμάτωση στο πλαίσιο συστήματος.</li>
       <li xml:lang="en-GB">Embedding into system tray.</li>
+      <li xml:lang="eo">Enkonstruado en sistempleton.</li>
       <li xml:lang="es">Se puede empotrar en la bandeja del sistema.</li>
       <li xml:lang="et">Põimitud süsteemisalve.</li>
       <li xml:lang="eu">Sistema-erretiluan kapsulatzea.</li>
@@ -283,6 +291,7 @@
       <li xml:lang="de">Integration mit dem Internet-Browser Konqueror.</li>
       <li xml:lang="el">Ολοκλήρωση με τον περιηγητή ιστού Konqueror.</li>
       <li xml:lang="en-GB">Integration with the Konqueror web browser.</li>
+      <li xml:lang="eo">Integriĝo kun la retumilo Konqueror.</li>
       <li xml:lang="es">Integración con el navegador web Konqueror.</li>
       <li xml:lang="et">Põimitud veebilehitsejaga Konqueror.</li>
       <li xml:lang="eu">Integrazioa Konqueror web arakatzailearekin.</li>
@@ -316,6 +325,7 @@
       <li xml:lang="de">Unterstützung für Metalinks, die mehrere Adressen (Urls) zum Herunterladen enthalten, zusammen mit Prüfsummen und weiteren Informationen.</li>
       <li xml:lang="el">Υποστήριξη Metalink, η οποία περιέχει πολλά URL για λήψη, μαζί με αθροίσματα ελέγχου και άλλες πληροφορίες.</li>
       <li xml:lang="en-GB">Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
+      <li xml:lang="eo">Subteno de Metalink kiu enhavas plurajn URL-ojn por elŝutoj, kune kun kontrolsumoj kaj aliaj informoj.</li>
       <li xml:lang="es">Permite usar Metalink, que contiene múltiples URL para las descargas, además de sumas de verificación y otra información.</li>
       <li xml:lang="et">Metalinki toetus, mis sisaldab mitmeid URL-e allalaadimiseks ühes kontrollsummade ja muu teabega.</li>
       <li xml:lang="eu">«Metalink» onartzen du, jaisteko URL ugari ditu, egiaztapen-batura eta beste informazio batzuekin batera.</li>
@@ -358,6 +368,7 @@
       <caption xml:lang="de">Herunterladen von Dateien mit KGet</caption>
       <caption xml:lang="el">Λήψη αρχείων με το KGet</caption>
       <caption xml:lang="en-GB">Downloading files with KGet</caption>
+      <caption xml:lang="eo">Elŝuti dosierojn per KGet</caption>
       <caption xml:lang="es">Descargando archivos con KGet</caption>
       <caption xml:lang="et">Failide allalaadimine KGetiga</caption>
       <caption xml:lang="eu">Fitxategiak KGet erabiliz jaistea</caption>
