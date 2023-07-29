@@ -356,7 +356,7 @@ msgstr "Uspat počítač"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Den/dny"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
