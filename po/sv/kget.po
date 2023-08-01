@@ -4,14 +4,14 @@
 #
 # Mattias Newzella <newzella@linux.nu>, 2002,2003.
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2021, 2022.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2021, 2022, 2023.
 # Arve Eriksson <031299870@telia.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 07:33+0000\n"
-"PO-Revision-Date: 2022-08-03 10:00+0200\n"
+"PO-Revision-Date: 2023-07-25 12:59+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -45,7 +45,7 @@ msgstr "Reguljärt uttryck"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Ta automatiskt bort all överföringshistorik äldre än:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -357,24 +357,22 @@ msgstr "Placera datorn i viloläge"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Dag(ar)"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Timma(r)"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minut(er)"
 
 #: conf/preferencesdialog.cpp:75
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "sekunder"
+msgstr "Sekunder(er)"
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format
@@ -733,8 +731,7 @@ msgstr "Ladda ner den igen?"
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Ladda ner igen"
@@ -743,7 +740,7 @@ msgstr "Ladda ner igen"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Hoppa över"
 
 #: core/kget.cpp:1057 core/urlchecker.cpp:426
 #, kde-format
@@ -963,8 +960,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Nyckeln för att verifiera signaturen saknas. Vill du ladda ner den?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Ladda ner"
@@ -973,7 +969,7 @@ msgstr "Ladda ner"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Fortsätt utan"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2666,7 +2662,7 @@ msgstr "Sparar i:"
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p %"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2727,11 +2723,10 @@ msgid "Pre-allocate disk space"
 msgstr "Reservera diskutrymme i förväg"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "Välj en standardkatalog för dataflöden"
+msgstr "Välj en ny dataflödesfil"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -2951,7 +2946,7 @@ msgstr "Nerladdningen (%1) kunde inte verifieras. Vill du reparera den?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Reparera"
 
 #: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
@@ -2969,7 +2964,7 @@ msgstr "Verifikation misslyckades."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorera"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:221
 #: transfer-plugins/metalink/metalink.cpp:466
@@ -2989,7 +2984,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorera"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -3282,7 +3277,7 @@ msgstr "Ö&ppna fil"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p %"
 
 #: ui/history/transferhistory.cpp:212
 #, kde-format
@@ -4057,23 +4052,20 @@ msgid "Unable to load: %1"
 msgstr "Kan inte ladda: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Metalänkfil version 4.0 (*.meta4)"
+msgstr "Metalink version 4.0-fil"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Metalänkfil version 4.0 (*.meta4)"
+msgstr "Metalink version 3.0-fil"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Metalänkfil (*.metalink *.meta4)"
+msgstr "Metalink-fil (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
