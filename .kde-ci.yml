@@ -30,3 +30,6 @@ Dependencies:
 - 'on' : ['Linux', 'FreeBSD']
   'require':
     'network/libktorrent' : '@same'
+
+Options:
+  require-passing-tests-on: [ 'Linux', 'FreeBSD' ]
