@@ -22,10 +22,6 @@
 #include "core/transfergroup.h"
 #include "ui/tray.h"
 
-#ifdef HAVE_QCA2
-#include <QtCrypto>
-#endif
-
 class ViewsContainer;
 class DropTarget;
 class DBusKgetWrapper;
@@ -155,10 +151,6 @@ private:
     bool m_doTesting; // UnitTest flag
 
     // HttpServer *m_webinterface;
-
-#ifdef HAVE_QCA2
-    QCA::Initializer m_qcaInit;
-#endif // HAVE_QCA2
 };
 
 #endif

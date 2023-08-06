@@ -54,10 +54,6 @@ struct VerifierPrivate {
 
     mutable VerificationThread thread;
 
-    static const QStringList SUPPORTED;
-    static const QString MD5;
-    static const int DIGGESTLENGTH[];
-    static const int MD5LENGTH;
     static const int PARTSIZE;
 };
 

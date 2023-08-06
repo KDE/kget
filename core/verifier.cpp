@@ -29,27 +29,38 @@
 #include "kget_debug.h"
 #include <QDebug>
 
-#ifdef HAVE_QCA2
-#include <qca_basic.h>
-#endif
+#include <vector>
 
-// TODO use mutable to make some methods const?
-const QStringList VerifierPrivate::SUPPORTED = (QStringList() << "sha512"
-                                                              << "sha384"
-                                                              << "sha256"
-                                                              << "ripmed160"
-                                                              << "sha1"
-                                                              << "md5"
-                                                              << "md4");
-const QString VerifierPrivate::MD5 = QString("md5");
-const int VerifierPrivate::DIGGESTLENGTH[] = {128, 96, 64, 40, 40, 32, 32};
-const int VerifierPrivate::MD5LENGTH = 32;
+struct VerifierAlgo {
+    QString type;
+    QCryptographicHash::Algorithm qtType;
+    int diggestLength;
+};
+
+const std::vector<VerifierAlgo> SUPPORTED_ALGOS = {{"sha512", QCryptographicHash::Sha512, 128},
+                                                   {"sha384", QCryptographicHash::Sha384, 96},
+                                                   {"sha256", QCryptographicHash::Sha256, 64},
+                                                   {"sha1", QCryptographicHash::Sha1, 40},
+                                                   {"md5", QCryptographicHash::Md5, 32},
+                                                   {"md4", QCryptographicHash::Md4, 32}};
+
 const int VerifierPrivate::PARTSIZE = 500 * 1024;
 
 VerifierPrivate::~VerifierPrivate()
 {
     delete model;
     qDeleteAll(partialSums.begin(), partialSums.end());
+}
+
+static QCryptographicHash::Algorithm qtAlgorithmForType(const QString &type)
+{
+    for (const VerifierAlgo &alg : SUPPORTED_ALGOS) {
+        if (type == alg.type) {
+            return alg.qtType;
+        }
+    }
+
+    return QCryptographicHash::Md5;
 }
 
 QString VerifierPrivate::calculatePartialChecksum(QFile *file,
@@ -71,18 +82,7 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file,
         pieceLength = fileSize - startOffset;
     }
 
-#ifdef HAVE_QCA2
-    QCA::Hash hash(type);
-
-    // it can be that QCA2 does not support md5, e.g. when Qt is compiled locally
-    QCryptographicHash md5Hash(QCryptographicHash::Md5);
-    const bool useMd5 = (type == MD5);
-#else // NO QCA2
-    if (type != MD5) {
-        return QString();
-    }
-    QCryptographicHash hash(QCryptographicHash::Md5);
-#endif // HAVE_QCA2
+    QCryptographicHash hash(qtAlgorithmForType(type));
 
     // we only read 512kb each time, to save RAM
     int numData = pieceLength / PARTSIZE;
@@ -103,15 +103,7 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file,
         }
 
         QByteArray data = file->read(PARTSIZE);
-#ifdef HAVE_QCA2
-        if (useMd5) {
-            md5Hash.addData(data);
-        } else {
-            hash.update(data);
-        }
-#else // NO QCA2
         hash.addData(data);
-#endif // HAVE_QCA2
     }
 
     // now read the rest
@@ -121,40 +113,24 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file,
         }
 
         QByteArray data = file->read(dataRest);
-#ifdef HAVE_QCA2
-        if (useMd5) {
-            md5Hash.addData(data);
-        } else {
-            hash.update(data);
-        }
-#else // NO QCA2
         hash.addData(data);
-#endif // HAVE_QCA2
     }
 
-#ifdef HAVE_QCA2
-    return (useMd5 ? md5Hash.result().toHex() : QString(QCA::arrayToHex(hash.final().toByteArray())));
-#else // NO QCA2
     return hash.result().toHex();
-#endif // HAVE_QCA2
 }
 
 QStringList VerifierPrivate::orderChecksumTypes(Verifier::ChecksumStrength strength) const
 {
-    QStringList checksumTypes;
+    QStringList checksumTypes = q->supportedVerficationTypes();
     if (strength == Verifier::Weak) {
-        for (int i = SUPPORTED.count() - 1; i >= 0; --i) {
-            checksumTypes.append(SUPPORTED.at(i));
-        }
+        std::reverse(checksumTypes.begin(), checksumTypes.end());
         checksumTypes.move(0, 1); // md4 second position
     } else if (strength == Verifier::Strong) {
-        for (int i = SUPPORTED.count() - 1; i >= 0; --i) {
-            checksumTypes.append(SUPPORTED.at(i));
-        }
+        std::reverse(checksumTypes.begin(), checksumTypes.end());
         checksumTypes.move(1, checksumTypes.count() - 1); // md5 second last position
         checksumTypes.move(0, checksumTypes.count() - 1); // md4 last position
     } else if (strength == Verifier::Strongest) {
-        checksumTypes = SUPPORTED;
+        // nothing
     }
 
     return checksumTypes;
@@ -215,35 +191,22 @@ VerificationModel *Verifier::model()
 
 QStringList Verifier::supportedVerficationTypes()
 {
-    QStringList supported;
-#ifdef HAVE_QCA2
-    QStringList supportedTypes = QCA::Hash::supportedTypes();
-    for (int i = 0; i < VerifierPrivate::SUPPORTED.count(); ++i) {
-        if (supportedTypes.contains(VerifierPrivate::SUPPORTED.at(i))) {
-            supported << VerifierPrivate::SUPPORTED.at(i);
+    static QStringList list;
+    if (list.isEmpty()) {
+        for (const VerifierAlgo &alg : SUPPORTED_ALGOS) {
+            list << alg.type;
         }
     }
-#endif // HAVE_QCA2
-
-    if (!supported.contains(VerifierPrivate::MD5)) {
-        supported << VerifierPrivate::MD5;
-    }
-
-    return supported;
+    return list;
 }
 
 int Verifier::diggestLength(const QString &type)
 {
-    if (type == VerifierPrivate::MD5) {
-        return VerifierPrivate::MD5LENGTH;
+    for (const VerifierAlgo &alg : SUPPORTED_ALGOS) {
+        if (type == alg.type) {
+            return alg.diggestLength;
+        }
     }
-
-#ifdef HAVE_QCA2
-    if (QCA::isSupported(type.toLatin1())) {
-        return VerifierPrivate::DIGGESTLENGTH[VerifierPrivate::SUPPORTED.indexOf(type)];
-    }
-#endif // HAVE_QCA2
-
     return 0;
 }
 
@@ -397,37 +360,21 @@ QString Verifier::checksum(const QUrl &dest, const QString &type, bool *abortPtr
         return QString();
     }
 
-    if (type == VerifierPrivate::MD5) {
-        QCryptographicHash hash(QCryptographicHash::Md5);
-        hash.addData(&file);
-        QString final = hash.result().toHex();
-        file.close();
-        return final;
-    }
+    QCryptographicHash hash(qtAlgorithmForType(type));
 
-#ifdef HAVE_QCA2
-    QCA::Hash hash(type);
-
-    // BEGIN taken from qca_basic.h and slightly adopted to allow abort
     char buffer[1024];
     int len;
 
     while ((len = file.read(reinterpret_cast<char *>(buffer), sizeof(buffer))) > 0) {
-        hash.update(buffer, len);
+        hash.addData(buffer, len);
         if (abortPtr && *abortPtr) {
-            hash.final();
             file.close();
             return QString();
         }
     }
-    // END
-
-    QString final = QString(QCA::arrayToHex(hash.final().toByteArray()));
+    QString final = hash.result().toHex();
     file.close();
     return final;
-#endif // HAVE_QCA2
-
-    return QString();
 }
 
 PartialChecksums Verifier::partialChecksums(const QUrl &dest, const QString &type, KIO::filesize_t length, bool *abortPtr)
@@ -505,11 +452,9 @@ void Verifier::addPartialChecksums(const QString &type, KIO::filesize_t length, 
 
 KIO::filesize_t Verifier::partialChunkLength() const
 {
-    QStringList::const_iterator it;
-    QStringList::const_iterator itEnd = VerifierPrivate::SUPPORTED.constEnd();
-    for (it = VerifierPrivate::SUPPORTED.constBegin(); it != itEnd; ++it) {
-        if (d->partialSums.contains(*it)) {
-            return d->partialSums[*it]->length();
+    for (const VerifierAlgo &alg : SUPPORTED_ALGOS) {
+        if (d->partialSums.contains(alg.type)) {
+            return d->partialSums[alg.type]->length();
         }
     }
 

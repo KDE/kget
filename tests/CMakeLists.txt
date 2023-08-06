@@ -24,17 +24,13 @@ if(BUILD_TESTING)
     target_link_libraries(kget_test_transfers Qt::Test KF5::KIOCore kgetcore)
 
 
-#===========Verifier===========
-    if (Qca-qt${QT_MAJOR_VERSION}_FOUND)
-
-        ecm_add_test(
-                verifiertest.cpp
-            LINK_LIBRARIES
-                Qt::Test
-                ${QCA2_LIBRARIES}
-                kgetcore
-            TEST_NAME verifiertest)
-    endif ()
+    #===========Verifier===========
+    ecm_add_test(
+            verifiertest.cpp
+        LINK_LIBRARIES
+            Qt::Test
+            kgetcore
+        TEST_NAME verifiertest)
 
 
     #===========Scheduler===========

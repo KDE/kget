@@ -20,12 +20,9 @@
 #ifndef KGET_VERIFIER_TEST_H
 #define KGET_VERIFIER_TEST_H
 
+#include <QObject>
 #include <QStringList>
 #include <QUrl>
-
-#ifdef HAVE_QCA2
-#include <QtCrypto>
-#endif
 
 class QTemporaryDir;
 
@@ -59,9 +56,6 @@ private:
     bool expectedResult(bool expected, const QString &type);
 
 private:
-#ifdef HAVE_QCA2
-    QCA::Initializer m_qcaInit;
-#endif // HAVE_QCA2
     QScopedPointer<QTemporaryDir> m_tempDir;
     QUrl m_file;
     const QStringList m_supported;

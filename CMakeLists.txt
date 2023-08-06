@@ -83,13 +83,6 @@ set_package_properties(SQLite3 PROPERTIES
     PURPOSE "Needed for the SQLite-Backend of the KGet-History"
 )
 
-find_package(Qca-qt${QT_MAJOR_VERSION} 2.1.0)
-set_package_properties(Qca-qt${QT_MAJOR_VERSION} PROPERTIES
-    DESCRIPTION "Support for encryption"
-    URL "https://download.kde.org/stable/qca-qt5/"
-    TYPE REQUIRED
-)
-
 find_package(Gpgmepp 1.7.0)
 set_package_properties(Gpgmepp PROPERTIES
     DESCRIPTION "The GpgME++ library"
@@ -114,11 +107,6 @@ set_package_properties(LibMms PROPERTIES
 
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
-endif()
-
-if (Qca-qt${QT_MAJOR_VERSION}_FOUND)
-    add_definitions(-DHAVE_QCA2)
-MESSAGE(STATUS "QCA found")
 endif()
 
 find_package(Boost REQUIRED)
@@ -268,10 +256,6 @@ if (SQLITE_FOUND)
     target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
 endif()
 
-if (Qca-qt${QT_MAJOR_VERSION}_FOUND)
-    target_link_libraries(kgetcore qca-qt${QT_MAJOR_VERSION})
-endif ()
-
 if (Gpgmepp_FOUND)
     target_link_libraries(kgetcore QGpgme Gpgmepp)
     kde_enable_exceptions()
@@ -387,9 +371,6 @@ target_link_libraries(kget
     Qt::Network
     Qt::DBus
 )
-if(Qca_FOUND)
-    target_link_libraries(kget qca)
-endif()
 if(CMAKE_BUILD_TYPE MATCHES debugfull)
     target_link_libraries(kget Qt::Test)
 endif()
