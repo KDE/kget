@@ -134,8 +134,9 @@ void VerificationThread::doBrokenPieces()
 
     QList<KIO::fileoffset_t> broken;
 
-    if (QFile::exists(url.toString())) {
-        QFile file(url.toString());
+    const QString filePath = url.toLocalFile();
+    if (QFile::exists(filePath)) {
+        QFile file(filePath);
         if (!file.open(QIODevice::ReadOnly)) {
             Q_EMIT brokenPieces(broken, length);
             return;

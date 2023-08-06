@@ -133,9 +133,9 @@ QString VerifierPrivate::calculatePartialChecksum(QFile *file,
     }
 
 #ifdef HAVE_QCA2
-    return (useMd5 ? QString(md5Hash.result()) : QString(QCA::arrayToHex(hash.final().toByteArray())));
+    return (useMd5 ? md5Hash.result().toHex() : QString(QCA::arrayToHex(hash.final().toByteArray())));
 #else // NO QCA2
-    return QString(hash.result());
+    return hash.result().toHex();
 #endif // HAVE_QCA2
 }
 
@@ -271,7 +271,7 @@ QString Verifier::cleanChecksumType(const QString &type)
 
 bool Verifier::isVerifyable() const
 {
-    return QFile::exists(d->dest.toString()) && d->model->rowCount();
+    return QFile::exists(d->dest.toLocalFile()) && d->model->rowCount();
 }
 
 bool Verifier::isVerifyable(const QModelIndex &index) const
@@ -280,7 +280,7 @@ bool Verifier::isVerifyable(const QModelIndex &index) const
     if (index.isValid()) {
         row = index.row();
     }
-    if (QFile::exists(d->dest.toString()) && (row >= 0) && (row < d->model->rowCount())) {
+    if (QFile::exists(d->dest.toLocalFile()) && (row >= 0) && (row < d->model->rowCount())) {
         return true;
     }
     return false;
@@ -392,7 +392,7 @@ QString Verifier::checksum(const QUrl &dest, const QString &type, bool *abortPtr
         return QString();
     }
 
-    QFile file(dest.toString());
+    QFile file(dest.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
         return QString();
     }
@@ -400,7 +400,7 @@ QString Verifier::checksum(const QUrl &dest, const QString &type, bool *abortPtr
     if (type == VerifierPrivate::MD5) {
         QCryptographicHash hash(QCryptographicHash::Md5);
         hash.addData(&file);
-        QString final = QString(hash.result());
+        QString final = hash.result().toHex();
         file.close();
         return final;
     }
@@ -439,7 +439,7 @@ PartialChecksums Verifier::partialChecksums(const QUrl &dest, const QString &typ
         return PartialChecksums();
     }
 
-    QFile file(dest.toString());
+    QFile file(dest.toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
         return PartialChecksums();
     }

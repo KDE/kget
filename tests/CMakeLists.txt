@@ -25,7 +25,8 @@ if(BUILD_TESTING)
 
 
 #===========Verifier===========
-    if (QCA2_FOUND)
+    if (Qca-qt${QT_MAJOR_VERSION}_FOUND)
+
         ecm_add_test(
                 verifiertest.cpp
             LINK_LIBRARIES
@@ -33,7 +34,7 @@ if(BUILD_TESTING)
                 ${QCA2_LIBRARIES}
                 kgetcore
             TEST_NAME verifiertest)
-    endif (QCA2_FOUND)
+    endif ()
 
 
     #===========Scheduler===========

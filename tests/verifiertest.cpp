@@ -22,11 +22,10 @@ VerfierTest::VerfierTest(QObject *parent)
 {
     // create a file which will used in the test
     m_tempDir.reset(new QTemporaryDir(QDir::tempPath() + QStringLiteral("/kget_test")));
-    QString path = m_tempDir->name();
-    path.append("test.txt");
+    const QString path = m_tempDir->filePath("test.txt");
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        qCCritical(KGET_DEBUG) << "Creating file failed:" << path;
+        qCritical() << "Creating file failed:" << path;
         abort();
     }
     m_file = QUrl::fromLocalFile(path);
@@ -35,12 +34,12 @@ VerfierTest::VerfierTest(QObject *parent)
     const qint64 size = data.size();
     for (int i = 0; i < 50000; ++i) {
         if (file.write(data) != size) {
-            qCCritical(KGET_DEBUG) << "Creating file failed:" << path;
+            qCritical() << "Creating file failed:" << path;
             abort();
         }
     }
 
-    qCDebug(KGET_DEBUG) << "Supported types:" << m_supported;
+    qDebug() << "Supported types:" << m_supported;
 }
 
 void VerfierTest::testChecksum()
