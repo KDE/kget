@@ -1,5 +1,5 @@
 # translation of kget.po to
-# Version: $Revision: 1656519 $
+# Version: $Revision: 1659986 $
 # Copyright (C) 2002,2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 #
 # Wojciech Milewski <Wojciech.Milewski@wp.pl>, 2002.
@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2023-01-02 20:48+0100\n"
+"PO-Revision-Date: 2023-09-10 11:02+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -48,7 +48,7 @@ msgstr "Wyrażenie regularne"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Sam usuń historię pobierania starszą niż:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -360,24 +360,22 @@ msgstr "Wstrzymaj komputer"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Dzień(Dni)"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Godzin"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minut(a)"
 
 #: conf/preferencesdialog.cpp:75
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "sekund"
+msgstr "Sekund(a)"
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format
@@ -2664,7 +2662,7 @@ msgstr "Zapisywanie do:"
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -3281,7 +3279,7 @@ msgstr "&Otwórz plik"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:212
 #, kde-format
@@ -4057,23 +4055,20 @@ msgid "Unable to load: %1"
 msgstr "Nie można wczytać: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Plik Metalink wersja 4.0 (*.meta4)"
+msgstr "Plik Metalink w wersji 4.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Plik Metalink wersja 4.0 (*.meta4)"
+msgstr "Plik Metalink w wersji 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Plik Metalink (*.metalink *.meta4)"
+msgstr "Plik Metalink (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
