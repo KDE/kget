@@ -318,6 +318,8 @@ target_sources(kget PRIVATE
     mainwindow.cpp
     main.cpp
 
+    ui/kgetui.qrc
+
    #extensions/webinterface/httpserver.cpp
 )
 
