@@ -654,7 +654,7 @@ msgstr "Quere substituír o ficheiro existente?"
 #: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
-msgstr "Non se pode gardar en: %1"
+msgstr "Non é posíbel gardar en: %1"
 
 #: core/kget.cpp:899
 #, kde-format
@@ -990,7 +990,7 @@ msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
 "information."
 msgstr ""
-"Non se puido verificar a sinatura para %1. Mire as configuracións da "
+"Non foi posíbel verificar a sinatura para %1. Mire as configuracións da "
 "transferencia para obter máis información."
 
 #: core/signature.cpp:266
@@ -2520,12 +2520,12 @@ msgstr "Velocidade"
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:94
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
-msgstr "Non se pode engadir a fonte web %1: xa está na lista destas."
+msgstr "Non é posíbel engadir a fonte web %1: xa está na lista destas."
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:109
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
-msgstr "Non se pode retirar a fonte web %1: é parte do torrente."
+msgstr "Non é posíbel retirar a fonte web %1: é parte do torrente."
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
@@ -2742,7 +2742,7 @@ msgstr "Descargando…"
 #: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
 msgid "Cannot add a tracker to a private torrent."
-msgstr "Non se pode engadir un localizador a un torrent privado."
+msgstr "Non é posíbel engadir un localizador a un torrent privado."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
@@ -2757,7 +2757,7 @@ msgstr "Analizando torrent…"
 #: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
-msgstr "Non se pode inicializar o porto…"
+msgstr "Non é posíbel inicializar o porto…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
@@ -2769,7 +2769,7 @@ msgstr "Sementando…"
 #, kde-format
 msgid "Cannot initialize libktorrent. Torrent support might not work."
 msgstr ""
-"Non se pode inicializar libktorrent. Pode que a funcionalidade de descarga "
+"Non é posíbel inicializar libktorrent. Pode que a funcionalidade de descarga "
 "de torrentes non funcione."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:75
@@ -2936,7 +2936,7 @@ msgstr "Conectando…"
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
-msgstr "Non se puido verificar a descarga (%1). Quere reparala?"
+msgstr "Non foi posíbel verificar a descarga (%1). Quere reparala?"
 
 #: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/metalink/abstractmetalink.cpp:224
@@ -2952,7 +2952,7 @@ msgstr "Reparar"
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
-msgstr "Non se puido verificar a descarga (%1). Quere volvela descargar?"
+msgstr "Non foi posíbel verificar a descarga (%1). Quere volvela descargar?"
 
 #: transfer-plugins/kio/transferKio.cpp:284
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
@@ -2973,7 +2973,7 @@ msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
 "not work the download would be restarted) it?"
 msgstr ""
-"Non se puido verificar a descarga, quere reparala e, se a reparación non "
+"Non foi posíbel verificar a descarga, quere reparala e, se a reparación non "
 "funciona, volver a comezar a descarga?"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:225
@@ -3049,7 +3049,7 @@ msgstr "Fallou a descarga. Non se atoparon URL que funcionasen."
 #: transfer-plugins/metalink/metalinkhttp.cpp:161
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
-msgstr "Non se puido verificar a descarga, quere reparala?"
+msgstr "Non foi posíbel verificar a descarga, quere reparala?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
@@ -3137,7 +3137,7 @@ msgstr "Buscar información da verificación."
 #: transfer-plugins/multisegmentkio/segment.cpp:284
 #, kde-format
 msgid "Failed to write to the file."
-msgstr "Non se puido escribir no ficheiro."
+msgstr "Non foi posíbel escribir no ficheiro."
 
 #: ui/contextmenu.cpp:115
 #, kde-format
@@ -4052,7 +4052,7 @@ msgstr "Información opcional xeral sobre o metalink."
 #: ui/metalinkcreator/metalinkcreator.cpp:145
 #, kde-format
 msgid "Unable to load: %1"
-msgstr "Non se pode cargar: %1"
+msgstr "Non é posíbel cargar: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, kde-format
@@ -4249,8 +4249,8 @@ msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr ""
-"Non se puido atopar a sinatura dixital. Comprobe se a sinatura é correcta ou "
-"verifique a descarga."
+"Non foi posíbel atopar a sinatura dixital. Comprobe se a sinatura é correcta "
+"ou verifique a descarga."
 
 #: ui/signaturedlg.cpp:191
 #, kde-format
@@ -4355,7 +4355,7 @@ msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
-"Non se puido comprobar. Comprobe os datos inseridos, se gpg-agent está "
+"Non foi posíbel comprobar. Comprobe os datos inseridos, se gpg-agent está "
 "executándose e se ten conexión á rede (que precisa para obter as chaves)."
 
 #: ui/signaturedlg.cpp:317
