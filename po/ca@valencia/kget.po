@@ -1538,7 +1538,7 @@ msgstr "Aish Raj Dahal"
 #: main.cpp:117
 #, kde-format
 msgid "Google Summer of Code Student"
-msgstr "Estudiant de Google Summer of Code"
+msgstr "Estudiant de la Google Summer of Code"
 
 #: main.cpp:118
 #, kde-format
