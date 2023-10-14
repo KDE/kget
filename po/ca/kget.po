@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2023-10-12 14:36+0200\n"
+"PO-Revision-Date: 2023-10-13 23:17+0200\n"
 "Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -988,7 +988,7 @@ msgid ""
 "information."
 msgstr ""
 "No es pot verificar la signatura per a %1. Per a més informació, vegeu la "
-"configuracióde les transferències."
+"configuració de les transferències."
 
 #: core/signature.cpp:266
 #, kde-format
@@ -4227,7 +4227,7 @@ msgstr "Signatura de %1."
 #: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
-msgstr "Aquesta opció ni funciona amb la transferència actual."
+msgstr "Aquesta opció no funciona amb la transferència actual."
 
 #: ui/signaturedlg.cpp:97
 #, kde-format
