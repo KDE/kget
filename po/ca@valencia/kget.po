@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 07:33+0000\n"
-"PO-Revision-Date: 2023-10-12 14:36+0200\n"
+"PO-Revision-Date: 2023-10-13 23:17+0200\n"
 "Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -121,7 +121,7 @@ msgstr "Mostra el progrés global"
 #: conf/dlgadvanced.ui:128
 #, kde-format
 msgid "Handle existing Files/Transfers"
-msgstr "Gestiona els fitxers/transferències existents"
+msgstr "Gestiona els fitxers i transferències existents"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
 #: conf/dlgadvanced.ui:134
@@ -627,7 +627,7 @@ msgstr "<p>La transferència següent s'ha afegit a la llista de baixades:</p>"
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr ""
-"<p>Les transferències següents s'han afegit a la llista de baixades:</p>"
+"<p>S'han afegit les transferències següents a la llista de baixades:</p>"
 
 #: core/kget.cpp:521 core/kget.cpp:563
 #, kde-format
@@ -858,7 +858,7 @@ msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
-"<p>La transferència següent s'ha iniciat:</p><p style=\"font-size: small;\">"
+"<p>S'ha iniciat la transferència següent:</p><p style=\"font-size: small;\">"
 "%1</p>"
 
 #: core/kget.cpp:1401
@@ -987,7 +987,7 @@ msgid ""
 "information."
 msgstr ""
 "No es pot verificar la signatura per a %1. Per a més informació, vegeu la "
-"configuracióde les transferències."
+"configuració de les transferències."
 
 #: core/signature.cpp:266
 #, kde-format
@@ -4221,7 +4221,7 @@ msgstr "Signatura de %1."
 #: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
-msgstr "Esta opció ni funciona amb la transferència actual."
+msgstr "Esta opció no funciona amb la transferència actual."
 
 #: ui/signaturedlg.cpp:97
 #, kde-format
