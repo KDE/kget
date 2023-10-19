@@ -591,7 +591,7 @@ msgstr ""
 #: core/kget.cpp:120
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
-msgstr "Está seguro de que quere retirar o grupo chamado %1?"
+msgstr "Seguro que quere retirar o grupo chamado %1?"
 
 #: core/kget.cpp:121
 #, kde-format
@@ -601,7 +601,7 @@ msgstr "Retirar o grupo"
 #: core/kget.cpp:155
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
-msgstr "Está seguro de que quere retirar os grupos seguintes?"
+msgstr "Seguro que quere retirar os grupos seguintes?"
 
 #: core/kget.cpp:157
 #, kde-format
