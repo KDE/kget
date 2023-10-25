@@ -1922,7 +1922,7 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 "S'ha desactivat temporalment KGet com a gestor de baixades de Konqueror. Si "
-"voleu desactivar-ho per sempre, aneu a «Configuració -> Avançat» i "
+"voleu desactivar-ho per sempre, aneu fins a «Configuració -> Avançat» i "
 "inhabiliteu «Utilitza com a gestor de baixades de Konqueror»."
 
 #: mainwindow.cpp:1219 ui/droptarget.cpp:212
@@ -3226,7 +3226,7 @@ msgstr "Carpeta pre&determinada:"
 #: ui/groupsettingsdialog.ui:61
 #, kde-format
 msgid "Moves all transfers with the regular expression to this group"
-msgstr "Mou totes les transferències amb l'expressió regular a este grup"
+msgstr "Mou totes les transferències amb l'expressió regular cap a este grup"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:64
