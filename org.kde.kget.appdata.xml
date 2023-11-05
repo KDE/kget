@@ -35,7 +35,6 @@
   <name xml:lang="sv">Kget</name>
   <name xml:lang="tr">K İndir</name>
   <name xml:lang="uk">KGet</name>
-  <name xml:lang="x-test">xxKGetxx</name>
   <name xml:lang="zh-CN">KGet</name>
   <name xml:lang="zh-TW">KGet</name>
   <summary>Download Manager</summary>
@@ -70,7 +69,6 @@
   <summary xml:lang="sv">Nerladdningshanterare</summary>
   <summary xml:lang="tr">İndirme Yöneticisi</summary>
   <summary xml:lang="uk">Керування отриманням даних</summary>
-  <summary xml:lang="x-test">xxDownload Managerxx</summary>
   <summary xml:lang="zh-CN">下载管理器</summary>
   <summary xml:lang="zh-TW">下載管理器</summary>
   <description>
@@ -107,7 +105,6 @@
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
     <p xml:lang="tr">K İndir, geniş kapsamlı ve kullanıcı dostu bir indirme yöneticisidir.</p>
     <p xml:lang="uk">KGet — гнучка і зручна програма для отримання даних з мережі.</p>
-    <p xml:lang="x-test">xxKGet is a versatile and user-friendly download manager.xx</p>
     <p xml:lang="zh-CN">KGet 是一个功能多样且用户友好的下载管理器。</p>
     <p xml:lang="zh-TW">KGet 是款多功能且使用者友善的下載管理器。</p>
     <p>Features:</p>
@@ -142,7 +139,6 @@
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
-    <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
     <p xml:lang="zh-TW">功能：</p>
     <ul>
@@ -177,7 +173,6 @@
       <li xml:lang="sv">Nerladdning av filer från FTP- och HTTP(S)-källor.</li>
       <li xml:lang="tr">FTP ve HTTP(S) kaynaklarından dosya indirme.</li>
       <li xml:lang="uk">Отримання файлів з джерел FTP та HTTP(S).</li>
-      <li xml:lang="x-test">xxDownloading files from FTP and HTTP(S) sources.xx</li>
       <li xml:lang="zh-CN">从 FTP 和 HTTP(S) 源下载文件。</li>
       <li xml:lang="zh-TW">從 FTP 和 HTTP(S) 來源下載檔案。</li>
       <li>Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
@@ -211,7 +206,6 @@
       <li xml:lang="sv">Pausa och återuppta nerladdning av filer, samt möjlighet att starta om en nerladdning.</li>
       <li xml:lang="tr">İndirilen dosyaların duraklatılması ve sürdürülmesi ve aynı zamanda yeniden başlatılması.</li>
       <li xml:lang="uk">Можливість призупинення та відновлення отримання файлів, а також можливість перезапустити отримання.</li>
-      <li xml:lang="x-test">xxPausing and resuming of downloading files, as well as the ability to restart a download.xx</li>
       <li xml:lang="zh-CN">暂停和继续文件下载，还能够重新开始下载。</li>
       <li xml:lang="zh-TW">暫停及繼續下載檔案，以及重新開始下載的能力。</li>
       <li>Tells lots of information about current and pending downloads.</li>
@@ -245,7 +239,6 @@
       <li xml:lang="sv">Ger mängder av information om aktuella och väntande nerladdningar.</li>
       <li xml:lang="tr">Geçerli ve bekleyen indirmeler hakkında ek bilgiler.</li>
       <li xml:lang="uk">Можливість отримання широкого спектра даних щодо поточного сеансу отримання та завдань з отримання даних з черги.</li>
-      <li xml:lang="x-test">xxTells lots of information about current and pending downloads.xx</li>
       <li xml:lang="zh-CN">显示当前和队列下载的许多信息。</li>
       <li xml:lang="zh-TW">顯示關於目前和待下載項目的詳細資訊。</li>
       <li>Embedding into system tray.</li>
@@ -279,7 +272,6 @@
       <li xml:lang="sv">Inbäddning i systembrickan.</li>
       <li xml:lang="tr">Sistem tepsisinde çalışabilme.</li>
       <li xml:lang="uk">Можливість вбудовування до лотка системи.</li>
-      <li xml:lang="x-test">xxEmbedding into system tray.xx</li>
       <li xml:lang="zh-CN">嵌入到系统托盘。</li>
       <li xml:lang="zh-TW">嵌入到系統通知區塊。</li>
       <li>Integration with the Konqueror web browser.</li>
@@ -313,7 +305,6 @@
       <li xml:lang="sv">Integrering i webbläsaren Konqueror.</li>
       <li xml:lang="tr">Konqueror web tarayıcısı ile tümleşme.</li>
       <li xml:lang="uk">Інтеграція із програмою для перегляду сторінок інтернету Konqueror.</li>
-      <li xml:lang="x-test">xxIntegration with the Konqueror web browser.xx</li>
       <li xml:lang="zh-CN">Konqueror 网页浏览器集成。</li>
       <li xml:lang="zh-TW">能與 Konqueror 網頁瀏覽器整合。</li>
       <li>Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
@@ -347,7 +338,6 @@
       <li xml:lang="sv">Stör för metalänkar som innehåller flera webbadresser för nerladdning, tillsammans med checksummor och annan information.</li>
       <li xml:lang="tr">İndirmeler için birden çok bağlantı ve/veya sağlama toplamları ve başka bilgiler içeren Metalink desteği.</li>
       <li xml:lang="uk">Підтримка метапосилань, які містять декілька адрес даних, а також контрольні суми та інші відомості.</li>
-      <li xml:lang="x-test">xxMetalink support which contain multiple URLs for downloads, along with checksums and other information.xx</li>
       <li xml:lang="zh-CN">支持 Metalink ，包含多个下载连接，校验和和其他信息。</li>
       <li xml:lang="zh-TW">中繼連結 (Metalink) 支援，其能包含多個欲下載 URL、檢查總和值和提供其他資訊。</li>
     </ul>
@@ -390,7 +380,6 @@
       <caption xml:lang="sv">Nerladdning av filer med Kget</caption>
       <caption xml:lang="tr">K İndir ile dosya indirme</caption>
       <caption xml:lang="uk">Отримання файлів за допомогою KGet</caption>
-      <caption xml:lang="x-test">xxDownloading files with KGetxx</caption>
       <caption xml:lang="zh-CN">使用 KGet 下载文件</caption>
       <caption xml:lang="zh-TW">使用 KGet 下載檔案</caption>
       <image>https://www.kde.org/images/screenshots/kget.png</image>
