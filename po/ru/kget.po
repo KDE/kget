@@ -14,20 +14,20 @@
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2020, 2022.
-# Мария Шикунова <translation-team@basealt.ru>, 2022.
+# Мария Шикунова <translation-team@basealt.ru>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2022-10-02 14:41+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2023-11-16 16:04+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -58,7 +58,7 @@ msgstr "Регулярное выражение"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Автоматически удалять записи журнала загрузок на основе давности:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -373,24 +373,22 @@ msgstr "Перейти в ждущий режим"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "дн."
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "ч."
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "мин."
 
 #: conf/preferencesdialog.cpp:75
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "секунды"
+msgstr "сек."
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format
@@ -755,8 +753,7 @@ msgstr "Загрузить заново?"
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Загрузить заново"
@@ -765,7 +762,7 @@ msgstr "Загрузить заново"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Пропустить"
 
 #: core/kget.cpp:1057 core/urlchecker.cpp:426
 #, kde-format
@@ -986,17 +983,16 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Ключ, необходимый для проверки подписи, отсутствует. Загрузить его?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "Загрузка"
+msgstr "Загрузить"
 
 #: core/signature.cpp:238
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Продолжить без него"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2687,7 +2683,7 @@ msgstr "Сохранение в:"
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2748,11 +2744,10 @@ msgid "Pre-allocate disk space"
 msgstr "Резервировать место на диске под загрузку"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "Папка по умолчанию для торрентов"
+msgstr "Выбор нового торрент-файла"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -2774,7 +2769,7 @@ msgstr "Добавление трекеров в частный торрент �
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
 msgid "Torrent file does not exist"
-msgstr "Торрент не существует"
+msgstr "Торрент-файл не существует"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
@@ -2973,7 +2968,7 @@ msgstr "Проверить загруженный файл (%1) нельзя. И
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Исправить"
 
 #: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
@@ -2991,7 +2986,7 @@ msgstr "Ошибка при проверке"
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Игнорировать"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:221
 #: transfer-plugins/metalink/metalink.cpp:466
@@ -3011,7 +3006,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignore"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -3307,7 +3302,7 @@ msgstr "&Открыть файл"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:212
 #, kde-format
@@ -4084,23 +4079,20 @@ msgid "Unable to load: %1"
 msgstr "Не удаётся загрузить %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Файл Metalink версии 4.0 (*.meta4)"
+msgstr "Файл Metalink версии 4.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Файл Metalink версии 4.0 (*.meta4)"
+msgstr "Файл Metalink версии 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Файл Metalink (*.metalink *.meta4)"
+msgstr "Файл Metalink (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
