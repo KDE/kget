@@ -18,9 +18,12 @@
 #include "ui/newtransferdialog.h"
 
 #include "kget_debug.h"
+#include <QAction>
+#include <QActionGroup>
 #include <QApplication>
 #include <QClipboard>
 #include <QDebug>
+#include <QIcon>
 #include <QMenu>
 #include <QMimeDatabase>
 #include <QMimeType>
@@ -28,8 +31,6 @@
 
 #include <KLocalizedString>
 #include <KWindowSystem>
-#include <QAction>
-#include <QIcon>
 
 KGetLinkView::KGetLinkView(QWidget *parent)
     : KGetSaveSizeDialog("KGetLinkView", parent)
@@ -305,8 +306,8 @@ void KGetLinkView::setTextFilter(const QString &text)
     if (Settings::linkViewFilterPatternSyntax() == Wildcard) {
         m_proxyModel->setFilterWildcard(temp);
     } else {
-        QRegExp rx(temp, Qt::CaseSensitive, QRegExp::RegExp2);
-        m_proxyModel->setFilterRegExp(rx);
+        QRegularExpression rx(temp);
+        m_proxyModel->setFilterRegularExpression(rx);
     }
 
     updateSelectionButtons();

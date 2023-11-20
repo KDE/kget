@@ -13,6 +13,7 @@
 #define METALINKHTTP_H
 
 #include <KIO/Job>
+#include <QMultiHash>
 
 #include "core/datasourcefactory.h"
 #include "core/transfer.h"
@@ -75,7 +76,7 @@ private:
     void startMetalink() override;
     KGetMetalink::MetalinkHttpParser *m_httpparser;
     QList<KGetMetalink::HttpLinkHeader> m_linkheaderList;
-    QHash<QString, QString> m_DigestList;
+    QMultiHash<QString, QString> m_DigestList;
 
     /**
      * Needed to change the cases of hash type to be compatible with the Metalink XML types

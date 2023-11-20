@@ -8,11 +8,11 @@ set(RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_
 
 project(kget VERSION ${RELEASE_SERVICE_VERSION})
 
-set(REQUIRED_QT_VERSION "5.15.0")
-set(KF5_VERSION "5.91.0")
+set(REQUIRED_QT_VERSION "6.5.0")
+set(KF_VERSION "5.240.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.82")
 
-find_package(ECM ${KF5_VERSION} REQUIRED NO_MODULE)
+find_package(ECM ${KF_VERSION} REQUIRED NO_MODULE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
 
@@ -30,7 +30,7 @@ include(GenerateExportHeader)
 include(KDEClangFormat)
 include(KDEGitCommitHooks)
 
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS
+find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS
     DBus
     Gui
     Network
@@ -40,7 +40,7 @@ find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPON
     Xml
 )
 
-find_package(KF5 ${KF5_VERSION} REQUIRED
+find_package(KF6 ${KF_VERSION} REQUIRED
     Completion
     Config
     ConfigWidgets
@@ -55,6 +55,8 @@ find_package(KF5 ${KF5_VERSION} REQUIRED
     KIO
     Notifications
     NotifyConfig
+    Parts
+    StatusNotifierItem
     TextWidgets
     Wallet
     WidgetsAddons
@@ -90,8 +92,16 @@ set_package_properties(Gpgmepp PROPERTIES
     PURPOSE "GpgME++ is required to have signature verifying support in KGet."
 )
 
-find_package(KF5Torrent 21.07.70)
-set_package_properties(KF5Torrent PROPERTIES
+find_package(QGpgmeQt6 1.7.0 CONFIG)
+set_package_properties(Gpgmepp PROPERTIES
+    DESCRIPTION "QGpgME Library"
+    URL "https://www.gnupg.org"
+    TYPE OPTIONAL
+    PURPOSE "QGpgME is required to have signature verifying support in KGet."
+)
+
+find_package(KTorrent6 23.11.70)
+set_package_properties(KTorrent6 PROPERTIES
     DESCRIPTION "Backend Library of KTorrent"
     TYPE RECOMMENDED
     PURPOSE "Needed to build KGet bittorrent support."
@@ -111,11 +121,7 @@ endif()
 find_package(Boost REQUIRED)
 
 if(Gpgmepp_FOUND)
-    if (QT_MAJOR_VERSION STREQUAL "6")
-        find_package(QGpgmeQt6 ${GPGME_REQUIRED_VERSION} CONFIG REQUIRED)
-    else()
-        find_package(QGpgme ${GPGME_REQUIRED_VERSION} CONFIG REQUIRED)
-    endif()
+    find_package(QGpgmeQt6 ${GPGME_REQUIRED_VERSION} CONFIG REQUIRED)
     add_definitions(-DHAVE_QGPGME)
 endif()
 
@@ -141,15 +147,6 @@ add_subdirectory(desktop)
 add_subdirectory(tests)
 add_subdirectory(doc)
 
-find_package(LibKWorkspace CONFIG)
-set_package_properties(LibKWorkspace PROPERTIES
-    TYPE OPTIONAL
-    PURPOSE "Allows 'shutdown after downloads completed' in kget"
-)
-if(LibKWorkspace_FOUND)
-    add_definitions(-DHAVE_KWORKSPACE)
-endif()
-
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/core/
     ${CMAKE_CURRENT_BINARY_DIR}/core/
@@ -165,13 +162,15 @@ remove_definitions(-DQT_NO_HTTP)
 
 add_library(kgetcore SHARED)
 set_target_properties(kgetcore PROPERTIES
-    VERSION 5.0.0
-    SOVERSION 5
+    VERSION 6.0.0
+    SOVERSION 6
 )
 
 set(kgetcore_dbus_SRCS)
 qt_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
 qt_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
+
+qt_add_dbus_interface(kgetcore_dbus_SRCS dbus/org.kde.Shutdown.xml plasmashudown_interface)
 
 target_sources(kgetcore PRIVATE
     ${kgetcore_dbus_SRCS}
@@ -228,35 +227,34 @@ kconfig_add_kcfg_files(kgetcore conf/settings.kcfgc)
 
 generate_export_header(kgetcore BASE_NAME kget)
 
-target_link_libraries(kgetcore
-    KF5::ConfigGui
-    KF5::CoreAddons
-    KF5::DBusAddons
-    KF5::I18n
-    KF5::I18nLocaleData
-    KF5::IconThemes
-    KF5::KIOCore
-    KF5::KIOWidgets
-    KF5::Notifications
-    KF5::XmlGui
-    Qt::Core
-    Qt::Widgets
-    Qt::Sql
-    Qt::Network
-    Qt::DBus
+target_link_libraries(kgetcore PUBLIC
+    KF6::ConfigGui
+    KF6::CoreAddons
+    KF6::DBusAddons
+    KF6::I18n
+    KF6::I18nLocaleData
+    KF6::IconThemes
+    KF6::IconWidgets
+    KF6::KCMUtils
+    KF6::KIOCore
+    KF6::KIOWidgets
+    KF6::Notifications
+    KF6::StatusNotifierItem
+    KF6::XmlGui
+    Qt6::Core
+    Qt6::Widgets
+    Qt6::Sql
+    Qt6::Network
+    Qt6::DBus
     Boost::headers
 )
 
-if(LibKWorkspace_FOUND)
-    target_link_libraries(kgetcore PW::KWorkspace)
-endif()
-
 if (SQLITE_FOUND)
-    target_link_libraries(kgetcore ${QT_QTSQL_LIBRARY})
+    target_link_libraries(kgetcore PUBLIC ${QT_QTSQL_LIBRARY})
 endif()
 
-if (Gpgmepp_FOUND)
-    target_link_libraries(kgetcore QGpgme Gpgmepp)
+if (TARGET Gpgmepp)
+    target_link_libraries(kgetcore PUBLIC QGpgmeQt6 Gpgmepp)
     kde_enable_exceptions()
 endif()
 
@@ -356,16 +354,16 @@ ecm_add_app_icon(kget ICONS ${ICON_SRCS})
 
 target_link_libraries(kget
     kgetcore
-    KF5::Crash
-    KF5::Wallet
-    KF5::DBusAddons
-    KF5::I18n
-    KF5::Completion
-    KF5::CoreAddons
-    KF5::ItemViews
-    KF5::KCMUtils
-    KF5::NotifyConfig
-    KF5::WindowSystem
+    KF6::Crash
+    KF6::Wallet
+    KF6::DBusAddons
+    KF6::I18n
+    KF6::Completion
+    KF6::CoreAddons
+    KF6::ItemViews
+    KF6::KCMUtils
+    KF6::NotifyConfig
+    KF6::WindowSystem
     Qt::Core
     Qt::Widgets
     Qt::Sql

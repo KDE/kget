@@ -30,6 +30,7 @@ target_sources(kget_bittorrent PRIVATE
     advanceddetails/trackermodel.cpp
     advanceddetails/webseedsmodel.cpp
     advanceddetails/webseedstab.cpp
+    kget_bittorrentfactory.json
     ../../kget_debug.cpp
     )
 
@@ -42,9 +43,8 @@ ki18n_wrap_ui(kget_bittorrent
     )
 
 kconfig_add_kcfg_files(kget_bittorrent bittorrentsettings.kcfgc)
-kcoreaddons_desktop_to_json(kget_bittorrent kget_bittorrentfactory.desktop)
 
-target_link_libraries(kget_bittorrent KF5::KIOCore KF5::Torrent kgetcore)
+target_link_libraries(kget_bittorrent KF6::KIOCore KTorrent6 kgetcore)
 install(TARGETS kget_bittorrent DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})
 
 ###Build KCM-Module
@@ -60,4 +60,4 @@ ki18n_wrap_ui(kcm_kget_bittorrentfactory
     )
 
 kconfig_add_kcfg_files(kcm_kget_bittorrentfactory bittorrentsettings.kcfgc)
-target_link_libraries(kcm_kget_bittorrentfactory KF5::ConfigGui KF5::ConfigWidgets KF5::I18n KF5::KIOCore KF5::KIOWidgets)
+target_link_libraries(kcm_kget_bittorrentfactory KF6::ConfigGui KF6::ConfigWidgets KF6::I18n KF6::KIOCore KF6::KIOWidgets)

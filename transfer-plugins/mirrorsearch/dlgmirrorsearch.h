@@ -40,7 +40,7 @@ class DlgSettingsWidget : public KCModule
     Q_OBJECT
 
 public:
-    explicit DlgSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
+    explicit DlgSettingsWidget(QObject *parent = nullptr, const KPluginMetaData &args = {});
     ~DlgSettingsWidget() override;
 
 public Q_SLOTS:

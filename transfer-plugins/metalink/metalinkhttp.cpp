@@ -218,7 +218,7 @@ bool MetalinkHttp::metalinkHttpInit()
         qDebug() << "data source factory being deleted";
         delete dataFactory;
     } else {
-        QHashIterator<QString, QString> itr(m_DigestList);
+        QMultiHashIterator<QString, QString> itr(m_DigestList);
         while (itr.hasNext()) {
             itr.next();
             qDebug() << itr.key() << ":" << itr.value();
@@ -295,7 +295,7 @@ void MetalinkHttp::setDigests()
         const QString digestType = MetalinkHttp::adaptDigestType(digest.left(eqDelimiter).trimmed());
         const QString hexDigestValue = base64ToHex(digest.mid(eqDelimiter + 1).trimmed());
 
-        m_DigestList.insertMulti(digestType, hexDigestValue);
+        m_DigestList.insert(digestType, hexDigestValue);
     }
 }
 

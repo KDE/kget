@@ -4,11 +4,11 @@ target_sources(kget_checksumsearchfactory PRIVATE
   checksumsearch.cpp
   checksumsearchtransferdatasource.cpp
   checksumsearchfactory.cpp
+  kget_checksumsearchfactory.json
   ../../kget_debug.cpp
 )
 
 kconfig_add_kcfg_files(kget_checksumsearchfactory checksumsearchsettings.kcfgc)
-kcoreaddons_desktop_to_json(kget_checksumsearchfactory kget_checksumsearchfactory.desktop)
 target_link_libraries(kget_checksumsearchfactory kgetcore)
 
 install(TARGETS kget_checksumsearchfactory DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})

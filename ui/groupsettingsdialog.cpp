@@ -60,7 +60,7 @@ void GroupSettingsDialog::save()
     m_group->setDownloadLimit(ui.downloadBox->value(), Transfer::VisibleSpeedLimit);
     m_group->setUploadLimit(ui.uploadBox->value(), Transfer::VisibleSpeedLimit);
 
-    QRegExp regExp;
+    QRegularExpression regExp;
     regExp.setPattern(ui.regExpEdit->text());
     m_group->setRegExp(regExp);
 }

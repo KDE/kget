@@ -24,6 +24,7 @@
 
 #include <QFile>
 #include <QFileInfo>
+#include <QRegularExpression>
 
 #include <KLocalizedString>
 
@@ -113,15 +114,16 @@ void ChecksumSearch::parseDownload()
     const int length = Verifier::diggestLength(m_type);
 
     const QString patternChecksum = QString("\\w{%1}").arg(length);
-    QRegExp rxChecksum(patternChecksum);
+    QRegularExpression rxChecksum(patternChecksum);
     QString hash;
 
     // find the correct line
     const QStringList lines = m_data.split('\n');
-    foreach (const QString &line, lines) {
+    for (const QString &line : lines) {
         if (line.contains(m_fileName, Qt::CaseInsensitive)) {
-            if (rxChecksum.indexIn(line) > -1) {
-                hash = rxChecksum.cap(0).toLower();
+            auto match = rxChecksum.match(line);
+            if (match.hasMatch()) {
+                hash = match.captured(0).toLower();
                 if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
                     qCDebug(KGET_DEBUG) << "Found hash: " << hash;
                     Q_EMIT data(m_type, hash);
@@ -131,8 +133,9 @@ void ChecksumSearch::parseDownload()
     }
 
     // nothing found yet, so simply search for a word in the whole data that has the correct length
-    if (hash.isEmpty() && (rxChecksum.indexIn(m_data) > -1)) {
-        QString hash = rxChecksum.cap(0);
+    auto match = rxChecksum.match(m_data);
+    if (hash.isEmpty() && match.hasMatch()) {
+        QString hash = match.captured(0);
         if (!m_fileName.contains(hash, Qt::CaseInsensitive)) {
             qCDebug(KGET_DEBUG) << "Found hash:" << hash;
             Q_EMIT data(m_type, hash);

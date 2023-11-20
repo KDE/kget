@@ -13,13 +13,14 @@
 #include "kget_macro.h"
 
 #include "kget_debug.h"
+#include <qobject.h>
 
 KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)
 
-BTSettingsWidget::BTSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(parent, args)
+BTSettingsWidget::BTSettingsWidget(QObject *parent, const KPluginMetaData &data)
+    : KCModule(parent, data)
 {
-    setupUi(this);
+    setupUi(widget());
 
     connect(portBox, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(changed()));

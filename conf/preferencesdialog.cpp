@@ -59,11 +59,9 @@ PreferencesDialog::PreferencesDialog(QWidget *parent, KConfigSkeleton *skeleton)
     dlgAdv.kcfg_HistoryBackend->addItem(i18n("Sqlite"), QVariant(TransferHistoryStore::SQLite));
 #endif
 
-#ifdef HAVE_KWORKSPACE
     dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Turn Off Computer"), QVariant(KGet::Shutdown));
     dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Hibernate Computer"), QVariant(KGet::Hibernate));
     dlgAdv.kcfg_AfterFinishAction->addItem(i18n("Suspend Computer"), QVariant(KGet::Suspend));
-#endif
 
     // enable or disable the AfterFinishAction depends on the AfterFinishActionEnabled checkbox state
     dlgAdv.kcfg_AfterFinishAction->setEnabled(dlgAdv.kcfg_AfterFinishActionEnabled->checkState() == Qt::Checked);

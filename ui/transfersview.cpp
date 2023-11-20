@@ -18,8 +18,9 @@
 
 #include "kget_debug.h"
 
+#include <KIO/JobUiDelegateFactory>
+#include <KIO/OpenUrlJob>
 #include <KLocalizedString>
-#include <KRun>
 
 #include <QAction>
 #include <QDebug>
@@ -121,7 +122,7 @@ void TransfersView::populateHeaderActions()
     m_headerMenu->addSection(i18n("Select columns"));
 
     auto *columnMapper = new QSignalMapper(this);
-    connect(columnMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &TransfersView::slotHideSection);
+    connect(columnMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mappedInt), this, &TransfersView::slotHideSection);
 
     // Create for each column an action with the column-header as name
     QVector<QAction *> orderedMenuItems(header()->count());
@@ -212,7 +213,9 @@ void TransfersView::slotItemActivated(const QModelIndex &index)
         }
         KGet::actionCollection()->action("transfer_show_details")->setChecked(view_delegate->isExtended(index));
     } else if (!item->isGroup() && static_cast<TransferModelItem *>(item)->transferHandler()->status() == Job::Finished) {
-        new KRun(static_cast<TransferModelItem *>(item)->transferHandler()->dest(), this);
+        auto job = new KIO::OpenUrlJob(static_cast<TransferModelItem *>(item)->transferHandler()->dest(), this);
+        job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+        job->start();
     }
 }
 

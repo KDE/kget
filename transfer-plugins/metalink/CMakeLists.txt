@@ -9,6 +9,7 @@ target_sources(kget_metalinkfactory PRIVATE
   metalinkxml.cpp
   metalinkhttp.cpp
   fileselectiondlg.cpp
+  kget_metalinkfactory.json
   ../../ui/metalinkcreator/metalinker.cpp
   ../../kget_debug.cpp
 )
@@ -18,7 +19,6 @@ ki18n_wrap_ui(kget_metalinkfactory
 )
 
 kconfig_add_kcfg_files(kget_metalinkfactory metalinksettings.kcfgc)
-kcoreaddons_desktop_to_json(kget_metalinkfactory kget_metalinkfactory.desktop)
 target_link_libraries(kget_metalinkfactory kgetcore)
 
 install(TARGETS kget_metalinkfactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
@@ -37,4 +37,4 @@ dlgmetalink.ui
 )
 
 kconfig_add_kcfg_files(kcm_kget_metalinkfactory metalinksettings.kcfgc)
-target_link_libraries(kcm_kget_metalinkfactory KF5::I18n KF5::ConfigGui KF5::CoreAddons KF5::ConfigWidgets)
+target_link_libraries(kcm_kget_metalinkfactory KF6::I18n KF6::ConfigGui KF6::CoreAddons KF6::ConfigWidgets KF6::KCMUtils)

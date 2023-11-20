@@ -20,25 +20,25 @@
 #include "kget_debug.h"
 
 #include <QDateTime>
+#include <QDebug>
+#include <QDialogButtonBox>
 #include <QFile>
 #include <QFileSystemWatcher>
+#include <QFontDatabase>
 #include <QFontMetrics>
+#include <QIcon>
 #include <QMenu>
 #include <QModelIndex>
 #include <QProgressBar>
+#include <QPushButton>
 #include <QStandardItem>
+#include <QStandardPaths>
 #include <QVariant>
 
-#include <QDebug>
-
+#include <KIO/JobUiDelegateFactory>
+#include <KIO/OpenUrlJob>
 #include <KLocalizedString>
-#include <KRun>
 #include <KTreeWidgetSearchLine>
-#include <QDialogButtonBox>
-#include <QFontDatabase>
-#include <QIcon>
-#include <QPushButton>
-#include <QStandardPaths>
 #include <kio/global.h>
 
 TransferHistory::TransferHistory(QWidget *parent)
@@ -194,7 +194,9 @@ void TransferHistory::slotOpenFile(const QModelIndex &index)
 
     // qDebug() << "Try to open the file : " << file;
     if (!file.isEmpty()) {
-        new KRun(QUrl::fromLocalFile(file), this, true);
+        auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(file), this);
+        job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+        job->start();
     }
 }
 

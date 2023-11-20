@@ -101,7 +101,7 @@ bool Transfer::setDirectory(const QUrl &newDirectory)
 int Transfer::elapsedTime() const
 {
     if (status() == Job::Running)
-        return m_runningTime.elapsed() / 1000;
+        return m_runningTime.elapsed() / 1000 + m_runningSeconds;
 
     return m_runningSeconds;
 }
@@ -221,7 +221,7 @@ void Transfer::save(const QDomElement &element)
     e.setAttribute("UploadedSize", m_uploadedSize);
     e.setAttribute("DownloadLimit", m_visibleDownloadLimit);
     e.setAttribute("UploadLimit", m_visibleUploadLimit);
-    e.setAttribute("ElapsedTime", status() == Job::Running ? m_runningTime.elapsed() / 1000 : m_runningSeconds);
+    e.setAttribute("ElapsedTime", status() == Job::Running ? m_runningTime.elapsed() / 1000 + m_runningSeconds : m_runningSeconds);
     e.setAttribute("Policy", policy() == Job::Start ? "Start" : (policy() == Job::Stop ? "Stop" : "None"));
 }
 
@@ -286,10 +286,9 @@ void Transfer::setStatus(Job::Status jobStatus, const QString &text, const QStri
 
     if (jobStatus == Job::Running && status() != Job::Running) {
         m_runningTime.restart();
-        m_runningTime.addSecs(m_runningSeconds);
     }
     if (jobStatus != Job::Running && status() == Job::Running)
-        m_runningSeconds = m_runningTime.elapsed() / 1000;
+        m_runningSeconds = m_runningTime.elapsed() / 1000 + m_runningSeconds;
     /**
      * It's important to call job::setStatus AFTER having changed the
      * icon or the text or whatever.

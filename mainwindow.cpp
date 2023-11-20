@@ -41,11 +41,12 @@
 #include <QDebug>
 
 #include <KActionMenu>
+#include <KIO/JobUiDelegateFactory>
+#include <KIO/OpenUrlJob>
 #include <KIconDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNotifyConfigWidget>
-#include <KRun>
 #include <KSelectAction>
 #include <KStandardAction>
 #include <kwidgetsaddons_version.h>
@@ -146,21 +147,21 @@ void MainWindow::setupActions()
     newDownloadAction->setText(i18n("&New Download..."));
     newDownloadAction->setIcon(QIcon::fromTheme("document-new"));
     // newDownloadAction->setHelpText(i18n("Opens a dialog to add a transfer to the list"));
-    actionCollection()->setDefaultShortcut(newDownloadAction, QKeySequence(Qt::CTRL + Qt::Key_N));
+    actionCollection()->setDefaultShortcut(newDownloadAction, QKeySequence(Qt::CTRL | Qt::Key_N));
     connect(newDownloadAction, &QAction::triggered, this, &MainWindow::slotNewTransfer);
 
     QAction *openAction = actionCollection()->addAction("import_transfers");
     openAction->setText(i18n("&Import Transfers..."));
     openAction->setIcon(QIcon::fromTheme("document-open"));
     // openAction->setHelpText(i18n("Imports a list of transfers"));
-    actionCollection()->setDefaultShortcut(openAction, QKeySequence(Qt::CTRL + Qt::Key_I));
+    actionCollection()->setDefaultShortcut(openAction, QKeySequence(Qt::CTRL | Qt::Key_I));
     connect(openAction, &QAction::triggered, this, &MainWindow::slotImportTransfers);
 
     QAction *exportAction = actionCollection()->addAction("export_transfers");
     exportAction->setText(i18n("&Export Transfers List..."));
     exportAction->setIcon(QIcon::fromTheme("document-export"));
     // exportAction->setHelpText(i18n("Exports the current transfers into a file"));
-    actionCollection()->setDefaultShortcut(exportAction, QKeySequence(Qt::CTRL + Qt::Key_E));
+    actionCollection()->setDefaultShortcut(exportAction, QKeySequence(Qt::CTRL | Qt::Key_E));
     connect(exportAction, &QAction::triggered, this, &MainWindow::slotExportTransfers);
 
     QAction *createMetalinkAction = actionCollection()->addAction("create_metalink");
@@ -173,28 +174,28 @@ void MainWindow::setupActions()
     priorityTop->setText(i18n("Top Priority"));
     priorityTop->setIcon(QIcon::fromTheme("arrow-up-double"));
     // priorityTop->setHelpText(i18n("Download selected transfer first"));
-    actionCollection()->setDefaultShortcut(priorityTop, QKeySequence(Qt::CTRL + Qt::Key_PageUp));
+    actionCollection()->setDefaultShortcut(priorityTop, QKeySequence(Qt::CTRL | Qt::Key_PageUp));
     connect(priorityTop, &QAction::triggered, this, &MainWindow::slotPriorityTop);
 
     QAction *priorityBottom = actionCollection()->addAction("priority_bottom");
     priorityBottom->setText(i18n("Least Priority"));
     priorityBottom->setIcon(QIcon::fromTheme("arrow-down-double"));
     // priorityBottom->setHelpText(i18n("Download selected transfer last"));
-    actionCollection()->setDefaultShortcut(priorityBottom, QKeySequence(Qt::CTRL + Qt::Key_PageDown));
+    actionCollection()->setDefaultShortcut(priorityBottom, QKeySequence(Qt::CTRL | Qt::Key_PageDown));
     connect(priorityBottom, &QAction::triggered, this, &MainWindow::slotPriorityBottom);
 
     QAction *priorityUp = actionCollection()->addAction("priority_up");
     priorityUp->setText(i18n("Increase Priority"));
     priorityUp->setIcon(QIcon::fromTheme("arrow-up"));
     // priorityUp->setHelpText(i18n("Increase priority for selected transfer"));
-    actionCollection()->setDefaultShortcut(priorityUp, QKeySequence(Qt::CTRL + Qt::Key_Up));
+    actionCollection()->setDefaultShortcut(priorityUp, QKeySequence(Qt::CTRL | Qt::Key_Up));
     connect(priorityUp, &QAction::triggered, this, &MainWindow::slotPriorityUp);
 
     QAction *priorityDown = actionCollection()->addAction("priority_down");
     priorityDown->setText(i18n("Decrease Priority"));
     priorityDown->setIcon(QIcon::fromTheme("arrow-down"));
     // priorityDown->setHelpText(i18n("Decrease priority for selected transfer"));
-    actionCollection()->setDefaultShortcut(priorityDown, QKeySequence(Qt::CTRL + Qt::Key_Down));
+    actionCollection()->setDefaultShortcut(priorityDown, QKeySequence(Qt::CTRL | Qt::Key_Down));
     connect(priorityDown, &QAction::triggered, this, &MainWindow::slotPriorityDown);
 
     // FIXME: Not needed maybe because the normal delete already deletes groups?
@@ -362,7 +363,6 @@ void MainWindow::setupActions()
     connect(quitAction, &QAction::triggered, this, &MainWindow::slotDownloadFinishedActions);
     downloadFinishedActions->addAction(quitAction);
 
-#ifdef HAVE_KWORKSPACE
     QAction *shutdownAction = downloadFinishedActions->addAction(i18n("Turn Off Computer"));
     shutdownAction->setData(KGet::Shutdown);
     connect(shutdownAction, &QAction::triggered, this, &MainWindow::slotDownloadFinishedActions);
@@ -377,7 +377,6 @@ void MainWindow::setupActions()
     suspendAction->setData(KGet::Suspend);
     connect(suspendAction, &QAction::triggered, this, &MainWindow::slotDownloadFinishedActions);
     downloadFinishedActions->addAction(suspendAction);
-#endif
 
     if (Settings::afterFinishActionEnabled()) {
         downloadFinishedActions->setCurrentItem(Settings::afterFinishAction() + 1);
@@ -940,7 +939,9 @@ void MainWindow::slotTransfersOpenDest()
     foreach (TransferHandler *it, KGet::selectedTransfers()) {
         QString directory = it->dest().adjusted(QUrl::RemoveFilename).toString();
         if (!openedDirs.contains(directory)) {
-            new KRun(QUrl(directory), this);
+            auto job = new KIO::OpenUrlJob(QUrl(directory), this);
+            job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+            job->start();
             openedDirs.append(directory);
         }
     }
@@ -948,8 +949,11 @@ void MainWindow::slotTransfersOpenDest()
 
 void MainWindow::slotTransfersOpenFile()
 {
-    foreach (TransferHandler *it, KGet::selectedTransfers()) {
-        new KRun(it->dest(), this);
+    const auto tranfers = KGet::selectedTransfers();
+    for (TransferHandler *it : tranfers) {
+        auto job = new KIO::OpenUrlJob(it->dest(), this);
+        job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+        job->start();
     }
 }
 
@@ -1076,9 +1080,17 @@ void MainWindow::slotCheckClipboard()
             const QStringList patterns = Settings::autoPastePatterns();
             const Qt::CaseSensitivity cs = (Settings::autoPasteCaseSensitive() ? Qt::CaseSensitive : Qt::CaseInsensitive);
             for (int i = 0; i < types.count(); ++i) {
-                const QRegExp::PatternSyntax syntax = (syntaxes[i] == AutoPasteModel::Wildcard ? QRegExp::Wildcard : QRegExp::RegExp2);
-                QRegExp rx(patterns[i], cs, syntax);
-                if (rx.exactMatch(urlString)) {
+                QRegularExpression regex;
+                if (syntaxes[i] == AutoPasteModel::Wildcard) {
+                    regex = QRegularExpression::fromWildcard(patterns[i]);
+                } else {
+                    regex = QRegularExpression(patterns[i]);
+                }
+                if (!Settings::autoPasteCaseSensitive()) {
+                    regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+                }
+                QRegularExpression rx(QRegularExpression::anchoredPattern(patterns[i]));
+                if (rx.match(urlString).hasMatch()) {
                     add = (types[i] == AutoPasteModel::Include);
                     break;
                 }
@@ -1095,8 +1107,7 @@ void MainWindow::slotTrayKonquerorIntegration(bool enable)
 {
     slotKonquerorIntegration(enable);
     if (!enable && Settings::konquerorIntegration()) {
-        KGet::showNotification(this,
-                               "notification",
+        KGet::showNotification("notification",
                                i18n("KGet has been temporarily disabled as download manager for Konqueror. "
                                     "If you want to disable it forever, go to Settings->Advanced and disable \"Use "
                                     "as download manager for Konqueror\"."),

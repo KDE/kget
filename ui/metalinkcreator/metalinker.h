@@ -230,9 +230,9 @@ public:
 
     void clear();
 
-    QHash<QString, QString> hashes;
+    QMultiHash<QString, QString> hashes;
     QList<Pieces> pieces;
-    QHash<QString, QString> signatures;
+    QMultiHash<QString, QString> signatures;
 };
 
 class File

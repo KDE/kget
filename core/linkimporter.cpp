@@ -17,11 +17,12 @@
 #include <QFile>
 #include <QIODevice>
 #include <QMap>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTextStream>
 
 #include <KIO/CopyJob>
 #include <KLocalizedString>
+#include <qregularexpression.h>
 
 // static QString REGULAR_EXPRESSION = "(((https?|ftp|gopher)://|(mailto|file|news):)[^’ <>\"]+|(www|web|w3).[-a-z0-9.]+)[^’ .,;<>\":]";
 //  static QString REGULAR_EXPRESSION = "((http|https|ftp|ftps)+([\\:\\w\\d:#@%/;$()~_?\\+-=\\\\.&])*)";
@@ -56,16 +57,17 @@ LinkImporter::~LinkImporter()
 
 void LinkImporter::checkClipboard(const QString &clipboardContent)
 {
-    QRegExp rx(REGULAR_EXPRESSION);
+    static QRegularExpression rx(REGULAR_EXPRESSION);
 
-    int regexPos = 0;
+    int regexPos = 1;
 
-    while ((regexPos = rx.indexIn(clipboardContent, regexPos)) > -1) {
-        QString link = rx.capturedTexts()[0];
+    QRegularExpressionMatch match = rx.match(clipboardContent);
 
+    auto link = match.captured(regexPos);
+    while (!link.isEmpty()) {
         addTransfer(link);
-
-        regexPos += rx.matchedLength();
+        regexPos++;
+        link = match.captured(regexPos);
     }
 }
 
@@ -94,7 +96,7 @@ void LinkImporter::copyRemoteFile()
 
 void LinkImporter::slotReadFile(const QUrl &url)
 {
-    QRegExp rx(REGULAR_EXPRESSION);
+    static QRegularExpression rx(REGULAR_EXPRESSION);
     QFile file(url.toLocalFile());
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -109,15 +111,19 @@ void LinkImporter::slotReadFile(const QUrl &url)
         int regexPos = 0;
         quint64 lastPosition = position;
 
-        while ((regexPos = rx.indexIn(line, regexPos)) > -1) {
-            QString link = rx.capturedTexts()[0];
+        auto match = rx.match(line);
+
+        while (match.hasMatch()) {
+            QString link = match.captured(0);
 
             addTransfer(link);
 
-            regexPos += rx.matchedLength();
+            regexPos += match.capturedLength(0);
             position = lastPosition + regexPos;
 
             Q_EMIT progress(position * 100 / size);
+
+            match = rx.match(line, regexPos);
         }
 
         position += line.size();

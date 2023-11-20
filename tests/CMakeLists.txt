@@ -21,7 +21,7 @@ if(BUILD_TESTING)
     # TODO enable it in ctest once it's fixed to not popup a "first run" messagebox on first start.
     # This probably needs a --testmode command-line argument (and QStandardPaths::setTestModeEnabled(true) on both sides)
     #ecm_mark_as_test(kget_test_transfers)
-    target_link_libraries(kget_test_transfers Qt::Test KF5::KIOCore kgetcore)
+    target_link_libraries(kget_test_transfers Qt::Test KF6::KIOCore kgetcore)
 
 
     #===========Verifier===========
@@ -49,8 +49,8 @@ if(BUILD_TESTING)
             ../kget_debug.cpp
         LINK_LIBRARIES
             Qt::Xml
-            KF5::I18n
-            KF5::KIOCore
+            KF6::I18n
+            KF6::KIOCore
             Qt::Test
         TEST_NAME metalinktest
     )
@@ -60,7 +60,7 @@ if(BUILD_TESTING)
             filedeletertest.cpp
             ../core/filedeleter.cpp
         LINK_LIBRARIES
-            KF5::KIOCore
+            KF6::KIOCore
             Qt::Test
         TEST_NAME filedeletertest
     )

@@ -23,10 +23,10 @@
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgMmsSettings)
 
-DlgMmsSettings::DlgMmsSettings(QWidget *parent, const QVariantList &args)
-    : KCModule(parent, args)
+DlgMmsSettings::DlgMmsSettings(QObject *parent, const KPluginMetaData &data)
+    : KCModule(parent, data)
 {
-    ui.setupUi(this);
+    ui.setupUi(widget());
     connect(ui.numThreadSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
 }
 

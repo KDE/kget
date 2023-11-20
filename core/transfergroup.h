@@ -12,10 +12,9 @@
 #ifndef GROUP_H
 #define GROUP_H
 
-#include <QIcon>
-#include <QRegExp>
-
 #include <QDebug>
+#include <QIcon>
+#include <QRegularExpression>
 
 #include "jobqueue.h"
 #include "kget_export.h"
@@ -233,7 +232,7 @@ public:
      * Sets the regular expression of the group
      * @param regExp the regular expression
      */
-    void setRegExp(const QRegExp &regExp)
+    void setRegExp(const QRegularExpression &regExp)
     {
         m_regExp = regExp;
     }
@@ -241,7 +240,7 @@ public:
     /**
      * @returns the regular expression of the group
      */
-    QRegExp regExp()
+    QRegularExpression regExp()
     {
         return m_regExp;
     }
@@ -365,7 +364,7 @@ private:
     int m_visibleUploadLimit;
     QString m_iconName;
     QString m_defaultFolder;
-    QRegExp m_regExp;
+    QRegularExpression m_regExp;
 };
 
 #endif

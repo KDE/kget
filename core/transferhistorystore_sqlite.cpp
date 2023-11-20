@@ -21,6 +21,8 @@
 #include "kget_debug.h"
 #include <QDebug>
 
+using namespace Qt::Literals::StringLiterals;
+
 SQLiteStore::SQLiteStore(const QString &database)
     : TransferHistoryStore()
     , m_dbName(database)
@@ -45,7 +47,8 @@ void SQLiteStore::load()
             createTables();
         }
 
-        QSqlQuery query = sql().exec("SELECT * FROM transfer_history_item");
+        QSqlQuery query(u"SELECT * FROM transfer_history_item"_s, sql());
+        query.exec();
 
         if (query.lastError().isValid()) {
             qCDebug(KGET_DEBUG) << query.lastError().text();

@@ -20,6 +20,7 @@
 #ifndef DLGMMSTHREAD_H
 #define DLGMMSTHREAD_H
 #include <KCModule>
+#include <qobject.h>
 
 #include "ui_dlgmms.h"
 
@@ -27,7 +28,7 @@ class DlgMmsSettings : public KCModule
 {
     Q_OBJECT
 public:
-    explicit DlgMmsSettings(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
+    explicit DlgMmsSettings(QObject *parent = nullptr, const KPluginMetaData &data = {});
 
 public Q_SLOTS:
     void save() override;

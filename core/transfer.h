@@ -15,7 +15,7 @@
 #include "job.h"
 #include "kget_export.h"
 
-#include <QTime>
+#include <QElapsedTimer>
 #include <QUrl>
 
 #include <KIO/Global>
@@ -307,11 +307,6 @@ public:
     const QStringList log() const;
 
     /**
-     * Defines the order between transfers
-     */
-    bool operator<(const Transfer &t2) const;
-
-    /**
      * The owner group
      */
     TransferGroup *group() const
@@ -447,7 +442,7 @@ private:
 
     QString m_statusText;
     QString m_statusIconName;
-    QTime m_runningTime;
+    QElapsedTimer m_runningTime;
 
     TransferHandler *m_handler;
     TransferFactory *m_factory;

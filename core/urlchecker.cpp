@@ -158,7 +158,7 @@ UrlChecker::UrlError UrlChecker::checkSource(const QUrl &src, bool showNotificat
 
     if (showNotification && (error != NoError)) {
         qCDebug(KGET_DEBUG) << "Source:" << src << "has error:" << error;
-        KGet::showNotification(KGet::m_mainWindow, "error", message(src, Source, error));
+        KGet::showNotification("error", message(src, Source, error));
     }
 
     // TODO also check sourceUrl.url() != QUrl(sourceUrl.url()).fileName() as in NewTransferDialog::setSource?
@@ -190,7 +190,7 @@ UrlChecker::UrlError UrlChecker::checkDestination(const QUrl &destination, bool 
     qCDebug(KGET_DEBUG) << "Destination:" << destination << "has error:" << error;
 
     if (showNotification && (error != NoError)) {
-        KGet::showNotification(KGet::m_mainWindow, "error", message(destination, Destination, error));
+        KGet::showNotification("error", message(destination, Destination, error));
     }
 
     return error;
@@ -220,7 +220,7 @@ UrlChecker::UrlError UrlChecker::checkFolder(const QUrl &folder, bool showNotifi
 
     if (showNotification && (error != NoError)) {
         qCDebug(KGET_DEBUG) << "Folder:" << folder << "has error:" << error;
-        KGet::showNotification(KGet::m_mainWindow, "error", message(folder, Folder, error));
+        KGet::showNotification("error", message(folder, Folder, error));
     }
 
     return error;
@@ -816,7 +816,7 @@ void UrlChecker::displayErrorMessages()
         }
 
         if (!m.isEmpty()) {
-            KGet::showNotification(KGet::m_mainWindow, "error", m);
+            KGet::showNotification("error", m);
         }
     }
 }

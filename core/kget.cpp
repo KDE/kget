@@ -27,6 +27,7 @@
 #include "core/transfertreemodel.h"
 #include "core/transfertreeselectionmodel.h"
 #include "mainwindow.h"
+#include "plasmashudown_interface.h"
 #include "settings.h"
 
 #include "kget_debug.h"
@@ -45,6 +46,8 @@
 #include <QAbstractItemView>
 #include <QApplication>
 #include <QClipboard>
+#include <QDBusConnection>
+#include <QDBusMessage>
 #include <QDomElement>
 #include <QFileDialog>
 #include <QInputDialog>
@@ -54,12 +57,7 @@
 #include <QTextStream>
 #include <QTimer>
 
-#ifdef HAVE_KWORKSPACE
-#include <QDBusConnection>
-#include <QDBusMessage>
-#include <QDBusPendingCall>
-#include <kworkspace.h>
-#endif
+using namespace Qt::Literals::StringLiterals;
 
 KGet::TransferData::TransferData(const QUrl &source, const QUrl &destination, const QString &group, bool doStart, const QDomElement *element)
     : src(source)
@@ -262,10 +260,9 @@ TransferHandler *KGet::addTransfer(QUrl srcUrl,
     TransferHandler *transfer = createTransfer(srcUrl, destUrl, groupName, start);
     if (transfer) {
         KGet::showNotification(
-            m_mainWindow,
-            "added",
+            u"added"_s,
             i18n("<p>The following transfer has been added to the download list:</p><p style=\"font-size: small;\">%1</p>", transfer->source().toString()),
-            "kget",
+            u"kget"_s,
             i18n("Download added"));
     }
 
@@ -359,7 +356,7 @@ const QList<TransferHandler *> KGet::addTransfer(QList<QUrl> srcUrls, QString de
             message = i18n("<p>The following transfers have been added to the download list:</p>");
         }
         const QString content = QString("<p style=\"font-size: small;\">%1</p>").arg(urls);
-        KGet::showNotification(m_mainWindow, "added", message + content, "kget", i18n("Download added"));
+        KGet::showNotification("added", message + content, "kget", i18n("Download added"));
     }
 
     return transfers;
@@ -599,7 +596,7 @@ void KGet::save(QString filename, bool plain) // krazy:exclude=passbyvalue
     QSaveFile file(filename);
     if (!file.open(QIODevice::WriteOnly)) {
         // qCWarning(KGET_DEBUG)<<"Unable to open output file when saving";
-        KGet::showNotification(m_mainWindow, "error", i18n("Unable to save to: %1", filename));
+        KGet::showNotification("error", i18n("Unable to save to: %1", filename));
         return;
     }
 
@@ -751,17 +748,15 @@ QList<TransferGroupHandler *> KGet::groupsFromExceptions(const QUrl &filename)
 
 bool KGet::matchesExceptions(const QUrl &sourceUrl, const QStringList &patterns)
 {
-    foreach (const QString &pattern, patterns) {
+    for (const QString &pattern : patterns) {
         const QString trimmedPattern = pattern.trimmed();
         if (trimmedPattern.isEmpty()) {
             continue;
         }
-        QRegExp regExp = QRegExp(trimmedPattern);
+        QRegularExpression regExp(trimmedPattern, QRegularExpression::CaseInsensitiveOption);
 
         // try with Regular Expression first
-        regExp.setPatternSyntax(QRegExp::RegExp2);
-        regExp.setCaseSensitivity(Qt::CaseInsensitive);
-        if (regExp.exactMatch(sourceUrl.url())) {
+        if (regExp.match(sourceUrl.url(), 0, QRegularExpression::PartialPreferCompleteMatch).hasMatch()) {
             return true;
         }
 
@@ -770,10 +765,10 @@ bool KGet::matchesExceptions(const QUrl &sourceUrl, const QStringList &patterns)
             regExp.setPattern('*' + regExp.pattern());
         }
 
-        regExp.setPatternSyntax(QRegExp::Wildcard);
-        regExp.setCaseSensitivity(Qt::CaseInsensitive);
+        QRegularExpression wildcard = QRegularExpression::fromWildcard(trimmedPattern);
+        wildcard.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
 
-        if (regExp.exactMatch(sourceUrl.url())) {
+        if (wildcard.match(sourceUrl.url(), 0, QRegularExpression::PartialPreferCompleteMatch).hasMatch()) {
             return true;
         }
     }
@@ -906,7 +901,7 @@ QList<TransferHandler *> KGet::createTransfers(const QList<TransferData> &dataIt
         }
         content = QString("<p style=\"font-size: small;\">%1</p>").arg(content);
 
-        KGet::showNotification(m_mainWindow, "error", message + content, "dialog-error", i18n("Protocol unsupported"));
+        KGet::showNotification("error", message + content, "dialog-error", i18n("Protocol unsupported"));
     }
 
     // add the created transfers to the model and start them if specified
@@ -1012,13 +1007,13 @@ bool KGet::isValidSource(const QUrl &source)
 {
     // Check if the URL is well formed
     if (!source.isValid()) {
-        KGet::showNotification(m_mainWindow, "error", i18n("Malformed URL:\n%1", source.toString()));
+        KGet::showNotification("error", i18n("Malformed URL:\n%1", source.toString()));
 
         return false;
     }
     // Check if the URL contains the protocol
     if (source.scheme().isEmpty()) {
-        KGet::showNotification(m_mainWindow, "error", i18n("Malformed URL, protocol missing:\n%1", source.toString()));
+        KGet::showNotification("error", i18n("Malformed URL, protocol missing:\n%1", source.toString()));
 
         return false;
     }
@@ -1189,9 +1184,9 @@ void KGet::loadPlugins()
     // members of this class (why?), such as the m_transferFactories list.
     QList<KGetPlugin *> pluginList;
 
-    const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), "Plugins");
+    const KConfigGroup plugins = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Plugins"));
 
-    for (const KPluginMetaData &md : qAsConst(sortedOffers)) {
+    for (const KPluginMetaData &md : std::as_const(sortedOffers)) {
         m_pluginList.prepend(md);
         if (!plugins.readEntry(md.pluginId() + QLatin1String("Enabled"), md.isEnabledByDefault())) {
             qCDebug(KGET_DEBUG) << "TransferFactory plugin (" << md.fileName() << ") found, but not enabled";
@@ -1229,10 +1224,10 @@ void KGet::setHasNetworkConnection(bool hasConnection)
 
     if (initialState != finalState) {
         if (hasConnection) {
-            KGet::showNotification(m_mainWindow, "notification", i18n("Internet connection established, resuming transfers."), "dialog-info");
+            KGet::showNotification("notification", i18n("Internet connection established, resuming transfers."), "dialog-info");
 
         } else {
-            KGet::showNotification(m_mainWindow, "notification", i18n("No internet connection, stopping transfers."), "dialog-info");
+            KGet::showNotification("notification", i18n("No internet connection, stopping transfers."), "dialog-info");
         }
     }
 }
@@ -1244,10 +1239,7 @@ KGetPlugin *KGet::loadPlugin(const KPluginMetaData &md)
     if (result) {
         return result.plugin;
     } else {
-        KGet::showNotification(m_mainWindow,
-                               "error",
-                               i18n("Plugin loader could not load the plugin %1: %2.", md.fileName(), result.errorString),
-                               "dialog-info");
+        KGet::showNotification(u"error"_s, i18n("Plugin loader could not load the plugin %1: %2.", md.fileName(), result.errorString), "dialog-info");
         qCCritical(KGET_DEBUG) << "KPluginFactory could not load the plugin" << md.fileName() << result.errorText;
         return nullptr;
     }
@@ -1258,7 +1250,7 @@ bool KGet::safeDeleteFile(const QUrl &url)
     if (url.isLocalFile()) {
         QFileInfo info(url.toLocalFile());
         if (info.isDir()) {
-            KGet::showNotification(m_mainWindow, "notification", i18n("Not deleting\n%1\nas it is a directory.", url.toString()), "dialog-info");
+            KGet::showNotification("notification", i18n("Not deleting\n%1\nas it is a directory.", url.toString()), "dialog-info");
             return false;
         }
         KIO::DeleteJob *del = KIO::del(url);
@@ -1267,18 +1259,14 @@ bool KGet::safeDeleteFile(const QUrl &url)
     }
 
     else
-        KGet::showNotification(m_mainWindow, "notification", i18n("Not deleting\n%1\nas it is not a local file.", url.toString()), "dialog-info");
+        KGet::showNotification("notification", i18n("Not deleting\n%1\nas it is not a local file.", url.toString()), "dialog-info");
     return false;
 }
 
-KNotification *KGet::showNotification(QWidget *parent,
-                                      const QString &eventType,
-                                      const QString &text,
-                                      const QString &icon,
-                                      const QString &title,
-                                      const KNotification::NotificationFlags &flags)
+KNotification *
+KGet::showNotification(const QString &eventType, const QString &text, const QString &icon, const QString &title, const KNotification::NotificationFlags &flags)
 {
-    return KNotification::event(eventType, title, text, icon, parent, flags);
+    return KNotification::event(eventType, title, text, icon, flags);
 }
 
 GenericObserver::GenericObserver(QObject *parent)
@@ -1286,13 +1274,8 @@ GenericObserver::GenericObserver(QObject *parent)
     , m_save(nullptr)
     , m_finishAction(nullptr)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QNetworkInformation::load(QNetworkInformation::Feature::Reachability);
     KGet::setHasNetworkConnection(QNetworkInformation::instance()->reachability() == QNetworkInformation::Reachability::Online);
-#else
-    // check if there is a connection
-    KGet::setHasNetworkConnection(m_networkConfig.isOnline());
-#endif
 
     connect(KGet::model(), &TransferTreeModel::groupRemovedEvent, this, &GenericObserver::groupRemovedEvent);
     connect(KGet::model(), SIGNAL(transfersAddedEvent(QList<TransferHandler *>)), SLOT(transfersAddedEvent(QList<TransferHandler *>)));
@@ -1387,33 +1370,30 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler *, Transfer::Ch
         if (transferFlags & Transfer::Tc_Status) {
             if ((transfer->status() == Job::Finished) && (transfer->startStatus() != Job::Finished)) {
                 KGet::showNotification(
-                    KGet::m_mainWindow,
-                    "finished",
+                    u"finished"_s,
                     i18n("<p>The following file has finished downloading:</p><p style=\"font-size: small;\">%1</p>", transfer->dest().fileName()),
-                    "kget",
+                    u"kget"_s,
                     i18n("Download completed"));
             } else if (transfer->status() == Job::Running) {
                 KGet::showNotification(
-                    KGet::m_mainWindow,
-                    "started",
+                    u"started"_s,
                     i18n("<p>The following transfer has been started:</p><p style=\"font-size: small;\">%1</p>", transfer->source().toString()),
-                    "kget",
+                    u"kget"_s,
                     i18n("Download started"));
             } else if (transfer->status() == Job::Aborted && transfer->error().type != Job::AutomaticRetry) {
                 KNotification *notification =
-                    KNotification::event("error",
+                    KNotification::event(u"error"_s,
                                          i18n("Error"),
                                          i18n("<p>There has been an error in the following transfer:</p><p style=\"font-size: small;\">%1</p>"
                                               "<p>The error message is:</p><p style=\"font-size: small;\">%2</p>",
                                               transfer->source().toString(),
                                               transfer->error().text),
                                          transfer->error().iconName,
-                                         KGet::m_mainWindow,
                                          KNotification::CloseOnTimeout);
                 if (transfer->error().type == Job::ManualSolve) {
                     m_notifications.insert(notification, transfer);
-                    notification->setActions(QStringList() << i18n("Resolve"));
-                    connect(notification, &KNotification::action1Activated, this, &GenericObserver::slotResolveTransferError);
+                    auto resolveAction = notification->addAction(i18nc("@action:button", "Resolve"));
+                    connect(resolveAction, &KNotificationAction::activated, this, &GenericObserver::slotResolveTransferError);
                     connect(notification, &KNotification::closed, this, &GenericObserver::slotNotificationClosed);
                 }
             }
@@ -1461,46 +1441,40 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler *, Transfer::Ch
 
         switch (Settings::afterFinishAction()) {
         case KGet::Quit:
-            notification = KGet::showNotification(KGet::m_mainWindow,
-                                                  "notification",
+            notification = KGet::showNotification(u"notification"_s,
                                                   i18n("KGet is now closing, as all downloads have completed."),
                                                   "kget",
                                                   "KGet",
-                                                  KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                                                  KNotification::Persistent | KNotification::CloseWhenWindowActivated);
             break;
-#ifdef HAVE_KWORKSPACE
         case KGet::Shutdown:
-            notification = KGet::showNotification(KGet::m_mainWindow,
-                                                  "notification",
+            notification = KGet::showNotification(u"notification"_s,
                                                   i18n("The computer will now turn off, as all downloads have completed."),
                                                   "system-shutdown",
                                                   i18nc("Shutting down computer", "Shutdown"),
-                                                  KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                                                  KNotification::Persistent | KNotification::CloseWhenWindowActivated);
             break;
         case KGet::Hibernate:
-            notification = KGet::showNotification(KGet::m_mainWindow,
-                                                  "notification",
+            notification = KGet::showNotification(u"notification"_s,
                                                   i18n("The computer will now suspend to disk, as all downloads have completed."),
                                                   "system-suspend-hibernate",
                                                   i18nc("Hibernating computer", "Hibernating"),
-                                                  KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                                                  KNotification::Persistent | KNotification::CloseWhenWindowActivated);
             break;
         case KGet::Suspend:
-            notification = KGet::showNotification(KGet::m_mainWindow,
-                                                  "notification",
+            notification = KGet::showNotification(u"notification"_s,
                                                   i18n("The computer will now suspend to RAM, as all downloads have completed."),
                                                   "system-suspend",
                                                   i18nc("Suspending computer", "Suspending"),
-                                                  KNotification::Persistent | KNotification::CloseWhenWidgetActivated);
+                                                  KNotification::Persistent | KNotification::CloseWhenWindowActivated);
             break;
-#endif
         default:
             break;
         }
 
         if (notification) {
-            notification->setActions(QStringList() << i18nc("abort the proposed action", "Abort"));
-            connect(notification, &KNotification::action1Activated, this, &GenericObserver::slotAbortAfterFinishAction);
+            auto abortAction = notification->addAction(i18nc("abort the proposed action", "Abort"));
+            connect(abortAction, &KNotificationAction::activated, this, &GenericObserver::slotAbortAfterFinishAction);
             connect(m_finishAction, &QTimer::timeout, notification, &KNotification::close);
 
             if (!m_finishAction->isActive()) {
@@ -1508,7 +1482,7 @@ void GenericObserver::transfersChangedEvent(QMap<TransferHandler *, Transfer::Ch
             }
         }
     } else if (allFinished) {
-        KGet::showNotification(KGet::m_mainWindow, "finishedall", i18n("<p>All transfers have been finished.</p>"), "kget", i18n("Downloads completed"));
+        KGet::showNotification(u"finishedall"_s, i18n("<p>All transfers have been finished.</p>"), u"kget"_s, i18n("Downloads completed"));
     }
 }
 
@@ -1531,17 +1505,10 @@ void GenericObserver::slotNotificationClosed()
         m_notifications.remove(notification);
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void GenericObserver::slotNetworkStatusChanged(bool online)
-{
-    KGet::setHasNetworkConnection(online);
-}
-#else
 void GenericObserver::slotNetworkStatusChanged(QNetworkInformation::Reachability reachability)
 {
     KGet::setHasNetworkConnection(reachability == QNetworkInformation::Reachability::Online);
 }
-#endif
 
 void GenericObserver::groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags> groups)
 {
@@ -1598,11 +1565,14 @@ void GenericObserver::slotAfterFinishAction()
         qCDebug(KGET_DEBUG) << "Quit Kget.";
         QTimer::singleShot(0, KGet::m_mainWindow, SLOT(slotQuit()));
         break;
-#ifdef HAVE_KWORKSPACE
-    case KGet::Shutdown:
+    case KGet::Shutdown: {
         QTimer::singleShot(0, KGet::m_mainWindow, SLOT(slotQuit()));
-        KWorkSpace::requestShutDown(KWorkSpace::ShutdownConfirmNo, KWorkSpace::ShutdownTypeHalt, KWorkSpace::ShutdownModeForceNow);
+
+        org::kde::Shutdown plasmaShutdown(QStringLiteral("org.kde.PlasmaShutdown"), QStringLiteral("/org/kde/PlasmaShutdown"), QDBusConnection::sessionBus());
+
+        plasmaShutdown.logoutAndShutdown();
         break;
+    }
     case KGet::Hibernate: {
         QDBusMessage call;
         call = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement"),
@@ -1621,7 +1591,6 @@ void GenericObserver::slotAfterFinishAction()
         QDBusConnection::sessionBus().asyncCall(call);
         break;
     }
-#endif
     default:
         break;
     }

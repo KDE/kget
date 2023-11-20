@@ -21,6 +21,7 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <qobject.h>
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
     : QDialog(parent)
@@ -69,10 +70,10 @@ QString DlgEngineEditing::engineUrl() const
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
-DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(parent, args)
+DlgSettingsWidget::DlgSettingsWidget(QObject *parent, const KPluginMetaData &data)
+    : KCModule(parent, data)
 {
-    ui.setupUi(this);
+    ui.setupUi(widget());
     ui.newEngineBt->setIcon(QIcon::fromTheme("list-add"));
     ui.removeEngineBt->setIcon(QIcon::fromTheme("list-remove"));
 

@@ -171,16 +171,15 @@ bool MetalinkXml::metalinkInit(const QUrl &src, const QByteArray &data)
         if (dataFactory->mirrors().isEmpty()) {
             delete dataFactory;
         } else {
-            dataFactory->verifier()->addChecksums((*it).verification.hashes);
+            dataFactory->verifier()->addChecksums(it->verification.hashes);
 
-            foreach (const KGetMetalink::Pieces &pieces, (*it).verification.pieces) {
-                dataFactory->verifier()->addPartialChecksums(pieces.type, pieces.length, pieces.hashes);
+            const auto pieces = it->verification.pieces;
+            for (const KGetMetalink::Pieces &piece : pieces) {
+                dataFactory->verifier()->addPartialChecksums(piece.type, piece.length, piece.hashes);
             }
 
-            const QHash<QString, QString> signatures = (*it).verification.signatures;
-            QHash<QString, QString>::const_iterator it;
-            QHash<QString, QString>::const_iterator itEnd = signatures.constEnd();
-            for (it = signatures.constBegin(); it != itEnd; ++it) {
+            const auto signatures = it->verification.signatures;
+            for (auto it = signatures.constBegin(), itEnd = signatures.constEnd(); it != itEnd; ++it) {
                 if (it.key().toLower() == "pgp") {
                     dataFactory->signature()->setAsciiDetachedSignature(*it);
                 }
@@ -311,7 +310,7 @@ void MetalinkXml::save(const QDomElement &element)
     QDomElement e = element;
     e.setAttribute("LocalMetalinkLocation", m_localMetalinkLocation.url());
 
-    foreach (DataSourceFactory *factory, m_dataSourceFactory) {
+    for (DataSourceFactory *factory : std::as_const(m_dataSourceFactory)) {
         factory->save(e);
     }
 }

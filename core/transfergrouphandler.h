@@ -168,7 +168,7 @@ public:
      * Sets the regular expression of the group
      * @param regexp the regular expression
      */
-    void setRegExp(const QRegExp &regexp)
+    void setRegExp(const QRegularExpression &regexp)
     {
         m_group->setRegExp(regexp);
     }
@@ -176,7 +176,7 @@ public:
     /**
      * @returns the regular expression of the group
      */
-    QRegExp regExp()
+    QRegularExpression regExp()
     {
         return m_group->regExp();
     }

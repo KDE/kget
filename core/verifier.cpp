@@ -25,6 +25,7 @@
 
 #include <QDomElement>
 #include <QFile>
+#include <QRegularExpression>
 
 #include "kget_debug.h"
 #include <QDebug>
@@ -215,7 +216,7 @@ bool Verifier::isChecksum(const QString &type, const QString &checksum)
     const int length = diggestLength(type);
     const QString pattern = QString("[0-9a-z]{%1}").arg(length);
     // needs correct length and only word characters
-    if (length && (checksum.length() == length) && checksum.toLower().contains(QRegExp(pattern))) {
+    if (length && (checksum.length() == length) && checksum.toLower().contains(QRegularExpression(pattern))) {
         return true;
     }
 
@@ -225,7 +226,7 @@ bool Verifier::isChecksum(const QString &type, const QString &checksum)
 QString Verifier::cleanChecksumType(const QString &type)
 {
     QString hashType = type.toUpper();
-    if (hashType.contains(QRegExp("^SHA\\d+"))) {
+    if (hashType.contains(QRegularExpression("^SHA\\d+"))) {
         hashType.insert(3, '-');
     }
 
@@ -438,7 +439,7 @@ void Verifier::addChecksum(const QString &type, const QString &checksum, int ver
     d->model->addChecksum(type, checksum, verified);
 }
 
-void Verifier::addChecksums(const QHash<QString, QString> &checksums)
+void Verifier::addChecksums(const QMultiHash<QString, QString> &checksums)
 {
     d->model->addChecksums(checksums);
 }

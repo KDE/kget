@@ -61,7 +61,7 @@ public:
      * supported by the verifier
      * @param checksums <type, checksum>
      */
-    void addChecksums(const QHash<QString, QString> &checksums);
+    void addChecksums(const QMultiHash<QString, QString> &checksums);
 
     /**
      * Sets the verificationStatus for type

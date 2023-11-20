@@ -68,7 +68,7 @@ void GroupStatusButton::checkStateSet()
         m_timerId = startTimer(100);
 }
 
-void GroupStatusButton::enterEvent(QEvent *event)
+void GroupStatusButton::enterEvent(QEnterEvent *event)
 {
     Q_UNUSED(event)
     if (!isChecked()) {

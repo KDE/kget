@@ -4,12 +4,12 @@ target_sources(kget_mirrorsearchfactory PRIVATE
   mirrors.cpp
   mirrorsearchtransferdatasource.cpp
   mirrorsearchfactory.cpp
+  kget_mirrorsearchfactory.json
   ../../kget_debug.cpp
 )
 
 kconfig_add_kcfg_files(kget_mirrorsearchfactory mirrorsearchsettings.kcfgc)
 
-kcoreaddons_desktop_to_json(kget_mirrorsearchfactory kget_mirrorsearchfactory.desktop)
 target_link_libraries(kget_mirrorsearchfactory kgetcore)
 
 install(TARGETS kget_mirrorsearchfactory DESTINATION  ${KGET_PLUGIN_INSTALL_DIR})
@@ -29,4 +29,4 @@ ki18n_wrap_ui(kcm_kget_mirrorsearchfactory
 )
 
 kconfig_add_kcfg_files(kcm_kget_mirrorsearchfactory mirrorsearchsettings.kcfgc)
-target_link_libraries(kcm_kget_mirrorsearchfactory KF5::ConfigWidgets KF5::CoreAddons KF5::I18n KF5::WidgetsAddons)
+target_link_libraries(kcm_kget_mirrorsearchfactory KF6::ConfigWidgets KF6::CoreAddons KF6::I18n KF6::WidgetsAddons KF6::KCMUtils)

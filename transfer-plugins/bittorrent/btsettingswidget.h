@@ -19,7 +19,7 @@ class BTSettingsWidget : public KCModule, public Ui::BTSettingsWidget
 {
     Q_OBJECT
 public:
-    BTSettingsWidget(QWidget *parent = nullptr, const QVariantList &args = QVariantList());
+    BTSettingsWidget(QObject *parent = nullptr, const KPluginMetaData &args = {});
 
 public Q_SLOTS:
     void load() override;

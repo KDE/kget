@@ -226,7 +226,7 @@ void RangeTreeWidget::removeRow(int row, const QModelIndex &parent)
 
 void RangeTreeWidget::setFilterRegExp(const QString &text)
 {
-    m_proxyModel->setFilterRegExp(text);
+    m_proxyModel->setFilterRegularExpression(text);
 }
 
 QStandardItem *RangeTreeWidget::getRange(const QVariant &data)

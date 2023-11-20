@@ -424,8 +424,8 @@ void KGetMetalink::Verification::save(QDomElement &e) const
 {
     QDomDocument doc = e.ownerDocument();
 
-    QHash<QString, QString>::const_iterator it;
-    QHash<QString, QString>::const_iterator itEnd = hashes.constEnd();
+    QMultiHash<QString, QString>::const_iterator it;
+    QMultiHash<QString, QString>::const_iterator itEnd = hashes.constEnd();
     for (it = hashes.constBegin(); it != itEnd; ++it) {
         QDomElement hash = doc.createElement("hash");
         hash.setAttribute("type", addaptHashType(it.key(), false));
@@ -434,7 +434,7 @@ void KGetMetalink::Verification::save(QDomElement &e) const
         e.appendChild(hash);
     }
 
-    foreach (const Pieces &item, pieces) {
+    for (const Pieces &item : std::as_const(pieces)) {
         item.save(e);
     }
 
@@ -1025,8 +1025,8 @@ void KGetMetalink::Metalink_v3::saveVerification(const KGetMetalink::Verificatio
     QDomDocument doc = e.ownerDocument();
     QDomElement veri = doc.createElement("verification");
 
-    QHash<QString, QString>::const_iterator it;
-    QHash<QString, QString>::const_iterator itEnd = verification.hashes.constEnd();
+    QMultiHash<QString, QString>::const_iterator it;
+    QMultiHash<QString, QString>::const_iterator itEnd = verification.hashes.constEnd();
     for (it = verification.hashes.constBegin(); it != itEnd; ++it) {
         QDomElement elem = doc.createElement("hash");
         elem.setAttribute("type", it.key());
@@ -1036,7 +1036,7 @@ void KGetMetalink::Metalink_v3::saveVerification(const KGetMetalink::Verificatio
         veri.appendChild(elem);
     }
 
-    foreach (const Pieces &pieces, verification.pieces) {
+    for (const Pieces &pieces : std::as_const(verification.pieces)) {
         QDomElement elem = doc.createElement("pieces");
         elem.setAttribute("type", pieces.type);
         elem.setAttribute("length", QString::number(pieces.length));
@@ -1269,13 +1269,14 @@ bool KGetMetalink::MetalinkHttpParser::isMetalinkHttp()
 
 void KGetMetalink::MetalinkHttpParser::parseHeaders(const QString &httpHeader)
 {
-    QString trimedHeader = httpHeader.mid(httpHeader.indexOf('\n') + 1).trimmed();
+    const QString trimedHeader = httpHeader.mid(httpHeader.indexOf('\n') + 1).trimmed();
 
-    foreach (QString line, trimedHeader.split('\n')) {
-        int colon = line.indexOf(':');
-        QString headerName = line.left(colon).trimmed();
-        QString headerValue = line.mid(colon + 1).trimmed();
-        m_headerInfo.insertMulti(headerName, headerValue);
+    const auto lines = trimedHeader.split('\n');
+    for (const QString &line : lines) {
+        const int colon = line.indexOf(':');
+        const QString headerName = line.left(colon).trimmed();
+        const QString headerValue = line.mid(colon + 1).trimmed();
+        m_headerInfo.insert(headerName, headerValue);
     }
 
     m_EtagValue = m_headerInfo.value("ETag");

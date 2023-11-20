@@ -33,9 +33,9 @@
 #include <QTimer>
 
 #include <KColorScheme>
+#include <KLineEditUrlDropEventFilter>
 #include <KLocalizedString>
 #include <KWindowSystem>
-#include <LineEditUrlDropEventFilter>
 #include <QListWidgetItem>
 #include <QStandardPaths>
 
@@ -66,7 +66,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
     m_normalBackground = scheme.background();
 
     // properties of the m_destRequester combobox
-    auto *dropUrlEventFilter = new LineEditUrlDropEventFilter(this);
+    auto *dropUrlEventFilter = new KLineEditUrlDropEventFilter(this);
     dropUrlEventFilter->installEventFilter(ui.destRequester->comboBox());
     ui.destRequester->comboBox()->setDuplicatesEnabled(false);
     ui.destRequester->comboBox()->setEditable(true);
@@ -250,12 +250,6 @@ void NewTransferDialog::setDefaultDestination()
 
 void NewTransferDialog::prepareDialog()
 {
-    if (m_window) {
-        KWindowInfo info(m_window->winId(), NET::WMDesktop);
-        KWindowSystem::setCurrentDesktop(info.desktop());
-        KWindowSystem::forceActiveWindow(m_window->winId());
-    }
-
     qCDebug(KGET_DEBUG) << "Show the dialog!";
     show();
 }
@@ -759,10 +753,6 @@ void NewTransferDialogHandler::handleUrls(const int jobId)
             const QList<TransferGroupHandler *> groups = KGet::groupsFromExceptions(url);
             dialog = factory->createNewTransferDialog(url, suggestedFileName, !groups.isEmpty() ? groups.first() : nullptr);
             if (dialog) {
-                KWindowInfo info(KGet::m_mainWindow->winId(), NET::WMDesktop);
-                KWindowSystem::setCurrentDesktop(info.desktop());
-                KWindowSystem::forceActiveWindow(KGet::m_mainWindow->winId());
-
                 dialog->exec();
                 delete dialog;
             }

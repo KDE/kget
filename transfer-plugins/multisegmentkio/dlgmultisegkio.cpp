@@ -16,10 +16,10 @@
 
 KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
 
-DlgSettingsWidget::DlgSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(parent, args)
+DlgSettingsWidget::DlgSettingsWidget(QObject *parent, const KPluginMetaData &data)
+    : KCModule(parent, data)
 {
-    ui.setupUi(this);
+    ui.setupUi(widget());
 
     connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
     connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(changed()));

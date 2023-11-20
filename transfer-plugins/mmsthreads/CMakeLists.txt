@@ -9,11 +9,11 @@ target_sources(kget_mmsfactory PRIVATE
   mmstransfer.cpp
   mmstransferfactory.cpp
   mmsthread.cpp
+  kget_mmsfactory.json
   ../../kget_debug.cpp
 )
 
 kconfig_add_kcfg_files(kget_mmsfactory mmssettings.kcfgc)
-kcoreaddons_desktop_to_json(kget_mmsfactory kget_mmsfactory.desktop)
 target_link_libraries(kget_mmsfactory kgetcore ${LIBMMS_LIBRARIES})
 
 install(TARGETS kget_mmsfactory DESTINATION ${KGET_PLUGIN_INSTALL_DIR})
@@ -31,4 +31,4 @@ ki18n_wrap_ui(kcm_kget_mmsfactory
   dlgmms.ui
 )
 kconfig_add_kcfg_files(kcm_kget_mmsfactory mmssettings.kcfgc)
-target_link_libraries(kcm_kget_mmsfactory KF5::I18n KF5::ConfigWidgets)
+target_link_libraries(kcm_kget_mmsfactory KF6::I18n KF6::ConfigWidgets)

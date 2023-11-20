@@ -197,10 +197,10 @@ void VerificationModel::addChecksum(const QString &type, const QString &checksum
     endInsertRows();
 }
 
-void VerificationModel::addChecksums(const QHash<QString, QString> &checksums)
+void VerificationModel::addChecksums(const QMultiHash<QString, QString> &checksums)
 {
-    QHash<QString, QString>::const_iterator it;
-    QHash<QString, QString>::const_iterator itEnd = checksums.constEnd();
+    QMultiHash<QString, QString>::const_iterator it;
+    QMultiHash<QString, QString>::const_iterator itEnd = checksums.constEnd();
     for (it = checksums.constBegin(); it != itEnd; ++it) {
         addChecksum(it.key(), it.value());
     }

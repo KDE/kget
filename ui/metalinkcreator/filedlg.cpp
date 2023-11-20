@@ -92,8 +92,8 @@ FileDlg::FileDlg(KGetMetalink::File *file,
 
     // create the verification stuff
     m_verificationModel = new VerificationModel(this);
-    QHash<QString, QString>::const_iterator it;
-    QHash<QString, QString>::const_iterator itEnd = m_file->verification.hashes.constEnd();
+    QMultiHash<QString, QString>::const_iterator it;
+    QMultiHash<QString, QString>::const_iterator itEnd = m_file->verification.hashes.constEnd();
     for (it = m_file->verification.hashes.constBegin(); it != itEnd; ++it) {
         m_verificationModel->addChecksum(it.key(), it.value());
     }

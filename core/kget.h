@@ -353,15 +353,13 @@ public:
 
     /**
      * Shows a knotification
-     * @param parent QWidget parent of the notification
      * @param eventType Notification type
      * @param text Description of the information showed by the notification
      * @param icon Pixmap showed in the notification, by default 'dialog-error'
      * @param title Notification window title
      * @param flags Notification flags
      */
-    static KNotification *showNotification(QWidget *parent,
-                                           const QString &eventType,
+    static KNotification *showNotification(const QString &eventType,
                                            const QString &text,
                                            const QString &icon = QString("dialog-error"),
                                            const QString &title = i18n("KGet"),

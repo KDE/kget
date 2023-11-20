@@ -21,19 +21,20 @@
 #include "ui/newtransferdialog.h"
 
 #include <KMessageBox>
-#include <KPassivePopup>
+#include <KNotification>
 #include <KWindowSystem>
 #include <kwidgetsaddons_version.h>
 
 #include <QBitmap>
 #include <QClipboard>
-#include <QDesktopWidget>
 #include <QGuiApplication>
 #include <QMenu>
 #include <QPainter>
 #include <QStringList>
 #include <QTimer>
 #include <QToolTip>
+
+#include <KX11Extras>
 
 #include <cmath>
 
@@ -47,14 +48,17 @@ DropTarget::DropTarget(MainWindow *mw)
     , animTimer(nullptr)
     , showInformation(false)
 {
-    KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::KeepAbove);
+    KX11Extras::setState(winId(), NET::SkipTaskbar | NET::KeepAbove);
 
-    QRect screenGeo = qApp->desktop()->screenGeometry(Settings::dropPosition());
-    if ((screenGeo.x() + screenGeo.width() >= Settings::dropPosition().x() && screenGeo.y() + screenGeo.height() >= Settings::dropPosition().y())
-        && Settings::dropPosition().y() >= 0 && Settings::dropPosition().x() >= 0)
-        position = QPoint(Settings::dropPosition());
-    else
-        position = QPoint(screenGeo.x() + screenGeo.width() / 2, screenGeo.y() + screenGeo.height() / 2);
+    auto screen = qApp->screenAt(Settings::dropPosition());
+    if (screen) {
+        QRect screenGeo = screen->availableGeometry();
+        if ((screenGeo.x() + screenGeo.width() >= Settings::dropPosition().x() && screenGeo.y() + screenGeo.height() >= Settings::dropPosition().y())
+            && Settings::dropPosition().y() >= 0 && Settings::dropPosition().x() >= 0)
+            position = QPoint(Settings::dropPosition());
+        else
+            position = QPoint(screenGeo.x() + screenGeo.width() / 2, screenGeo.y() + screenGeo.height() / 2);
+    }
     setFixedSize(TARGET_SIZE, TARGET_SIZE);
 
     cachedPixmap = QIcon::fromTheme("kget").pixmap(TARGET_SIZE);
@@ -261,12 +265,12 @@ void DropTarget::mousePressEvent(QMouseEvent *e)
 
     if (e->button() == Qt::LeftButton) {
         isdragging = true;
-        dx = e->globalPos().x() - pos().x();
-        dy = e->globalPos().y() - pos().y();
+        dx = e->globalPosition().x() - pos().x();
+        dy = e->globalPosition().y() - pos().y();
     } else if (e->button() == Qt::RightButton) {
         pop_show->setText(parentWidget->isHidden() ? i18n("Show Main Window") : i18n("Hide Main Window"));
-        popupMenu->popup(e->globalPos());
-    } else if (e->button() == Qt::MidButton) {
+        popupMenu->popup(e->globalPosition().toPoint());
+    } else if (e->button() == Qt::MiddleButton) {
         // Here we paste the transfer
         QString newtransfer = QApplication::clipboard()->text();
         newtransfer = newtransfer.trimmed();
@@ -296,7 +300,7 @@ void DropTarget::mouseMoveEvent(QMouseEvent *e)
     }
 }
 
-void DropTarget::enterEvent(QEvent *event)
+void DropTarget::enterEvent(QEnterEvent *event)
 {
     Q_UNUSED(event)
     popupTimer->start(2000);
@@ -326,7 +330,7 @@ void DropTarget::toggleMinimizeRestore()
     Settings::setShowMain(nextState);
     parentWidget->setVisible(nextState);
     if (nextState) {
-        KWindowSystem::activateWindow(static_cast<KXmlGuiWindow *>(parentWidget)->winId());
+        KWindowSystem::activateWindow(parentWidget->windowHandle());
     }
 }
 
@@ -344,8 +348,9 @@ void DropTarget::slotAnimateShow()
     if (fabs(ani_y) < 0.01 && fabs(ani_vy) < 0.01 && animTimer->isActive()) {
         animTimer->stop();
 
-        if (showInformation)
-            KPassivePopup::message(i18n("Drop Target"), i18n("You can drag download links into the drop target."), this);
+        if (showInformation) {
+            QToolTip::showText({}, i18n("Drop Target") + '\n' + i18n("You can drag download links into the drop target."), this);
+        }
     }
 }
 

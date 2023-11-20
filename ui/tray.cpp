@@ -43,7 +43,7 @@ Tray::Tray(MainWindow *parent)
     setIconByName("kget");
     setTitle(i18n("KGet"));
     setContextMenu(cm);
-    setAssociatedWidget(parent);
+    setAssociatedWindow(parent->windowHandle());
     setToolTipIconByName("kget");
     setToolTipTitle(i18n("Download Manager"));
     // Not of much use atm, but maybe we want to set this later?

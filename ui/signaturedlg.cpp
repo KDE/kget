@@ -257,13 +257,13 @@ void SignatureDlg::updateData()
 
                     time_t creation = subKey.creationTime();
                     QDateTime creationTime;
-                    creationTime.setTime_t(creation);
+                    creationTime.setSecsSinceEpoch(creation);
                     ui.creation->setText(creationTime.toString());
 
                     time_t expiration = subKey.expirationTime();
                     if (expiration) {
                         QDateTime expirationTime;
-                        expirationTime.setTime_t(expiration);
+                        expirationTime.setSecsSinceEpoch(expiration);
                         ui.expiration->setText(expirationTime.toString());
                     } else {
                         ui.expiration->setText(i18n("Unlimited"));

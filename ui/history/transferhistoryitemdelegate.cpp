@@ -18,17 +18,17 @@
 #include <QAction>
 #include <QApplication>
 #include <QDate>
+#include <QDebug>
+#include <QIcon>
 #include <QMenu>
 #include <QModelIndex>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
 
+#include <KIO/JobUiDelegateFactory>
+#include <KIO/OpenUrlJob>
 #include <KLocalizedString>
-#include <KRun>
-#include <QDebug>
-#include <QIcon>
-#include <kio/global.h>
 
 TransferHistoryItemDelegate::TransferHistoryItemDelegate(QWidget *parent)
     : QStyledItemDelegate()
@@ -170,7 +170,9 @@ void TransferHistoryItemDelegate::slotOpenFile()
 {
     const auto *model = static_cast<const QAbstractItemModel *>(m_selectedIndex.model());
 
-    new KRun(QUrl::fromLocalFile(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString()), m_view, true);
+    auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(model->data(m_selectedIndex, TransferHistoryCategorizedDelegate::RoleDest).toString()), m_view);
+    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, m_view));
+    job->start();
 }
 
 void TransferHistoryItemDelegate::slotDownload()

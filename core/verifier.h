@@ -201,7 +201,7 @@ public:
      * @note uses VerificationModel internally
      * @see VerificationModel
      */
-    void addChecksums(const QHash<QString, QString> &checksums);
+    void addChecksums(const QMultiHash<QString, QString> &checksums);
 
     /**
      * Add partial checksums that can be used as repairinformation

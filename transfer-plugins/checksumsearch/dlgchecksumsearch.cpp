@@ -162,10 +162,10 @@ void ChecksumDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionV
     editor->setGeometry(option.rect);
 }
 
-DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QWidget *parent, const QVariantList &args)
-    : KCModule(parent, args)
+DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QObject *parent, const KPluginMetaData &data)
+    : KCModule(parent, data)
 {
-    ui.setupUi(this);
+    ui.setupUi(widget());
 
     m_modes = ChecksumSearch::urlChangeModes();
     m_modesModel = new QStringListModel(m_modes, this);
@@ -204,7 +204,7 @@ DlgChecksumSettingsWidget::~DlgChecksumSettingsWidget()
 
 void DlgChecksumSettingsWidget::slotAdd()
 {
-    auto *dialog = new ChecksumSearchAddDlg(m_modesModel, m_typesModel, this);
+    auto *dialog = new ChecksumSearchAddDlg(m_modesModel, m_typesModel, widget());
     connect(dialog, &ChecksumSearchAddDlg::addItem, this, &DlgChecksumSettingsWidget::slotAddItem);
 
     dialog->show();

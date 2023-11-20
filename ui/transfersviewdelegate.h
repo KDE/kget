@@ -32,7 +32,7 @@ public:
 
 protected:
     void checkStateSet() override;
-    void enterEvent(QEvent *event) override;
+    void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
     void timerEvent(QTimerEvent *event) override;

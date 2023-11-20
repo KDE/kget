@@ -10,16 +10,17 @@
 #include "transferhistorycategorizedview.h"
 #include "ui/history/transferhistoryitemdelegate.h"
 
-#include <KCategorizedSortFilterProxyModel>
-#include <KCategorizedView>
-#include <KCategoryDrawer>
-#include <QDebug>
-
 #include <QApplication>
+#include <QDate>
+#include <QDebug>
 #include <QGridLayout>
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QVariant>
+
+#include <KCategorizedSortFilterProxyModel>
+#include <KCategorizedView>
+#include <KCategoryDrawer>
 
 TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     : QWidget(parent)
@@ -36,7 +37,7 @@ TransferHistoryCategorizedView::TransferHistoryCategorizedView(QWidget *parent)
     m_drawer = new KCategoryDrawer(m_view);
     m_view->setCategoryDrawer(m_drawer);
     m_view->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_view->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
+    m_view->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
     m_view->setViewMode(QListView::IconMode);
     m_view->setMouseTracking(true);
     m_view->setItemDelegate(item_delegate);
@@ -83,7 +84,7 @@ void TransferHistoryCategorizedView::clear()
 
 void TransferHistoryCategorizedView::setFilterRegExp(const QString &text)
 {
-    m_proxyModel->setFilterRegExp(text);
+    m_proxyModel->setFilterRegularExpression(text);
 }
 
 void TransferHistoryCategorizedView::setCategorizedDelegate(TransferHistoryCategorizedDelegate *delegate)
