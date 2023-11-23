@@ -19,7 +19,6 @@ Dependencies:
     'frameworks/kio': '@stable'
     'frameworks/knotifications': '@stable'
     'frameworks/knotifyconfig': '@stable'
-    'frameworks/kparts': '@stable'
     'frameworks/kservice': '@stable'
     'frameworks/ktextwidgets': '@stable'
     'frameworks/kwallet': '@stable'

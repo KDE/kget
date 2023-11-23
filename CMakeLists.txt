@@ -55,7 +55,6 @@ find_package(KF5 ${KF5_VERSION} REQUIRED
     KIO
     Notifications
     NotifyConfig
-    Parts
     TextWidgets
     Wallet
     WidgetsAddons
