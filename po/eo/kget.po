@@ -1041,7 +1041,7 @@ msgstr "Stato"
 #, kde-format
 msgctxt "size of download"
 msgid "Size"
-msgstr "Grando"
+msgstr "Grandeco"
 
 #: core/transfertreemodel.cpp:631
 #, kde-format
@@ -3029,7 +3029,11 @@ msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr ""
 
 #: ui/droptarget.cpp:408
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
+#| "¦status"
+#| msgid "%1(%2% %3/%4) %5"
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
 "status"
@@ -3127,7 +3131,7 @@ msgstr "Ruliĝas"
 #, kde-format
 msgctxt "The transfer is stopped"
 msgid "Stopped"
-msgstr "Haltita"
+msgstr "Ĉesis"
 
 #: ui/history/transferhistory.cpp:216
 #, kde-format
