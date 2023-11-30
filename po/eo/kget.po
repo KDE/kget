@@ -3029,11 +3029,7 @@ msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr ""
 
 #: ui/droptarget.cpp:408
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
-#| "¦status"
-#| msgid "%1(%2% %3/%4) %5"
+#, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
 "status"
