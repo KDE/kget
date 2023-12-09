@@ -8,20 +8,20 @@
 # pan93412 <pan93412@gmail.com>, 2018, 2019.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2006, 2007, 2008, 2009, 2010.
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2007, 2008.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2023-06-15 04:26+0900\n"
+"PO-Revision-Date: 2023-11-29 17:37+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
-"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: conf/autopastemodel.cpp:174
@@ -48,7 +48,7 @@ msgstr "正則表達式"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "自動刪除超過多久的傳輸歷史："
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -360,22 +360,20 @@ msgstr "讓電腦進入暫停狀態"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "天"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "小時"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "分鐘"
 
 #: conf/preferencesdialog.cpp:75
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
 msgstr "秒"
 
@@ -2613,7 +2611,7 @@ msgstr "儲存到："
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2635,7 +2633,7 @@ msgstr "不限制"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:79
 #, kde-format
 msgid "KiB"
-msgstr "KB"
+msgstr "KiB"
 
 #. i18n: ectx: property (text), widget (QLabel, downloadLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:69
@@ -3222,7 +3220,7 @@ msgstr "開啟檔案(&O)"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:212
 #, kde-format
@@ -3271,27 +3269,27 @@ msgstr "檔案大小"
 #: ui/history/transferhistory.cpp:253
 #, kde-format
 msgid "Less than 1MiB"
-msgstr "小於 1MB"
+msgstr "小於 1MiB"
 
 #: ui/history/transferhistory.cpp:254
 #, kde-format
 msgid "Between 1MiB-10MiB"
-msgstr "在 1MB 與 10MB 之間"
+msgstr "在 1MiB 與 10MiB 之間"
 
 #: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Between 10MiB-100MiB"
-msgstr "在 10MB 與 100MB 之間"
+msgstr "在 10MiB 與 100MiB 之間"
 
 #: ui/history/transferhistory.cpp:256
 #, kde-format
 msgid "Between 100MiB-1GiB"
-msgstr "在 100MB 與 1GB 之間"
+msgstr "在 100MiB 與 1GiB 之間"
 
 #: ui/history/transferhistory.cpp:257
 #, kde-format
 msgid "More than 1GiB"
-msgstr "大於 1GB"
+msgstr "大於 1GiB"
 
 #: ui/history/transferhistory.cpp:260
 #: ui/history/transferhistorycategorizeddelegate.cpp:46
@@ -3379,22 +3377,22 @@ msgstr "上個月"
 #: ui/history/transferhistorycategorizeddelegate.cpp:78
 #, kde-format
 msgid "Under 10MiB"
-msgstr "小於 10 MB"
+msgstr "小於 10 MiB"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:80
 #, kde-format
 msgid "Between 10MiB and 50MiB"
-msgstr "在 10MB 與 50MB 之間"
+msgstr "在 10MiB 與 50MiB 之間"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:83
 #, kde-format
 msgid "Between 50MiB and 100MiB"
-msgstr "在 50MB 與 100MB 之間"
+msgstr "在 50MiB 與 100MiB 之間"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:87
 #, kde-format
 msgid "More than 100MiB"
-msgstr "大於 100 MB"
+msgstr "大於 100 MiB"
 
 #: ui/history/transferhistoryitemdelegate.cpp:41
 #, kde-format
@@ -3991,23 +3989,20 @@ msgid "Unable to load: %1"
 msgstr "無法載入：%1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Metalink 4.0 版檔案 (*.meta4)"
+msgstr "Metalink 4.0 版檔案"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Metalink 4.0 版檔案 (*.meta4)"
+msgstr "Metalink 3.0 版檔案"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Metalink 檔案（*.metalink *.meta4）"
+msgstr "Metalink 檔案（*.metalink *.meta4）"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
