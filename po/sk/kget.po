@@ -6,21 +6,21 @@
 # Jozef Riha <jose1711@gmail.com>, 2006.
 # Richard Fric <Richard.Fric@kdemail.net>, 2006.
 # Michal Sulek <misurel@gmail.com>, 2009, 2010, 2011.
-# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2017.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2017, 2023 Roman Paholík <wizzardsk@gmail.com>
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2021-11-17 12:05+0100\n"
-"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
-"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-12-11 18:02+0100\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: conf/autopastemodel.cpp:174
@@ -359,24 +359,22 @@ msgstr "Uspať počítač"
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Deň(i)"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Hodina(y)"
 
 #: conf/preferencesdialog.cpp:74
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minúta(y)"
 
 #: conf/preferencesdialog.cpp:75
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "sekúnd"
+msgstr "Sekunda(y)"
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format
@@ -740,8 +738,7 @@ msgstr "Stiahnuť znovu?"
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:118
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Stiahnuť znovu"
@@ -750,7 +747,7 @@ msgstr "Stiahnuť znovu"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Preskočiť"
 
 #: core/kget.cpp:1057 core/urlchecker.cpp:426
 #, kde-format
@@ -971,8 +968,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Chýba kľúč na overenie podpisu, chcete ho stiahnuť?"
 
 #: core/signature.cpp:237
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Stiahnuť"
@@ -2666,7 +2662,7 @@ msgstr "Ukladanie do:"
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2951,7 +2947,7 @@ msgstr "Sťahovanie (%1) sa nepodarilo overiť. Chcete ho opraviť?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Opraviť"
 
 #: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
@@ -2969,7 +2965,7 @@ msgstr "Overenie zlyhalo."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorovať"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:221
 #: transfer-plugins/metalink/metalink.cpp:466
@@ -2989,7 +2985,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorovať"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -3283,7 +3279,7 @@ msgstr "&Otvoriť súbor"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:212
 #, kde-format
