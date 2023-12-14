@@ -26,7 +26,6 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kwidgetsaddons_version.h>
 
 #include <QDomElement>
 #include <QGlobalStatic>

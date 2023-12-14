@@ -23,7 +23,6 @@
 #include <KMessageBox>
 #include <KNotification>
 #include <KWindowSystem>
-#include <kwidgetsaddons_version.h>
 
 #include <QBitmap>
 #include <QClipboard>

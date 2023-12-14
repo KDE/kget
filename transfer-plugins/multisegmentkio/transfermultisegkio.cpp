@@ -30,7 +30,6 @@
 #include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kwidgetsaddons_version.h>
 
 #include <QDebug>
 #include <QDomElement>

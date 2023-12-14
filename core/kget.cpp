@@ -41,7 +41,6 @@
 #include <KMessageBox>
 #include <KPluginMetaData>
 #include <KSharedConfig>
-#include <kwidgetsaddons_version.h>
 
 #include <QAbstractItemView>
 #include <QApplication>

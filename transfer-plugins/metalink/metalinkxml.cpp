@@ -33,7 +33,6 @@
 #include <KIO/RenameDialog>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kwidgetsaddons_version.h>
 
 #include <QDialog>
 #include <QDir>

@@ -31,7 +31,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QDialog>
-#include <kwidgetsaddons_version.h>
 
 #include <KConfigGroup>
 #include <QDir>

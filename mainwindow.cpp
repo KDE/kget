@@ -49,7 +49,6 @@
 #include <KNotifyConfigWidget>
 #include <KSelectAction>
 #include <KStandardAction>
-#include <kwidgetsaddons_version.h>
 
 #include <QApplication>
 #include <QClipboard>
