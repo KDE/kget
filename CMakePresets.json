@@ -1,32 +1,54 @@
 {
-    "version": 2,
+    "version": 3,
     "configurePresets": [
+        {
+            "name": "base",
+            "displayName": "base preset",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build-${presetName}",
+            "installDir": "$env{KF6}",
+            "hidden": true,
+            "cacheVariables": {
+                "BUILD_QCH": "ON"
+            }
+        },
+        {
+            "name": "dev-mold",
+            "displayName": "Build as debug + using mold linker",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_SHARED_LINKER_FLAGS": "-fuse-ld=mold"
+            },
+            "inherits": [
+                "base"
+            ]
+        },
         {
             "name": "dev",
             "displayName": "Build as debug",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "asan",
             "displayName": "Build with Asan support.",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-asan",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "ECM_ENABLE_SANITIZERS" : "'address;undefined'",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+                "ECM_ENABLE_SANITIZERS" : "'address;undefined'"
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "dev-clang",
             "displayName": "dev-clang",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-clang",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
@@ -34,52 +56,81 @@
             "environment": {
                 "CXX": "clang++",
                 "CCACHE_DISABLE": "ON"
-            }
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "unity",
             "displayName": "Build with CMake unity support.",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-unity",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-		"CMAKE_UNITY_BUILD": "ON",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+                "USE_UNITY_CMAKE_SUPPORT": "ON"
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "release",
             "displayName": "Build as release mode.",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-release",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
+                "CMAKE_BUILD_TYPE": "Release",
+                "BUILD_TESTING": "OFF"
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "profile",
             "displayName": "profile",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-profile",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            },
+            "inherits": [
+                "base"
+            ]
+        },
+        {
+            "name": "coverage",
+            "displayName": "coverage",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "USE_UNITY_CMAKE_SUPPORT": "OFF",
+                "BUILD_COVERAGE": "ON"
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "clazy",
             "displayName": "clazy",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-clazy",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             },
             "environment": {
                 "CXX": "clazy",
                 "CCACHE_DISABLE": "ON"
-            }
+            },
+            "inherits": [
+                "base"
+            ]
+        },
+        {
+            "name": "pch",
+            "displayName": "pch",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "USE_PRECOMPILED_HEADERS": "ON",
+                "BUILD_COVERAGE": "ON"
+            },
+            "inherits": [
+                "base"
+            ]
         }
-
     ],
     "buildPresets": [
         {
@@ -87,20 +138,32 @@
             "configurePreset": "dev"
         },
         {
-            "name": "release",
-            "configurePreset": "release"
+            "name": "dev-mold",
+            "configurePreset": "dev-mold"
         },
         {
             "name": "dev-clang",
             "configurePreset": "dev-clang"
         },
         {
-            "name": "asan",
-            "configurePreset": "asan"
+            "name": "pch",
+            "configurePreset": "pch"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release"
         },
         {
             "name": "unity",
             "configurePreset": "unity"
+        },
+        {
+            "name": "coverage",
+            "configurePreset": "coverage"
+        },
+        {
+            "name": "asan",
+            "configurePreset": "asan"
         },
         {
             "name": "clazy",
@@ -112,17 +175,29 @@
         }
     ],
     "testPresets": [
-    { 
+    {
       "name": "dev",
       "configurePreset": "dev",
       "output": {"outputOnFailure": true},
       "execution": {"noTestsAction": "error", "stopOnFailure": false}
     },
-    { 
+    {
       "name": "asan",
       "configurePreset": "asan",
       "output": {"outputOnFailure": true},
       "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    },
+    {
+      "name": "unity",
+      "configurePreset": "unity",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    },
+    {
+      "name": "coverage",
+      "configurePreset": "coverage",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
     }
-    ]
+  ]
 }
