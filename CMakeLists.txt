@@ -84,21 +84,23 @@ set_package_properties(SQLite3 PROPERTIES
     PURPOSE "Needed for the SQLite-Backend of the KGet-History"
 )
 
-find_package(Gpgmepp 1.7.0)
-set_package_properties(Gpgmepp PROPERTIES
-    DESCRIPTION "The GpgME++ library"
-    URL "https://www.gnupg.org"
-    TYPE RECOMMENDED
-    PURPOSE "GpgME++ is required to have signature verifying support in KGet."
-)
+if (NOT WIN32)
+    find_package(Gpgmepp 1.7.0)
+    set_package_properties(Gpgmepp PROPERTIES
+        DESCRIPTION "The GpgME++ library"
+        URL "https://www.gnupg.org"
+        TYPE RECOMMENDED
+        PURPOSE "GpgME++ is required to have signature verifying support in KGet."
+    )
 
-find_package(QGpgmeQt6 1.7.0 CONFIG)
-set_package_properties(Gpgmepp PROPERTIES
-    DESCRIPTION "QGpgME Library"
-    URL "https://www.gnupg.org"
-    TYPE OPTIONAL
-    PURPOSE "QGpgME is required to have signature verifying support in KGet."
-)
+    find_package(QGpgmeQt6 1.7.0 CONFIG)
+    set_package_properties(Gpgmepp PROPERTIES
+        DESCRIPTION "QGpgME Library"
+        URL "https://www.gnupg.org"
+        TYPE OPTIONAL
+        PURPOSE "QGpgME is required to have signature verifying support in KGet."
+    )
+endif()
 
 find_package(KTorrent6 23.11.70)
 set_package_properties(KTorrent6 PROPERTIES
@@ -120,7 +122,7 @@ endif()
 
 find_package(Boost REQUIRED)
 
-if(Gpgmepp_FOUND)
+if (Gpgmepp_FOUND AND NOT WIN32)
     find_package(QGpgmeQt6 ${GPGME_REQUIRED_VERSION} CONFIG REQUIRED)
     add_definitions(-DHAVE_QGPGME)
 endif()
