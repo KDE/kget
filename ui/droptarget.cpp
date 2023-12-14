@@ -208,28 +208,16 @@ void DropTarget::dropEvent(QDropEvent *event)
 
     if (!list.isEmpty()) {
         if (list.count() == 1 && list.first().url().endsWith(QLatin1String(".kgt"))) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const int msgBoxResult = KMessageBox::questionTwoActionsCancel(this,
-#else
-            const int msgBoxResult = KMessageBox::questionYesNoCancel(this,
-#endif
                                                                            i18n("The dropped file is a KGet Transfer List"),
                                                                            "KGet",
                                                                            KGuiItem(i18n("&Download"), QIcon::fromTheme("document-save")),
                                                                            KGuiItem(i18n("&Load transfer list"), QIcon::fromTheme("list-add")),
                                                                            KStandardGuiItem::cancel());
 
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             if (msgBoxResult == KMessageBox::PrimaryAction) // Download
-#else
-            if (msgBoxResult == KMessageBox::Yes) // Download
-#endif
                 NewTransferDialogHandler::showNewTransferDialog(list.first());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             else if (msgBoxResult == KMessageBox::SecondaryAction) // Load
-#else
-            else if (msgBoxResult == KMessageBox::No) // Load
-#endif
                 KGet::load(list.first().url());
         } else {
             if (list.count() == 1) {

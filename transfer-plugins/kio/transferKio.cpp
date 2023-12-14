@@ -275,20 +275,8 @@ void TransferKio::slotVerified(bool isVerified)
             text = i18n("The download (%1) could not be verified. Do you want to redownload it?", m_dest.fileName());
             action = KGuiItem(i18nc("@action:button", "Download Again"), QStringLiteral("document-save"));
         }
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-        if (KMessageBox::warningTwoActions(nullptr,
-#else
-        if (KMessageBox::warningYesNo(nullptr,
-#endif
-                                           text,
-                                           i18n("Verification failed."),
-                                           action,
-                                           KGuiItem(i18n("Ignore"), QStringLiteral("dialog-cancel")))
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::warningTwoActions(nullptr, text, i18n("Verification failed."), action, KGuiItem(i18n("Ignore"), QStringLiteral("dialog-cancel")))
             == KMessageBox::PrimaryAction) {
-#else
-            == KMessageBox::Yes) {
-#endif
             repair();
         }
     }
