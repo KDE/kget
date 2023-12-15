@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:32+0000\n"
+"POT-Creation-Date: 2023-12-15 01:36+0000\n"
 "PO-Revision-Date: 2023-08-06 20:58+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -57,7 +57,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "모든 다운로드가 완료되었을 때 실행할 동작:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:88
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:91
 #, kde-format
 msgid "Quit KGet"
 msgstr "KGet 끝내기"
@@ -321,7 +321,7 @@ msgstr "제외"
 msgid "The width of the columns in the history view"
 msgstr "과거 기록 보기의 열 너비"
 
-#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:97
+#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:95
 #, kde-format
 msgid "Plugins"
 msgstr "플러그인"
@@ -336,106 +336,106 @@ msgstr "XML"
 msgid "Sqlite"
 msgstr "SQLite"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:366
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "컴퓨터 끄기"
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "최대 절전 모드로 전환"
 
-#: conf/preferencesdialog.cpp:65 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
 #, kde-format
 msgid "Suspend Computer"
 msgstr "절전 모드로 전환"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Day(s)"
 msgstr "일"
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Hour(s)"
 msgstr "시간"
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Minute(s)"
 msgstr "분"
 
-#: conf/preferencesdialog.cpp:75
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Second(s)"
 msgstr "초"
 
-#: conf/preferencesdialog.cpp:87
+#: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Appearance"
 msgstr "모양"
 
-#: conf/preferencesdialog.cpp:87
+#: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Change appearance settings"
 msgstr "모양 설정 변경"
 
-#: conf/preferencesdialog.cpp:88
+#: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Groups"
 msgstr "그룹"
 
-#: conf/preferencesdialog.cpp:88
+#: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Manage the groups"
 msgstr "그룹 관리"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:89
+#: conf/preferencesdialog.cpp:87
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
 msgstr "네트워크"
 
-#: conf/preferencesdialog.cpp:89
+#: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Network and Downloads"
 msgstr "네트워크와 다운로드"
 
-#: conf/preferencesdialog.cpp:90
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Web Interface"
 msgstr "웹 인터페이스"
 
-#: conf/preferencesdialog.cpp:90
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr "KGet을 네트워크나 인터넷으로 제어합니다"
 
-#: conf/preferencesdialog.cpp:91
+#: conf/preferencesdialog.cpp:89
 #, kde-format
 msgid "Verification"
 msgstr "확인"
 
-#: conf/preferencesdialog.cpp:93 conf/preferencesdialog.cpp:95
+#: conf/preferencesdialog.cpp:91 conf/preferencesdialog.cpp:93
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "통합"
 
-#: conf/preferencesdialog.cpp:96
+#: conf/preferencesdialog.cpp:94
 #, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "고급"
 
-#: conf/preferencesdialog.cpp:96
+#: conf/preferencesdialog.cpp:94
 #, kde-format
 msgid "Advanced Options"
 msgstr "고급 설정"
 
-#: conf/preferencesdialog.cpp:97
+#: conf/preferencesdialog.cpp:95
 #, kde-format
 msgid "Transfer Plugins"
 msgstr "전송 플러그인"
@@ -503,9 +503,9 @@ msgid "Keyservers:"
 msgstr "키 서버:"
 
 #: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1405 transfer-plugins/metalink/metalink.cpp:202
-#: transfer-plugins/metalink/metalinkhttp.cpp:249
-#: transfer-plugins/metalink/metalinkxml.cpp:200
+#: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalinkhttp.cpp:240
+#: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
 #: ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
@@ -573,27 +573,27 @@ msgstr ""
 "사용할 수 있는 키 서버가 없어서 키를 다운로드할 수 없습니다. 설정에서 키 서버"
 "를 더 추가하거나 KGet을 다시 시작한 다음 다운로드를 다시 시도하십시오."
 
-#: core/kget.cpp:120
+#: core/kget.cpp:113
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "%1 그룹을 삭제하시겠습니까?"
 
-#: core/kget.cpp:121
+#: core/kget.cpp:114
 #, kde-format
 msgid "Remove Group"
 msgstr "그룹 삭제"
 
-#: core/kget.cpp:155
+#: core/kget.cpp:140
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "다음 그룹을 삭제하시겠습니까?"
 
-#: core/kget.cpp:157
+#: core/kget.cpp:142
 #, kde-format
 msgid "Remove groups"
 msgstr "그룹 삭제"
 
-#: core/kget.cpp:267
+#: core/kget.cpp:247
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -602,27 +602,27 @@ msgstr ""
 "<p>다운로드 목록에 다음 전송 항목을 추가했습니다:</p><p style=\"font-size: "
 "small;\">%1</p>"
 
-#: core/kget.cpp:269 core/kget.cpp:362
+#: core/kget.cpp:249 core/kget.cpp:342
 #, kde-format
 msgid "Download added"
 msgstr "다운로드 추가됨"
 
-#: core/kget.cpp:357
+#: core/kget.cpp:337
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>다운로드 목록에 다음 전송 항목을 추가했습니다:</p>"
 
-#: core/kget.cpp:359
+#: core/kget.cpp:339
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>다운로드 목록에 다음 전송 항목을 추가했습니다:</p>"
 
-#: core/kget.cpp:521 core/kget.cpp:563
+#: core/kget.cpp:501 core/kget.cpp:543
 #, kde-format
 msgid "My Downloads"
 msgstr "내 다운로드"
 
-#: core/kget.cpp:576
+#: core/kget.cpp:552
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -631,17 +631,17 @@ msgstr ""
 "%1 파일이 이미 존재합니다.\n"
 "덮어쓰시겠습니까?"
 
-#: core/kget.cpp:577
+#: core/kget.cpp:553
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "존재하는 파일을 덮어쓰시겠습니까?"
 
-#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "다음에 저장할 수 없음: %1"
 
-#: core/kget.cpp:899
+#: core/kget.cpp:869
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -652,34 +652,34 @@ msgid_plural ""
 msgstr[0] ""
 "<p>KGet에서 프로토콜을 지원하지 않아서 다음 URL을 다운로드할 수 없습니다:</p>"
 
-#: core/kget.cpp:909
+#: core/kget.cpp:879
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "프로토콜 지원하지 않음"
 
-#: core/kget.cpp:962 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:932 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "새 다운로드"
 
-#: core/kget.cpp:962
+#: core/kget.cpp:932
 #, kde-format
 msgid "Enter URL:"
 msgstr "URL 입력:"
 
-#: core/kget.cpp:982
+#: core/kget.cpp:952
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "디렉터리 선택"
 
-#: core/kget.cpp:1003
+#: core/kget.cpp:973
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:366
+#: core/kget.cpp:985 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -688,7 +688,7 @@ msgstr ""
 "잘못된 URL:\n"
 "%1"
 
-#: core/kget.cpp:1021 core/urlchecker.cpp:368
+#: core/kget.cpp:991 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -697,7 +697,7 @@ msgstr ""
 "잘못된 URL, 프로토콜 없음:\n"
 "%1"
 
-#: core/kget.cpp:1036 core/urlchecker.cpp:424
+#: core/kget.cpp:1002 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -712,28 +712,28 @@ msgstr ""
 "\n"
 "다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1037 core/urlchecker.cpp:639
+#: core/kget.cpp:1003 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1038 core/kget.cpp:1059 core/kget.cpp:1122
-#: transfer-plugins/kio/transferKio.cpp:276
+#: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/metalink/metalink.cpp:121
-#: transfer-plugins/metalink/metalinkxml.cpp:118
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
+#: transfer-plugins/metalink/metalinkxml.cpp:113
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "다시 다운로드"
 
-#: core/kget.cpp:1039 core/kget.cpp:1060 core/kget.cpp:1123
+#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr "건너뛰기"
 
-#: core/kget.cpp:1057 core/urlchecker.cpp:426
+#: core/kget.cpp:1015 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -748,17 +748,17 @@ msgstr ""
 "\n"
 "삭제한 후 다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1058 core/urlchecker.cpp:636
+#: core/kget.cpp:1016 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "삭제한 후 다시 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1084 core/kget.cpp:1089
+#: core/kget.cpp:1038 core/kget.cpp:1043
 #, kde-format
 msgid "Directory is not writable"
 msgstr "디렉터리에 쓸 수 없습니다"
 
-#: core/kget.cpp:1120
+#: core/kget.cpp:1070
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -769,39 +769,39 @@ msgstr ""
 "\n"
 "이전 파일을 삭제하고 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1121 core/urlchecker.cpp:648
+#: core/kget.cpp:1071 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "파일이 이미 다운로드되었습니다. 그래도 다운로드하시겠습니까?"
 
-#: core/kget.cpp:1136
+#: core/kget.cpp:1082
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "같은 파일을 이미 다운로드하고 있음"
 
-#: core/kget.cpp:1142 core/kget.cpp:1144 core/urlchecker.cpp:651
-#: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:487
+#: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
+#: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "파일이 이미 존재함"
 
-#: core/kget.cpp:1232
+#: core/kget.cpp:1178
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "인터넷에 연결되어 전송을 다시 시작합니다."
 
-#: core/kget.cpp:1235
+#: core/kget.cpp:1181
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "인터넷 연결이 끊겨서 전송을 중단합니다."
 
-#: core/kget.cpp:1249
+#: core/kget.cpp:1193
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "플러그인 로더에서 %1 플러그인을 불러올 수 없음: %2."
 
-#: core/kget.cpp:1261
+#: core/kget.cpp:1204
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -812,7 +812,7 @@ msgstr ""
 "이(가) 디렉터리이기 때문에\n"
 "삭제하지 않습니다."
 
-#: core/kget.cpp:1270
+#: core/kget.cpp:1213
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -823,7 +823,7 @@ msgstr ""
 "이(가) 로컬 파일이 아니기 때문에\n"
 "삭제하지 않습니다."
 
-#: core/kget.cpp:1392
+#: core/kget.cpp:1321
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -831,24 +831,24 @@ msgid ""
 msgstr ""
 "<p>다음 파일을 다운로드했습니다:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1394
+#: core/kget.cpp:1323
 #, kde-format
 msgid "Download completed"
 msgstr "다운로드 완료됨"
 
-#: core/kget.cpp:1399
+#: core/kget.cpp:1327
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr "<p>다음 전송을 시작했습니다:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1329
 #, kde-format
 msgid "Download started"
 msgstr "다운로드 시작됨"
 
-#: core/kget.cpp:1406
+#: core/kget.cpp:1334
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -858,67 +858,69 @@ msgstr ""
 "<p>다음 전송에서 오류가 발생했습니다:</p><p style=\"font-size: small;\">%1</"
 "p><p>오류 메시지:</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1415
-#, kde-format
+#: core/kget.cpp:1342
+#, fuzzy, kde-format
+#| msgid "Resolve"
+msgctxt "@action:button"
 msgid "Resolve"
 msgstr "해결"
 
-#: core/kget.cpp:1466
+#: core/kget.cpp:1392
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "모든 다운로드가 완료되었기 때문에 KGet을 종료합니다."
 
-#: core/kget.cpp:1475
+#: core/kget.cpp:1399
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "모든 다운로드가 완료되었기 때문에 컴퓨터를 끕니다."
 
-#: core/kget.cpp:1477
+#: core/kget.cpp:1401
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "컴퓨터 끄기"
 
-#: core/kget.cpp:1483
+#: core/kget.cpp:1406
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "모든 다운로드가 완료되었기 때문에 컴퓨터를 최대 절전 모드로 전환합니다."
 
-#: core/kget.cpp:1485
+#: core/kget.cpp:1408
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "최대 절전 모드로 전환"
 
-#: core/kget.cpp:1491
+#: core/kget.cpp:1413
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "모든 다운로드가 완료되었기 때문에 컴퓨터를 대기 모드로 전환합니다."
 
-#: core/kget.cpp:1493
+#: core/kget.cpp:1415
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "대기 모드로 전환"
 
-#: core/kget.cpp:1502
+#: core/kget.cpp:1423
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "중지"
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1432
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>모든 전송이 완료되었습니다.</p>"
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1432
 #, kde-format
 msgid "Downloads completed"
 msgstr "다운로드 완료됨"
 
-#: core/kget.h:367 main.cpp:101 mainwindow.cpp:95 mainwindow.cpp:531
+#: core/kget.h:365 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -935,29 +937,29 @@ msgstr[0] "KGet에서 파일 %1개 다운로드 중"
 msgid "KGet Transfer"
 msgstr "KGet 전송"
 
-#: core/linkimporter.cpp:91
+#: core/linkimporter.cpp:93
 #, kde-format
 msgid "Error trying to get %1"
 msgstr "%1을(를) 가져오는 중 오류 발생"
 
-#: core/signature.cpp:235
+#: core/signature.cpp:230
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "서명을 검증할 수 있는 키가 없습니다. 그래도 다운로드하시겠습니까?"
 
-#: core/signature.cpp:237
+#: core/signature.cpp:232
 #, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "다운로드"
 
-#: core/signature.cpp:238
+#: core/signature.cpp:233
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
 msgstr "빠진 채로 계속"
 
-#: core/signature.cpp:265
+#: core/signature.cpp:256
 #, kde-format
 msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
@@ -966,7 +968,7 @@ msgstr ""
 "%1의 서명을 확인할 수 없습니다. 더 많은 정보를 보려면 전송 설정을 확인하십시"
 "오."
 
-#: core/signature.cpp:266
+#: core/signature.cpp:257
 #, kde-format
 msgid "Signature not verified"
 msgstr "서명이 인증되지 않음"
@@ -1428,12 +1430,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "검증됨"
 
-#: main.cpp:103
+#: main.cpp:101
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "KDE 고급 다운로드 관리자"
 
-#: main.cpp:105
+#: main.cpp:103
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1446,154 +1448,154 @@ msgstr ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 
-#: main.cpp:109
+#: main.cpp:107
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:111
+#: main.cpp:109
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:111
+#: main.cpp:109
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "관리자, 코어 개발자, 토렌트 플러그인 작성자"
 
-#: main.cpp:112
+#: main.cpp:110
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:112 main.cpp:113 main.cpp:115
+#: main.cpp:110 main.cpp:111 main.cpp:113
 #, kde-format
 msgid "Core Developer"
 msgstr "코어 개발자"
 
-#: main.cpp:113
+#: main.cpp:111
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:114
+#: main.cpp:112
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:114
+#: main.cpp:112
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "코어 개발자, 다중 스레드 플러그인 작성자"
 
-#: main.cpp:115
+#: main.cpp:113
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:116
+#: main.cpp:114
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:116
+#: main.cpp:114
 #, kde-format
 msgid "Developer"
 msgstr "개발자"
 
-#: main.cpp:117
+#: main.cpp:115
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "Aish Raj Dahal"
 
-#: main.cpp:117
+#: main.cpp:115
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "Google Summer of Code 학생"
 
-#: main.cpp:118
+#: main.cpp:116
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodriguez Ortiz"
 
-#: main.cpp:118
+#: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "MMS 플러그인 작성자"
 
-#: main.cpp:119
+#: main.cpp:117
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:119 main.cpp:120 main.cpp:121
+#: main.cpp:117 main.cpp:118 main.cpp:119
 #, kde-format
 msgid "Former Developer"
 msgstr "이전 개발자"
 
-#: main.cpp:120
+#: main.cpp:118
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:121
+#: main.cpp:119
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "BTCore(KTorrent) 개발자"
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "웹 인터페이스 디자인"
 
-#: main.cpp:125
+#: main.cpp:123
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "박신조"
 
-#: main.cpp:125
+#: main.cpp:123
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: main.cpp:132
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "KGet을 떨어트리기 영역으로 시작"
 
-#: main.cpp:133
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "KGet 주 창을 숨기고 시작"
 
-#: main.cpp:134
+#: main.cpp:132
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "KGet 떨어트리기 영역의 애니메이션 없이 시작"
 
-#: main.cpp:136
+#: main.cpp:134
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "유닛 테스트"
 
-#: main.cpp:138
+#: main.cpp:136
 #, kde-format
 msgid "URL(s) to download"
 msgstr "다운로드할 URL"
@@ -1780,7 +1782,7 @@ msgstr "다운로드가 끝난 후 동작"
 msgid "No Action"
 msgstr "동작 없음"
 
-#: mainwindow.cpp:439
+#: mainwindow.cpp:433
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1789,39 +1791,39 @@ msgstr ""
 "KGet을 처음으로 실행했습니다.\n"
 "Konqueror의 다운로드 관리자로 KGet을 사용하시겠습니까?"
 
-#: mainwindow.cpp:441
+#: mainwindow.cpp:435
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror 통합"
 
-#: mainwindow.cpp:442
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Enable"
 msgstr "사용함"
 
-#: mainwindow.cpp:443
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Do Not Enable"
 msgstr "사용하지 않음"
 
-#: mainwindow.cpp:512
+#: mainwindow.cpp:502
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "파일 열기"
 
-#: mainwindow.cpp:514
+#: mainwindow.cpp:504
 #, kde-format
 msgid "All Openable Files"
 msgstr "모든 열 수 있는 파일"
 
-#: mainwindow.cpp:529
+#: mainwindow.cpp:519
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:581
+#: mainwindow.cpp:567
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1830,56 +1832,56 @@ msgstr ""
 "일부 파일이 전송 중입니다.\n"
 "KGet을 닫으시겠습니까?"
 
-#: mainwindow.cpp:583
+#: mainwindow.cpp:569
 #, kde-format
 msgid "Confirm Quit"
 msgstr "종료 확인"
 
-#: mainwindow.cpp:614
+#: mainwindow.cpp:596
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "전송 목록 내보내기"
 
-#: mainwindow.cpp:616
+#: mainwindow.cpp:598
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet 전송 목록"
 
-#: mainwindow.cpp:616
+#: mainwindow.cpp:598
 #, kde-format
 msgid "Text File"
 msgstr "텍스트 파일"
 
-#: mainwindow.cpp:645
+#: mainwindow.cpp:627
 #, kde-format
 msgid "Enter Group Name"
 msgstr "그룹 이름 입력"
 
-#: mainwindow.cpp:645
+#: mainwindow.cpp:627
 #, kde-format
 msgid "Group name:"
 msgstr "그룹 이름:"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:711
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "선택한 전송 항목을 삭제하시겠습니까?"
 
-#: mainwindow.cpp:736 mainwindow.cpp:776
+#: mainwindow.cpp:714 mainwindow.cpp:745
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "전송 항목 삭제 확인"
 
-#: mainwindow.cpp:773
+#: mainwindow.cpp:742
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "선택한 전송 항목과 파일을 같이 삭제하시겠습니까?"
 
-#: mainwindow.cpp:1100
+#: mainwindow.cpp:1077
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1890,17 +1892,17 @@ msgstr ""
 "영원히 비활성화시키시려면 설정->고급에서 \"Konqueror 다운로드 관리자로 사용"
 "\"을 비활성화시키십시오."
 
-#: mainwindow.cpp:1219 ui/droptarget.cpp:212
+#: mainwindow.cpp:1192 ui/droptarget.cpp:211
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "떨어트린 파일이 KGet 전송 목록입니다"
 
-#: mainwindow.cpp:1221 ui/droptarget.cpp:214
+#: mainwindow.cpp:1194 ui/droptarget.cpp:213
 #, kde-format
 msgid "&Download"
 msgstr "다운로드(&D)"
 
-#: mainwindow.cpp:1222 ui/droptarget.cpp:215
+#: mainwindow.cpp:1195 ui/droptarget.cpp:214
 #, kde-format
 msgid "&Load transfer list"
 msgstr "전송 목록 불러오기(&L)"
@@ -2397,7 +2399,7 @@ msgstr "URL"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Status"
 msgstr "상태"
@@ -2466,7 +2468,7 @@ msgstr "기본값 복원"
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:120
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:32
-#: ui/linkview/kget_linkview.cpp:90
+#: ui/linkview/kget_linkview.cpp:91
 #, kde-format
 msgid "URL"
 msgstr "URL"
@@ -2794,17 +2796,17 @@ msgstr "0"
 msgid "Cancel"
 msgstr "취소"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Append"
 msgstr "덧붙이기"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file"
 msgstr "파일 대체"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file-ending"
 msgstr "파일 끝 대체"
@@ -2885,47 +2887,47 @@ msgstr "사용 가능한 검색 엔진 목록"
 msgid "List of the available search engine URLs"
 msgstr "사용 가능한 검색 엔진 URL 목록"
 
-#: transfer-plugins/kio/transferKio.cpp:100
+#: transfer-plugins/kio/transferKio.cpp:99
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "연결 중..."
 
-#: transfer-plugins/kio/transferKio.cpp:272
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
+#: transfer-plugins/kio/transferKio.cpp:271
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "다운로드(%1)를 검증할 수 없습니다. 복구하시겠습니까?"
 
-#: transfer-plugins/kio/transferKio.cpp:273
-#: transfer-plugins/metalink/abstractmetalink.cpp:224
+#: transfer-plugins/kio/transferKio.cpp:272
+#: transfer-plugins/metalink/abstractmetalink.cpp:218
 #: transfer-plugins/metalink/metalink.cpp:469
-#: transfer-plugins/metalink/metalinkhttp.cpp:164
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
+#: transfer-plugins/metalink/metalinkhttp.cpp:159
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr "복구"
 
-#: transfer-plugins/kio/transferKio.cpp:275
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "다운로드(%1)를 검증할 수 없습니다. 다시 다운로드하시겠습니까?"
 
-#: transfer-plugins/kio/transferKio.cpp:284
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
+#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Verification failed."
 msgstr "검증이 실패했습니다."
 
-#: transfer-plugins/kio/transferKio.cpp:286
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
+#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Ignore"
 msgstr "무시"
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:221
+#: transfer-plugins/metalink/abstractmetalink.cpp:215
 #: transfer-plugins/metalink/metalink.cpp:466
 #, kde-format
 msgid ""
@@ -2935,11 +2937,11 @@ msgstr ""
 "다운로드를 검증할 수 없습니다. 복구하시겠습니까? 복구가 실패하면 다운로드를 "
 "다시 시작합니다."
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:225
+#: transfer-plugins/metalink/abstractmetalink.cpp:219
 #: transfer-plugins/metalink/metalink.cpp:122
 #: transfer-plugins/metalink/metalink.cpp:470
-#: transfer-plugins/metalink/metalinkhttp.cpp:165
-#: transfer-plugins/metalink/metalinkxml.cpp:119
+#: transfer-plugins/metalink/metalinkhttp.cpp:160
+#: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
@@ -2978,39 +2980,39 @@ msgid "File Selection"
 msgstr "파일 선택"
 
 #: transfer-plugins/metalink/metalink.cpp:76
-#: transfer-plugins/metalink/metalinkxml.cpp:73
+#: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "메타링크 파일 다운로드 중..."
 
 #: transfer-plugins/metalink/metalink.cpp:119
-#: transfer-plugins/metalink/metalinkxml.cpp:116
+#: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "이 메타링크의 새로운 버전이 존재합니다. 다운로드하시겠습니까?"
 
 #: transfer-plugins/metalink/metalink.cpp:120
-#: transfer-plugins/metalink/metalinkxml.cpp:117
+#: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "메타링크 다시 다운로드"
 
 #: transfer-plugins/metalink/metalink.cpp:202
-#: transfer-plugins/metalink/metalinkhttp.cpp:249
-#: transfer-plugins/metalink/metalinkxml.cpp:200
+#: transfer-plugins/metalink/metalinkhttp.cpp:240
+#: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
 msgid "Download failed, no working URLs were found."
 msgstr "다운로드가 실패했습니다. 사용 가능한 URL이 없습니다."
 
-#: transfer-plugins/metalink/metalinkhttp.cpp:161
+#: transfer-plugins/metalink/metalinkhttp.cpp:156
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
 msgstr "다운로드를 검증할 수 없습니다 복구하시겠습니까?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #, kde-format
 msgid "Engine name:"
 msgstr "엔진 이름:"
@@ -3018,13 +3020,13 @@ msgstr "엔진 이름:"
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr "URL:"
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
 #, kde-format
 msgid "Insert Engine"
 msgstr "엔진 추가"
@@ -3108,45 +3110,45 @@ msgid "Rename Group..."
 msgid_plural "Rename Groups..."
 msgstr[0] "그룹 이름 바꾸기..."
 
-#: ui/droptarget.cpp:81
+#: ui/droptarget.cpp:84
 #, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "위치 고정"
 
-#: ui/droptarget.cpp:267
+#: ui/droptarget.cpp:258
 #, kde-format
 msgid "Show Main Window"
 msgstr "주 창 표시"
 
-#: ui/droptarget.cpp:267
+#: ui/droptarget.cpp:258
 #, kde-format
 msgid "Hide Main Window"
 msgstr "주 창 숨기기"
 
-#: ui/droptarget.cpp:348
+#: ui/droptarget.cpp:339
 #, kde-format
 msgid "Drop Target"
 msgstr "떨어트리기 영역"
 
-#: ui/droptarget.cpp:348
+#: ui/droptarget.cpp:339
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "다운로드 링크를 떨어트리기 영역에 끌어다 놓을 수 있습니다."
 
-#: ui/droptarget.cpp:392
+#: ui/droptarget.cpp:384
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1(%2) %3"
 
-#: ui/droptarget.cpp:399
+#: ui/droptarget.cpp:391
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1(%2% %3/%4) 속도: %5/초"
 
-#: ui/droptarget.cpp:408
+#: ui/droptarget.cpp:400
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3154,7 +3156,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1(%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:422
+#: ui/droptarget.cpp:414
 #, kde-format
 msgid "Ready"
 msgstr "준비"
@@ -3235,99 +3237,99 @@ msgctxt "Progress bar percent value"
 msgid "%p%"
 msgstr "%p%"
 
-#: ui/history/transferhistory.cpp:212
+#: ui/history/transferhistory.cpp:214
 #, kde-format
 msgctxt "The transfer is running"
 msgid "Running"
 msgstr "실행 중"
 
-#: ui/history/transferhistory.cpp:214
+#: ui/history/transferhistory.cpp:216
 #, kde-format
 msgctxt "The transfer is stopped"
 msgid "Stopped"
 msgstr "정지됨"
 
-#: ui/history/transferhistory.cpp:216
+#: ui/history/transferhistory.cpp:218
 #, kde-format
 msgctxt "The transfer is aborted"
 msgid "Aborted"
 msgstr "중단됨"
 
-#: ui/history/transferhistory.cpp:218
+#: ui/history/transferhistory.cpp:220
 #, kde-format
 msgctxt "The transfer is finished"
 msgid "Finished"
 msgstr "완료됨"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Source File"
 msgstr "원본 파일"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Destination"
 msgstr "대상"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Time"
 msgstr "시간"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "File Size"
 msgstr "파일 크기"
 
-#: ui/history/transferhistory.cpp:253
+#: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Less than 1MiB"
 msgstr "1MiB 이하"
 
-#: ui/history/transferhistory.cpp:254
+#: ui/history/transferhistory.cpp:256
 #, kde-format
 msgid "Between 1MiB-10MiB"
 msgstr "1MiB-10MiB 사이"
 
-#: ui/history/transferhistory.cpp:255
+#: ui/history/transferhistory.cpp:257
 #, kde-format
 msgid "Between 10MiB-100MiB"
 msgstr "10MiB-100MiB 사이"
 
-#: ui/history/transferhistory.cpp:256
+#: ui/history/transferhistory.cpp:258
 #, kde-format
 msgid "Between 100MiB-1GiB"
 msgstr "100MiB-1GiB 사이"
 
-#: ui/history/transferhistory.cpp:257
+#: ui/history/transferhistory.cpp:259
 #, kde-format
 msgid "More than 1GiB"
 msgstr "1GiB 이상"
 
-#: ui/history/transferhistory.cpp:260
+#: ui/history/transferhistory.cpp:262
 #: ui/history/transferhistorycategorizeddelegate.cpp:46
 #, kde-format
 msgid "Today"
 msgstr "오늘"
 
-#: ui/history/transferhistory.cpp:261
+#: ui/history/transferhistory.cpp:263
 #: ui/history/transferhistorycategorizeddelegate.cpp:49
 #, kde-format
 msgid "Last week"
 msgstr "지난 주"
 
-#: ui/history/transferhistory.cpp:262
+#: ui/history/transferhistory.cpp:264
 #, kde-format
 msgid "Last month"
 msgstr "지난 달"
 
-#: ui/history/transferhistory.cpp:263
+#: ui/history/transferhistory.cpp:265
 #: ui/history/transferhistorycategorizeddelegate.cpp:55
 #, kde-format
 msgid "A long time ago"
 msgstr "오래 전"
 
-#: ui/history/transferhistory.cpp:279
+#: ui/history/transferhistory.cpp:281
 #, kde-format
 msgctxt "the transfer has been finished"
 msgid "Finished"
@@ -3490,13 +3492,13 @@ msgid "Filter files here...."
 msgstr "여기에서 파일 필터..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:318
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "&Select All"
 msgstr "모두 선택(&S)"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
 #, kde-format
 msgid "D&eselect All"
 msgstr "모두 선택 해제(&E)"
@@ -3507,116 +3509,116 @@ msgstr "모두 선택 해제(&E)"
 msgid "Inver&t Selection"
 msgstr "선택 반전(&T)"
 
-#: ui/linkview/kget_linkview.cpp:41
+#: ui/linkview/kget_linkview.cpp:42
 #, kde-format
 msgid "Import Links"
 msgstr "링크 가져오기"
 
-#: ui/linkview/kget_linkview.cpp:58
+#: ui/linkview/kget_linkview.cpp:59
 #, kde-format
 msgid "Contains"
 msgstr "다음이 들어 있음"
 
-#: ui/linkview/kget_linkview.cpp:59
+#: ui/linkview/kget_linkview.cpp:60
 #, kde-format
 msgid "Does Not Contain"
 msgstr "포함하지 않음"
 
-#: ui/linkview/kget_linkview.cpp:63
+#: ui/linkview/kget_linkview.cpp:64
 #, kde-format
 msgid "All"
 msgstr "모두"
 
-#: ui/linkview/kget_linkview.cpp:64
+#: ui/linkview/kget_linkview.cpp:65
 #, kde-format
 msgid "Videos"
 msgstr "비디오"
 
-#: ui/linkview/kget_linkview.cpp:65
+#: ui/linkview/kget_linkview.cpp:66
 #, kde-format
 msgid "Images"
 msgstr "그림"
 
-#: ui/linkview/kget_linkview.cpp:66
+#: ui/linkview/kget_linkview.cpp:67
 #, kde-format
 msgid "Audio"
 msgstr "오디오"
 
-#: ui/linkview/kget_linkview.cpp:67
+#: ui/linkview/kget_linkview.cpp:68
 #, kde-format
 msgid "Archives"
 msgstr "압축 파일"
 
-#: ui/linkview/kget_linkview.cpp:73
+#: ui/linkview/kget_linkview.cpp:74
 #, kde-format
 msgctxt "of a filter, e.g. RegExp or Wildcard"
 msgid "Pattern Syntax"
 msgstr "패턴 문법"
 
-#: ui/linkview/kget_linkview.cpp:74
+#: ui/linkview/kget_linkview.cpp:75
 #, kde-format
 msgid "Escape Sequences"
 msgstr "탈출 시퀀스"
 
-#: ui/linkview/kget_linkview.cpp:77
+#: ui/linkview/kget_linkview.cpp:78
 #, kde-format
 msgid "Regular Expression"
 msgstr "정규 표현식"
 
-#: ui/linkview/kget_linkview.cpp:87
+#: ui/linkview/kget_linkview.cpp:88
 #, kde-format
 msgctxt "name of a file"
 msgid "Name"
 msgstr "이름"
 
-#: ui/linkview/kget_linkview.cpp:115
+#: ui/linkview/kget_linkview.cpp:116
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "다운로드(&D)"
 
-#: ui/linkview/kget_linkview.cpp:153
+#: ui/linkview/kget_linkview.cpp:154
 #, kde-format
 msgid "Auxiliary header"
 msgstr "추가 헤더"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:155
 #, kde-format
 msgid "File Name"
 msgstr "파일 이름"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Description"
 msgstr "설명"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "파일 형식"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Location (URL)"
 msgstr "위치(URL)"
 
-#: ui/linkview/kget_linkview.cpp:257
+#: ui/linkview/kget_linkview.cpp:258
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "%1의 링크 - KGet"
 
-#: ui/linkview/kget_linkview.cpp:318
+#: ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "&Select All Filtered"
 msgstr "모든 필터 항목 선택하기(&S)"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:320
 #, kde-format
 msgid "D&eselect All Filtered"
 msgstr "모든 필터 항목 선택 해제(&E)"
 
-#: ui/linkview/kget_linkview.cpp:429
+#: ui/linkview/kget_linkview.cpp:430
 #, kde-format
 msgid "Filter Column"
 msgstr "열 필터"
@@ -4005,38 +4007,27 @@ msgstr "메타링크의 추가적인 일반 정보입니다."
 msgid "Unable to load: %1"
 msgstr "불러올 수 없음: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, kde-format
 msgid "Metalink Version 4.0 file"
 msgstr "메타링크 버전 4.0 파일"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, kde-format
 msgid "Metalink Version 3.0 file"
 msgstr "메타링크 버전 3.0 파일"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:173
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:172
 #, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "메타링크 파일 (*.metalink *.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:175
-#, kde-format
-msgid "Metalink Version 4.0 file (*.meta4)"
-msgstr "메타링크 버전 4.0 파일 (*.meta4)"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:175
-#, kde-format
-msgid "Metalink Version 3.0 file (*.metalink)"
-msgstr "메타링크 버전 3.0 파일 (*.metalink)"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:184
+#: ui/metalinkcreator/metalinkcreator.cpp:179
 #, kde-format
 msgid "Define the saving location."
 msgstr "저장 위치를 정합니다."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:230
+#: ui/metalinkcreator/metalinkcreator.cpp:225
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"
@@ -4125,12 +4116,12 @@ msgstr "사용할 미러 수정"
 msgid "PushButton"
 msgstr "푸시 버튼"
 
-#: ui/newtransferdialog.cpp:321
+#: ui/newtransferdialog.cpp:315
 #, kde-format
 msgid "Select at least one source url."
 msgstr "최소한 하나의 원본 URL을 지정하십시오."
 
-#: ui/newtransferdialog.cpp:339
+#: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
 msgstr "현재 폴더에 이미 존재하는 파일이 선택되었습니다."
@@ -4482,12 +4473,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "검증"
 
-#: ui/transfersview.cpp:121
+#: ui/transfersview.cpp:122
 #, kde-format
 msgid "Select columns"
 msgstr "열 선택"
 
-#: ui/transfersview.cpp:307
+#: ui/transfersview.cpp:310
 #, kde-format
 msgid "Transfer Details"
 msgstr "전송 정보"
@@ -4560,6 +4551,12 @@ msgstr "확인(&V)"
 #, kde-format
 msgid "Close"
 msgstr "닫기"
+
+#~ msgid "Metalink Version 4.0 file (*.meta4)"
+#~ msgstr "메타링크 버전 4.0 파일 (*.meta4)"
+
+#~ msgid "Metalink Version 3.0 file (*.metalink)"
+#~ msgstr "메타링크 버전 3.0 파일 (*.metalink)"
 
 #~ msgctxt "Transfer state: processing script"
 #~ msgid "Processing script...."

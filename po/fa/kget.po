@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:32+0000\n"
+"POT-Creation-Date: 2023-12-15 01:36+0000\n"
 "PO-Revision-Date: 2007-09-03 12:28+0330\n"
 "Last-Translator: Nazanin Kazemi <kazemi@itland.ir>\n"
 "Language-Team: Persian <kde-i18n-fa@kde.org>\n"
@@ -56,7 +56,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:88
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:91
 #, kde-format
 msgid "Quit KGet"
 msgstr "خروج از KGet"
@@ -329,7 +329,7 @@ msgstr ""
 msgid "The width of the columns in the history view"
 msgstr ""
 
-#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:97
+#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:95
 #, kde-format
 msgid "Plugins"
 msgstr "وصله‌ها"
@@ -344,107 +344,107 @@ msgstr ""
 msgid "Sqlite"
 msgstr "اندازه"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:366
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
 #, kde-format
 msgid "Turn Off Computer"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
 #, kde-format
 msgid "Hibernate Computer"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:65 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
 #, kde-format
 msgid "Suspend Computer"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Day(s)"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Hour(s)"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Minute(s)"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:75
+#: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Second(s)"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:87
+#: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Appearance"
 msgstr "ظاهر"
 
-#: conf/preferencesdialog.cpp:87
+#: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Change appearance settings"
 msgstr "تغییر تنظیمات ظاهر"
 
-#: conf/preferencesdialog.cpp:88
+#: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Groups"
 msgstr "گروهها"
 
-#: conf/preferencesdialog.cpp:88
+#: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Manage the groups"
 msgstr "مدیریت گروهها"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:89
+#: conf/preferencesdialog.cpp:87
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
 msgstr "شبکه"
 
-#: conf/preferencesdialog.cpp:89
+#: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Network and Downloads"
 msgstr "شبکه و بارگیریها"
 
-#: conf/preferencesdialog.cpp:90
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Web Interface"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:90
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:91
+#: conf/preferencesdialog.cpp:89
 #, fuzzy, kde-format
 msgid "Verification"
 msgstr "باز کردن مقصد"
 
-#: conf/preferencesdialog.cpp:93 conf/preferencesdialog.cpp:95
+#: conf/preferencesdialog.cpp:91 conf/preferencesdialog.cpp:93
 #, fuzzy, kde-format
 #| msgid "Integration"
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "مجتمع‌سازی"
 
-#: conf/preferencesdialog.cpp:96
+#: conf/preferencesdialog.cpp:94
 #, fuzzy, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "پیشرفته"
 
-#: conf/preferencesdialog.cpp:96
+#: conf/preferencesdialog.cpp:94
 #, kde-format
 msgid "Advanced Options"
 msgstr "گزینه‌های پیشرفته"
 
-#: conf/preferencesdialog.cpp:97
+#: conf/preferencesdialog.cpp:95
 #, fuzzy, kde-format
 #| msgid "Transfer Plugin Options"
 msgid "Transfer Plugins"
@@ -513,9 +513,9 @@ msgid "Keyservers:"
 msgstr "سرعت"
 
 #: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1405 transfer-plugins/metalink/metalink.cpp:202
-#: transfer-plugins/metalink/metalinkhttp.cpp:249
-#: transfer-plugins/metalink/metalinkxml.cpp:200
+#: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalinkhttp.cpp:240
+#: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
 #: ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
@@ -583,7 +583,7 @@ msgid ""
 "settings or restart KGet and retry downloading."
 msgstr ""
 
-#: core/kget.cpp:120
+#: core/kget.cpp:113
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -593,13 +593,13 @@ msgstr ""
 "آیا مطمئنید می‌خواهید\n"
 "گروه با نام %1 را حذف کنید؟"
 
-#: core/kget.cpp:121
+#: core/kget.cpp:114
 #, fuzzy, kde-format
 #| msgid "Rename Group"
 msgid "Remove Group"
 msgstr "تغییر نام گروه."
 
-#: core/kget.cpp:155
+#: core/kget.cpp:140
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -609,40 +609,40 @@ msgstr ""
 "آیا مطمئنید می‌خواهید\n"
 "گروه با نام %1 را حذف کنید؟"
 
-#: core/kget.cpp:157
+#: core/kget.cpp:142
 #, fuzzy, kde-format
 #| msgid "Rename Group"
 msgid "Remove groups"
 msgstr "تغییر نام گروه."
 
-#: core/kget.cpp:267
+#: core/kget.cpp:247
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:269 core/kget.cpp:362
+#: core/kget.cpp:249 core/kget.cpp:342
 #, fuzzy, kde-format
 msgid "Download added"
 msgstr "بارگیریها"
 
-#: core/kget.cpp:357
+#: core/kget.cpp:337
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr ""
 
-#: core/kget.cpp:359
+#: core/kget.cpp:339
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr ""
 
-#: core/kget.cpp:521 core/kget.cpp:563
+#: core/kget.cpp:501 core/kget.cpp:543
 #, kde-format
 msgid "My Downloads"
 msgstr "بارگیریهای من"
 
-#: core/kget.cpp:576
+#: core/kget.cpp:552
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -651,17 +651,17 @@ msgstr ""
 "پرونده %1 از قبل وجود دارد.‌\n"
 "جای‌نوشت شود؟"
 
-#: core/kget.cpp:577
+#: core/kget.cpp:553
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "پرونده موجود جای‌نوشت شود؟"
 
-#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "قادر به ذخیره در %1 نیست"
 
-#: core/kget.cpp:899
+#: core/kget.cpp:869
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -672,34 +672,34 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/kget.cpp:909
+#: core/kget.cpp:879
 #, kde-format
 msgid "Protocol unsupported"
 msgstr ""
 
-#: core/kget.cpp:962 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:932 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "بارگیری مجدد"
 
-#: core/kget.cpp:962
+#: core/kget.cpp:932
 #, kde-format
 msgid "Enter URL:"
 msgstr "وارد کردن نشانی وب:"
 
-#: core/kget.cpp:982
+#: core/kget.cpp:952
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr ""
 
-#: core/kget.cpp:1003
+#: core/kget.cpp:973
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr ""
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:366
+#: core/kget.cpp:985 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -708,7 +708,7 @@ msgstr ""
 "نشانی وب بد شکل:\n"
 "%1‌"
 
-#: core/kget.cpp:1021 core/urlchecker.cpp:368
+#: core/kget.cpp:991 core/urlchecker.cpp:368
 #, fuzzy, kde-format
 #| msgid ""
 #| "Malformed URL:\n"
@@ -720,7 +720,7 @@ msgstr ""
 "نشانی وب بد شکل:\n"
 "%1‌"
 
-#: core/kget.cpp:1036 core/urlchecker.cpp:424
+#: core/kget.cpp:1002 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -730,28 +730,28 @@ msgid ""
 "Download it again?"
 msgstr ""
 
-#: core/kget.cpp:1037 core/urlchecker.cpp:639
+#: core/kget.cpp:1003 core/urlchecker.cpp:639
 #, fuzzy, kde-format
 msgid "Download it again?"
 msgstr "نشانی وب دوباره بارگیری شود؟"
 
-#: core/kget.cpp:1038 core/kget.cpp:1059 core/kget.cpp:1122
-#: transfer-plugins/kio/transferKio.cpp:276
+#: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/metalink/metalink.cpp:121
-#: transfer-plugins/metalink/metalinkxml.cpp:118
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
+#: transfer-plugins/metalink/metalinkxml.cpp:113
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, fuzzy, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "نشانی وب دوباره بارگیری شود؟"
 
-#: core/kget.cpp:1039 core/kget.cpp:1060 core/kget.cpp:1123
+#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1057 core/urlchecker.cpp:426
+#: core/kget.cpp:1015 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -761,17 +761,17 @@ msgid ""
 "Delete it and download again?"
 msgstr ""
 
-#: core/kget.cpp:1058 core/urlchecker.cpp:636
+#: core/kget.cpp:1016 core/urlchecker.cpp:636
 #, fuzzy, kde-format
 msgid "Delete it and download again?"
 msgstr "نشانی وب دوباره بارگیری شود؟"
 
-#: core/kget.cpp:1084 core/kget.cpp:1089
+#: core/kget.cpp:1038 core/kget.cpp:1043
 #, kde-format
 msgid "Directory is not writable"
 msgstr ""
 
-#: core/kget.cpp:1120
+#: core/kget.cpp:1070
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -779,7 +779,7 @@ msgid ""
 "Download and delete the previous one?"
 msgstr ""
 
-#: core/kget.cpp:1121 core/urlchecker.cpp:648
+#: core/kget.cpp:1071 core/urlchecker.cpp:648
 #, fuzzy, kde-format
 #| msgid ""
 #| "URL already saved:\n"
@@ -791,13 +791,13 @@ msgstr ""
 "%1\n"
 "دوباره بارگیری شود؟"
 
-#: core/kget.cpp:1136
+#: core/kget.cpp:1082
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr ""
 
-#: core/kget.cpp:1142 core/kget.cpp:1144 core/urlchecker.cpp:651
-#: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:487
+#: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
+#: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:680
 #, fuzzy, kde-format
 #| msgid ""
@@ -808,22 +808,22 @@ msgstr ""
 "پرونده %1 از قبل وجود دارد.‌\n"
 "جای‌نوشت شود؟"
 
-#: core/kget.cpp:1232
+#: core/kget.cpp:1178
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr ""
 
-#: core/kget.cpp:1235
+#: core/kget.cpp:1181
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr ""
 
-#: core/kget.cpp:1249
+#: core/kget.cpp:1193
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr ""
 
-#: core/kget.cpp:1261
+#: core/kget.cpp:1204
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -834,7 +834,7 @@ msgstr ""
 "%1\n"
 "چون یک فهرست راهنما نیست."
 
-#: core/kget.cpp:1270
+#: core/kget.cpp:1213
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -845,31 +845,31 @@ msgstr ""
 "%1\n"
 "چون یک پرونده محلی نیست."
 
-#: core/kget.cpp:1392
+#: core/kget.cpp:1321
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1394
+#: core/kget.cpp:1323
 #, fuzzy, kde-format
 msgid "Download completed"
 msgstr "پوشه‌های بارگیری پیش‌فرض"
 
-#: core/kget.cpp:1399
+#: core/kget.cpp:1327
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1329
 #, fuzzy, kde-format
 msgid "Download started"
 msgstr "بارگیریها"
 
-#: core/kget.cpp:1406
+#: core/kget.cpp:1334
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -877,68 +877,69 @@ msgid ""
 "\">%2</p>"
 msgstr ""
 
-#: core/kget.cpp:1415
+#: core/kget.cpp:1342
 #, fuzzy, kde-format
 #| msgid "Remove"
+msgctxt "@action:button"
 msgid "Resolve"
 msgstr "حذف"
 
-#: core/kget.cpp:1466
+#: core/kget.cpp:1392
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1475
+#: core/kget.cpp:1399
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1477
+#: core/kget.cpp:1401
 #, fuzzy, kde-format
 #| msgid "Auto shutdown"
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "تعطیل خودکار"
 
-#: core/kget.cpp:1483
+#: core/kget.cpp:1406
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1485
+#: core/kget.cpp:1408
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr ""
 
-#: core/kget.cpp:1491
+#: core/kget.cpp:1413
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1493
+#: core/kget.cpp:1415
 #, fuzzy, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "سرعت"
 
-#: core/kget.cpp:1502
+#: core/kget.cpp:1423
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr ""
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1432
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1432
 #, fuzzy, kde-format
 msgid "Downloads completed"
 msgstr "پوشه‌های بارگیری پیش‌فرض"
 
-#: core/kget.h:367 main.cpp:101 mainwindow.cpp:95 mainwindow.cpp:531
+#: core/kget.h:365 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -957,36 +958,36 @@ msgstr[1] ""
 msgid "KGet Transfer"
 msgstr "فهرست انتقال KGet"
 
-#: core/linkimporter.cpp:91
+#: core/linkimporter.cpp:93
 #, kde-format
 msgid "Error trying to get %1"
 msgstr ""
 
-#: core/signature.cpp:235
+#: core/signature.cpp:230
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
 
-#: core/signature.cpp:237
+#: core/signature.cpp:232
 #, fuzzy, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "بارگیریها"
 
-#: core/signature.cpp:238
+#: core/signature.cpp:233
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
 msgstr ""
 
-#: core/signature.cpp:265
+#: core/signature.cpp:256
 #, kde-format
 msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
 "information."
 msgstr ""
 
-#: core/signature.cpp:266
+#: core/signature.cpp:257
 #, kde-format
 msgid "Signature not verified"
 msgstr ""
@@ -1458,13 +1459,13 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr ""
 
-#: main.cpp:103
+#: main.cpp:101
 #, fuzzy, kde-format
 #| msgid "An advanced download manager for KDE"
 msgid "An advanced download manager by KDE"
 msgstr "یک مدیر پیشرفته بارگیری برای KDE"
 
-#: main.cpp:105
+#: main.cpp:103
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1473,154 +1474,154 @@ msgid ""
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
 
-#: main.cpp:109
+#: main.cpp:107
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr ""
 
-#: main.cpp:111
+#: main.cpp:109
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr ""
 
-#: main.cpp:111
+#: main.cpp:109
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr ""
 
-#: main.cpp:112
+#: main.cpp:110
 #, kde-format
 msgid "Dario Massarin"
 msgstr ""
 
-#: main.cpp:112 main.cpp:113 main.cpp:115
+#: main.cpp:110 main.cpp:111 main.cpp:113
 #, kde-format
 msgid "Core Developer"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:111
 #, kde-format
 msgid "Urs Wolfer"
 msgstr ""
 
-#: main.cpp:114
+#: main.cpp:112
 #, kde-format
 msgid "Manolo Valdes"
 msgstr ""
 
-#: main.cpp:114
+#: main.cpp:112
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr ""
 
-#: main.cpp:115
+#: main.cpp:113
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr ""
 
-#: main.cpp:116
+#: main.cpp:114
 #, kde-format
 msgid "Javier Goday"
 msgstr ""
 
-#: main.cpp:116
+#: main.cpp:114
 #, kde-format
 msgid "Developer"
 msgstr ""
 
-#: main.cpp:117
+#: main.cpp:115
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr ""
 
-#: main.cpp:117
+#: main.cpp:115
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr ""
 
-#: main.cpp:118
+#: main.cpp:116
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr ""
 
-#: main.cpp:118
+#: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:117
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr ""
 
-#: main.cpp:119 main.cpp:120 main.cpp:121
+#: main.cpp:117 main.cpp:118 main.cpp:119
 #, kde-format
 msgid "Former Developer"
 msgstr ""
 
-#: main.cpp:120
+#: main.cpp:118
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr ""
 
-#: main.cpp:121
+#: main.cpp:119
 #, kde-format
 msgid "Matej Koss"
 msgstr ""
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "Joris Guisson"
 msgstr ""
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr ""
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr ""
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Design of Web Interface"
 msgstr ""
 
-#: main.cpp:125
+#: main.cpp:123
 #, fuzzy, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "نام گروه:"
 
-#: main.cpp:125
+#: main.cpp:123
 #, fuzzy, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "نمایش جزئیات"
 
-#: main.cpp:132
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "آغاز KGet با افت هدف"
 
-#: main.cpp:133
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "آغاز KGet با پنجره اصلی مخفی"
 
-#: main.cpp:134
+#: main.cpp:132
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "آغاز KGet بدون پویانمایی افت هدف"
 
-#: main.cpp:136
+#: main.cpp:134
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr ""
 
-#: main.cpp:138
+#: main.cpp:136
 #, kde-format
 msgid "URL(s) to download"
 msgstr "بارگیری نشانی)های( وب"
@@ -1812,7 +1813,7 @@ msgstr ""
 msgid "No Action"
 msgstr ""
 
-#: mainwindow.cpp:439
+#: mainwindow.cpp:433
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1821,40 +1822,40 @@ msgstr ""
 "این اولین باری است که KGet را اجرا کرده‌اید.‌\n"
 "آیا مایلید KGet را به عنوان مدیر بارگیری برای Konqueror فعال کنید؟"
 
-#: mainwindow.cpp:441
+#: mainwindow.cpp:435
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "مجتمع‌سازی Konqueror"
 
-#: mainwindow.cpp:442
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Enable"
 msgstr "فعال‌سازی"
 
-#: mainwindow.cpp:443
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Do Not Enable"
 msgstr "فعال‌سازی نشود"
 
-#: mainwindow.cpp:512
+#: mainwindow.cpp:502
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "باز کردن پرونده"
 
-#: mainwindow.cpp:514
+#: mainwindow.cpp:504
 #, kde-format
 msgid "All Openable Files"
 msgstr "همه پرونده‌های بازشدنی"
 
-#: mainwindow.cpp:529
+#: mainwindow.cpp:519
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr ""
 
-#: mainwindow.cpp:581
+#: mainwindow.cpp:567
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1863,39 +1864,39 @@ msgstr ""
 "بعضی از انتقالها هنوز در حال اجرا هستند.‌\n"
 "آیا مطمئنید می‌خواهید KGet را ببندید؟"
 
-#: mainwindow.cpp:583
+#: mainwindow.cpp:569
 #, kde-format
 msgid "Confirm Quit"
 msgstr "تأیید خروج"
 
-#: mainwindow.cpp:614
+#: mainwindow.cpp:596
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "صادرات انتقالها"
 
-#: mainwindow.cpp:616
+#: mainwindow.cpp:598
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "فهرست انتقال KGet"
 
-#: mainwindow.cpp:616
+#: mainwindow.cpp:598
 #, fuzzy, kde-format
 msgid "Text File"
 msgstr "باز کردن پرونده"
 
-#: mainwindow.cpp:645
+#: mainwindow.cpp:627
 #, kde-format
 msgid "Enter Group Name"
 msgstr "نام گروه را وارد کنید"
 
-#: mainwindow.cpp:645
+#: mainwindow.cpp:627
 #, kde-format
 msgid "Group name:"
 msgstr "نام گروه:"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:711
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1907,12 +1908,12 @@ msgstr[0] ""
 "گروه با نام %1 را حذف کنید؟"
 msgstr[1] ""
 
-#: mainwindow.cpp:736 mainwindow.cpp:776
+#: mainwindow.cpp:714 mainwindow.cpp:745
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "فهرست انتقال KGet"
 
-#: mainwindow.cpp:773
+#: mainwindow.cpp:742
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1925,7 +1926,7 @@ msgstr[0] ""
 "گروه با نام %1 را حذف کنید؟"
 msgstr[1] ""
 
-#: mainwindow.cpp:1100
+#: mainwindow.cpp:1077
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1933,18 +1934,18 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1219 ui/droptarget.cpp:212
+#: mainwindow.cpp:1192 ui/droptarget.cpp:211
 #, fuzzy, kde-format
 #| msgid "KGet Transfer List"
 msgid "The dropped file is a KGet Transfer List"
 msgstr "فهرست انتقال KGet"
 
-#: mainwindow.cpp:1221 ui/droptarget.cpp:214
+#: mainwindow.cpp:1194 ui/droptarget.cpp:213
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "&بارگیریها‌"
 
-#: mainwindow.cpp:1222 ui/droptarget.cpp:215
+#: mainwindow.cpp:1195 ui/droptarget.cpp:214
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "فهرست انتقال KGet"
@@ -2440,7 +2441,7 @@ msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Status"
 msgstr "وضعیت"
@@ -2509,7 +2510,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:120
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:32
-#: ui/linkview/kget_linkview.cpp:90
+#: ui/linkview/kget_linkview.cpp:91
 #, kde-format
 msgid "URL"
 msgstr ""
@@ -2821,18 +2822,18 @@ msgstr ""
 msgid "Cancel"
 msgstr "تغییر"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, fuzzy, kde-format
 #| msgid "Appearance"
 msgid "Append"
 msgstr "ظاهر"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, fuzzy, kde-format
 msgid "Replace file"
 msgstr "باز کردن پرونده"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file-ending"
 msgstr ""
@@ -2916,47 +2917,47 @@ msgstr ""
 msgid "List of the available search engine URLs"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:100
+#: transfer-plugins/kio/transferKio.cpp:99
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:272
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
+#: transfer-plugins/kio/transferKio.cpp:271
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:273
-#: transfer-plugins/metalink/abstractmetalink.cpp:224
+#: transfer-plugins/kio/transferKio.cpp:272
+#: transfer-plugins/metalink/abstractmetalink.cpp:218
 #: transfer-plugins/metalink/metalink.cpp:469
-#: transfer-plugins/metalink/metalinkhttp.cpp:164
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
+#: transfer-plugins/metalink/metalinkhttp.cpp:159
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:275
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:284
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
+#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Verification failed."
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:286
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
+#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Ignore"
 msgstr ""
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:221
+#: transfer-plugins/metalink/abstractmetalink.cpp:215
 #: transfer-plugins/metalink/metalink.cpp:466
 #, kde-format
 msgid ""
@@ -2964,11 +2965,11 @@ msgid ""
 "not work the download would be restarted) it?"
 msgstr ""
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:225
+#: transfer-plugins/metalink/abstractmetalink.cpp:219
 #: transfer-plugins/metalink/metalink.cpp:122
 #: transfer-plugins/metalink/metalink.cpp:470
-#: transfer-plugins/metalink/metalinkhttp.cpp:165
-#: transfer-plugins/metalink/metalinkxml.cpp:119
+#: transfer-plugins/metalink/metalinkhttp.cpp:160
+#: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
@@ -3010,39 +3011,39 @@ msgid "File Selection"
 msgstr "&تنظیمات‌"
 
 #: transfer-plugins/metalink/metalink.cpp:76
-#: transfer-plugins/metalink/metalinkxml.cpp:73
+#: transfer-plugins/metalink/metalinkxml.cpp:72
 #, fuzzy, kde-format
 msgid "Downloading Metalink File...."
 msgstr "بارگیریها"
 
 #: transfer-plugins/metalink/metalink.cpp:119
-#: transfer-plugins/metalink/metalinkxml.cpp:116
+#: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr ""
 
 #: transfer-plugins/metalink/metalink.cpp:120
-#: transfer-plugins/metalink/metalinkxml.cpp:117
+#: transfer-plugins/metalink/metalinkxml.cpp:112
 #, fuzzy, kde-format
 msgid "Redownload Metalink"
 msgstr "پوشه‌های بارگیری پیش‌فرض"
 
 #: transfer-plugins/metalink/metalink.cpp:202
-#: transfer-plugins/metalink/metalinkhttp.cpp:249
-#: transfer-plugins/metalink/metalinkxml.cpp:200
+#: transfer-plugins/metalink/metalinkhttp.cpp:240
+#: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
 msgid "Download failed, no working URLs were found."
 msgstr ""
 
-#: transfer-plugins/metalink/metalinkhttp.cpp:161
+#: transfer-plugins/metalink/metalinkhttp.cpp:156
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #, fuzzy, kde-format
 msgid "Engine name:"
 msgstr "نام"
@@ -3050,13 +3051,13 @@ msgstr "نام"
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr ""
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
 #, kde-format
 msgid "Insert Engine"
 msgstr ""
@@ -3143,45 +3144,45 @@ msgid_plural "Rename Groups..."
 msgstr[0] "تغییر نام گروه."
 msgstr[1] ""
 
-#: ui/droptarget.cpp:81
+#: ui/droptarget.cpp:84
 #, fuzzy, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "چسبناک"
 
-#: ui/droptarget.cpp:267
+#: ui/droptarget.cpp:258
 #, kde-format
 msgid "Show Main Window"
 msgstr "نمایش پنجره اصلی"
 
-#: ui/droptarget.cpp:267
+#: ui/droptarget.cpp:258
 #, kde-format
 msgid "Hide Main Window"
 msgstr "مخفی کردن پنجره اصلی"
 
-#: ui/droptarget.cpp:348
+#: ui/droptarget.cpp:339
 #, kde-format
 msgid "Drop Target"
 msgstr "افت هدف"
 
-#: ui/droptarget.cpp:348
+#: ui/droptarget.cpp:339
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr ""
 
-#: ui/droptarget.cpp:392
+#: ui/droptarget.cpp:384
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr ""
 
-#: ui/droptarget.cpp:399
+#: ui/droptarget.cpp:391
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr ""
 
-#: ui/droptarget.cpp:408
+#: ui/droptarget.cpp:400
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3189,7 +3190,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr ""
 
-#: ui/droptarget.cpp:422
+#: ui/droptarget.cpp:414
 #, kde-format
 msgid "Ready"
 msgstr ""
@@ -3271,101 +3272,101 @@ msgctxt "Progress bar percent value"
 msgid "%p%"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:212
+#: ui/history/transferhistory.cpp:214
 #, kde-format
 msgctxt "The transfer is running"
 msgid "Running"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:214
+#: ui/history/transferhistory.cpp:216
 #, fuzzy, kde-format
 #| msgid "Stopped"
 msgctxt "The transfer is stopped"
 msgid "Stopped"
 msgstr "ایستاد"
 
-#: ui/history/transferhistory.cpp:216
+#: ui/history/transferhistory.cpp:218
 #, kde-format
 msgctxt "The transfer is aborted"
 msgid "Aborted"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:218
+#: ui/history/transferhistory.cpp:220
 #, fuzzy, kde-format
 #| msgid "Finished"
 msgctxt "The transfer is finished"
 msgid "Finished"
 msgstr "پایان یافت"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, fuzzy, kde-format
 msgid "Source File"
 msgstr "متن:"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, fuzzy, kde-format
 msgid "Destination"
 msgstr "باز کردن مقصد"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Time"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, fuzzy, kde-format
 msgid "File Size"
 msgstr "&پرونده‌"
 
-#: ui/history/transferhistory.cpp:253
+#: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Less than 1MiB"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:254
+#: ui/history/transferhistory.cpp:256
 #, kde-format
 msgid "Between 1MiB-10MiB"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:255
+#: ui/history/transferhistory.cpp:257
 #, kde-format
 msgid "Between 10MiB-100MiB"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:256
+#: ui/history/transferhistory.cpp:258
 #, kde-format
 msgid "Between 100MiB-1GiB"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:257
+#: ui/history/transferhistory.cpp:259
 #, kde-format
 msgid "More than 1GiB"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:260
+#: ui/history/transferhistory.cpp:262
 #: ui/history/transferhistorycategorizeddelegate.cpp:46
 #, kde-format
 msgid "Today"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:261
+#: ui/history/transferhistory.cpp:263
 #: ui/history/transferhistorycategorizeddelegate.cpp:49
 #, kde-format
 msgid "Last week"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:262
+#: ui/history/transferhistory.cpp:264
 #, kde-format
 msgid "Last month"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:263
+#: ui/history/transferhistory.cpp:265
 #: ui/history/transferhistorycategorizeddelegate.cpp:55
 #, kde-format
 msgid "A long time ago"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:279
+#: ui/history/transferhistory.cpp:281
 #, fuzzy, kde-format
 msgctxt "the transfer has been finished"
 msgid "Finished"
@@ -3529,14 +3530,14 @@ msgid "Filter files here...."
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:318
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
 #, fuzzy, kde-format
 #| msgid "Stop All"
 msgid "&Select All"
 msgstr "ایست همه"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
 #, kde-format
 msgid "D&eselect All"
 msgstr ""
@@ -3547,119 +3548,119 @@ msgstr ""
 msgid "Inver&t Selection"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:41
+#: ui/linkview/kget_linkview.cpp:42
 #, fuzzy, kde-format
 msgid "Import Links"
 msgstr "ایست برگزیده"
 
-#: ui/linkview/kget_linkview.cpp:58
+#: ui/linkview/kget_linkview.cpp:59
 #, kde-format
 msgid "Contains"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:59
+#: ui/linkview/kget_linkview.cpp:60
 #, fuzzy, kde-format
 msgid "Does Not Contain"
 msgstr "بارگیری مجدد"
 
-#: ui/linkview/kget_linkview.cpp:63
+#: ui/linkview/kget_linkview.cpp:64
 #, kde-format
 msgid "All"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:64
+#: ui/linkview/kget_linkview.cpp:65
 #, kde-format
 msgid "Videos"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:65
+#: ui/linkview/kget_linkview.cpp:66
 #, kde-format
 msgid "Images"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:66
+#: ui/linkview/kget_linkview.cpp:67
 #, kde-format
 msgid "Audio"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:67
+#: ui/linkview/kget_linkview.cpp:68
 #, kde-format
 msgid "Archives"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:73
+#: ui/linkview/kget_linkview.cpp:74
 #, kde-format
 msgctxt "of a filter, e.g. RegExp or Wildcard"
 msgid "Pattern Syntax"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:74
+#: ui/linkview/kget_linkview.cpp:75
 #, kde-format
 msgid "Escape Sequences"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:77
+#: ui/linkview/kget_linkview.cpp:78
 #, kde-format
 msgid "Regular Expression"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:87
+#: ui/linkview/kget_linkview.cpp:88
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "name of a file"
 msgid "Name"
 msgstr "نام"
 
-#: ui/linkview/kget_linkview.cpp:115
+#: ui/linkview/kget_linkview.cpp:116
 #, fuzzy, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "&بارگیریها‌"
 
-#: ui/linkview/kget_linkview.cpp:153
+#: ui/linkview/kget_linkview.cpp:154
 #, kde-format
 msgid "Auxiliary header"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:155
 #, fuzzy, kde-format
 msgid "File Name"
 msgstr "نام"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Description"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:157
 #, fuzzy, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "پرونده"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Location (URL)"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:257
+#: ui/linkview/kget_linkview.cpp:258
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:318
+#: ui/linkview/kget_linkview.cpp:319
 #, fuzzy, kde-format
 #| msgid "Stop All"
 msgid "&Select All Filtered"
 msgstr "ایست همه"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:320
 #, fuzzy, kde-format
 #| msgid "Stop All"
 msgid "D&eselect All Filtered"
 msgstr "ایست همه"
 
-#: ui/linkview/kget_linkview.cpp:429
+#: ui/linkview/kget_linkview.cpp:430
 #, kde-format
 msgid "Filter Column"
 msgstr ""
@@ -4048,38 +4049,27 @@ msgstr ""
 msgid "Unable to load: %1"
 msgstr "قادر به ذخیره در %1 نیست"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, fuzzy, kde-format
 msgid "Metalink Version 4.0 file"
 msgstr "باز کردن پرونده"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, fuzzy, kde-format
 msgid "Metalink Version 3.0 file"
 msgstr "باز کردن پرونده"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:173
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "باز کردن پرونده"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:175
-#, fuzzy, kde-format
-msgid "Metalink Version 4.0 file (*.meta4)"
-msgstr "باز کردن پرونده"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:175
-#, fuzzy, kde-format
-msgid "Metalink Version 3.0 file (*.metalink)"
-msgstr "باز کردن پرونده"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:184
+#: ui/metalinkcreator/metalinkcreator.cpp:179
 #, kde-format
 msgid "Define the saving location."
 msgstr ""
 
-#: ui/metalinkcreator/metalinkcreator.cpp:230
+#: ui/metalinkcreator/metalinkcreator.cpp:225
 #, fuzzy, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"
@@ -4172,12 +4162,12 @@ msgstr ""
 msgid "PushButton"
 msgstr ""
 
-#: ui/newtransferdialog.cpp:321
+#: ui/newtransferdialog.cpp:315
 #, fuzzy, kde-format
 msgid "Select at least one source url."
 msgstr "پوشه پیش‌فرض"
 
-#: ui/newtransferdialog.cpp:339
+#: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
 msgstr ""
@@ -4526,12 +4516,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "باز کردن مقصد"
 
-#: ui/transfersview.cpp:121
+#: ui/transfersview.cpp:122
 #, kde-format
 msgid "Select columns"
 msgstr ""
 
-#: ui/transfersview.cpp:307
+#: ui/transfersview.cpp:310
 #, fuzzy, kde-format
 msgid "Transfer Details"
 msgstr "جزئیات انتقال:"
@@ -4604,6 +4594,14 @@ msgstr ""
 #, kde-format
 msgid "Close"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Metalink Version 4.0 file (*.meta4)"
+#~ msgstr "باز کردن پرونده"
+
+#, fuzzy
+#~ msgid "Metalink Version 3.0 file (*.metalink)"
+#~ msgstr "باز کردن پرونده"
 
 #, fuzzy
 #~ msgctxt "Transfer State: Finished"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:32+0000\n"
+"POT-Creation-Date: 2023-12-15 01:36+0000\n"
 "PO-Revision-Date: 2019-11-09 14:03+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -59,7 +59,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "Toimingu käivitamine pärast kõigi allalaadimiste lõpetamist:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:88
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:91
 #, kde-format
 msgid "Quit KGet"
 msgstr "Välju KGetist"
@@ -323,7 +323,7 @@ msgstr "Väljajätmine"
 msgid "The width of the columns in the history view"
 msgstr "Ajaloovaate veergude laius"
 
-#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:97
+#: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:95
 #, kde-format
 msgid "Plugins"
 msgstr "Pluginad"
@@ -338,108 +338,108 @@ msgstr "Xml"
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:366
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "Arvuti väljalülitamine"
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "Arvuti talveunne"
 
-#: conf/preferencesdialog.cpp:65 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
 #, kde-format
 msgid "Suspend Computer"
 msgstr "Arvuti passiivsesse seisundisse"
 
-#: conf/preferencesdialog.cpp:72
+#: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Day(s)"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:73
+#: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Hour(s)"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:74
+#: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Minute(s)"
 msgstr ""
 
-#: conf/preferencesdialog.cpp:75
+#: conf/preferencesdialog.cpp:73
 #, fuzzy, kde-format
 #| msgctxt "@action (Refresh very x )seconds"
 #| msgid "seconds"
 msgid "Second(s)"
 msgstr "sekundi järel"
 
-#: conf/preferencesdialog.cpp:87
+#: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Appearance"
 msgstr "Välimus"
 
-#: conf/preferencesdialog.cpp:87
+#: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Change appearance settings"
 msgstr "Välimusseadistuste muutmine"
 
-#: conf/preferencesdialog.cpp:88
+#: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Groups"
 msgstr "Grupid"
 
-#: conf/preferencesdialog.cpp:88
+#: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Manage the groups"
 msgstr "Gruppide haldamine"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
-#: conf/preferencesdialog.cpp:89
+#: conf/preferencesdialog.cpp:87
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
 msgstr "Võrk"
 
-#: conf/preferencesdialog.cpp:89
+#: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Network and Downloads"
 msgstr "Võrk ja allalaadimised"
 
-#: conf/preferencesdialog.cpp:90
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Web Interface"
 msgstr "Veebiliides"
 
-#: conf/preferencesdialog.cpp:90
+#: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
 msgstr "KGeti juhtimine üle võrgu või interneti"
 
-#: conf/preferencesdialog.cpp:91
+#: conf/preferencesdialog.cpp:89
 #, kde-format
 msgid "Verification"
 msgstr "Kontrollimine"
 
-#: conf/preferencesdialog.cpp:93 conf/preferencesdialog.cpp:95
+#: conf/preferencesdialog.cpp:91 conf/preferencesdialog.cpp:93
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
 msgstr "Põimimine"
 
-#: conf/preferencesdialog.cpp:96
+#: conf/preferencesdialog.cpp:94
 #, kde-format
 msgctxt "Advanced Options"
 msgid "Advanced"
 msgstr "Muud"
 
-#: conf/preferencesdialog.cpp:96
+#: conf/preferencesdialog.cpp:94
 #, kde-format
 msgid "Advanced Options"
 msgstr "Täpsem häälestus"
 
-#: conf/preferencesdialog.cpp:97
+#: conf/preferencesdialog.cpp:95
 #, kde-format
 msgid "Transfer Plugins"
 msgstr "Allalaadimispluginad"
@@ -507,9 +507,9 @@ msgid "Keyservers:"
 msgstr "Võtmeserverid:"
 
 #: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1405 transfer-plugins/metalink/metalink.cpp:202
-#: transfer-plugins/metalink/metalinkhttp.cpp:249
-#: transfer-plugins/metalink/metalinkxml.cpp:200
+#: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalinkhttp.cpp:240
+#: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
 #: ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
@@ -579,27 +579,27 @@ msgstr ""
 "Kasulikku võtmeserverit ei leitud, võtit ei laaditud alla. Lisa seadistustes "
 "veel servereid või käivita KGet uuesti ja püüa taas alla laadida."
 
-#: core/kget.cpp:120
+#: core/kget.cpp:113
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "Kas tõesti eemaldada grupp %1?"
 
-#: core/kget.cpp:121
+#: core/kget.cpp:114
 #, kde-format
 msgid "Remove Group"
 msgstr "Eemalda grupp"
 
-#: core/kget.cpp:155
+#: core/kget.cpp:140
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "Kas tõesti eemaldada järgmised grupid?"
 
-#: core/kget.cpp:157
+#: core/kget.cpp:142
 #, kde-format
 msgid "Remove groups"
 msgstr "Eemalda grupid"
 
-#: core/kget.cpp:267
+#: core/kget.cpp:247
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -608,27 +608,27 @@ msgstr ""
 "<p>Järgmine ülekanne on lisatud allalaadimiste nimekirja:</p><p style=\"font-"
 "size: small;\">%1</p>"
 
-#: core/kget.cpp:269 core/kget.cpp:362
+#: core/kget.cpp:249 core/kget.cpp:342
 #, kde-format
 msgid "Download added"
 msgstr "Allalaadimine lisatud"
 
-#: core/kget.cpp:357
+#: core/kget.cpp:337
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>Järgmine ülekanne on lisatud allalaadimiste nimekirja:</p>"
 
-#: core/kget.cpp:359
+#: core/kget.cpp:339
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>Järgmised ülekanded on lisatud allalaadimiste nimekirja:</p>"
 
-#: core/kget.cpp:521 core/kget.cpp:563
+#: core/kget.cpp:501 core/kget.cpp:543
 #, kde-format
 msgid "My Downloads"
 msgstr "Minu allalaadimised"
 
-#: core/kget.cpp:576
+#: core/kget.cpp:552
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -637,17 +637,17 @@ msgstr ""
 "Fail %1 on juba olemas.\n"
 "Kas kirjutada see üle?"
 
-#: core/kget.cpp:577
+#: core/kget.cpp:553
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "Kas kirjutada olemasolev fail üle?"
 
-#: core/kget.cpp:602 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "Ei õnnestunud salvestada asukohta: %1"
 
-#: core/kget.cpp:899
+#: core/kget.cpp:869
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -660,34 +660,34 @@ msgstr[0] ""
 msgstr[1] ""
 "<p>Järgmisi URL-e ei saa alla laadida, KGet ei toeta nende protokolle:</p>"
 
-#: core/kget.cpp:909
+#: core/kget.cpp:879
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "Protokoll ei ole toetatud"
 
-#: core/kget.cpp:962 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:932 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "Uus allalaadimine"
 
-#: core/kget.cpp:962
+#: core/kget.cpp:932
 #, kde-format
 msgid "Enter URL:"
 msgstr "URL:"
 
-#: core/kget.cpp:982
+#: core/kget.cpp:952
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "Kataloogi valimine"
 
-#: core/kget.cpp:1003
+#: core/kget.cpp:973
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "Salvestamine teise nimega"
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:366
+#: core/kget.cpp:985 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -696,7 +696,7 @@ msgstr ""
 "Vigane URL:\n"
 "%1"
 
-#: core/kget.cpp:1021 core/urlchecker.cpp:368
+#: core/kget.cpp:991 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -705,7 +705,7 @@ msgstr ""
 "Vigane URL, protokoll puudub:\n"
 "%1"
 
-#: core/kget.cpp:1036 core/urlchecker.cpp:424
+#: core/kget.cpp:1002 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -720,29 +720,29 @@ msgstr ""
 "\n"
 "Kas laadida see uuesti alla?"
 
-#: core/kget.cpp:1037 core/urlchecker.cpp:639
+#: core/kget.cpp:1003 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "Kas laadida uuesti alla?"
 
-#: core/kget.cpp:1038 core/kget.cpp:1059 core/kget.cpp:1122
-#: transfer-plugins/kio/transferKio.cpp:276
+#: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
+#: transfer-plugins/kio/transferKio.cpp:275
 #: transfer-plugins/metalink/metalink.cpp:121
-#: transfer-plugins/metalink/metalinkxml.cpp:118
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
+#: transfer-plugins/metalink/metalinkxml.cpp:113
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
 #, fuzzy, kde-format
 #| msgid "Download again"
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Laadi uuesti alla"
 
-#: core/kget.cpp:1039 core/kget.cpp:1060 core/kget.cpp:1123
+#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1057 core/urlchecker.cpp:426
+#: core/kget.cpp:1015 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -757,17 +757,17 @@ msgstr ""
 "\n"
 "Kas kustutada see ja laadida uuesti alla?"
 
-#: core/kget.cpp:1058 core/urlchecker.cpp:636
+#: core/kget.cpp:1016 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "Kas kustutada ja laadida uuesti alla?"
 
-#: core/kget.cpp:1084 core/kget.cpp:1089
+#: core/kget.cpp:1038 core/kget.cpp:1043
 #, kde-format
 msgid "Directory is not writable"
 msgstr "Kataloogi ei saa kirjutada"
 
-#: core/kget.cpp:1120
+#: core/kget.cpp:1070
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -778,40 +778,40 @@ msgstr ""
 "\n"
 "Kas laadida see alla ja kustutada eelmine?"
 
-#: core/kget.cpp:1121 core/urlchecker.cpp:648
+#: core/kget.cpp:1071 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "Fail on juba alla laaditud. Kas laadida see ikkagi alla?"
 
-#: core/kget.cpp:1136
+#: core/kget.cpp:1082
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "Sa juba laadid sama faili alla"
 
-#: core/kget.cpp:1142 core/kget.cpp:1144 core/urlchecker.cpp:651
-#: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:487
+#: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
+#: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "Fail on juba olemas"
 
-#: core/kget.cpp:1232
+#: core/kget.cpp:1178
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "Internetiühendus on loodud, taasalustatakse ülekandeid."
 
-#: core/kget.cpp:1235
+#: core/kget.cpp:1181
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "Internetiühendus puudub, ülekanded peatatakse."
 
-#: core/kget.cpp:1249
+#: core/kget.cpp:1193
 #, fuzzy, kde-format
 #| msgid "Plugin loader could not load the plugin: %1."
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "Pluginalaadija ei suutnud laadida pluginat: %1."
 
-#: core/kget.cpp:1261
+#: core/kget.cpp:1204
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -822,7 +822,7 @@ msgstr ""
 "jäetakse kustutamata,\n"
 "sest see on kataloog."
 
-#: core/kget.cpp:1270
+#: core/kget.cpp:1213
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -833,7 +833,7 @@ msgstr ""
 "jäetakse kustutamata,\n"
 "sest see ei ole kohalik fail."
 
-#: core/kget.cpp:1392
+#: core/kget.cpp:1321
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -842,12 +842,12 @@ msgstr ""
 "<p>Järgmise faili allalaadimine on lõpetatud:</p><p style=\"font-size: small;"
 "\">%1</p>"
 
-#: core/kget.cpp:1394
+#: core/kget.cpp:1323
 #, kde-format
 msgid "Download completed"
 msgstr "Allalaadimine valmis"
 
-#: core/kget.cpp:1399
+#: core/kget.cpp:1327
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -856,12 +856,12 @@ msgstr ""
 "<p>Järgmise faili allalaadimist on alustatud:</p><p style=\"font-size: small;"
 "\">%1</p>"
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1329
 #, kde-format
 msgid "Download started"
 msgstr "Allalaadimine alustatud"
 
-#: core/kget.cpp:1406
+#: core/kget.cpp:1334
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -871,70 +871,72 @@ msgstr ""
 "<p>Järgmise ülekande puhul tekkis viga:</p><p style=\"font-size: small;\">"
 "%1</p><p>Veateade oli:</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1415
-#, kde-format
+#: core/kget.cpp:1342
+#, fuzzy, kde-format
+#| msgid "Resolve"
+msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Lahenda"
 
-#: core/kget.cpp:1466
+#: core/kget.cpp:1392
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "KGet lõpetab nüüd töö. sest kõik allalaadimised on lõpetatud."
 
-#: core/kget.cpp:1475
+#: core/kget.cpp:1399
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "Arvuti lõpetab nüüd töö. sest kõik allalaadimised on lõpetatud."
 
-#: core/kget.cpp:1477
+#: core/kget.cpp:1401
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Seiskamine"
 
-#: core/kget.cpp:1483
+#: core/kget.cpp:1406
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "Arvuti viiakse nüüd passiivsesse seisundisse kettal, sest kõik "
 "allalaadimised on lõpetatud."
 
-#: core/kget.cpp:1485
+#: core/kget.cpp:1408
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "Talveunes"
 
-#: core/kget.cpp:1491
+#: core/kget.cpp:1413
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 "Arvuti viiakse nüüd passiivsesse seisundisse mälus, sest kõik allalaadimised "
 "on lõpetatud."
 
-#: core/kget.cpp:1493
+#: core/kget.cpp:1415
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Passiivseisundisse"
 
-#: core/kget.cpp:1502
+#: core/kget.cpp:1423
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Katkesta"
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1432
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>Kõik ülekanded on lõpetatud.</p>"
 
-#: core/kget.cpp:1511
+#: core/kget.cpp:1432
 #, kde-format
 msgid "Downloads completed"
 msgstr "Allalaadimised valmis"
 
-#: core/kget.h:367 main.cpp:101 mainwindow.cpp:95 mainwindow.cpp:531
+#: core/kget.h:365 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -952,32 +954,32 @@ msgstr[1] "KGet laadib alla %1 faili"
 msgid "KGet Transfer"
 msgstr "KGeti allalaadimine"
 
-#: core/linkimporter.cpp:91
+#: core/linkimporter.cpp:93
 #, kde-format
 msgid "Error trying to get %1"
 msgstr "Viga %1 hankimisel"
 
-#: core/signature.cpp:235
+#: core/signature.cpp:230
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
 "Signatuuri õigsuse kontrollimiseks puudub võti. Kas soovid selle alla "
 "laadida?"
 
-#: core/signature.cpp:237
+#: core/signature.cpp:232
 #, fuzzy, kde-format
 #| msgid "Download"
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Allalaadimine"
 
-#: core/signature.cpp:238
+#: core/signature.cpp:233
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
 msgstr ""
 
-#: core/signature.cpp:265
+#: core/signature.cpp:256
 #, kde-format
 msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
@@ -986,7 +988,7 @@ msgstr ""
 "%1 allkirja kontrollimine nurjus. Vaata täpsemat teavet ülekande "
 "seadistustest."
 
-#: core/signature.cpp:266
+#: core/signature.cpp:257
 #, kde-format
 msgid "Signature not verified"
 msgstr "Allkiri pole kontrollitud"
@@ -1454,12 +1456,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "Verifitseeritud"
 
-#: main.cpp:103
+#: main.cpp:101
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "KDE võimas failide allalaadija"
 
-#: main.cpp:105
+#: main.cpp:103
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1472,154 +1474,154 @@ msgstr ""
 "(C) 2002: Carsten Pfeiffer\n"
 "(C) 1998 - 2000: Matej Koss"
 
-#: main.cpp:109
+#: main.cpp:107
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:111
+#: main.cpp:109
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:111
+#: main.cpp:109
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "Hooldaja, põhiarendaja, torrenti plugina autor"
 
-#: main.cpp:112
+#: main.cpp:110
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:112 main.cpp:113 main.cpp:115
+#: main.cpp:110 main.cpp:111 main.cpp:113
 #, kde-format
 msgid "Core Developer"
 msgstr "Põhiarendaja"
 
-#: main.cpp:113
+#: main.cpp:111
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:114
+#: main.cpp:112
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:114
+#: main.cpp:112
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "Põhiarendaja, mitmelõimelise plugina autor"
 
-#: main.cpp:115
+#: main.cpp:113
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:116
+#: main.cpp:114
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:116
+#: main.cpp:114
 #, kde-format
 msgid "Developer"
 msgstr "Arendaja"
 
-#: main.cpp:117
+#: main.cpp:115
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "Aish Raj Dahal"
 
-#: main.cpp:117
+#: main.cpp:115
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "Google Summer of Code tudeng"
 
-#: main.cpp:118
+#: main.cpp:116
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodriguez Ortiz"
 
-#: main.cpp:118
+#: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "Mms'i plugina autor"
 
-#: main.cpp:119
+#: main.cpp:117
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:119 main.cpp:120 main.cpp:121
+#: main.cpp:117 main.cpp:118 main.cpp:119
 #, kde-format
 msgid "Former Developer"
 msgstr "Endine arendaja"
 
-#: main.cpp:120
+#: main.cpp:118
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:121
+#: main.cpp:119
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:122
+#: main.cpp:120
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "BTCore (KTorrent) arendaja"
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:123
+#: main.cpp:121
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "Veebiliidese kujundus"
 
-#: main.cpp:125
+#: main.cpp:123
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Marek Laane"
 
-#: main.cpp:125
+#: main.cpp:123
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "qiilaq69@gmail.com"
 
-#: main.cpp:132
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "KGeti käivitamine kukutamise märklauaga"
 
-#: main.cpp:133
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "KGeti käivitamine peidetud peaaknaga"
 
-#: main.cpp:134
+#: main.cpp:132
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "KGeti käivitamine kukutamise märklaua animatsioonita"
 
-#: main.cpp:136
+#: main.cpp:134
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "Unit testide käivitamine"
 
-#: main.cpp:138
+#: main.cpp:136
 #, kde-format
 msgid "URL(s) to download"
 msgstr "Allalaaditavad URL-id"
@@ -1812,7 +1814,7 @@ msgstr "Toiming pärast allalaadimiste lõpetamist"
 msgid "No Action"
 msgstr "Toiming puudub"
 
-#: mainwindow.cpp:439
+#: mainwindow.cpp:433
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1821,39 +1823,39 @@ msgstr ""
 "KGet käivitatakse esimest korda.\n"
 "Kas soovid seda kasutada Konquerori allalaadimishaldurina?"
 
-#: mainwindow.cpp:441
+#: mainwindow.cpp:435
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Põimimine Konqueroriga"
 
-#: mainwindow.cpp:442
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Enable"
 msgstr "Põimi"
 
-#: mainwindow.cpp:443
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Ära põimi"
 
-#: mainwindow.cpp:512
+#: mainwindow.cpp:502
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Faili avamine"
 
-#: mainwindow.cpp:514
+#: mainwindow.cpp:504
 #, kde-format
 msgid "All Openable Files"
 msgstr "Kõik avatavad failid"
 
-#: mainwindow.cpp:529
+#: mainwindow.cpp:519
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:581
+#: mainwindow.cpp:567
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1862,50 +1864,50 @@ msgstr ""
 "Mõned allalaadimised käivad veel.\n"
 "Kas tõesti sulgeda KGet?"
 
-#: mainwindow.cpp:583
+#: mainwindow.cpp:569
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Väljumise kinnitamine"
 
-#: mainwindow.cpp:614
+#: mainwindow.cpp:596
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Allalaadimiste eksport"
 
-#: mainwindow.cpp:616
+#: mainwindow.cpp:598
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGeti allalaadimiste nimekiri"
 
-#: mainwindow.cpp:616
+#: mainwindow.cpp:598
 #, kde-format
 msgid "Text File"
 msgstr "Tekstifail"
 
-#: mainwindow.cpp:645
+#: mainwindow.cpp:627
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Grupi nime määramine"
 
-#: mainwindow.cpp:645
+#: mainwindow.cpp:627
 #, kde-format
 msgid "Group name:"
 msgstr "Grupi nimi:"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:711
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Kas tõesti valitud allalaadimine kustutada?"
 msgstr[1] "Kas tõesti valitud allalaadimised kustutada?"
 
-#: mainwindow.cpp:736 mainwindow.cpp:776
+#: mainwindow.cpp:714 mainwindow.cpp:745
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Ülekande kustutamise kinnitus"
 
-#: mainwindow.cpp:773
+#: mainwindow.cpp:742
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1913,7 +1915,7 @@ msgid_plural ""
 msgstr[0] "Kas tõesti kustutada valitud allalaadimine, kaasa arvatud failid?"
 msgstr[1] "Kas tõesti kustutada valitud allalaadimised, kaasa arvatud failid?"
 
-#: mainwindow.cpp:1100
+#: mainwindow.cpp:1077
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1924,17 +1926,17 @@ msgstr ""
 "soovid seda alatiseks keelata, vali Seadistused->Muud ja lülita välja valik "
 "\"Kasutamine Konquerori allalaadimishaldurina\"."
 
-#: mainwindow.cpp:1219 ui/droptarget.cpp:212
+#: mainwindow.cpp:1192 ui/droptarget.cpp:211
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Lohistatud fail on KGeti ülekannete nimekiri"
 
-#: mainwindow.cpp:1221 ui/droptarget.cpp:214
+#: mainwindow.cpp:1194 ui/droptarget.cpp:213
 #, kde-format
 msgid "&Download"
 msgstr "Laa&di alla"
 
-#: mainwindow.cpp:1222 ui/droptarget.cpp:215
+#: mainwindow.cpp:1195 ui/droptarget.cpp:214
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Laadi ülekannete nimekiri"
@@ -2432,7 +2434,7 @@ msgstr "URL"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Status"
 msgstr "Olek"
@@ -2501,7 +2503,7 @@ msgstr "Lähtesta"
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:120
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:32
-#: ui/linkview/kget_linkview.cpp:90
+#: ui/linkview/kget_linkview.cpp:91
 #, kde-format
 msgid "URL"
 msgstr "URL"
@@ -2831,17 +2833,17 @@ msgstr "0"
 msgid "Cancel"
 msgstr "Loobu"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Append"
 msgstr "Lisamine"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file"
 msgstr "Faili asendamine"
 
-#: transfer-plugins/checksumsearch/checksumsearch.cpp:30
+#: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file-ending"
 msgstr "Faililõpu asendamine"
@@ -2922,47 +2924,47 @@ msgstr "Saadaolevate otsingumootorite nimekiri"
 msgid "List of the available search engine URLs"
 msgstr "Saadaolevate otsingumootorite URL-ide loend"
 
-#: transfer-plugins/kio/transferKio.cpp:100
+#: transfer-plugins/kio/transferKio.cpp:99
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "Ühendumine..."
 
-#: transfer-plugins/kio/transferKio.cpp:272
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
+#: transfer-plugins/kio/transferKio.cpp:271
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "Allalaadimise (%1) kontrollimine nurjus: Kas parandada seda?"
 
-#: transfer-plugins/kio/transferKio.cpp:273
-#: transfer-plugins/metalink/abstractmetalink.cpp:224
+#: transfer-plugins/kio/transferKio.cpp:272
+#: transfer-plugins/metalink/abstractmetalink.cpp:218
 #: transfer-plugins/metalink/metalink.cpp:469
-#: transfer-plugins/metalink/metalinkhttp.cpp:164
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
+#: transfer-plugins/metalink/metalinkhttp.cpp:159
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:275
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/kio/transferKio.cpp:274
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "Allalaadimise (%1) kontrollimine nurjus: Kas laadida see uuesti alla?"
 
-#: transfer-plugins/kio/transferKio.cpp:284
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:271
+#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Verification failed."
 msgstr "Kontrollimine nurjus."
 
-#: transfer-plugins/kio/transferKio.cpp:286
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:273
+#: transfer-plugins/kio/transferKio.cpp:277
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Ignore"
 msgstr ""
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:221
+#: transfer-plugins/metalink/abstractmetalink.cpp:215
 #: transfer-plugins/metalink/metalink.cpp:466
 #, kde-format
 msgid ""
@@ -2972,11 +2974,11 @@ msgstr ""
 "Allalaadimise kontrollimine nurjus: Kas parandada seda (kui see ei aita, "
 "alustatakse allalaadimist uuesti)?"
 
-#: transfer-plugins/metalink/abstractmetalink.cpp:225
+#: transfer-plugins/metalink/abstractmetalink.cpp:219
 #: transfer-plugins/metalink/metalink.cpp:122
 #: transfer-plugins/metalink/metalink.cpp:470
-#: transfer-plugins/metalink/metalinkhttp.cpp:165
-#: transfer-plugins/metalink/metalinkxml.cpp:119
+#: transfer-plugins/metalink/metalinkhttp.cpp:160
+#: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
@@ -3015,39 +3017,39 @@ msgid "File Selection"
 msgstr "Faili valimine"
 
 #: transfer-plugins/metalink/metalink.cpp:76
-#: transfer-plugins/metalink/metalinkxml.cpp:73
+#: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "Metalink-faili allalaadimine..."
 
 #: transfer-plugins/metalink/metalink.cpp:119
-#: transfer-plugins/metalink/metalinkxml.cpp:116
+#: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "Sellest Metalinkist võib olla uuem versioon, kas laadida see alla?"
 
 #: transfer-plugins/metalink/metalink.cpp:120
-#: transfer-plugins/metalink/metalinkxml.cpp:117
+#: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "Laadi Metalink uuesti alla"
 
 #: transfer-plugins/metalink/metalink.cpp:202
-#: transfer-plugins/metalink/metalinkhttp.cpp:249
-#: transfer-plugins/metalink/metalinkxml.cpp:200
+#: transfer-plugins/metalink/metalinkhttp.cpp:240
+#: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
 msgid "Download failed, no working URLs were found."
 msgstr "Allalaadimine nurjus, toimivat URL-i ei leitud."
 
-#: transfer-plugins/metalink/metalinkhttp.cpp:161
+#: transfer-plugins/metalink/metalinkhttp.cpp:156
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
 msgstr "Allalaadimise kontrollimine nurjus. Kas parandada seda?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #, kde-format
 msgid "Engine name:"
 msgstr "Mootori nimi:"
@@ -3055,13 +3057,13 @@ msgstr "Mootori nimi:"
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr "URL:"
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
 #, kde-format
 msgid "Insert Engine"
 msgstr "Mootori lisamine"
@@ -3147,45 +3149,45 @@ msgid_plural "Rename Groups..."
 msgstr[0] "Nimeta grupp ümber..."
 msgstr[1] "Nimeta grupid ümber..."
 
-#: ui/droptarget.cpp:81
+#: ui/droptarget.cpp:84
 #, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "Kleepuv"
 
-#: ui/droptarget.cpp:267
+#: ui/droptarget.cpp:258
 #, kde-format
 msgid "Show Main Window"
 msgstr "Näita peaakent"
 
-#: ui/droptarget.cpp:267
+#: ui/droptarget.cpp:258
 #, kde-format
 msgid "Hide Main Window"
 msgstr "Peida peaaken"
 
-#: ui/droptarget.cpp:348
+#: ui/droptarget.cpp:339
 #, kde-format
 msgid "Drop Target"
 msgstr "Kukutamise märklaud"
 
-#: ui/droptarget.cpp:348
+#: ui/droptarget.cpp:339
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "Allalaadimiste linke võib lohistada kukutamise märklauale."
 
-#: ui/droptarget.cpp:392
+#: ui/droptarget.cpp:384
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1 (%2) %3"
 
-#: ui/droptarget.cpp:399
+#: ui/droptarget.cpp:391
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1 (%2% %3/%4) Kiirus:%5/s"
 
-#: ui/droptarget.cpp:408
+#: ui/droptarget.cpp:400
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3193,7 +3195,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1 (%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:422
+#: ui/droptarget.cpp:414
 #, kde-format
 msgid "Ready"
 msgstr "Valmis"
@@ -3275,99 +3277,99 @@ msgctxt "Progress bar percent value"
 msgid "%p%"
 msgstr ""
 
-#: ui/history/transferhistory.cpp:212
+#: ui/history/transferhistory.cpp:214
 #, kde-format
 msgctxt "The transfer is running"
 msgid "Running"
 msgstr "Töös"
 
-#: ui/history/transferhistory.cpp:214
+#: ui/history/transferhistory.cpp:216
 #, kde-format
 msgctxt "The transfer is stopped"
 msgid "Stopped"
 msgstr "Peatatud"
 
-#: ui/history/transferhistory.cpp:216
+#: ui/history/transferhistory.cpp:218
 #, kde-format
 msgctxt "The transfer is aborted"
 msgid "Aborted"
 msgstr "Katkestatud"
 
-#: ui/history/transferhistory.cpp:218
+#: ui/history/transferhistory.cpp:220
 #, kde-format
 msgctxt "The transfer is finished"
 msgid "Finished"
 msgstr "Lõpetatud"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Source File"
 msgstr "Lähtefail"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Destination"
 msgstr "Sihtkoht"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "Time"
 msgstr "Aeg"
 
-#: ui/history/transferhistory.cpp:245
+#: ui/history/transferhistory.cpp:247
 #, kde-format
 msgid "File Size"
 msgstr "Failisuurus"
 
-#: ui/history/transferhistory.cpp:253
+#: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Less than 1MiB"
 msgstr "Alla 1 MiB"
 
-#: ui/history/transferhistory.cpp:254
+#: ui/history/transferhistory.cpp:256
 #, kde-format
 msgid "Between 1MiB-10MiB"
 msgstr "1 MiB kuni 10 MiB"
 
-#: ui/history/transferhistory.cpp:255
+#: ui/history/transferhistory.cpp:257
 #, kde-format
 msgid "Between 10MiB-100MiB"
 msgstr "10 MiB kuni 100 MiB"
 
-#: ui/history/transferhistory.cpp:256
+#: ui/history/transferhistory.cpp:258
 #, kde-format
 msgid "Between 100MiB-1GiB"
 msgstr "100 MiB kuni 1 GiB"
 
-#: ui/history/transferhistory.cpp:257
+#: ui/history/transferhistory.cpp:259
 #, kde-format
 msgid "More than 1GiB"
 msgstr "Üle 1 GiB"
 
-#: ui/history/transferhistory.cpp:260
+#: ui/history/transferhistory.cpp:262
 #: ui/history/transferhistorycategorizeddelegate.cpp:46
 #, kde-format
 msgid "Today"
 msgstr "Täna"
 
-#: ui/history/transferhistory.cpp:261
+#: ui/history/transferhistory.cpp:263
 #: ui/history/transferhistorycategorizeddelegate.cpp:49
 #, kde-format
 msgid "Last week"
 msgstr "Viimane nädal"
 
-#: ui/history/transferhistory.cpp:262
+#: ui/history/transferhistory.cpp:264
 #, kde-format
 msgid "Last month"
 msgstr "Viimane kuu"
 
-#: ui/history/transferhistory.cpp:263
+#: ui/history/transferhistory.cpp:265
 #: ui/history/transferhistorycategorizeddelegate.cpp:55
 #, kde-format
 msgid "A long time ago"
 msgstr "Ammu"
 
-#: ui/history/transferhistory.cpp:279
+#: ui/history/transferhistory.cpp:281
 #, kde-format
 msgctxt "the transfer has been finished"
 msgid "Finished"
@@ -3530,13 +3532,13 @@ msgid "Filter files here...."
 msgstr "Siin saab faile filtreerida..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:318
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "&Select All"
 msgstr "&Vali kõik"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
 #, kde-format
 msgid "D&eselect All"
 msgstr "&Tühista kõigi valik"
@@ -3547,116 +3549,116 @@ msgstr "&Tühista kõigi valik"
 msgid "Inver&t Selection"
 msgstr "Valik &teistpidi"
 
-#: ui/linkview/kget_linkview.cpp:41
+#: ui/linkview/kget_linkview.cpp:42
 #, kde-format
 msgid "Import Links"
 msgstr "Impordi lingid"
 
-#: ui/linkview/kget_linkview.cpp:58
+#: ui/linkview/kget_linkview.cpp:59
 #, kde-format
 msgid "Contains"
 msgstr "Sisaldab"
 
-#: ui/linkview/kget_linkview.cpp:59
+#: ui/linkview/kget_linkview.cpp:60
 #, kde-format
 msgid "Does Not Contain"
 msgstr "Ei sisalda"
 
-#: ui/linkview/kget_linkview.cpp:63
+#: ui/linkview/kget_linkview.cpp:64
 #, kde-format
 msgid "All"
 msgstr "Kõik"
 
-#: ui/linkview/kget_linkview.cpp:64
+#: ui/linkview/kget_linkview.cpp:65
 #, kde-format
 msgid "Videos"
 msgstr "Videod"
 
-#: ui/linkview/kget_linkview.cpp:65
+#: ui/linkview/kget_linkview.cpp:66
 #, kde-format
 msgid "Images"
 msgstr "Pildid"
 
-#: ui/linkview/kget_linkview.cpp:66
+#: ui/linkview/kget_linkview.cpp:67
 #, kde-format
 msgid "Audio"
 msgstr "Heli"
 
-#: ui/linkview/kget_linkview.cpp:67
+#: ui/linkview/kget_linkview.cpp:68
 #, kde-format
 msgid "Archives"
 msgstr "Arhiivid"
 
-#: ui/linkview/kget_linkview.cpp:73
+#: ui/linkview/kget_linkview.cpp:74
 #, kde-format
 msgctxt "of a filter, e.g. RegExp or Wildcard"
 msgid "Pattern Syntax"
 msgstr "Mustri süntaks"
 
-#: ui/linkview/kget_linkview.cpp:74
+#: ui/linkview/kget_linkview.cpp:75
 #, kde-format
 msgid "Escape Sequences"
 msgstr "Paojadad"
 
-#: ui/linkview/kget_linkview.cpp:77
+#: ui/linkview/kget_linkview.cpp:78
 #, kde-format
 msgid "Regular Expression"
 msgstr "Regulaaravaldis"
 
-#: ui/linkview/kget_linkview.cpp:87
+#: ui/linkview/kget_linkview.cpp:88
 #, kde-format
 msgctxt "name of a file"
 msgid "Name"
 msgstr "Nimi"
 
-#: ui/linkview/kget_linkview.cpp:115
+#: ui/linkview/kget_linkview.cpp:116
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "Laa&di alla"
 
-#: ui/linkview/kget_linkview.cpp:153
+#: ui/linkview/kget_linkview.cpp:154
 #, kde-format
 msgid "Auxiliary header"
 msgstr "Lisapäis"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:155
 #, kde-format
 msgid "File Name"
 msgstr "Failinimi"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Description"
 msgstr "Kirjeldus"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "Failitüüp"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Location (URL)"
 msgstr "Asukoht (URL)"
 
-#: ui/linkview/kget_linkview.cpp:257
+#: ui/linkview/kget_linkview.cpp:258
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "Viidad asukohas %1 - KGet"
 
-#: ui/linkview/kget_linkview.cpp:318
+#: ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "&Select All Filtered"
 msgstr "&Vali kõik filtreeritud"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:320
 #, kde-format
 msgid "D&eselect All Filtered"
 msgstr "&Tühista kõigi filtreeritute valimine"
 
-#: ui/linkview/kget_linkview.cpp:429
+#: ui/linkview/kget_linkview.cpp:430
 #, kde-format
 msgid "Filter Column"
 msgstr "Filtriveerg"
@@ -4046,41 +4048,30 @@ msgstr "Metalinki üldine lisateave."
 msgid "Unable to load: %1"
 msgstr "Laadimine nurjus: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 4.0 file"
 msgstr "Metalink Version 4.0 fail (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 3.0 file"
 msgstr "Metalink Version 4.0 fail (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:173
-#: ui/metalinkcreator/metalinkcreator.cpp:176
+#: ui/metalinkcreator/metalinkcreator.cpp:172
 #, fuzzy, kde-format
 #| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "*.metalink *.meta4|Metalinki fail (*.metalink *.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:175
-#, kde-format
-msgid "Metalink Version 4.0 file (*.meta4)"
-msgstr "Metalink Version 4.0 fail (*.meta4)"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:175
-#, kde-format
-msgid "Metalink Version 3.0 file (*.metalink)"
-msgstr "Metalink Version 3.0 fail (*.metalink)"
-
-#: ui/metalinkcreator/metalinkcreator.cpp:184
+#: ui/metalinkcreator/metalinkcreator.cpp:179
 #, kde-format
 msgid "Define the saving location."
 msgstr "Salvestuskoha määramine."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:230
+#: ui/metalinkcreator/metalinkcreator.cpp:225
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"
@@ -4170,12 +4161,12 @@ msgstr "Kasutatud peeglite muutmine."
 msgid "PushButton"
 msgstr "Nupp"
 
-#: ui/newtransferdialog.cpp:321
+#: ui/newtransferdialog.cpp:315
 #, kde-format
 msgid "Select at least one source url."
 msgstr "Vali vähemalt üks lähte-URL."
 
-#: ui/newtransferdialog.cpp:339
+#: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
 msgstr "Aktiivses kataloogis juba olemasolevad failid on märgitud."
@@ -4527,12 +4518,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "Kontrollimine"
 
-#: ui/transfersview.cpp:121
+#: ui/transfersview.cpp:122
 #, kde-format
 msgid "Select columns"
 msgstr "Vali veerud"
 
-#: ui/transfersview.cpp:307
+#: ui/transfersview.cpp:310
 #, kde-format
 msgid "Transfer Details"
 msgstr "Allalaadimise üksikasjad"
@@ -4605,6 +4596,12 @@ msgstr "&Kontrolli"
 #, kde-format
 msgid "Close"
 msgstr "Sulge"
+
+#~ msgid "Metalink Version 4.0 file (*.meta4)"
+#~ msgstr "Metalink Version 4.0 fail (*.meta4)"
+
+#~ msgid "Metalink Version 3.0 file (*.metalink)"
+#~ msgstr "Metalink Version 3.0 fail (*.metalink)"
 
 #~ msgctxt "Transfer state: processing script"
 #~ msgid "Processing script...."
