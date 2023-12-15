@@ -33,7 +33,9 @@
 #include <QTimer>
 #include <QToolTip>
 
+#ifndef Q_OS_WIN
 #include <KX11Extras>
+#endif
 
 #include <cmath>
 
@@ -47,7 +49,9 @@ DropTarget::DropTarget(MainWindow *mw)
     , animTimer(nullptr)
     , showInformation(false)
 {
+#ifndef Q_OS_WIN
     KX11Extras::setState(winId(), NET::SkipTaskbar | NET::KeepAbove);
+#endif
 
     auto screen = qApp->screenAt(Settings::dropPosition());
     if (screen) {
