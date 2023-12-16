@@ -2,21 +2,22 @@
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the kget package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-15 01:36+0000\n"
-"PO-Revision-Date: 2023-03-21 22:43+0100\n"
+"PO-Revision-Date: 2023-12-15 07:41+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: pology\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -26,12 +27,12 @@ msgstr "Ŝablono"
 #: conf/autopastemodel.cpp:176
 #, kde-format
 msgid "Syntax"
-msgstr ""
+msgstr "Sintakso"
 
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
 #, kde-format
 msgid "Escape sequences"
-msgstr ""
+msgstr "Eskap-sekvencoj"
 
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:39
 #, kde-format
@@ -42,7 +43,7 @@ msgstr "Regula esprimo"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Aŭtomate forigi ĉian transigan historion pli malnovan ol:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -54,67 +55,67 @@ msgstr "Ebligi taskopletan piktogramon"
 #: conf/dlgadvanced.ui:45
 #, kde-format
 msgid "Execute action after all downloads have been finished:"
-msgstr ""
+msgstr "Efektivigi agon post kiam ĉiuj elŝutoj finiĝis:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
 #: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:91
 #, kde-format
 msgid "Quit KGet"
-msgstr ""
+msgstr "Forlasi KGet"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgadvanced.ui:61
 #, kde-format
 msgid "At startup:"
-msgstr ""
+msgstr "Ĉe ekfunkciiĝo:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:69
 #, kde-format
 msgid "Restore Download State"
-msgstr ""
+msgstr "Restarigi Elŝutan Staton"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:74
 #, kde-format
 msgid "Start All Downloads"
-msgstr ""
+msgstr "Komencu Ĉiujn Elŝutojn"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:79
 #, kde-format
 msgid "Stop All Downloads"
-msgstr ""
+msgstr "Halti Ĉiujn Elŝutojn"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: conf/dlgadvanced.ui:90
 #, kde-format
 msgid "History backend:"
-msgstr ""
+msgstr "Historia backend:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_EnableKUIServerIntegration)
 #: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
-msgstr ""
+msgstr "Ebligi Ĉiean Progresspuradon de KDE"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
 #: conf/dlgadvanced.ui:111
 #, kde-format
 msgid "Show every single download "
-msgstr ""
+msgstr "Montri ĉiun unuopan elŝuton"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportGlobalJob)
 #: conf/dlgadvanced.ui:118
 #, kde-format
 msgid "Show overall progress"
-msgstr ""
+msgstr "Montri ĝeneralan progreson"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: conf/dlgadvanced.ui:128
 #, kde-format
 msgid "Handle existing Files/Transfers"
-msgstr ""
+msgstr "Pritrakti ekzistantajn Dosierojn/Transigojn"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
 #: conf/dlgadvanced.ui:134
@@ -126,7 +127,7 @@ msgstr "Ĉiam demandi"
 #: conf/dlgadvanced.ui:141
 #, kde-format
 msgid "Automatic rename"
-msgstr ""
+msgstr "Aŭtomata alinomo"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
 #: conf/dlgadvanced.ui:148
@@ -138,25 +139,25 @@ msgstr "Anstataŭigu"
 #: conf/dlgappearance.ui:17
 #, kde-format
 msgid "Use Drop Target"
-msgstr ""
+msgstr "Uzi Falcelon"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
 #: conf/dlgappearance.ui:29
 #, kde-format
 msgid "Enable animations"
-msgstr ""
+msgstr "Ebligi animaciojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DirectoriesAsSuggestion)
 #: conf/dlggroups.ui:17
 #, kde-format
 msgid "Use default folders for groups as suggestion"
-msgstr ""
+msgstr "Uzi defaŭltajn dosierujojn por grupoj kiel sugeston"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr ""
+msgstr "Peti cellokon se ne ekzistas defaŭltaj dosierujoj"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -168,62 +169,62 @@ msgstr "Alinomi"
 #: conf/dlggroups.ui:65
 #, kde-format
 msgid "Select Icon..."
-msgstr ""
+msgstr "Elekti Piktogramon..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
 #: conf/dlgintegration.ui:17
 #, kde-format
 msgid "Use as download manager for Konqueror"
-msgstr ""
+msgstr "Uzi kiel elŝutadministrilon por Konqueror"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
 #: conf/dlgintegration.ui:24
 #, kde-format
 msgid "Monitor Clipboard for Files to Download"
-msgstr ""
+msgstr "Monitoro Clipboard por Dosieroj por Elŝuti"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: conf/dlgintegration.ui:36
 #, kde-format
 msgid "Case sensitive:"
-msgstr ""
+msgstr "Usklecodistinga:"
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
 #: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
 #, kde-format
 msgid "&Increase Priority"
-msgstr ""
+msgstr "Pli&igi Prioritaton"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
 #: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Decrease Priority"
-msgstr ""
+msgstr "Re&dukti Prioritaton"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
 #: conf/dlgnetwork.ui:19
 #, kde-format
 msgid "Maximum downloads per group:"
-msgstr ""
+msgstr "Maksimumaj elŝutoj po grupo:"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_MaxConnections)
 #: conf/dlgnetwork.ui:26
 #, kde-format
 msgctxt "no limit for maximum downloads has been set"
 msgid "No limit"
-msgstr ""
+msgstr "Neniu limo"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_SpeedLimit)
 #: conf/dlgnetwork.ui:35
 #, kde-format
 msgid "Speed Limit"
-msgstr ""
+msgstr "Rapida Limo"
 
 #. i18n: ectx: property (text), widget (QLabel, dllimitlb)
 #: conf/dlgnetwork.ui:44
 #, kde-format
 msgid "Global &download limit:"
-msgstr ""
+msgstr "Ĉiea &elŝuta limo:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalDownloadLimit)
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalUploadLimit)
@@ -237,37 +238,37 @@ msgstr ""
 #: ui/transfersettingsdialog.ui:54 ui/transfersettingsdialog.ui:70
 #, kde-format
 msgid " KiB/s"
-msgstr ""
+msgstr " KiB/s"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgnetwork.ui:70
 #, kde-format
 msgid "Global &upload limit:"
-msgstr ""
+msgstr "Ĉiea alŝ&uta limo:"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_per_transfer)
 #: conf/dlgnetwork.ui:96
 #, kde-format
 msgid "Per transfer:"
-msgstr ""
+msgstr "Po transigo:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ReconnectOnBroken)
 #: conf/dlgnetwork.ui:119
 #, kde-format
 msgid "Reconnect on Broken Connection"
-msgstr ""
+msgstr "Rekonekti ĉe Rompita Konekto"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_retries_2)
 #: conf/dlgnetwork.ui:128
 #, kde-format
 msgid "Number of retries:"
-msgstr ""
+msgstr "Nombro da provoj:"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_after_2)
 #: conf/dlgnetwork.ui:142
 #, kde-format
 msgid "Retry after:"
-msgstr ""
+msgstr "Reprovi post:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_ReconnectDelay)
 #: conf/dlgnetwork.ui:149
@@ -278,13 +279,13 @@ msgstr " s"
 #: conf/dlgwebinterface.cpp:44 conf/dlgwebinterface.cpp:56
 #, kde-format
 msgid "Could not open KWallet"
-msgstr ""
+msgstr "Ne eblis malfermi KWallet"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_WebinterfaceEnabled)
 #: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
-msgstr ""
+msgstr "Ebligi Retan Interfacon"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: conf/dlgwebinterface.ui:41
@@ -308,18 +309,18 @@ msgstr "Pasvorto:"
 #: conf/integrationpreferences.cpp:35
 #, kde-format
 msgid "Include"
-msgstr ""
+msgstr "Inkluzivi"
 
 #: conf/integrationpreferences.cpp:36
 #, kde-format
 msgid "Exclude"
-msgstr ""
+msgstr "Ekskludi"
 
 #. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
 #: conf/kget.kcfg:185
 #, kde-format
 msgid "The width of the columns in the history view"
-msgstr ""
+msgstr "La larĝo de la kolumnoj en la historia vido"
 
 #: conf/pluginselector.cpp:23 conf/preferencesdialog.cpp:95
 #, kde-format
@@ -329,7 +330,7 @@ msgstr "Kromaĵoj"
 #: conf/preferencesdialog.cpp:57
 #, kde-format
 msgid "Xml"
-msgstr ""
+msgstr "Xml"
 
 #: conf/preferencesdialog.cpp:59
 #, kde-format
@@ -344,32 +345,32 @@ msgstr "Malŝalti komputilon"
 #: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
 #, kde-format
 msgid "Hibernate Computer"
-msgstr ""
+msgstr "Pasivumigi Komputilo"
 
 #: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
 #, kde-format
 msgid "Suspend Computer"
-msgstr ""
+msgstr "Suspendi Komputilon"
 
 #: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Tago(j)"
 
 #: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Horo(j)"
 
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minuto(j)"
 
 #: conf/preferencesdialog.cpp:73
 #, kde-format
 msgid "Second(s)"
-msgstr ""
+msgstr "Sekundo(j)"
 
 #: conf/preferencesdialog.cpp:85
 #, kde-format
@@ -379,7 +380,7 @@ msgstr "Aspekto"
 #: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Change appearance settings"
-msgstr ""
+msgstr "Ŝanĝi aspekto-agordojn"
 
 #: conf/preferencesdialog.cpp:86
 #, kde-format
@@ -389,7 +390,7 @@ msgstr "Grupoj"
 #: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Manage the groups"
-msgstr ""
+msgstr "Administri la grupojn"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
 #: conf/preferencesdialog.cpp:87
@@ -401,7 +402,7 @@ msgstr "Reto"
 #: conf/preferencesdialog.cpp:87
 #, kde-format
 msgid "Network and Downloads"
-msgstr ""
+msgstr "Reto kaj Elŝutoj"
 
 #: conf/preferencesdialog.cpp:88
 #, kde-format
@@ -411,18 +412,18 @@ msgstr "RetInterfaco"
 #: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
-msgstr ""
+msgstr "Kontrolu KGet per Reto aŭ Interreto"
 
 #: conf/preferencesdialog.cpp:89
 #, kde-format
 msgid "Verification"
-msgstr ""
+msgstr "Konfirmo"
 
 #: conf/preferencesdialog.cpp:91 conf/preferencesdialog.cpp:93
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
-msgstr ""
+msgstr "Integriĝo"
 
 #: conf/preferencesdialog.cpp:94
 #, kde-format
@@ -438,7 +439,7 @@ msgstr "Pliaj opcioj"
 #: conf/preferencesdialog.cpp:95
 #, kde-format
 msgid "Transfer Plugins"
-msgstr ""
+msgstr "Transdono de Kromaĵoj"
 
 #: conf/transfersgrouptree.cpp:112 conf/transfersgrouptree.cpp:116
 #, kde-format
@@ -449,31 +450,31 @@ msgstr "Nova grupo"
 #: conf/verificationpreferences.ui:17
 #, kde-format
 msgid "Automatic checksums verification"
-msgstr ""
+msgstr "Aŭtomata verkontrolado de kontrolsumoj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: conf/verificationpreferences.ui:32
 #, kde-format
 msgid "Used checksum:"
-msgstr ""
+msgstr "Uzita kontrolsumo:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_4)
 #: conf/verificationpreferences.ui:51
 #, kde-format
 msgid "Weak (fastest)"
-msgstr ""
+msgstr "Malforta (plej rapida)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_5)
 #: conf/verificationpreferences.ui:61
 #, kde-format
 msgid "Strong (recommended)"
-msgstr ""
+msgstr "Forta (rekomendita)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_6)
 #: conf/verificationpreferences.ui:71
 #, kde-format
 msgid "Strongest (slowest)"
-msgstr ""
+msgstr "Plej forta (plej malrapida)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, signatureGroup)
 #. i18n: ectx: property (title), widget (QGroupBox, sigGroup)
@@ -488,19 +489,19 @@ msgstr "Subskribo"
 #: conf/verificationpreferences.ui:93
 #, kde-format
 msgid "Automatic verification"
-msgstr ""
+msgstr "Aŭtomata konfirmo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticDownloading)
 #: conf/verificationpreferences.ui:100
 #, kde-format
 msgid "Automatic downloading of missing keys"
-msgstr ""
+msgstr "Aŭtomata elŝuto de mankantaj ŝlosiloj"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: conf/verificationpreferences.ui:123
 #, kde-format
 msgid "Keyservers:"
-msgstr ""
+msgstr "Ŝlosilserviloj:"
 
 #: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
 #: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
@@ -516,12 +517,14 @@ msgstr "Eraro"
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr ""
+"Dosiergrandeco estas pli granda ol maksimuma dosiergrandeco subtenata de "
+"VFAT."
 
 #: core/datasourcefactory.cpp:580
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
-msgstr ""
+msgstr "%1 forigita ĉar ĝi raportis malĝustan grandecon de dosiero."
 
 #: core/filemodel.cpp:248
 #, kde-format
@@ -545,7 +548,7 @@ msgstr "Grandeco"
 #, kde-format
 msgctxt "checksum of a file"
 msgid "Checksum"
-msgstr ""
+msgstr "Kontrolsumo"
 
 #: core/filemodel.cpp:249
 #, kde-format
@@ -558,11 +561,13 @@ msgstr "Subskribo"
 msgid ""
 "No server for downloading keys is specified in settings. Downloading aborted."
 msgstr ""
+"Neniu servilo por elŝuti ŝlosilojn estas specifita en agordoj. Elŝuto "
+"ĉesigita."
 
 #: core/keydownloader.cpp:73 core/keydownloader.cpp:93
 #, kde-format
 msgid "No key server"
-msgstr ""
+msgstr "Neniu ŝlosila servilo"
 
 #: core/keydownloader.cpp:92
 #, kde-format
@@ -570,26 +575,28 @@ msgid ""
 "No useful key server found, key not downloaded. Add more servers to the "
 "settings or restart KGet and retry downloading."
 msgstr ""
+"Neniu utila ŝlosilservilo trovita, ŝlosilo ne elŝutita. Aldonu pli da "
+"serviloj al la agordoj aŭ rekomencu KGet kaj reprovu elŝuti."
 
 #: core/kget.cpp:113
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forigi la grupon nomitan %1?"
 
 #: core/kget.cpp:114
 #, kde-format
 msgid "Remove Group"
-msgstr "Elpreni grupon"
+msgstr "Forigi grupon"
 
 #: core/kget.cpp:140
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forigi la sekvajn grupojn?"
 
 #: core/kget.cpp:142
 #, kde-format
 msgid "Remove groups"
-msgstr ""
+msgstr "Forigi grupojn"
 
 #: core/kget.cpp:247
 #, kde-format
@@ -597,26 +604,28 @@ msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 msgstr ""
+"<p>La sekva transigo estis aldonita al la elŝuta listo:</p><p style=\"font-"
+"size: small;\">%1</p>"
 
 #: core/kget.cpp:249 core/kget.cpp:342
 #, kde-format
 msgid "Download added"
-msgstr ""
+msgstr "Elŝuto aldonita"
 
 #: core/kget.cpp:337
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
-msgstr ""
+msgstr "<p>La sekva transigo estis aldonita al la elŝuta listo:</p>"
 
 #: core/kget.cpp:339
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
-msgstr ""
+msgstr "<p>La sekvaj transigoj estis aldonitaj al la elŝuta listo:</p>"
 
 #: core/kget.cpp:501 core/kget.cpp:543
 #, kde-format
 msgid "My Downloads"
-msgstr ""
+msgstr "Miaj Elŝutoj"
 
 #: core/kget.cpp:552
 #, kde-format
@@ -624,16 +633,18 @@ msgid ""
 "The file %1 already exists.\n"
 "Overwrite?"
 msgstr ""
+"La dosiero %1 jam ekzistas.\n"
+"Ĉu anstataŭigi?"
 
 #: core/kget.cpp:553
 #, kde-format
 msgid "Overwrite existing file?"
-msgstr ""
+msgstr "Ĉu anstataŭigi ekzistantan dosieron?"
 
 #: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
-msgstr ""
+msgstr "Ne eblas konservi en: %1"
 
 #: core/kget.cpp:869
 #, kde-format
@@ -644,28 +655,32 @@ msgid_plural ""
 "<p>The following URLs cannot be downloaded, their protocols are not "
 "supported by KGet:</p>"
 msgstr[0] ""
+"<p>La sekva URL ne estas elŝutebla, ĝia protokolo ne estas subtenata de KGet:"
+"</p>"
 msgstr[1] ""
+"<p>La sekvaj URL ne estas elŝuteblaj, ilia protokolo ne estas subtenata de "
+"KGet:</p>"
 
 #: core/kget.cpp:879
 #, kde-format
 msgid "Protocol unsupported"
-msgstr ""
+msgstr "Protokolo nesubtenata"
 
 #: core/kget.cpp:932 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
-msgstr ""
+msgstr "Nova Elŝuto"
 
 #: core/kget.cpp:932
 #, kde-format
 msgid "Enter URL:"
-msgstr ""
+msgstr "Enigu URL:"
 
 #: core/kget.cpp:952
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
-msgstr ""
+msgstr "Elekti Dosierujon"
 
 #: core/kget.cpp:973
 #, kde-format
@@ -679,6 +694,8 @@ msgid ""
 "Malformed URL:\n"
 "%1"
 msgstr ""
+"Misformita URL:\n"
+"%1"
 
 #: core/kget.cpp:991 core/urlchecker.cpp:368
 #, kde-format
@@ -686,6 +703,8 @@ msgid ""
 "Malformed URL, protocol missing:\n"
 "%1"
 msgstr ""
+"Misforma URL, protokolo mankas:\n"
+"%1"
 
 #: core/kget.cpp:1002 core/urlchecker.cpp:424
 #, kde-format
@@ -696,11 +715,16 @@ msgid ""
 "\n"
 "Download it again?"
 msgstr ""
+"Vi jam kompletigis elŝuton el la loko: \n"
+"\n"
+"%1\n"
+"\n"
+"Ĉu elŝuti ĝin denove?"
 
 #: core/kget.cpp:1003 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
-msgstr ""
+msgstr "Ĉu denove elŝuti ĝin?"
 
 #: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
 #: transfer-plugins/kio/transferKio.cpp:275
@@ -710,13 +734,13 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr ""
+msgstr "Elŝuti Denove"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Preterlasi"
 
 #: core/kget.cpp:1015 core/urlchecker.cpp:426
 #, kde-format
@@ -727,16 +751,21 @@ msgid ""
 "\n"
 "Delete it and download again?"
 msgstr ""
+"Vi havas elŝuton en progreso de la loko: \n"
+"\n"
+"%1\n"
+"\n"
+"Ĉu forigi ĝin kaj elŝuti denove?"
 
 #: core/kget.cpp:1016 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
-msgstr ""
+msgstr "Ĉu forigi ĝin kaj elŝuti denove?"
 
 #: core/kget.cpp:1038 core/kget.cpp:1043
 #, kde-format
 msgid "Directory is not writable"
-msgstr ""
+msgstr "Dosierujo ne estas skribebla"
 
 #: core/kget.cpp:1070
 #, kde-format
@@ -745,16 +774,19 @@ msgid ""
 "\n"
 "Download and delete the previous one?"
 msgstr ""
+"Vi jam elŝutis tiun dosieron el alia loko.\n"
+"\n"
+"Elŝuti kaj forigi la antaŭan?"
 
 #: core/kget.cpp:1071 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
-msgstr ""
+msgstr "Dosiero jam elŝutita. Ĉu elŝuti ĉiukaze?"
 
 #: core/kget.cpp:1082
 #, kde-format
 msgid "You are already downloading the same file"
-msgstr ""
+msgstr "Vi jam elŝutas la saman dosieron"
 
 #: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
@@ -766,17 +798,17 @@ msgstr "Dosiero jam ekzistas"
 #: core/kget.cpp:1178
 #, kde-format
 msgid "Internet connection established, resuming transfers."
-msgstr ""
+msgstr "Interreta konekto establita, rekomencante transigojn."
 
 #: core/kget.cpp:1181
 #, kde-format
 msgid "No internet connection, stopping transfers."
-msgstr ""
+msgstr "Neniu interreta konekto, ĉesigante transigojn."
 
 #: core/kget.cpp:1193
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr ""
+msgstr "Kromŝargilo ne povis ŝargi la kromprogramon %1: %2."
 
 #: core/kget.cpp:1204
 #, kde-format
@@ -785,6 +817,9 @@ msgid ""
 "%1\n"
 "as it is a directory."
 msgstr ""
+"Ne forigante\n"
+"%1\n"
+"ĉar ĝi estas dosierujo."
 
 #: core/kget.cpp:1213
 #, kde-format
@@ -793,6 +828,9 @@ msgid ""
 "%1\n"
 "as it is not a local file."
 msgstr ""
+"Ne forigante\n"
+"%1\n"
+"ĉar ĝi ne estas loka dosiero."
 
 #: core/kget.cpp:1321
 #, kde-format
@@ -800,6 +838,7 @@ msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
+"<p>La sekva dosiero finiĝis elŝuti:</p><p style=\"font-size: small;\">%1</p>"
 
 #: core/kget.cpp:1323
 #, kde-format
@@ -812,11 +851,13 @@ msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
+"<p>La sekva transigo estis komencita:</p><p style=\"font-size: small;\">%1</"
+"p>"
 
 #: core/kget.cpp:1329
 #, kde-format
 msgid "Download started"
-msgstr ""
+msgstr "Elŝuto komenciĝis"
 
 #: core/kget.cpp:1334
 #, kde-format
@@ -825,22 +866,24 @@ msgid ""
 "size: small;\">%1</p><p>The error message is:</p><p style=\"font-size: small;"
 "\">%2</p>"
 msgstr ""
+"<p>Okazis eraro en la sekva transigo:</p><p style=\"font-size: small;\">%1</"
+"p><p>La erarmesaĝo estas:</p> <p style=\"font-size: small;\">%2</p>"
 
 #: core/kget.cpp:1342
 #, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
-msgstr ""
+msgstr "Solvi"
 
 #: core/kget.cpp:1392
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
-msgstr ""
+msgstr "KGet nun fermiĝas, ĉar ĉiuj elŝutoj finiĝis."
 
 #: core/kget.cpp:1399
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
-msgstr ""
+msgstr "La komputilo nun malŝaltos, ĉar ĉiuj elŝutoj finiĝis."
 
 #: core/kget.cpp:1401
 #, kde-format
@@ -851,24 +894,24 @@ msgstr "Sistemfermi"
 #: core/kget.cpp:1406
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
-msgstr ""
+msgstr "La komputilo nun suspendos al disko, ĉar ĉiuj elŝutoj finiĝis."
 
 #: core/kget.cpp:1408
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
-msgstr ""
+msgstr "Pasivumigante"
 
 #: core/kget.cpp:1413
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
-msgstr ""
+msgstr "La komputilo nun suspendos al RAM, ĉar ĉiuj elŝutoj finiĝis."
 
 #: core/kget.cpp:1415
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
-msgstr ""
+msgstr "Suspendante"
 
 #: core/kget.cpp:1423
 #, kde-format
@@ -879,12 +922,12 @@ msgstr "Ĉesigi"
 #: core/kget.cpp:1432
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
-msgstr ""
+msgstr "<p>Ĉiuj transigoj finiĝis.</p>"
 
 #: core/kget.cpp:1432
 #, kde-format
 msgid "Downloads completed"
-msgstr ""
+msgstr "Elŝutoj finiĝis"
 
 #: core/kget.h:365 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
 #: ui/tray.cpp:44
@@ -896,23 +939,23 @@ msgstr "KGet"
 #, kde-format
 msgid "KGet is downloading %1 file"
 msgid_plural "KGet is downloading %1 files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "KGet estas elŝutanta %1 dosieron"
+msgstr[1] "KGet estas elŝutanta %1 dosierojn"
 
 #: core/kgetkjobadapter.cpp:48
 #, kde-format
 msgid "KGet Transfer"
-msgstr ""
+msgstr "KGet-Transigo"
 
 #: core/linkimporter.cpp:93
 #, kde-format
 msgid "Error trying to get %1"
-msgstr ""
+msgstr "Eraro provante akiri %1"
 
 #: core/signature.cpp:230
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
-msgstr ""
+msgstr "La ŝlosilo por kontroli la subskribon mankas, ĉu vi volas elŝuti ĝin?"
 
 #: core/signature.cpp:232
 #, kde-format
@@ -924,7 +967,7 @@ msgstr "Elŝuti"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Daŭrigi Sen"
 
 #: core/signature.cpp:256
 #, kde-format
@@ -932,20 +975,22 @@ msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
 "information."
 msgstr ""
+"La subskribo ne povis esti kontrolita por %1. Vidu translokajn agordojn por "
+"pliaj informoj."
 
 #: core/signature.cpp:257
 #, kde-format
 msgid "Signature not verified"
-msgstr ""
+msgstr "Subskribo ne kontrolita"
 
 #: core/transfer.cpp:28
 msgid "Downloading...."
-msgstr ""
+msgstr "Elŝutante...."
 
 #: core/transfer.cpp:29
 msgctxt "transfer state: delayed"
 msgid "Delayed"
-msgstr ""
+msgstr "Prokrastita"
 
 #: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
@@ -971,14 +1016,14 @@ msgstr "Finita"
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
-msgstr ""
+msgstr "Ŝanĝante cellokon"
 
 #: core/transfergrouphandler.cpp:94
 #, kde-format
 msgid "1 Item"
 msgid_plural "%1 Items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 Ero"
+msgstr[1] "%1 Eroj"
 
 #: core/transfergrouphandler.cpp:108 core/transferhandler.cpp:140
 #: ui/transferdetails.cpp:93
@@ -1019,7 +1064,7 @@ msgstr "Ĉesi"
 #, kde-format
 msgctxt "not available"
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 #: core/transferhandler.cpp:136 ui/transferdetails.cpp:89
 #, kde-format
@@ -1060,7 +1105,7 @@ msgstr "Rapido"
 #, kde-format
 msgctxt "remaining time of download"
 msgid "Remaining Time"
-msgstr ""
+msgstr "Restanta tempo"
 
 #: core/urlchecker.cpp:51
 #, kde-format
@@ -1070,43 +1115,43 @@ msgstr "Demando"
 #: core/urlchecker.cpp:61
 #, kde-format
 msgid "Appl&y to all"
-msgstr ""
+msgstr "Apl&iki al ĉiuj"
 
 #: core/urlchecker.cpp:300 core/urlchecker.cpp:340
 #, kde-format
 msgid "No download directory specified."
-msgstr ""
+msgstr "Neniu elŝuta dosierujo specifita."
 
 #: core/urlchecker.cpp:302
 #, kde-format
 msgid "Invalid download directory specified."
-msgstr ""
+msgstr "Nevalida elŝuta dosierujo specifita."
 
 #: core/urlchecker.cpp:304
 #, kde-format
 msgid "Download directory is not writeable."
-msgstr ""
+msgstr "Elŝuta dosierujo ne estas skribebla."
 
 #: core/urlchecker.cpp:312 core/urlchecker.cpp:352
 #, kde-format
 msgid "No download destination specified."
-msgstr ""
+msgstr "Neniu elŝuta celo specifita."
 
 #: core/urlchecker.cpp:314
 #, kde-format
 msgid "Invalid download destination specified."
-msgstr ""
+msgstr "Nevalida elŝuta celo specifita."
 
 #: core/urlchecker.cpp:316
 #, kde-format
 msgid "Download destination is not writeable."
-msgstr ""
+msgstr "Elŝuta celo ne estas skribebla."
 
 #: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
 #: core/urlchecker.cpp:468
 #, kde-format
 msgid "No URL specified."
-msgstr ""
+msgstr "Neniu URL specifita."
 
 #: core/urlchecker.cpp:326
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:91
@@ -1118,12 +1163,12 @@ msgstr "Misformita retadreso."
 #: core/urlchecker.cpp:328
 #, kde-format
 msgid "Malformed URL, protocol missing."
-msgstr ""
+msgstr "Misformita URL, protokolo mankas."
 
 #: core/urlchecker.cpp:330
 #, kde-format
 msgid "Malformed URL, host missing."
-msgstr ""
+msgstr "Misformita URL, gastiganto mankas."
 
 #: core/urlchecker.cpp:342
 #, kde-format
@@ -1131,6 +1176,8 @@ msgid ""
 "Invalid download directory specified:\n"
 "%1"
 msgstr ""
+"Nevalida elŝuta dosierujo specifita:\n"
+"%1"
 
 #: core/urlchecker.cpp:344
 #, kde-format
@@ -1138,6 +1185,8 @@ msgid ""
 "Download directory is not writeable:\n"
 "%1"
 msgstr ""
+"Elŝuta dosierujo ne estas skribebla:\n"
+"%1"
 
 #: core/urlchecker.cpp:354
 #, kde-format
@@ -1145,6 +1194,8 @@ msgid ""
 "Invalid download destination specified:\n"
 "%1"
 msgstr ""
+"Nevalida elŝuta celo specifita:\n"
+"%1"
 
 #: core/urlchecker.cpp:356
 #, kde-format
@@ -1152,6 +1203,8 @@ msgid ""
 "Download destination is not writeable:\n"
 "%1"
 msgstr ""
+"Elŝuta celo ne estas skribebla:\n"
+"%1"
 
 #: core/urlchecker.cpp:370
 #, kde-format
@@ -1159,11 +1212,13 @@ msgid ""
 "Malformed URL, host missing:\n"
 "%1"
 msgstr ""
+"Misformita URL, gastiganto mankas:\n"
+"%1"
 
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
 #, kde-format
 msgid "File already exists. Overwrite it?"
-msgstr ""
+msgstr "Dosiero jam ekzistas. Anstataŭigi ĝin?"
 
 #: core/urlchecker.cpp:388 core/urlchecker.cpp:414
 #, kde-format
@@ -1171,6 +1226,8 @@ msgid ""
 "You have already downloaded that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
+"Vi jam elŝutis tiun dosieron el alia loko.\n"
+"Elŝuti kaj forigi la antaŭan?"
 
 #: core/urlchecker.cpp:390 core/urlchecker.cpp:416
 #, kde-format
@@ -1178,12 +1235,14 @@ msgid ""
 "You are already downloading that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
+"Vi jam elŝutas tiun dosieron el alia loko.\n"
+"Elŝuti kaj forigi la antaŭan?"
 
 #: core/urlchecker.cpp:400
 #, kde-format
 msgid ""
 "You have already completed a download from that location. Download it again?"
-msgstr ""
+msgstr "Vi jam kompletigis elŝuton de tiu loko. Ĉu denove elŝuti ĝin?"
 
 #: core/urlchecker.cpp:402
 #, kde-format
@@ -1191,6 +1250,8 @@ msgid ""
 "You have a download in progress from that location.\n"
 "Delete it and download again?"
 msgstr ""
+"Vi havas elŝuton en progreso de tiu loko.\n"
+"Ĉu forigi ĝin kaj elŝuti denove?"
 
 #: core/urlchecker.cpp:412
 #, kde-format
@@ -1199,21 +1260,24 @@ msgid ""
 "%1\n"
 "Overwrite it?"
 msgstr ""
+"Dosiero jam ekzistas:\n"
+"%1\n"
+"Ĉu anstataŭigi ĝin?"
 
 #: core/urlchecker.cpp:456
 #, kde-format
 msgid "Malformed URLs."
-msgstr ""
+msgstr "Misformitaj URLoj."
 
 #: core/urlchecker.cpp:458
 #, kde-format
 msgid "Malformed URLs, protocol missing."
-msgstr ""
+msgstr "Misformitaj URLoj, protokolo mankas."
 
 #: core/urlchecker.cpp:460
 #, kde-format
 msgid "Malformed URLs, host missing."
-msgstr ""
+msgstr "Misformitaj URLoj, gastiganto mankas."
 
 #: core/urlchecker.cpp:470
 #, kde-format
@@ -1221,6 +1285,8 @@ msgid ""
 "Malformed URLs:\n"
 "%1"
 msgstr ""
+"Misformitaj URL-oj:\n"
+"%1"
 
 #: core/urlchecker.cpp:472
 #, kde-format
@@ -1228,6 +1294,8 @@ msgid ""
 "Malformed URLs, protocol missing:\n"
 "%1"
 msgstr ""
+"Misformitaj URLoj, protokolo mankas:\n"
+"%1"
 
 #: core/urlchecker.cpp:474
 #, kde-format
@@ -1235,6 +1303,8 @@ msgid ""
 "Malformed URLs, host missing:\n"
 "%1"
 msgstr ""
+"Misformitaj URLoj, gastiganto mankas:\n"
+"%1"
 
 #: core/urlchecker.cpp:476
 #, kde-format
@@ -1242,18 +1312,20 @@ msgid ""
 "Destinations are not writable:\n"
 "%1"
 msgstr ""
+"Celoj ne estas skribeblaj:\n"
+"%1"
 
 #: core/urlchecker.cpp:500
 #, kde-format
 msgid "Files exist already. Overwrite them?"
-msgstr ""
+msgstr "Dosieroj jam ekzistas. Anstataŭigi ilin?"
 
 #: core/urlchecker.cpp:502
 #, kde-format
 msgid ""
 "You have already completed downloads at those destinations. Download them "
 "again?"
-msgstr ""
+msgstr "Vi jam kompletigis elŝutojn ĉe tiuj cellokoj. Ĉu denove elŝuti ilin?"
 
 #: core/urlchecker.cpp:504
 #, kde-format
@@ -1261,13 +1333,15 @@ msgid ""
 "You have downloads in progress to these destinations.\n"
 "Delete them and download again?"
 msgstr ""
+"Vi havas elŝutojn en progreso al ĉi tiuj cellokoj.\n"
+"Ĉu forigi ilin kaj elŝuti denove?"
 
 #: core/urlchecker.cpp:512
 #, kde-format
 msgid ""
 "You have already completed downloads from these locations. Download them "
 "again?"
-msgstr ""
+msgstr "Vi jam kompletigis elŝutojn de ĉi tiuj lokoj. Ĉu denove elŝuti ilin?"
 
 #: core/urlchecker.cpp:514
 #, kde-format
@@ -1275,6 +1349,8 @@ msgid ""
 "You have downloads in progress from these locations.\n"
 "Delete them and download again?"
 msgstr ""
+"Vi havas elŝutojn en progreso de ĉi tiuj lokoj.\n"
+"Ĉu forigi ilin kaj elŝuti denove?"
 
 #: core/urlchecker.cpp:523
 #, kde-format
@@ -1283,6 +1359,9 @@ msgid ""
 "%1\n"
 "Overwrite them?"
 msgstr ""
+"Dosieroj jam ekzistas:\n"
+"%1\n"
+"Ĉu anstataŭigi ilin?"
 
 #: core/urlchecker.cpp:525
 #, kde-format
@@ -1293,6 +1372,11 @@ msgid ""
 "\n"
 " Download them again?"
 msgstr ""
+"Vi jam kompletigis elŝutojn ĉe tiuj cellokoj: \n"
+"\n"
+"%1\n"
+"\n"
+" Ĉu denove elŝuti ilin?"
 
 #: core/urlchecker.cpp:527
 #, kde-format
@@ -1303,6 +1387,11 @@ msgid ""
 "\n"
 "Delete them and download again?"
 msgstr ""
+"Vi havas elŝutojn en progreso al ĉi tiuj cellokoj: \n"
+"\n"
+"%1\n"
+"\n"
+"Ĉu forigi ilin kaj elŝuti denove?"
 
 #: core/urlchecker.cpp:535
 #, kde-format
@@ -1313,6 +1402,11 @@ msgid ""
 "\n"
 "Download them again?"
 msgstr ""
+"Vi jam kompletigis elŝutojn de ĉi tiuj lokoj: \n"
+"\n"
+"%1\n"
+"\n"
+"Ĉu elŝuti ilin denove?"
 
 #: core/urlchecker.cpp:537
 #, kde-format
@@ -1323,6 +1417,11 @@ msgid ""
 "\n"
 "Delete them and download again?"
 msgstr ""
+"Vi havas elŝutojn en progreso de ĉi tiuj lokoj: \n"
+"\n"
+"%1\n"
+"\n"
+"Ĉu forigi ilin kaj elŝuti denove?"
 
 #: core/verificationmodel.cpp:148
 #, kde-format
@@ -1334,18 +1433,18 @@ msgstr "Tipo"
 #, kde-format
 msgctxt "the used hash for verification"
 msgid "Hash"
-msgstr ""
+msgstr "Haketkodo"
 
 #: core/verificationmodel.cpp:152
 #, kde-format
 msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
-msgstr ""
+msgstr "Kontrolita"
 
 #: main.cpp:101
 #, kde-format
 msgid "An advanced download manager by KDE"
-msgstr ""
+msgstr "Altnivela elŝuta administranto de KDE"
 
 #: main.cpp:103
 #, kde-format
@@ -1355,6 +1454,10 @@ msgid ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
+"(C) 2005 - 2014, La KGet-programistoj\n"
+"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2002, Carsten Pfeiffer\n"
+"(C) 1998 - 2000, Matej Koss"
 
 #: main.cpp:107
 #, kde-format
@@ -1369,7 +1472,7 @@ msgstr "Lukas Appelhans"
 #: main.cpp:109
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
-msgstr ""
+msgstr "Prizorganto, Kerna Programisto, Torrent-Kromprograma Aŭtoro"
 
 #: main.cpp:110
 #, kde-format
@@ -1394,7 +1497,7 @@ msgstr "Manolo Valdes"
 #: main.cpp:112
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
-msgstr ""
+msgstr "Kerna Programisto, Multithread-Kromprograma Aŭtoro"
 
 #: main.cpp:113
 #, kde-format
@@ -1414,22 +1517,22 @@ msgstr "Programisto"
 #: main.cpp:115
 #, kde-format
 msgid "Aish Raj Dahal"
-msgstr ""
+msgstr "Aish Raj Dahal"
 
 #: main.cpp:115
 #, kde-format
 msgid "Google Summer of Code Student"
-msgstr ""
+msgstr "Google Somero de Kodo Studento"
 
 #: main.cpp:116
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
-msgstr ""
+msgstr "Ernesto Rodriguez Ortiz"
 
 #: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
-msgstr ""
+msgstr "Mms Kromaĵo Aŭtoro"
 
 #: main.cpp:117
 #, kde-format
@@ -1439,7 +1542,7 @@ msgstr "Patrick Charbonnier"
 #: main.cpp:117 main.cpp:118 main.cpp:119
 #, kde-format
 msgid "Former Developer"
-msgstr ""
+msgstr "Iama Evoluisto"
 
 #: main.cpp:118
 #, kde-format
@@ -1459,7 +1562,7 @@ msgstr "Joris Guisson"
 #: main.cpp:120
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
-msgstr ""
+msgstr "BTCore (KTorrent) Programisto"
 
 #: main.cpp:121
 #, kde-format
@@ -1469,96 +1572,96 @@ msgstr "Mensur Zahirovic (Nookie)"
 #: main.cpp:121
 #, kde-format
 msgid "Design of Web Interface"
-msgstr ""
+msgstr "Dezajno de Reta Interfaco"
 
 #: main.cpp:123
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Axel Rousseau"
+msgstr "Axel Rousseau,Oliver Kellogg"
 
 #: main.cpp:123
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "axel@esperanto-jeunes.org"
+msgstr "axel@esperanto-jeunes.org,okellogg@users.sourceforge.net"
 
 #: main.cpp:130
 #, kde-format
 msgid "Start KGet with drop target"
-msgstr ""
+msgstr "Komenci KGet kun falcelo"
 
 #: main.cpp:131
 #, kde-format
 msgid "Start KGet with hidden main window"
-msgstr ""
+msgstr "Komenci KGet kun kaŝita ĉeffenestro"
 
 #: main.cpp:132
 #, kde-format
 msgid "Start KGet without drop target animation"
-msgstr ""
+msgstr "Komenci KGet sen falcela animacio"
 
 #: main.cpp:134
 #, kde-format
 msgid "Execute Unit Testing"
-msgstr ""
+msgstr "Efektivigi Unuotestadon"
 
 #: main.cpp:136
 #, kde-format
 msgid "URL(s) to download"
-msgstr ""
+msgstr "URL(j) por elŝuti"
 
 #: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
-msgstr ""
+msgstr "&Nova Elŝuto..."
 
 #: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
-msgstr ""
+msgstr "&Importi Transigojn..."
 
 #: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
-msgstr ""
+msgstr "&Eksporti Liston de Transigoj..."
 
 #: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr ""
+msgstr "&Krei Metaligilon..."
 
 #: mainwindow.cpp:173
 #, kde-format
 msgid "Top Priority"
-msgstr ""
+msgstr "Ĉefa Prioritato"
 
 #: mainwindow.cpp:180
 #, kde-format
 msgid "Least Priority"
-msgstr ""
+msgstr "Malpleja Prioritato"
 
 #: mainwindow.cpp:187
 #, kde-format
 msgid "Increase Priority"
-msgstr ""
+msgstr "Pliigi Prioritaton"
 
 #: mainwindow.cpp:194
 #, kde-format
 msgid "Decrease Priority"
-msgstr ""
+msgstr "Malpliigi Prioritaton"
 
 #: mainwindow.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "Delete Group"
-msgstr ""
+msgstr "Forigi Grupon"
 
 #: mainwindow.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr ""
+msgstr "Alinomi Grupon..."
 
 #: mainwindow.cpp:213
 #, kde-format
@@ -1568,7 +1671,7 @@ msgstr "Difini piktogramon..."
 #: mainwindow.cpp:218
 #, kde-format
 msgid "Auto-Paste Mode"
-msgstr ""
+msgstr "Aŭtomata Alglu-Reĝimo"
 
 #: mainwindow.cpp:222
 #, kde-format
@@ -1577,55 +1680,59 @@ msgid ""
 "When set, KGet will periodically scan the clipboard for URLs and paste them "
 "automatically."
 msgstr ""
+"La butono <b>Aŭtomata algluo</b> ŝaltas kaj malŝaltas la aŭtomatan alglu-"
+"reĝimon.\n"
+"Kiam agordita, KGet periode skanos la tondujon por URL-oj kaj algluos ilin "
+"aŭtomate."
 
 #: mainwindow.cpp:227
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
-msgstr ""
+msgstr "Uzi KGet kiel Konqueror Download Manager"
 
 #: mainwindow.cpp:245
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
-msgstr ""
+msgstr "Forigi Elektitajn"
 
 #: mainwindow.cpp:252
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
-msgstr ""
+msgstr "Forigi Ĉion Finita"
 
 #: mainwindow.cpp:258
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
-msgstr ""
+msgstr "Forigi Elektitajn kaj Forigi Dosieroj"
 
 #: mainwindow.cpp:264
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
-msgstr ""
+msgstr "Reelŝuti Elektitajn"
 
 #: mainwindow.cpp:269
 #, kde-format
 msgid "Start All"
-msgstr ""
+msgstr "Komenci Ĉion"
 
 #: mainwindow.cpp:276
 #, kde-format
 msgid "Start Selected"
-msgstr ""
+msgstr "Komenci Elektitan"
 
 #: mainwindow.cpp:282
 #, kde-format
 msgid "Pause All"
-msgstr ""
+msgstr "Paŭzi Ĉion"
 
 #: mainwindow.cpp:289
 #, kde-format
 msgid "Stop Selected"
-msgstr ""
+msgstr "Halti Elektitan"
 
 #: mainwindow.cpp:294
 #, kde-format
@@ -1635,12 +1742,12 @@ msgstr "Komenci"
 #: mainwindow.cpp:301
 #, kde-format
 msgid "Pause"
-msgstr ""
+msgstr "Paŭzi"
 
 #: mainwindow.cpp:309
 #, kde-format
 msgid "Open Destination"
-msgstr ""
+msgstr "Malfermi Celon"
 
 #: mainwindow.cpp:314
 #, kde-format
@@ -1655,38 +1762,38 @@ msgstr "Montri Detalojn"
 #: mainwindow.cpp:323
 #, kde-format
 msgid "Copy URL to Clipboard"
-msgstr ""
+msgstr "Kopii URL al Tondujo"
 
 #: mainwindow.cpp:328
 #, kde-format
 msgid "&Transfer History"
-msgstr ""
+msgstr "&Transiga Historio"
 
 #: mainwindow.cpp:334
 #, kde-format
 msgid "&Group Settings"
-msgstr ""
+msgstr "&Grupaj Agordoj"
 
 #: mainwindow.cpp:340
 #, kde-format
 msgid "&Transfer Settings"
-msgstr ""
+msgstr "&Transigaj Agordoj"
 
 #: mainwindow.cpp:346
 #, kde-format
 msgid "Import &Links..."
-msgstr ""
+msgstr "Importi &Ligilojn..."
 
 #: mainwindow.cpp:352
 #, kde-format
 msgid "After downloads finished action"
-msgstr ""
+msgstr "Post elŝutoj finiĝis ago"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
 #: mainwindow.cpp:356
 #, kde-format
 msgid "No Action"
-msgstr ""
+msgstr "Neniu agado"
 
 #: mainwindow.cpp:433
 #, kde-format
@@ -1694,11 +1801,13 @@ msgid ""
 "This is the first time you have run KGet.\n"
 "Would you like to enable KGet as the download manager for Konqueror?"
 msgstr ""
+"Ĉi tio estas la unua fojo, kiam vi rulas KGet.\n"
+"Ĉu vi ŝatus ebligi KGet kiel la elŝutadministrilon por Konqueror?"
 
 #: mainwindow.cpp:435
 #, kde-format
 msgid "Konqueror Integration"
-msgstr ""
+msgstr "Konqueror-Integriĝo"
 
 #: mainwindow.cpp:436
 #, kde-format
@@ -1719,13 +1828,13 @@ msgstr "Malfermu dosieron"
 #: mainwindow.cpp:504
 #, kde-format
 msgid "All Openable Files"
-msgstr ""
+msgstr "Ĉiuj Malfermeblaj Dosieroj"
 
 #: mainwindow.cpp:519
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
-msgstr ""
+msgstr "KGet - %1%"
 
 #: mainwindow.cpp:567
 #, kde-format
@@ -1733,32 +1842,34 @@ msgid ""
 "Some transfers are still running.\n"
 "Are you sure you want to close KGet?"
 msgstr ""
+"Kelkaj transigoj ankoraŭ funkcias.\n"
+"Ĉu vi certas, ke vi volas fermi KGet?"
 
 #: mainwindow.cpp:569
 #, kde-format
 msgid "Confirm Quit"
-msgstr ""
+msgstr "Konfirmi Forlasi"
 
 #: mainwindow.cpp:596
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
-msgstr ""
+msgstr "Eksporti Translokiĝojn"
 
 #: mainwindow.cpp:598
 #, kde-format
 msgid "KGet Transfer List"
-msgstr ""
+msgstr "KGet-Transiga Listo"
 
 #: mainwindow.cpp:598
 #, kde-format
 msgid "Text File"
-msgstr ""
+msgstr "Teksta Dosiero"
 
 #: mainwindow.cpp:627
 #, kde-format
 msgid "Enter Group Name"
-msgstr ""
+msgstr "Enigi Grupnomon"
 
 #: mainwindow.cpp:627
 #, kde-format
@@ -1769,13 +1880,13 @@ msgstr "Grupnomo:"
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ĉu vi certas ke vi volas forigi la elektitan transigon?"
+msgstr[1] "Ĉu vi certas ke vi volas forigi la elektitajn transigojn?"
 
 #: mainwindow.cpp:714 mainwindow.cpp:745
 #, kde-format
 msgid "Confirm transfer delete"
-msgstr ""
+msgstr "Konfirmi forigon de transigo"
 
 #: mainwindow.cpp:742
 #, kde-format
@@ -1783,7 +1894,9 @@ msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] ""
+"Ĉu vi certas ke vi volas forigi la elektitan transigon inkluzive dosierojn?"
 msgstr[1] ""
+"Ĉu vi certas ke vi volas forigi la elektitajn transigojn inkluzive dosierojn?"
 
 #: mainwindow.cpp:1077
 #, kde-format
@@ -1792,11 +1905,14 @@ msgid ""
 "want to disable it forever, go to Settings->Advanced and disable \"Use as "
 "download manager for Konqueror\"."
 msgstr ""
+"KGet estis provizore malŝaltita kiel elŝutadministrilo por Konqueror. Se vi "
+"volas malŝalti ĝin por ĉiam, iru al Agordoj->Altenita kaj malŝaltu \"Uzu "
+"kiel elŝutadministrilon por Konqueror\"."
 
 #: mainwindow.cpp:1192 ui/droptarget.cpp:211
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
-msgstr ""
+msgstr "La faligita dosiero estas KGet Transfer List"
 
 #: mainwindow.cpp:1194 ui/droptarget.cpp:213
 #, kde-format
@@ -1806,13 +1922,13 @@ msgstr "&Elŝuti"
 #: mainwindow.cpp:1195 ui/droptarget.cpp:214
 #, kde-format
 msgid "&Load transfer list"
-msgstr ""
+msgstr "Ŝargi &liston de transigoj"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:53
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:57
 #, kde-format
 msgid "Advanced Details for %1"
-msgstr ""
+msgstr "Altnivelaj Detaloj por %1"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:65
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
@@ -1828,7 +1944,7 @@ msgstr "Kunordigaj serviloj"
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:76
 #, kde-format
 msgid "Webseeds"
-msgstr ""
+msgstr "Retaj semoj"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
 #, kde-format
@@ -1854,27 +1970,27 @@ msgstr "Elŝuta rapido"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:233
 #, kde-format
 msgid "Number of the chunk"
-msgstr ""
+msgstr "Nombro de la peco"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:235
 #, kde-format
 msgid "Download progress of the chunk"
-msgstr ""
+msgstr "Elŝuta progreso de la peco"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:237
 #, kde-format
 msgid "Which peer we are downloading it from"
-msgstr ""
+msgstr "De kiu samtavolano ni estas elŝutantaj ĝin"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:239
 #, kde-format
 msgid "Download speed of the chunk"
-msgstr ""
+msgstr "Elŝuta rapideco de la peco"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:241
 #, kde-format
 msgid "Which files the chunk is located in"
-msgstr ""
+msgstr "En kiuj dosieroj troviĝas la peco"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChunkDownloadView)
@@ -1963,12 +2079,12 @@ msgstr "Movi dosieron"
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
-msgstr ""
+msgstr "Malvastigi Dosierujan Arbon"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Expand Folder Tree"
-msgstr ""
+msgstr "Vastigi Dosierujo-Arbon"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:251
 #, kde-format
@@ -1976,7 +2092,9 @@ msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] ""
+"Vi perdos ĉiujn datenojn en ĉi dosiero, ĉu vi certas ke vi volas fari tion?"
 msgstr[1] ""
+"Vi perdos ĉiujn datenojn en ĉi dosieroj, ĉu vi certas ke vi volas fari tion?"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:278
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
@@ -2192,7 +2310,7 @@ msgstr "Alŝutis"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:350
 #, kde-format
 msgid "Interested"
-msgstr ""
+msgstr "Interesita"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:352
 #, kde-format
@@ -2202,22 +2320,22 @@ msgstr "Interesa"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:359
 #, kde-format
 msgid "IP address of the peer"
-msgstr ""
+msgstr "IP-adreso de la samtavolano"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:361
 #, kde-format
 msgid "Which client the peer is using"
-msgstr ""
+msgstr "Kiun klienton la samtavolano uzas"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
 #, kde-format
 msgid "Download speed"
-msgstr ""
+msgstr "Elŝuta rapido"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:365
 #, kde-format
 msgid "Upload speed"
-msgstr ""
+msgstr "Alŝuta rapido"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:367
 #, kde-format
@@ -2225,57 +2343,63 @@ msgid ""
 "Whether or not the peer has choked us. If we are choked, the peer will not "
 "send us any data."
 msgstr ""
+"Ĉu aŭ ne la samtavolano sufokis nin. Se ni estas sufokitaj, la samtavolano "
+"ne sendos al ni datumojn."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:369
 #, kde-format
 msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
 msgstr ""
+"Snubbed signifas ke la samtavolano sendis al ni neniujn datumojn en la "
+"lastaj 2 minutoj"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:371
 #, kde-format
 msgid "How much of the torrent's data the peer has"
-msgstr ""
+msgstr "Kiom da datumoj de la torento havas la samtavolano"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:373
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
-msgstr ""
+msgstr "Ĉu aŭ ne la samtavolano havas DHT ebligita"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:375
 #, kde-format
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
 msgstr ""
+"La poentaro de la samtavolano. KTorrent uzas ĉi tion por determini al kiu "
+"alŝuti."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:377
 #, kde-format
 msgid "Only peers which have an upload slot will get data from us"
-msgstr ""
+msgstr "Nur samtavolanoj, kiuj havas alŝutan sloton, ricevos datumojn de ni"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:379
 #, kde-format
 msgid "The number of download and upload requests"
-msgstr ""
+msgstr "La nombro da elŝutaj kaj alŝutaj petoj"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:381
 #, kde-format
 msgid "How much data we have downloaded from this peer"
-msgstr ""
+msgstr "Kiom da datumoj ni elŝutis de ĉi tiu samtavolano"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:383
 #, kde-format
 msgid "How much data we have uploaded to this peer"
-msgstr ""
+msgstr "Kiom da datumoj ni alŝutis al ĉi tiu samtavolano"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:385
 #, kde-format
 msgid "Whether the peer is interested in downloading data from us"
-msgstr ""
+msgstr "Ĉu la kunulo interesiĝas pri elŝuto de datumoj de ni"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:387
 #, kde-format
 msgid "Whether we are interested in downloading from this peer"
-msgstr ""
+msgstr "Ĉu ni interesiĝas pri elŝuto de ĉi tiu samtavolano"
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
 #: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:348
@@ -2294,7 +2418,7 @@ msgstr "Grandeco"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:134
 #, kde-format
 msgid "Url"
-msgstr ""
+msgstr "Url"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
@@ -2316,29 +2440,29 @@ msgstr "Ricevantoj"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:142
 #, kde-format
 msgid "Times Downloaded"
-msgstr ""
+msgstr "Tempoj Elŝutitaj"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:144
 #, kde-format
 msgid "Next Update"
-msgstr ""
+msgstr "Sekva Ĝisdatigo"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
 #, kde-format
 msgid "Add Tracker"
-msgstr ""
+msgstr "Aldoni Spurilon"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #, kde-format
 msgid "Enter the URL of the tracker:"
-msgstr ""
+msgstr "Enigu la URL de la spurilo:"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
-msgstr ""
+msgstr "Jam ekzistas spurilo nomita <b>%1</b>."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
@@ -2356,7 +2480,7 @@ msgstr "Ŝanĝi servilon"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
 #, kde-format
 msgid "Update Trackers"
-msgstr ""
+msgstr "Ĝisdatigi Spuristojn"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_restore_defaults)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
@@ -2381,11 +2505,12 @@ msgstr "Rapido"
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
 msgstr ""
+"Ne povas aldoni la retsemon %1, ĝi jam estas parto de la listo de retsemoj."
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:109
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
-msgstr ""
+msgstr "Ne povas forigi retsemon %1, ĝi estas parto de la torento."
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
@@ -2407,24 +2532,39 @@ msgid ""
 "weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
 "html>"
 msgstr ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Retsemo al aldonu al la "
+"torento.</p>\n"
+"<p style=\"-qt-paragraph-type:malplena; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin- "
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Noto: </span>Nur http-retaj semoj estas subtenataj.</p></"
+"body></html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
 #, kde-format
 msgid "Add Webseed"
-msgstr ""
+msgstr "Aldoni Webseed"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
 #, kde-format
 msgid "Remove Webseed"
-msgstr ""
+msgstr "Forigi Webseed"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:30
 #, kde-format
 msgid "Stats"
-msgstr ""
+msgstr "Statistikoj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:49
@@ -2456,7 +2596,7 @@ msgstr "<n>"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:77
 #, kde-format
 msgid "Download speed:"
-msgstr ""
+msgstr "Elŝuta rapido:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:105
@@ -2468,7 +2608,7 @@ msgstr "Ricevantoj:"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:133
 #, kde-format
 msgid "Upload speed:"
-msgstr ""
+msgstr "Alŝuta rapido:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:186
@@ -2482,14 +2622,14 @@ msgstr "Maldekstra:"
 #, kde-format
 msgctxt "all chunks"
 msgid "All:"
-msgstr ""
+msgstr "Ĉiuj:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:249
 #, kde-format
 msgctxt "source-file"
 msgid "Source:"
-msgstr ""
+msgstr "Fonto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, destLabel)
@@ -2497,7 +2637,7 @@ msgstr ""
 #: ui/transferdetailsfrm.ui:44
 #, kde-format
 msgid "Saving to:"
-msgstr ""
+msgstr "Konservante al:"
 
 #. i18n: ectx: property (format), widget (QProgressBar, progress)
 #. i18n: ectx: property (format), widget (QProgressBar, progressBar)
@@ -2507,13 +2647,13 @@ msgstr ""
 #: ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
 #, kde-format
 msgid "Upload limit per transfer:"
-msgstr ""
+msgstr "Alŝuta limo por transdono:"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
@@ -2535,13 +2675,13 @@ msgstr "KiB"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:69
 #, kde-format
 msgid "Download limit per transfer:"
-msgstr ""
+msgstr "Elŝuta limo por transdono:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, utpBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:89
 #, kde-format
 msgid "Enable UTP protocol"
-msgstr ""
+msgstr "Ebligi UTP-protokolon"
 
 #. i18n: ectx: property (title), widget (QGroupBox, folderGroupBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:105
@@ -2553,37 +2693,37 @@ msgstr "Dosierujoj"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:117
 #, kde-format
 msgid "Default torrent folder:"
-msgstr ""
+msgstr "Defaŭlta torenta dosierujo:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:134
 #, kde-format
 msgid "Default temporary folder:"
-msgstr ""
+msgstr "Defaŭlta provizora dosierujo:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
 #, kde-format
 msgid "Pre-allocate disk space"
-msgstr ""
+msgstr "Antaŭ-asigni diskospacon"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
 #, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr ""
+msgstr "Elekti Novan Torentan Dosieron"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
-msgstr ""
+msgstr "Elŝutante Torentdosiero...."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:198
 #: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
-msgstr ""
+msgstr "Elŝutante...."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
@@ -2593,38 +2733,38 @@ msgstr "Ne povas aldoni kunordigan servilon al privata torento."
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
 msgid "Torrent file does not exist"
-msgstr ""
+msgstr "Torentdosiero ne ekzistas"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
-msgstr ""
+msgstr "Analizante torenton...."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
-msgstr ""
+msgstr "Ne eblas pravalorizi pordon..."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
-msgstr ""
+msgstr "Semado...."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
 msgid "Cannot initialize libktorrent. Torrent support might not work."
-msgstr ""
+msgstr "Ne povas pravalorigi libktorrent. Torenta subteno eble ne funkcias."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:75
 #, kde-format
 msgid "&Advanced Details"
-msgstr ""
+msgstr "&Altnivelaj Detaloj"
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:81
 #, kde-format
 msgid "&Scan Files"
-msgstr ""
+msgstr "&Skani Dosierojn"
 
 #: transfer-plugins/bittorrent/scandlg.cpp:104
 #, kde-format
@@ -2641,25 +2781,25 @@ msgstr "Legas datumojn de torento:"
 #: transfer-plugins/bittorrent/scandlg.ui:31
 #, kde-format
 msgid "Number of chunks found:"
-msgstr ""
+msgstr "Nombro de trovitaj partoj:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: transfer-plugins/bittorrent/scandlg.ui:41
 #, kde-format
 msgid "Number of chunks failed:"
-msgstr ""
+msgstr "Nombro da pecoj malsukcesis:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/bittorrent/scandlg.ui:51
 #, kde-format
 msgid "Number of chunks not downloaded:"
-msgstr ""
+msgstr "Nombro da pecoj ne elŝutitaj:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/bittorrent/scandlg.ui:58
 #, kde-format
 msgid "Number of chunks downloaded:"
-msgstr ""
+msgstr "Nombro da pecoj elŝutitaj:"
 
 #. i18n: ectx: property (text), widget (QLabel, chunks_found)
 #. i18n: ectx: property (text), widget (QLabel, chunks_failed)
@@ -2682,23 +2822,23 @@ msgstr "Rezigni"
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Append"
-msgstr ""
+msgstr "Aldoni"
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file"
-msgstr ""
+msgstr "Anstataŭigi dosieron"
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file-ending"
-msgstr ""
+msgstr "Anstataŭigi dosierfinaĵon"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
 #, kde-format
 msgid "Change string:"
-msgstr ""
+msgstr "Ŝanĝi ĉenon:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
@@ -2710,47 +2850,47 @@ msgstr "Moduso:"
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:43
 #, kde-format
 msgid "Checksum type:"
-msgstr ""
+msgstr "Kontrolsum-tipo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:77
 #, kde-format
 msgid "Result:"
-msgstr ""
+msgstr "Rezulto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:84
 #, kde-format
 msgid "label"
-msgstr ""
+msgstr "etikedo"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:44
 #, kde-format
 msgid "Add item"
-msgstr ""
+msgstr "Aldoni objekton"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:70
 #, kde-format
 msgid "%1 would become %2"
-msgstr ""
+msgstr "%1 iĝus %2"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:177
 #, kde-format
 msgctxt "the string that is used to modify an url"
 msgid "Change string"
-msgstr ""
+msgstr "Ŝanĝi ĉenon"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:178
 #, kde-format
 msgctxt "the mode defines how the url should be changed"
 msgid "Change mode"
-msgstr ""
+msgstr "Ŝanĝi reĝimon"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:179
 #, kde-format
 msgctxt "the type of the checksum e.g. md5"
 msgid "Checksum type"
-msgstr ""
+msgstr "Kontrolsuma tipo"
 
 #. i18n: ectx: label, entry (SearchStrings), group (ChecksumSearch)
 #. i18n: ectx: label, entry (SearchEnginesNameList), group (SearchEngines)
@@ -2758,7 +2898,7 @@ msgstr ""
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:12
 #, kde-format
 msgid "List of the available search engines"
-msgstr ""
+msgstr "Listo de disponeblaj serĉiloj"
 
 #. i18n: ectx: label, entry (UrlChangeModeList), group (ChecksumSearch)
 #. i18n: ectx: label, entry (ChecksumTypeList), group (ChecksumSearch)
@@ -2768,19 +2908,19 @@ msgstr ""
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
 #, kde-format
 msgid "List of the available search engine URLs"
-msgstr ""
+msgstr "Listo de disponeblaj serĉiloj URL"
 
 #: transfer-plugins/kio/transferKio.cpp:99
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
-msgstr ""
+msgstr "Konektante...."
 
 #: transfer-plugins/kio/transferKio.cpp:271
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
-msgstr ""
+msgstr "La elŝuto (%1) ne povis esti kontrolita. Ĉu vi volas ripari ĝin?"
 
 #: transfer-plugins/kio/transferKio.cpp:272
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
@@ -2790,25 +2930,25 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Ripari"
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
-msgstr ""
+msgstr "La elŝuto (%1) ne povis esti kontrolita. Ĉu vi volas reelŝuti ĝin?"
 
 #: transfer-plugins/kio/transferKio.cpp:277
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Verification failed."
-msgstr ""
+msgstr "Kontrolo malsukcesis."
 
 #: transfer-plugins/kio/transferKio.cpp:277
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Ignori"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
 #: transfer-plugins/metalink/metalink.cpp:466
@@ -2817,6 +2957,8 @@ msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
 "not work the download would be restarted) it?"
 msgstr ""
+"La elŝuto ne povis esti kontrolita, ĉu vi volas ripari (se la riparo ne "
+"funkcias, la elŝuto estus rekomencita) ĝin?"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
 #: transfer-plugins/metalink/metalink.cpp:122
@@ -2826,19 +2968,19 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignori"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
 #, kde-format
 msgid "Number of simultaneous file downloads:"
-msgstr ""
+msgstr "Nombro da samtempaj elŝutoj de dosieroj:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/metalink/dlgmetalink.ui:39
 #, kde-format
 msgid "Number of mirrors per file:"
-msgstr ""
+msgstr "Nombro da speguloj per dosiero:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -2847,13 +2989,13 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:22
 #, kde-format
 msgid "Number of connections per URL:"
-msgstr ""
+msgstr "Nombro da konektoj per URL:"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: transfer-plugins/metalink/fileselection.ui:17
 #, kde-format
 msgid "Select the files you want to be downloaded."
-msgstr ""
+msgstr "Elektu la dosierojn, kiujn vi volas elŝuti."
 
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
 #, kde-format
@@ -2864,7 +3006,7 @@ msgstr "Dosierelekto"
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
-msgstr ""
+msgstr "Elŝutante Metalink-dosieron...."
 
 #: transfer-plugins/metalink/metalink.cpp:119
 #: transfer-plugins/metalink/metalinkxml.cpp:111
@@ -2872,31 +3014,32 @@ msgstr ""
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr ""
+"Pli nova versio de ĉi tiu Metalink povus ekzisti, ĉu vi volas elŝuti ĝin?"
 
 #: transfer-plugins/metalink/metalink.cpp:120
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
-msgstr ""
+msgstr "Reelŝutu Metalink"
 
 #: transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
 msgid "Download failed, no working URLs were found."
-msgstr ""
+msgstr "Elŝuto malsukcesis, neniuj funkciaj URL estis trovitaj."
 
 #: transfer-plugins/metalink/metalinkhttp.cpp:156
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
-msgstr ""
+msgstr "La elŝuto ne povis esti kontrolita, ĉu provi ripari ĝin?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #, kde-format
 msgid "Engine name:"
-msgstr ""
+msgstr "Nomo de motoro:"
 
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
@@ -2910,7 +3053,7 @@ msgstr "Retadreso:"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
 #, kde-format
 msgid "Insert Engine"
-msgstr ""
+msgstr "Enmeti Motoron"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:16
@@ -2922,13 +3065,13 @@ msgstr "Serĉiloj"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:27
 #, kde-format
 msgid "Engine Name"
-msgstr ""
+msgstr "Nomo de la motoro"
 
 #. i18n: ectx: property (text), widget (QPushButton, newEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
 #, kde-format
 msgid "New Engine..."
-msgstr ""
+msgstr "Nova Motoro..."
 
 #. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
@@ -2940,7 +3083,7 @@ msgstr "Forigi"
 #, kde-format
 msgctxt "transfer state: running"
 msgid "Running...."
-msgstr ""
+msgstr "Rulante...."
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:116
 #, kde-format
@@ -2951,7 +3094,7 @@ msgstr "Finita"
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:162
 #, kde-format
 msgid "Download failed, could not access this URL."
-msgstr ""
+msgstr "Elŝuto malsukcesis, ne povis aliri ĉi tiun URL."
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:173
 #, kde-format
@@ -2959,37 +3102,39 @@ msgid ""
 "This URL does not allow multiple connections,\n"
 "the download will take longer."
 msgstr ""
+"Ĉi tiu URL ne permesas plurajn konektojn,\n"
+"la elŝuto daŭros pli longe."
 
 #. i18n: ectx: property (text), widget (QCheckBox, enginesCheckBox)
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
 #, kde-format
 msgid "Use search engines"
-msgstr ""
+msgstr "Uzu serĉilojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
 #, kde-format
 msgid "Search for verification information"
-msgstr ""
+msgstr "Serĉi verokontrolajn informojn"
 
 #: transfer-plugins/multisegmentkio/segment.cpp:284
 #, kde-format
 msgid "Failed to write to the file."
-msgstr ""
+msgstr "Malsukcesis skribi al la dosiero."
 
 #: ui/contextmenu.cpp:115
 #, kde-format
 msgid "Delete Group"
 msgid_plural "Delete Groups"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Forigi Grupon"
+msgstr[1] "Forigi Grupojn"
 
 #: ui/contextmenu.cpp:119
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Alinomi Grupon..."
+msgstr[1] "Alinomi Grupojn..."
 
 #: ui/droptarget.cpp:84
 #, kde-format
@@ -3000,22 +3145,22 @@ msgstr "Fiksa"
 #: ui/droptarget.cpp:258
 #, kde-format
 msgid "Show Main Window"
-msgstr ""
+msgstr "Montri Ĉefan Fenestron"
 
 #: ui/droptarget.cpp:258
 #, kde-format
 msgid "Hide Main Window"
-msgstr ""
+msgstr "Kaŝi Ĉefan Fenestron"
 
 #: ui/droptarget.cpp:339
 #, kde-format
 msgid "Drop Target"
-msgstr ""
+msgstr "Falcelo"
 
 #: ui/droptarget.cpp:339
 #, kde-format
 msgid "You can drag download links into the drop target."
-msgstr ""
+msgstr "Vi povas treni elŝutajn ligilojn en la falcelon."
 
 #: ui/droptarget.cpp:384
 #, kde-format
@@ -3027,7 +3172,7 @@ msgstr "%1(%2) %3"
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
-msgstr ""
+msgstr "%1(%2% %3/%4) Rapido:%5/s"
 
 #: ui/droptarget.cpp:400
 #, kde-format
@@ -3045,25 +3190,25 @@ msgstr "Preta"
 #: ui/groupsettingsdialog.cpp:19
 #, kde-format
 msgid "Group Settings for %1"
-msgstr ""
+msgstr "Grupaj Agordoj por %1"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: ui/groupsettingsdialog.ui:32
 #, kde-format
 msgid "Group Settings"
-msgstr ""
+msgstr "Grupaj Agordoj"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/groupsettingsdialog.ui:44
 #, kde-format
 msgid "Defau&lt folder:"
-msgstr ""
+msgstr "Defaŭ&lta dosierujo:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
 #, kde-format
 msgid "Moves all transfers with the regular expression to this group"
-msgstr ""
+msgstr "Movas ĉiujn translokojn kun la regula esprimo al ĉi tiu grupo"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:64
@@ -3075,7 +3220,7 @@ msgstr "Re&gula esprimo:"
 #: ui/groupsettingsdialog.ui:74
 #, kde-format
 msgid "*movies*"
-msgstr ""
+msgstr "*filmoj*"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
@@ -3088,7 +3233,7 @@ msgstr ""
 #, kde-format
 msgctxt "No value has been set"
 msgid "Not set"
-msgstr ""
+msgstr "Ne fiksita"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/groupsettingsdialog.ui:119
@@ -3105,18 +3250,18 @@ msgstr "Maksimuma alŝ&uta rapido:"
 #: ui/history/transferhistory.cpp:51
 #, kde-format
 msgid "Transfer History"
-msgstr ""
+msgstr "Transiga Historio"
 
 #: ui/history/transferhistory.cpp:72
 #, kde-format
 msgid "&Open File"
-msgstr ""
+msgstr "Malfermi D&osieron"
 
 #: ui/history/transferhistory.cpp:74
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:214
 #, kde-format
@@ -3165,27 +3310,27 @@ msgstr "Dosiera grandeco"
 #: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Less than 1MiB"
-msgstr ""
+msgstr "Malpli ol 1 MiB"
 
 #: ui/history/transferhistory.cpp:256
 #, kde-format
 msgid "Between 1MiB-10MiB"
-msgstr ""
+msgstr "Inter 1MiB-10MiB"
 
 #: ui/history/transferhistory.cpp:257
 #, kde-format
 msgid "Between 10MiB-100MiB"
-msgstr ""
+msgstr "Inter 10MiB-100MiB"
 
 #: ui/history/transferhistory.cpp:258
 #, kde-format
 msgid "Between 100MiB-1GiB"
-msgstr ""
+msgstr "Inter 100MiB-1GiB"
 
 #: ui/history/transferhistory.cpp:259
 #, kde-format
 msgid "More than 1GiB"
-msgstr ""
+msgstr "Pli ol 1 GiB"
 
 #: ui/history/transferhistory.cpp:262
 #: ui/history/transferhistorycategorizeddelegate.cpp:46
@@ -3197,18 +3342,18 @@ msgstr "Hodiaŭ"
 #: ui/history/transferhistorycategorizeddelegate.cpp:49
 #, kde-format
 msgid "Last week"
-msgstr ""
+msgstr "Lasta semajno"
 
 #: ui/history/transferhistory.cpp:264
 #, kde-format
 msgid "Last month"
-msgstr ""
+msgstr "Pasintmonate"
 
 #: ui/history/transferhistory.cpp:265
 #: ui/history/transferhistorycategorizeddelegate.cpp:55
 #, kde-format
 msgid "A long time ago"
-msgstr ""
+msgstr "Antaŭ longe"
 
 #: ui/history/transferhistory.cpp:281
 #, kde-format
@@ -3226,13 +3371,13 @@ msgstr "Forviŝi la historion"
 #: ui/history/transferhistory.ui:47
 #, kde-format
 msgid "View Modes:"
-msgstr ""
+msgstr "Vidaj Reĝimoj:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/history/transferhistory.ui:77
 #, kde-format
 msgid "Select Ranges:"
-msgstr ""
+msgstr "Elektu Intervalojn:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: ui/history/transferhistory.ui:85
@@ -3250,14 +3395,14 @@ msgstr "Gastiganto"
 #: ui/history/transferhistory.ui:106
 #, kde-format
 msgid "Filter history"
-msgstr ""
+msgstr "Filtrila historio"
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:120
 #, kde-format
 msgctxt "delete selected transfer"
 msgid "Delete Selected"
-msgstr ""
+msgstr "Forigi Elektitajn"
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:125
@@ -3268,38 +3413,38 @@ msgstr "Elŝuti"
 #: ui/history/transferhistorycategorizeddelegate.cpp:52
 #, kde-format
 msgid "Last Month"
-msgstr ""
+msgstr "Pasintmonate"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:78
 #, kde-format
 msgid "Under 10MiB"
-msgstr ""
+msgstr "Sub 10 MiB"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:80
 #, kde-format
 msgid "Between 10MiB and 50MiB"
-msgstr ""
+msgstr "Inter 10 MiB kaj 50 MiB"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:83
 #, kde-format
 msgid "Between 50MiB and 100MiB"
-msgstr ""
+msgstr "Inter 50 MiB kaj 100 MiB"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:87
 #, kde-format
 msgid "More than 100MiB"
-msgstr ""
+msgstr "Pli ol 100 MiB"
 
 #: ui/history/transferhistoryitemdelegate.cpp:41
 #, kde-format
 msgid "Download again"
-msgstr ""
+msgstr "Elŝuti denove"
 
 #: ui/history/transferhistoryitemdelegate.cpp:46
 #, kde-format
 msgctxt "Delete selected history-item"
 msgid "Delete selected"
-msgstr ""
+msgstr "Forigi elektitan"
 
 #: ui/history/transferhistoryitemdelegate.cpp:51
 #, kde-format
@@ -3316,7 +3461,7 @@ msgstr "&Dosiero"
 #: ui/kgetui.rc:17
 #, kde-format
 msgid "&Downloads"
-msgstr ""
+msgstr "&Elŝutoj"
 
 #. i18n: ectx: Menu (settings)
 #: ui/kgetui.rc:34
@@ -3340,37 +3485,37 @@ msgstr "Ĉefa ilobreto"
 #: ui/linkview/importlinkdialog.ui:34
 #, kde-format
 msgid "File with &links to import:"
-msgstr ""
+msgstr "Dosiero kun &ligiloj por importi:"
 
 #. i18n: ectx: property (text), widget (QPushButton, importLinks)
 #: ui/linkview/importlinkdialog.ui:50
 #, kde-format
 msgid "&Import Links"
-msgstr ""
+msgstr "&Importi Ligilojn"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/linkview/importlinkdialog.ui:67
 #, kde-format
 msgid "Show:"
-msgstr ""
+msgstr "Montri:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWebContent)
 #: ui/linkview/importlinkdialog.ui:77
 #, kde-format
 msgid "Show &web content"
-msgstr ""
+msgstr "Montri &retenhavon"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, textFilter)
 #: ui/linkview/importlinkdialog.ui:115
 #, kde-format
 msgid "You can use wildcards for filtering."
-msgstr ""
+msgstr "Vi povas uzi ĵokerojn por filtri."
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, textFilter)
 #: ui/linkview/importlinkdialog.ui:118
 #, kde-format
 msgid "Filter files here...."
-msgstr ""
+msgstr "Filtri dosierojn ĉi tie...."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
 #: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
@@ -3382,18 +3527,18 @@ msgstr "Elekti ĉ&ion"
 #: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
 #, kde-format
 msgid "D&eselect All"
-msgstr ""
+msgstr "Mal&elekti Ĉion"
 
 #. i18n: ectx: property (text), widget (QPushButton, invertSelection)
 #: ui/linkview/importlinkdialog.ui:224
 #, kde-format
 msgid "Inver&t Selection"
-msgstr ""
+msgstr "Inver&sigi Elekton"
 
 #: ui/linkview/kget_linkview.cpp:42
 #, kde-format
 msgid "Import Links"
-msgstr ""
+msgstr "Importi Ligilojn"
 
 #: ui/linkview/kget_linkview.cpp:59
 #, kde-format
@@ -3413,7 +3558,7 @@ msgstr "Ĉiuj"
 #: ui/linkview/kget_linkview.cpp:65
 #, kde-format
 msgid "Videos"
-msgstr ""
+msgstr "Videoj"
 
 #: ui/linkview/kget_linkview.cpp:66
 #, kde-format
@@ -3434,12 +3579,12 @@ msgstr "Arkivoj"
 #, kde-format
 msgctxt "of a filter, e.g. RegExp or Wildcard"
 msgid "Pattern Syntax"
-msgstr ""
+msgstr "Ŝablona sintakso"
 
 #: ui/linkview/kget_linkview.cpp:75
 #, kde-format
 msgid "Escape Sequences"
-msgstr ""
+msgstr "Eskap-Sekvencoj"
 
 #: ui/linkview/kget_linkview.cpp:78
 #, kde-format
@@ -3461,7 +3606,7 @@ msgstr "&Elŝuti"
 #: ui/linkview/kget_linkview.cpp:154
 #, kde-format
 msgid "Auxiliary header"
-msgstr ""
+msgstr "Helpkapo"
 
 #: ui/linkview/kget_linkview.cpp:155
 #, kde-format
@@ -3482,27 +3627,27 @@ msgstr "Dosiertipo"
 #: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Location (URL)"
-msgstr ""
+msgstr "Loko (URL)"
 
 #: ui/linkview/kget_linkview.cpp:258
 #, kde-format
 msgid "Links in: %1 - KGet"
-msgstr ""
+msgstr "Ligiloj en: %1 - KGet"
 
 #: ui/linkview/kget_linkview.cpp:319
 #, kde-format
 msgid "&Select All Filtered"
-msgstr ""
+msgstr "&Selekti Ĉiujn Filtritajn"
 
 #: ui/linkview/kget_linkview.cpp:320
 #, kde-format
 msgid "D&eselect All Filtered"
-msgstr ""
+msgstr "Mal&elekti Ĉiujn Filtritajn"
 
 #: ui/linkview/kget_linkview.cpp:430
 #, kde-format
 msgid "Filter Column"
-msgstr ""
+msgstr "Filtri Kolumnon"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/commondata.ui:22
@@ -3526,19 +3671,19 @@ msgstr "Versio:"
 #: ui/metalinkcreator/commondata.ui:56
 #, kde-format
 msgid "Logo:"
-msgstr ""
+msgstr "Logo:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, logo)
 #: ui/metalinkcreator/commondata.ui:63
 #, kde-format
 msgid "URL to the logo"
-msgstr ""
+msgstr "URL al la emblemo"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:73
 #, kde-format
 msgid "The language of the file"
-msgstr ""
+msgstr "La lingvo de la dosiero"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:76
@@ -3550,13 +3695,13 @@ msgstr "Lingvo:"
 #: ui/metalinkcreator/commondata.ui:86
 #, kde-format
 msgid "Operating systems:"
-msgstr ""
+msgstr "Operaciumoj:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, os)
 #: ui/metalinkcreator/commondata.ui:93
 #, kde-format
 msgid "Supported OSes, separated with commas"
-msgstr ""
+msgstr "Subtenataj OS-oj, apartigitaj per komoj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: ui/metalinkcreator/commondata.ui:103
@@ -3568,7 +3713,7 @@ msgstr "Kopirajto:"
 #: ui/metalinkcreator/commondata.ui:141
 #, kde-format
 msgid "Publisher:"
-msgstr ""
+msgstr "Eldonisto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: ui/metalinkcreator/commondata.ui:150
@@ -3581,24 +3726,24 @@ msgstr "Nomo:"
 #: ui/metalinkcreator/commondata.ui:157 ui/metalinkcreator/commondata.ui:177
 #, kde-format
 msgid "publisher"
-msgstr ""
+msgstr "eldonisto"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_name)
 #: ui/metalinkcreator/commondata.ui:160
 #, kde-format
 msgid "Name of the publisher"
-msgstr ""
+msgstr "Nomo de la eldonisto"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_url)
 #: ui/metalinkcreator/commondata.ui:180
 #, kde-format
 msgid "URL to the publisher"
-msgstr ""
+msgstr "URL al la eldonisto"
 
 #: ui/metalinkcreator/dragdlg.cpp:73
 #, kde-format
 msgid "Import dropped files"
-msgstr ""
+msgstr "Importi faligitajn dosierojn"
 
 #: ui/metalinkcreator/dragdlg.cpp:94 ui/metalinkcreator/filedlg.cpp:73
 #: ui/metalinkcreator/filedlg.cpp:181
@@ -3618,13 +3763,13 @@ msgstr "Ĝenerale"
 #: ui/metalinkcreator/dragdlg.ui:27
 #, kde-format
 msgid "Create partial checksums"
-msgstr ""
+msgstr "Krei partajn kontrolsumojn"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/dragdlg.ui:40
 #, kde-format
 msgid "General URL:"
-msgstr ""
+msgstr "Ĝenerala URL:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/metalinkcreator/dragdlg.ui:66
@@ -3633,6 +3778,8 @@ msgid ""
 "Automatically create checksums for the selected types. Keep in mind that "
 "this might take a while."
 msgstr ""
+"Aŭtomate krei kontrolsumojn por la elektitaj tipoj. Memoru, ke ĉi tio eble "
+"daŭros iom da tempo."
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/metalinkcreator/dragdlg.ui:92
@@ -3642,18 +3789,21 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
+"Enigu URL-ojn ĉi tie se ĉiuj faligitaj dosieroj estas sur tiu servilo kaj en "
+"la sama dosierujo. Por ĉiu faligita dosiero la URL konsistus el la enigita "
+"parto kaj la dosiernomo."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/metalinkcreator/dragdlg.ui:102
 #, kde-format
 msgid "Types of the checksums:"
-msgstr ""
+msgstr "Tipoj de la kontrolsumoj:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/dragdlg.ui:115
 #, kde-format
 msgid "Create checksums:"
-msgstr ""
+msgstr "Krei kontrolsumojn:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #: ui/metalinkcreator/dragdlg.ui:123
@@ -3666,13 +3816,13 @@ msgstr "Nedeviga"
 #: ui/metalinkcreator/dragdlg.ui:135
 #, kde-format
 msgid "Optional data:"
-msgstr ""
+msgstr "Laŭvolaj datumoj:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/metalinkcreator/dragdlg.ui:160
 #, kde-format
 msgid "Enter information that all chosen files share."
-msgstr ""
+msgstr "Enigu informojn, kiujn ĉiuj elektitaj dosieroj kunhavas."
 
 #: ui/metalinkcreator/filedlg.cpp:122
 #, kde-format
@@ -3682,17 +3832,17 @@ msgstr "Dosierecoj"
 #: ui/metalinkcreator/filedlg.cpp:134
 #, kde-format
 msgid "Enter a filename."
-msgstr ""
+msgstr "Enigu dosiernomon."
 
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
 msgid "The filename exists already, choose a different one."
-msgstr ""
+msgstr "La dosiernomo jam ekzistas, elektu alian."
 
 #: ui/metalinkcreator/filedlg.cpp:140
 #, kde-format
 msgid "Enter at least one URL."
-msgstr ""
+msgstr "Enigu almenaŭ unu URL."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/metalinkcreator/filedlg.ui:24
@@ -3710,26 +3860,26 @@ msgstr "Dosiernomo:"
 #: ui/metalinkcreator/filedlg.ui:95
 #, kde-format
 msgid "Used Mirrors:"
-msgstr ""
+msgstr "Uzitaj Speguloj:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: ui/metalinkcreator/filedlg.ui:103
 #, kde-format
 msgid "Recommended"
-msgstr ""
+msgstr "Rekomendita"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: ui/metalinkcreator/filedlg.ui:111
 #, kde-format
 msgid "File size (in bytes):"
-msgstr ""
+msgstr "Dosiergrandeco (en bajtoj):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/filedlg.ui:149 ui/signaturedlg.ui:34
 #, kde-format
 msgid "Verification:"
-msgstr ""
+msgstr "Konfirmo:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, Seite)
 #: ui/metalinkcreator/filedlg.ui:196
@@ -3741,61 +3891,62 @@ msgstr "Nedeviga"
 #: ui/metalinkcreator/files.ui:26
 #, kde-format
 msgid "Adds local files adding a lot information automatically."
-msgstr ""
+msgstr "Aldonas lokajn dosierojn aldonante multajn informojn aŭtomate."
 
 #. i18n: ectx: property (text), widget (QPushButton, add_local_file)
 #: ui/metalinkcreator/files.ui:29
 #, kde-format
 msgid "Add local files"
-msgstr ""
+msgstr "Aldoni lokajn dosierojn"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
-msgstr ""
+msgstr "Aldonante lokajn dosierojn..."
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/metalinkcreator/generalwidget.ui:23
 #, kde-format
 msgid "General information:"
-msgstr ""
+msgstr "Ĝeneralaj informoj:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: ui/metalinkcreator/generalwidget.ui:30
 #, kde-format
 msgid "Here you can enter optional general information on the metalink."
-msgstr ""
+msgstr "Ĉi tie vi povas enigi laŭvolajn ĝeneralajn informojn sur la metaligo."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/generalwidget.ui:61
 #, kde-format
 msgid "Origin:"
-msgstr ""
+msgstr "Origino:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, origin)
 #: ui/metalinkcreator/generalwidget.ui:68
 #, kde-format
 msgid "Web URL to the metalink"
-msgstr ""
+msgstr "Reta URL al la metaligo"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:75
 #, kde-format
 msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
 msgstr ""
+"Dinamika signifas, ke ĝisdatigitaj metaligiloj troviĝas ĉe \"Origino\"."
 
 #. i18n: ectx: property (text), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:78
 #, kde-format
 msgid "Dynamic:"
-msgstr ""
+msgstr "Dinamika:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, publishedGroupBox)
 #: ui/metalinkcreator/generalwidget.ui:110
 #, kde-format
 msgid "Metalink published"
-msgstr ""
+msgstr "Metalink eldonita"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #. i18n: ectx: property (text), widget (QLabel, label_29)
@@ -3803,7 +3954,7 @@ msgstr ""
 #: ui/metalinkcreator/generalwidget.ui:231
 #, kde-format
 msgid "Date and time:"
-msgstr ""
+msgstr "Dato kaj horo:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, use_publishedtimeoffset)
 #. i18n: ectx: property (text), widget (QCheckBox, use_updatedtimeoffset)
@@ -3811,7 +3962,7 @@ msgstr ""
 #: ui/metalinkcreator/generalwidget.ui:217
 #, kde-format
 msgid "Timezone offset:"
-msgstr ""
+msgstr "Horzona deŝovo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -3819,13 +3970,13 @@ msgstr ""
 #: ui/metalinkcreator/generalwidget.ui:210
 #, kde-format
 msgid "Negative offset:"
-msgstr ""
+msgstr "Negativa kompenso:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, updatedGroupBox)
 #: ui/metalinkcreator/generalwidget.ui:182
 #, kde-format
 msgid "Metalink updated"
-msgstr ""
+msgstr "Metalink ĝisdatigita"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/introduction.ui:17
@@ -3836,69 +3987,73 @@ msgid ""
 "enter them if desired. The minimum is a save location, at least one file and "
 "one URL."
 msgstr ""
+"Ĉi tiu asistanto permesas krei metaligilojn de nulo aŭ bazi ilin sur "
+"ekzistantaj metaligiloj. Multaj kampoj estas laŭvolaj aŭ rekomenditaj, do "
+"enigu ilin se vi volas. La minimumo estas konserva loko, almenaŭ unu dosiero "
+"kaj unu URL."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/introduction.ui:48
 #, kde-format
 msgid "Save created Metalink at:"
-msgstr ""
+msgstr "Konservi kreitan Metalink ĉe:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, createButton)
 #: ui/metalinkcreator/introduction.ui:78
 #, kde-format
 msgid "Create new Metalink"
-msgstr ""
+msgstr "Krei novan Metaligilon"
 
 #. i18n: ectx: property (text), widget (QRadioButton, loadButton)
 #: ui/metalinkcreator/introduction.ui:88
 #, kde-format
 msgid "Load existing Metalink:"
-msgstr ""
+msgstr "Ŝargi ekzistantan Metaligilon:"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:83
 #, kde-format
 msgid "Create a Metalink"
-msgstr ""
+msgstr "Krei Metaligilon"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:101
 #, kde-format
 msgid "Add at least one file."
-msgstr ""
+msgstr "Aldonu almenaŭ unu dosieron."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:103
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
-msgstr ""
+msgstr "Vi devas agordi spegulojn por la enskriboj kun piktogramo."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:116
 #, kde-format
 msgid "General optional information for the metalink."
-msgstr ""
+msgstr "Ĝeneralaj laŭvolaj informoj por la metaligilo."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:145
 #, kde-format
 msgid "Unable to load: %1"
-msgstr ""
+msgstr "Ne eblas ŝargi: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
 #, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr ""
+msgstr "Metalink-dosiero (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
 #, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr ""
+msgstr "Metalink Versio 4.0 dosiero (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
 #, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr ""
+msgstr "Metalink Versio 3.0 dosiero (*.metalink)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:179
 #, kde-format
 msgid "Define the saving location."
-msgstr ""
+msgstr "Difinu la konservan lokon."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:225
 #, kde-format
@@ -3910,19 +4065,19 @@ msgstr "Dosieroj"
 #: ui/mirror/mirroradddlg.ui:19
 #, kde-format
 msgid "Mirror:"
-msgstr ""
+msgstr "Spegulo:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelConnections)
 #: ui/mirror/mirroradddlg.ui:26
 #, kde-format
 msgid "Number of connections:"
-msgstr ""
+msgstr "Nombro da konektoj:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, url)
 #: ui/mirror/mirroradddlg.ui:33
 #, kde-format
 msgid "Enter a URL"
-msgstr ""
+msgstr "Enigi URL"
 
 #. i18n: ectx: property (text), widget (QLabel, labelPriority)
 #: ui/mirror/mirroradddlg.ui:53
@@ -3934,14 +4089,14 @@ msgstr "Prioritato:"
 #: ui/mirror/mirroradddlg.ui:60
 #, kde-format
 msgid "Optional: The priority of the mirror, 1 highest 999999 lowest."
-msgstr ""
+msgstr "Laŭvola: La prioritato de la spegulo, 1 plej alta 999999 plej malalta."
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, priority)
 #: ui/mirror/mirroradddlg.ui:72 ui/mirror/mirrormodel.cpp:179
 #: ui/mirror/mirrormodel.cpp:189
 #, kde-format
 msgid "not specified"
-msgstr ""
+msgstr "ne specifita"
 
 #. i18n: ectx: property (text), widget (QLabel, labelLocation)
 #: ui/mirror/mirroradddlg.ui:79
@@ -3953,7 +4108,7 @@ msgstr "Loko:"
 #, kde-format
 msgctxt "Mirror as in server, in url"
 msgid "Mirror"
-msgstr ""
+msgstr "Spegulo"
 
 #: ui/mirror/mirrormodel.cpp:293
 #, kde-format
@@ -3976,50 +4131,50 @@ msgstr "Malfermi lokon"
 #: ui/mirror/mirrorsettings.cpp:54
 #, kde-format
 msgid "Add mirror"
-msgstr ""
+msgstr "Aldoni spegulon"
 
 #: ui/mirror/mirrorsettings.cpp:144
 #, kde-format
 msgid "Modify the used mirrors"
-msgstr ""
+msgstr "Modifi la uzitajn spegulojn"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/mirror/mirrorsettings.ui:36
 #, kde-format
 msgid "PushButton"
-msgstr ""
+msgstr "PuŝButono"
 
 #: ui/newtransferdialog.cpp:315
 #, kde-format
 msgid "Select at least one source url."
-msgstr ""
+msgstr "Elektu almenaŭ unu fontan URL."
 
 #: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
-msgstr ""
+msgstr "Dosieroj kiuj jam ekzistas en la nuna dosierujo estas markitaj."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/newtransferwidget.ui:30
 #, kde-format
 msgid "Destination:"
-msgstr ""
+msgstr "Celo:"
 
 #. i18n: ectx: property (text), widget (QLabel, groupLabel)
 #: ui/newtransferwidget.ui:40
 #, kde-format
 msgid "Transfer group:"
-msgstr ""
+msgstr "Transiga grupo:"
 
 #: ui/renamefile.cpp:33
 #, kde-format
 msgid "Rename File"
-msgstr ""
+msgstr "Alinomi dosieron"
 
 #: ui/renamefile.cpp:39
 #, kde-format
 msgid "Rename %1 to:"
-msgstr ""
+msgstr "Alinomi %1 al:"
 
 #: ui/renamefile.cpp:42
 #, kde-format
@@ -4031,32 +4186,32 @@ msgstr "&Renomi"
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
-msgstr ""
+msgstr "Subskribo de %1."
 
 #: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
-msgstr ""
+msgstr "Ĉi tiu opcio ne estas subtenata por la nuna transigo."
 
 #: ui/signaturedlg.cpp:97
 #, kde-format
 msgid "Load Signature File"
-msgstr ""
+msgstr "Ŝargi Subskriban Dosieron"
 
 #: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
-msgstr ""
+msgstr "Malligita OpenPGP ASCII-subskribo (*.asc)"
 
 #: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
-msgstr ""
+msgstr "Malligita OpenPGP binara subskribo (*.sig)"
 
 #: ui/signaturedlg.cpp:153
 #, kde-format
 msgid "You need to define a signature."
-msgstr ""
+msgstr "Vi devas difini subskribon."
 
 #: ui/signaturedlg.cpp:157
 #, kde-format
@@ -4064,6 +4219,8 @@ msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr ""
+"Neniu fingrospuro troviĝis, kontrolu ĉu la subskribo estas ĝusta aŭ kontroli "
+"la elŝuton."
 
 #: ui/signaturedlg.cpp:191
 #, kde-format
@@ -4087,54 +4244,54 @@ msgstr "Servilo:"
 #, kde-format
 msgctxt "trust level"
 msgid "Marginal"
-msgstr ""
+msgstr "Marĝena"
 
 #: ui/signaturedlg.cpp:192
 #, kde-format
 msgctxt "trust level"
 msgid "Full"
-msgstr ""
+msgstr "Plena"
 
 #: ui/signaturedlg.cpp:192
 #, kde-format
 msgctxt "trust level"
 msgid "Ultimate"
-msgstr ""
+msgstr "Finfina"
 
 #: ui/signaturedlg.cpp:195
 #, kde-format
 msgid "The key has been revoked."
-msgstr ""
+msgstr "La ŝlosilo estis revokita."
 
 #: ui/signaturedlg.cpp:199
 #, kde-format
 msgid "The key is disabled."
-msgstr ""
+msgstr "La ŝlosilo estas malŝaltita."
 
 #: ui/signaturedlg.cpp:203
 #, kde-format
 msgid "The key is invalid."
-msgstr ""
+msgstr "La ŝlosilo estas nevalida."
 
 #: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is expired."
-msgstr ""
+msgstr "La ŝlosilo estas eksvalidiĝinta."
 
 #: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
-msgstr ""
+msgstr "La ŝlosilo estas nefidinda."
 
 #: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
-msgstr ""
+msgstr "La ŝlosilo estas esti fidinda marĝene."
 
 #: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
-msgstr ""
+msgstr "Fidonivelo de la ŝlosilo estas neklara."
 
 #: ui/signaturedlg.cpp:269
 #, kde-format
@@ -4145,13 +4302,13 @@ msgstr "Senlima"
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
-msgstr ""
+msgstr "Kontrolita"
 
 #: ui/signaturedlg.cpp:290
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
-msgstr ""
+msgstr "Malsukcesis"
 
 #: ui/signaturedlg.cpp:293
 #, kde-format
@@ -4159,6 +4316,8 @@ msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
 "data has been modified."
 msgstr ""
+"Atentu: Kontrolo malsukcesis. Aŭ vi enigis malĝustan subskribon, aŭ la "
+"datumoj estas modifitaj."
 
 #: ui/signaturedlg.cpp:299
 #, kde-format
@@ -4166,29 +4325,32 @@ msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
+"Kontrolo ne eblas. Kontrolu la enigitajn datumojn, ĉu gpg-agent funkcias, aŭ "
+"ĉu vi havas interretan konekton (por preni ŝlosilojn.)"
 
 #: ui/signaturedlg.cpp:317
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""
+"Trajto ne estas subtenata, ĉar KGet ne estas kompilita kun QPGME-subteno."
 
 #. i18n: ectx: property (text), widget (QLabel, binaryLabel)
 #: ui/signaturedlg.ui:80
 #, kde-format
 msgid "Has binary PGP signature."
-msgstr ""
+msgstr "Havas binaran PGP-signaturon."
 
 #. i18n: ectx: property (text), widget (QLabel, asciiLabel)
 #: ui/signaturedlg.ui:87
 #, kde-format
 msgid "Ascii PGP signature:"
-msgstr ""
+msgstr "Ascii PGP-signaturo:"
 
 #. i18n: ectx: property (text), widget (QPushButton, loadSignature)
 #: ui/signaturedlg.ui:112
 #, kde-format
 msgid "Load Signature"
-msgstr ""
+msgstr "Ŝargi Subskribon"
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
 #: ui/signaturedlg.ui:119
@@ -4206,7 +4368,7 @@ msgstr "Klavo"
 #: ui/signaturedlg.ui:143
 #, kde-format
 msgid "Issuer:"
-msgstr ""
+msgstr "Eldonanto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/signaturedlg.ui:166
@@ -4224,30 +4386,30 @@ msgstr "Komento:"
 #: ui/signaturedlg.ui:197
 #, kde-format
 msgid "Creation:"
-msgstr ""
+msgstr "Kreo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/signaturedlg.ui:214
 #, kde-format
 msgid "Expiration:"
-msgstr ""
+msgstr "Eksvalidiĝo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/signaturedlg.ui:255
 #, kde-format
 msgid "Trust:"
-msgstr ""
+msgstr "Fido:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/signaturedlg.ui:296
 #, kde-format
 msgid "Fingerprint:"
-msgstr ""
+msgstr "Fingrosigno:"
 
 #: ui/transferdetails.cpp:72
 #, kde-format
 msgid "Average speed: %1/s"
-msgstr ""
+msgstr "Averaĝa rapideco: %1/s"
 
 #: ui/transferdetails.cpp:77
 #, kde-format
@@ -4259,7 +4421,7 @@ msgstr "%1 de %2"
 #, kde-format
 msgctxt "@label transfer source"
 msgid "Source:"
-msgstr ""
+msgstr "Fonto:"
 
 #. i18n: ectx: property (text), widget (QLabel, statusLabel)
 #: ui/transferdetailsfrm.ui:114
@@ -4271,83 +4433,83 @@ msgstr "Stato:"
 #: ui/transferdetailsfrm.ui:165
 #, kde-format
 msgid "Remaining Time:"
-msgstr ""
+msgstr "Restanta tempo:"
 
 #: ui/transfersettingsdialog.cpp:33
 #, kde-format
 msgid "Transfer Settings for %1"
-msgstr ""
+msgstr "Transigaj agordoj por %1"
 
 #: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
-msgstr ""
+msgstr "Ŝanĝi la cellokon ne funkciis, la celloko restas nemodifita."
 
 #: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid "Destination unmodified"
-msgstr ""
+msgstr "Celo nemodifita"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: ui/transfersettingsdialog.ui:23
 #, kde-format
 msgid "Transfer Settings"
-msgstr ""
+msgstr "Transigaj Agordoj"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/transfersettingsdialog.ui:35
 #, kde-format
 msgid "Download des&tination:"
-msgstr ""
+msgstr "Elŝu&ta celo:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelUpload)
 #: ui/transfersettingsdialog.ui:90
 #, kde-format
 msgid "&Upload limit:"
-msgstr ""
+msgstr "Alŝ&uta limo:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelDownload)
 #: ui/transfersettingsdialog.ui:100
 #, kde-format
 msgid "Download &limit:"
-msgstr ""
+msgstr "Elŝuta &limo:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
 #: ui/transfersettingsdialog.ui:110
 #, kde-format
 msgid "Ma&ximum share ratio:"
-msgstr ""
+msgstr "Ma&ksimuma kundivida proporcio:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:139
 #, kde-format
 msgid "Modify the mirrors used for downloading."
-msgstr ""
+msgstr "Modifi la spegulojn uzatajn por elŝuti."
 
 #. i18n: ectx: property (text), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:142
 #, kde-format
 msgctxt "The available mirrors (servers) for downloading"
 msgid "Mirrors"
-msgstr ""
+msgstr "Speguloj"
 
 #. i18n: ectx: property (text), widget (QPushButton, verification)
 #: ui/transfersettingsdialog.ui:162
 #, kde-format
 msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
-msgstr ""
+msgstr "Konfirmo"
 
 #: ui/transfersview.cpp:122
 #, kde-format
 msgid "Select columns"
-msgstr ""
+msgstr "Elekti kolumnojn"
 
 #: ui/transfersview.cpp:310
 #, kde-format
 msgid "Transfer Details"
-msgstr ""
+msgstr "Transigaj Detaloj"
 
 #: ui/tray.cpp:48
 #, kde-format
@@ -4359,52 +4521,52 @@ msgstr "Elŝuta administrilo"
 #, kde-format
 msgctxt "hash type as in md5t, sha1 etc."
 msgid "Hash type:"
-msgstr ""
+msgstr "Haketkoda tipo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/verificationadddlg.ui:26
 #, kde-format
 msgctxt "hash as a hash of type md5, sha1 etc."
 msgid "Hash:"
-msgstr ""
+msgstr "Haketkodo:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, newHash)
 #: ui/verificationadddlg.ui:33
 #, kde-format
 msgid "Enter a hash key"
-msgstr ""
+msgstr "Enigi haketkodan ŝloisilon"
 
 #: ui/verificationdialog.cpp:38
 #, kde-format
 msgid "Add checksum"
-msgstr ""
+msgstr "Aldoni kontrolsumon"
 
 #: ui/verificationdialog.cpp:94
 #, kde-format
 msgid "Transfer Verification for %1"
-msgstr ""
+msgstr "Transdona Verkontrolo por %1"
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "%1 was successfully verified."
-msgstr ""
+msgstr "%1 estis sukcese kontrolita."
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "Verification successful"
-msgstr ""
+msgstr "Kontrolo sukcesa"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/verificationdialog.ui:65
 #, kde-format
 msgid "Verifying:"
-msgstr ""
+msgstr "Kontrolante:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:121
 #, kde-format
 msgid "Verify the finished download with the selected checksum."
-msgstr ""
+msgstr "Kontroli la finitan elŝuton per la elektita kontrolsumo."
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:124
@@ -4416,4 +4578,4 @@ msgstr "&Kontroli"
 #: ui/verificationdialog.ui:150
 #, kde-format
 msgid "Close"
-msgstr ""
+msgstr "Fermi"

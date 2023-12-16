@@ -137,7 +137,7 @@
       <listitem>
 	<para>
 	  <action
->Per iniciar una baixada o reprendre totes les baixades pendents. La drecera per fer-ho és <keycombo action="simul"
+>Per a iniciar una baixada o reprendre totes les baixades pendents. La drecera per a fer-ho és <keycombo action="simul"
 >&Ctrl;<keycap
 >R</keycap
 ></keycombo
@@ -438,7 +438,7 @@
       <listitem>
 	<para>
 	  <action
->Ajusta l'interval per tornar a connectar (en segons).</action>
+>Ajusta l'interval per a tornar a connectar (en segons).</action>
 	</para>
       </listitem>
     </varlistentry>
@@ -451,13 +451,13 @@
 <title
 >Interfície web</title>
 <para
->Per activar la interfície web, marqueu <guilabel
+>Per a activar la interfície web, marqueu <guilabel
 >Habilita la interfície web</guilabel
 >, el port per omissió és 8080, i configureu qualsevol port superior a 1024. A continuació, establiu <guilabel
 >Usuari</guilabel
 > i <guilabel
 >Contrasenya</guilabel
->. Podeu accedir a la interfície web a .http://127.0.0.1:&lt;port&gt;. Per obtenir accés haureu d'introduir el nom d'usuari i la contrasenya. </para>
+>. Podeu accedir a la interfície web a .http://127.0.0.1:&lt;port&gt;. Per a obtenir accés haureu d'introduir el nom d'usuari i la contrasenya. </para>
   <screenshot>
     <screeninfo
 >Interfície web del &kget;</screeninfo>
@@ -582,7 +582,7 @@
       <listitem>
 	<para>
 	  <action
->Marqueu aquesta casella per activar la sortida del &kget; després que totes les baixades hagin finalitzat. A l'inici podeu escollir <guilabel
+>Marqueu aquesta casella per a activar la sortida del &kget; després que totes les baixades hagin finalitzat. A l'inici podeu escollir <guilabel
 >Restaura l'estat de la baixada</guilabel
 >. Com <guilabel
 >Atura totes les baixades</guilabel
@@ -693,7 +693,7 @@
 <listitem
 ><para
 ><action
->Afegeix un fitxer nou per baixar.</action
+>Afegeix un fitxer nou per a baixar.</action
 ></para
 ></listitem>
 </varlistentry>
