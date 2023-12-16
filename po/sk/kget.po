@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 10:09+0000\n"
-"PO-Revision-Date: 2023-12-11 18:02+0100\n"
+"PO-Revision-Date: 2023-12-15 20:44+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
@@ -47,7 +47,7 @@ msgstr "Regulárny výraz"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Automaticky vymazať celú históriu prenosov staršiu ako:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -813,10 +813,9 @@ msgid "No internet connection, stopping transfers."
 msgstr "Žiadne internetové pripojenie, zastavujem prenosy."
 
 #: core/kget.cpp:1249
-#, fuzzy, kde-format
-#| msgid "Plugin loader could not load the plugin: %1."
+#, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr "Zavádzač modulu nemohol načítať modul: %1."
+msgstr "Zavádzač modulu nemohol načítať modul: %1: %2"
 
 #: core/kget.cpp:1261
 #, kde-format
@@ -977,7 +976,7 @@ msgstr "Stiahnuť"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Pokračovať bez"
 
 #: core/signature.cpp:265
 #, kde-format
@@ -2723,11 +2722,10 @@ msgid "Pre-allocate disk space"
 msgstr "Alokovať miesto na disku"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "Vyberte štandardný priečinok torrentov"
+msgstr "Vyberte nový torrent súbor"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -4054,23 +4052,20 @@ msgid "Unable to load: %1"
 msgstr "Nepodarilo sa načítať: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Súbor Metalink verzie 4.0 (*.meta4)"
+msgstr "Súbor Metalink verzie 4.0 "
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Súbor Metalink verzie 4.0 (*.meta4)"
+msgstr "Súbor Metalink verzie 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:173
 #: ui/metalinkcreator/metalinkcreator.cpp:176
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Metalink súbor (*.metalink *.meta4)"
+msgstr "Metalink súbor (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:175
 #, kde-format
