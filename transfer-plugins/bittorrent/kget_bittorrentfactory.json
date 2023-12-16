@@ -3,16 +3,25 @@
         "Authors": [
             {
                 "Email": "l.appelhans@gmx.de",
-                "Name": "Lukas Appelhans"
+                "Name": "Lukas Appelhans",
+                "Name[ia]": "Lukas Appelhans",
+                "Name[nl]": "Lukas Appelhans",
+                "Name[x-test]": "xxLukas Appelhansxx"
             }
         ],
         "Category": "Service",
         "Description": "Allows files to be downloaded using Bittorrent",
+        "Description[ia]": "Il permitte files de esser discargate per usage de Bittorrent",
+        "Description[nl]": "Laat toe bestanden met Bittorrent te downloaden",
+        "Description[x-test]": "xxAllows files to be downloaded using Bittorrentxx",
         "EnabledByDefault": true,
         "Icon": "application-x-bittorrent",
         "Id": "kget_bittorrent_plugin",
         "License": "GPL",
         "Name": "Bittorrent",
+        "Name[ia]": "Bittorrent",
+        "Name[nl]": "Bittorrent",
+        "Name[x-test]": "xxBittorrentxx",
         "ServiceTypes": [
             "KGet/Plugin"
         ],

@@ -3,16 +3,25 @@
         "Authors": [
             {
                 "Email": "eortiz@uci.cu",
-                "Name": "Ernesto Rodriguez Ortiz"
+                "Name": "Ernesto Rodriguez Ortiz",
+                "Name[ia]": "Ernesto Rodriguez Ortiz",
+                "Name[nl]": "Ernesto Rodriguez Ortiz",
+                "Name[x-test]": "xxErnesto Rodriguez Ortizxx"
             }
         ],
         "Category": "Service",
         "Description": "MMS-Transfer plugin for KGet",
+        "Description[ia]": "Plugin de transferentia-MMS per KGet",
+        "Description[nl]": "KGet-plugin voor MMS-overdracht",
+        "Description[x-test]": "xxMMS-Transfer plugin for KGetxx",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_mms_plugin",
         "License": "GPL",
         "Name": "MMS",
+        "Name[ia]": "MMS",
+        "Name[nl]": "MMS",
+        "Name[x-test]": "xxMMSxx",
         "ServiceTypes": [
             "KGet/Plugin"
         ],

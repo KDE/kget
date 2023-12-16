@@ -3,16 +3,25 @@
         "Authors": [
             {
                 "Email": "nolis71cu@gmail.com",
-                "Name": "Manolo Valdes"
+                "Name": "Manolo Valdes",
+                "Name[ia]": "Manolo Valdes",
+                "Name[nl]": "Manolo Valdes",
+                "Name[x-test]": "xxManolo Valdesxx"
             }
         ],
         "Category": "Service",
         "Description": "Multithreaded file download plugin",
+        "Description[ia]": "Plug-in de discargamento de file Multithreaded",
+        "Description[nl]": "Multithreaded bestandsdownloadplugin",
+        "Description[x-test]": "xxMultithreaded file download pluginxx",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_multisegkio_plugin",
         "License": "GPL",
         "Name": "Multi Segment KIO",
+        "Name[ia]": "Segmento multiple de KIO",
+        "Name[nl]": "Multisegment-KIO",
+        "Name[x-test]": "xxMulti Segment KIOxx",
         "ServiceTypes": [
             "KGet/Plugin"
         ],

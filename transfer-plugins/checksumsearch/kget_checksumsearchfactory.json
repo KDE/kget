@@ -3,16 +3,25 @@
         "Authors": [
             {
                 "Email": "mat69@gmx.net",
-                "Name": "Matthias Fuchs"
+                "Name": "Matthias Fuchs",
+                "Name[ia]": "Matthias Fuchs",
+                "Name[nl]": "Matthias Fuchs",
+                "Name[x-test]": "xxMatthias Fuchsxx"
             }
         ],
         "Category": "Service",
         "Description": "Tries to find checksums for a specified URL",
+        "Description[ia]": "Il tenta de trovar checksums pro un URL specificate",
+        "Description[nl]": "Probeert controlesommen voor een gespecificeerde URL te vinden",
+        "Description[x-test]": "xxTries to find checksums for a specified URLxx",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_checksumsearch_plugin",
         "License": "GPL",
         "Name": "Checksum Search",
+        "Name[ia]": "Cerca de Checksum",
+        "Name[nl]": "Controlesom zoeken",
+        "Name[x-test]": "xxChecksum Searchxx",
         "ServiceTypes": [
             "KGet/Plugin"
         ],

@@ -3,16 +3,25 @@
         "Authors": [
             {
                 "Email": "nolis71cu@gmail.com",
-                "Name": "Manolo Valdes"
+                "Name": "Manolo Valdes",
+                "Name[ia]": "Manolo Valdes",
+                "Name[nl]": "Manolo Valdes",
+                "Name[x-test]": "xxManolo Valdesxx"
             }
         ],
         "Category": "Service",
         "Description": "Allows KGet to search through mirror search engines for files",
+        "Description[ia]": "Il permitte KGet de cercar files per motores de cerca de sitos speculo",
+        "Description[nl]": "Staat KGet toe om bestanden te zoeken met mirrorzoekmachines",
+        "Description[x-test]": "xxAllows KGet to search through mirror search engines for filesxx",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_mirrorsearch_plugin",
         "License": "GPL",
         "Name": "Mirror Search",
+        "Name[ia]": "Cerca de sito speculo",
+        "Name[nl]": "Zoeken op mirrors",
+        "Name[x-test]": "xxMirror Searchxx",
         "ServiceTypes": [
             "KGet/Plugin"
         ],

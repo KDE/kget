@@ -3,16 +3,25 @@
         "Authors": [
             {
                 "Email": "nekkar@libero.it",
-                "Name": "Dario Massarin"
+                "Name": "Dario Massarin",
+                "Name[ia]": "Dario Massarin",
+                "Name[nl]": "Dario Massarin",
+                "Name[x-test]": "xxDario Massarinxx"
             }
         ],
         "Category": "Service",
         "Description": "Classic file downloader plugin",
+        "Description[ia]": "Plug-in de discargator classic de file",
+        "Description[nl]": "Klassieke plugin voor bestand downloaden",
+        "Description[x-test]": "xxClassic file downloader pluginxx",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_kio_plugin",
         "License": "GPL",
         "Name": "KIO",
+        "Name[ia]": "KIO",
+        "Name[nl]": "KIO",
+        "Name[x-test]": "xxKIOxx",
         "ServiceTypes": [
             "KGet/Plugin"
         ],

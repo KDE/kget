@@ -3,16 +3,25 @@
         "Authors": [
             {
                 "Email": "nolis71cu@gmail.com",
-                "Name": "Manolo Valdes"
+                "Name": "Manolo Valdes",
+                "Name[ia]": "Manolo Valdes",
+                "Name[nl]": "Manolo Valdes",
+                "Name[x-test]": "xxManolo Valdesxx"
             }
         ],
         "Category": "Service",
         "Description": "Allows files to be downloaded from Metalink",
+        "Description[ia]": "Il permitte a files de esser discargate ex Metalink",
+        "Description[nl]": "Staat toe bestanden te downloaden met behulp van Metalink",
+        "Description[x-test]": "xxAllows files to be downloaded from Metalinkxx",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_metalink_plugin",
         "License": "GPL",
         "Name": "Metalink",
+        "Name[ia]": "Metalink",
+        "Name[nl]": "Metalink",
+        "Name[x-test]": "xxMetalinkxx",
         "ServiceTypes": [
             "KGet/Plugin"
         ],
