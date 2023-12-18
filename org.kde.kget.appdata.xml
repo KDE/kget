@@ -189,6 +189,7 @@
       <li xml:lang="de">Anhalten und Fortsetzen des Herunterladens von Dateien, außerdem gibt es auch die Möglichkeit, das Herunterladen neu zu starten.</li>
       <li xml:lang="el">Παύει και συνεχίζει τη λήψη αρχείων, και έχει τη δυνατότητα επανάληψης μιας λήψης.</li>
       <li xml:lang="en-GB">Pausing and resuming of downloading files, as well as the ability to restart a download.</li>
+      <li xml:lang="eo">Paŭzo kaj rekomenco de elŝutado de dosieroj, same kiel la kapablo rekomenci elŝuton.</li>
       <li xml:lang="es">Pausa y reanudación de los archivos en descarga, así como la posibilidad de reiniciar descargas.</li>
       <li xml:lang="et">Failide allalaadimise peatamine ja taasalustamine, samuti võimalus allalaadimist taaskäivitada.</li>
       <li xml:lang="eu">Fitxategi jaitsierak eten eta berrekitea, baita jaitsiera bat berriz hasteko gaitasuna ere.</li>
@@ -324,6 +325,7 @@
       <li xml:lang="de">Unterstützung für Metalinks, die mehrere Adressen (Urls) zum Herunterladen enthalten, zusammen mit Prüfsummen und weiteren Informationen.</li>
       <li xml:lang="el">Υποστήριξη Metalink, η οποία περιέχει πολλά URL για λήψη, μαζί με αθροίσματα ελέγχου και άλλες πληροφορίες.</li>
       <li xml:lang="en-GB">Metalink support which contain multiple URLs for downloads, along with checksums and other information.</li>
+      <li xml:lang="eo">Subteno de Metalink kiu enhavas plurajn URL-ojn por elŝutoj, kune kun kontrolsumoj kaj aliaj informoj.</li>
       <li xml:lang="es">Permite usar Metalink, que contiene múltiples URL para las descargas, además de sumas de verificación y otra información.</li>
       <li xml:lang="et">Metalinki toetus, mis sisaldab mitmeid URL-e allalaadimiseks ühes kontrollsummade ja muu teabega.</li>
       <li xml:lang="eu">«Metalink» onartzen du, jaisteko URL ugari ditu, egiaztapen-batura eta beste informazio batzuekin batera.</li>
