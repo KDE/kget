@@ -15,7 +15,8 @@
                 "Name[nl]": "Dario Massarin",
                 "Name[sl]": "Dario Massarin",
                 "Name[uk]": "Dario Massarin",
-                "Name[x-test]": "xxDario Massarinxx"
+                "Name[x-test]": "xxDario Massarinxx",
+                "Name[zh_CN]": "Dario Massarin"
             }
         ],
         "Category": "Service",
@@ -32,6 +33,7 @@
         "Description[sl]": "Klasičen vtičnik za prenos datotek",
         "Description[uk]": "Додаток класичного отримання файлів",
         "Description[x-test]": "xxClassic file downloader pluginxx",
+        "Description[zh_CN]": "传统的文件下载插件",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_kio_plugin",

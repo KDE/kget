@@ -15,7 +15,8 @@
                 "Name[nl]": "Manolo Valdes",
                 "Name[sl]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
-                "Name[x-test]": "xxManolo Valdesxx"
+                "Name[x-test]": "xxManolo Valdesxx",
+                "Name[zh_CN]": "Manolo Valdes"
             }
         ],
         "Category": "Service",
@@ -32,6 +33,7 @@
         "Description[sl]": "Omogoča prenos datotek iz Metalinka",
         "Description[uk]": "Надає змогу отримувати файли з Metalink",
         "Description[x-test]": "xxAllows files to be downloaded from Metalinkxx",
+        "Description[zh_CN]": "允许从元链接下载文件",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_metalink_plugin",
