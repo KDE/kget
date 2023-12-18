@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-15 01:36+0000\n"
-"PO-Revision-Date: 2023-12-09 09:27\n"
+"PO-Revision-Date: 2023-12-17 11:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/kget/kget.pot\n"
-"X-Crowdin-File-ID: 6528\n"
+"X-Crowdin-File: /kf6-trunk/messages/kget/kget.pot\n"
+"X-Crowdin-File-ID: 48862\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -855,8 +855,7 @@ msgstr ""
 "</p><p style=\"font-size: small;\">%2</p>"
 
 #: core/kget.cpp:1342
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "解决"
@@ -4528,9 +4527,3 @@ msgstr "&验证"
 #, kde-format
 msgid "Close"
 msgstr "关闭"
-
-#~ msgid "Metalink Version 4.0 file (*.meta4)"
-#~ msgstr "Metalink 4.0 文件(*.meta4)"
-
-#~ msgid "Metalink Version 3.0 file (*.metalink)"
-#~ msgstr "Metalink 3.0 文件 (*.metalink)"

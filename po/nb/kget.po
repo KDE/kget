@@ -4584,9 +4584,3 @@ msgstr "&Verifiser"
 #, kde-format
 msgid "Close"
 msgstr "Lukk"
-
-#~ msgid "Metalink Version 4.0 file (*.meta4)"
-#~ msgstr "Metalink-fil  versjon 4.0 (*.meta4)"
-
-#~ msgid "Metalink Version 3.0 file (*.metalink)"
-#~ msgstr "Metalink-fil versjon 3.0 (*.metalink)"
