@@ -14,6 +14,7 @@
                 "Name[ka]": "Matthias Fuchs",
                 "Name[nl]": "Matthias Fuchs",
                 "Name[sl]": "Matthias Fuchs",
+                "Name[tr]": "Matthias Fuchs",
                 "Name[uk]": "Matthias Fuchs",
                 "Name[x-test]": "xxMatthias Fuchsxx",
                 "Name[zh_CN]": "Matthias Fuchs"
@@ -31,6 +32,7 @@
         "Description[ka]": "მითითებული ბმულისთვის საკონტროლო ჯამების მოძებნის მცდელობა",
         "Description[nl]": "Probeert controlesommen voor een gespecificeerde URL te vinden",
         "Description[sl]": "Poskuša najti kontrolne vsote za podani URL",
+        "Description[tr]": "Belirli bir URL için sağlama toplamlarını bulmaya çalışır",
         "Description[uk]": "Намагається знайти контрольні суми файла за вказаною адресою",
         "Description[x-test]": "xxTries to find checksums for a specified URLxx",
         "Description[zh_CN]": "尝试查找指定 URL 的数据校验和",

@@ -14,6 +14,7 @@
                 "Name[ka]": "Dario Massarin",
                 "Name[nl]": "Dario Massarin",
                 "Name[sl]": "Dario Massarin",
+                "Name[tr]": "Dario Massarin",
                 "Name[uk]": "Dario Massarin",
                 "Name[x-test]": "xxDario Massarinxx",
                 "Name[zh_CN]": "Dario Massarin"
@@ -31,6 +32,7 @@
         "Description[ka]": "ფაილების გადმოწერის კლასიკური დამატება",
         "Description[nl]": "Klassieke plugin voor bestand downloaden",
         "Description[sl]": "Klasičen vtičnik za prenos datotek",
+        "Description[tr]": "Klasik dosya indirici eklentisi",
         "Description[uk]": "Додаток класичного отримання файлів",
         "Description[x-test]": "xxClassic file downloader pluginxx",
         "Description[zh_CN]": "传统的文件下载插件",

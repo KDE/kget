@@ -14,6 +14,7 @@
                 "Name[ka]": "Manolo Valdes",
                 "Name[nl]": "Manolo Valdes",
                 "Name[sl]": "Manolo Valdes",
+                "Name[tr]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
                 "Name[x-test]": "xxManolo Valdesxx",
                 "Name[zh_CN]": "Manolo Valdes"
@@ -31,6 +32,7 @@
         "Description[ka]": "KGet-ისთვის საძიებო სისტემებით ფაილების სარკის ბმულების მოძებნის უფლების მიცემა",
         "Description[nl]": "Staat KGet toe om bestanden te zoeken met mirrorzoekmachines",
         "Description[sl]": "Omogoča KGet-u iskanje datotek prek zrcalnih iskalnikov",
+        "Description[tr]": "K İndir uygulamasının dosyalar için yansı arama motorlarında arayabilmesini sağlar",
         "Description[uk]": "Вмикає у KGet можливість пошуку за допомогою рушіїв пошуку дзеркал",
         "Description[x-test]": "xxAllows KGet to search through mirror search engines for filesxx",
         "Description[zh_CN]": "允许 KGet 通过镜像搜索引擎查找文件",

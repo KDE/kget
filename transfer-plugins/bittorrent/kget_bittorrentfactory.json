@@ -14,6 +14,7 @@
                 "Name[ka]": "Lukas Appelhans",
                 "Name[nl]": "Lukas Appelhans",
                 "Name[sl]": "Lukas Appelhans",
+                "Name[tr]": "Lukas Appelhans",
                 "Name[uk]": "Lukas Appelhans",
                 "Name[x-test]": "xxLukas Appelhansxx",
                 "Name[zh_CN]": "Lukas Appelhans"
@@ -31,6 +32,7 @@
         "Description[ka]": "ფაილების Bittorrent-ით გადმოწერის დაშვება",
         "Description[nl]": "Laat toe bestanden met Bittorrent te downloaden",
         "Description[sl]": "Omogoča prenos datotek z Bittorrentom",
+        "Description[tr]": "Dosyaların Bittorrent kullanarak indirilebilmesine olanak tanır",
         "Description[uk]": "Надає змогу отримувати файли за допомогою Bittorrent",
         "Description[x-test]": "xxAllows files to be downloaded using Bittorrentxx",
         "Description[zh_CN]": "允许使用 Bittorrent 协议下载文件",

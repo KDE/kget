@@ -14,6 +14,7 @@
                 "Name[ka]": "Ernesto Rodriguez Ortiz",
                 "Name[nl]": "Ernesto Rodriguez Ortiz",
                 "Name[sl]": "Ernesto Rodriguez Ortiz",
+                "Name[tr]": "Ernesto Rodriguez Ortiz",
                 "Name[uk]": "Ernesto Rodriguez Ortiz",
                 "Name[x-test]": "xxErnesto Rodriguez Ortizxx",
                 "Name[zh_CN]": "Ernesto Rodriguez Ortiz"
@@ -31,6 +32,7 @@
         "Description[ka]": "MMS-ის გადმოწერის დამატება KGet-სთვის",
         "Description[nl]": "KGet-plugin voor MMS-overdracht",
         "Description[sl]": "Vtičnik za prenos MMS za KGet",
+        "Description[tr]": "K İndir için MMS-Transfer eklentisi",
         "Description[uk]": "Додаток перенесення MMS для KGet",
         "Description[x-test]": "xxMMS-Transfer plugin for KGetxx",
         "Description[zh_CN]": "KGet 的 MMS 传输插件",

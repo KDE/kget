@@ -14,6 +14,7 @@
                 "Name[ka]": "Manolo Valdes",
                 "Name[nl]": "Manolo Valdes",
                 "Name[sl]": "Manolo Valdes",
+                "Name[tr]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
                 "Name[x-test]": "xxManolo Valdesxx",
                 "Name[zh_CN]": "Manolo Valdes"
@@ -31,6 +32,7 @@
         "Description[ka]": "მრავალნაკადიანი ფაილის გადმოწერის დამატება",
         "Description[nl]": "Multithreaded bestandsdownloadplugin",
         "Description[sl]": "Vstavek za večnitni prenos datoteke",
+        "Description[tr]": "Çok parçacıklı dosya indirme eklentisi",
         "Description[uk]": "Додаток отримання файлів у декілька потоків",
         "Description[x-test]": "xxMultithreaded file download pluginxx",
         "Description[zh_CN]": "多线程文件下载插件",
