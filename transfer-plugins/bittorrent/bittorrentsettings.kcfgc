@@ -1,5 +1,6 @@
 ClassName=BittorrentSettings
 File=kget_bittorrentfactory.kcfg
+IncludeFiles=kget_export.h
 Mutators=true
 Singleton=true
-Visibility=Q_DECL_EXPORT
+Visibility=KGET_EXPORT

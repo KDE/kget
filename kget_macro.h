@@ -8,8 +8,8 @@
    version 2 of the License, or (at your option) any later version.
 */
 
-#ifndef KGET_EXPORT_H
-#define KGET_EXPORT_H
+#ifndef KGET_MACRO_H
+#define KGET_MACRO_H
 
 #include <KPluginFactory>
 

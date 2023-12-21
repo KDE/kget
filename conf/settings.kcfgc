@@ -1,5 +1,6 @@
 ClassName=Settings
 File=kget.kcfg
+IncludeFiles=kget_export.h
 Mutators=true
 Singleton=true
-Visibility=Q_DECL_EXPORT
+Visibility=KGET_EXPORT
