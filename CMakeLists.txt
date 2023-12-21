@@ -55,9 +55,7 @@ find_package(KF6 ${KF_VERSION} REQUIRED
     KIO
     Notifications
     NotifyConfig
-    Parts
     StatusNotifierItem
-    TextWidgets
     Wallet
     WidgetsAddons
     WindowSystem

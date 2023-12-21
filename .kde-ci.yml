@@ -20,12 +20,10 @@ Dependencies:
     'frameworks/knotifications': '@latest-kf6'
     'frameworks/knotifyconfig': '@latest-kf6'
     'frameworks/kservice': '@latest-kf6'
-    'frameworks/ktextwidgets': '@latest-kf6'
     'frameworks/kwallet': '@latest-kf6'
     'frameworks/kwidgetsaddons': '@latest-kf6'
     'frameworks/kwindowsystem': '@latest-kf6'
     'frameworks/kxmlgui': '@latest-kf6'
-    'frameworks/kparts': '@latest-kf6'
     'frameworks/status': '@latest-kf6'
     'frameworks/kstatusnotifieritem': '@latest-kf6'
 
