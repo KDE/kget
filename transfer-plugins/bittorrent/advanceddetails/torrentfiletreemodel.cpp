@@ -241,7 +241,7 @@ void TorrentFileTreeModel::Node::saveExpandedState(const QModelIndex &index, QSo
         if (!n->file) {
             enc->write(n->name.toUtf8());
             enc->beginDict();
-            n->saveExpandedState(index.child(idx, 0), pm, tv, enc);
+            n->saveExpandedState(index.model()->index(idx, 0), pm, tv, enc);
             enc->end();
         }
         ++idx;
@@ -266,7 +266,7 @@ void TorrentFileTreeModel::Node::loadExpandedState(const QModelIndex &index, QSo
         if (!n->file) {
             BDictNode *d = dict->getDict(n->name.toUtf8());
             if (d)
-                n->loadExpandedState(index.child(idx, 0), pm, tv, d);
+                n->loadExpandedState(index.model()->index(idx, 0), pm, tv, d);
         }
         idx++;
     }
@@ -452,7 +452,7 @@ bool TorrentFileTreeModel::setCheckState(const QModelIndex &index, Qt::CheckStat
 
         for (int i = 0; i < n->children.count(); i++) {
             // recurse down the tree
-            setCheckState(index.child(i, 0), state);
+            setCheckState(index.model()->index(i, 0), state);
         }
 
         if (reenable)
@@ -569,7 +569,7 @@ void TorrentFileTreeModel::invertCheck(const QModelIndex &idx)
     if (!n->file) {
         for (int i = 0; i < n->children.count(); i++) {
             // recurse down the tree
-            invertCheck(idx.child(i, 0));
+            invertCheck(idx.model()->index(i, 0));
         }
     } else {
         if (n->file->doNotDownload())

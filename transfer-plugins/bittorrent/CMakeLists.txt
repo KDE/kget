@@ -60,4 +60,4 @@ ki18n_wrap_ui(kcm_kget_bittorrentfactory
     )
 
 kconfig_add_kcfg_files(kcm_kget_bittorrentfactory bittorrentsettings.kcfgc)
-target_link_libraries(kcm_kget_bittorrentfactory KF6::ConfigGui KF6::ConfigWidgets KF6::I18n KF6::KIOCore KF6::KIOWidgets)
+target_link_libraries(kcm_kget_bittorrentfactory KF6::ConfigGui KF6::ConfigWidgets KF6::I18n KF6::KIOCore KF6::KIOWidgets KF6::KCMUtils)

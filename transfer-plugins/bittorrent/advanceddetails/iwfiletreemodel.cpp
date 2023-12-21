@@ -216,7 +216,7 @@ bool IWFileTreeModel::setData(const QModelIndex &index, const QVariant &value, i
     if (!n->file) {
         for (int i = 0; i < n->children.count(); i++) {
             // recurse down the tree
-            setData(index.child(i, 0), value, role);
+            setData(index.model()->index(i, 0), value, role);
         }
     } else {
         bt::TorrentFileInterface *file = n->file;
@@ -273,7 +273,7 @@ void IWFileTreeModel::update(const QModelIndex &idx, bt::TorrentFileInterface *f
     } else {
         for (int i = 0; i < n->children.count(); i++) {
             // recurse down the tree
-            update(idx.child(i, 0), file, col);
+            update(idx.model()->index(i, 0), file, col);
         }
     }
 }

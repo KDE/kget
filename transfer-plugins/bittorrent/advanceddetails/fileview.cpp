@@ -27,9 +27,10 @@
 #include <QSortFilterProxyModel>
 
 #include <KConfigGroup>
+#include <KIO/JobUiDelegateFactory>
+#include <KIO/OpenUrlJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KRun>
 #include <kwidgetsaddons_version.h>
 
 #include "iwfilelistmodel.h"
@@ -205,7 +206,9 @@ void FileView::showContextMenu(const QPoint &p)
 
 void FileView::open()
 {
-    new KRun(QUrl(preview_path), nullptr, true);
+    auto job = new KIO::OpenUrlJob(QUrl(preview_path), nullptr);
+    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
+    job->start();
 }
 
 void FileView::changePriority(bt::Priority newpriority)
@@ -340,13 +343,19 @@ void FileView::onDoubleClicked(const QModelIndex &index)
         bt::TorrentFileInterface *file = model->indexToFile(proxy_model->mapToSource(index));
         if (!file) {
             // directory
-            new KRun(QUrl(curr_tc->getDataDir() + model->dirPath(proxy_model->mapToSource(index))), nullptr, true);
+            auto job = new KIO::OpenUrlJob(QUrl(curr_tc->getDataDir() + model->dirPath(proxy_model->mapToSource(index))), nullptr);
+            job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
+            job->start();
         } else {
             // file
-            new KRun(QUrl(file->getPathOnDisk()), nullptr, true);
+            auto job = new KIO::OpenUrlJob(QUrl(file->getPathOnDisk()), nullptr);
+            job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
+            job->start();
         }
     } else {
-        new KRun(QUrl(curr_tc->getStats().output_path), nullptr, true);
+        auto job = new KIO::OpenUrlJob(QUrl(curr_tc->getStats().output_path), nullptr);
+        job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, nullptr));
+        job->start();
     }
 }
 
