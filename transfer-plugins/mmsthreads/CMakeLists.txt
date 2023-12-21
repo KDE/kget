@@ -31,4 +31,4 @@ ki18n_wrap_ui(kcm_kget_mmsfactory
   dlgmms.ui
 )
 kconfig_add_kcfg_files(kcm_kget_mmsfactory mmssettings.kcfgc)
-target_link_libraries(kcm_kget_mmsfactory KF6::I18n KF6::ConfigWidgets)
+target_link_libraries(kcm_kget_mmsfactory KF6::I18n KF6::ConfigWidgets KF6::KCMUtils)
