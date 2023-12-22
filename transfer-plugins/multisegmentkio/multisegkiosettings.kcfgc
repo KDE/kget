@@ -1,6 +1,4 @@
 ClassName=MultiSegKioSettings
 File=kget_multisegkiofactory.kcfg
-IncludeFiles=kget_export.h
 Mutators=true
 Singleton=true
-Visibility=KGET_EXPORT

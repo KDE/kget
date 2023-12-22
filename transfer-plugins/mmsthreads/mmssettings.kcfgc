@@ -1,6 +1,4 @@
 ClassName=MmsSettings
 File=kget_mmsfactory.kcfg
-IncludeFiles=kget_export.h
 Mutators=true
 Singleton=true
-Visibility=KGET_EXPORT
