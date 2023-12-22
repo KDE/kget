@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-15 01:36+0000\n"
+"POT-Creation-Date: 2023-12-22 01:39+0000\n"
 "PO-Revision-Date: 2011-11-11 19:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com> \n"
 "Language-Team: Sinhala <info@hanthana.org> \n"
@@ -57,7 +57,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "සියළු බාගැනීම් අවසන් වූ පසු මෙම ක්‍රියාව ක්‍රියාත්මක කරන්න:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:91
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "KGet වෙතින් පිටවෙන්න"
@@ -1919,17 +1919,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:211
+#: mainwindow.cpp:1192 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "මඟහැරුනු ගොනුව KGet හුවමාරු ලැයිස්තුවකි"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:213
+#: mainwindow.cpp:1194 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "බාගන්න (&D)"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:214
+#: mainwindow.cpp:1195 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "හුවමාරු ලැයිස්තුව පූර්ණය කරන්න (&L)"
@@ -2050,53 +2050,53 @@ msgstr "ඉතිරි:"
 msgid "Size:"
 msgstr "ප්‍රමාණය:"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "විවෘත කරන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download first"
 msgstr "ප්‍රථමයෙන් බාගන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download normally"
 msgstr "සාමාන්‍ය ලෙස බාගන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
 #, kde-format
 msgid "Download last"
 msgstr "අවසන බාගන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Do Not Download"
 msgstr "බාගන්න එපා"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
 #, kde-format
 msgid "Delete File(s)"
 msgstr "ගොනු(ව) මකන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
 #, kde-format
 msgid "Move File"
 msgstr "ගොනුව ගෙනයන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "බහලුම් වෘක්‍ෂය හකුළන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "බහලුම් වෘක්‍ෂය දිගහරින්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:251
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2104,8 +2104,8 @@ msgid_plural ""
 msgstr[0] "ඔබට මෙම ගොනුවේ සියළු දත්ත අහිමි වනු ඇත. ඔබට මෙය සිදුකිරීමට ඇවැසිද?"
 msgstr[1] "ඔබට මෙම ගොනුවල සියළු දත්ත අහිමි වනු ඇත. ඔබට මෙය සිදුකිරීමට ඇවැසිද?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:278
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:281
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:297
 #, fuzzy, kde-format
 #| msgid "Select a directory to move the data to."
 msgid "Select a directory to move the data to"
@@ -3139,45 +3139,45 @@ msgid_plural "Rename Groups..."
 msgstr[0] "සමූහය ප්‍රතිනම්..."
 msgstr[1] "සමූහ ප්‍රතිනම්..."
 
-#: ui/droptarget.cpp:84
+#: ui/droptarget.cpp:88
 #, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "ඇළෙන"
 
-#: ui/droptarget.cpp:258
+#: ui/droptarget.cpp:262
 #, kde-format
 msgid "Show Main Window"
 msgstr "ප්‍රධාන කවුළුව පෙන්වන්න"
 
-#: ui/droptarget.cpp:258
+#: ui/droptarget.cpp:262
 #, kde-format
 msgid "Hide Main Window"
 msgstr "ප්‍රධාන කවුළුව සඟවන්න"
 
-#: ui/droptarget.cpp:339
+#: ui/droptarget.cpp:343
 #, kde-format
 msgid "Drop Target"
 msgstr "හෙළීම් ඉලක්කය"
 
-#: ui/droptarget.cpp:339
+#: ui/droptarget.cpp:343
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "ඔබට බාගැනීම් සබැඳි හෙළීම් ඉලක්කයට ඇද දැමිය හැක."
 
-#: ui/droptarget.cpp:384
+#: ui/droptarget.cpp:388
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1(%2) %3"
 
-#: ui/droptarget.cpp:391
+#: ui/droptarget.cpp:395
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1(%2% %3/%4) වේගය:%5/s"
 
-#: ui/droptarget.cpp:400
+#: ui/droptarget.cpp:404
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3185,7 +3185,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1(%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:414
+#: ui/droptarget.cpp:418
 #, kde-format
 msgid "Ready"
 msgstr "සූදානම්"

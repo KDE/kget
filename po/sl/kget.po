@@ -1,7 +1,7 @@
 # translation of kget.po to
 # Translation of kget.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
-# $Id: kget.po 1667399 2023-12-16 02:23:28Z scripty $
+# $Id: kget.po 1667854 2023-12-22 02:06:17Z scripty $
 # $Source$
 #
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2002,2003, 2005, 2007.
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-15 01:36+0000\n"
+"POT-Creation-Date: 2023-12-22 01:39+0000\n"
 "PO-Revision-Date: 2023-12-15 07:19+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -66,7 +66,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "Izvedi dejanje, ko se zaključijo vsi prejemi:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:91
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "Končaj KGet"
@@ -1949,17 +1949,17 @@ msgstr ""
 "želite za vedno onemogočiti, pojdite v Nastavitve->Napredno in onemogočite "
 "\"Uporabi kot upravljalnik prejemov za Konqueror\"."
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:211
+#: mainwindow.cpp:1192 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Spuščena datoteka je KGetov seznam prenosov"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:213
+#: mainwindow.cpp:1194 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "Prejmi"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:214
+#: mainwindow.cpp:1195 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "Na&loži seznam prenosov"
@@ -2080,53 +2080,53 @@ msgstr "Preostalo:"
 msgid "Size:"
 msgstr "Velikost:"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "Odpri"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download first"
 msgstr "Prejmi najprej"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download normally"
 msgstr "Prejmi običajno"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
 #, kde-format
 msgid "Download last"
 msgstr "Prejmi zadnje"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Do Not Download"
 msgstr "Ne prejmi"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
 #, kde-format
 msgid "Delete File(s)"
 msgstr "Izbriši datoteko(e)"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
 #, kde-format
 msgid "Move File"
 msgstr "Premakni datoteko"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "Zloži drevo mape"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "Razširi drevo mape"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:251
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2140,8 +2140,8 @@ msgstr[2] ""
 msgstr[3] ""
 "Izgubili boste vse podatke iz teh datotek. Ali res želite nadaljevati?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:278
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:281
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:297
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr "Izberite mapo, kamor bodo premaknjeni podatki"
@@ -3182,45 +3182,45 @@ msgstr[1] "Preimenuj skupini ..."
 msgstr[2] "Preimenuj skupine ..."
 msgstr[3] "Preimenuj skupine ..."
 
-#: ui/droptarget.cpp:84
+#: ui/droptarget.cpp:88
 #, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "Lepljivo"
 
-#: ui/droptarget.cpp:258
+#: ui/droptarget.cpp:262
 #, kde-format
 msgid "Show Main Window"
 msgstr "Prikaži glavno okno"
 
-#: ui/droptarget.cpp:258
+#: ui/droptarget.cpp:262
 #, kde-format
 msgid "Hide Main Window"
 msgstr "Skrij glavno okno"
 
-#: ui/droptarget.cpp:339
+#: ui/droptarget.cpp:343
 #, kde-format
 msgid "Drop Target"
 msgstr "Spustni cilj"
 
-#: ui/droptarget.cpp:339
+#: ui/droptarget.cpp:343
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "Na spustni cilj lahko povlečete povezave za prejem."
 
-#: ui/droptarget.cpp:384
+#: ui/droptarget.cpp:388
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1 (%2) %3"
 
-#: ui/droptarget.cpp:391
+#: ui/droptarget.cpp:395
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1 (%2 %, %3/%4) Hitrost: %5/s"
 
-#: ui/droptarget.cpp:400
+#: ui/droptarget.cpp:404
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3228,7 +3228,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1 (%2 %, %3/%4) %5"
 
-#: ui/droptarget.cpp:414
+#: ui/droptarget.cpp:418
 #, kde-format
 msgid "Ready"
 msgstr "Pripravljen"

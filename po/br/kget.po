@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork/kget.pot\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-15 01:36+0000\n"
+"POT-Creation-Date: 2023-12-22 01:39+0000\n"
 "PO-Revision-Date: 2004-09-20 15:44+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "Echu eo pep ezkargañ."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:91
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
 #, fuzzy, kde-format
 #| msgid "KGet"
 msgid "Quit KGet"
@@ -1959,17 +1959,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:211
+#: mainwindow.cpp:1192 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "&Treuzkas"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:213
+#: mainwindow.cpp:1194 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "Kenderc'helet eo an ezkargañ"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:214
+#: mainwindow.cpp:1195 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "&Treuzkas"
@@ -2098,56 +2098,56 @@ msgstr ""
 msgid "Size:"
 msgstr "Ment"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
 #, fuzzy, kde-format
 #| msgid "&Open..."
 msgctxt "Open file"
 msgid "Open"
 msgstr "&Digeriñ ..."
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, fuzzy, kde-format
 msgid "Download first"
 msgstr "Kenderc'helet eo an ezkargañ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, fuzzy, kde-format
 msgid "Download normally"
 msgstr "Renkell dre ziouer"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
 #, fuzzy, kde-format
 msgid "Download last"
 msgstr "Kenderc'helet eo an ezkargañ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, fuzzy, kde-format
 msgid "Do Not Download"
 msgstr "Enkargañ adarre"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
 #, fuzzy, kde-format
 #| msgid "Download Selected Files"
 msgid "Delete File(s)"
 msgstr "Enkargañ ar restroù diuzet"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Move File"
 msgstr "Digeriñ ur restr"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr ""
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:251
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2155,8 +2155,8 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:278
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:294
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:281
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:297
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr ""
@@ -3223,47 +3223,47 @@ msgid_plural "Rename Groups..."
 msgstr[0] "Lemel ur strollad"
 msgstr[1] ""
 
-#: ui/droptarget.cpp:84
+#: ui/droptarget.cpp:88
 #, fuzzy, kde-format
 #| msgid "Sticky"
 msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "Pegañ"
 
-#: ui/droptarget.cpp:258
+#: ui/droptarget.cpp:262
 #, kde-format
 msgid "Show Main Window"
 msgstr "Diskouez ar brenestr gentañ"
 
-#: ui/droptarget.cpp:258
+#: ui/droptarget.cpp:262
 #, kde-format
 msgid "Hide Main Window"
 msgstr "Kuzhat ar brenestr gentañ"
 
-#: ui/droptarget.cpp:339
+#: ui/droptarget.cpp:343
 #, kde-format
 msgid "Drop Target"
 msgstr ""
 
-#: ui/droptarget.cpp:339
+#: ui/droptarget.cpp:343
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr ""
 
-#: ui/droptarget.cpp:384
+#: ui/droptarget.cpp:388
 #, fuzzy, kde-format
 #| msgid " %1/s "
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr " %1/e "
 
-#: ui/droptarget.cpp:391
+#: ui/droptarget.cpp:395
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr ""
 
-#: ui/droptarget.cpp:400
+#: ui/droptarget.cpp:404
 #, fuzzy, kde-format
 #| msgid " %1/s "
 msgctxt ""
@@ -3272,7 +3272,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr " %1/e "
 
-#: ui/droptarget.cpp:414
+#: ui/droptarget.cpp:418
 #, kde-format
 msgid "Ready"
 msgstr ""
