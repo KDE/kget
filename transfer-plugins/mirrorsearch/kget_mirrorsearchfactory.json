@@ -4,6 +4,7 @@
             {
                 "Email": "nolis71cu@gmail.com",
                 "Name": "Manolo Valdes",
+                "Name[bg]": "Manolo Valdes",
                 "Name[ca@valencia]": "Manolo Valdes",
                 "Name[ca]": "Manolo Valdes",
                 "Name[de]": "Manolo Valdes",
@@ -25,6 +26,7 @@
         ],
         "Category": "Service",
         "Description": "Allows KGet to search through mirror search engines for files",
+        "Description[bg]": "Позволява KGet да търси за файлове в търсачки на огледала",
         "Description[ca@valencia]": "Permet que KGet busque els fitxers a rèpliques amb els motors de busca",
         "Description[ca]": "Permet que el KGet cerqui els fitxers a rèpliques amb els motors de cerca",
         "Description[de]": "Ermöglicht es KGet, nach Dateien über Spiegel-Suchmaschinen zu suchen",

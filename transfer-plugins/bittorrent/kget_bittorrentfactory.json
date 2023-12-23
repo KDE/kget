@@ -4,6 +4,7 @@
             {
                 "Email": "l.appelhans@gmx.de",
                 "Name": "Lukas Appelhans",
+                "Name[bg]": "Lukas Appelhans",
                 "Name[ca@valencia]": "Lukas Appelhans",
                 "Name[ca]": "Lukas Appelhans",
                 "Name[de]": "Lukas Appelhans",
@@ -25,6 +26,7 @@
         ],
         "Category": "Service",
         "Description": "Allows files to be downloaded using Bittorrent",
+        "Description[bg]": "Позволява изтегляне на файлове през Bittorrent",
         "Description[ca@valencia]": "Permet baixar fitxers emprant Bittorrent",
         "Description[ca]": "Permet baixar fitxers emprant el Bittorrent",
         "Description[de]": "Ermöglicht das Herunterladen von Dateien mit Bittorrent",
