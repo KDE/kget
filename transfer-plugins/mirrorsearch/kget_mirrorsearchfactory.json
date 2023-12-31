@@ -22,7 +22,8 @@
                 "Name[tr]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
                 "Name[x-test]": "xxManolo Valdesxx",
-                "Name[zh_CN]": "Manolo Valdes"
+                "Name[zh_CN]": "Manolo Valdes",
+                "Name[zh_TW]": "Manolo Valdes"
             }
         ],
         "Category": "Service",
@@ -46,6 +47,7 @@
         "Description[uk]": "Вмикає у KGet можливість пошуку за допомогою рушіїв пошуку дзеркал",
         "Description[x-test]": "xxAllows KGet to search through mirror search engines for filesxx",
         "Description[zh_CN]": "允许 KGet 通过镜像搜索引擎查找文件",
+        "Description[zh_TW]": "允許 KGet 透過映射搜尋引擎來搜尋檔案",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_mirrorsearch_plugin",

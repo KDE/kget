@@ -22,7 +22,8 @@
                 "Name[tr]": "Matthias Fuchs",
                 "Name[uk]": "Matthias Fuchs",
                 "Name[x-test]": "xxMatthias Fuchsxx",
-                "Name[zh_CN]": "Matthias Fuchs"
+                "Name[zh_CN]": "Matthias Fuchs",
+                "Name[zh_TW]": "Matthias Fuchs"
             }
         ],
         "Category": "Service",
@@ -46,6 +47,7 @@
         "Description[uk]": "Намагається знайти контрольні суми файла за вказаною адресою",
         "Description[x-test]": "xxTries to find checksums for a specified URLxx",
         "Description[zh_CN]": "尝试查找指定 URL 的数据校验和",
+        "Description[zh_TW]": "試著尋找指定網址的驗證碼",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_checksumsearch_plugin",

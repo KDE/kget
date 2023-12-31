@@ -22,7 +22,8 @@
                 "Name[tr]": "Lukas Appelhans",
                 "Name[uk]": "Lukas Appelhans",
                 "Name[x-test]": "xxLukas Appelhansxx",
-                "Name[zh_CN]": "Lukas Appelhans"
+                "Name[zh_CN]": "Lukas Appelhans",
+                "Name[zh_TW]": "Lukas Appelhans"
             }
         ],
         "Category": "Service",
@@ -46,6 +47,7 @@
         "Description[uk]": "Надає змогу отримувати файли за допомогою Bittorrent",
         "Description[x-test]": "xxAllows files to be downloaded using Bittorrentxx",
         "Description[zh_CN]": "允许使用 Bittorrent 协议下载文件",
+        "Description[zh_TW]": "允許使用 Bittorrent 下載檔案",
         "EnabledByDefault": true,
         "Icon": "application-x-bittorrent",
         "Id": "kget_bittorrent_plugin",

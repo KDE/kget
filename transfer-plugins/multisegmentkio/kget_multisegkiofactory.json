@@ -22,7 +22,8 @@
                 "Name[tr]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
                 "Name[x-test]": "xxManolo Valdesxx",
-                "Name[zh_CN]": "Manolo Valdes"
+                "Name[zh_CN]": "Manolo Valdes",
+                "Name[zh_TW]": "Manolo Valdes"
             }
         ],
         "Category": "Service",
@@ -46,6 +47,7 @@
         "Description[uk]": "Додаток отримання файлів у декілька потоків",
         "Description[x-test]": "xxMultithreaded file download pluginxx",
         "Description[zh_CN]": "多线程文件下载插件",
+        "Description[zh_TW]": "多緒檔案下載外掛程式",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_multisegkio_plugin",

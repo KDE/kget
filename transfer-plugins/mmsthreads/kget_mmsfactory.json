@@ -22,7 +22,8 @@
                 "Name[tr]": "Ernesto Rodriguez Ortiz",
                 "Name[uk]": "Ernesto Rodriguez Ortiz",
                 "Name[x-test]": "xxErnesto Rodriguez Ortizxx",
-                "Name[zh_CN]": "Ernesto Rodriguez Ortiz"
+                "Name[zh_CN]": "Ernesto Rodriguez Ortiz",
+                "Name[zh_TW]": "Ernesto Rodriguez Ortiz"
             }
         ],
         "Category": "Service",
@@ -46,6 +47,7 @@
         "Description[uk]": "Додаток перенесення MMS для KGet",
         "Description[x-test]": "xxMMS-Transfer plugin for KGetxx",
         "Description[zh_CN]": "KGet 的 MMS 传输插件",
+        "Description[zh_TW]": "KGet 的 MMS 傳輸外掛程式",
         "EnabledByDefault": true,
         "Icon": "kget",
         "Id": "kget_mms_plugin",
