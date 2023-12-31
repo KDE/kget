@@ -4793,9 +4793,3 @@ msgstr "検証(&V)"
 #, kde-format
 msgid "Close"
 msgstr ""
-
-#~ msgid "Metalink Version 4.0 file (*.meta4)"
-#~ msgstr "Metalink バージョン 4.0 ファイル (*.meta4)"
-
-#~ msgid "Metalink Version 3.0 file (*.metalink)"
-#~ msgstr "Metalink バージョン 3.0 ファイル (*.metalink)"

@@ -73,7 +73,7 @@ msgstr "Ix de KGet"
 #: conf/dlgadvanced.ui:61
 #, kde-format
 msgid "At startup:"
-msgstr "A l'inici:"
+msgstr "En l'inici:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:69
