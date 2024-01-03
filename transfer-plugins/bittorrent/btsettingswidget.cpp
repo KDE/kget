@@ -22,13 +22,13 @@ BTSettingsWidget::BTSettingsWidget(QObject *parent, const KPluginMetaData &data)
 {
     setupUi(widget());
 
-    connect(portBox, SIGNAL(valueChanged(int)), SLOT(changed()));
-    connect(uploadBox, SIGNAL(valueChanged(int)), SLOT(changed()));
-    connect(downloadBox, SIGNAL(valueChanged(int)), SLOT(changed()));
-    connect(torrentEdit, SIGNAL(textChanged(QString)), SLOT(changed()));
-    connect(tempEdit, SIGNAL(textChanged(QString)), SLOT(changed()));
-    connect(preallocBox, SIGNAL(stateChanged(int)), SLOT(changed()));
-    connect(utpBox, SIGNAL(stateChanged(int)), SLOT(changed()));
+    connect(portBox, &QSpinBox::valueChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(uploadBox, &QSpinBox::valueChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(downloadBox, &QSpinBox::valueChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(torrentEdit, &KUrlRequester::textChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(tempEdit, &KUrlRequester::textChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(preallocBox, &QCheckBox::stateChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(utpBox, &QCheckBox::stateChanged, this, &BTSettingsWidget::markAsChanged);
 }
 
 void BTSettingsWidget::load()
