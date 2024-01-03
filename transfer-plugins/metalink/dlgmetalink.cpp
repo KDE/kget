@@ -22,9 +22,9 @@ DlgSettingsWidget::DlgSettingsWidget(QObject *parent, const KPluginMetaData &dat
 {
     ui.setupUi(widget());
 
-    connect(ui.numSimultaneousFiles, SIGNAL(valueChanged(int)), SLOT(changed()));
-    connect(ui.kcfg_MirrorsPerFile, SIGNAL(valueChanged(int)), SLOT(changed()));
-    connect(ui.kcfg_ConnectionsPerUrl, SIGNAL(valueChanged(int)), SLOT(changed()));
+    connect(ui.numSimultaneousFiles, &QSpinBox::valueChanged, this, &DlgSettingsWidget::markAsChanged);
+    connect(ui.kcfg_MirrorsPerFile, &QSpinBox::valueChanged, this, &DlgSettingsWidget::markAsChanged);
+    connect(ui.kcfg_ConnectionsPerUrl, &QSpinBox::valueChanged, this, &DlgSettingsWidget::markAsChanged);
 }
 
 DlgSettingsWidget::~DlgSettingsWidget()
