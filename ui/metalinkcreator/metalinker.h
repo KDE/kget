@@ -21,7 +21,9 @@
 #ifndef Metalinker_H
 #define Metalinker_H
 
+#include <KIO/Global>
 #include <KIO/Job>
+
 #include <QDate>
 #include <QDomElement>
 #include <QEventLoop>

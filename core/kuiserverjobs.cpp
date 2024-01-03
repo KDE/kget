@@ -18,7 +18,10 @@
 #include "transferhandler.h"
 
 #include "kget_debug.h"
+
+#include <KIO/JobTracker>
 #include <KUiServerJobTracker>
+
 #include <QDebug>
 
 KUiServerJobs::KUiServerJobs(QObject *parent)

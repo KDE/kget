@@ -24,6 +24,7 @@
 #include <QTextStream>
 #include <QTimeZone>
 
+#include <KIO/TransferJob>
 #include <KLocalizedString>
 
 #include "kget_debug.h"

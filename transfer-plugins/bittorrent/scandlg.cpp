@@ -23,6 +23,7 @@
 #include <util/error.h>
 #include <util/log.h>
 
+#include <KIO/Global>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KStandardGuiItem>

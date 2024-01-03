@@ -12,7 +12,9 @@
 #define MIRROR_H
 
 #include <QObject>
-#include <kio/job.h>
+#include <QUrl>
+
+#include <KIO/TransferJob>
 
 class mirror : public QObject
 {

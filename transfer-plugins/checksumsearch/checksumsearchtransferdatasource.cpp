@@ -25,6 +25,9 @@
 #include <QFile>
 
 #include <KIO/DeleteJob>
+#include <KIO/FileCopyJob>
+#include <KIO/ListJob>
+
 #include <QStandardPaths>
 
 ChecksumSearchController ChecksumSearchTransferDataSource::s_controller;

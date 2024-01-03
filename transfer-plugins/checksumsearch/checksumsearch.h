@@ -22,7 +22,8 @@
 
 #include <QObject>
 
-#include <KIO/Job>
+#include <KIO/TransferJob>
+
 #include <QUrl>
 
 class ChecksumSearch : public QObject

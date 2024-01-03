@@ -24,6 +24,8 @@
 #include <QTimer>
 #include <QVarLengthArray>
 
+#include <KIO/CopyJob>
+#include <KIO/FileCopyJob>
 #include <KIO/FileJob>
 #include <KLocalizedString>
 #include <KMessageBox>

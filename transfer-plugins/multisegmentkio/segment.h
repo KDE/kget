@@ -14,7 +14,7 @@
 
 #include <QObject>
 
-#include <KIO/Job>
+#include <KIO/TransferJob>
 
 #include "core/transfer.h"
 

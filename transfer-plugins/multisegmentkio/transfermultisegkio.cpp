@@ -28,6 +28,8 @@
 #include "kget_debug.h"
 
 #include <KIO/CopyJob>
+#include <KIO/StatJob>
+#include <KIO/UDSEntry>
 #include <KLocalizedString>
 #include <KMessageBox>
 

@@ -23,6 +23,7 @@
 #include "core/transferdatasource.h"
 
 #include <KIO/Job>
+#include <KIO/UDSEntry>
 
 class ChecksumSearch;
 class ChecksumSearchTransferDataSource;

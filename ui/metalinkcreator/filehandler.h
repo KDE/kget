@@ -23,6 +23,8 @@
 #include <QMutex>
 #include <QThread>
 
+#include <KIO/UDSEntry>
+
 #include "metalinker.h"
 
 struct FileData {

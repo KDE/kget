@@ -25,6 +25,8 @@
 
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
+#include <KIO/StatJob>
+#include <KIO/UDSEntry>
 #include <KLocalizedString>
 #include <KMessageBox>
 

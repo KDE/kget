@@ -12,7 +12,7 @@
 #ifndef TRANSFER_KIO_H
 #define TRANSFER_KIO_H
 
-#include <kio/job.h>
+#include <KIO/FileCopyJob>
 
 #include "core/transfer.h"
 

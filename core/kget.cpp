@@ -38,6 +38,7 @@
 #include <KConfigDialog>
 #include <KIO/DeleteJob>
 #include <KIO/RenameDialog>
+#include <KIO/StoredTransferJob>
 #include <KMessageBox>
 #include <KPluginMetaData>
 #include <KSharedConfig>

@@ -9,10 +9,12 @@
 */
 #include "download.h"
 
+#include <QDebug>
 #include <QFile>
 
+#include <KIO/Global>
+
 #include "kget_debug.h"
-#include <QDebug>
 
 Download::Download(const QUrl &srcUrl, const QUrl &destUrl)
     : m_srcUrl(srcUrl)

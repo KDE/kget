@@ -20,6 +20,8 @@
 #include "filehandler.h"
 #include "core/verifier.h"
 
+#include <KIO/ListJob>
+
 #include <QDir>
 
 FileHandlerThread::FileHandlerThread(QObject *parent)

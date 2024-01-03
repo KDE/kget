@@ -18,7 +18,7 @@
 
 #include <QUrl>
 
-#include <kio/job.h>
+#include <KIO/TransferJob>
 
 class KGET_EXPORT Download : public QObject
 {
