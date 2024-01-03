@@ -21,9 +21,9 @@ DlgSettingsWidget::DlgSettingsWidget(QObject *parent, const KPluginMetaData &dat
 {
     ui.setupUi(widget());
 
-    connect(ui.numSegSpinBox, SIGNAL(valueChanged(int)), SLOT(changed()));
-    connect(ui.enginesCheckBox, SIGNAL(clicked(bool)), SLOT(changed()));
-    connect(ui.verificationCheckBox, SIGNAL(clicked(bool)), SLOT(changed()));
+    connect(ui.numSegSpinBox, &QSpinBox::valueChanged, this, &DlgSettingsWidget::markAsChanged);
+    connect(ui.enginesCheckBox, &QCheckBox::clicked, this, &DlgSettingsWidget::markAsChanged);
+    connect(ui.verificationCheckBox, &QCheckBox::clicked, this, &DlgSettingsWidget::markAsChanged);
 }
 
 DlgSettingsWidget::~DlgSettingsWidget()
