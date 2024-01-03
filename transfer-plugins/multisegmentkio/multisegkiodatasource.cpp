@@ -73,8 +73,10 @@ void MultiSegKioDataSource::addSegments(const QPair<KIO::fileoffset_t, KIO::file
     m_segments.append(segment);
 
     connect(segment, &Segment::canResume, this, &MultiSegKioDataSource::slotCanResume);
-    connect(segment, SIGNAL(totalSize(KIO::filesize_t, QPair<int, int>)), this, SLOT(slotTotalSize(KIO::filesize_t, QPair<int, int>)));
-    connect(segment, SIGNAL(data(KIO::fileoffset_t, QByteArray, bool &)), this, SIGNAL(data(KIO::fileoffset_t, QByteArray, bool &)));
+    connect(segment, &Segment::totalSize, this, &MultiSegKioDataSource::slotTotalSize);
+    connect(segment, &Segment::data, this, [this](KIO::fileoffset_t offset, const QByteArray &data, bool &worked) {
+        this->data(offset, data, worked);
+    });
     connect(segment, &Segment::finishedSegment, this, &MultiSegKioDataSource::slotFinishedSegment);
     connect(segment, &Segment::error, this, &MultiSegKioDataSource::slotError);
     connect(segment, &Segment::finishedDownload, this, &MultiSegKioDataSource::slotFinishedDownload);

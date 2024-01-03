@@ -55,12 +55,12 @@ ScanDlg::ScanDlg(KJob *job, QWidget *parent)
     m_progress = ui.progress;
     m_cancel = ui.cancel;
     KGuiItem::assign(m_cancel, KStandardGuiItem::cancel());
-    connect(m_cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(m_cancel, &QPushButton::clicked, this, &ScanDlg::reject);
     m_progress->setMaximum(100);
     m_progress->setValue(0);
     connect(m_job, &KJob::description, this, &ScanDlg::description);
-    connect(m_job, SIGNAL(result(KJob *)), SLOT(result(KJob *)));
-    connect(m_job, SIGNAL(percent(KJob *, ulong)), SLOT(percent(KJob *, ulong)));
+    connect(m_job, &KJob::result, this, &ScanDlg::result);
+    connect(m_job, &KJob::percentChanged, this, &ScanDlg::percent);
 }
 ScanDlg::~ScanDlg()
 {
@@ -106,8 +106,8 @@ void ScanDlg::result(KJob *job)
     }
     m_job = nullptr;
     m_progress->setValue(100);
-    disconnect(m_cancel, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(m_cancel, SIGNAL(clicked()), this, SLOT(accept()));
+    disconnect(m_cancel, &QPushButton::clicked, this, &ScanDlg::reject);
+    connect(m_cancel, &QPushButton::clicked, this, &ScanDlg::accept);
 }
 
 void ScanDlg::percent(KJob *job, unsigned long percent)

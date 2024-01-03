@@ -74,7 +74,7 @@ NewTransferDialog::NewTransferDialog(QWidget *parent)
 
     ui.errorWidget->setCloseButtonVisible(false);
 
-    connect(ui.groupComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setDefaultDestination()));
+    connect(ui.groupComboBox, &QComboBox::currentIndexChanged, this, &NewTransferDialog::setDefaultDestination);
 
     connect(ui.urlRequester, &QLineEdit::textChanged, this, &NewTransferDialog::setDefaultDestination);
     connect(ui.destRequester, &KUrlRequester::textChanged, this, &NewTransferDialog::inputTimer);
@@ -558,7 +558,7 @@ void NewTransferDialogHandler::showNewTransferDialog(QList<QUrl> urls)
         // needed to avoid when protocols like the desktop protocol is used, see bko:185283
         KIO::Job *job = mostLocalUrlJob(url);
         job->setProperty("jobId", (newTransferDialogHandler->m_nextJobId));
-        connect(job, SIGNAL(result(KJob *)), newTransferDialogHandler, SLOT(slotMostLocalUrlResult(KJob *)));
+        connect(job, &KJob::result, newTransferDialogHandler, &NewTransferDialogHandler::slotMostLocalUrlResult);
         job->start();
     }
 

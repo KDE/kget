@@ -57,7 +57,9 @@ TransfersView::TransfersView(QWidget *parent)
     connect(header(), &QHeaderView::sectionResized, this, &TransfersView::slotSaveHeader);
     connect(this, &TransfersView::doubleClicked, this, &TransfersView::slotItemActivated);
     connect(this, &TransfersView::collapsed, this, &TransfersView::slotItemCollapsed);
-    connect(KGet::model(), SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this, SLOT(closeExpandableDetails(QModelIndex, int, int)));
+    connect(KGet::model(), &QAbstractItemModel::rowsAboutToBeRemoved, this, [this](const QModelIndex &parent, int first, int last) {
+        closeExpandableDetails(parent, first, last);
+    });
 }
 
 TransfersView::~TransfersView()

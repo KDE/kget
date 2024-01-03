@@ -42,7 +42,7 @@ KJob *FileDeleter::Private::deleteFile(const QUrl &dest, QObject *receiver, cons
     if (it == m_jobs.end()) {
         KJob *job = KIO::del(dest, KIO::HideProgressInfo);
         it = m_jobs.insert(dest, job);
-        connect(*it, SIGNAL(result(KJob *)), this, SLOT(slotResult(KJob *)));
+        connect(*it, &KJob::result, this, &FileDeleter::Private::slotResult);
     }
 
     if (receiver && method) {

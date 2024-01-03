@@ -412,17 +412,14 @@ void DataSourceFactory::addMirror(const QUrl &url, bool used, int numParallelCon
                     }
 
                     connect(source, &TransferDataSource::capabilitiesChanged, this, &DataSourceFactory::slotUpdateCapabilities);
-                    connect(source,
-                            SIGNAL(brokenSegments(TransferDataSource *, QPair<int, int>)),
-                            this,
-                            SLOT(brokenSegments(TransferDataSource *, QPair<int, int>)));
+                    connect(source, &TransferDataSource::brokenSegments, this, &DataSourceFactory::brokenSegments);
                     connect(source, &TransferDataSource::broken, this, &DataSourceFactory::broken);
                     connect(source, &TransferDataSource::finishedSegment, this, &DataSourceFactory::finishedSegment);
-                    connect(source, SIGNAL(data(KIO::fileoffset_t, QByteArray, bool &)), this, SLOT(slotWriteData(KIO::fileoffset_t, QByteArray, bool &)));
                     connect(source,
-                            SIGNAL(freeSegments(TransferDataSource *, QPair<int, int>)),
+                            qOverload<KIO::fileoffset_t, const QByteArray &, bool &>(&TransferDataSource::data),
                             this,
-                            SLOT(slotFreeSegments(TransferDataSource *, QPair<int, int>)));
+                            &DataSourceFactory::slotWriteData);
+                    connect(source, &TransferDataSource::freeSegments, this, &DataSourceFactory::slotFreeSegments);
                     connect(source, &TransferDataSource::log, this, &DataSourceFactory::log);
                     connect(source, &TransferDataSource::urlChanged, this, &DataSourceFactory::slotUrlChanged);
 
@@ -813,7 +810,7 @@ void DataSourceFactory::startMove()
 
     KIO::Job *move = KIO::file_move(m_dest, m_newDest, -1, KIO::HideProgressInfo);
     connect(move, &KJob::result, this, &DataSourceFactory::newDestResult);
-    connect(move, SIGNAL(percent(KJob *, ulong)), this, SLOT(slotPercent(KJob *, ulong)));
+    connect(move, &KJob::percentChanged, this, &DataSourceFactory::slotPercent);
 
     m_dest = m_newDest;
     verifier()->setDestination(m_dest);

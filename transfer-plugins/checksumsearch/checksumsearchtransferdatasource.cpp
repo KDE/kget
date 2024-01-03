@@ -200,7 +200,9 @@ void ChecksumSearchTransferDataSource::gotBaseUrl(const QUrl &urlToFile)
     if (urls.count() && types.count()) {
         auto *search = new ChecksumSearch(urls, m_sourceUrl.fileName(), types);
 
-        connect(search, SIGNAL(data(QString, QString)), this, SIGNAL(data(QString, QString)));
+        connect(search, &ChecksumSearch::data, this, [this](QString type, QString checksum) {
+            this->data(type, checksum);
+        });
     }
 }
 

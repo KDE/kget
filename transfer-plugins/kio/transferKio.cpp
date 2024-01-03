@@ -69,11 +69,11 @@ bool TransferKio::setNewDestination(const QUrl &newDestination)
                 m_signature->setDestination(newDestination);
             }
 
-            KIO::Job *move =
+            KIO::FileCopyJob *move =
                 KIO::file_move(QUrl::fromLocalFile(oldPath), QUrl::fromLocalFile(newDestination.toLocalFile() + ".part"), -1, KIO::HideProgressInfo);
             connect(move, &KJob::result, this, &TransferKio::newDestResult);
             connect(move, &KJob::infoMessage, this, &TransferKio::slotInfoMessage);
-            connect(move, SIGNAL(percent(KJob *, ulong)), this, SLOT(slotPercent(KJob *, ulong)));
+            connect(move, &KJob::percentChanged, this, &TransferKio::slotPercent);
 
             return true;
         }
@@ -143,7 +143,7 @@ void TransferKio::createJob()
 
         connect(m_copyjob, &KJob::result, this, &TransferKio::slotResult);
         connect(m_copyjob, &KJob::infoMessage, this, &TransferKio::slotInfoMessage);
-        connect(m_copyjob, SIGNAL(percent(KJob *, ulong)), this, SLOT(slotPercent(KJob *, ulong)));
+        connect(m_copyjob, &KJob::percentChanged, this, &TransferKio::slotPercent);
         connect(m_copyjob, &KJob::totalSize, this, &TransferKio::slotTotalSize);
         connect(m_copyjob, &KJob::processedSize, this, &TransferKio::slotProcessedSize);
         connect(m_copyjob, &KJob::speed, this, &TransferKio::slotSpeed);

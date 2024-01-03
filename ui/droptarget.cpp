@@ -94,7 +94,7 @@ DropTarget::DropTarget(MainWindow *mw)
     auto *quitAction = new QAction(this);
     quitAction->setText(i18n("Quit KGet"));
     quitAction->setIcon(QIcon::fromTheme("system-shutdown"));
-    connect(quitAction, SIGNAL(triggered()), mw, SLOT(slotQuit()));
+    connect(quitAction, &QAction::triggered, mw, &MainWindow::slotQuit);
     popupMenu->addAction(quitAction);
 
     isdragging = false;

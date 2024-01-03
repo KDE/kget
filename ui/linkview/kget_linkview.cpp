@@ -98,16 +98,18 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.treeView, &QAbstractItemView::doubleClicked, this, &KGetLinkView::uncheckItem);
     connect(ui.textFilter, &QLineEdit::textChanged, this, &KGetLinkView::setTextFilter);
     connect(ui.textFilter, &KLineEdit::aboutToShowContextMenu, this, &KGetLinkView::contextMenuDisplayed);
-    connect(ui.filterMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotFilterModeChanged(int)));
-    connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMimeTypeChanged(int)));
-    connect(ui.showCombo, SIGNAL(currentIndexChanged(int)), SLOT(updateSelectionButtons()));
+    connect(ui.filterMode, &QComboBox::currentIndexChanged, this, &KGetLinkView::slotFilterModeChanged);
+    connect(ui.showCombo, &QComboBox::currentIndexChanged, this, &KGetLinkView::slotMimeTypeChanged);
+    connect(ui.showCombo, &QComboBox::currentIndexChanged, this, &KGetLinkView::updateSelectionButtons);
     connect(ui.urlRequester, &KUrlRequester::textChanged, this, &KGetLinkView::updateImportButtonStatus);
     connect(ui.urlRequester, &KUrlRequester::urlSelected, this, &KGetLinkView::slotStartImport);
     connect(ui.selectAll, &QAbstractButton::clicked, this, &KGetLinkView::checkAll);
     connect(ui.deselectAll, &QAbstractButton::clicked, this, &KGetLinkView::uncheckAll);
     connect(ui.invertSelection, &QAbstractButton::clicked, this, &KGetLinkView::slotInvertSelection);
     connect(this, &QDialog::accepted, this, &KGetLinkView::slotStartLeech);
-    connect(ui.showWebContent, SIGNAL(stateChanged(int)), m_proxyModel, SLOT(setShowWebContent(int)));
+    connect(ui.showWebContent, &QCheckBox::stateChanged, m_proxyModel, [this](int show) {
+        m_proxyModel->setShowWebContent(show);
+    });
     connect(ui.importLinks, &QAbstractButton::clicked, this, &KGetLinkView::slotStartImport);
     connect(ui.treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &KGetLinkView::selectionChanged);
     connect(ui.dialogButtonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);

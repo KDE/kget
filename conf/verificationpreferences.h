@@ -24,14 +24,14 @@
 
 #include "ui_verificationpreferences.h"
 
-class KConfigDialog;
+class PreferencesDialog;
 
 class VerificationPreferences : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f = Qt::Widget);
+    explicit VerificationPreferences(PreferencesDialog *parent, Qt::WindowFlags f = Qt::Widget);
 
 Q_SIGNALS:
     /**

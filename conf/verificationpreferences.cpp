@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "verificationpreferences.h"
+#include "preferencesdialog.h"
 #include "settings.h"
 
 #include <KConfigDialog>
@@ -25,7 +26,7 @@
 #include <KLocalizedString>
 #include <KUrlRequester>
 
-VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::WindowFlags f)
+VerificationPreferences::VerificationPreferences(PreferencesDialog *parent, Qt::WindowFlags f)
     : QWidget(parent, f)
 {
     ui.setupUi(this);
@@ -40,9 +41,9 @@ VerificationPreferences::VerificationPreferences(KConfigDialog *parent, Qt::Wind
 #endif
 
     connect(ui.keyservers, &KEditListWidget::changed, this, &VerificationPreferences::changed);
-    connect(parent, SIGNAL(accepted()), SLOT(slotAccpeted()));
-    connect(parent, SIGNAL(rejected()), SLOT(slotRejected()));
-    connect(parent, SIGNAL(resetDefaults()), SLOT(slotDefaultClicked()));
+    connect(parent, &KConfigDialog::accepted, this, &VerificationPreferences::slotAccpeted);
+    connect(parent, &KConfigDialog::rejected, this, &VerificationPreferences::slotRejected);
+    connect(parent, &PreferencesDialog::resetDefaults, this, &VerificationPreferences::slotDefaultClicked);
 }
 
 void VerificationPreferences::slotAccpeted()

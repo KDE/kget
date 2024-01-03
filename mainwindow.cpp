@@ -470,12 +470,8 @@ void MainWindow::init()
 
     connect(KGet::model(), &TransferTreeModel::transfersAddedEvent, this, &MainWindow::slotUpdateTitlePercent);
     connect(KGet::model(), &TransferTreeModel::transfersRemovedEvent, this, &MainWindow::slotUpdateTitlePercent);
-    connect(KGet::model(),
-            SIGNAL(transfersChangedEvent(QMap<TransferHandler *, Transfer::ChangesFlags>)),
-            SLOT(slotTransfersChanged(QMap<TransferHandler *, Transfer::ChangesFlags>)));
-    connect(KGet::model(),
-            SIGNAL(groupsChangedEvent(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)),
-            SLOT(slotGroupsChanged(QMap<TransferGroupHandler *, TransferGroup::ChangesFlags>)));
+    connect(KGet::model(), &TransferTreeModel::transfersChangedEvent, this, &MainWindow::slotTransfersChanged);
+    connect(KGet::model(), &TransferTreeModel::groupsChangedEvent, this, &MainWindow::slotGroupsChanged);
 
 #ifdef DO_KGET_TEST
     if (m_doTesting) {

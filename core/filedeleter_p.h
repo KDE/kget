@@ -28,7 +28,7 @@
 #include <QHash>
 #include <QObject>
 
-class FileDeleter::Private : QObject
+class FileDeleter::Private : public QObject
 {
     Q_OBJECT
 public:

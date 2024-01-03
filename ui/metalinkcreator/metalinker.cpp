@@ -1222,7 +1222,7 @@ void KGetMetalink::MetalinkHttpParser::checkMetalinkHttp()
     job->setRedirectionHandlingEnabled(false);
     connect(job, &KJob::result, this, &MetalinkHttpParser::slotHeaderResult); // Finished
     connect(job, &KIO::TransferJob::redirection, this, &MetalinkHttpParser::slotRedirection); // Redirection
-    connect(job, SIGNAL(mimetype(KIO::Job *, QString)), this, SLOT(detectMime(KIO::Job *, QString))); // Mime detection.
+    connect(job, &KIO::TransferJob::mimeTypeFound, this, &MetalinkHttpParser::detectMime); // Mime detection.
     qDebug() << " Verifying Metalink/HTTP Status";
     m_loop.exec();
 }
