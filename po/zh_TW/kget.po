@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 01:39+0000\n"
+"POT-Creation-Date: 2024-01-03 01:35+0000\n"
 "PO-Revision-Date: 2023-12-30 17:44+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -508,8 +508,8 @@ msgstr "自動下載遺失的金鑰"
 msgid "Keyservers:"
 msgstr "金鑰伺服器："
 
-#: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -518,12 +518,12 @@ msgstr "金鑰伺服器："
 msgid "Error"
 msgstr "錯誤"
 
-#: core/datasourcefactory.cpp:267
+#: core/datasourcefactory.cpp:269
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr "檔案大小比 VFAT 支援的最大檔案大小還大。"
 
-#: core/datasourcefactory.cpp:580
+#: core/datasourcefactory.cpp:582
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -579,54 +579,54 @@ msgstr ""
 "找不到可用的金鑰伺服器，因此未下載金鑰。請先在設定中新增伺服器，或重新啟動 "
 "KGet 重新下載。"
 
-#: core/kget.cpp:113
+#: core/kget.cpp:114
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "你確定要刪除名為 %1 的群組嗎？"
 
-#: core/kget.cpp:114
+#: core/kget.cpp:115
 #, kde-format
 msgid "Remove Group"
 msgstr "移除群組"
 
-#: core/kget.cpp:140
+#: core/kget.cpp:141
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "您確定您要移除以下的群組嗎？"
 
-#: core/kget.cpp:142
+#: core/kget.cpp:143
 #, kde-format
 msgid "Remove groups"
 msgstr "移除群組"
 
-#: core/kget.cpp:247
+#: core/kget.cpp:248
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 msgstr "<p>以下傳輸已加入下載清單：</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:249 core/kget.cpp:342
+#: core/kget.cpp:250 core/kget.cpp:343
 #, kde-format
 msgid "Download added"
 msgstr "下載已新增"
 
-#: core/kget.cpp:337
+#: core/kget.cpp:338
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>以下傳輸已加入下載清單：</p>"
 
-#: core/kget.cpp:339
+#: core/kget.cpp:340
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>以下傳輸已加入下載清單：</p>"
 
-#: core/kget.cpp:501 core/kget.cpp:543
+#: core/kget.cpp:502 core/kget.cpp:544
 #, kde-format
 msgid "My Downloads"
 msgstr "我的下載"
 
-#: core/kget.cpp:552
+#: core/kget.cpp:553
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -635,17 +635,17 @@ msgstr ""
 "檔案 %1 已存在。\n"
 "您要覆寫它嗎？"
 
-#: core/kget.cpp:553
+#: core/kget.cpp:554
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "要覆寫現有檔案嗎？"
 
-#: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "無法儲存：%1"
 
-#: core/kget.cpp:869
+#: core/kget.cpp:870
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -655,34 +655,34 @@ msgid_plural ""
 "supported by KGet:</p>"
 msgstr[0] "<p>以下的網址無法下載，因為 KGet 不支援它們的協定：</p>"
 
-#: core/kget.cpp:879
+#: core/kget.cpp:880
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "不支援的協定"
 
-#: core/kget.cpp:932 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:933 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "新下載"
 
-#: core/kget.cpp:932
+#: core/kget.cpp:933
 #, kde-format
 msgid "Enter URL:"
 msgstr "輸入網址："
 
-#: core/kget.cpp:952
+#: core/kget.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "選擇目錄"
 
-#: core/kget.cpp:973
+#: core/kget.cpp:974
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "另存新檔"
 
-#: core/kget.cpp:985 core/urlchecker.cpp:366
+#: core/kget.cpp:986 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -691,7 +691,7 @@ msgstr ""
 "不正確的網址：\n"
 "%1"
 
-#: core/kget.cpp:991 core/urlchecker.cpp:368
+#: core/kget.cpp:992 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -700,7 +700,7 @@ msgstr ""
 "不正確的網址，遺失協定：\n"
 "%1"
 
-#: core/kget.cpp:1002 core/urlchecker.cpp:424
+#: core/kget.cpp:1003 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -715,28 +715,28 @@ msgstr ""
 "\n"
 "要再下載一次嗎？"
 
-#: core/kget.cpp:1003 core/urlchecker.cpp:639
+#: core/kget.cpp:1004 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "要再次下載嗎？"
 
-#: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
-#: transfer-plugins/kio/transferKio.cpp:275
+#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: transfer-plugins/kio/transferKio.cpp:277
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:113
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "再次下載"
 
-#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: core/kget.cpp:1006 core/kget.cpp:1019 core/kget.cpp:1074
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr "略過"
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:426
+#: core/kget.cpp:1016 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -751,17 +751,17 @@ msgstr ""
 "\n"
 "要刪除此下載，並重新來過嗎？"
 
-#: core/kget.cpp:1016 core/urlchecker.cpp:636
+#: core/kget.cpp:1017 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "要刪除並重新下載嗎？"
 
-#: core/kget.cpp:1038 core/kget.cpp:1043
+#: core/kget.cpp:1039 core/kget.cpp:1044
 #, kde-format
 msgid "Directory is not writable"
 msgstr "目錄無法寫入"
 
-#: core/kget.cpp:1070
+#: core/kget.cpp:1071
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -772,39 +772,39 @@ msgstr ""
 "\n"
 "要把前一個殺掉並重新下載嗎？"
 
-#: core/kget.cpp:1071 core/urlchecker.cpp:648
+#: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "檔案已下載。還要再下載一次嗎？"
 
-#: core/kget.cpp:1082
+#: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "您已經下載過相同的檔案"
 
-#: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
+#: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "檔案已經存在"
 
-#: core/kget.cpp:1178
+#: core/kget.cpp:1179
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "網路連線已建立，回復傳輸中。"
 
-#: core/kget.cpp:1181
+#: core/kget.cpp:1182
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "沒有網路連線，停止傳輸。"
 
-#: core/kget.cpp:1193
+#: core/kget.cpp:1194
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "外掛程式載入器無法載入外掛程式 %1：%2。"
 
-#: core/kget.cpp:1204
+#: core/kget.cpp:1205
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -814,7 +814,7 @@ msgstr ""
 "未刪除 %1\n"
 "因為它是個目錄。"
 
-#: core/kget.cpp:1213
+#: core/kget.cpp:1214
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -824,31 +824,31 @@ msgstr ""
 "未刪除 %1\n"
 "因為它不是本地端檔案。"
 
-#: core/kget.cpp:1321
+#: core/kget.cpp:1322
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr "<p>以下檔案已完成下載：</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1323
+#: core/kget.cpp:1324
 #, kde-format
 msgid "Download completed"
 msgstr "下載完成"
 
-#: core/kget.cpp:1327
+#: core/kget.cpp:1328
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr "<p>以下檔案已開始下載：</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1329
+#: core/kget.cpp:1330
 #, kde-format
 msgid "Download started"
 msgstr "下載已開始"
 
-#: core/kget.cpp:1334
+#: core/kget.cpp:1335
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -858,62 +858,62 @@ msgstr ""
 "<p>以下傳輸發生了錯誤：</p><p style=\"font-size: small;\">%1</p><p>錯誤訊息"
 "為：</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1342
+#: core/kget.cpp:1343
 #, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "解析"
 
-#: core/kget.cpp:1392
+#: core/kget.cpp:1393
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "所有下載都已完成，KGet 即將關閉。"
 
-#: core/kget.cpp:1399
+#: core/kget.cpp:1400
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "所有下載都已完成，電腦即將關閉。"
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1402
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "關機"
 
-#: core/kget.cpp:1406
+#: core/kget.cpp:1407
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "所有下載都已完成，電腦即將暫停。"
 
-#: core/kget.cpp:1408
+#: core/kget.cpp:1409
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "休眠中"
 
-#: core/kget.cpp:1413
+#: core/kget.cpp:1414
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "所有下載都已完成，電腦即將暫停並儲存到記憶體。"
 
-#: core/kget.cpp:1415
+#: core/kget.cpp:1416
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "暫停中"
 
-#: core/kget.cpp:1423
+#: core/kget.cpp:1424
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "中止"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>所有傳輸都已完成。</p>"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "Downloads completed"
 msgstr "下載完成"
@@ -2731,7 +2731,7 @@ msgstr "進階詳情(&A)"
 msgid "&Scan Files"
 msgstr "掃描檔案(&S)"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:104
+#: transfer-plugins/bittorrent/scandlg.cpp:105
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "掃描資料時發生錯誤：%1"
@@ -2875,42 +2875,42 @@ msgstr "可使用搜尋引擎清單"
 msgid "List of the available search engine URLs"
 msgstr "可使用搜尋引擎網址清單"
 
-#: transfer-plugins/kio/transferKio.cpp:99
+#: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "連線中..."
 
-#: transfer-plugins/kio/transferKio.cpp:271
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
+#: transfer-plugins/kio/transferKio.cpp:273
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "下載（%1）無法被檢查。您要修復它嗎？"
 
-#: transfer-plugins/kio/transferKio.cpp:272
+#: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr "修復"
 
-#: transfer-plugins/kio/transferKio.cpp:274
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
+#: transfer-plugins/kio/transferKio.cpp:276
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "下載（%1）無法被檢查。您要重新下載它嗎？"
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Verification failed."
 msgstr "檢查失敗。"
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Ignore"
 msgstr "忽略"
@@ -3079,7 +3079,7 @@ msgstr "使用搜尋引擎"
 msgid "Search for verification information"
 msgstr "搜尋檢查資訊"
 
-#: transfer-plugins/multisegmentkio/segment.cpp:284
+#: transfer-plugins/multisegmentkio/segment.cpp:287
 #, kde-format
 msgid "Failed to write to the file."
 msgstr "寫入檔案失敗。"

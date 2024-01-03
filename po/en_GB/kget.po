@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 01:39+0000\n"
+"POT-Creation-Date: 2024-01-03 01:35+0000\n"
 "PO-Revision-Date: 2023-02-26 19:50+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -505,8 +505,8 @@ msgstr "Automatic downloading of missing keys"
 msgid "Keyservers:"
 msgstr "Keyservers:"
 
-#: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -515,12 +515,12 @@ msgstr "Keyservers:"
 msgid "Error"
 msgstr "Error"
 
-#: core/datasourcefactory.cpp:267
+#: core/datasourcefactory.cpp:269
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr "Filesize is larger than maximum file size supported by VFAT."
 
-#: core/datasourcefactory.cpp:580
+#: core/datasourcefactory.cpp:582
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -577,27 +577,27 @@ msgstr ""
 "No useful key server found, key not downloaded. Add more servers to the "
 "settings or restart KGet and retry downloading."
 
-#: core/kget.cpp:113
+#: core/kget.cpp:114
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "Are you sure that you want to remove the group named %1?"
 
-#: core/kget.cpp:114
+#: core/kget.cpp:115
 #, kde-format
 msgid "Remove Group"
 msgstr "Remove Group"
 
-#: core/kget.cpp:140
+#: core/kget.cpp:141
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "Are you sure that you want to remove the following groups?"
 
-#: core/kget.cpp:142
+#: core/kget.cpp:143
 #, kde-format
 msgid "Remove groups"
 msgstr "Remove groups"
 
-#: core/kget.cpp:247
+#: core/kget.cpp:248
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -606,27 +606,27 @@ msgstr ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:249 core/kget.cpp:342
+#: core/kget.cpp:250 core/kget.cpp:343
 #, kde-format
 msgid "Download added"
 msgstr "Download added"
 
-#: core/kget.cpp:337
+#: core/kget.cpp:338
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>The following transfer has been added to the download list:</p>"
 
-#: core/kget.cpp:339
+#: core/kget.cpp:340
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>The following transfers have been added to the download list:</p>"
 
-#: core/kget.cpp:501 core/kget.cpp:543
+#: core/kget.cpp:502 core/kget.cpp:544
 #, kde-format
 msgid "My Downloads"
 msgstr "My Downloads"
 
-#: core/kget.cpp:552
+#: core/kget.cpp:553
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -635,17 +635,17 @@ msgstr ""
 "The file %1 already exists.\n"
 "Overwrite?"
 
-#: core/kget.cpp:553
+#: core/kget.cpp:554
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "Overwrite existing file?"
 
-#: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "Unable to save to: %1"
 
-#: core/kget.cpp:869
+#: core/kget.cpp:870
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -660,34 +660,34 @@ msgstr[1] ""
 "<p>The following URLs cannot be downloaded, their protocols are not "
 "supported by KGet:</p>"
 
-#: core/kget.cpp:879
+#: core/kget.cpp:880
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "Protocol unsupported"
 
-#: core/kget.cpp:932 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:933 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "New Download"
 
-#: core/kget.cpp:932
+#: core/kget.cpp:933
 #, kde-format
 msgid "Enter URL:"
 msgstr "Enter URL:"
 
-#: core/kget.cpp:952
+#: core/kget.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "Choose Directory"
 
-#: core/kget.cpp:973
+#: core/kget.cpp:974
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "Save As"
 
-#: core/kget.cpp:985 core/urlchecker.cpp:366
+#: core/kget.cpp:986 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -696,7 +696,7 @@ msgstr ""
 "Malformed URL:\n"
 "%1"
 
-#: core/kget.cpp:991 core/urlchecker.cpp:368
+#: core/kget.cpp:992 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -705,7 +705,7 @@ msgstr ""
 "Malformed URL, protocol missing:\n"
 "%1"
 
-#: core/kget.cpp:1002 core/urlchecker.cpp:424
+#: core/kget.cpp:1003 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -720,28 +720,28 @@ msgstr ""
 "\n"
 "Download it again?"
 
-#: core/kget.cpp:1003 core/urlchecker.cpp:639
+#: core/kget.cpp:1004 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "Download it again?"
 
-#: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
-#: transfer-plugins/kio/transferKio.cpp:275
+#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: transfer-plugins/kio/transferKio.cpp:277
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:113
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Download Again"
 
-#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: core/kget.cpp:1006 core/kget.cpp:1019 core/kget.cpp:1074
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr "Skip"
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:426
+#: core/kget.cpp:1016 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -756,17 +756,17 @@ msgstr ""
 "\n"
 "Delete it and download again?"
 
-#: core/kget.cpp:1016 core/urlchecker.cpp:636
+#: core/kget.cpp:1017 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "Delete it and download again?"
 
-#: core/kget.cpp:1038 core/kget.cpp:1043
+#: core/kget.cpp:1039 core/kget.cpp:1044
 #, kde-format
 msgid "Directory is not writable"
 msgstr "Directory is not writable"
 
-#: core/kget.cpp:1070
+#: core/kget.cpp:1071
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -777,39 +777,39 @@ msgstr ""
 "\n"
 "Download and delete the previous one?"
 
-#: core/kget.cpp:1071 core/urlchecker.cpp:648
+#: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "File already downloaded. Download anyway?"
 
-#: core/kget.cpp:1082
+#: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "You are already downloading the same file"
 
-#: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
+#: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "File already exists"
 
-#: core/kget.cpp:1178
+#: core/kget.cpp:1179
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "Internet connection established, resuming transfers."
 
-#: core/kget.cpp:1181
+#: core/kget.cpp:1182
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "No internet connection, stopping transfers."
 
-#: core/kget.cpp:1193
+#: core/kget.cpp:1194
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "Plugin loader could not load the plugin %1: %2."
 
-#: core/kget.cpp:1204
+#: core/kget.cpp:1205
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -820,7 +820,7 @@ msgstr ""
 "%1\n"
 "as it is a directory."
 
-#: core/kget.cpp:1213
+#: core/kget.cpp:1214
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -831,7 +831,7 @@ msgstr ""
 "%1\n"
 "as it is not a local file."
 
-#: core/kget.cpp:1321
+#: core/kget.cpp:1322
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -840,12 +840,12 @@ msgstr ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 
-#: core/kget.cpp:1323
+#: core/kget.cpp:1324
 #, kde-format
 msgid "Download completed"
 msgstr "Download completed"
 
-#: core/kget.cpp:1327
+#: core/kget.cpp:1328
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -854,12 +854,12 @@ msgstr ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 
-#: core/kget.cpp:1329
+#: core/kget.cpp:1330
 #, kde-format
 msgid "Download started"
 msgstr "Download started"
 
-#: core/kget.cpp:1334
+#: core/kget.cpp:1335
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -870,64 +870,64 @@ msgstr ""
 "size: small;\">%1</p><p>The error message is:</p><p style=\"font-size: small;"
 "\">%2</p>"
 
-#: core/kget.cpp:1342
+#: core/kget.cpp:1343
 #, fuzzy, kde-format
 #| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Resolve"
 
-#: core/kget.cpp:1392
+#: core/kget.cpp:1393
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "KGet is now closing, as all downloads have completed."
 
-#: core/kget.cpp:1399
+#: core/kget.cpp:1400
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "The computer will now turn off, as all downloads have completed."
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1402
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Shutdown"
 
-#: core/kget.cpp:1406
+#: core/kget.cpp:1407
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "The computer will now suspend to disk, as all downloads have completed."
 
-#: core/kget.cpp:1408
+#: core/kget.cpp:1409
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "Hibernating"
 
-#: core/kget.cpp:1413
+#: core/kget.cpp:1414
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "The computer will now suspend to RAM, as all downloads have completed."
 
-#: core/kget.cpp:1415
+#: core/kget.cpp:1416
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Suspending"
 
-#: core/kget.cpp:1423
+#: core/kget.cpp:1424
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Abort"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>All transfers have been finished.</p>"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "Downloads completed"
 msgstr "Downloads completed"
@@ -2771,7 +2771,7 @@ msgstr "&Advanced Details"
 msgid "&Scan Files"
 msgstr "&Scan Files"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:104
+#: transfer-plugins/bittorrent/scandlg.cpp:105
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Error scanning data: %1"
@@ -2915,42 +2915,42 @@ msgstr "List of the available search engines"
 msgid "List of the available search engine URLs"
 msgstr "List of the available search engine URLs"
 
-#: transfer-plugins/kio/transferKio.cpp:99
+#: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "Connecting...."
 
-#: transfer-plugins/kio/transferKio.cpp:271
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
+#: transfer-plugins/kio/transferKio.cpp:273
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "The download (%1) could not be verified. Do you want to repair it?"
 
-#: transfer-plugins/kio/transferKio.cpp:272
+#: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr "Repair"
 
-#: transfer-plugins/kio/transferKio.cpp:274
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
+#: transfer-plugins/kio/transferKio.cpp:276
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "The download (%1) could not be verified. Do you want to redownload it?"
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Verification failed."
 msgstr "Verification failed."
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Ignore"
 msgstr "Ignore"
@@ -3122,7 +3122,7 @@ msgstr "Use search engines"
 msgid "Search for verification information"
 msgstr "Search for verification information"
 
-#: transfer-plugins/multisegmentkio/segment.cpp:284
+#: transfer-plugins/multisegmentkio/segment.cpp:287
 #, kde-format
 msgid "Failed to write to the file."
 msgstr "Failed to write to the file."

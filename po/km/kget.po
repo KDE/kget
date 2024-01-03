@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 01:39+0000\n"
+"POT-Creation-Date: 2024-01-03 01:35+0000\n"
 "PO-Revision-Date: 2012-07-09 10:43+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -504,8 +504,8 @@ msgstr "ទាញយក​សោ​ដែល​បាត់​ដោយ​ស្
 msgid "Keyservers:"
 msgstr "ម៉ាស៊ីន​បម្រើ​សោ ៖"
 
-#: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -514,12 +514,12 @@ msgstr "ម៉ាស៊ីន​បម្រើ​សោ ៖"
 msgid "Error"
 msgstr "កំហុស"
 
-#: core/datasourcefactory.cpp:267
+#: core/datasourcefactory.cpp:269
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr "ទំហំ​ឯកសារ​ធំជាង​ទំហំ​ឯកសារ​អតិបរមា​ដែលបានគាំទ្រ​ដោយ VFAT ។"
 
-#: core/datasourcefactory.cpp:580
+#: core/datasourcefactory.cpp:582
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -576,27 +576,27 @@ msgstr ""
 "រក​មិនឃើញ​សោ​ដែលមានប្រយោជន៍​ទេ សោ​មិន​បានទាញយក​ទេ ។ បន្ថែម​ម៉ាស៊ីនបម្រើ​ផ្សេង​ទៀត​ទៅការ​កំណត់ ឬ​"
 "ចាប់ផ្ដើម KGet ឡើងវិញ ហើយ​ព្យាយាម​ទាញយក​ម្ដង​ទៀត ។"
 
-#: core/kget.cpp:113
+#: core/kget.cpp:114
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "តើ​អ្នក​ប្រាកដ​ជា​ចង់​យក​ក្រុម​ដែល​មាន​ឈ្មោះ %1 ចេញ​ឬ ?"
 
-#: core/kget.cpp:114
+#: core/kget.cpp:115
 #, kde-format
 msgid "Remove Group"
 msgstr "យក​ក្រុម​ចេញ"
 
-#: core/kget.cpp:140
+#: core/kget.cpp:141
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "តើ​អ្នក​ប្រាកដ​ជា​ចង់​យក​ក្រុម​ដូច​ខាងក្រោម​ចេញ​ឬ ?"
 
-#: core/kget.cpp:142
+#: core/kget.cpp:143
 #, kde-format
 msgid "Remove groups"
 msgstr "យក​ក្រុម​ចេញ"
 
-#: core/kget.cpp:247
+#: core/kget.cpp:248
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -605,27 +605,27 @@ msgstr ""
 "<p>ការ​ផ្ទេរ​ដូច​ខាង​ក្រោម​ត្រូវ​បាន​បន្ថែម​ទៅ​បញ្ជី​ទាញយក ៖</p><p style=\"font-size: small;\">"
 "%1</p>"
 
-#: core/kget.cpp:249 core/kget.cpp:342
+#: core/kget.cpp:250 core/kget.cpp:343
 #, kde-format
 msgid "Download added"
 msgstr "បាន​បន្ថែម​ការ​ទាញយក"
 
-#: core/kget.cpp:337
+#: core/kget.cpp:338
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>កា​រផ្ទេរ​ដូច​ខាងក្រោម​ត្រូវ​បានបន្ថែម​ទៅ​ក្នុង​បញ្ជី​ទាញយក ៖</p>"
 
-#: core/kget.cpp:339
+#: core/kget.cpp:340
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>កា​រផ្ទេរ​ដូច​ខាងក្រោម​ត្រូវ​បានបន្ថែម​ទៅ​ក្នុង​បញ្ជី​ទាញយក ៖</p>"
 
-#: core/kget.cpp:501 core/kget.cpp:543
+#: core/kget.cpp:502 core/kget.cpp:544
 #, kde-format
 msgid "My Downloads"
 msgstr "ការ​ទាញយក​របស់​ខ្ញុំ"
 
-#: core/kget.cpp:552
+#: core/kget.cpp:553
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -634,17 +634,17 @@ msgstr ""
 "មាន​ឯកសារ %1 រួច​ហើយ ។\n"
 "សរសេរ​ជាន់លើ​ឬ?"
 
-#: core/kget.cpp:553
+#: core/kget.cpp:554
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "សរសេរ​ជាន់លើ​ឯកសារ​ដែល​មាន​រួច?"
 
-#: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "មិន​អាច​រក្សា​ទុក​ទៅ ៖ %1"
 
-#: core/kget.cpp:869
+#: core/kget.cpp:870
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -656,35 +656,35 @@ msgstr[0] ""
 "<p>URLs ដូច​ខាងក្រោម​មិន​អាច​ត្រូវបាន​ទាញយក​បាន​ទេ ពិធិការ​របស់​ពួកគេ​មិន​ត្រូវបានគាំទ្រ​ដោយ​ KGet ទេ ៖"
 "</p>"
 
-#: core/kget.cpp:879
+#: core/kget.cpp:880
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "មិនបានគាំទ្រ​ពិធីការ​ទេ"
 
-#: core/kget.cpp:932 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:933 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "ទាញយក​ថ្មី"
 
-#: core/kget.cpp:932
+#: core/kget.cpp:933
 #, kde-format
 msgid "Enter URL:"
 msgstr "បញ្ចូល URL ៖"
 
-#: core/kget.cpp:952
+#: core/kget.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr ""
 
-#: core/kget.cpp:973
+#: core/kget.cpp:974
 #, fuzzy, kde-format
 #| msgid "Save As"
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "រក្សាទុកជា"
 
-#: core/kget.cpp:985 core/urlchecker.cpp:366
+#: core/kget.cpp:986 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -693,7 +693,7 @@ msgstr ""
 "ទម្រង់ URL មិន​ត្រឹមត្រូវ ៖\n"
 "%1"
 
-#: core/kget.cpp:991 core/urlchecker.cpp:368
+#: core/kget.cpp:992 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -702,7 +702,7 @@ msgstr ""
 "URL មិន​ត្រឹមត្រូវ​ បាត់​ពិធីការ ៖\n"
 "%1"
 
-#: core/kget.cpp:1002 core/urlchecker.cpp:424
+#: core/kget.cpp:1003 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -717,29 +717,29 @@ msgstr ""
 "\n"
 "ទាញយក​វា​ម្ដង​ទៀត​ដែរឬទេ ?"
 
-#: core/kget.cpp:1003 core/urlchecker.cpp:639
+#: core/kget.cpp:1004 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "ទាញយក​ម្ដង​ទៀត ?"
 
-#: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
-#: transfer-plugins/kio/transferKio.cpp:275
+#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: transfer-plugins/kio/transferKio.cpp:277
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:113
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, fuzzy, kde-format
 #| msgid "Download again"
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "ទាញយក​ម្ដង​ទៀត"
 
-#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: core/kget.cpp:1006 core/kget.cpp:1019 core/kget.cpp:1074
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr ""
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:426
+#: core/kget.cpp:1016 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -754,17 +754,17 @@ msgstr ""
 "\n"
 "លុបវា ហើយ​ទាញយក​ម្ដង​ទៀត​ដែរឬទេ ?"
 
-#: core/kget.cpp:1016 core/urlchecker.cpp:636
+#: core/kget.cpp:1017 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "លុប​វា ហើយ​ទាញយក​ម្ដងទៀត ?"
 
-#: core/kget.cpp:1038 core/kget.cpp:1043
+#: core/kget.cpp:1039 core/kget.cpp:1044
 #, kde-format
 msgid "Directory is not writable"
 msgstr "ថត​មិន​អាច​សរសេរ​បាន​ឡើយ"
 
-#: core/kget.cpp:1070
+#: core/kget.cpp:1071
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -775,40 +775,40 @@ msgstr ""
 "\n"
 "ទាញយក ហើយ​លុប​ឯកសារ​មួយ​មុន​ដែរឬទេ ?"
 
-#: core/kget.cpp:1071 core/urlchecker.cpp:648
+#: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "បាន​ទាញយក​ឯកសារ​រួច​ហើយ ? អញ្ចឹង​ទាញយក​ដែរឬទេ ?"
 
-#: core/kget.cpp:1082
+#: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "កំពុង​កំពុង​ទាញយក​ឯកសារ​ដូច​គ្នា​រួច​ហើយ"
 
-#: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
+#: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "មាន​ឯកសារ​រួច​ហើយ"
 
-#: core/kget.cpp:1178
+#: core/kget.cpp:1179
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "បាន​បើក​ការ​តភ្ជាប់​អ៊ីនធឺណិត ធ្វើ​ការ​ផ្ទេរ​បន្ត ។"
 
-#: core/kget.cpp:1181
+#: core/kget.cpp:1182
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "គ្មាន​ការ​តភ្ជាប់​អ៊ីនធឺណិត បញ្ឈប់​ការ​ផ្ទេរ ។"
 
-#: core/kget.cpp:1193
+#: core/kget.cpp:1194
 #, fuzzy, kde-format
 #| msgid "Plugin loader could not load the plugin: %1."
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "កម្មវិធី​ផ្ទុក​កម្មវិធី​បញ្ជា​មិនអាច​ផ្ទុក​កម្មវិធី​បញ្ជា​បានទេ ៖ %1 ។"
 
-#: core/kget.cpp:1204
+#: core/kget.cpp:1205
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -819,7 +819,7 @@ msgstr ""
 "%1 ឡើយ\n"
 "ដោយ​សារ​តែ​វា​ជា​ថត ។"
 
-#: core/kget.cpp:1213
+#: core/kget.cpp:1214
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -830,7 +830,7 @@ msgstr ""
 "%1 ឡើយ\n"
 "ដោយ​សារ​តែ​វា​ជា​ឯកសារ​មូលដ្ឋាន ។"
 
-#: core/kget.cpp:1321
+#: core/kget.cpp:1322
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -839,12 +839,12 @@ msgstr ""
 "<p>ឯកសារ​ដូច​ខាង​ក្រោម​បាន​បញ្ចប់​កា​រទាញយក​ហើយ​ ៖</p><p style=\"font-size: small;\">%1</"
 "p>"
 
-#: core/kget.cpp:1323
+#: core/kget.cpp:1324
 #, kde-format
 msgid "Download completed"
 msgstr "បាន​បញ្ចប់​ការ​ទាញយក"
 
-#: core/kget.cpp:1327
+#: core/kget.cpp:1328
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -852,12 +852,12 @@ msgid ""
 msgstr ""
 "<p>ការ​ផ្ទេរ​ដូច​ខាង​ក្រោម​ត្រូ​វបាន​ចាប់ផ្ដើម ៖</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1329
+#: core/kget.cpp:1330
 #, kde-format
 msgid "Download started"
 msgstr "បាន​ចាប់ផ្ដើម​កា​រទាញយក"
 
-#: core/kget.cpp:1334
+#: core/kget.cpp:1335
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -867,63 +867,63 @@ msgstr ""
 "<p>មាន​បញ្ហា​​នៅ​ក្នុង​ការ​ផ្ទេរ​ដូ​ច​ខា​ងក្រោម ៖</p><p style=\"font-size: small;\">%1</"
 "p><p>សារ​កំហុស​គឺ ៖</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1342
+#: core/kget.cpp:1343
 #, fuzzy, kde-format
 #| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "ដោះស្រាយ"
 
-#: core/kget.cpp:1392
+#: core/kget.cpp:1393
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "ឥឡូវ KGet បាន​បិទ ព្រោះ​បាន​បញ្ចប់​ការ​ទាញយក​ទាំងអស់​ហើយ ។"
 
-#: core/kget.cpp:1399
+#: core/kget.cpp:1400
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​បិទ​ឥឡូវ ពីព្រោះ​ការ​ទាញយក​ទាំងអស់​​បាន​បញ្ចប់​ហើយ ។"
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1402
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "បិទ"
 
-#: core/kget.cpp:1406
+#: core/kget.cpp:1407
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​ផ្អាក​ទៅ​ថាស​ឥឡូវ ព្រោះ​ថា​ការ​ទាញយក​ទាំងអស់​បាន​បញ្ចប់​ហើយ ។"
 
-#: core/kget.cpp:1408
+#: core/kget.cpp:1409
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "សម្ងំ"
 
-#: core/kget.cpp:1413
+#: core/kget.cpp:1414
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​ផ្អាក​ទៅសតិ​ឥឡូវ ព្រោះថា​ការ​ទាញយក​ទាំងអស់​បាន​បញ្ចប់​ហើយ ។ "
 
-#: core/kget.cpp:1415
+#: core/kget.cpp:1416
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "ផ្អាក"
 
-#: core/kget.cpp:1423
+#: core/kget.cpp:1424
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "​បោះបង់"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>ការ​ផ្ទេរ​ទាំងអស់​បាន​ចប់​ហើយ ។</p>"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "Downloads completed"
 msgstr "ការ​ទាញយក​បាន​បញ្ចប់"
@@ -2770,7 +2770,7 @@ msgstr "សេចក្ដី​លម្អិ​ត​កម្រិត​ខ
 msgid "&Scan Files"
 msgstr "វិភាគ​ឯកសារ"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:104
+#: transfer-plugins/bittorrent/scandlg.cpp:105
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "កំហុស​វិភាគ​ទិន្នន័យ ៖ %1"
@@ -2914,42 +2914,42 @@ msgstr "បញ្ជី​ម៉ាស៊ីន​ស្វែងរក​ដែ
 msgid "List of the available search engine URLs"
 msgstr "បញ្ជី​ URLs ម៉ាស៊ីន​ស្វែងរក​ដែលអាច​ប្រើបាន"
 
-#: transfer-plugins/kio/transferKio.cpp:99
+#: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "កំពុង​តភ្ជាប់..."
 
-#: transfer-plugins/kio/transferKio.cpp:271
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
+#: transfer-plugins/kio/transferKio.cpp:273
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "ការ​ទាញយក (%1) មិនអាច​ត្រូ​វបាន​ផ្ទៀងផ្ទាត់​ទេ ។ តើ​អ្នក​ចង់​ជួសជុល​វា​ដែរឬទេ ?"
 
-#: transfer-plugins/kio/transferKio.cpp:272
+#: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr ""
 
-#: transfer-plugins/kio/transferKio.cpp:274
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
+#: transfer-plugins/kio/transferKio.cpp:276
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "ការ​ទាញយក (%1) មិនអាច​ត្រូវ​បាន​ផ្ទៀងផ្ទាត់​ទេ ។ តើ​អ្នក​ចង់​ទាញយក​វា​ម្ដង​ទៀត​ដែរឬទេ ?"
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Verification failed."
 msgstr "បានបរាជ័យ​ក្នុង​កា​រផ្ទៀងផ្ទាត់"
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Ignore"
 msgstr ""
@@ -3121,7 +3121,7 @@ msgstr "ប្រើ​ម៉ាស៊ីន​ស្វែងរក"
 msgid "Search for verification information"
 msgstr "ស្វែងរក​ព័ត៌មាន​ផ្ទៀងផ្ទាត់​"
 
-#: transfer-plugins/multisegmentkio/segment.cpp:284
+#: transfer-plugins/multisegmentkio/segment.cpp:287
 #, kde-format
 msgid "Failed to write to the file."
 msgstr "បាន​បរាជ័យ​ក្នុងការ​សរសេរ​ទៅ​កាន់​ឯកសារ ។"

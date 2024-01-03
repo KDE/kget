@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-22 01:39+0000\n"
+"POT-Creation-Date: 2024-01-03 01:35+0000\n"
 "PO-Revision-Date: 2023-08-07 16:52+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -504,8 +504,8 @@ msgstr "Automatické stahování chybějících klíčů"
 msgid "Keyservers:"
 msgstr "Servery klíčů:"
 
-#: core/datasourcefactory.cpp:267 core/datasourcefactory.cpp:581
-#: core/kget.cpp:1333 transfer-plugins/metalink/metalink.cpp:202
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:202
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -514,14 +514,14 @@ msgstr "Servery klíčů:"
 msgid "Error"
 msgstr "Chyba"
 
-#: core/datasourcefactory.cpp:267
+#: core/datasourcefactory.cpp:269
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr ""
 "Velikost souboru je větší než maximální velikost souboru, který podporuje "
 "VFAT."
 
-#: core/datasourcefactory.cpp:580
+#: core/datasourcefactory.cpp:582
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -579,27 +579,27 @@ msgstr ""
 "Klíč nebyl stažen, protože nebyl nalezen žádný vhodný server klíčů. V "
 "nastavení přidejte více serverů, nebo restartujte KGet a opakujte stahování."
 
-#: core/kget.cpp:113
+#: core/kget.cpp:114
 #, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
 msgstr "Opravdu si přejete odstranit skupinu pojmenovanou %1?"
 
-#: core/kget.cpp:114
+#: core/kget.cpp:115
 #, kde-format
 msgid "Remove Group"
 msgstr "Odstranit skupinu"
 
-#: core/kget.cpp:140
+#: core/kget.cpp:141
 #, kde-format
 msgid "Are you sure that you want to remove the following groups?"
 msgstr "Opravdu si přejete odstranit tyto skupiny?"
 
-#: core/kget.cpp:142
+#: core/kget.cpp:143
 #, kde-format
 msgid "Remove groups"
 msgstr "Odstranit skupiny"
 
-#: core/kget.cpp:247
+#: core/kget.cpp:248
 #, kde-format
 msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
@@ -608,27 +608,27 @@ msgstr ""
 "<p>Následující přenos byl přidán do seznamu stahování:</p><p style=\"font-"
 "size: small;\">%1</p>"
 
-#: core/kget.cpp:249 core/kget.cpp:342
+#: core/kget.cpp:250 core/kget.cpp:343
 #, kde-format
 msgid "Download added"
 msgstr "Přidáno stahování"
 
-#: core/kget.cpp:337
+#: core/kget.cpp:338
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
 msgstr "<p>Následující přenos byl přidán do seznamu stahování:</p>"
 
-#: core/kget.cpp:339
+#: core/kget.cpp:340
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
 msgstr "<p>Následující přenosy byly přidány do seznamu stahování:</p>"
 
-#: core/kget.cpp:501 core/kget.cpp:543
+#: core/kget.cpp:502 core/kget.cpp:544
 #, kde-format
 msgid "My Downloads"
 msgstr "Moje stahování"
 
-#: core/kget.cpp:552
+#: core/kget.cpp:553
 #, kde-format
 msgid ""
 "The file %1 already exists.\n"
@@ -637,17 +637,17 @@ msgstr ""
 "Cílový soubor %1 již existuje.\n"
 "Přejete si jej přepsat?"
 
-#: core/kget.cpp:553
+#: core/kget.cpp:554
 #, kde-format
 msgid "Overwrite existing file?"
 msgstr "Přepsat existující soubor?"
 
-#: core/kget.cpp:574 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "Nelze uložit do: %1"
 
-#: core/kget.cpp:869
+#: core/kget.cpp:870
 #, kde-format
 msgid ""
 "<p>The following URL cannot be downloaded, its protocol is not supported by "
@@ -665,34 +665,34 @@ msgstr[2] ""
 "<p>Následující URL nelze stáhnout, jejich protokol není podporován aplikací "
 "KGet:</p>"
 
-#: core/kget.cpp:879
+#: core/kget.cpp:880
 #, kde-format
 msgid "Protocol unsupported"
 msgstr "Nepodporovaný protokol"
 
-#: core/kget.cpp:932 ui/newtransferdialog.cpp:52
+#: core/kget.cpp:933 ui/newtransferdialog.cpp:52
 #, kde-format
 msgid "New Download"
 msgstr "Nové stahování"
 
-#: core/kget.cpp:932
+#: core/kget.cpp:933
 #, kde-format
 msgid "Enter URL:"
 msgstr "Zadejte URL:"
 
-#: core/kget.cpp:952
+#: core/kget.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
 msgstr "Vyberte adresář"
 
-#: core/kget.cpp:973
+#: core/kget.cpp:974
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "Uložit jako"
 
-#: core/kget.cpp:985 core/urlchecker.cpp:366
+#: core/kget.cpp:986 core/urlchecker.cpp:366
 #, kde-format
 msgid ""
 "Malformed URL:\n"
@@ -701,7 +701,7 @@ msgstr ""
 "Neplatné URL:\n"
 "%1"
 
-#: core/kget.cpp:991 core/urlchecker.cpp:368
+#: core/kget.cpp:992 core/urlchecker.cpp:368
 #, kde-format
 msgid ""
 "Malformed URL, protocol missing:\n"
@@ -710,7 +710,7 @@ msgstr ""
 "Neplatné URL, chybí název protokolu:\n"
 "%1"
 
-#: core/kget.cpp:1002 core/urlchecker.cpp:424
+#: core/kget.cpp:1003 core/urlchecker.cpp:424
 #, kde-format
 msgid ""
 "You have already completed a download from the location: \n"
@@ -725,28 +725,28 @@ msgstr ""
 "\n"
 "Stáhnout znovu?"
 
-#: core/kget.cpp:1003 core/urlchecker.cpp:639
+#: core/kget.cpp:1004 core/urlchecker.cpp:639
 #, kde-format
 msgid "Download it again?"
 msgstr "Stáhnout znovu?"
 
-#: core/kget.cpp:1004 core/kget.cpp:1017 core/kget.cpp:1072
-#: transfer-plugins/kio/transferKio.cpp:275
+#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: transfer-plugins/kio/transferKio.cpp:277
 #: transfer-plugins/metalink/metalink.cpp:121
 #: transfer-plugins/metalink/metalinkxml.cpp:113
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:262
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Stáhnout znovu"
 
-#: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
+#: core/kget.cpp:1006 core/kget.cpp:1019 core/kget.cpp:1074
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr "Přeskočit"
 
-#: core/kget.cpp:1015 core/urlchecker.cpp:426
+#: core/kget.cpp:1016 core/urlchecker.cpp:426
 #, kde-format
 msgid ""
 "You have a download in progress from the location: \n"
@@ -761,17 +761,17 @@ msgstr ""
 "\n"
 "Přejete si jej odstranit a stáhnout znovu?"
 
-#: core/kget.cpp:1016 core/urlchecker.cpp:636
+#: core/kget.cpp:1017 core/urlchecker.cpp:636
 #, kde-format
 msgid "Delete it and download again?"
 msgstr "Odstranit a stáhnout znovu?"
 
-#: core/kget.cpp:1038 core/kget.cpp:1043
+#: core/kget.cpp:1039 core/kget.cpp:1044
 #, kde-format
 msgid "Directory is not writable"
 msgstr "Do adresáře nelze zapisovat"
 
-#: core/kget.cpp:1070
+#: core/kget.cpp:1071
 #, kde-format
 msgid ""
 "You have already downloaded that file from another location.\n"
@@ -782,39 +782,39 @@ msgstr ""
 "\n"
 "Přejete si jej stáhnout a odstranit předchozí?"
 
-#: core/kget.cpp:1071 core/urlchecker.cpp:648
+#: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
 msgstr "Soubor už je stažený. Přesto si jej přejete stáhnout?"
 
-#: core/kget.cpp:1082
+#: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
 msgstr "Již stahujete stejný soubor"
 
-#: core/kget.cpp:1088 core/kget.cpp:1090 core/urlchecker.cpp:651
+#: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:680
 #, kde-format
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
-#: core/kget.cpp:1178
+#: core/kget.cpp:1179
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "Připojení k internetu je navázáno, přenosy pokračují."
 
-#: core/kget.cpp:1181
+#: core/kget.cpp:1182
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "Připojení k internetu je nedostupné, přenosy zastaveny."
 
-#: core/kget.cpp:1193
+#: core/kget.cpp:1194
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "Zavaděč modulu nemohl načíst modul: %1: %2."
 
-#: core/kget.cpp:1204
+#: core/kget.cpp:1205
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -824,7 +824,7 @@ msgstr ""
 "%1\n"
 "nebude smazán, protože je to adresář."
 
-#: core/kget.cpp:1213
+#: core/kget.cpp:1214
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -834,7 +834,7 @@ msgstr ""
 "%1\n"
 "nebude smazán, protože je to vzdálený soubor."
 
-#: core/kget.cpp:1321
+#: core/kget.cpp:1322
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -843,12 +843,12 @@ msgstr ""
 "<p>Stahování následujícího souboru bylo dokončeno:</p><p style=\"font-size: "
 "small;\">%1</p>"
 
-#: core/kget.cpp:1323
+#: core/kget.cpp:1324
 #, kde-format
 msgid "Download completed"
 msgstr "Stahování dokončeno"
 
-#: core/kget.cpp:1327
+#: core/kget.cpp:1328
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -856,12 +856,12 @@ msgid ""
 msgstr ""
 "<p>Následující přenos byl zahájen:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1329
+#: core/kget.cpp:1330
 #, kde-format
 msgid "Download started"
 msgstr "Stahování zahájeno"
 
-#: core/kget.cpp:1334
+#: core/kget.cpp:1335
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -871,65 +871,65 @@ msgstr ""
 "<p>V následujícím přenose se vyskytla chyba:</p><p style=\"font-size: small;"
 "\">%1</p><p>Chybové hlášení:</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1342
+#: core/kget.cpp:1343
 #, fuzzy, kde-format
 #| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Vyřešit"
 
-#: core/kget.cpp:1392
+#: core/kget.cpp:1393
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "KGet bude nyní ukončen, protože všechna stahování byla dokončena."
 
-#: core/kget.cpp:1399
+#: core/kget.cpp:1400
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "Počítač bude nyní vypnut, protože všechna stahování byla dokončena."
 
-#: core/kget.cpp:1401
+#: core/kget.cpp:1402
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Vypnout"
 
-#: core/kget.cpp:1406
+#: core/kget.cpp:1407
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "Počítač bude nyní uspán na disk, protože všechna stahování byla dokončena."
 
-#: core/kget.cpp:1408
+#: core/kget.cpp:1409
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "Hibernace"
 
-#: core/kget.cpp:1413
+#: core/kget.cpp:1414
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 "Počítač bude nyní uspán do RAM, protože všechna stahování byla dokončena."
 
-#: core/kget.cpp:1415
+#: core/kget.cpp:1416
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Uspávání"
 
-#: core/kget.cpp:1423
+#: core/kget.cpp:1424
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Přerušit"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>Všechny přenosy byly dokončeny.</p>"
 
-#: core/kget.cpp:1432
+#: core/kget.cpp:1433
 #, kde-format
 msgid "Downloads completed"
 msgstr "Stahování dokončena"
@@ -2774,7 +2774,7 @@ msgstr "&Pokročilé podrobnosti"
 msgid "&Scan Files"
 msgstr "&Zkontrolovat soubory"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:104
+#: transfer-plugins/bittorrent/scandlg.cpp:105
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Chyba při kontrole dat: %1"
@@ -2918,42 +2918,42 @@ msgstr "Seznam dostupných vyhledávacích nástrojů"
 msgid "List of the available search engine URLs"
 msgstr "Seznam dostupných URL vyhledávacích nástrojů"
 
-#: transfer-plugins/kio/transferKio.cpp:99
+#: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
 msgstr "Navazuji spojení..."
 
-#: transfer-plugins/kio/transferKio.cpp:271
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:258
+#: transfer-plugins/kio/transferKio.cpp:273
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
 msgstr "Stažený soubor (%1) nelze ověřit. Přejete si jej opravit?"
 
-#: transfer-plugins/kio/transferKio.cpp:272
+#: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
 #: transfer-plugins/metalink/metalink.cpp:469
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:259
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
 msgstr "Opravit"
 
-#: transfer-plugins/kio/transferKio.cpp:274
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
+#: transfer-plugins/kio/transferKio.cpp:276
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
 msgstr "Stažený soubor (%1) nelze ověřit. Přejete si jej stáhnout znovu?"
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Verification failed."
 msgstr "Ověřování selhalo."
 
-#: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
+#: transfer-plugins/kio/transferKio.cpp:279
+#: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Ignore"
 msgstr "Ignorovat"
@@ -3124,7 +3124,7 @@ msgstr "Použít vyhledávací nástroje"
 msgid "Search for verification information"
 msgstr "Hledat ověřovací informace"
 
-#: transfer-plugins/multisegmentkio/segment.cpp:284
+#: transfer-plugins/multisegmentkio/segment.cpp:287
 #, kde-format
 msgid "Failed to write to the file."
 msgstr "Zápis do souboru selhal."
