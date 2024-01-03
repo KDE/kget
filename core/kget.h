@@ -23,12 +23,8 @@
 #include <KNotification>
 #include <KPluginFactory>
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <QNetworkConfigurationManager>
-#else
-#include <QNetworkInformation>
-#endif
 #include <QDomElement>
+#include <QNetworkInformation>
 
 #include "kget_export.h"
 #include "kuiserverjobs.h"
@@ -484,11 +480,7 @@ private Q_SLOTS:
     void slotAbortAfterFinishAction();
     void slotResolveTransferError();
     void slotNotificationClosed();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    void slotNetworkStatusChanged(bool online);
-#else
     void slotNetworkStatusChanged(QNetworkInformation::Reachability reachability);
-#endif
 
 private:
     bool allTransfersFinished();
@@ -499,13 +491,5 @@ private:
     QTimer *m_save;
     QTimer *m_finishAction;
     QHash<KNotification *, TransferHandler *> m_notifications;
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    // Silence deprecation warnings as there is no Qt 5 substitute for QNetworkConfigurationManager
-    QT_WARNING_PUSH
-    QT_WARNING_DISABLE_CLANG("-Wdeprecated-declarations")
-    QT_WARNING_DISABLE_GCC("-Wdeprecated-declarations")
-    QNetworkConfigurationManager m_networkConfig;
-    QT_WARNING_POP
-#endif
 };
 #endif

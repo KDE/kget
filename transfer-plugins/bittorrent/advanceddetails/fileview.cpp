@@ -255,20 +255,7 @@ void FileView::deleteFiles()
                         "You will lose all data in these files, are you sure you want to do this?",
                         n);
 
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-    if (KMessageBox::warningTwoActions(nullptr,
-#else
-    if (KMessageBox::warningYesNo(nullptr,
-#endif
-                                       msg,
-                                       QString(),
-                                       KStandardGuiItem::del(),
-                                       KStandardGuiItem::cancel())
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-        == KMessageBox::PrimaryAction)
-#else
-        == KMessageBox::Yes)
-#endif
+    if (KMessageBox::warningTwoActions(nullptr, msg, QString(), KStandardGuiItem::del(), KStandardGuiItem::cancel()) == KMessageBox::PrimaryAction)
         changePriority(EXCLUDED);
 }
 
