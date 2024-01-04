@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-03 01:35+0000\n"
+"POT-Creation-Date: 2024-01-04 01:34+0000\n"
 "PO-Revision-Date: 2014-04-28 17:48+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -508,7 +508,7 @@ msgid "Keyservers:"
 msgstr "Nøkkeltjenere:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:202
+#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -729,7 +729,7 @@ msgstr "Laste ned på nytt?"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:121
+#: transfer-plugins/metalink/metalink.cpp:117
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
@@ -791,7 +791,7 @@ msgstr "Du er allerede i ferd med å laste ned den samme fila"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:680
+#: transfer-plugins/metalink/metalink.cpp:663
 #, kde-format
 msgid "File already exists"
 msgstr "Fila finnes fra før"
@@ -930,7 +930,7 @@ msgstr "<p>Alle filoverføringer fullført.</p>"
 msgid "Downloads completed"
 msgstr "Nedlastinger er ferdige"
 
-#: core/kget.h:365 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -2097,8 +2097,8 @@ msgstr[1] ""
 "Du kommer til å miste alle data i disse filene, er du sikker på at du vil "
 "det?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:281
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:297
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr ""
@@ -2929,7 +2929,7 @@ msgstr "Nedlastingen (%1) kunne ikke verifiseres. Vil du reparere den?"
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:469
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -2957,7 +2957,7 @@ msgid "Ignore"
 msgstr ""
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:466
+#: transfer-plugins/metalink/metalink.cpp:453
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2967,8 +2967,8 @@ msgstr ""
 "ikke virker, vil nedlastingen bli omstartet.)"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:122
-#: transfer-plugins/metalink/metalink.cpp:470
+#: transfer-plugins/metalink/metalink.cpp:118
+#: transfer-plugins/metalink/metalink.cpp:457
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -3014,7 +3014,7 @@ msgstr "Filvalg"
 msgid "Downloading Metalink File...."
 msgstr "Laster ned Metalink-fil …"
 
-#: transfer-plugins/metalink/metalink.cpp:119
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
@@ -3022,13 +3022,13 @@ msgid ""
 msgstr ""
 "Det kan finnes en nyere versjon av denne Metalinken, vil du laste den ned?"
 
-#: transfer-plugins/metalink/metalink.cpp:120
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "Last ned Metalink igjen"
 
-#: transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-03 01:35+0000\n"
+"POT-Creation-Date: 2024-01-04 01:34+0000\n"
 "PO-Revision-Date: 2011-08-27 17:32-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -518,7 +518,7 @@ msgid "Keyservers:"
 msgstr "鍵サーバ:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:202
+#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -739,7 +739,7 @@ msgstr "もう一度ダウンロードしますか？"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:121
+#: transfer-plugins/metalink/metalink.cpp:117
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, fuzzy, kde-format
@@ -802,7 +802,7 @@ msgstr "同じファイルを既にダウンロード中です"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:680
+#: transfer-plugins/metalink/metalink.cpp:663
 #, kde-format
 msgid "File already exists"
 msgstr "ファイルは既に存在します"
@@ -952,7 +952,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "ダウンロード完了"
 
-#: core/kget.h:365 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -2270,8 +2270,8 @@ msgid_plural ""
 msgstr[0] ""
 "これらのファイルのすべてのデータを失うことになります。本当によろしいですか？"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:281
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:297
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
 #, fuzzy, kde-format
 #| msgid "Select a directory to move the data to."
 msgid "Select a directory to move the data to"
@@ -3091,7 +3091,7 @@ msgstr "ダウンロード (%1) を検証できませんでした。修復しま
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:469
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -3118,7 +3118,7 @@ msgid "Ignore"
 msgstr ""
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:466
+#: transfer-plugins/metalink/metalink.cpp:453
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -3128,8 +3128,8 @@ msgstr ""
 "ロードを再開します)"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:122
-#: transfer-plugins/metalink/metalink.cpp:470
+#: transfer-plugins/metalink/metalink.cpp:118
+#: transfer-plugins/metalink/metalink.cpp:457
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -3175,7 +3175,7 @@ msgstr "ファイルの選択"
 msgid "Downloading Metalink File...."
 msgstr "メタリンクファイルをダウンロード中..."
 
-#: transfer-plugins/metalink/metalink.cpp:119
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
@@ -3184,7 +3184,7 @@ msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "署名を検証するための鍵がありません。ダウンロードしますか？"
 
-#: transfer-plugins/metalink/metalink.cpp:120
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, fuzzy, kde-format
 #| msgctxt "redownload selected transfer item"
@@ -3192,7 +3192,7 @@ msgstr "署名を検証するための鍵がありません。ダウンロード
 msgid "Redownload Metalink"
 msgstr "選択したものを再ダウンロード"
 
-#: transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format

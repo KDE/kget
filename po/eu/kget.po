@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-03 01:35+0000\n"
+"POT-Creation-Date: 2024-01-04 01:34+0000\n"
 "PO-Revision-Date: 2023-12-15 14:22+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -509,7 +509,7 @@ msgid "Keyservers:"
 msgstr "Gako-zerbitzariak:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:202
+#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -733,7 +733,7 @@ msgstr "Berriro zama-jaitsi?"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:121
+#: transfer-plugins/metalink/metalink.cpp:117
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
@@ -795,7 +795,7 @@ msgstr "Jadanik fitxategi berdina deskargatu duzu"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:680
+#: transfer-plugins/metalink/metalink.cpp:663
 #, kde-format
 msgid "File already exists"
 msgstr "Fitxategia badago lehendik ere"
@@ -933,7 +933,7 @@ msgstr "<p>Transferentzia guztiak amaitu dira.</p>"
 msgid "Downloads completed"
 msgstr "Deskargak amaituta"
 
-#: core/kget.h:365 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -2104,8 +2104,8 @@ msgstr[1] ""
 "Fitxategi hauetako datu guztiak galduko dituzu, ziur zaude hori egin nahi "
 "duzula?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:281
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:297
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr "Hautatu datuak eramateko jomuga direktorioa"
@@ -2932,7 +2932,7 @@ msgstr "Ezin izan da deskarga (%1) egiaztatu. Konpontzea nahi duzu?"
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:469
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -2959,7 +2959,7 @@ msgid "Ignore"
 msgstr "Ezikusi"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:466
+#: transfer-plugins/metalink/metalink.cpp:453
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2969,8 +2969,8 @@ msgstr ""
 "funtzionatzen, deskarga berrabiaraziko da)?"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:122
-#: transfer-plugins/metalink/metalink.cpp:470
+#: transfer-plugins/metalink/metalink.cpp:118
+#: transfer-plugins/metalink/metalink.cpp:457
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -3016,20 +3016,20 @@ msgstr "Fitxategi-hautapena"
 msgid "Downloading Metalink File...."
 msgstr "Metalink fitxategia deskargatzen..."
 
-#: transfer-plugins/metalink/metalink.cpp:119
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "Metalink honen bertsio berriagoa dago. Deskargatzea nahi duzu?"
 
-#: transfer-plugins/metalink/metalink.cpp:120
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "Deskargatu berriro Metalink"
 
-#: transfer-plugins/metalink/metalink.cpp:202
+#: transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
