@@ -193,9 +193,9 @@ DlgChecksumSettingsWidget::DlgChecksumSettingsWidget(QObject *parent, const KPlu
     connect(ui.add, &QAbstractButton::clicked, this, &DlgChecksumSettingsWidget::slotAdd);
     connect(ui.remove, &QAbstractButton::clicked, this, &DlgChecksumSettingsWidget::slotRemove);
     connect(ui.treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DlgChecksumSettingsWidget::slotUpdate);
-    connect(m_model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(changed()));
-    connect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(changed()));
-    connect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this, SLOT(changed()));
+    connect(m_model, &QStandardItemModel::dataChanged, this, &DlgChecksumSettingsWidget::markAsChanged);
+    connect(m_model, &QStandardItemModel::rowsInserted, this, &DlgChecksumSettingsWidget::markAsChanged);
+    connect(m_model, &QStandardItemModel::rowsRemoved, this, &DlgChecksumSettingsWidget::markAsChanged);
 }
 
 DlgChecksumSettingsWidget::~DlgChecksumSettingsWidget()
