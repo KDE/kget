@@ -1,7 +1,7 @@
 {
     "id": "org.kde.kget",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-22.08",
+    "runtime-version": "6.6-kf6preview",
     "sdk": "org.kde.Sdk",
     "command": "kget",
     "rename-icon": "kget",
@@ -21,8 +21,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2",
-                    "sha256": "71feeed900fbccca04a3b4f2f84a7c217186f28a940ed8b7ed4725986baf99fa",
+                    "url": "https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.bz2",
+                    "sha256": "cc4b893acf645c9d4b698e9a0f08ca8846aa5d6c68275c14c3e7949c24109454",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 6845,
@@ -41,8 +41,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://gnupg.org/ftp/gcrypt/gpgme/gpgme-1.18.0.tar.bz2",
-                    "sha256": "361d4eae47ce925dba0ea569af40e7b52c645c4ae2e65e5621bf1b6cdd8b0e9e",
+                    "url": "https://gnupg.org/ftp/gcrypt/gpgme/gpgme-1.23.2.tar.bz2",
+                    "sha256": "9499e8b1f33cccb6815527a1bc16049d35a6198a6c5fae0185f2bd561bce5224",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1239,
