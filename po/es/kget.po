@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-04 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2023-12-15 22:27+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -197,13 +197,13 @@ msgid "Case sensitive:"
 msgstr "Distingue entre mayúsculas y minúsculas:"
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
-#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Increase Priority"
 msgstr "&Incrementar prioridad"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
-#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, kde-format
 msgid "&Decrease Priority"
 msgstr "&Disminuir prioridad"
@@ -510,7 +510,7 @@ msgstr "Descarga automática de las claves que falten"
 msgid "Keyservers:"
 msgstr "Servidores de claves:"
 
-#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
@@ -525,7 +525,7 @@ msgstr "Error"
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr "El tamaño del archivo sobrepasa el tamaño máximo admitido por VFAT."
 
-#: core/datasourcefactory.cpp:582
+#: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -941,7 +941,7 @@ msgstr "<p>Todas las transferencias han terminado.</p>"
 msgid "Downloads completed"
 msgstr "Descargas completadas"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1840,24 +1840,24 @@ msgstr "Activar"
 msgid "Do Not Enable"
 msgstr "No activar"
 
-#: mainwindow.cpp:502
+#: mainwindow.cpp:498
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Abrir archivo"
 
-#: mainwindow.cpp:504
+#: mainwindow.cpp:500
 #, kde-format
 msgid "All Openable Files"
 msgstr "Todos los archivos que se pueden abrir"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:515
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:567
+#: mainwindow.cpp:563
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1866,50 +1866,50 @@ msgstr ""
 "Tiene algunas descargas ejecutándose aún.\n"
 "¿Está seguro de querer cerrar KGet?"
 
-#: mainwindow.cpp:569
+#: mainwindow.cpp:565
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Confirme que desea salir"
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:592
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Exportar transferencias"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Lista de transferencia de KGet"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "Text File"
 msgstr "Archivo de texto"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Introducir nombre de grupo"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Group name:"
 msgstr "Nombre de grupo:"
 
-#: mainwindow.cpp:711
+#: mainwindow.cpp:707
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "¿Está seguro de que quiere borrar la transferencia seleccionada?"
 msgstr[1] "¿Está seguro de que quiere borrar las transferencias seleccionadas?"
 
-#: mainwindow.cpp:714 mainwindow.cpp:745
+#: mainwindow.cpp:710 mainwindow.cpp:741
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Confirmar el borrado de la transferencia"
 
-#: mainwindow.cpp:742
+#: mainwindow.cpp:738
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1921,7 +1921,7 @@ msgstr[1] ""
 "¿Está seguro de que quiere borrar las transferencias seleccionadas, "
 "incluidos los archivos?"
 
-#: mainwindow.cpp:1077
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1932,17 +1932,17 @@ msgstr ""
 "Konqueror. Si desea desactivar esto para siempre, vaya a Preferencias-> "
 "Avanzado y desactive «Usar KGet como gestor de descargas de Konqueror»."
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:215
+#: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "El archivo soltado es una lista de transferencia de KGet"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:217
+#: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Descargar"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:218
+#: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "Cargar &lista de transferencia"
@@ -3547,13 +3547,13 @@ msgid "Filter files here...."
 msgstr "Filtrar archivos aquí..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All"
 msgstr "&Seleccionar todo"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All"
 msgstr "D&eseleccionar todo"
@@ -3626,54 +3626,54 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "Nombre"
 
-#: ui/linkview/kget_linkview.cpp:116
+#: ui/linkview/kget_linkview.cpp:118
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "&Descargar"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
 msgstr "Cabecera auxiliar"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgid "File Name"
 msgstr "Nombre de archivo"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Description"
 msgstr "Descripción"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:159
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "Tipo de archivo"
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
 msgstr "Localización (URL)"
 
-#: ui/linkview/kget_linkview.cpp:258
+#: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "Enlaces en: %1 - KGet"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
 msgstr "&Seleccionar todo filtrado"
 
-#: ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All Filtered"
 msgstr "D&eseleccionar todo filtrado"
 
-#: ui/linkview/kget_linkview.cpp:430
+#: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
 msgstr "Columna de filtro"
@@ -4535,12 +4535,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "Verificación"
 
-#: ui/transfersview.cpp:122
+#: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
 msgstr "Seleccionar columnas"
 
-#: ui/transfersview.cpp:310
+#: ui/transfersview.cpp:312
 #, kde-format
 msgid "Transfer Details"
 msgstr "Detalles de transferencia"

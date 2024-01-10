@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-04 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2023-08-06 20:58+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -189,13 +189,13 @@ msgid "Case sensitive:"
 msgstr "대소문자 구분:"
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
-#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Increase Priority"
 msgstr "우선 순위 증가(&I)"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
-#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, kde-format
 msgid "&Decrease Priority"
 msgstr "우선 순위 감소(&D)"
@@ -502,7 +502,7 @@ msgstr "키가 없을 때 자동 다운로드"
 msgid "Keyservers:"
 msgstr "키 서버:"
 
-#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
@@ -517,7 +517,7 @@ msgstr "오류"
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr "파일 크기가 VFAT에서 지원하는 크기보다 더 큽니다."
 
-#: core/datasourcefactory.cpp:582
+#: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -920,7 +920,7 @@ msgstr "<p>모든 전송이 완료되었습니다.</p>"
 msgid "Downloads completed"
 msgstr "다운로드 완료됨"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1806,24 +1806,24 @@ msgstr "사용함"
 msgid "Do Not Enable"
 msgstr "사용하지 않음"
 
-#: mainwindow.cpp:502
+#: mainwindow.cpp:498
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "파일 열기"
 
-#: mainwindow.cpp:504
+#: mainwindow.cpp:500
 #, kde-format
 msgid "All Openable Files"
 msgstr "모든 열 수 있는 파일"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:515
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:567
+#: mainwindow.cpp:563
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1832,56 +1832,56 @@ msgstr ""
 "일부 파일이 전송 중입니다.\n"
 "KGet을 닫으시겠습니까?"
 
-#: mainwindow.cpp:569
+#: mainwindow.cpp:565
 #, kde-format
 msgid "Confirm Quit"
 msgstr "종료 확인"
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:592
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "전송 목록 내보내기"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet 전송 목록"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "Text File"
 msgstr "텍스트 파일"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Enter Group Name"
 msgstr "그룹 이름 입력"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Group name:"
 msgstr "그룹 이름:"
 
-#: mainwindow.cpp:711
+#: mainwindow.cpp:707
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "선택한 전송 항목을 삭제하시겠습니까?"
 
-#: mainwindow.cpp:714 mainwindow.cpp:745
+#: mainwindow.cpp:710 mainwindow.cpp:741
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "전송 항목 삭제 확인"
 
-#: mainwindow.cpp:742
+#: mainwindow.cpp:738
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "선택한 전송 항목과 파일을 같이 삭제하시겠습니까?"
 
-#: mainwindow.cpp:1077
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1892,17 +1892,17 @@ msgstr ""
 "영원히 비활성화시키시려면 설정->고급에서 \"Konqueror 다운로드 관리자로 사용"
 "\"을 비활성화시키십시오."
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:215
+#: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "떨어트린 파일이 KGet 전송 목록입니다"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:217
+#: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "다운로드(&D)"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:218
+#: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "전송 목록 불러오기(&L)"
@@ -3492,13 +3492,13 @@ msgid "Filter files here...."
 msgstr "여기에서 파일 필터..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All"
 msgstr "모두 선택(&S)"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All"
 msgstr "모두 선택 해제(&E)"
@@ -3571,54 +3571,54 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "이름"
 
-#: ui/linkview/kget_linkview.cpp:116
+#: ui/linkview/kget_linkview.cpp:118
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "다운로드(&D)"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
 msgstr "추가 헤더"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgid "File Name"
 msgstr "파일 이름"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Description"
 msgstr "설명"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:159
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "파일 형식"
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
 msgstr "위치(URL)"
 
-#: ui/linkview/kget_linkview.cpp:258
+#: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "%1의 링크 - KGet"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
 msgstr "모든 필터 항목 선택하기(&S)"
 
-#: ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All Filtered"
 msgstr "모든 필터 항목 선택 해제(&E)"
 
-#: ui/linkview/kget_linkview.cpp:430
+#: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
 msgstr "열 필터"
@@ -4473,12 +4473,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "검증"
 
-#: ui/transfersview.cpp:122
+#: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
 msgstr "열 선택"
 
-#: ui/transfersview.cpp:310
+#: ui/transfersview.cpp:312
 #, kde-format
 msgid "Transfer Details"
 msgstr "전송 정보"

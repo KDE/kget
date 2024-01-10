@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-04 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2023-08-07 16:52+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -191,13 +191,13 @@ msgid "Case sensitive:"
 msgstr "Rozlišovat velká/malá:"
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
-#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Increase Priority"
 msgstr "Zvýšit pr&ioritu"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
-#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, kde-format
 msgid "&Decrease Priority"
 msgstr "S&nížit prioritu"
@@ -504,7 +504,7 @@ msgstr "Automatické stahování chybějících klíčů"
 msgid "Keyservers:"
 msgstr "Servery klíčů:"
 
-#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
@@ -521,7 +521,7 @@ msgstr ""
 "Velikost souboru je větší než maximální velikost souboru, který podporuje "
 "VFAT."
 
-#: core/datasourcefactory.cpp:582
+#: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -934,7 +934,7 @@ msgstr "<p>Všechny přenosy byly dokončeny.</p>"
 msgid "Downloads completed"
 msgstr "Stahování dokončena"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1829,24 +1829,24 @@ msgstr "Povolit"
 msgid "Do Not Enable"
 msgstr "Nepovolovat"
 
-#: mainwindow.cpp:502
+#: mainwindow.cpp:498
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Otevřít soubor"
 
-#: mainwindow.cpp:504
+#: mainwindow.cpp:500
 #, kde-format
 msgid "All Openable Files"
 msgstr "Všechny soubory, co lze otevřít"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:515
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:567
+#: mainwindow.cpp:563
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1855,38 +1855,38 @@ msgstr ""
 "Některé přenosy stále probíhají.\n"
 "Opravdu si přejete ukončit KGet?"
 
-#: mainwindow.cpp:569
+#: mainwindow.cpp:565
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Potvrdit ukončení"
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:592
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Exportovat přenosy"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Seznam přenosů KGet"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "Text File"
 msgstr "Textový soubor"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Zadejte název skupiny"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Group name:"
 msgstr "Název skupiny:"
 
-#: mainwindow.cpp:711
+#: mainwindow.cpp:707
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1894,12 +1894,12 @@ msgstr[0] "Opravdu si přejete odstranit vybraný přenos?"
 msgstr[1] "Opravdu si přejete odstranit vybrané přenosy?"
 msgstr[2] "Opravdu si přejete odstranit vybrané přenosy?"
 
-#: mainwindow.cpp:714 mainwindow.cpp:745
+#: mainwindow.cpp:710 mainwindow.cpp:741
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Potvrdit smazání přenosu"
 
-#: mainwindow.cpp:742
+#: mainwindow.cpp:738
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1908,7 +1908,7 @@ msgstr[0] "Opravdu si přejete odstranit vybraný přenos včetně souborů?"
 msgstr[1] "Opravdu si přejete odstranit vybrané přenosy včetně souborů?"
 msgstr[2] "Opravdu si přejete odstranit vybrané přenosy včetně souborů?"
 
-#: mainwindow.cpp:1077
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1919,17 +1919,17 @@ msgstr ""
 "přejete vypnout navždy, jděte do Nastavení->Pokročilá a vypnout \"Použít "
 "jako správce stahování pro Konqueror\"."
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:215
+#: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Upuštěný soubor je seznam přenosů KGet"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:217
+#: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "Sta&hování"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:218
+#: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "Načíst se&znam přenosů"
@@ -3527,13 +3527,13 @@ msgid "Filter files here...."
 msgstr "Zde filtrovat soubory..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All"
 msgstr "Vy&brat vše"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All"
 msgstr "Zrušit výběr vš&ech"
@@ -3606,54 +3606,54 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "Název"
 
-#: ui/linkview/kget_linkview.cpp:116
+#: ui/linkview/kget_linkview.cpp:118
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "&Stáhnout"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
 msgstr "Pomocná hlavička"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgid "File Name"
 msgstr "Název souboru"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Description"
 msgstr "Popis"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:159
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "Typ souboru"
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
 msgstr "Umístění (URL)"
 
-#: ui/linkview/kget_linkview.cpp:258
+#: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "Odkazy v: %1 - KGet"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
 msgstr "Vy&brat vše filtrované"
 
-#: ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All Filtered"
 msgstr "Zrušit výběr vš&ech filtrovaných"
 
-#: ui/linkview/kget_linkview.cpp:430
+#: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
 msgstr "Sloupec filtru"
@@ -4509,12 +4509,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "Ověření"
 
-#: ui/transfersview.cpp:122
+#: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
 msgstr "Vybrat sloupce"
 
-#: ui/transfersview.cpp:310
+#: ui/transfersview.cpp:312
 #, kde-format
 msgid "Transfer Details"
 msgstr "Podrobnosti přenosu"

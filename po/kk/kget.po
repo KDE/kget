@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-04 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2013-06-27 02:50+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -191,13 +191,13 @@ msgid "Case sensitive:"
 msgstr "Үлкен-кішілігін ескеріп:"
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
-#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Increase Priority"
 msgstr "Артықшылығын к&өтеру"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
-#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, kde-format
 msgid "&Decrease Priority"
 msgstr "Артықшылығын &төмендету"
@@ -506,7 +506,7 @@ msgstr "Жетпеген кілттер автоматты түрде алынс
 msgid "Keyservers:"
 msgstr "Қілт серверлері:"
 
-#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
@@ -521,7 +521,7 @@ msgstr "Қате"
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr "Фалдың өлшемі VFAT.рұқсат ететін шегінен асады."
 
-#: core/datasourcefactory.cpp:582
+#: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -935,7 +935,7 @@ msgstr "<p>Барлық тасымалдары аяқталды.</p>"
 msgid "Downloads completed"
 msgstr "Жүктеулер аяқталды"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1832,25 +1832,25 @@ msgstr "Болсын"
 msgid "Do Not Enable"
 msgstr "Болмасын"
 
-#: mainwindow.cpp:502
+#: mainwindow.cpp:498
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Файлды ашу"
 
-#: mainwindow.cpp:504
+#: mainwindow.cpp:500
 #, kde-format
 msgid "All Openable Files"
 msgstr "Барлық ашылатын файлдар"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:515
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:567
+#: mainwindow.cpp:563
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1859,57 +1859,57 @@ msgstr ""
 "Кейбір тасымалдаулар әлі орындалып жатыр.\n"
 "KGet-тен шыққыңыз келгені рас па?"
 
-#: mainwindow.cpp:569
+#: mainwindow.cpp:565
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Шығуды құптау"
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:592
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Тасымалдар тзімін экспорттау"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet тасымалдар тізімі"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "Text File"
 msgstr "Мәтін файлы"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Топтың атауын келтіріңіз"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Group name:"
 msgstr "Топтың атауы:"
 
-#: mainwindow.cpp:711
+#: mainwindow.cpp:707
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Таңдалған тасымалды өшірмексіз бе?"
 
-#: mainwindow.cpp:714 mainwindow.cpp:745
+#: mainwindow.cpp:710 mainwindow.cpp:741
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Тасымалды өшіруін құптау"
 
-#: mainwindow.cpp:742
+#: mainwindow.cpp:738
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "Таңдалған тасымалдың файл(дар)ын өшірмексіз бе?"
 
-#: mainwindow.cpp:1077
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1920,17 +1920,17 @@ msgstr ""
 "айыру үшін мәзірдегі 'KGet баптауы->Жетелеу' дегенге барып, \"Konqueror-дың "
 "жүктеу менеджері қылу\" дегенді өзгерту керек."
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:215
+#: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Әкелген файл KGet тасымалдар тзімі"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:217
+#: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Жүктеп алу"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:218
+#: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Тасымалдар тізімін жүктеу"
@@ -3532,13 +3532,13 @@ msgid "Filter files here...."
 msgstr "Файлдарды сүзгілеу..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All"
 msgstr "Барлығын &таңдау"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All"
 msgstr "Барлық таңдауын ш&ешу"
@@ -3611,54 +3611,54 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "Атауы"
 
-#: ui/linkview/kget_linkview.cpp:116
+#: ui/linkview/kget_linkview.cpp:118
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "&Жүктеп алу"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
 msgstr "Қосалқы айдары"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgid "File Name"
 msgstr "Файл атауы"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Description"
 msgstr "Сипаттамасы"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:159
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "Файл түрі"
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
 msgstr "Орналасуы (URL)"
 
-#: ui/linkview/kget_linkview.cpp:258
+#: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "Сілтемелер: %1 - KGet"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
 msgstr "Барлық сүзгіленгенді &таңдау"
 
-#: ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All Filtered"
 msgstr "Барлық сүзгілен таңдауын ш&ешу"
 
-#: ui/linkview/kget_linkview.cpp:430
+#: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
 msgstr "Бағанды сүзгілеу"
@@ -4525,12 +4525,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "Растау"
 
-#: ui/transfersview.cpp:122
+#: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
 msgstr "Бағандарды таңдау"
 
-#: ui/transfersview.cpp:310
+#: ui/transfersview.cpp:312
 #, kde-format
 msgid "Transfer Details"
 msgstr "Тасымалдың егжей-тегжейлері"

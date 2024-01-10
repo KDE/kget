@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork/kget.pot\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-04 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2004-09-20 15:44+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -191,14 +191,14 @@ msgid "Case sensitive:"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
-#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, fuzzy, kde-format
 #| msgid "Font:"
 msgid "&Increase Priority"
 msgstr "Nodrezh :"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
-#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, fuzzy, kde-format
 #| msgid "Font:"
 msgid "&Decrease Priority"
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Keyservers:"
 msgstr "Tizh"
 
-#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
@@ -541,7 +541,7 @@ msgstr "Fazi"
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr ""
 
-#: core/datasourcefactory.cpp:582
+#: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -946,7 +946,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "Echu eo an ezkargañ"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1873,77 +1873,77 @@ msgstr "Bevaat"
 msgid "Do Not Enable"
 msgstr "Ne vevit ket"
 
-#: mainwindow.cpp:502
+#: mainwindow.cpp:498
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Digeriñ ur restr"
 
-#: mainwindow.cpp:504
+#: mainwindow.cpp:500
 #, kde-format
 msgid "All Openable Files"
 msgstr ""
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:515
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr ""
 
-#: mainwindow.cpp:567
+#: mainwindow.cpp:563
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
 "Are you sure you want to close KGet?"
 msgstr ""
 
-#: mainwindow.cpp:569
+#: mainwindow.cpp:565
 #, kde-format
 msgid "Confirm Quit"
 msgstr ""
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:592
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "&Treuzkas"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, fuzzy, kde-format
 msgid "KGet Transfer List"
 msgstr "&Treuzkas"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Text File"
 msgstr "Digeriñ ur restr"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, fuzzy, kde-format
 #| msgid "Enter the group name"
 msgid "Enter Group Name"
 msgstr "Roit anv ar strollad"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Group name:"
 msgstr "Anv ar strollad :"
 
-#: mainwindow.cpp:711
+#: mainwindow.cpp:707
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mainwindow.cpp:714 mainwindow.cpp:745
+#: mainwindow.cpp:710 mainwindow.cpp:741
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "&Treuzkas"
 
-#: mainwindow.cpp:742
+#: mainwindow.cpp:738
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1951,7 +1951,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: mainwindow.cpp:1077
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1959,17 +1959,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:215
+#: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "&Treuzkas"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:217
+#: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "Kenderc'helet eo an ezkargañ"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:218
+#: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "&Treuzkas"
@@ -3628,14 +3628,14 @@ msgid "Filter files here...."
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, fuzzy, kde-format
 #| msgid "Stop All"
 msgid "&Select All"
 msgstr "Herzel an holl re"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All"
 msgstr ""
@@ -3711,58 +3711,58 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "Anv"
 
-#: ui/linkview/kget_linkview.cpp:116
+#: ui/linkview/kget_linkview.cpp:118
 #, fuzzy, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "Kenderc'helet eo an ezkargañ"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:157
 #, fuzzy, kde-format
 #| msgid "Local File Name"
 msgid "File Name"
 msgstr "Anv ar restr lec'hel"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Description"
 msgstr "Deskrivadur"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:159
 #, fuzzy, kde-format
 #| msgid "File"
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "Restr"
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
 msgstr "Lec'hiadur (URL)"
 
-#: ui/linkview/kget_linkview.cpp:258
+#: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:321
 #, fuzzy, kde-format
 #| msgid "Stop All"
 msgid "&Select All Filtered"
 msgstr "Herzel an holl re"
 
-#: ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/kget_linkview.cpp:322
 #, fuzzy, kde-format
 #| msgid "Stop All"
 msgid "D&eselect All Filtered"
 msgstr "Herzel an holl re"
 
-#: ui/linkview/kget_linkview.cpp:430
+#: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
 msgstr ""
@@ -4648,12 +4648,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "Dehaezadur :"
 
-#: ui/transfersview.cpp:122
+#: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
 msgstr ""
 
-#: ui/transfersview.cpp:310
+#: ui/transfersview.cpp:312
 #, fuzzy, kde-format
 msgid "Transfer Details"
 msgstr "&Treuzkas"

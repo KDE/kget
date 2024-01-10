@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-04 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2010-02-02 08:03+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: ਪੰਜਾਬੀ <punjabi-users@lists.sf.net>\n"
@@ -191,14 +191,14 @@ msgid "Case sensitive:"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
-#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, fuzzy, kde-format
 #| msgid "Priority"
 msgid "&Increase Priority"
 msgstr "ਤਰਜੀਹ"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
-#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, fuzzy, kde-format
 #| msgid "Priority"
 msgid "&Decrease Priority"
@@ -517,7 +517,7 @@ msgstr ""
 msgid "Keyservers:"
 msgstr "ਗਤੀ"
 
-#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
@@ -532,7 +532,7 @@ msgstr "ਗਲਤੀ"
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr ""
 
-#: core/datasourcefactory.cpp:582
+#: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -925,7 +925,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "ਡਾਊਨਲੋਡ ਮੁਕੰਮਲ"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1850,25 +1850,25 @@ msgstr "ਯੋਗ"
 msgid "Do Not Enable"
 msgstr "ਯੋਗ ਨਹੀਂ"
 
-#: mainwindow.cpp:502
+#: mainwindow.cpp:498
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "ਫਾਇਲ਼ ਖੋਲ੍ਹੋ"
 
-#: mainwindow.cpp:504
+#: mainwindow.cpp:500
 #, kde-format
 msgid "All Openable Files"
 msgstr ""
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:515
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr ""
 
-#: mainwindow.cpp:567
+#: mainwindow.cpp:563
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1877,51 +1877,51 @@ msgstr ""
 "ਕੁਝ ਸੰਚਾਰ ਹਾਲੇ ਵੀ ਚੱਲ ਰਹੇ ਹਨ।\n"
 "ਕੀ ਤੁਸੀਂ ਕੇ-ਗੈੱਟ ਨੂੰ ਬੰਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: mainwindow.cpp:569
+#: mainwindow.cpp:565
 #, kde-format
 msgid "Confirm Quit"
 msgstr ""
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:592
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "ਸੰਚਾਰ ਸੂਚੀ ਨਿਰਯਾਤ(&E)..."
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "ਕੇਗੈੱਟ ਟਰਾਂਸਫਰ ਲਿਸਟ"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, fuzzy, kde-format
 #| msgid "Move File"
 msgid "Text File"
 msgstr "ਫਾਇਲ ਭੇਜੋ"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Enter Group Name"
 msgstr "ਗਰੁੱਪ ਨਾਂ ਦਿਓ"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Group name:"
 msgstr "ਗਰੁੱਪ ਨਾਂ:"
 
-#: mainwindow.cpp:711
+#: mainwindow.cpp:707
 #, fuzzy, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "ਕੀ ਤੁਸੀਂ ਇਹ ਸੰਚਾਰ ਹਟਾਉਣ ਲਈ ਯਕੀਨੀ ਹੋ?"
 msgstr[1] "ਕੀ ਤੁਸੀਂ ਇਹ ਸੰਚਾਰ ਹਟਾਉਣ ਲਈ ਯਕੀਨੀ ਹੋ?"
 
-#: mainwindow.cpp:714 mainwindow.cpp:745
+#: mainwindow.cpp:710 mainwindow.cpp:741
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "ਸੰਚਾਰ ਖੋਲੋ:"
 
-#: mainwindow.cpp:742
+#: mainwindow.cpp:738
 #, fuzzy, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1929,7 +1929,7 @@ msgid_plural ""
 msgstr[0] "ਕੀ ਤੁਸੀਂ ਇਹ ਸੰਚਾਰ ਹਟਾਉਣ ਲਈ ਯਕੀਨੀ ਹੋ?"
 msgstr[1] "ਕੀ ਤੁਸੀਂ ਇਹ ਸੰਚਾਰ ਹਟਾਉਣ ਲਈ ਯਕੀਨੀ ਹੋ?"
 
-#: mainwindow.cpp:1077
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1937,17 +1937,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:215
+#: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "ਸੰਚਾਰ ਖੋਲੋ:"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:217
+#: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "ਡਾਊਨਲੋਡ(&D)"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:218
+#: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "ਸੰਚਾਰ ਖੋਲੋ:"
@@ -3552,14 +3552,14 @@ msgid "Filter files here...."
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, fuzzy, kde-format
 #| msgid "Select all"
 msgid "&Select All"
 msgstr "ਸਭ ਚੁਣੇ"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, fuzzy, kde-format
 #| msgid "Deselect all"
 msgid "D&eselect All"
@@ -3641,57 +3641,57 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "ਨਾਂ"
 
-#: ui/linkview/kget_linkview.cpp:116
+#: ui/linkview/kget_linkview.cpp:118
 #, fuzzy, kde-format
 #| msgid "&Download"
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "ਡਾਊਨਲੋਡ(&D)"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
 msgstr ""
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgid "File Name"
 msgstr "ਫਾਇਲ ਨਾਂ"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Description"
 msgstr "ਵੇਰਵਾ"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:159
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "ਫਾਇਲ ਟਾਈਪ"
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
 msgstr "ਟਿਕਾਣਾ (URL)"
 
-#: ui/linkview/kget_linkview.cpp:258
+#: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "ਸਬੰਧ: %1 - ਕੇਗੈਟ"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:321
 #, fuzzy, kde-format
 #| msgid "Select all"
 msgid "&Select All Filtered"
 msgstr "ਸਭ ਚੁਣੇ"
 
-#: ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/kget_linkview.cpp:322
 #, fuzzy, kde-format
 #| msgid "Deselect all"
 msgid "D&eselect All Filtered"
 msgstr "ਸਭ ਅਣ-ਚੁਣੇ"
 
-#: ui/linkview/kget_linkview.cpp:430
+#: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
 msgstr ""
@@ -4556,12 +4556,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "ਨਿਯਤ:"
 
-#: ui/transfersview.cpp:122
+#: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
 msgstr "ਚੁਣੇ ਕਾਲਮ"
 
-#: ui/transfersview.cpp:310
+#: ui/transfersview.cpp:312
 #, kde-format
 msgid "Transfer Details"
 msgstr "ਟਰਾਂਸਫਰ ਵੇਰਵਾ"

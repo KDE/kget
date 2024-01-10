@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-04 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2011-11-07 19:17+0200\n"
 "Last-Translator: Tomas Straupis <tomasstraupis@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -192,13 +192,13 @@ msgid "Case sensitive:"
 msgstr "Nekreipti dėmesio į raidžių dydį:"
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
-#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:34
+#: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Increase Priority"
 msgstr "Didinti prioritetą"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
-#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:35
+#: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, kde-format
 msgid "&Decrease Priority"
 msgstr "Mažinti prioritetą"
@@ -507,7 +507,7 @@ msgstr "Automatinis trūkstamų raktų atsiuntimas"
 msgid "Keyservers:"
 msgstr "Raktų serveriai:"
 
-#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:583
+#: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
@@ -522,7 +522,7 @@ msgstr "Klaida"
 msgid "Filesize is larger than maximum file size supported by VFAT."
 msgstr "Failo dydis yra didesnis nei maksimaliai palaikomas VFAT sistemos."
 
-#: core/datasourcefactory.cpp:582
+#: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
@@ -949,7 +949,7 @@ msgstr "<p>Baigti visi siuntimai.</p>"
 msgid "Downloads completed"
 msgstr "Atsiuntimai baigti"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:521
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1859,25 +1859,25 @@ msgstr "Įjungti"
 msgid "Do Not Enable"
 msgstr "Išjungti"
 
-#: mainwindow.cpp:502
+#: mainwindow.cpp:498
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Atverti failą"
 
-#: mainwindow.cpp:504
+#: mainwindow.cpp:500
 #, kde-format
 msgid "All Openable Files"
 msgstr "Visi įmanomi failai"
 
-#: mainwindow.cpp:519
+#: mainwindow.cpp:515
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet – %1%"
 
-#: mainwindow.cpp:567
+#: mainwindow.cpp:563
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1886,39 +1886,39 @@ msgstr ""
 "Keli failai vis dar siunčiami.\n"
 "Ar tikrai norite nutraukti KGet darbą?"
 
-#: mainwindow.cpp:569
+#: mainwindow.cpp:565
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Patvirtinti baigimą"
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:592
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Eksportuoti siuntimus"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet siuntimų sąrašas"
 
-#: mainwindow.cpp:598
+#: mainwindow.cpp:594
 #, kde-format
 msgid "Text File"
 msgstr "Teksto failas"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Įrašykite grupės pavadinimą"
 
-#: mainwindow.cpp:627
+#: mainwindow.cpp:623
 #, kde-format
 msgid "Group name:"
 msgstr "Grupės pavadinimas:"
 
-#: mainwindow.cpp:711
+#: mainwindow.cpp:707
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1927,12 +1927,12 @@ msgstr[1] "Ar tikrai norite pašalinti pažymėtus persiuntimus?"
 msgstr[2] "Ar tikrai norite pašalinti pažymėtus persiuntimus?"
 msgstr[3] "Ar tikrai norite pašalinti pažymėtus persiuntimus?"
 
-#: mainwindow.cpp:714 mainwindow.cpp:745
+#: mainwindow.cpp:710 mainwindow.cpp:741
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Patvirtinkite siuntimo pašalinimą"
 
-#: mainwindow.cpp:742
+#: mainwindow.cpp:738
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to delete the selected transfer?"
 #| msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1944,7 +1944,7 @@ msgstr[1] "Ar tikrai norite pašalinti pažymėtus persiuntimus?"
 msgstr[2] "Ar tikrai norite pašalinti pažymėtus persiuntimus?"
 msgstr[3] "Ar tikrai norite pašalinti pažymėtus persiuntimus?"
 
-#: mainwindow.cpp:1077
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1955,17 +1955,17 @@ msgstr ""
 "išjungti, išjunkite parinktį „Integruoti KGet į Konqueror siuntimų valdyklę“ "
 "lange Parinktys->Sudėtingiau."
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:215
+#: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Numestas failas yra KGet persiuntimų sąrašas"
 
-#: mainwindow.cpp:1194 ui/droptarget.cpp:217
+#: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Atsiuntimai"
 
-#: mainwindow.cpp:1195 ui/droptarget.cpp:218
+#: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Pakrauti atsiuntimų sąrašą"
@@ -3585,13 +3585,13 @@ msgid "Filter files here...."
 msgstr "Čia filtruokite failus..."
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
-#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All"
 msgstr "&Pažymėti viską"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
-#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All"
 msgstr "Atžymėti &viską"
@@ -3664,54 +3664,54 @@ msgctxt "name of a file"
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ui/linkview/kget_linkview.cpp:116
+#: ui/linkview/kget_linkview.cpp:118
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
 msgstr "&Atsiuntimai"
 
-#: ui/linkview/kget_linkview.cpp:154
+#: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
 msgstr "Pagalbinė antraštė"
 
-#: ui/linkview/kget_linkview.cpp:155
+#: ui/linkview/kget_linkview.cpp:157
 #, kde-format
 msgid "File Name"
 msgstr "Failo pavadinimas"
 
-#: ui/linkview/kget_linkview.cpp:156
+#: ui/linkview/kget_linkview.cpp:158
 #, kde-format
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ui/linkview/kget_linkview.cpp:157
+#: ui/linkview/kget_linkview.cpp:159
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "Failo tipas"
 
-#: ui/linkview/kget_linkview.cpp:158
+#: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
 msgstr "Vieta (URL)"
 
-#: ui/linkview/kget_linkview.cpp:258
+#: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
 msgstr "Nuorodos: %1 – KGet"
 
-#: ui/linkview/kget_linkview.cpp:319
+#: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
 msgstr "&Pažymėti visus filtruotus"
 
-#: ui/linkview/kget_linkview.cpp:320
+#: ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All Filtered"
 msgstr "Atžymėti &visus filtruotus"
 
-#: ui/linkview/kget_linkview.cpp:430
+#: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
 msgstr "Filtro stulpelis"
@@ -4579,12 +4579,12 @@ msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
 msgstr "Tikrinimas"
 
-#: ui/transfersview.cpp:122
+#: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
 msgstr "Pažymėti stulpelius"
 
-#: ui/transfersview.cpp:310
+#: ui/transfersview.cpp:312
 #, kde-format
 msgid "Transfer Details"
 msgstr "Siuntimo detalės"
