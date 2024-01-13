@@ -179,7 +179,7 @@
       <listitem>
 	<para>
 	  <action
->Para iniciar la descarga o continuar todas las descargas pendientes. El acceso rápido de teclado para hacer esto es <keycombo action="simul"
+>Para iniciar la descarga o continuar todas las descargas pendientes. El atajo de teclado para hacer esto es <keycombo action="simul"
 >&Ctrl;<keycap
 >R</keycap
 ></keycombo
@@ -1005,8 +1005,7 @@
 > y Rocío Gallego <email
 >traducciones@rociogallego.com</email
 >.</para
-> 
-&underFDL; &underGPL; </chapter>
+> &underFDL; &underGPL; </chapter>
 
 &documentation.index;
 </book>
