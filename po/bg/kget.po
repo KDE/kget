@@ -4593,9 +4593,3 @@ msgstr "П&роверка"
 #, kde-format
 msgid "Close"
 msgstr "Затваряне"
-
-#~ msgid "Metalink Version 4.0 file (*.meta4)"
-#~ msgstr "Файл на Metalink версия 4.0 (*.meta4)"
-
-#~ msgid "Metalink Version 3.0 file (*.metalink)"
-#~ msgstr "Файл на Metalink версия 3.0 (*.metalink)"
