@@ -55,7 +55,7 @@
 <keyword
 >kget</keyword>
 <keyword
->kppp</keyword>
+>Kppp</keyword>
 <keyword
 >télécharger</keyword>
 </keywordset>
@@ -597,7 +597,7 @@
       <listitem>
 	<para>
 	  <action
->Vous pouvez choisir votre moteur de l'historique comme Sqlite ou Xml.</action>
+>Vous pouvez sélectionner votre moteur de l'historique comme SQLite ou XML.Xml</action>
 	</para>
       </listitem>
     </varlistentry>
@@ -798,56 +798,56 @@
 ><guimenu
 >Fichier</guimenu
 > <guimenuitem
->Créer un Métalink</guimenuitem
+>Créer un Metalink</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <screenshot>
   <screeninfo
->Création d'un Métalink 0</screeninfo>
+>Création d'un Metalink 0</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="metalink0.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase
->Création d'un Métalink 0</phrase>
+>Création d'un Metalink 0</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
 <para
->Choisissez entre créer un nouveau Métalink et ouvrir un Métalink existant. Cliquez ensuite sur le bouton <guilabel
+>Choisissez entre créer un nouveau Metalink et ouvrir un Metalink existant. Cliquez ensuite sur le bouton <guilabel
 >Suivant</guilabel
 >.</para>
 
 <screenshot>
   <screeninfo
->Création d'un Métalink</screeninfo>
+>Création d'un Metalink</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="metalink1.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase
->Création d'un Métalink</phrase>
+>Création d'un Metalink</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
 <para
->Vous pouvez choisir ici de saisir des informations générales optionnelles, comme l'origine du Métalink (saisissez l'&URL; dans la zone de texte <guilabel
+>Vous pouvez choisir ici de saisir des informations générales optionnelles, comme l'origine du Metalink (saisissez l'&URL; dans la zone de texte <guilabel
 >Origine</guilabel
 >).</para>
 
 <screenshot>
   <screeninfo
->Création d'un Métalink 2</screeninfo>
+>Création d'un Metalink 2</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="metalink2.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase
->Création d'un Métalink 2</phrase>
+>Création d'un Metalink 2</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
@@ -856,14 +856,14 @@
 
 <screenshot>
   <screeninfo
->Création d'un Métalink 3</screeninfo>
+>Création d'un Metalink 3</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="metalink3.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase
->Création d'un Métalink 3</phrase>
+>Création d'un Metalink 3</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
