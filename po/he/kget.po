@@ -14,19 +14,20 @@
 # Zviki Karov <karovz@gmail.com>, 2005.
 # Diego Iastrubni <elcuco@kde.org>, 2005, 2006.
 #
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2006-02-16 23:35+0200\n"
-"Last-Translator: \n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2024-01-26 08:48+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
 
@@ -147,7 +148,7 @@ msgstr "אוטומציה"
 #: conf/dlgadvanced.ui:148
 #, kde-format
 msgid "Overwrite"
-msgstr "כתוב עליו"
+msgstr "שכתוב"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowDropTarget)
 #: conf/dlgappearance.ui:17
@@ -836,7 +837,7 @@ msgid ""
 "%1\n"
 "as it is a directory."
 msgstr ""
-"לא מוחק את\n"
+"לא תתבצע מחיקה של\n"
 "%1\n"
 "כיוון שזו תיקייה."
 
@@ -847,7 +848,7 @@ msgid ""
 "%1\n"
 "as it is not a local file."
 msgstr ""
-"לא מוחק את\n"
+"לא תתבצע מחיקה של\n"
 "%1\n"
 "כיוון שזה לא קובץ מקומי."
 
@@ -1631,7 +1632,7 @@ msgstr "kde-l10n-he@kde.org karovz@gmail.com"
 #: main.cpp:130
 #, kde-format
 msgid "Start KGet with drop target"
-msgstr "הפעל את KGet עם יעד גרירה"
+msgstr "הפעלת KGet עם יעד גרירה"
 
 #: main.cpp:131
 #, fuzzy, kde-format
@@ -1653,7 +1654,7 @@ msgstr ""
 #: main.cpp:136
 #, kde-format
 msgid "URL(s) to download"
-msgstr "כתובות אינטרנט להורדה"
+msgstr "כתובות להורדה"
 
 #: mainwindow.cpp:146
 #, kde-format
@@ -1872,12 +1873,12 @@ msgstr "שילוב עם Konqueror"
 #: mainwindow.cpp:436
 #, kde-format
 msgid "Enable"
-msgstr "אפשר"
+msgstr "להפעיל"
 
 #: mainwindow.cpp:437
 #, kde-format
 msgid "Do Not Enable"
-msgstr "אל תאפשר"
+msgstr "לא להפעיל"
 
 #: mainwindow.cpp:498
 #, fuzzy, kde-format
@@ -3082,10 +3083,9 @@ msgid "Select the files you want to be downloaded."
 msgstr ""
 
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
-#, fuzzy, kde-format
-#| msgid "Scheduling"
+#, kde-format
 msgid "File Selection"
-msgstr "מתזמן"
+msgstr "בחירת קבצים"
 
 #: transfer-plugins/metalink/metalink.cpp:76
 #: transfer-plugins/metalink/metalinkxml.cpp:72
@@ -3102,10 +3102,9 @@ msgstr ""
 
 #: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:112
-#, fuzzy, kde-format
-#| msgid "Download finished"
+#, kde-format
 msgid "Redownload Metalink"
-msgstr "ההורדה הושלמה"
+msgstr "הורדת קישור־על מחדש"
 
 #: transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
@@ -3122,10 +3121,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
-#, fuzzy, kde-format
-#| msgid "Local File Name"
+#, kde-format
 msgid "Engine name:"
-msgstr "שם קובץ מקומי"
+msgstr "שם המנוע:"
 
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
@@ -3149,10 +3147,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:27
-#, fuzzy, kde-format
-#| msgid "Local File Name"
+#, kde-format
 msgid "Engine Name"
-msgstr "שם קובץ מקומי"
+msgstr "הם המנוע"
 
 #. i18n: ectx: property (text), widget (QPushButton, newEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
@@ -3162,21 +3159,18 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
-#, fuzzy, kde-format
-#| msgid "Open Transfer"
+#, kde-format
 msgid "Remove"
-msgstr "פתח העברה"
+msgstr "הסרה"
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:57
-#, fuzzy, kde-format
-#| msgid "Connection"
+#, kde-format
 msgctxt "transfer state: running"
 msgid "Running...."
-msgstr "חיבור"
+msgstr "פעיל…"
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:116
-#, fuzzy, kde-format
-#| msgid "Finished"
+#, kde-format
 msgctxt "Transfer State:Finished"
 msgid "Finished"
 msgstr "הושלם"
@@ -3206,14 +3200,9 @@ msgid "Search for verification information"
 msgstr ""
 
 #: transfer-plugins/multisegmentkio/segment.cpp:287
-#, fuzzy, kde-format
-#| msgid ""
-#| "Could not write to file:\n"
-#| "%1"
+#, kde-format
 msgid "Failed to write to the file."
-msgstr ""
-"אין אפשרות לכתוב אל הקובץ:\n"
-"%1"
+msgstr "הכתיבה לקובץ נכשלה."
 
 #: ui/contextmenu.cpp:115
 #, kde-format
@@ -3234,25 +3223,23 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: ui/droptarget.cpp:88
-#, fuzzy, kde-format
-#| msgid "Sticky"
+#, kde-format
 msgctxt "fix position for droptarget"
 msgid "Sticky"
-msgstr "דביק"
+msgstr "נעוץ"
 
 #: ui/droptarget.cpp:262
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Main Window"
-msgstr "הצג את החלון הראשי בעת ההפעלה"
+msgstr "הצגת החלון הראשי"
 
 #: ui/droptarget.cpp:262
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hide Main Window"
-msgstr "הסתר חלון &רישום"
+msgstr "הסתרת החלון הראשי"
 
 #: ui/droptarget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Drop target"
+#, kde-format
 msgid "Drop Target"
 msgstr "יעד גרירה"
 
@@ -3262,11 +3249,10 @@ msgid "You can drag download links into the drop target."
 msgstr ""
 
 #: ui/droptarget.cpp:388
-#, fuzzy, kde-format
-#| msgid " %1/s "
+#, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
-msgstr " %1 לשנייה "
+msgstr "%1(%2) %3"
 
 #: ui/droptarget.cpp:395
 #, kde-format
@@ -3275,13 +3261,12 @@ msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr ""
 
 #: ui/droptarget.cpp:404
-#, fuzzy, kde-format
-#| msgid " %1/s "
+#, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
 "status"
 msgid "%1(%2% %3/%4) %5"
-msgstr " %1 לשנייה "
+msgstr "%1(%2% %3/%4) %5"
 
 #: ui/droptarget.cpp:418
 #, kde-format
@@ -3289,24 +3274,21 @@ msgid "Ready"
 msgstr ""
 
 #: ui/groupsettingsdialog.cpp:19
-#, fuzzy, kde-format
-#| msgid "Default folder:"
+#, kde-format
 msgid "Group Settings for %1"
-msgstr "תיקיית ברירת מחדל:"
+msgstr "הגדרות הקבוצה %1"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: ui/groupsettingsdialog.ui:32
-#, fuzzy, kde-format
-#| msgid "Default folder:"
+#, kde-format
 msgid "Group Settings"
-msgstr "תיקיית ברירת מחדל:"
+msgstr "הגדרות קבוצה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/groupsettingsdialog.ui:44
-#, fuzzy, kde-format
-#| msgid "Default Folder"
+#, kde-format
 msgid "Defau&lt folder:"
-msgstr "תיקיית ברירת מחדל"
+msgstr "תיקיית &ברירת המחדל:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
@@ -3334,35 +3316,32 @@ msgstr ""
 #: ui/groupsettingsdialog.ui:87 ui/groupsettingsdialog.ui:106
 #: ui/transfersettingsdialog.ui:51 ui/transfersettingsdialog.ui:67
 #: ui/transfersettingsdialog.ui:83
-#, fuzzy, kde-format
-#| msgid "No Links"
+#, kde-format
 msgctxt "No value has been set"
 msgid "Not set"
-msgstr "אין קישורים"
+msgstr "לא הוגדרה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/groupsettingsdialog.ui:119
-#, fuzzy, kde-format
-#| msgid "Download finished"
+#, kde-format
 msgid "Ma&ximum download speed:"
-msgstr "ההורדה הושלמה"
+msgstr "מהירות ההו&רדה המרבית:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/groupsettingsdialog.ui:129
-#, fuzzy, kde-format
-#| msgid "Download finished"
+#, kde-format
 msgid "Maximum &upload speed:"
-msgstr "ההורדה הושלמה"
+msgstr "מהירות הה&עלה המרבית:"
 
 #: ui/history/transferhistory.cpp:51
-#, fuzzy, kde-format
+#, kde-format
 msgid "Transfer History"
-msgstr "פתח העברה:"
+msgstr "היסטוריית העברות"
 
 #: ui/history/transferhistory.cpp:72
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Open File"
-msgstr "פתח &קובץ"
+msgstr "פתיחת &קובץ"
 
 #: ui/history/transferhistory.cpp:74
 #, kde-format
@@ -3377,8 +3356,7 @@ msgid "Running"
 msgstr ""
 
 #: ui/history/transferhistory.cpp:216
-#, fuzzy, kde-format
-#| msgid "Stopped"
+#, kde-format
 msgctxt "The transfer is stopped"
 msgid "Stopped"
 msgstr "נעצר"
@@ -3390,34 +3368,30 @@ msgid "Aborted"
 msgstr ""
 
 #: ui/history/transferhistory.cpp:220
-#, fuzzy, kde-format
-#| msgid "Finished"
+#, kde-format
 msgctxt "The transfer is finished"
 msgid "Finished"
 msgstr "הושלם"
 
 #: ui/history/transferhistory.cpp:247
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgid "Source File"
-msgstr "מקור:"
+msgstr "קובץ מקור"
 
 #: ui/history/transferhistory.cpp:247
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Destination"
-msgstr "יעד:"
+msgstr "יעד"
 
 #: ui/history/transferhistory.cpp:247
-#, fuzzy, kde-format
-#| msgid "Timer"
+#, kde-format
 msgid "Time"
-msgstr "שעון"
+msgstr "שעה"
 
 #: ui/history/transferhistory.cpp:247
-#, fuzzy, kde-format
+#, kde-format
 msgid "File Size"
-msgstr "פתח &קובץ"
+msgstr "גודל קובץ"
 
 #: ui/history/transferhistory.cpp:255
 #, kde-format
@@ -3468,8 +3442,7 @@ msgid "A long time ago"
 msgstr ""
 
 #: ui/history/transferhistory.cpp:281
-#, fuzzy, kde-format
-#| msgid "Finished"
+#, kde-format
 msgctxt "the transfer has been finished"
 msgid "Finished"
 msgstr "הושלם"
@@ -3482,10 +3455,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/history/transferhistory.ui:47
-#, fuzzy, kde-format
-#| msgid "Offline mode"
+#, kde-format
 msgid "View Modes:"
-msgstr "מצב לא מקוון"
+msgstr "מצבי הצגה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/history/transferhistory.ui:77
@@ -3495,9 +3467,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: ui/history/transferhistory.ui:85
-#, fuzzy, kde-format
+#, kde-format
 msgid "Date"
-msgstr "ה&תחל מחדש"
+msgstr "תאריך"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: ui/history/transferhistory.ui:95
@@ -3507,22 +3479,22 @@ msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:106
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter history"
-msgstr "פתח העברה:"
+msgstr "סינון היסטוריה"
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:120
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "delete selected transfer"
 msgid "Delete Selected"
-msgstr "לא נבחרו קבצים"
+msgstr "מחיקת הנבחרים"
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:125
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download"
-msgstr "ההורדה חודשה"
+msgstr "הורדה"
 
 #: ui/history/transferhistorycategorizeddelegate.cpp:52
 #, kde-format
@@ -3550,32 +3522,32 @@ msgid "More than 100MiB"
 msgstr ""
 
 #: ui/history/transferhistoryitemdelegate.cpp:41
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download again"
-msgstr "הורד שוב"
+msgstr "הורדה חוזרת"
 
 #: ui/history/transferhistoryitemdelegate.cpp:46
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Delete selected history-item"
 msgid "Delete selected"
-msgstr "לא נבחרו קבצים"
+msgstr "מחיקת הנבחרים"
 
 #: ui/history/transferhistoryitemdelegate.cpp:51
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open file"
-msgstr "פתח &קובץ"
+msgstr "פתיחת קובץ"
 
 #. i18n: ectx: Menu (file)
 #: ui/kgetui.rc:5
-#, fuzzy, kde-format
+#, kde-format
 msgid "&File"
-msgstr "פתח &קובץ"
+msgstr "&קובץ"
 
 #. i18n: ectx: Menu (Downloads)
 #: ui/kgetui.rc:17
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Downloads"
-msgstr "ההורדה חודשה"
+msgstr "הו&רדות"
 
 #. i18n: ectx: Menu (settings)
 #: ui/kgetui.rc:34
@@ -3603,10 +3575,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, importLinks)
 #: ui/linkview/importlinkdialog.ui:50
-#, fuzzy, kde-format
-#| msgid "No Links"
+#, kde-format
 msgid "&Import Links"
-msgstr "אין קישורים"
+msgstr "ייבוא &קישורים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/linkview/importlinkdialog.ui:67
@@ -3651,21 +3622,19 @@ msgid "Inver&t Selection"
 msgstr ""
 
 #: ui/linkview/kget_linkview.cpp:42
-#, fuzzy, kde-format
-#| msgid "No Links"
+#, kde-format
 msgid "Import Links"
-msgstr "אין קישורים"
+msgstr "ייבוא קישורים"
 
 #: ui/linkview/kget_linkview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Connection"
+#, kde-format
 msgid "Contains"
-msgstr "חיבור"
+msgstr "מכיל"
 
 #: ui/linkview/kget_linkview.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgid "Does Not Contain"
-msgstr "הורד שוב"
+msgstr "לא מכיל"
 
 #: ui/linkview/kget_linkview.cpp:64
 #, kde-format
@@ -3709,17 +3678,16 @@ msgid "Regular Expression"
 msgstr ""
 
 #: ui/linkview/kget_linkview.cpp:88
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgctxt "name of a file"
 msgid "Name"
 msgstr "שם"
 
 #: ui/linkview/kget_linkview.cpp:118
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
-msgstr "ההורדה חודשה"
+msgstr "הו&רדה"
 
 #: ui/linkview/kget_linkview.cpp:156
 #, kde-format
@@ -3727,10 +3695,9 @@ msgid "Auxiliary header"
 msgstr ""
 
 #: ui/linkview/kget_linkview.cpp:157
-#, fuzzy, kde-format
-#| msgid "Local File Name"
+#, kde-format
 msgid "File Name"
-msgstr "שם קובץ מקומי"
+msgstr "שם קובץ"
 
 #: ui/linkview/kget_linkview.cpp:158
 #, kde-format
@@ -3738,7 +3705,7 @@ msgid "Description"
 msgstr "תיאור"
 
 #: ui/linkview/kget_linkview.cpp:159
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
 msgstr "סוג קובץ"
@@ -3746,12 +3713,12 @@ msgstr "סוג קובץ"
 #: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
-msgstr "מיקום (כתובת URL)"
+msgstr "מיקום (כתובת)"
 
 #: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
-msgstr "קישורים ב: %1 - KGet"
+msgstr "קישורים ב־: %1 - KGet"
 
 #: ui/linkview/kget_linkview.cpp:321
 #, kde-format
@@ -3776,23 +3743,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: ui/metalinkcreator/commondata.ui:32
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Description:"
-msgstr "תיאור"
+msgstr "תיאור:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/commondata.ui:46
-#, fuzzy, kde-format
+#, kde-format
 msgid "Version:"
-msgstr "סיומת"
+msgstr "גרסה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: ui/metalinkcreator/commondata.ui:56
-#, fuzzy, kde-format
-#| msgid "Log"
+#, kde-format
 msgid "Logo:"
-msgstr "רישום"
+msgstr "לוגו:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, logo)
 #: ui/metalinkcreator/commondata.ui:63
@@ -3838,10 +3803,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: ui/metalinkcreator/commondata.ui:150
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Name:"
-msgstr "שם"
+msgstr "שם:"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, pub_name)
 #. i18n: ectx: property (toolTip), widget (KLineEdit, pub_url)
@@ -3852,23 +3816,20 @@ msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_name)
 #: ui/metalinkcreator/commondata.ui:160
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Name of the publisher"
-msgstr "מספר ניסיונות:"
+msgstr "שם המפיץ"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_url)
 #: ui/metalinkcreator/commondata.ui:180
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "URL to the publisher"
-msgstr "מספר ניסיונות:"
+msgstr "כתובת למפיץ"
 
 #: ui/metalinkcreator/dragdlg.cpp:73
-#, fuzzy, kde-format
-#| msgid "Import Text &File..."
+#, kde-format
 msgid "Import dropped files"
-msgstr "ייבוא קובץ &טקסט..."
+msgstr "ייבוא קבצים שהושלכו"
 
 #: ui/metalinkcreator/dragdlg.cpp:94 ui/metalinkcreator/filedlg.cpp:73
 #: ui/metalinkcreator/filedlg.cpp:181
@@ -3945,16 +3906,14 @@ msgid "Enter information that all chosen files share."
 msgstr ""
 
 #: ui/metalinkcreator/filedlg.cpp:122
-#, fuzzy, kde-format
-#| msgid "Scheduling"
+#, kde-format
 msgid "File Properties"
-msgstr "מתזמן"
+msgstr "מאפייני קובץ"
 
 #: ui/metalinkcreator/filedlg.cpp:134
-#, fuzzy, kde-format
-#| msgid "Ethernet"
+#, kde-format
 msgid "Enter a filename."
-msgstr "אתרנט"
+msgstr "נא למלא שם קובץ."
 
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
@@ -3962,24 +3921,21 @@ msgid "The filename exists already, choose a different one."
 msgstr ""
 
 #: ui/metalinkcreator/filedlg.cpp:140
-#, fuzzy, kde-format
-#| msgid "Ethernet"
+#, kde-format
 msgid "Enter at least one URL."
-msgstr "אתרנט"
+msgstr "נא למלא לפחות כתובת אחת."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/metalinkcreator/filedlg.ui:24
-#, fuzzy, kde-format
-#| msgid "Resumed"
+#, kde-format
 msgid "Required"
-msgstr "הומשך"
+msgstr "נחוץ"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: ui/metalinkcreator/filedlg.ui:54
-#, fuzzy, kde-format
-#| msgid "Local File Name"
+#, kde-format
 msgid "Filename:"
-msgstr "שם קובץ מקומי"
+msgstr "שם קובץ:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: ui/metalinkcreator/filedlg.ui:95
@@ -4003,10 +3959,9 @@ msgstr "הגודל הכולל עומד על %1 בתים"
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/filedlg.ui:149 ui/signaturedlg.ui:34
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Verification:"
-msgstr "תיאור"
+msgstr "אימות:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, Seite)
 #: ui/metalinkcreator/filedlg.ui:196
@@ -4078,10 +4033,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_29)
 #: ui/metalinkcreator/generalwidget.ui:122
 #: ui/metalinkcreator/generalwidget.ui:231
-#, fuzzy, kde-format
-#| msgid "Rem. Time"
+#, kde-format
 msgid "Date and time:"
-msgstr "זמן נותר"
+msgstr "תאריך ושעה:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, use_publishedtimeoffset)
 #. i18n: ectx: property (text), widget (QCheckBox, use_updatedtimeoffset)
@@ -4139,10 +4093,9 @@ msgid "Create a Metalink"
 msgstr ""
 
 #: ui/metalinkcreator/metalinkcreator.cpp:101
-#, fuzzy, kde-format
-#| msgid "Ethernet"
+#, kde-format
 msgid "Add at least one file."
-msgstr "אתרנט"
+msgstr "נא להוסיף לפחות קובץ אחד."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:103
 #, kde-format
@@ -4180,10 +4133,10 @@ msgid "Define the saving location."
 msgstr ""
 
 #: ui/metalinkcreator/metalinkcreator.cpp:225
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"
-msgstr "פתח &קובץ"
+msgstr "קבצים"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMirror)
 #: ui/mirror/mirroradddlg.ui:19
@@ -4193,24 +4146,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelConnections)
 #: ui/mirror/mirroradddlg.ui:26
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of connections:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר החיבורים:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, url)
 #: ui/mirror/mirroradddlg.ui:33
-#, fuzzy, kde-format
-#| msgid "Ethernet"
+#, kde-format
 msgid "Enter a URL"
-msgstr "אתרנט"
+msgstr "נא למלא כתובת"
 
 #. i18n: ectx: property (text), widget (QLabel, labelPriority)
 #: ui/mirror/mirroradddlg.ui:53
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgid "Priority:"
-msgstr "גופן:"
+msgstr "עדיפות:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, priority)
 #: ui/mirror/mirroradddlg.ui:60
@@ -4227,10 +4177,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelLocation)
 #: ui/mirror/mirroradddlg.ui:79
-#, fuzzy, kde-format
-#| msgid "Location (URL)"
+#, kde-format
 msgid "Location:"
-msgstr "מיקום (כתובת URL)"
+msgstr "מקום:"
 
 #: ui/mirror/mirrormodel.cpp:290
 #, kde-format
@@ -4239,25 +4188,22 @@ msgid "Mirror"
 msgstr ""
 
 #: ui/mirror/mirrormodel.cpp:293
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "The priority of the mirror"
 msgid "Priority"
-msgstr "גופן:"
+msgstr "עדיפות"
 
 #: ui/mirror/mirrormodel.cpp:298
-#, fuzzy, kde-format
-#| msgid "Connection"
+#, kde-format
 msgctxt "Number of parallel connections to the mirror"
 msgid "Connections"
-msgstr "חיבור"
+msgstr "חיבורים"
 
 #: ui/mirror/mirrormodel.cpp:300
-#, fuzzy, kde-format
-#| msgid "Location (URL)"
+#, kde-format
 msgctxt "Location = country"
 msgid "Location"
-msgstr "מיקום (כתובת URL)"
+msgstr "מקום"
 
 #: ui/mirror/mirrorsettings.cpp:54
 #, kde-format
@@ -4276,10 +4222,9 @@ msgid "PushButton"
 msgstr ""
 
 #: ui/newtransferdialog.cpp:315
-#, fuzzy, kde-format
-#| msgid "Default Folder"
+#, kde-format
 msgid "Select at least one source url."
-msgstr "תיקיית ברירת מחדל"
+msgstr "נא לבחור לפחות כתובת מקור אחת."
 
 #: ui/newtransferdialog.cpp:333
 #, kde-format
@@ -4288,31 +4233,30 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/newtransferwidget.ui:30
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Destination:"
 msgstr "יעד:"
 
 #. i18n: ectx: property (text), widget (QLabel, groupLabel)
 #: ui/newtransferwidget.ui:40
-#, fuzzy, kde-format
+#, kde-format
 msgid "Transfer group:"
-msgstr "הע&ברה"
+msgstr "קבוצת העברה:"
 
 #: ui/renamefile.cpp:33
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rename File"
-msgstr "תיקיית ברירת מחדל"
+msgstr "שינוי שם הקובץ"
 
 #: ui/renamefile.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rename %1 to:"
-msgstr "תיקיית ברירת מחדל"
+msgstr "שינוי השם של %1 לשם:"
 
 #: ui/renamefile.cpp:42
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Rename"
-msgstr "תיקיית ברירת מחדל"
+msgstr "&שינוי שם"
 
 #: ui/signaturedlg.cpp:46
 #, kde-format
@@ -4327,10 +4271,9 @@ msgid "This option is not supported for the current transfer."
 msgstr ""
 
 #: ui/signaturedlg.cpp:97
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgid "Load Signature File"
-msgstr "מקור:"
+msgstr "טעינת קובץ חתימה"
 
 #: ui/signaturedlg.cpp:99
 #, kde-format
@@ -4355,8 +4298,7 @@ msgid ""
 msgstr ""
 
 #: ui/signaturedlg.cpp:191
-#, fuzzy, kde-format
-#| msgid "unknown"
+#, kde-format
 msgctxt "trust level"
 msgid "Unknown"
 msgstr "לא ידוע"
@@ -4438,10 +4380,10 @@ msgid "Verified"
 msgstr ""
 
 #: ui/signaturedlg.cpp:290
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
-msgstr "פתח &קובץ"
+msgstr "נכשל"
 
 #: ui/signaturedlg.cpp:293
 #, kde-format
@@ -4512,17 +4454,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/signaturedlg.ui:197
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Creation:"
-msgstr "יעד:"
+msgstr "יצירה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/signaturedlg.ui:214
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Expiration:"
-msgstr "יעד:"
+msgstr "תפוגת תוקף:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/signaturedlg.ui:255
@@ -4542,15 +4482,13 @@ msgid "Average speed: %1/s"
 msgstr ""
 
 #: ui/transferdetails.cpp:77
-#, fuzzy, kde-format
-#| msgid "%1% of %2 - %3"
+#, kde-format
 msgid "%1 of %2"
-msgstr "%1% מתוך %2 - %3"
+msgstr "%1 מתוך %2"
 
 #. i18n: ectx: property (text), widget (QLabel, sourceLabel)
 #: ui/transferdetailsfrm.ui:51
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@label transfer source"
 msgid "Source:"
 msgstr "מקור:"
@@ -4563,16 +4501,14 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/transferdetailsfrm.ui:165
-#, fuzzy, kde-format
-#| msgid "Rem. Time"
+#, kde-format
 msgid "Remaining Time:"
-msgstr "זמן נותר"
+msgstr "זמן שנותר:"
 
 #: ui/transfersettingsdialog.cpp:33
-#, fuzzy, kde-format
-#| msgid "Default folder:"
+#, kde-format
 msgid "Transfer Settings for %1"
-msgstr "תיקיית ברירת מחדל:"
+msgstr "הגדרות העברה עבור %1"
 
 #: ui/transfersettingsdialog.cpp:164
 #, kde-format
@@ -4581,42 +4517,39 @@ msgid ""
 msgstr ""
 
 #: ui/transfersettingsdialog.cpp:164
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Destination unmodified"
-msgstr "יעד:"
+msgstr "היעד לא השתנה"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: ui/transfersettingsdialog.ui:23
-#, fuzzy, kde-format
+#, kde-format
 msgid "Transfer Settings"
-msgstr " העברות: %1 "
+msgstr "הגדרות העברה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/transfersettingsdialog.ui:35
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Download des&tination:"
-msgstr "יעד:"
+msgstr "י&עד הורדה:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelUpload)
 #: ui/transfersettingsdialog.ui:90
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Upload limit:"
-msgstr "ההורדה חודשה"
+msgstr "מגבלת ה&עלאה:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelDownload)
 #: ui/transfersettingsdialog.ui:100
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download &limit:"
-msgstr "ההורדה חודשה"
+msgstr "מ&גבלת הורדה:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
 #: ui/transfersettingsdialog.ui:110
-#, fuzzy, kde-format
-#| msgid "Maximum open connections:"
+#, kde-format
 msgid "Ma&ximum share ratio:"
-msgstr "מספר מרבי של חיבורים פתוחים:"
+msgstr "יחס שיתוף מ&רבי:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:139
@@ -4633,11 +4566,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, verification)
 #: ui/transfersettingsdialog.ui:162
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgctxt "verification of the download (e.g. by using MD5)"
 msgid "Verification"
-msgstr "יעד:"
+msgstr "אימות"
 
 #: ui/transfersview.cpp:124
 #, kde-format
@@ -4645,14 +4577,14 @@ msgid "Select columns"
 msgstr ""
 
 #: ui/transfersview.cpp:312
-#, fuzzy, kde-format
+#, kde-format
 msgid "Transfer Details"
-msgstr " העברות: %1 "
+msgstr "פרטי העברה"
 
 #: ui/tray.cpp:48
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download Manager"
-msgstr "מנהל ההורדה"
+msgstr "מנהל הורדות"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/verificationadddlg.ui:19
@@ -4663,11 +4595,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/verificationadddlg.ui:26
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "hash as a hash of type md5, sha1 etc."
 msgid "Hash:"
-msgstr "גופן:"
+msgstr "גיבוב:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, newHash)
 #: ui/verificationadddlg.ui:33
@@ -4681,16 +4612,14 @@ msgid "Add checksum"
 msgstr ""
 
 #: ui/verificationdialog.cpp:94
-#, fuzzy, kde-format
-#| msgid "Default folder:"
+#, kde-format
 msgid "Transfer Verification for %1"
-msgstr "תיקיית ברירת מחדל:"
+msgstr "אימות העברה עבור %1"
 
 #: ui/verificationdialog.cpp:205
-#, fuzzy, kde-format
-#| msgid "<i>%1</i> successfully downloaded."
+#, kde-format
 msgid "%1 was successfully verified."
-msgstr "<i>%1</i> הורד בהצלחה."
+msgstr "%1 אומת בהצלחה."
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
