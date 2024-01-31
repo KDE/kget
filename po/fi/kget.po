@@ -10,7 +10,7 @@
 # Elias Julkunen <elias.julkunen@gmail.com>, 2008.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2010.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014.
-# Tommi Nieminen <translator@legisign.org>, 2011, 2018, 2019, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Copyright © 2003, 2005, 2007, 2008 Free Software Foundation, Inc.
 #
 # KDE Finnish translation sprint participants:
