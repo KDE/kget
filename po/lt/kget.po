@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2011-11-07 19:17+0200\n"
+"PO-Revision-Date: 2024-02-02 22:05+0200\n"
 "Last-Translator: Tomas Straupis <tomasstraupis@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -443,7 +443,7 @@ msgstr "Sudėtingesnės parinktys"
 #: conf/preferencesdialog.cpp:95
 #, kde-format
 msgid "Transfer Plugins"
-msgstr "Siuntimo priedai"
+msgstr "Siuntimo įskiepiai"
 
 #: conf/transfersgrouptree.cpp:112 conf/transfersgrouptree.cpp:116
 #, kde-format
@@ -812,10 +812,9 @@ msgid "No internet connection, stopping transfers."
 msgstr "Nėra interneto ryšio. Atsiuntimai stabdomi."
 
 #: core/kget.cpp:1194
-#, fuzzy, kde-format
-#| msgid "Plugin loader could not load the plugin: %1."
+#, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr "Nepavyko įkrauti priedo: %1"
+msgstr "Įskiepių įkėlikliui nepavyko įkelti įskiepio %1: %2."
 
 #: core/kget.cpp:1205
 #, kde-format
@@ -1505,7 +1504,7 @@ msgstr "Lukas Appelhans"
 #: main.cpp:109
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
-msgstr "Prižiūrėtojas, pagrindinis programuotojas, torrent priedo autorius"
+msgstr "Prižiūrėtojas, pagrindinis programuotojas, torrent įskiepio autorius"
 
 #: main.cpp:110
 #, kde-format
@@ -1565,7 +1564,7 @@ msgstr "Ernesto Rodriguez Ortiz"
 #: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
-msgstr "Mms priedo autorius"
+msgstr "Mms įskiepio autorius"
 
 #: main.cpp:117
 #, kde-format
