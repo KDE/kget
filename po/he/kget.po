@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2024-01-26 08:48+0200\n"
+"PO-Revision-Date: 2024-02-08 09:45+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2725,10 +2725,9 @@ msgstr "ההורדה חודשה"
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:56
 #: transfer-plugins/bittorrent/btsettingswidget.ui:76
-#, fuzzy, kde-format
-#| msgid "Limits"
+#, kde-format
 msgid "No Limit"
-msgstr "הגבלות"
+msgstr "אין מגבלה"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, uploadBox)
 #. i18n: ectx: property (suffix), widget (QSpinBox, downloadBox)
@@ -2740,9 +2739,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, downloadLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:69
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download limit per transfer:"
-msgstr "ההורדה חודשה"
+msgstr "מגבלת הורדה להעברה:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, utpBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:89
@@ -2758,17 +2757,15 @@ msgstr "תיקיות"
 
 #. i18n: ectx: property (text), widget (QLabel, torrentFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:117
-#, fuzzy, kde-format
-#| msgid "Default Folder"
+#, kde-format
 msgid "Default torrent folder:"
-msgstr "תיקיית ברירת מחדל"
+msgstr "תיקיית טורנטים כברירת מחדל:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:134
-#, fuzzy, kde-format
-#| msgid "Default Folder"
+#, kde-format
 msgid "Default temporary folder:"
-msgstr "תיקיית ברירת מחדל"
+msgstr "התיקייה הזמנית מברירת המחדל:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
@@ -2777,23 +2774,22 @@ msgid "Pre-allocate disk space"
 msgstr ""
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Default Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "תיקיית ברירת מחדל"
+msgstr "נא לבחור קובץ טורנט חדש"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
-#, fuzzy, kde-format
+#, kde-format
 msgid "Downloading Torrent File...."
-msgstr "ההורדה חודשה"
+msgstr "קובץ הטורנט מתקבל…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:198
 #: transfer-plugins/bittorrent/bttransfer.cpp:295
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
-msgstr "ההורדה חודשה"
+msgstr "מתבצעת הורדה…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
@@ -2801,19 +2797,14 @@ msgid "Cannot add a tracker to a private torrent."
 msgstr ""
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
-#, fuzzy, kde-format
-#| msgid ""
-#| "Folder does not exist:\n"
-#| "%1"
+#, kde-format
 msgid "Torrent file does not exist"
-msgstr ""
-"התיקייה לא קיימת:\n"
-"%1"
+msgstr "קובץ הטורנט לא קיים"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
-#, fuzzy, kde-format
+#, kde-format
 msgid "Analyzing torrent...."
-msgstr "ההורדה חודשה"
+msgstr "הטורנט מפוענח…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
@@ -2833,15 +2824,14 @@ msgid "Cannot initialize libktorrent. Torrent support might not work."
 msgstr ""
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:75
-#, fuzzy, kde-format
-#| msgid "Advanced Options"
+#, kde-format
 msgid "&Advanced Details"
-msgstr "אפשרויות מתקדמות"
+msgstr "&פרטים מתקדמים"
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:81
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Scan Files"
-msgstr "פתח &קובץ"
+msgstr "&סריקת קבצים"
 
 #: transfer-plugins/bittorrent/scandlg.cpp:105
 #, kde-format
@@ -2856,31 +2846,27 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: transfer-plugins/bittorrent/scandlg.ui:31
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of chunks found:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר המקטעים שנמצאו:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: transfer-plugins/bittorrent/scandlg.ui:41
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of chunks failed:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר המקטעים שנכשלו:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/bittorrent/scandlg.ui:51
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of chunks not downloaded:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר המקטעים שטרם התקבלו:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/bittorrent/scandlg.ui:58
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of chunks downloaded:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר המקטעים שהתקבלו:"
 
 #. i18n: ectx: property (text), widget (QLabel, chunks_found)
 #. i18n: ectx: property (text), widget (QLabel, chunks_failed)
@@ -2901,15 +2887,14 @@ msgid "Cancel"
 msgstr ""
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
-#, fuzzy, kde-format
-#| msgid "Stopped"
+#, kde-format
 msgid "Append"
-msgstr "נעצר"
+msgstr "הוספה לסוף"
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
-#, fuzzy, kde-format
+#, kde-format
 msgid "Replace file"
-msgstr "פתח &קובץ"
+msgstr "החלפת קובץ"
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
@@ -2924,9 +2909,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
-#, fuzzy, kde-format
+#, kde-format
 msgid "Mode:"
-msgstr "תיקיות"
+msgstr "מצב:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:43
@@ -2957,11 +2942,10 @@ msgid "%1 would become %2"
 msgstr ""
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:177
-#, fuzzy, kde-format
-#| msgid "Connection"
+#, kde-format
 msgctxt "the string that is used to modify an url"
 msgid "Change string"
-msgstr "חיבור"
+msgstr "החלפת מחרוזת"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:178
 #, kde-format
@@ -2994,11 +2978,10 @@ msgid "List of the available search engine URLs"
 msgstr ""
 
 #: transfer-plugins/kio/transferKio.cpp:101
-#, fuzzy, kde-format
-#| msgid "Connection"
+#, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
-msgstr "חיבור"
+msgstr "מתבצעת התחברות…"
 
 #: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
@@ -3054,27 +3037,24 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of simultaneous file downloads:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר ההורדות במקביל של קבצים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/metalink/dlgmetalink.ui:39
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of mirrors per file:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר אתרי המראה לקובץ:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: transfer-plugins/metalink/dlgmetalink.ui:56
 #: transfer-plugins/mmsthreads/dlgmms.ui:22
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:22
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of connections per URL:"
-msgstr "מספר ניסיונות:"
+msgstr "מספר החיבורים לכתובת:"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: transfer-plugins/metalink/fileselection.ui:17
@@ -3089,9 +3069,9 @@ msgstr "בחירת קבצים"
 
 #: transfer-plugins/metalink/metalink.cpp:76
 #: transfer-plugins/metalink/metalinkxml.cpp:72
-#, fuzzy, kde-format
+#, kde-format
 msgid "Downloading Metalink File...."
-msgstr "ההורדה חודשה"
+msgstr "קובץ קישור העל מתקבל…"
 
 #: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
@@ -3951,10 +3931,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: ui/metalinkcreator/filedlg.ui:111
-#, fuzzy, kde-format
-#| msgid "Total size is %1 bytes"
+#, kde-format
 msgid "File size (in bytes):"
-msgstr "הגודל הכולל עומד על %1 בתים"
+msgstr "גודל קובץ (בבתים):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -4113,19 +4092,19 @@ msgid "Unable to load: %1"
 msgstr ""
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "פתח &קובץ"
+msgstr "קובץ קישור־על בגרסה 4.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "פתח &קובץ"
+msgstr "קובץ קישור־על בגרסה 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "פתח &קובץ"
+msgstr "קובץ קישור־על (‎*.metalink‏ ‎*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:179
 #, kde-format
