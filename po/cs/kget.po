@@ -872,11 +872,10 @@ msgstr ""
 "\">%1</p><p>Chybové hlášení:</p><p style=\"font-size: small;\">%2</p>"
 
 #: core/kget.cpp:1343
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
-msgstr "Vyřešit"
+msgstr ""
 
 #: core/kget.cpp:1393
 #, kde-format
@@ -4587,9 +4586,3 @@ msgstr "O&věřit"
 #, kde-format
 msgid "Close"
 msgstr "Zavřít"
-
-#~ msgid "Metalink Version 4.0 file (*.meta4)"
-#~ msgstr "Soubor Metalink verze 4.0 (*.meta4)"
-
-#~ msgid "Metalink Version 3.0 file (*.metalink)"
-#~ msgstr "Soubor Metalink verze 3.0 (*.metalink)"
