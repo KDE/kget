@@ -4,6 +4,7 @@
             {
                 "Email": "nolis71cu@gmail.com",
                 "Name": "Manolo Valdes",
+                "Name[ar]": "Manolo Valdes",
                 "Name[bg]": "Manolo Valdes",
                 "Name[ca@valencia]": "Manolo Valdes",
                 "Name[ca]": "Manolo Valdes",
@@ -32,6 +33,7 @@
         ],
         "Category": "Service",
         "Description": "Multithreaded file download plugin",
+        "Description[ar]": "ملحق تعدد تنزيل الملف",
         "Description[bg]": "Приставка за многонишково изтегляне на файлове",
         "Description[ca@valencia]": "Connector de transferències multifil",
         "Description[ca]": "Connector de transferències multifil",

@@ -4,6 +4,7 @@
             {
                 "Email": "nekkar@libero.it",
                 "Name": "Dario Massarin",
+                "Name[ar]": "Dario Massarin",
                 "Name[bg]": "Dario Massarin",
                 "Name[ca@valencia]": "Dario Massarin",
                 "Name[ca]": "Dario Massarin",
@@ -32,6 +33,7 @@
         ],
         "Category": "Service",
         "Description": "Classic file downloader plugin",
+        "Description[ar]": "ملحق تنزيل الملف الكلاسيكي",
         "Description[bg]": "Класическа приставка за изтегляне на файлове",
         "Description[ca@valencia]": "Connector del baixador de fitxers clàssic",
         "Description[ca]": "Connector del baixador de fitxers clàssic",

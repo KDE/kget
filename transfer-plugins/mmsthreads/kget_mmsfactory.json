@@ -4,6 +4,7 @@
             {
                 "Email": "eortiz@uci.cu",
                 "Name": "Ernesto Rodriguez Ortiz",
+                "Name[ar]": "Ernesto Rodriguez Ortiz",
                 "Name[bg]": "Ernesto Rodriguez Ortiz",
                 "Name[ca@valencia]": "Ernesto Rodriguez Ortiz",
                 "Name[ca]": "Ernesto Rodriguez Ortiz",
@@ -32,6 +33,7 @@
         ],
         "Category": "Service",
         "Description": "MMS-Transfer plugin for KGet",
+        "Description[ar]": "ملحق محول MMS لـ كجت",
         "Description[bg]": "Приставка за пренос MMS в KGet",
         "Description[ca@valencia]": "Connector de transferències d'MMS per a KGet",
         "Description[ca]": "Connector de transferències d'MMS per al KGet",

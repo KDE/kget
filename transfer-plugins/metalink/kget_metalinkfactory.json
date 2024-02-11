@@ -4,6 +4,7 @@
             {
                 "Email": "nolis71cu@gmail.com",
                 "Name": "Manolo Valdes",
+                "Name[ar]": "Manolo Valdes",
                 "Name[bg]": "Manolo Valdes",
                 "Name[ca@valencia]": "Manolo Valdes",
                 "Name[ca]": "Manolo Valdes",
@@ -32,6 +33,7 @@
         ],
         "Category": "Service",
         "Description": "Allows files to be downloaded from Metalink",
+        "Description[ar]": "تسمح بتنزيل الملفات من ميتالينك",
         "Description[bg]": "Позволява изтегляне на файлове през Metalink",
         "Description[ca@valencia]": "Permet baixar fitxers des d'un «Metalink»",
         "Description[ca]": "Permet baixar fitxers des d'un «Metalink»",

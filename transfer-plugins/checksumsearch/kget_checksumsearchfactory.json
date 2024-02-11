@@ -4,6 +4,7 @@
             {
                 "Email": "mat69@gmx.net",
                 "Name": "Matthias Fuchs",
+                "Name[ar]": "Matthias Fuchs",
                 "Name[bg]": "Matthias Fuchs",
                 "Name[ca@valencia]": "Matthias Fuchs",
                 "Name[ca]": "Matthias Fuchs",
@@ -32,6 +33,7 @@
         ],
         "Category": "Service",
         "Description": "Tries to find checksums for a specified URL",
+        "Description[ar]": "تحاول العثور على المجموع للعنوان المحدد",
         "Description[bg]": "Търсене на контролни суми за указания URL-адрес",
         "Description[ca@valencia]": "Intenta buscar sumes de verificació per a un URL especificat",
         "Description[ca]": "Intenta cercar sumes de verificació per a un URL especificat",
