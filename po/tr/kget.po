@@ -13,13 +13,13 @@
 # Rıdvan CAN <ridvancan@linux-sevenler.org>, 2004.
 # obsoleteman <tulliana@gmail.com>, 2008-2010,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2023-12-15 20:49+0300\n"
+"PO-Revision-Date: 2024-03-01 15:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.80\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -324,7 +324,7 @@ msgstr "İçer"
 #: conf/integrationpreferences.cpp:36
 #, kde-format
 msgid "Exclude"
-msgstr "İçerme"
+msgstr "Dışla"
 
 #. i18n: ectx: label, entry (HistoryColumnWidths), group (Geometry)
 #: conf/kget.kcfg:185
@@ -2046,7 +2046,7 @@ msgstr "İndirilen:"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:214
 #, kde-format
 msgid "Excluded:"
-msgstr "Dışarıda tutulan:"
+msgstr "Dışlanan:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4_2)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:167
