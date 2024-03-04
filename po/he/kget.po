@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2024-02-08 09:45+0200\n"
+"PO-Revision-Date: 2024-03-03 15:43+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -34,22 +34,22 @@ msgstr ""
 #: conf/autopastemodel.cpp:174
 #, kde-format
 msgid "Pattern"
-msgstr ""
+msgstr "תבנית"
 
 #: conf/autopastemodel.cpp:176
 #, kde-format
 msgid "Syntax"
-msgstr ""
+msgstr "תחביר"
 
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
 #, kde-format
 msgid "Escape sequences"
-msgstr ""
+msgstr "תווי מילוט"
 
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:39
 #, kde-format
 msgid "Regular expression"
-msgstr ""
+msgstr "ביטוי רגולרי"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticDeletionEnabled)
 #: conf/dlgadvanced.ui:19
@@ -413,19 +413,19 @@ msgstr ""
 #: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Groups"
-msgstr ""
+msgstr "קבוצות"
 
 #: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Manage the groups"
-msgstr ""
+msgstr "ניהול הקבוצות"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
 #: conf/preferencesdialog.cpp:87
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
-msgstr ""
+msgstr "רשת"
 
 #: conf/preferencesdialog.cpp:87
 #, fuzzy, kde-format
@@ -514,7 +514,7 @@ msgstr ""
 #: ui/transfersettingsdialog.ui:172
 #, kde-format
 msgid "Signature"
-msgstr ""
+msgstr "חתימה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticVerification)
 #: conf/verificationpreferences.ui:93
@@ -544,7 +544,7 @@ msgstr "מהירות"
 #: ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "שגיאה"
 
 #: core/datasourcefactory.cpp:269
 #, kde-format
@@ -580,13 +580,13 @@ msgstr " גודל: %1 "
 #, kde-format
 msgctxt "checksum of a file"
 msgid "Checksum"
-msgstr ""
+msgstr "סכום ביקורת"
 
 #: core/filemodel.cpp:249
 #, kde-format
 msgctxt "signature of a file"
 msgid "Signature"
-msgstr ""
+msgstr "חתימה"
 
 #: core/keydownloader.cpp:73
 #, kde-format
@@ -667,12 +667,12 @@ msgstr ""
 #: core/kget.cpp:554
 #, kde-format
 msgid "Overwrite existing file?"
-msgstr ""
+msgstr "לדרוס את הקובץ הקיים?"
 
 #: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
 #, kde-format
 msgid "Unable to save to: %1"
-msgstr ""
+msgstr "לא ניתן לשמור אל: %1"
 
 #: core/kget.cpp:870
 #, kde-format
@@ -690,7 +690,7 @@ msgstr[3] ""
 #: core/kget.cpp:880
 #, kde-format
 msgid "Protocol unsupported"
-msgstr ""
+msgstr "אין תמיכה בפרוטוקול"
 
 #: core/kget.cpp:933 ui/newtransferdialog.cpp:52
 #, fuzzy, kde-format
@@ -700,19 +700,19 @@ msgstr "הורד שוב"
 #: core/kget.cpp:933
 #, kde-format
 msgid "Enter URL:"
-msgstr ""
+msgstr "נא למלא כתובת:"
 
 #: core/kget.cpp:953
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
-msgstr ""
+msgstr "בחירת תיקייה"
 
 #: core/kget.cpp:974
 #, kde-format
 msgctxt "@title:window"
 msgid "Save As"
-msgstr ""
+msgstr "שמירה בשם"
 
 #: core/kget.cpp:986 core/urlchecker.cpp:366
 #, kde-format
@@ -744,6 +744,11 @@ msgid ""
 "\n"
 "Download it again?"
 msgstr ""
+"כבר השלמת הורדה מתוך: \n"
+"\n"
+"%1\n"
+"\n"
+"להוריד שוב?"
 
 #: core/kget.cpp:1004 core/urlchecker.cpp:639
 #, fuzzy, kde-format
@@ -764,7 +769,7 @@ msgstr "הורד שוב"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "דילוג"
 
 #: core/kget.cpp:1016 core/urlchecker.cpp:426
 #, kde-format
@@ -775,6 +780,11 @@ msgid ""
 "\n"
 "Delete it and download again?"
 msgstr ""
+"מתבצעת כרגע הורדה ברקע מהמקום הזה: \n"
+"\n"
+"%1\n"
+"\n"
+"למחוק אותה ולהוריד שוב?"
 
 #: core/kget.cpp:1017 core/urlchecker.cpp:636
 #, fuzzy, kde-format
@@ -784,7 +794,7 @@ msgstr "הורד שוב"
 #: core/kget.cpp:1039 core/kget.cpp:1044
 #, kde-format
 msgid "Directory is not writable"
-msgstr ""
+msgstr "התיקייה לא זמינה לכתיבה"
 
 #: core/kget.cpp:1071
 #, kde-format
@@ -793,6 +803,9 @@ msgid ""
 "\n"
 "Download and delete the previous one?"
 msgstr ""
+"כבר הורדת את הקובץ הזה ממקום אחר.\n"
+"\n"
+"להוריד ולמחוק את הקודם?"
 
 #: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, fuzzy, kde-format
@@ -905,10 +918,10 @@ msgid "The computer will now turn off, as all downloads have completed."
 msgstr "כל ההורדות הסתיימו."
 
 #: core/kget.cpp:1402
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
-msgstr "כיבוי אוטומטי מופעל."
+msgstr "כיבוי"
 
 #: core/kget.cpp:1407
 #, fuzzy, kde-format
@@ -936,11 +949,10 @@ msgid "Suspending"
 msgstr "מתזמן"
 
 #: core/kget.cpp:1424
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
-msgstr "גופן:"
+msgstr "ביטול"
 
 #: core/kget.cpp:1433
 #, kde-format
@@ -948,10 +960,9 @@ msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
 #: core/kget.cpp:1433
-#, fuzzy, kde-format
-#| msgid "Download finished"
+#, kde-format
 msgid "Downloads completed"
-msgstr "ההורדה הושלמה"
+msgstr "הורדות הושלמו"
 
 #: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
@@ -969,19 +980,14 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: core/kgetkjobadapter.cpp:48
-#, fuzzy, kde-format
+#, kde-format
 msgid "KGet Transfer"
-msgstr "פתח העברה:"
+msgstr "העברת KGet"
 
 #: core/linkimporter.cpp:93
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error while writing file:\n"
-#| "%1"
+#, kde-format
 msgid "Error trying to get %1"
-msgstr ""
-"שגיאה במהלך כתיבת הקובץ:\n"
-"%1"
+msgstr "שגיאה במשיכת %1"
 
 #: core/signature.cpp:230
 #, kde-format
@@ -989,10 +995,10 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
 
 #: core/signature.cpp:232
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "ההורדה חודשה"
+msgstr "הורדה"
 
 #: core/signature.cpp:233
 #, kde-format
@@ -1013,13 +1019,10 @@ msgid "Signature not verified"
 msgstr ""
 
 #: core/transfer.cpp:28
-#, fuzzy
 msgid "Downloading...."
-msgstr "ההורדה חודשה"
+msgstr "בהורדה…"
 
 #: core/transfer.cpp:29
-#, fuzzy
-#| msgid "Delayed"
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "מושהה"
@@ -1027,32 +1030,28 @@ msgstr "מושהה"
 #: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
-#, fuzzy, kde-format
-#| msgid "Stopped"
+#, kde-format
 msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "נעצר"
 
 #: core/transfer.cpp:31
-#, fuzzy
-#| msgid "Font:"
 msgctxt "transfer state: aborted"
 msgid "Aborted"
-msgstr "גופן:"
+msgstr "בוטל"
 
 #: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
 #: transfer-plugins/bittorrent/bttransfer.cpp:311
-#, fuzzy, kde-format
-#| msgid "Finished"
+#, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "הושלם"
 
 #: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
-msgstr "&פתח יעד"
+msgstr "היעד מוחלף"
 
 #: core/transfergrouphandler.cpp:94
 #, kde-format
@@ -1070,16 +1069,16 @@ msgid "%1/s"
 msgstr "%1 לשנייה"
 
 #: core/transfergrouphandler.cpp:163
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "start transfergroup downloads"
 msgid "Start"
-msgstr "ה&תחל מחדש"
+msgstr "התחלה"
 
 #: core/transfergrouphandler.cpp:169
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "stop transfergroup downloads"
 msgid "Stop"
-msgstr "נעצר"
+msgstr "עצירה"
 
 #: core/transferhandler.cpp:129
 #: transfer-plugins/bittorrent/btdetailswidget.cpp:28
@@ -1110,17 +1109,16 @@ msgid "Stalled"
 msgstr "תקוע"
 
 #: core/transfertreemodel.cpp:625
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgctxt "name of download"
 msgid "Name"
 msgstr "שם"
 
 #: core/transfertreemodel.cpp:627
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "status of download"
 msgid "Status"
-msgstr "ה&תחל מחדש"
+msgstr "מצב"
 
 #: core/transfertreemodel.cpp:629
 #, kde-format
@@ -1129,24 +1127,22 @@ msgid "Size"
 msgstr ""
 
 #: core/transfertreemodel.cpp:631
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "progress of download"
 msgid "Progress"
-msgstr "דו־שיח התקדמות"
+msgstr "התקדמות"
 
 #: core/transfertreemodel.cpp:633
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgctxt "speed of download"
 msgid "Speed"
 msgstr "מהירות"
 
 #: core/transfertreemodel.cpp:635
-#, fuzzy, kde-format
-#| msgid "Rem. Time"
+#, kde-format
 msgctxt "remaining time of download"
 msgid "Remaining Time"
-msgstr "זמן נותר"
+msgstr "זמן שנותר"
 
 #: core/urlchecker.cpp:51
 #, kde-format
@@ -1174,22 +1170,19 @@ msgid "Download directory is not writeable."
 msgstr ""
 
 #: core/urlchecker.cpp:312 core/urlchecker.cpp:352
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "No download destination specified."
-msgstr "יעד:"
+msgstr "לא צוין יעד הורדה."
 
 #: core/urlchecker.cpp:314
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Invalid download destination specified."
-msgstr "יעד:"
+msgstr "צוין יעד הורדה שגוי."
 
 #: core/urlchecker.cpp:316
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid "Download destination is not writeable."
-msgstr "יעד:"
+msgstr "יעד ההורדה לא זמין לכתיבה."
 
 #: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
 #: core/urlchecker.cpp:468
@@ -1200,30 +1193,19 @@ msgstr ""
 #: core/urlchecker.cpp:326
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:91
 #: transfer-plugins/bittorrent/bttransfer.cpp:275
-#, fuzzy, kde-format
-#| msgid "Malformed URL:\n"
+#, kde-format
 msgid "Malformed URL."
-msgstr "כתובת שגויה:\n"
+msgstr "כתובת שגויה."
 
 #: core/urlchecker.cpp:328
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid "Malformed URL, protocol missing."
-msgstr ""
-"כתובת שגויה:\n"
-"%1"
+msgstr "כתובת שגויה, חסר פרוטוקול."
 
 #: core/urlchecker.cpp:330
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid "Malformed URL, host missing."
-msgstr ""
-"כתובת שגויה:\n"
-"%1"
+msgstr "כתובת שגויה, חסר מארח."
 
 #: core/urlchecker.cpp:342
 #, kde-format
@@ -1240,41 +1222,36 @@ msgid ""
 msgstr ""
 
 #: core/urlchecker.cpp:354
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid ""
 "Invalid download destination specified:\n"
 "%1"
-msgstr "יעד:"
+msgstr ""
+"צוין יעד שגוי להורדה:\n"
+"%1"
 
 #: core/urlchecker.cpp:356
-#, fuzzy, kde-format
-#| msgid "Destination:"
+#, kde-format
 msgid ""
 "Download destination is not writeable:\n"
 "%1"
-msgstr "יעד:"
+msgstr ""
+"יעד ההורדה לא זמין לכתיבה:\n"
+"%1"
 
 #: core/urlchecker.cpp:370
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid ""
 "Malformed URL, host missing:\n"
 "%1"
 msgstr ""
-"כתובת שגויה:\n"
+"כתובת שגויה, חסר מארח:\n"
 "%1"
 
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
-#, fuzzy, kde-format
+#, kde-format
 msgid "File already exists. Overwrite it?"
-msgstr ""
-"קובץ היעד \n"
-"%1\n"
-"כבר קיים.\n"
-"האם ברצונך לכתוב עליו?"
+msgstr "הקובץ כבר קיים. לשכתב עליו?"
 
 #: core/urlchecker.cpp:388 core/urlchecker.cpp:414
 #, kde-format
@@ -1304,77 +1281,56 @@ msgid ""
 msgstr ""
 
 #: core/urlchecker.cpp:412
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "File already exists:\n"
 "%1\n"
 "Overwrite it?"
 msgstr ""
-"קובץ היעד \n"
+"הקובץ כבר קיים:\n"
 "%1\n"
-"כבר קיים.\n"
-"האם ברצונך לכתוב עליו?"
+"לשכתב עליו?"
 
 #: core/urlchecker.cpp:456
-#, fuzzy, kde-format
-#| msgid "Malformed URL:\n"
+#, kde-format
 msgid "Malformed URLs."
-msgstr "כתובת שגויה:\n"
+msgstr "כתובות שגויות."
 
 #: core/urlchecker.cpp:458
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid "Malformed URLs, protocol missing."
-msgstr ""
-"כתובת שגויה:\n"
-"%1"
+msgstr "כתובות שגויות, חסר פרוטוקול."
 
 #: core/urlchecker.cpp:460
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid "Malformed URLs, host missing."
-msgstr ""
-"כתובת שגויה:\n"
-"%1"
+msgstr "כתובות שגויות, חסר מארח."
 
 #: core/urlchecker.cpp:470
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid ""
 "Malformed URLs:\n"
 "%1"
 msgstr ""
-"כתובת שגויה:\n"
+"כתובות שגויות:\n"
 "%1"
 
 #: core/urlchecker.cpp:472
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid ""
 "Malformed URLs, protocol missing:\n"
 "%1"
 msgstr ""
-"כתובת שגויה:\n"
+"כתובות שגויות, חסר פרוטוקול:\n"
 "%1"
 
 #: core/urlchecker.cpp:474
-#, fuzzy, kde-format
-#| msgid ""
-#| "Malformed URL:\n"
-#| "%1"
+#, kde-format
 msgid ""
 "Malformed URLs, host missing:\n"
 "%1"
 msgstr ""
-"כתובת שגויה:\n"
+"כתובות שגויות, חסר מארח:\n"
 "%1"
 
 #: core/urlchecker.cpp:476
@@ -1385,13 +1341,9 @@ msgid ""
 msgstr ""
 
 #: core/urlchecker.cpp:500
-#, fuzzy, kde-format
+#, kde-format
 msgid "Files exist already. Overwrite them?"
-msgstr ""
-"קובץ היעד \n"
-"%1\n"
-"כבר קיים.\n"
-"האם ברצונך לכתוב עליו?"
+msgstr "הקובץ כבר קיים. לדרוס אותו?"
 
 #: core/urlchecker.cpp:502
 #, kde-format
@@ -1470,10 +1422,10 @@ msgid ""
 msgstr ""
 
 #: core/verificationmodel.cpp:148
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "the type of the hash, e.g. MD5"
 msgid "Type"
-msgstr "סוג קובץ"
+msgstr "סוג"
 
 #: core/verificationmodel.cpp:150
 #, kde-format
@@ -1488,10 +1440,9 @@ msgid "Verified"
 msgstr ""
 
 #: main.cpp:101
-#, fuzzy, kde-format
-#| msgid "An advanced download manager for KDE"
+#, kde-format
 msgid "An advanced download manager by KDE"
-msgstr "מנהל הורדות מתקדם עבור KDE."
+msgstr "מנהל הורדות מתקדם מבית KDE"
 
 #: main.cpp:103
 #, kde-format
@@ -1618,16 +1569,16 @@ msgid "Design of Web Interface"
 msgstr ""
 
 #: main.cpp:123
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "צוות התרגום של KDE ישראל צביקי קרוב"
+msgstr "צוות התרגום של KDE ישראל,צביקי קרוב"
 
 #: main.cpp:123
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "kde-l10n-he@kde.org karovz@gmail.com"
+msgstr "kde-l10n-he@kde.org,karovz@gmail.com"
 
 #: main.cpp:130
 #, kde-format
@@ -1635,16 +1586,14 @@ msgid "Start KGet with drop target"
 msgstr "הפעלת KGet עם יעד גרירה"
 
 #: main.cpp:131
-#, fuzzy, kde-format
-#| msgid "Start KGet with drop target"
+#, kde-format
 msgid "Start KGet with hidden main window"
-msgstr "הפעל את KGet עם יעד גרירה"
+msgstr "להפעיל את KGet עם חלון ראשי מוסתר"
 
 #: main.cpp:132
-#, fuzzy, kde-format
-#| msgid "Start KGet with drop target"
+#, kde-format
 msgid "Start KGet without drop target animation"
-msgstr "הפעל את KGet עם יעד גרירה"
+msgstr "להפעיל את KGet בלי הנפשת יעד גרירה"
 
 #: main.cpp:134
 #, kde-format
@@ -1662,15 +1611,14 @@ msgid "&New Download..."
 msgstr ""
 
 #: mainwindow.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Import Transfer List..."
+#, kde-format
 msgid "&Import Transfers..."
-msgstr "יי&בוא רשימת העברות..."
+msgstr "יי&בוא העברות…"
 
 #: mainwindow.cpp:160
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Export Transfers List..."
-msgstr "&ייצוא רשימת העברות..."
+msgstr "יי&צוא רשימת העברות…"
 
 #: mainwindow.cpp:167
 #, kde-format
@@ -1678,40 +1626,36 @@ msgid "&Create a Metalink..."
 msgstr ""
 
 #: mainwindow.cpp:173
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgid "Top Priority"
-msgstr "גופן:"
+msgstr "העדיפות הגבוהה ביותר"
 
 #: mainwindow.cpp:180
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgid "Least Priority"
-msgstr "גופן:"
+msgstr "העדיפות הנמוכ הביותר"
 
 #: mainwindow.cpp:187
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgid "Increase Priority"
-msgstr "גופן:"
+msgstr "הגדלת עדיפות"
 
 #: mainwindow.cpp:194
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgid "Decrease Priority"
-msgstr "גופן:"
+msgstr "הקטנת עדיפות"
 
 #: mainwindow.cpp:202
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "Delete Group"
-msgstr "תיקיית ברירת מחדל"
+msgstr "מחיקת קבוצה"
 
 #: mainwindow.cpp:208
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "תיקיית ברירת מחדל"
+msgstr "שינוי שם קבוצה…"
 
 #: mainwindow.cpp:213
 #, kde-format
@@ -1836,10 +1780,9 @@ msgid "&Transfer Settings"
 msgstr " העברות: %1 "
 
 #: mainwindow.cpp:346
-#, fuzzy, kde-format
-#| msgid "No Links"
+#, kde-format
 msgid "Import &Links..."
-msgstr "אין קישורים"
+msgstr "ייבוא &קישורים…"
 
 #: mainwindow.cpp:352
 #, kde-format
@@ -1848,10 +1791,9 @@ msgstr ""
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
 #: mainwindow.cpp:356
-#, fuzzy, kde-format
-#| msgid "Location (URL)"
+#, kde-format
 msgid "No Action"
-msgstr "מיקום (כתובת URL)"
+msgstr "ללא פעולה"
 
 #: mainwindow.cpp:433
 #, fuzzy, kde-format
@@ -1866,9 +1808,9 @@ msgstr ""
 "האם ברצונך להשתמש ב-KGet כמנהל ההורדות עבור Konqueror?"
 
 #: mainwindow.cpp:435
-#, fuzzy, kde-format
+#, kde-format
 msgid "Konqueror Integration"
-msgstr "שילוב עם Konqueror"
+msgstr "שילוב מול Konqueror"
 
 #: mainwindow.cpp:436
 #, kde-format
@@ -1881,10 +1823,10 @@ msgid "Do Not Enable"
 msgstr "לא להפעיל"
 
 #: mainwindow.cpp:498
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Open File"
-msgstr "פתח &קובץ"
+msgstr "פתיחת קובץ"
 
 #: mainwindow.cpp:500
 #, kde-format
@@ -1915,30 +1857,30 @@ msgid "Confirm Quit"
 msgstr ""
 
 #: mainwindow.cpp:592
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
-msgstr "&ייצוא רשימת העברות..."
+msgstr "ייצוא העברות"
 
 #: mainwindow.cpp:594
-#, fuzzy, kde-format
+#, kde-format
 msgid "KGet Transfer List"
-msgstr "פתח העברה:"
+msgstr "רשימת העברות KGet"
 
 #: mainwindow.cpp:594
-#, fuzzy, kde-format
+#, kde-format
 msgid "Text File"
-msgstr "פתח &קובץ"
+msgstr "קובץ טקסט"
 
 #: mainwindow.cpp:623
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enter Group Name"
-msgstr "צוות התרגום של KDE ישראל צביקי קרוב"
+msgstr "נא למלא שם קבוצה"
 
 #: mainwindow.cpp:623
-#, fuzzy, kde-format
+#, kde-format
 msgid "Group name:"
-msgstr "צוות התרגום של KDE ישראל צביקי קרוב"
+msgstr "שם הקבוצה:"
 
 #: mainwindow.cpp:707
 #, fuzzy, kde-format
@@ -1951,9 +1893,9 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: mainwindow.cpp:710 mainwindow.cpp:741
-#, fuzzy, kde-format
+#, kde-format
 msgid "Confirm transfer delete"
-msgstr "פתח העברה:"
+msgstr "אישור מחיקת העברה"
 
 #: mainwindow.cpp:738
 #, fuzzy, kde-format
@@ -1985,27 +1927,26 @@ msgid "&Download"
 msgstr "ההורדה חודשה"
 
 #: mainwindow.cpp:1191 ui/droptarget.cpp:218
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Load transfer list"
-msgstr "פתח העברה:"
+msgstr "&טעינת רשימת העברות"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:53
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Default folder:"
+#, kde-format
 msgid "Advanced Details for %1"
-msgstr "תיקיית ברירת מחדל:"
+msgstr "פרטים מתקדמים על %1"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:65
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
-#, fuzzy, kde-format
+#, kde-format
 msgid "Files"
-msgstr "פתח &קובץ"
+msgstr "קבצים"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:73
-#, fuzzy, kde-format
+#, kde-format
 msgid "Trackers"
-msgstr "הע&ברה"
+msgstr "עוקבים"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:76
 #, kde-format
@@ -2013,15 +1954,14 @@ msgid "Webseeds"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
-#, fuzzy, kde-format
-#| msgid "Count"
+#, kde-format
 msgid "Chunk"
-msgstr "מספר"
+msgstr "חלק"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:220
-#, fuzzy, kde-format
+#, kde-format
 msgid "Progress"
-msgstr "דו־שיח התקדמות"
+msgstr "התקדמות"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:222
 #, kde-format
@@ -2030,16 +1970,14 @@ msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:224
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:328
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Down Speed"
-msgstr "מהירות"
+msgstr "מהירות הורדה"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:233
-#, fuzzy, kde-format
-#| msgid "Number of retries:"
+#, kde-format
 msgid "Number of the chunk"
-msgstr "מספר ניסיונות:"
+msgstr "מספר החלק"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:235
 #, kde-format
@@ -2052,10 +1990,9 @@ msgid "Which peer we are downloading it from"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:239
-#, fuzzy, kde-format
-#| msgid "Download finished"
+#, kde-format
 msgid "Download speed of the chunk"
-msgstr "ההורדה הושלמה"
+msgstr "מהירות הורדה של החלק"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:241
 #, kde-format
@@ -2072,10 +2009,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:23
-#, fuzzy, kde-format
-#| msgid "Total"
+#, kde-format
 msgid "Total:"
-msgstr "סך הכל"
+msgstr "סך הכול:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:59
@@ -2107,47 +2043,45 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_8)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:203
-#, fuzzy, kde-format
-#| msgid " Size: %1 "
+#, kde-format
 msgid "Size:"
-msgstr " גודל: %1 "
+msgstr "גודל:"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Open file"
 msgid "Open"
-msgstr "פתח &קובץ"
+msgstr "פתיחה"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download first"
-msgstr "ההורדה חודשה"
+msgstr "להוריד ראשון"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download normally"
-msgstr "תיקיית ברירת מחדל"
+msgstr "להוריד כרגיל"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download last"
-msgstr "ההורדה חודשה"
+msgstr "להוריד אחרון"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
-#, fuzzy, kde-format
+#, kde-format
 msgid "Do Not Download"
-msgstr "הורד שוב"
+msgstr "לא להוריד"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Download Selected Files"
+#, kde-format
 msgid "Delete File(s)"
-msgstr "הורד קבצים מסומנים"
+msgstr "מחיקת קבצים"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
-#, fuzzy, kde-format
+#, kde-format
 msgid "Move File"
-msgstr "פתח &קובץ"
+msgstr "העברת קובץ"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
@@ -2209,8 +2143,7 @@ msgid "Last"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:91
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "Download Normal (not as first or last)"
 msgid "Normal"
 msgstr "רגיל"
@@ -2246,14 +2179,12 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:153
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:158
-#, fuzzy, kde-format
-#| msgid " %1/s "
+#, kde-format
 msgid "%1 %"
-msgstr " %1 לשנייה "
+msgstr "%1 %"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:93
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "Download normally(not as first or last)"
 msgid "Normal"
 msgstr "רגיל"
@@ -2267,83 +2198,80 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:52
 #, kde-format
 msgid "Kick Peer"
-msgstr ""
+msgstr "בעיטת עמית"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
 #, kde-format
 msgid "Ban Peer"
-msgstr ""
+msgstr "חסימת עמית"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:146
 #, kde-format
 msgctxt "Choked"
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:146
 #, kde-format
 msgctxt "Not choked"
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:148
 #, kde-format
 msgctxt "Snubbed"
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:148
 #, kde-format
 msgctxt "Not snubbed"
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, kde-format
 msgctxt "Interested"
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:164
 #, kde-format
 msgctxt "Not Interested"
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
 #, kde-format
 msgctxt "Interesting"
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:166
 #, kde-format
 msgctxt "Not Interesting"
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
-#, fuzzy, kde-format
-#| msgid "Address (URL)"
+#, kde-format
 msgid "IP Address"
-msgstr "כתובת"
+msgstr "כתובת IP"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
 #, kde-format
 msgid "Client"
-msgstr ""
+msgstr "לקוח"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:330
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Up Speed"
-msgstr "מהירות"
+msgstr "מהירות העלאה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:332
-#, fuzzy, kde-format
-#| msgid "Docked"
+#, kde-format
 msgid "Choked"
-msgstr "עגון"
+msgstr "חנוק"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
 #, kde-format
@@ -2361,10 +2289,9 @@ msgid "DHT"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgid "Score"
-msgstr "מקור:"
+msgstr "ניקוד"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
 #, kde-format
@@ -2378,9 +2305,9 @@ msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:124
-#, fuzzy, kde-format
+#, kde-format
 msgid "Downloaded"
-msgstr "ההורדה חודשה"
+msgstr "הורד"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
 #, kde-format
@@ -2393,9 +2320,9 @@ msgid "Interested"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:352
-#, fuzzy, kde-format
+#, kde-format
 msgid "Interesting"
-msgstr "שילוב עם Konqueror"
+msgstr "מעניין"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:359
 #, kde-format
@@ -2408,15 +2335,14 @@ msgid "Which client the peer is using"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download speed"
-msgstr "ההורדה חודשה"
+msgstr "מהירות הורדה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:365
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Upload speed"
-msgstr "מהירות"
+msgstr "מהירות העלאה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:367
 #, kde-format
@@ -2478,9 +2404,9 @@ msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
 #: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:348
-#, fuzzy, kde-format
+#, kde-format
 msgid "File"
-msgstr "פתח &קובץ"
+msgstr "קובץ"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
@@ -2498,9 +2424,9 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
 #: ui/history/transferhistory.cpp:247
-#, fuzzy, kde-format
+#, kde-format
 msgid "Status"
-msgstr "ה&תחל מחדש"
+msgstr "מצב"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:138
 #, fuzzy, kde-format
@@ -2515,9 +2441,9 @@ msgid "Leechers"
 msgstr "מהירות"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:142
-#, fuzzy, kde-format
+#, kde-format
 msgid "Times Downloaded"
-msgstr "ההורדה חודשה"
+msgstr "פעמים שהורד"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:144
 #, kde-format
@@ -2543,10 +2469,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
-#, fuzzy, kde-format
-#| msgid "Open Transfer"
+#, kde-format
 msgid "Remove Tracker"
-msgstr "פתח העברה"
+msgstr "הסרת עוקב"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_change_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:35
@@ -2556,9 +2481,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_scrape)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
-#, fuzzy, kde-format
+#, kde-format
 msgid "Update Trackers"
-msgstr "הע&ברה"
+msgstr "עדכון עוקבים"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_restore_defaults)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
@@ -2575,8 +2500,7 @@ msgid "URL"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:122
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Speed"
 msgstr "מהירות"
 
@@ -2670,10 +2594,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:133
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Upload speed:"
-msgstr "מהירות"
+msgstr "מהירות העלאה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:186
@@ -2691,8 +2614,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:249
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "source-file"
 msgid "Source:"
 msgstr "מקור:"
@@ -2717,9 +2639,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
-#, fuzzy, kde-format
+#, kde-format
 msgid "Upload limit per transfer:"
-msgstr "ההורדה חודשה"
+msgstr "הגבלת העלאה להעברה:"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, uploadBox)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, downloadBox)
