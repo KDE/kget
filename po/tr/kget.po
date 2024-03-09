@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2024-03-01 15:45+0300\n"
+"PO-Revision-Date: 2024-03-08 16:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -4395,7 +4395,7 @@ msgstr "Dağıtıcı:"
 #: ui/signaturedlg.ui:166
 #, kde-format
 msgid "E-Mail:"
-msgstr "E-Posta:"
+msgstr "E-posta:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: ui/signaturedlg.ui:183
