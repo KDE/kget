@@ -1,7 +1,7 @@
 {
     "id": "org.kde.kget",
     "runtime": "org.kde.Platform",
-    "runtime-version": "6.6-kf6preview",
+    "runtime-version": "6.6",
     "sdk": "org.kde.Sdk",
     "command": "kget",
     "rename-icon": "kget",
