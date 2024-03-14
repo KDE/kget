@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2024-03-03 15:43+0200\n"
+"PO-Revision-Date: 2024-03-13 10:39+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3541,43 +3541,43 @@ msgstr "לא מכיל"
 #: ui/linkview/kget_linkview.cpp:64
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "הכול"
 
 #: ui/linkview/kget_linkview.cpp:65
 #, kde-format
 msgid "Videos"
-msgstr ""
+msgstr "וידאו"
 
 #: ui/linkview/kget_linkview.cpp:66
 #, kde-format
 msgid "Images"
-msgstr ""
+msgstr "תמונות"
 
 #: ui/linkview/kget_linkview.cpp:67
 #, kde-format
 msgid "Audio"
-msgstr ""
+msgstr "שמע"
 
 #: ui/linkview/kget_linkview.cpp:68
 #, kde-format
 msgid "Archives"
-msgstr ""
+msgstr "ארכיונים"
 
 #: ui/linkview/kget_linkview.cpp:74
 #, kde-format
 msgctxt "of a filter, e.g. RegExp or Wildcard"
 msgid "Pattern Syntax"
-msgstr ""
+msgstr "תחביר תבנית"
 
 #: ui/linkview/kget_linkview.cpp:75
 #, kde-format
 msgid "Escape Sequences"
-msgstr ""
+msgstr "תווי מילוט"
 
 #: ui/linkview/kget_linkview.cpp:78
 #, kde-format
 msgid "Regular Expression"
-msgstr ""
+msgstr "ביטוי רגולרי"
 
 #: ui/linkview/kget_linkview.cpp:88
 #, kde-format
@@ -3641,7 +3641,7 @@ msgstr ""
 #: ui/metalinkcreator/commondata.ui:22
 #, kde-format
 msgid "Identity"
-msgstr ""
+msgstr "זהות"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: ui/metalinkcreator/commondata.ui:32
@@ -3665,43 +3665,43 @@ msgstr "לוגו:"
 #: ui/metalinkcreator/commondata.ui:63
 #, kde-format
 msgid "URL to the logo"
-msgstr ""
+msgstr "כתובת ללוגו"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:73
 #, kde-format
 msgid "The language of the file"
-msgstr ""
+msgstr "שפת הקובץ"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:76
 #, kde-format
 msgid "Language:"
-msgstr ""
+msgstr "שפה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: ui/metalinkcreator/commondata.ui:86
 #, kde-format
 msgid "Operating systems:"
-msgstr ""
+msgstr "מערכות הפעלה:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, os)
 #: ui/metalinkcreator/commondata.ui:93
 #, kde-format
 msgid "Supported OSes, separated with commas"
-msgstr ""
+msgstr "מערכות הפעלה נתמכות עם פסיקים ביניהן"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: ui/metalinkcreator/commondata.ui:103
 #, kde-format
 msgid "Copyright:"
-msgstr ""
+msgstr "זכויות יוצרים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_20)
 #: ui/metalinkcreator/commondata.ui:141
 #, kde-format
 msgid "Publisher:"
-msgstr ""
+msgstr "מפיץ:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: ui/metalinkcreator/commondata.ui:150
@@ -3714,7 +3714,7 @@ msgstr "שם:"
 #: ui/metalinkcreator/commondata.ui:157 ui/metalinkcreator/commondata.ui:177
 #, kde-format
 msgid "publisher"
-msgstr ""
+msgstr "מפיץ"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pub_name)
 #: ui/metalinkcreator/commondata.ui:160
@@ -3738,26 +3738,26 @@ msgstr "ייבוא קבצים שהושלכו"
 #, kde-format
 msgctxt "comma, to separate members of a list"
 msgid ","
-msgstr ""
+msgstr ","
 
 #. i18n: ectx: attribute (title), widget (QWidget, Seite)
 #: ui/metalinkcreator/dragdlg.ui:21
 #, kde-format
 msgctxt "General options."
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #. i18n: ectx: property (text), widget (QCheckBox, partialChecksums)
 #: ui/metalinkcreator/dragdlg.ui:27
 #, kde-format
 msgid "Create partial checksums"
-msgstr ""
+msgstr "יצירת סיכומי ביקורת חלקיים"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/dragdlg.ui:40
 #, kde-format
 msgid "General URL:"
-msgstr ""
+msgstr "כתובת כללית:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/metalinkcreator/dragdlg.ui:66
@@ -3880,19 +3880,19 @@ msgstr ""
 #: ui/metalinkcreator/files.ui:29
 #, kde-format
 msgid "Add local files"
-msgstr ""
+msgstr "הוספת קבצים מקומיים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
-msgstr ""
+msgstr "נוספים קבצים מקומיים…"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/metalinkcreator/generalwidget.ui:23
 #, kde-format
 msgid "General information:"
-msgstr ""
+msgstr "מידע כללי:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: ui/metalinkcreator/generalwidget.ui:30
@@ -3904,7 +3904,7 @@ msgstr ""
 #: ui/metalinkcreator/generalwidget.ui:61
 #, kde-format
 msgid "Origin:"
-msgstr ""
+msgstr "מקור:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, origin)
 #: ui/metalinkcreator/generalwidget.ui:68
@@ -4011,7 +4011,7 @@ msgstr ""
 #: ui/metalinkcreator/metalinkcreator.cpp:145
 #, kde-format
 msgid "Unable to load: %1"
-msgstr ""
+msgstr "לא ניתן לטעון: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
 #, kde-format
@@ -4237,37 +4237,37 @@ msgstr ""
 #: ui/signaturedlg.cpp:195
 #, kde-format
 msgid "The key has been revoked."
-msgstr ""
+msgstr "המפתח נשלל."
 
 #: ui/signaturedlg.cpp:199
 #, kde-format
 msgid "The key is disabled."
-msgstr ""
+msgstr "המפתח מושבת."
 
 #: ui/signaturedlg.cpp:203
 #, kde-format
 msgid "The key is invalid."
-msgstr ""
+msgstr "המפתח שגוי."
 
 #: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is expired."
-msgstr ""
+msgstr "תוקף המפתח פג."
 
 #: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
-msgstr ""
+msgstr "אין לתת אמון במפתח."
 
 #: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
-msgstr ""
+msgstr "אפשר לתת אמון במפתח באופן גבולי."
 
 #: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
-msgstr ""
+msgstr "רמת האמינות של המפתח לא ברורה."
 
 #: ui/signaturedlg.cpp:269
 #, kde-format
