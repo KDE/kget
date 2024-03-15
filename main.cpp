@@ -93,7 +93,6 @@ private:
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     KLocalizedString::setApplicationDomain("kget");
     KAboutData aboutData(QStringLiteral("kget"),
                          i18n("KGet"),
