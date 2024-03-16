@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-10 01:34+0000\n"
+"POT-Creation-Date: 2024-03-16 00:38+0000\n"
 "PO-Revision-Date: 2023-12-15 14:22+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -933,7 +933,7 @@ msgstr "<p>Transferentzia guztiak amaitu dira.</p>"
 msgid "Downloads completed"
 msgstr "Deskargak amaituta"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:98 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1445,12 +1445,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "Egiaztatuta"
 
-#: main.cpp:101
+#: main.cpp:100
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "KDEren deskarga-kudeatzaile aurreratu bat"
 
-#: main.cpp:103
+#: main.cpp:102
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1463,154 +1463,154 @@ msgstr ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 
-#: main.cpp:107
+#: main.cpp:106
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:109
+#: main.cpp:108
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:109
+#: main.cpp:108
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "Mantentzailea. Garatzaile nagusia, Torrent pluginaren egilea"
 
-#: main.cpp:110
+#: main.cpp:109
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:110 main.cpp:111 main.cpp:113
+#: main.cpp:109 main.cpp:110 main.cpp:112
 #, kde-format
 msgid "Core Developer"
 msgstr "Garatzaile nagusia"
 
-#: main.cpp:111
+#: main.cpp:110
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "Garatzaile nagusia, hainbat haritako pluginaren egilea"
 
-#: main.cpp:113
+#: main.cpp:112
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Developer"
 msgstr "Garatzailea"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "Aish Raj Dahal"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "«Google Summer of Code» ikaslea"
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodriguez Ortiz"
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "Mms pluginaren egilea"
 
-#: main.cpp:117
+#: main.cpp:116
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:117 main.cpp:118 main.cpp:119
+#: main.cpp:116 main.cpp:117 main.cpp:118
 #, kde-format
 msgid "Former Developer"
 msgstr "Hasierako garatzailea"
 
-#: main.cpp:118
+#: main.cpp:117
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:119
+#: main.cpp:118
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "BTCore (KTorrent) garatzailea"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "Web interfazearen diseinua"
 
-#: main.cpp:123
+#: main.cpp:122
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Ion Gaztañaga, Marcos Goyenetxe, Iñaki Larrañaga Murgoitio"
 
-#: main.cpp:123
+#: main.cpp:122
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "igaztanaga@gmail.com, marcos@euskalgnu.org, dooteo@euskalgnu.org"
 
-#: main.cpp:130
+#: main.cpp:129
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "Abiarazi KGet jaregiteko helburuarekin"
 
-#: main.cpp:131
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "Abiarazi KGet ezkutatutako leiho nagusiarekin"
 
-#: main.cpp:132
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "Abiarazi KGet jaregiteko helburuaren animaziorik gabe"
 
-#: main.cpp:134
+#: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "Exekutatu probako unitatea"
 
-#: main.cpp:136
+#: main.cpp:135
 #, kde-format
 msgid "URL(s) to download"
 msgstr "Deskargatzeko URLak"

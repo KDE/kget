@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-10 01:34+0000\n"
+"POT-Creation-Date: 2024-03-16 00:38+0000\n"
 "PO-Revision-Date: 2010-01-09 18:49+0200\n"
 "Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -988,7 +988,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "Lejupielādes pabeigtas"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:98 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1639,13 +1639,13 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "Pārbaudīts"
 
-#: main.cpp:101
+#: main.cpp:100
 #, fuzzy, kde-format
 #| msgid "An advanced download manager for KDE"
 msgid "An advanced download manager by KDE"
 msgstr "Moderns KDE lepjupielāžu pārvaldnieks"
 
-#: main.cpp:103
+#: main.cpp:102
 #, fuzzy, kde-format
 #| msgid ""
 #| "(C) 2005 - 2009, The KGet developers\n"
@@ -1663,154 +1663,154 @@ msgstr ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 
-#: main.cpp:107
+#: main.cpp:106
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:109
+#: main.cpp:108
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:109
+#: main.cpp:108
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "Izstrādātājs, galvenais izstrādātājs, torrent spraudņa autors"
 
-#: main.cpp:110
+#: main.cpp:109
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:110 main.cpp:111 main.cpp:113
+#: main.cpp:109 main.cpp:110 main.cpp:112
 #, kde-format
 msgid "Core Developer"
 msgstr "Galvenais izstrādātājs"
 
-#: main.cpp:111
+#: main.cpp:110
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "Galvenais izstrādātājs, daudzpavedienu spraudņa autors"
 
-#: main.cpp:113
+#: main.cpp:112
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Developer"
 msgstr "Izstrādātājs"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr ""
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr ""
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr ""
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr ""
 
-#: main.cpp:117
+#: main.cpp:116
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:117 main.cpp:118 main.cpp:119
+#: main.cpp:116 main.cpp:117 main.cpp:118
 #, kde-format
 msgid "Former Developer"
 msgstr "Bijušais izstrādātājs"
 
-#: main.cpp:118
+#: main.cpp:117
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:119
+#: main.cpp:118
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "BTCore (KTorrent) izstrādātājs"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "Tīmekla saskarnes dizains"
 
-#: main.cpp:123
+#: main.cpp:122
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Viesturs Zariņš"
 
-#: main.cpp:123
+#: main.cpp:122
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "viesturs.zarins@mi.lu.lv"
 
-#: main.cpp:130
+#: main.cpp:129
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "Palaist KGet ar nomešanas mērķi"
 
-#: main.cpp:131
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "Palaist KGet ar noslēptu galveno logu"
 
-#: main.cpp:132
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "Palaist KGet bez nomešanas mērķā animācijas"
 
-#: main.cpp:134
+#: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "Veikt vienībtestēšanu"
 
-#: main.cpp:136
+#: main.cpp:135
 #, kde-format
 msgid "URL(s) to download"
 msgstr "Lejupielādējamie URL(i)"
