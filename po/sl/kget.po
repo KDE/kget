@@ -1,12 +1,12 @@
 # translation of kget.po to
 # Translation of kget.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
-# $Id: kget.po 1675767 2024-03-16 01:08:53Z scripty $
+# $Id: kget.po 1675984 2024-03-19 01:08:14Z scripty $
 # $Source$
 #
 # Andrej Vernekar <andrej.vernekar@moj.net>, 2002,2003, 2005, 2007.
 # Gregor Rakar <gregor.rakar@kiss.si>, 2003, 2004, 2005.
-# Jure Repinc <jlp@holodeck1.com>, 2005, 2006, 2008, 2009, 2010, 2011, 2012, 2013.
+# SPDX-FileCopyrightText: 2005, 2006, 2008, 2009, 2010, 2011, 2012, 2013, 2024 Jure Repinc <jlp@holodeck1.com>
 # Marko Burjek <email4marko@gmail.com>, 2007.
 # Andrej Mernik <andrejm@ubuntu.si>, 2012, 2013, 2014, 2015, 2018.
 # Matjaž Jeran <matjaz.jeran@amis.net>, 2020, 2021, 2022, 2023.
@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-16 00:38+0000\n"
-"PO-Revision-Date: 2023-12-15 07:19+0100\n"
-"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
+"PO-Revision-Date: 2024-03-16 03:34+0100\n"
+"Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -177,7 +177,7 @@ msgstr "Preimenuj"
 #: conf/dlggroups.ui:65
 #, kde-format
 msgid "Select Icon..."
-msgstr "Izberi ikono ..."
+msgstr "Izbor ikone …"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
 #: conf/dlgintegration.ui:17
@@ -201,13 +201,13 @@ msgstr "Razlikuj med velikimi in malimi črkami:"
 #: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Increase Priority"
-msgstr "Povečaj prednost"
+msgstr "&Povečaj prednost"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
 #: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, kde-format
 msgid "&Decrease Priority"
-msgstr "Zmanjšaj prednost"
+msgstr "&Zmanjšaj prednost"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
 #: conf/dlgnetwork.ui:19
@@ -232,7 +232,7 @@ msgstr "Omejitev hitrosti"
 #: conf/dlgnetwork.ui:44
 #, kde-format
 msgid "Global &download limit:"
-msgstr "Splošna omejitev prejemov:"
+msgstr "Splošna omejitev &prejemanja:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalDownloadLimit)
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalUploadLimit)
@@ -252,7 +252,7 @@ msgstr " KiB/s"
 #: conf/dlgnetwork.ui:70
 #, kde-format
 msgid "Global &upload limit:"
-msgstr "Splošna omejitev pošiljanja:"
+msgstr "Splošna omejitev p&ošiljanja:"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_per_transfer)
 #: conf/dlgnetwork.ui:96
@@ -662,11 +662,11 @@ msgid_plural ""
 "<p>The following URLs cannot be downloaded, their protocols are not "
 "supported by KGet:</p>"
 msgstr[0] ""
-"<p>Naslednjega naslova URL ni bilo mogoče prejeti, KGet ne podpira njegovega "
-"protokola:</p>"
-msgstr[1] ""
 "<p>Naslednjih naslovov URL ni bilo mogoče prejeti, KGet ne podpira njihovih "
 "protokolov:</p>"
+msgstr[1] ""
+"<p>Naslednjega naslova URL ni bilo mogoče prejeti, KGet ne podpira njegovega "
+"protokola:</p>"
 msgstr[2] ""
 "<p>Naslednjih naslovov URL ni bilo mogoče prejeti, KGet ne podpira njihovih "
 "protokolov:</p>"
@@ -957,10 +957,10 @@ msgstr "KGet"
 #, kde-format
 msgid "KGet is downloading %1 file"
 msgid_plural "KGet is downloading %1 files"
-msgstr[0] "KGet prejema %1 datoteko"
-msgstr[1] "KGet prejema %1 datoteki"
-msgstr[2] "KGet prejema %1 datoteke"
-msgstr[3] "KGet prejema %1 datotek"
+msgstr[0] "KGet prejema %1 datotek"
+msgstr[1] "KGet prejema %1 datoteko"
+msgstr[2] "KGet prejema %1 datoteki"
+msgstr[3] "KGet prejema %1 datoteke"
 
 #: core/kgetkjobadapter.cpp:48
 #, kde-format
@@ -1005,7 +1005,7 @@ msgstr "Podpis ni preverjen"
 
 #: core/transfer.cpp:28
 msgid "Downloading...."
-msgstr "Prejemanje ..."
+msgstr "Prejemanje …"
 
 #: core/transfer.cpp:29
 msgctxt "transfer state: delayed"
@@ -1042,10 +1042,10 @@ msgstr "Spreminjanje cilja"
 #, kde-format
 msgid "1 Item"
 msgid_plural "%1 Items"
-msgstr[0] "%1 predmet"
-msgstr[1] "%1 predmeta"
-msgstr[2] "%1 predmeti"
-msgstr[3] "%1 predmetov"
+msgstr[0] "%1 predmetov"
+msgstr[1] "%1 predmet"
+msgstr[2] "%1 predmeta"
+msgstr[3] "%1 predmeti"
 
 #: core/transfergrouphandler.cpp:108 core/transferhandler.cpp:140
 #: ui/transferdetails.cpp:93
@@ -1137,7 +1137,7 @@ msgstr "Vprašanje"
 #: core/urlchecker.cpp:61
 #, kde-format
 msgid "Appl&y to all"
-msgstr "Uveljavi za vse"
+msgstr "&Uveljavi za vse"
 
 #: core/urlchecker.cpp:300 core/urlchecker.cpp:340
 #, kde-format
@@ -1469,7 +1469,7 @@ msgstr "Preverjena"
 #: main.cpp:100
 #, kde-format
 msgid "An advanced download manager by KDE"
-msgstr "Napredni upravljalnik prejemov s strani KDE"
+msgstr "KDE-jev napredni upravljalnik prejemov"
 
 #: main.cpp:102
 #, kde-format
@@ -1479,10 +1479,10 @@ msgid ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
-"(C) 2005 - 2014, razvijalci KGet-a\n"
-"(C) 2001 - 2002, Patrick Charbonnier\n"
-"(C) 2002, Carsten Pfeiffer\n"
-"(C) 1998 - 2000, Matej Koss"
+"© 2005 – 2014, razvijalci KGet-a\n"
+"© 2001 – 2002, Patrick Charbonnier\n"
+"© 2002, Carsten Pfeiffer\n"
+"© 1998 – 2000, Matej Koss"
 
 #: main.cpp:106
 #, kde-format
@@ -1644,22 +1644,22 @@ msgstr "URL(ji) za prejem"
 #: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
-msgstr "&Nov prejem..."
+msgstr "&Nov prejem …"
 
 #: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
-msgstr "Uvozi prenose..."
+msgstr "&Uvozi prenose …"
 
 #: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
-msgstr "Izvozi seznam prenosov..."
+msgstr "&Izvozi seznam prenosov …"
 
 #: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr "Ustvari Metalink ..."
+msgstr "U&stvari Metalink …"
 
 #: mainwindow.cpp:173
 #, kde-format
@@ -1691,12 +1691,12 @@ msgstr "Zbriši skupino"
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Preimenuj skupino..."
+msgstr "Preimenuj skupino …"
 
 #: mainwindow.cpp:213
 #, kde-format
 msgid "Set Icon..."
-msgstr "Nastavi ikono ..."
+msgstr "Nastavi ikono …"
 
 #: mainwindow.cpp:218
 #, kde-format
@@ -1798,22 +1798,22 @@ msgstr "Kopiraj URL na odložišče"
 #: mainwindow.cpp:328
 #, kde-format
 msgid "&Transfer History"
-msgstr "Prenesi zgodovino"
+msgstr "&Zgodovina prenosov"
 
 #: mainwindow.cpp:334
 #, kde-format
 msgid "&Group Settings"
-msgstr "Nastavitve skupine"
+msgstr "N&astavitve skupine"
 
 #: mainwindow.cpp:340
 #, kde-format
 msgid "&Transfer Settings"
-msgstr "Nastavitve prenosa"
+msgstr "&Nastavitve prenosa"
 
 #: mainwindow.cpp:346
 #, kde-format
 msgid "Import &Links..."
-msgstr "Uvozi povezave..."
+msgstr "Uvozi &povezave …"
 
 #: mainwindow.cpp:352
 #, kde-format
@@ -1865,7 +1865,7 @@ msgstr "Vse datoteke, ki jih je mogoče odpreti"
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
-msgstr "KGet - %1 %"
+msgstr "KGet — %1 %"
 
 #: mainwindow.cpp:563
 #, kde-format
@@ -1911,15 +1911,15 @@ msgstr "Ime skupine:"
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
-msgstr[0] "Ali ste prepričani, da želite zbrisati izbrani prenos?"
-msgstr[1] "Ali ste prepričani, da želite zbrisati izbrana prenosa?"
-msgstr[2] "Ali ste prepričani, da želite zbrisati izbrane prenose?"
-msgstr[3] "Ali ste prepričani, da želite zbrisati izbrane prenose?"
+msgstr[0] "Ali ste prepričani, da želite izbrisati izbrane prenose?"
+msgstr[1] "Ali ste prepričani, da želite izbrisati izbrani prenos?"
+msgstr[2] "Ali ste prepričani, da želite izbrisati izbrana prenosa?"
+msgstr[3] "Ali ste prepričani, da želite izbrisati izbrane prenose?"
 
 #: mainwindow.cpp:710 mainwindow.cpp:741
 #, kde-format
 msgid "Confirm transfer delete"
-msgstr "Potrdi zbris prenosov"
+msgstr "Potrdi izbris prenosov"
 
 #: mainwindow.cpp:738
 #, kde-format
@@ -1927,12 +1927,12 @@ msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] ""
-"Ali ste prepričani, da želite izbrisati izbran prenos, vključno z datotekami?"
-msgstr[1] ""
-"Ali ste prepričani, da želite izbrisati izbrana prenosa, vključno z "
-"datotekami?"
-msgstr[2] ""
 "Ali ste prepričani, da želite izbrisati izbrane prenose, vključno z "
+"datotekami?"
+msgstr[1] ""
+"Ali ste prepričani, da želite izbrisati izbran prenos, vključno z datotekami?"
+msgstr[2] ""
+"Ali ste prepričani, da želite izbrisati izbrana prenosa, vključno z "
 "datotekami?"
 msgstr[3] ""
 "Ali ste prepričani, da želite izbrisati izbrane prenose, vključno z "
@@ -1945,9 +1945,9 @@ msgid ""
 "want to disable it forever, go to Settings->Advanced and disable \"Use as "
 "download manager for Konqueror\"."
 msgstr ""
-"Kget je bil začasno onemogočen kot upravljalnik prejemov za Konqueror. Če ga "
-"želite za vedno onemogočiti, pojdite v Nastavitve->Napredno in onemogočite "
-"\"Uporabi kot upravljalnik prejemov za Konqueror\"."
+"KGet je bil začasno onemogočen kot upravljalnik prejemov za Konqueror. Če ga "
+"želite za vedno onemogočiti, pojdite v Nastavitve→Napredno in onemogočite "
+"»Uporabi kot upravljalnik prejemov za Konqueror«."
 
 #: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
@@ -1957,7 +1957,7 @@ msgstr "Spuščena datoteka je KGetov seznam prenosov"
 #: mainwindow.cpp:1190 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
-msgstr "Prejmi"
+msgstr "&Prejmi"
 
 #: mainwindow.cpp:1191 ui/droptarget.cpp:218
 #, kde-format
@@ -2132,9 +2132,9 @@ msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] ""
-"Izgubili boste vse podatke iz te datoteke. Ali res želite nadaljevati?"
-msgstr[1] ""
 "Izgubili boste vse podatke iz teh datotek. Ali res želite nadaljevati?"
+msgstr[1] ""
+"Izgubili boste vse podatke iz te datoteke. Ali res želite nadaljevati?"
 msgstr[2] ""
 "Izgubili boste vse podatke iz teh datotek. Ali res želite nadaljevati?"
 msgstr[3] ""
@@ -2756,14 +2756,14 @@ msgstr "Izberi novo datoteko torrenta"
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
-msgstr "Prejemanje datoteke Torrent ..."
+msgstr "Prejemanje datoteke Torrent …"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:198
 #: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
-msgstr "Prejemanje ..."
+msgstr "Prejemanje …"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
@@ -2778,18 +2778,18 @@ msgstr "Datoteka torrent ne obstaja"
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
-msgstr "Preučevanje torrenta ..."
+msgstr "Preučevanje torrenta …"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
-msgstr "Vrat ni bilo mogoče inicializirati ..."
+msgstr "Vrat ni bilo mogoče začetno nastaviti …"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
-msgstr "Sejanje ..."
+msgstr "Sejanje …"
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
@@ -2806,7 +2806,7 @@ msgstr "N&apredne podrobnosti"
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:81
 #, kde-format
 msgid "&Scan Files"
-msgstr "Preišči datoteke"
+msgstr "P&reišči datoteke"
 
 #: transfer-plugins/bittorrent/scandlg.cpp:105
 #, kde-format
@@ -2956,7 +2956,7 @@ msgstr "Seznam razpoložljivih naslovov URL iskalnikov"
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
-msgstr "Povezovanje ..."
+msgstr "Povezovanje …"
 
 #: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
@@ -3048,7 +3048,7 @@ msgstr "Izbor datotek"
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
-msgstr "Prejemanje datoteke Metalink ..."
+msgstr "Prejemanje datoteke Metalink …"
 
 #: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
@@ -3113,7 +3113,7 @@ msgstr "Ime iskalnika"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
 #, kde-format
 msgid "New Engine..."
-msgstr "Nov iskalnik ..."
+msgstr "Nov iskalnik …"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
@@ -3125,7 +3125,7 @@ msgstr "Odstrani"
 #, kde-format
 msgctxt "transfer state: running"
 msgid "Running...."
-msgstr "Prenašanje ..."
+msgstr "Prenašanje …"
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:116
 #, kde-format
@@ -3168,19 +3168,19 @@ msgstr "Zapisovanje v datoteko je spodletelo."
 #, kde-format
 msgid "Delete Group"
 msgid_plural "Delete Groups"
-msgstr[0] "Izbriši skupino"
-msgstr[1] "Izbriši skupini"
-msgstr[2] "Izbriši skupine"
+msgstr[0] "Izbriši skupine"
+msgstr[1] "Izbriši skupino"
+msgstr[2] "Izbriši skupini"
 msgstr[3] "Izbriši skupine"
 
 #: ui/contextmenu.cpp:119
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
-msgstr[0] "Preimenuj skupino ..."
-msgstr[1] "Preimenuj skupini ..."
-msgstr[2] "Preimenuj skupine ..."
-msgstr[3] "Preimenuj skupine ..."
+msgstr[0] "Preimenuj skupine …"
+msgstr[1] "Preimenuj skupino …"
+msgstr[2] "Preimenuj skupini …"
+msgstr[3] "Preimenuj skupine …"
 
 #: ui/droptarget.cpp:88
 #, kde-format
@@ -3248,7 +3248,7 @@ msgstr "Nastavitve skupine"
 #: ui/groupsettingsdialog.ui:44
 #, kde-format
 msgid "Defau&lt folder:"
-msgstr "Privzeta mapa:"
+msgstr "Pri&vzeta mapa:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
@@ -3285,13 +3285,13 @@ msgstr "Ni nastavljeno"
 #: ui/groupsettingsdialog.ui:119
 #, kde-format
 msgid "Ma&ximum download speed:"
-msgstr "Največja hitrost prejema:"
+msgstr "Naj&večja hitrost prejemanja:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/groupsettingsdialog.ui:129
 #, kde-format
 msgid "Maximum &upload speed:"
-msgstr "Največja hitrost pošiljanja:"
+msgstr "Najve&čja hitrost pošiljanja:"
 
 #: ui/history/transferhistory.cpp:51
 #, kde-format
@@ -3501,25 +3501,25 @@ msgstr "Odpri datoteko"
 #: ui/kgetui.rc:5
 #, kde-format
 msgid "&File"
-msgstr "Datoteka"
+msgstr "&Datoteka"
 
 #. i18n: ectx: Menu (Downloads)
 #: ui/kgetui.rc:17
 #, kde-format
 msgid "&Downloads"
-msgstr "Prejemi"
+msgstr "&Prejemi"
 
 #. i18n: ectx: Menu (settings)
 #: ui/kgetui.rc:34
 #, kde-format
 msgid "&Settings"
-msgstr "Nastavitve"
+msgstr "&Nastavitve"
 
 #. i18n: ectx: Menu (help)
 #: ui/kgetui.rc:37
 #, kde-format
 msgid "&Help"
-msgstr "Pomoč"
+msgstr "Po&moč"
 
 #. i18n: ectx: ToolBar (kget_toolbar)
 #: ui/kgetui.rc:40
@@ -3531,13 +3531,13 @@ msgstr "Glavna orodna vrstica"
 #: ui/linkview/importlinkdialog.ui:34
 #, kde-format
 msgid "File with &links to import:"
-msgstr "Datoteka s povezavami za uvoz:"
+msgstr "Datoteka s &povezavami za uvoz:"
 
 #. i18n: ectx: property (text), widget (QPushButton, importLinks)
 #: ui/linkview/importlinkdialog.ui:50
 #, kde-format
 msgid "&Import Links"
-msgstr "Uvozi povezave"
+msgstr "&Uvozi povezave"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/linkview/importlinkdialog.ui:67
@@ -3549,7 +3549,7 @@ msgstr "Prikaži:"
 #: ui/linkview/importlinkdialog.ui:77
 #, kde-format
 msgid "Show &web content"
-msgstr "Prikaži spletno vsebino"
+msgstr "Prikaži &spletno vsebino"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, textFilter)
 #: ui/linkview/importlinkdialog.ui:115
@@ -3561,25 +3561,25 @@ msgstr "Za filtriranje lahko uporabite nadomestne znake."
 #: ui/linkview/importlinkdialog.ui:118
 #, kde-format
 msgid "Filter files here...."
-msgstr "Filtriranje datotek ..."
+msgstr "Filtriranje datotek …"
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
 #: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All"
-msgstr "Izberi vse"
+msgstr "&Izberi vse"
 
 #. i18n: ectx: property (text), widget (QPushButton, deselectAll)
 #: ui/linkview/importlinkdialog.ui:208 ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All"
-msgstr "Odstrani izbiro iz vseh"
+msgstr "&Odstrani izbiro iz vseh"
 
 #. i18n: ectx: property (text), widget (QPushButton, invertSelection)
 #: ui/linkview/importlinkdialog.ui:224
 #, kde-format
 msgid "Inver&t Selection"
-msgstr "Obrni izbiro"
+msgstr "O&brni izbiro"
 
 #: ui/linkview/kget_linkview.cpp:42
 #, kde-format
@@ -3647,7 +3647,7 @@ msgstr "Ime"
 #, kde-format
 msgctxt "Download the items which have been selected"
 msgid "&Download"
-msgstr "Prejem"
+msgstr "&Prejmi"
 
 #: ui/linkview/kget_linkview.cpp:156
 #, kde-format
@@ -3678,17 +3678,17 @@ msgstr "Mesto (URL)"
 #: ui/linkview/kget_linkview.cpp:260
 #, kde-format
 msgid "Links in: %1 - KGet"
-msgstr "Povezave v: %1 - KGet"
+msgstr "Povezave v: %1 — KGet"
 
 #: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
-msgstr "Izberi vse filtrirane"
+msgstr "&Izberi vse filtrirane"
 
 #: ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All Filtered"
-msgstr "Odstrani izbiro iz vseh filtriranih"
+msgstr "O&dstrani izbiro iz vseh filtriranih"
 
 #: ui/linkview/kget_linkview.cpp:432
 #, kde-format
@@ -3949,7 +3949,7 @@ msgstr "Dodaj krajevne datoteke"
 #: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
-msgstr "Dodajanje krajevnih datotek ..."
+msgstr "Dodajanje krajevnih datotek …"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/metalinkcreator/generalwidget.ui:23
@@ -4506,25 +4506,25 @@ msgstr "Nastavitve prenosa"
 #: ui/transfersettingsdialog.ui:35
 #, kde-format
 msgid "Download des&tination:"
-msgstr "Cilj prejema:"
+msgstr "&Cilj prejema:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelUpload)
 #: ui/transfersettingsdialog.ui:90
 #, kde-format
 msgid "&Upload limit:"
-msgstr "Omejitev pošiljanja:"
+msgstr "&Omejitev pošiljanja:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelDownload)
 #: ui/transfersettingsdialog.ui:100
 #, kde-format
 msgid "Download &limit:"
-msgstr "Omejitev prejemanja:"
+msgstr "O&mejitev prejemanja:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
 #: ui/transfersettingsdialog.ui:110
 #, kde-format
 msgid "Ma&ximum share ratio:"
-msgstr "Največje delilno razmerje:"
+msgstr "Naj&večje delilno razmerje:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:139
@@ -4617,7 +4617,7 @@ msgstr "Zaključen prejem preveri z izbrano nadzorno vsoto."
 #: ui/verificationdialog.ui:124
 #, kde-format
 msgid "&Verify"
-msgstr "Preveri"
+msgstr "&Preveri"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/verificationdialog.ui:150
