@@ -1,0 +1,991 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Slovenian "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>Priročnik za &kget;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>Matjaž</firstname
+><surname
+>Jeran</surname
+><affiliation
+><address
+><email
+>matjaz.jeran@amis.net</email
+></address
+></affiliation
+><contrib
+>Prevod</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>21.11.2017</date>
+<releaseinfo
+>2.95.0 (Applications 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kget; je &kde;-jev napreden upravljalnik prenosov </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdenetwork</keyword>
+<keyword
+>kget</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>prenos</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>Uvod</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>Zaženi &kget; (morali bi videti Opusti cilj)</para
+></listitem>
+    <listitem
+><para
+>Povlecite in spustite potreben &URL; v &kget; okno/Spustno Tarčo.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>Posnetek zaslona od &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Posnetek zaslona od &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>&kget; Opusti cilj </title>
+
+<para
+>&kget; Opusti cilj ima štiri možnosti. </para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona &kget; opusti cilj</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Posnetek zaslona &kget; opusti cilj</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>&kget; opusti možnosti cilja</title>
+<para
+>Z desnim klikom na opusti cilj se bodo prikazale možnosti. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Začni / Nadaljuj Vse</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Da pričnete z prenosom ali da nadaljujete z vsemi. Bližnjica za to je <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Prikaži/Skrij Glavno Okno</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Ta možnost vam prikaže ali skrije glavno okno v sistemsko vrstico.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Prilepi</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Spustne tarče se ne bo dalo premikati.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zapri &kget;</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>Zapre &kget;</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>Konfiguracijsko okno &kget;-a </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Nastavitve</guimenu
+> <guimenuitem
+>Konfiguriraj &kget;</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Odpre &kget;-ovo okno za konfiguracijo</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>Videz</title>
+<para>
+ <screenshot>
+  <screeninfo
+>Videz</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>Videz</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Videz</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Tukaj lahko spremenite različne stvari, povezane z videzom.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Uporabi Opusti cilj</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Odstranite kljukico, če ne želite &kget; Opusti cilj.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omogoči animacije</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Omogoči nekaj animacij.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>Skupine</title>
+  <para
+>Prenose lahko razdelite v skupine.</para>
+  <screenshot>
+  <screeninfo
+>&kget; Skupine</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Skupine</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Kot predlog uporabite privzete mape za skupine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Označite to polje, če želite, da &kget; za svoje prenose uporablja privzete mape.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>Omrežnje</title>
+  <para
+>Tu lahko prilagodite nastavitve v zvezi z omrežjem.</para>
+  <screenshot>
+  <screeninfo
+>&kget; Omrežje</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Omrežje</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omeji Največje Število Prenosov Na Skupino</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Označite to polje, če želite, da se Omejevanje prenosov izvaja.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omejitev Hitrosti</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Označite to polje, če želite, da se uporablja Globalne omejitve hitrosti.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omejitev globalnih prenosov</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nastavi mejo za največji globalni prenos.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omejitev globalnega nalaganja</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nastavi mejo za največje nalaganje.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Ob Prekinjeni Povezavi se Ponovno Poveži</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Označite to polje, če želite, da se &kget; ponovno poveže po napaki ali prekinjeni povezavi.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Število ponovnih poskusov</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nastavite največje število ponovnih poskusov, ko se bo &kget; poskušal ponovno povezati.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Poskusi ponovno po</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Nastavi interval (v sekundah) za ponovni poskus</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>Spletni Vmesnik</title>
+<para
+>Da omogočite spletni vmesnik, označite <guilabel
+>Omogoči Spletni Vmesnik</guilabel
+>; privzeta vrata so 8080, vi pa konfigurirajte katera koli vrata, višja od 1024. Nato nastavite <guilabel
+>Uporabnik</guilabel
+> in <guilabel
+>Geslo</guilabel
+>. Do spletnega vmesnika lahko dostopate na http://127.0.0.1:&lt;port&gt;. Vnesti boste morali uporabniško ime in geslo, da si zagotovite dostop. </para>
+  <screenshot>
+    <screeninfo
+>&kget; Spletni Vmesnik</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Spletni Vmesnik</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>Preverjanje</title>
+  <para
+>Preverite vaše prenose.</para>
+  <screenshot>
+    <screeninfo
+>&kget; Preverjanje</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Preverjanje</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>Z uporabo dveh načinov <guilabel
+>Samodejno preverjanje kontrolne vsote</guilabel
+> in <guilabel
+>Podpis</guilabel
+> lahko preverite vaše prenose. Samo odkljukajte polje <guilabel
+>Samodejno preverjanje</guilabel
+></para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>Integracija</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Uporaba kot upravljalnik prenosov za Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>&kget; lahko nastavite kot vaš upravljalnik prenosov za &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Spremljaj odložišče za datoteke, ki jih je potrebno prenesti</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Vklopite lahko funkcijo, ki vpraša, če želite prenesti &URL;-je, ki so skopirani v odložišču. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>Napredno</title>
+  <para
+>Spremeni Napredne nastavitve.</para>
+  <screenshot>
+    <screeninfo
+>&kget; Napredne Nastavitve</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Napredne Nastavitve</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omogoči ikono v sistemski vrstici</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Označite to polje, da boste imeli &kget;-ovo ikono v sistemski vrstici.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Izvrši dejanje po koncu vseh prenosov</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Označite to polje, da omogočite Izhod iz &kget;-a po končanih vseh prenosih. Na začetku lahko izberete Obnovi Stanje Prenosa. Prav tako lahko izberete Ustavi Vse prenose/ Začni Vse prenose.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Zaledje zgodovine</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Za zaledje zgodovine lahko izbirate med Sqlite ali Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Omogoči &kde;-jev globalni sledilnik napredka</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>&kget; lahko nastavite, da bo prikazal vsak prenos ali splošni napredek.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>Vtičniki</title>
+  <screenshot>
+    <screeninfo
+>&kget; Možnosti Vtičnikov</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>&kget; Možnosti Vtičnikov</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>Na tej strani lahko izberete vtičnike za prenos, ki bodo uporabljeni. Uporabite gumb <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+>, da spremenite privzete nastavitve za vtičnik.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>Glavno Okno</title>
+<para
+>Pregled &kget;-ovega Glavnega Okna</para>
+<screenshot>
+  <screeninfo
+>Posnetek zaslona od &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Posnetek zaslona od &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>Meni Datoteka</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Nov prenos...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Dodaj novo datoteko za prenos</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Uvozi Povezave...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Uvozi Povezavo</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Uvozi povezavo</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>To dejanje odpre novo okno, kjer lahko vidite in upravljate, katero datoteko želite prenesti. Prav tako lahko ustvarite izbor glede na <guilabel
+>Videji</guilabel
+>, <guilabel
+>Slike</guilabel
+>, <guilabel
+>Avdio</guilabel
+> in <guilabel
+>Arhivi</guilabel
+>. Zraven je besedilno polje, da lahko filtrirate rezultate.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Uvozi Prenose...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Naloži <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> or <filename class="extension"
+>*.torrent</filename
+> datoteke.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Izvozi Seznam Prenosov...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Izvozi označene povezave v datoteko <filename class="extension"
+>.kgt</filename
+>, da bo prenešena kasneje.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Ustvari Metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Ustvarjam metalink0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Ustvarjam Metalink0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Izberite med ustvarjanjem novega Metalinka in nalaganjem obstoječega. Kliknite gumb <guilabel
+>Naslednji</guilabel
+>, da nadaljujete.</para>
+
+<screenshot>
+  <screeninfo
+>Ustvarjam metalink1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Ustvarjam Metalink1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Tukaj lahko vnesete nekaj splošnih neobvezni informacij, kot na primer, kje je mogoče dobiti ta metalink (Vnesite &URL; v besedilno polje poleg <guilabel
+>Izvor</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>Ustvarjam metalink2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Ustvarjam Metalink2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Tu morate vnesti &URL;, iz katerega poskušate prenesti datoteko. Vnesete lahko tudi nekaj neobveznih informacij kot npr. Prednost za določeni zrcalni strežnik, če dodajate več kot enega za datoteko, ki jo želite prenesti.</para>
+
+<screenshot>
+  <screeninfo
+>Ustvarjam metalink3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Ustvarjam Metalink3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>Prikazati bi se moralo novo okno, kjer so prikazane vse datoteke, ki bodo uvožene.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Zgodovina Prenosov</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>Zgodovina Prenosov</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Zgodovina Prenosov</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>Odpre novo okno, kjer lahko vidite vse datoteke, ki so bile prenesene s programom &kget;. Tukaj lahko upravljate s svojo zgodovino, vključno s filtriranjem in brisanjem zgodovine. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Izhod</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Zapre &kget;</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Zasluge in Licenca</title>
+
+<para
+>&kget; </para>
+
+<para
+>Avtorske pravice dokumentacije &copy; 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>Zahvale:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (ker mi je pomagala z stvarmi, povezanimi z DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (kopirano veliko stvari iz njegove stare &kget; dokumentacije) </para>
+
+<para
+>Prevod: Matjaž Jeran<email
+>matjaz.jeran@amis.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->
