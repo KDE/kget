@@ -90,15 +90,15 @@
     </widget>
    </item>
    <item row="0" column="0" colspan="2">
-    <widget class="KMessageWidget" name="infoWidget"/>
+    <widget class="KMessageWidget" name="infoWidget" native="true"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
    <class>KMessageWidget</class>
-   <extends>QFrame</extends>
-   <header>kmessagewidget.h</header>
+   <extends>QWidget</extends>
+   <header location="global">KMessageWidget</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

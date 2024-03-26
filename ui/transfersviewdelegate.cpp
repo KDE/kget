@@ -358,7 +358,7 @@ void TransfersViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
             int progress = transferHandler->percent();
             if (progress >= 0 && progress <= 100) {
                 progressBarOption.progress = progress;
-                progressBarOption.text = QStringLiteral("%1%").arg(progressBarOption.progress);
+                progressBarOption.text = i18nc("Progress bar percent value", "%1%", progressBarOption.progress);
             } else {
                 progressBarOption.text = i18nc("not available", "n/a");
             }

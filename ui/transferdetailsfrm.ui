@@ -20,12 +20,12 @@
    <property name="spacing">
     <number>6</number>
    </property>
-   <property name="margin">
+   <property name="margin" stdset="0">
     <number>9</number>
    </property>
    <item>
     <layout class="QGridLayout">
-     <property name="margin">
+     <property name="margin" stdset="0">
       <number>0</number>
      </property>
      <property name="spacing">
@@ -78,14 +78,18 @@
     </spacer>
    </item>
    <item>
-    <widget class="QProgressBar" name="progressBar"/>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="format">
+      <string>%p%</string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout">
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="margin" stdset="0">
       <number>0</number>
      </property>
      <item>
@@ -136,7 +140,7 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="margin" stdset="0">
       <number>0</number>
      </property>
      <item>
