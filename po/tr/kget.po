@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-10 01:34+0000\n"
-"PO-Revision-Date: 2024-03-08 16:47+0300\n"
+"PO-Revision-Date: 2024-03-26 14:54+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -71,7 +71,7 @@ msgstr "Aktarımlar tamamlanınca yürütülecek eylem:"
 #: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
-msgstr "K İndir'ten Çık"
+msgstr "K İndir’den çık"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgadvanced.ui:61
@@ -83,19 +83,19 @@ msgstr "Başlangıçta:"
 #: conf/dlgadvanced.ui:69
 #, kde-format
 msgid "Restore Download State"
-msgstr "İndirme Durumunu Geri Yükle"
+msgstr "İndirme durumunu geri yükle"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:74
 #, kde-format
 msgid "Start All Downloads"
-msgstr "Tüm İndirmeleri Başlat"
+msgstr "Tüm indirmeleri başlat"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:79
 #, kde-format
 msgid "Stop All Downloads"
-msgstr "Tüm İndirmeleri Durdur"
+msgstr "Tüm indirmeleri durdur"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: conf/dlgadvanced.ui:90
@@ -107,7 +107,7 @@ msgstr "Geçmiş arka ucu:"
 #: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
-msgstr "KDE Global İlerleme İzlemesini Etkinleştir"
+msgstr "KDE global ilerleme izlemesini etkinleştir"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
 #: conf/dlgadvanced.ui:111
@@ -125,25 +125,25 @@ msgstr "Tüm süreci göster"
 #: conf/dlgadvanced.ui:128
 #, kde-format
 msgid "Handle existing Files/Transfers"
-msgstr "Var olan Dosyaları/Aktarımları işleme al"
+msgstr "Var Olan Dosyaları/Aktarımları İşle"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
 #: conf/dlgadvanced.ui:134
 #, kde-format
 msgid "Always ask"
-msgstr "Daima sor"
+msgstr "Her zaman sor"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAutomaticRename)
 #: conf/dlgadvanced.ui:141
 #, kde-format
 msgid "Automatic rename"
-msgstr "Otomatik olarak yeniden adlandır"
+msgstr "Kendiliğinden yeniden adlandır"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
 #: conf/dlgadvanced.ui:148
 #, kde-format
 msgid "Overwrite"
-msgstr "Üzerine Yaz"
+msgstr "Üzerine yaz"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_ShowDropTarget)
 #: conf/dlgappearance.ui:17
@@ -179,13 +179,13 @@ msgstr "Yeniden Adlandır"
 #: conf/dlggroups.ui:65
 #, kde-format
 msgid "Select Icon..."
-msgstr "Simge Seç..."
+msgstr "Simge Seç…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
 #: conf/dlgintegration.ui:17
 #, kde-format
 msgid "Use as download manager for Konqueror"
-msgstr "Konqueror'un indirme yöneticisi olarak kullan"
+msgstr "Konqueror’un indirme yöneticisi olarak kullan"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
 #: conf/dlgintegration.ui:24
@@ -203,13 +203,13 @@ msgstr "BÜYÜK/küçük harf duyarlı:"
 #: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
 #, kde-format
 msgid "&Increase Priority"
-msgstr "&Önceliği Yükselt"
+msgstr "&Önceliği Artır"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
 #: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
 #, kde-format
 msgid "&Decrease Priority"
-msgstr "&Önceliği Düşür"
+msgstr "&Önceliği Azalt"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
 #: conf/dlgnetwork.ui:19
@@ -254,7 +254,7 @@ msgstr " KB/sn"
 #: conf/dlgnetwork.ui:70
 #, kde-format
 msgid "Global &upload limit:"
-msgstr "Genel &gönderme sınırı:"
+msgstr "Genel &karşıya yükleme sınırı:"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_per_transfer)
 #: conf/dlgnetwork.ui:96
@@ -340,7 +340,7 @@ msgstr "Eklentiler"
 #: conf/preferencesdialog.cpp:57
 #, kde-format
 msgid "Xml"
-msgstr "Xml"
+msgstr "XML"
 
 #: conf/preferencesdialog.cpp:59
 #, kde-format
@@ -350,17 +350,17 @@ msgstr "Sqlite"
 #: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
 #, kde-format
 msgid "Turn Off Computer"
-msgstr "Bilgisayarı Kapat"
+msgstr "Bilgisayarı kapat"
 
 #: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
 #, kde-format
 msgid "Hibernate Computer"
-msgstr "Bilgisayarı Hazırda Beklet"
+msgstr "Bilgisayarı hazırda beklet"
 
 #: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
 #, kde-format
 msgid "Suspend Computer"
-msgstr "Uykuya Al"
+msgstr "Askıya al"
 
 #: conf/preferencesdialog.cpp:70
 #, kde-format
@@ -390,7 +390,7 @@ msgstr "Görünüş"
 #: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Change appearance settings"
-msgstr "Görünüş ayarlarını değiştir"
+msgstr "Görünüş Ayarlarını Değiştir"
 
 #: conf/preferencesdialog.cpp:86
 #, kde-format
@@ -400,7 +400,7 @@ msgstr "Gruplar"
 #: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Manage the groups"
-msgstr "Grupları yönet"
+msgstr "Grupları Yönet"
 
 #. i18n: ectx: property (title), widget (QGroupBox, networkGroupBox)
 #: conf/preferencesdialog.cpp:87
@@ -422,7 +422,7 @@ msgstr "Web Arayüzü"
 #: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
-msgstr "K İndir Uygulamasını Ağ ya da İnternet Üzerinden Yönet"
+msgstr "K İndir Ağ/İnternet Denetimi"
 
 #: conf/preferencesdialog.cpp:89
 #, kde-format
@@ -433,7 +433,7 @@ msgstr "Doğrulama"
 #, kde-format
 msgctxt "integration of KGet with other applications"
 msgid "Integration"
-msgstr "Bütünleşme"
+msgstr "Tümleşim"
 
 #: conf/preferencesdialog.cpp:94
 #, kde-format
@@ -584,7 +584,7 @@ msgid ""
 "settings or restart KGet and retry downloading."
 msgstr ""
 "Kullanılabilir anahtar sunucusu bulunamadı, anahtar indirilmedi. Ayarlardan "
-"daha fazla sunucu ekleyin veya K İndir'i yeniden başlatarak deneyin."
+"daha fazla sunucu ekleyin veya K İndir’i yeniden başlatarak deneyin."
 
 #: core/kget.cpp:114
 #, kde-format
@@ -665,7 +665,7 @@ msgid_plural ""
 msgstr[0] ""
 "<p>Bu URL indirilemez. Protokolü K İndir tarafından desteklenmiyor:</p>"
 msgstr[1] ""
-"<p>Bu URL'ler indirilemez. Protokolleri K İndir tarafından desteklenmiyor:</"
+"<p>Bu URL’ler indirilemez. Protokolleri K İndir tarafından desteklenmiyor:</"
 "p>"
 
 #: core/kget.cpp:880
@@ -722,7 +722,7 @@ msgid ""
 "\n"
 "Download it again?"
 msgstr ""
-"Aşağıdaki konum için zaten tamamlanmış bir indirme yapmışsınız: \n"
+"Aşağıdaki konum için halihazırda tamamlanmış bir indirme yapmışsınız: \n"
 "\n"
 "%1\n"
 "\n"
@@ -762,7 +762,7 @@ msgstr ""
 "\n"
 "%1\n"
 "\n"
-"Silinip tekrar yüklensin mi?"
+"Silinip yeniden yüklensin mi?"
 
 #: core/kget.cpp:1017 core/urlchecker.cpp:636
 #, kde-format
@@ -781,26 +781,26 @@ msgid ""
 "\n"
 "Download and delete the previous one?"
 msgstr ""
-"Bu dosyayı zaten başka bir konumdan indirmişsiniz.\n"
+"Bu dosyayı halihazırda başka bir konumdan indirmişsiniz.\n"
 "\n"
 "Eski indirilen silinip yeniden indirilsin mi?"
 
 #: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
-msgstr "Dosya zaten indirilmiş. Yine de indirilsin mi?"
+msgstr "Dosya halihazırda indirilmiş. Yine de indirilsin mi?"
 
 #: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
-msgstr "Aynı dosya zaten indiriliyor"
+msgstr "Aynı dosya halihazırda indiriliyor"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:663
 #, kde-format
 msgid "File already exists"
-msgstr "Dosya zaten var"
+msgstr "Dosya halihazırda var"
 
 #: core/kget.cpp:1179
 #, kde-format
@@ -908,7 +908,7 @@ msgstr "Tüm aktarımlar tamamlandı, bilgisayar şimdi hazırda bekletilecek."
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
-msgstr "Hazırda Bekletiliyor"
+msgstr "Hazırda Beklet"
 
 #: core/kget.cpp:1414
 #, kde-format
@@ -921,7 +921,7 @@ msgstr ""
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
-msgstr "Askıya alınıyor"
+msgstr "Askıya Al"
 
 #: core/kget.cpp:1424
 #, kde-format
@@ -996,7 +996,7 @@ msgstr "İmza doğrulanmadı"
 
 #: core/transfer.cpp:28
 msgid "Downloading...."
-msgstr "İndiriliyor...."
+msgstr "İndiriliyor…."
 
 #: core/transfer.cpp:29
 msgctxt "transfer state: delayed"
@@ -1075,7 +1075,7 @@ msgstr "Durdur"
 #, kde-format
 msgctxt "not available"
 msgid "n/a"
-msgstr "n/a"
+msgstr "yok"
 
 #: core/transferhandler.cpp:136 ui/transferdetails.cpp:89
 #, kde-format
@@ -1104,7 +1104,7 @@ msgstr "Boyut"
 #, kde-format
 msgctxt "progress of download"
 msgid "Progress"
-msgstr "Süreç"
+msgstr "İlerleme"
 
 #: core/transfertreemodel.cpp:633
 #, kde-format
@@ -1229,7 +1229,7 @@ msgstr ""
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
 #, kde-format
 msgid "File already exists. Overwrite it?"
-msgstr "Dosya zaten var. Üzerine yazmak istiyor musunuz?"
+msgstr "Dosya halihazırda var. Üzerine yazmak istiyor musunuz?"
 
 #: core/urlchecker.cpp:388 core/urlchecker.cpp:414
 #, kde-format
@@ -1237,7 +1237,7 @@ msgid ""
 "You have already downloaded that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
-"Bu dosyayı zaten başka bir konumdan indirmişsiniz.\n"
+"Bu dosyayı halihazırda başka bir konumdan indirmişsiniz.\n"
 "Önceden indirilen dosya silinip yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:390 core/urlchecker.cpp:416
@@ -1246,7 +1246,7 @@ msgid ""
 "You are already downloading that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
-"Bu dosyayı zaten başka bir konumdan indirmişsiniz.\n"
+"Bu dosyayı halihazırda başka bir konumdan indirmişsiniz.\n"
 "Önceden indirilen dosya silinip yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:400
@@ -1254,7 +1254,8 @@ msgstr ""
 msgid ""
 "You have already completed a download from that location. Download it again?"
 msgstr ""
-"Bu konum için bir indirme işeminiz zaten tamamlanmış. Yeniden indirilsin mi?"
+"Bu konum için bir indirme işleminiz halihazırda tamamlanmış. Yeniden "
+"indirilsin mi?"
 
 #: core/urlchecker.cpp:402
 #, kde-format
@@ -1263,7 +1264,7 @@ msgid ""
 "Delete it and download again?"
 msgstr ""
 "Bu konumdan yapılan bir indirme işlemi şu an sürüyor.\n"
-"Dosya silinip tekrar indirilsin mi?"
+"Dosya silinip yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:412
 #, kde-format
@@ -1279,17 +1280,17 @@ msgstr ""
 #: core/urlchecker.cpp:456
 #, kde-format
 msgid "Malformed URLs."
-msgstr "Hatalı oluşturulmuş URL'ler."
+msgstr "Hatalı oluşturulmuş URL’ler."
 
 #: core/urlchecker.cpp:458
 #, kde-format
 msgid "Malformed URLs, protocol missing."
-msgstr "Hatalı oluşturulmuş URL'ler, protokol yok."
+msgstr "Hatalı oluşturulmuş URL’ler, protokol yok."
 
 #: core/urlchecker.cpp:460
 #, kde-format
 msgid "Malformed URLs, host missing."
-msgstr "Hatalı oluşturulmuş URL'ler, makine yok."
+msgstr "Hatalı oluşturulmuş URL’ler, makine yok."
 
 #: core/urlchecker.cpp:470
 #, kde-format
@@ -1297,7 +1298,7 @@ msgid ""
 "Malformed URLs:\n"
 "%1"
 msgstr ""
-"Hatalı oluşturulmuş URL'ler:\n"
+"Hatalı oluşturulmuş URL’ler:\n"
 "%1"
 
 #: core/urlchecker.cpp:472
@@ -1306,7 +1307,7 @@ msgid ""
 "Malformed URLs, protocol missing:\n"
 "%1"
 msgstr ""
-"Hatalı oluşturulmuş URL'ler, protokol yok:\n"
+"Hatalı oluşturulmuş URL’ler, protokol yok:\n"
 "%1"
 
 #: core/urlchecker.cpp:474
@@ -1315,7 +1316,7 @@ msgid ""
 "Malformed URLs, host missing:\n"
 "%1"
 msgstr ""
-"Hatalı oluşturulmuş URL'ler, makine yok:\n"
+"Hatalı oluşturulmuş URL’ler, makine yok:\n"
 "%1"
 
 #: core/urlchecker.cpp:476
@@ -1330,7 +1331,8 @@ msgstr ""
 #: core/urlchecker.cpp:500
 #, kde-format
 msgid "Files exist already. Overwrite them?"
-msgstr "Dosyalar zaten var. Bu dosyaların üzerine yazmak istiyor musunuz?"
+msgstr ""
+"Dosyalar halihazırda var. Bu dosyaların üzerine yazmak istiyor musunuz?"
 
 #: core/urlchecker.cpp:502
 #, kde-format
@@ -1338,7 +1340,7 @@ msgid ""
 "You have already completed downloads at those destinations. Download them "
 "again?"
 msgstr ""
-"Bu konumlar için zaten tamamlanmış indirmeler yapmışsınız. Bu dosyalar "
+"Bu konumlar için halihazırda tamamlanmış indirmeler yapmışsınız. Bu dosyalar "
 "yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:504
@@ -1348,7 +1350,7 @@ msgid ""
 "Delete them and download again?"
 msgstr ""
 "Aşağıdaki konumlara yapılan indirme işlemleri sürüyor.\n"
-"Bu dosyalar silinip tekrar indirilsin mi?"
+"Bu dosyalar silinip yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:512
 #, kde-format
@@ -1356,7 +1358,7 @@ msgid ""
 "You have already completed downloads from these locations. Download them "
 "again?"
 msgstr ""
-"Aşağıdaki konumlardan zaten tamamlanmış bir indirmeler yapmışsınız. Bu "
+"Aşağıdaki konumlardan halihazırda tamamlanmış bir indirmeler yapmışsınız. Bu "
 "dosyalar yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:514
@@ -1388,7 +1390,7 @@ msgid ""
 "\n"
 " Download them again?"
 msgstr ""
-"Bu konumlar için zaten tamamlanmış indirmeler yapmışsınız: \n"
+"Bu konumlar için halihazırda tamamlanmış indirmeler yapmışsınız: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1407,7 +1409,7 @@ msgstr ""
 "\n"
 "%1\n"
 "\n"
-"Dosyalar silinip tekrar indirilsin mi?"
+"Dosyalar silinip yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:535
 #, kde-format
@@ -1418,7 +1420,7 @@ msgid ""
 "\n"
 "Download them again?"
 msgstr ""
-"Bu konumlar için zaten tamamlanmış indirmeler yapmışsınız: \n"
+"Bu konumlar için halihazırda tamamlanmış indirmeler yapmışsınız: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1470,10 +1472,10 @@ msgid ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
-"(C) 2005 - 2014, K İndir geliştiricileri\n"
-"(C) 2001 - 2002, Patrick Charbonnier\n"
+"(C) 2005–2014, K İndir geliştiricileri\n"
+"(C) 2001–2002, Patrick Charbonnier\n"
 "(C) 2002, Carsten Pfeiffer\n"
-"(C) 1998 - 2000, Matej Koss"
+"(C) 1998–2000, Matej Koss"
 
 #: main.cpp:107
 #, kde-format
@@ -1488,7 +1490,7 @@ msgstr "Lukas Appelhans"
 #: main.cpp:109
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
-msgstr "Projeyi Yürüten, Çekirdek Geliştirici, Torrent Eklentisinin Yazarı"
+msgstr "Bakımcı, çekirdek geliştirici, torrent eklentisinin yazarı"
 
 #: main.cpp:110
 #, kde-format
@@ -1498,7 +1500,7 @@ msgstr "Dario Massarin"
 #: main.cpp:110 main.cpp:111 main.cpp:113
 #, kde-format
 msgid "Core Developer"
-msgstr "Çekirdek Geliştirici"
+msgstr "Çekirdek geliştirici"
 
 #: main.cpp:111
 #, kde-format
@@ -1513,7 +1515,7 @@ msgstr "Manolo Valdes"
 #: main.cpp:112
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
-msgstr "Çekirdek Geliştirici, Çoklu iş Eklenti Yazarı"
+msgstr "Çekirdek geliştirici, çoklu iş eklentisinin yazarı"
 
 #: main.cpp:113
 #, kde-format
@@ -1533,12 +1535,12 @@ msgstr "Geliştirici"
 #: main.cpp:115
 #, kde-format
 msgid "Aish Raj Dahal"
-msgstr "Aish Raj Dahal"
+msgstr "Aiş Raj Dahal"
 
 #: main.cpp:115
 #, kde-format
 msgid "Google Summer of Code Student"
-msgstr "Google Summer of Code Öğrencisi"
+msgstr "Google Summer of Code öğrencisi"
 
 #: main.cpp:116
 #, kde-format
@@ -1548,7 +1550,7 @@ msgstr "Ernesto Rodriguez Ortiz"
 #: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
-msgstr "Mms Eklentisi Yazarı"
+msgstr "Mms eklentisinin yazarı"
 
 #: main.cpp:117
 #, kde-format
@@ -1558,7 +1560,7 @@ msgstr "Patrick Charbonnier"
 #: main.cpp:117 main.cpp:118 main.cpp:119
 #, kde-format
 msgid "Former Developer"
-msgstr "Eski Geliştirici"
+msgstr "Eski geliştirici"
 
 #: main.cpp:118
 #, kde-format
@@ -1578,7 +1580,7 @@ msgstr "Joris Guisson"
 #: main.cpp:120
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
-msgstr "BTCore (K Torrent) Geliştiricisi"
+msgstr "BTCore (K Torrent) geliştiricisi"
 
 #: main.cpp:121
 #, kde-format
@@ -1588,7 +1590,7 @@ msgstr "Mensur Zahirovic (Nookie)"
 #: main.cpp:121
 #, kde-format
 msgid "Design of Web Interface"
-msgstr "Web Arayüzü Tasarımı"
+msgstr "Web arayüzünün tasarımı"
 
 #: main.cpp:123
 #, kde-format
@@ -1625,27 +1627,27 @@ msgstr "Birim Sınamalarını Yürüt"
 #: main.cpp:136
 #, kde-format
 msgid "URL(s) to download"
-msgstr "İndirilecek URL('ler)"
+msgstr "İndirilecek URL’ler"
 
 #: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
-msgstr "&Yeni Aktarım..."
+msgstr "&Yeni Aktarım…"
 
 #: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
-msgstr "Aktarımları &İçe Aktar..."
+msgstr "Aktarımlar &İçe Aktar…"
 
 #: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
-msgstr "Aktarım Listesini &Dışa Aktar..."
+msgstr "Aktarım Listesini &Dışa Aktar…"
 
 #: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr "Bir &Metalink Oluştur..."
+msgstr "Bir &Metalink Oluştur…"
 
 #: mainwindow.cpp:173
 #, kde-format
@@ -1660,12 +1662,12 @@ msgstr "En Düşük Öncelik"
 #: mainwindow.cpp:187
 #, kde-format
 msgid "Increase Priority"
-msgstr "Önceliği Yükselt"
+msgstr "Önceliği Artır"
 
 #: mainwindow.cpp:194
 #, kde-format
 msgid "Decrease Priority"
-msgstr "Önceliği Düşür"
+msgstr "Önceliği Azalt"
 
 #: mainwindow.cpp:202
 #, kde-format
@@ -1677,12 +1679,12 @@ msgstr "Grubu Sil"
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Grubu Yeniden Adlandır..."
+msgstr "Grubu Yeniden Adlandır…"
 
 #: mainwindow.cpp:213
 #, kde-format
 msgid "Set Icon..."
-msgstr "Simgeyi Ayarla..."
+msgstr "Simgeyi Ayarla…"
 
 #: mainwindow.cpp:218
 #, kde-format
@@ -1698,13 +1700,13 @@ msgid ""
 msgstr ""
 "<b>Otomatik yapıştır</b> düğmesi otomatik yapıştırma kipini açar ve "
 "kapatır.\n"
-"Bu kullanıldığında, K İndir belirli aralıklarla panoyu tarayarak URL'leri "
+"Bu kullanıldığında, K İndir belirli aralıklarla panoyu tarayarak URL’leri "
 "otomatik olarak yapıştırır."
 
 #: mainwindow.cpp:227
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
-msgstr "K İndir'i Konqueror'un indirme yöneticisi olarak kullan"
+msgstr "K İndir’i Konqueror’un indirme yöneticisi olarak kullan"
 
 #: mainwindow.cpp:245
 #, kde-format
@@ -1716,7 +1718,7 @@ msgstr "Seçiliyi Kaldır"
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
-msgstr "Tamamlanmış Olanların Tümünü Kaldır"
+msgstr "Bitenlerin Tümünü Kaldır"
 
 #: mainwindow.cpp:258
 #, kde-format
@@ -1778,7 +1780,7 @@ msgstr "Ayrıntıları Göster"
 #: mainwindow.cpp:323
 #, kde-format
 msgid "Copy URL to Clipboard"
-msgstr "URL'yi Panoya Kopyala"
+msgstr "URL’yi Panoya Kopyala"
 
 #: mainwindow.cpp:328
 #, kde-format
@@ -1798,7 +1800,7 @@ msgstr "&Aktarım Ayarları"
 #: mainwindow.cpp:346
 #, kde-format
 msgid "Import &Links..."
-msgstr "Bağ&lantıları İçe Aktar..."
+msgstr "Bağ&lantılar İçe Aktar…"
 
 #: mainwindow.cpp:352
 #, kde-format
@@ -1851,7 +1853,7 @@ msgstr "Tüm Açılabilir Dosyalar"
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
-msgstr "K İndir - %​%1"
+msgstr "K İndir — %​%1"
 
 #: mainwindow.cpp:563
 #, kde-format
@@ -1924,10 +1926,10 @@ msgid ""
 "want to disable it forever, go to Settings->Advanced and disable \"Use as "
 "download manager for Konqueror\"."
 msgstr ""
-"K İndir'in Konqueror'un dosya yöneticisi olarak kullanılması geçici olarak "
-"engellendi. Eğer bu tercihin kalıcı olmasını istiyorsanız, Ayarlar-"
-">Gelişmiş'e gidin ve \"Konqueror için indirme yöneticisi olarak ayarla\" "
-"seçeneğini iptal edin."
+"K İndir’in Konqueror’un indirme yöneticisi olarak kullanılması geçici olarak "
+"engellendi. Eğer bu tercihin kalıcı olmasını istiyorsanız, “Ayarlar → "
+"Gelişmiş”e gidin ve ‘Konqueror için indirme yöneticisi olarak ayarla’ "
+"seçeneğini devre dışı bırakın."
 
 #: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
@@ -2456,7 +2458,7 @@ msgstr "Besleyiciler"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:140
 #, kde-format
 msgid "Leechers"
-msgstr "Sömürgenler"
+msgstr "Sülükler"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:142
 #, kde-format
@@ -2478,12 +2480,12 @@ msgstr "İzleyici Ekle"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #, kde-format
 msgid "Enter the URL of the tracker:"
-msgstr "İzleyici URL'sinini gir:"
+msgstr "İzleyici URL’sinini gir:"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
-msgstr "<b>%1</b> adlı bir izleyici zaten var."
+msgstr "<b>%1</b> adlı bir izleyici halihazırda var."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
@@ -2560,14 +2562,14 @@ msgstr ""
 "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
 "size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Torrent'e eklenecek Web "
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Torrent’e eklenecek Web "
 "beslemesi.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
 "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
 "p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Not: </span>Yalnızca http web beslemeleri desteklenir.</p></"
+"weight:600;\">Not: </span>Yalnızca HTTP web beslemeleri desteklenir.</p></"
 "body></html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add)
@@ -2624,7 +2626,7 @@ msgstr "İndirme hızı:"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:105
 #, kde-format
 msgid "Leechers:"
-msgstr "İndirenler:"
+msgstr "Sülükler:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:133
@@ -2659,7 +2661,7 @@ msgstr "Kaynak:"
 #: ui/transferdetailsfrm.ui:44
 #, kde-format
 msgid "Saving to:"
-msgstr "Kaydedilme yeri:"
+msgstr "Kayıt yeri:"
 
 #. i18n: ectx: property (format), widget (QProgressBar, progress)
 #. i18n: ectx: property (format), widget (QProgressBar, progressBar)
@@ -2738,19 +2740,19 @@ msgstr "Yeni Bir Torrent Dosyası Seç"
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
-msgstr "Torrent Dosyası İndiriliyor...."
+msgstr "Torrent dosyası indiriliyor…."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:198
 #: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
-msgstr "İndiriliyor...."
+msgstr "İndiriliyor…."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
 msgid "Cannot add a tracker to a private torrent."
-msgstr "Özel torrent'e izleyici eklenemiyor."
+msgstr "Özel torrent’e izleyici eklenemiyor."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
 #, kde-format
@@ -2760,18 +2762,18 @@ msgstr "Torrent dosyası yok"
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
-msgstr "Torrent analiz ediliyor...."
+msgstr "Torrent çözümleniyor…."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
-msgstr "Port başlatılamadı..."
+msgstr "Kapı ilklendirilemiyor…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
-msgstr "Besleniyor...."
+msgstr "Besleniyor…."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
@@ -2930,13 +2932,13 @@ msgstr "Kullanılabilir arama motorlarının listesi"
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
 #, kde-format
 msgid "List of the available search engine URLs"
-msgstr "Kullanılabilir arama motorlarının URL'leri"
+msgstr "Kullanılabilir arama motorlarının URL’leri"
 
 #: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
-msgstr "Bağlanılıyor...."
+msgstr "Bağlanılıyor…."
 
 #: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
@@ -3028,7 +3030,7 @@ msgstr "Dosya Seçimi"
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
-msgstr "Metalink Dosyası İndiriliyor...."
+msgstr "Metalink dosyası indiriliyor…."
 
 #: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
@@ -3043,7 +3045,7 @@ msgstr ""
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
-msgstr "Metalink'i tekrar indir"
+msgstr "Metalink’i Yeniden İndir"
 
 #: transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
@@ -3094,7 +3096,7 @@ msgstr "Motor Adı"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
 #, kde-format
 msgid "New Engine..."
-msgstr "Yeni Motor..."
+msgstr "Yeni Motor…"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
@@ -3106,7 +3108,7 @@ msgstr "Kaldır"
 #, kde-format
 msgctxt "transfer state: running"
 msgid "Running...."
-msgstr "Çalışıyor...."
+msgstr "Çalışıyor…."
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:116
 #, kde-format
@@ -3117,7 +3119,7 @@ msgstr "Tamamlandı"
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:162
 #, kde-format
 msgid "Download failed, could not access this URL."
-msgstr "İndirme başarısız oldu, URL'ye erişilemedi."
+msgstr "İndirme başarısız oldu, URL’ye erişilemedi."
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:173
 #, kde-format
@@ -3156,8 +3158,8 @@ msgstr[1] "Grupları Sil"
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
-msgstr[0] "Grubu Yeniden Adlandır..."
-msgstr[1] "Grupları Yeniden Adlandır..."
+msgstr[0] "Grubu Yeniden Adlandır…"
+msgstr[1] "Grupları Yeniden Adlandır…"
 
 #: ui/droptarget.cpp:88
 #, kde-format
@@ -3338,17 +3340,17 @@ msgstr "1MiB Aşağısı"
 #: ui/history/transferhistory.cpp:256
 #, kde-format
 msgid "Between 1MiB-10MiB"
-msgstr "1MiB-10MiB Arası"
+msgstr "1 MiB–10 MiB Arası"
 
 #: ui/history/transferhistory.cpp:257
 #, kde-format
 msgid "Between 10MiB-100MiB"
-msgstr "10MiB-100MiB Arası"
+msgstr "10 MiB–100 MiB Arası"
 
 #: ui/history/transferhistory.cpp:258
 #, kde-format
 msgid "Between 100MiB-1GiB"
-msgstr "100MiB-1GiB Arası"
+msgstr "100 MiB–1 GiB Arası"
 
 #: ui/history/transferhistory.cpp:259
 #, kde-format
@@ -3514,7 +3516,7 @@ msgstr "&İçe aktarılacak bağlantıları içeren dosya:"
 #: ui/linkview/importlinkdialog.ui:50
 #, kde-format
 msgid "&Import Links"
-msgstr "Bağ&lantıları İçe Aktar"
+msgstr "Bağ&lantılar İçe Aktar"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/linkview/importlinkdialog.ui:67
@@ -3538,7 +3540,7 @@ msgstr "Süzme için özel/joker karakterler kullanabilirsiniz."
 #: ui/linkview/importlinkdialog.ui:118
 #, kde-format
 msgid "Filter files here...."
-msgstr "Dosyaları buraya süz..."
+msgstr "Dosyaları burada süz…"
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
 #: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
@@ -3561,7 +3563,7 @@ msgstr "&Seçimi Tersine Çevir"
 #: ui/linkview/kget_linkview.cpp:42
 #, kde-format
 msgid "Import Links"
-msgstr "Bağlantıları İçe Aktar"
+msgstr "Bağlantılar İçe Aktar"
 
 #: ui/linkview/kget_linkview.cpp:59
 #, kde-format
@@ -3700,7 +3702,7 @@ msgstr "Logo:"
 #: ui/metalinkcreator/commondata.ui:63
 #, kde-format
 msgid "URL to the logo"
-msgstr "Logonun URL'si"
+msgstr "Logonun URL’si"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:73
@@ -3761,7 +3763,7 @@ msgstr "Yayınlayanın adı"
 #: ui/metalinkcreator/commondata.ui:180
 #, kde-format
 msgid "URL to the publisher"
-msgstr "Yayıncının URL'si"
+msgstr "Yayıncının URL’si"
 
 #: ui/metalinkcreator/dragdlg.cpp:73
 #, kde-format
@@ -3812,7 +3814,7 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
-"Eğer bırakılan tüm dosyalar o sunucuda ve aynı dizindeyse buraya URL'lerini "
+"Eğer bırakılan tüm dosyalar o sunucuda ve aynı dizindeyse buraya URL’lerini "
 "girin. Her bırakılan dosya için URL, girilen kısım ve dosya adından oluşur."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -3859,7 +3861,7 @@ msgstr "Bir dosya adı girin."
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
 msgid "The filename exists already, choose a different one."
-msgstr "Dosya adı zaten var, farklı bir tane seçin."
+msgstr "Dosya adı halihazırda var, farklı bir tane seçin."
 
 #: ui/metalinkcreator/filedlg.cpp:140
 #, kde-format
@@ -3925,7 +3927,7 @@ msgstr "Yerel dosya ekle"
 #: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
-msgstr "Yerel dosyalar ekleniyor..."
+msgstr "Yerel dosyalar ekleniyor…"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/metalinkcreator/generalwidget.ui:23
@@ -3949,14 +3951,14 @@ msgstr "Kaynak:"
 #: ui/metalinkcreator/generalwidget.ui:68
 #, kde-format
 msgid "Web URL to the metalink"
-msgstr "Üst bağlantının web URL'si"
+msgstr "Metalink URL’si"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:75
 #, kde-format
 msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
 msgstr ""
-"Devingen, güncellenen metalink'lerin \"Origin\" konumunda bulunabileceği "
+"Devingen, güncellenen Metalink’lerin “Köken” konumunda bulunabileceği "
 "anlamına gelir."
 
 #. i18n: ectx: property (text), widget (QLabel, labelDynamic)
@@ -4010,9 +4012,9 @@ msgid ""
 "enter them if desired. The minimum is a save location, at least one file and "
 "one URL."
 msgstr ""
-"Bu sihirbaz, sizin sıfırdan veya var olan üst bağlantıları temel alarak yeni "
+"Bu sihirbaz, sizin sıfırdan veya var olan Metalink’leri temel alarak yeni "
 "üst bağlantı üretmenizi sağlar. Çoğu alan zorunlu değildir. Kayıt konumu, "
-"dosya ve URL bilgileri verilmelidir."
+"dosya ve URL bilgisi verilmelidir."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/introduction.ui:48
@@ -4030,7 +4032,7 @@ msgstr "Yeni Metalink Oluştur"
 #: ui/metalinkcreator/introduction.ui:88
 #, kde-format
 msgid "Load existing Metalink:"
-msgstr "Var olan Metalink'i yükle:"
+msgstr "Var olan Metalink’i yükle:"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:83
 #, kde-format
@@ -4169,12 +4171,12 @@ msgstr "PushButton"
 #: ui/newtransferdialog.cpp:315
 #, kde-format
 msgid "Select at least one source url."
-msgstr "En az bir kaynak URL'si girin."
+msgstr "En az bir kaynak URL’si girin."
 
 #: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
-msgstr "İmlenen geçerli klasörde zaten dosya var."
+msgstr "İmlenen geçerli klasörde halihazırda dosya var."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/newtransferwidget.ui:30
@@ -4347,7 +4349,7 @@ msgid ""
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
 "Doğrulama olanaksız. Girilen veriyi denetleyin, gpg-agent uygulamasının "
-"çalışıp çalışmadığını veya Internet bağlantınız olup olmadığını denetleyin "
+"çalışıp çalışmadığını veya internet bağlantınız olup olmadığını denetleyin "
 "(anahtarları almak için)"
 
 #: ui/signaturedlg.cpp:317
