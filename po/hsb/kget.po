@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop_kdebase\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-16 00:38+0000\n"
+"POT-Creation-Date: 2024-03-27 00:37+0000\n"
 "PO-Revision-Date: 2008-11-06 22:08+0100\n"
 "Last-Translator: Eduard Werner <edi.werner@gmx.de>\n"
 "Language-Team: en_US <kde-i18n-doc@lists.kde.org>\n"
@@ -2594,7 +2594,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:268
 #: transfer-plugins/bittorrent/scandlg.ui:155
 #: ui/linkview/importlinkdialog.ui:167 ui/metalinkcreator/files.ui:85
-#: ui/verificationdialog.ui:81
+#: ui/transferdetailsfrm.ui:83 ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
 msgstr ""
@@ -4448,13 +4448,13 @@ msgid "Source:"
 msgstr "SourceForge"
 
 #. i18n: ectx: property (text), widget (QLabel, statusLabel)
-#: ui/transferdetailsfrm.ui:114
+#: ui/transferdetailsfrm.ui:118
 #, kde-format
 msgid "Status:"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: ui/transferdetailsfrm.ui:165
+#: ui/transferdetailsfrm.ui:169
 #, kde-format
 msgid "Remaining Time:"
 msgstr ""
@@ -4544,6 +4544,12 @@ msgstr ""
 #| msgid "Transferring"
 msgid "Transfer Details"
 msgstr "Přenjesu"
+
+#: ui/transfersviewdelegate.cpp:361
+#, fuzzy, kde-format
+msgctxt "Progress bar percent value"
+msgid "%1%"
+msgstr "%1%2"
 
 #: ui/tray.cpp:48
 #, kde-format

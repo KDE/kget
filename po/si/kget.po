@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-16 00:38+0000\n"
+"POT-Creation-Date: 2024-03-27 00:37+0000\n"
 "PO-Revision-Date: 2011-11-11 19:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com> \n"
 "Language-Team: Sinhala <info@hanthana.org> \n"
@@ -2645,7 +2645,7 @@ msgstr "වෙත සුරකිමින්:"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:268
 #: transfer-plugins/bittorrent/scandlg.ui:155
 #: ui/linkview/importlinkdialog.ui:167 ui/metalinkcreator/files.ui:85
-#: ui/verificationdialog.ui:81
+#: ui/transferdetailsfrm.ui:83 ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
 msgstr ""
@@ -4424,13 +4424,13 @@ msgid "Source:"
 msgstr "මූලය:"
 
 #. i18n: ectx: property (text), widget (QLabel, statusLabel)
-#: ui/transferdetailsfrm.ui:114
+#: ui/transferdetailsfrm.ui:118
 #, kde-format
 msgid "Status:"
 msgstr "තත්වය:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: ui/transferdetailsfrm.ui:165
+#: ui/transferdetailsfrm.ui:169
 #, kde-format
 msgid "Remaining Time:"
 msgstr "ඉතිරි කාලය:"
@@ -4512,6 +4512,13 @@ msgstr "තීරු තෝරන්න"
 #, kde-format
 msgid "Transfer Details"
 msgstr "හුවමාරු තොරතුරු"
+
+#: ui/transfersviewdelegate.cpp:361
+#, fuzzy, kde-format
+#| msgid "%1 %"
+msgctxt "Progress bar percent value"
+msgid "%1%"
+msgstr "%1 %"
 
 #: ui/tray.cpp:48
 #, kde-format
