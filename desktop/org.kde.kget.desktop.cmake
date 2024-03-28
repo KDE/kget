@@ -7,6 +7,7 @@ Terminal=false
 MimeType=@SUPPORTED_KGET_MIMETYPES@
 Name=KGet
 Name[ar]=كجت
+Name[ast]=KGet
 Name[be]=KGet
 Name[bg]=KGet
 Name[bn]=কে-গেট

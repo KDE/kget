@@ -716,6 +716,7 @@ Action=Popup|Sound
 [Event/notification]
 Name=Information
 Name[ar]=معلومة
+Name[ast]=Información
 Name[bg]=Данни
 Name[bs]=Informacija
 Name[ca]=Informació
