@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-03-27 19:45\n"
+"PO-Revision-Date: 2024-03-28 19:17\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -4463,7 +4463,7 @@ msgstr "传输细节"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: ui/tray.cpp:48
 #, kde-format

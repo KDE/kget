@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-02-10 21:20+0400\n"
+"PO-Revision-Date: 2024-03-28 10:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -51,7 +51,7 @@ msgstr "تعبير نمطي"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "احذف جميع محفوظات النقل الأقدم مِن:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -123,7 +123,7 @@ msgstr "أظهر التقدم الإجمالي"
 #: conf/dlgadvanced.ui:128
 #, kde-format
 msgid "Handle existing Files/Transfers"
-msgstr ""
+msgstr "التعامل مع الملفات/عمليات النقل الموجودة"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesAlwaysAsk)
 #: conf/dlgadvanced.ui:134
@@ -165,7 +165,7 @@ msgstr "استخدم الأدلة المبدئية المقترحة للمجمو
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr ""
+msgstr "اسأل عن الوجهة إذا لم تكن هناك مجلدات افتراضية"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -366,19 +366,17 @@ msgid "Day(s)"
 msgstr "يوم"
 
 #: conf/preferencesdialog.cpp:71
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hour(s)"
-msgstr "ساعة"
+msgstr "ساعة/ساعات"
 
 #: conf/preferencesdialog.cpp:72
-#, fuzzy, kde-format
+#, kde-format
 msgid "Minute(s)"
-msgstr " من الدّقائق"
+msgstr "دقيقة/دقائق"
 
 #: conf/preferencesdialog.cpp:73
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
 msgstr "ثانية/ثواني"
 
@@ -466,25 +464,25 @@ msgstr "التحقق التلقائي للمجموع"
 #: conf/verificationpreferences.ui:32
 #, kde-format
 msgid "Used checksum:"
-msgstr ""
+msgstr "المجموع الاختباري المستخدم:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_4)
 #: conf/verificationpreferences.ui:51
 #, kde-format
 msgid "Weak (fastest)"
-msgstr ""
+msgstr "ضعيف (أسرع)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_5)
 #: conf/verificationpreferences.ui:61
 #, kde-format
 msgid "Strong (recommended)"
-msgstr ""
+msgstr "قوي (موصى به)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_6)
 #: conf/verificationpreferences.ui:71
 #, kde-format
 msgid "Strongest (slowest)"
-msgstr ""
+msgstr "الأقوى (أبطأ)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, signatureGroup)
 #. i18n: ectx: property (title), widget (QGroupBox, sigGroup)
@@ -505,7 +503,7 @@ msgstr "التحقّق التلقائيّ"
 #: conf/verificationpreferences.ui:100
 #, kde-format
 msgid "Automatic downloading of missing keys"
-msgstr ""
+msgstr "التنزيل التلقائي للمفاتيح المفقودة"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: conf/verificationpreferences.ui:123
@@ -526,13 +524,13 @@ msgstr "خطأ"
 #: core/datasourcefactory.cpp:269
 #, kde-format
 msgid "Filesize is larger than maximum file size supported by VFAT."
-msgstr ""
+msgstr "حجم الملف أكبر من الحد الأقصى لحجم الملف الذي يدعمه VFAT."
 
 #: core/datasourcefactory.cpp:579
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
-msgstr ""
+msgstr "أزيل %1 لأنه أبلغ عن حجم ملف خاطئ."
 
 #: core/filemodel.cpp:248
 #, kde-format
@@ -568,12 +566,12 @@ msgstr "التّوقيع"
 #, kde-format
 msgid ""
 "No server for downloading keys is specified in settings. Downloading aborted."
-msgstr ""
+msgstr "لم يحدّد خادم لتنزيل المفاتيح في الإعدادات. أحبط التنزيل."
 
 #: core/keydownloader.cpp:73 core/keydownloader.cpp:93
 #, kde-format
 msgid "No key server"
-msgstr ""
+msgstr "لا يوجد خادم مفتاح"
 
 #: core/keydownloader.cpp:92
 #, kde-format
@@ -581,6 +579,8 @@ msgid ""
 "No useful key server found, key not downloaded. Add more servers to the "
 "settings or restart KGet and retry downloading."
 msgstr ""
+"لم يعثر على خادم مفتاح مفيد، لم ينزّل المفتاح. أضف المزيد من الخوادم إلى "
+"الإعدادات أو أعد تشغيل كجت وأعد محاولة التنزيل."
 
 #: core/kget.cpp:114
 #, kde-format
@@ -608,6 +608,8 @@ msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 msgstr ""
+"<p>أضيف النقل التالي إلى قائمة التنزيل:</p><p style=\"font-size: small;\">"
+"%1</p>"
 
 #: core/kget.cpp:250 core/kget.cpp:343
 #, kde-format
@@ -617,12 +619,12 @@ msgstr "تم إضافة التنزيل"
 #: core/kget.cpp:338
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
-msgstr ""
+msgstr "<p>أضيف النقل التالي إلى قائمة التنزيل:</p>"
 
 #: core/kget.cpp:340
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
-msgstr ""
+msgstr "<p>أضيفت عمليات النقل التالية إلى قائمة التنزيل:</p>"
 
 #: core/kget.cpp:502 core/kget.cpp:544
 #, kde-format
@@ -657,16 +659,19 @@ msgid_plural ""
 "<p>The following URLs cannot be downloaded, their protocols are not "
 "supported by KGet:</p>"
 msgstr[0] ""
+"<p>لا يمكن تنزيل عنوان الموقع التالي، ميفاقه غير مدعوم من قبل كجت:</p>"
 msgstr[1] ""
+"<p>لا يمكن تنزيل عنوان الموقع التالي، ميفاقه غير مدعوم من قبل كجت:</p>"
 msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+"<p>لا يمكن تنزيل العنوانين  التاليين، ولا ميفاقهما غير مدعومين من كجت:</p>"
+msgstr[3] "<p>لا يمكن تنزيل العناوين  التالية، كجت لا يدعم هذه الموافيق:</p>"
+msgstr[4] "<p>لا يمكن تنزيل العناوين  التالية، كجت لا يدعم هذه الموافيق:</p>"
+msgstr[5] "<p>لا يمكن تنزيل العناوين  التالية، كجت لا يدعم هذه الموافيق:</p>"
 
 #: core/kget.cpp:880
 #, kde-format
 msgid "Protocol unsupported"
-msgstr ""
+msgstr "الميفاق غير مدعوم"
 
 #: core/kget.cpp:933 ui/newtransferdialog.cpp:52
 #, kde-format
@@ -682,7 +687,7 @@ msgstr "أدخل المسار:"
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
-msgstr ""
+msgstr "اختر الدليل"
 
 #: core/kget.cpp:974
 #, kde-format
@@ -717,6 +722,11 @@ msgid ""
 "\n"
 "Download it again?"
 msgstr ""
+"لقد أكملت بالفعل التنزيل من الموقع: \n"
+"\n"
+"%1\n"
+"\n"
+"هل تريد تنزيله مرة أخرى؟"
 
 #: core/kget.cpp:1004 core/urlchecker.cpp:639
 #, kde-format
@@ -728,14 +738,13 @@ msgstr "أأعيد تنزيله؟"
 #: transfer-plugins/metalink/metalink.cpp:117
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "نزل مرة أخرى"
 
 #: core/kget.cpp:1006 core/kget.cpp:1019 core/kget.cpp:1074
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Skip"
 msgstr "تخطّى"
@@ -749,6 +758,11 @@ msgid ""
 "\n"
 "Delete it and download again?"
 msgstr ""
+"لديك تنزيل قيد التقدم من الموقع: \n"
+"\n"
+"%1\n"
+"\n"
+"حذفه وتنزيله مرة أخرى؟"
 
 #: core/kget.cpp:1017 core/urlchecker.cpp:636
 #, kde-format
@@ -767,6 +781,9 @@ msgid ""
 "\n"
 "Download and delete the previous one?"
 msgstr ""
+"لقد أنزلت َمسبقا هذا الملف من موقع آخر.\n"
+"\n"
+"تنزيل وحذف السابق؟"
 
 #: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
@@ -788,18 +805,17 @@ msgstr "الملف موجود مسبقاً"
 #: core/kget.cpp:1179
 #, kde-format
 msgid "Internet connection established, resuming transfers."
-msgstr ""
+msgstr "أصبح الاتصال بالإنترنت جاهزاً، ستستأنف عمليات النقل."
 
 #: core/kget.cpp:1182
 #, kde-format
 msgid "No internet connection, stopping transfers."
-msgstr ""
+msgstr "لا يوجد اتصال بالإنترنت، إيقاف النقل."
 
 #: core/kget.cpp:1194
-#, fuzzy, kde-format
-#| msgid "Plugin loader could not load the plugin: %1."
+#, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr "لم يتمكن محمل الملحقات من تحميل الملحق: %1"
+msgstr "لم يتمكن محمل الملحقات من تحميل الملحق %1: %2"
 
 #: core/kget.cpp:1205
 #, kde-format
@@ -828,7 +844,7 @@ msgstr ""
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
-msgstr ""
+msgstr "<p>انتهى تنزيل الملف التالي:</p><p style=\"font-size: small;\">%1</p>"
 
 #: core/kget.cpp:1324
 #, kde-format
@@ -840,7 +856,7 @@ msgstr "اكتمل التنزيل"
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
-msgstr ""
+msgstr "<p>بدأت عملية النقل التالي:</p><p style=\"font-size: small;\">%1</p>"
 
 #: core/kget.cpp:1330
 #, kde-format
@@ -854,10 +870,11 @@ msgid ""
 "size: small;\">%1</p><p>The error message is:</p><p style=\"font-size: small;"
 "\">%2</p>"
 msgstr ""
+"<p>حدث خطأ في النقل التالي:</p><p style=\"font-size: small;\">%1</p><p>رسالة "
+"الخطأ هي:</p><p style=\"font-size: small;\">%2</p>"
 
 #: core/kget.cpp:1343
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "حُلّ"
@@ -887,7 +904,7 @@ msgstr "سيتم الآن تعليق الحاسوب في القرص لأن جم�
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
-msgstr ""
+msgstr "السبات"
 
 #: core/kget.cpp:1414
 #, kde-format
@@ -910,7 +927,7 @@ msgstr "الغِ"
 #: core/kget.cpp:1433
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
-msgstr ""
+msgstr "<p>تمت جميع التحويلات.</p>"
 
 #: core/kget.cpp:1433
 #, kde-format
@@ -947,17 +964,16 @@ msgstr "خطأ عند محاولة الحصول على %1"
 #: core/signature.cpp:230
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
-msgstr ""
+msgstr "مفتاح التحقق من التوقيع مفقود، هل تريد تنزيله؟"
 
 #: core/signature.cpp:232
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "تنزيل"
 
 #: core/signature.cpp:233
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
 msgstr "تابع دونها"
@@ -968,11 +984,12 @@ msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
 "information."
 msgstr ""
+"تعذر التحقق من التوقيع لـ%1. اطلع على إعدادات النقل لمزيد من المعلومات."
 
 #: core/signature.cpp:257
 #, kde-format
 msgid "Signature not verified"
-msgstr ""
+msgstr "لم يُتحقّق من التّوقيع"
 
 #: core/transfer.cpp:28
 msgid "Downloading...."
@@ -1120,27 +1137,27 @@ msgstr "لم يحدّد مجلد للتنزيلات."
 #: core/urlchecker.cpp:302
 #, kde-format
 msgid "Invalid download directory specified."
-msgstr ""
+msgstr "حُدِّد دليل تنزيل غير صالح."
 
 #: core/urlchecker.cpp:304
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download directory is not writeable."
-msgstr "المجلد غير قابل للكتابة"
+msgstr "مجلد التنزيل غير قابل للكتابة."
 
 #: core/urlchecker.cpp:312 core/urlchecker.cpp:352
-#, fuzzy, kde-format
+#, kde-format
 msgid "No download destination specified."
-msgstr "الهدف"
+msgstr "لم تُحدّد وجهة تنزيل."
 
 #: core/urlchecker.cpp:314
-#, fuzzy, kde-format
+#, kde-format
 msgid "Invalid download destination specified."
-msgstr "الهدف"
+msgstr "حُدّدت وجهة تنزيل غير صالحة."
 
 #: core/urlchecker.cpp:316
-#, fuzzy, kde-format
+#, kde-format
 msgid "Download destination is not writeable."
-msgstr "الهدف"
+msgstr "وجهة التنزيل غير قابلة للكتابة."
 
 #: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
 #: core/urlchecker.cpp:468
@@ -1170,28 +1187,34 @@ msgstr "عنوان المسار خاطئ التكوين، المضيف مفقو�
 msgid ""
 "Invalid download directory specified:\n"
 "%1"
-msgstr ""
+msgstr "حُدِّد دليل تنزيل غير صالح:/n %1"
 
 #: core/urlchecker.cpp:344
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Download directory is not writeable:\n"
 "%1"
-msgstr "المجلد غير قابل للكتابة"
+msgstr ""
+"دليل التنزيل غير قابل للكتابة:\n"
+"%1"
 
 #: core/urlchecker.cpp:354
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Invalid download destination specified:\n"
 "%1"
-msgstr "الهدف"
+msgstr ""
+"حُدّدت وجهة تنزيل غير صالحة:\n"
+"%1"
 
 #: core/urlchecker.cpp:356
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Download destination is not writeable:\n"
 "%1"
-msgstr "الهدف"
+msgstr ""
+"وجهة التنزيل غير قابلة للكتابة:\n"
+"%1"
 
 #: core/urlchecker.cpp:370
 #, kde-format
@@ -1203,11 +1226,9 @@ msgstr ""
 "%1"
 
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
-#, fuzzy, kde-format
+#, kde-format
 msgid "File already exists. Overwrite it?"
-msgstr ""
-"الملف %1 موجود مسبقًا.\n"
-"أأكتب فوقه؟"
+msgstr "الملف موجود مسبقًا. أأكتب فوقه؟"
 
 #: core/urlchecker.cpp:388 core/urlchecker.cpp:414
 #, kde-format
@@ -1215,6 +1236,8 @@ msgid ""
 "You have already downloaded that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
+"لقد نزلتَ بالفعل هذا الملف من موقع آخر.\n"
+"تحميل وحذف السابق؟"
 
 #: core/urlchecker.cpp:390 core/urlchecker.cpp:416
 #, kde-format
@@ -1222,12 +1245,14 @@ msgid ""
 "You are already downloading that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
+"أنت تنزّل بالفعل هذا الملف من موقع آخر.\n"
+"تحميل وحذف السابق؟"
 
 #: core/urlchecker.cpp:400
 #, kde-format
 msgid ""
 "You have already completed a download from that location. Download it again?"
-msgstr ""
+msgstr "لقد أكملت بالفعل تنزيلاً من هذا الموقع. قم بتنزيله مرة أخرى؟"
 
 #: core/urlchecker.cpp:402
 #, kde-format
@@ -1235,6 +1260,8 @@ msgid ""
 "You have a download in progress from that location.\n"
 "Delete it and download again?"
 msgstr ""
+"لديك تنزيل قيد التقدم من هذا الموقع.\n"
+"حذفه وتنزيله مرة أخرى؟"
 
 #: core/urlchecker.cpp:412
 #, kde-format
@@ -1248,9 +1275,9 @@ msgstr ""
 "أأكتب فوقه؟"
 
 #: core/urlchecker.cpp:456
-#, fuzzy, kde-format
+#, kde-format
 msgid "Malformed URLs."
-msgstr "مسار مُكوّن خطأً."
+msgstr "عناوين مُكوّنة خطأً."
 
 #: core/urlchecker.cpp:458
 #, kde-format
@@ -1308,7 +1335,7 @@ msgstr "الملفات موجودة مسبقا. أأكتب فوقه؟"
 msgid ""
 "You have already completed downloads at those destinations. Download them "
 "again?"
-msgstr ""
+msgstr "لقد أكملت بالفعل التنزيلات في تلك الوجهات. قم بتنزيلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:504
 #, kde-format
@@ -1316,13 +1343,15 @@ msgid ""
 "You have downloads in progress to these destinations.\n"
 "Delete them and download again?"
 msgstr ""
+"لديك تنزيلات قيد التقدم إلى هذه الوجهات.\n"
+"حذفها وتنزيلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:512
 #, kde-format
 msgid ""
 "You have already completed downloads from these locations. Download them "
 "again?"
-msgstr ""
+msgstr "لقد أكملت بالفعل التنزيلات من هذه المواقع. قم بتنزيلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:514
 #, kde-format
@@ -1330,6 +1359,8 @@ msgid ""
 "You have downloads in progress from these locations.\n"
 "Delete them and download again?"
 msgstr ""
+"لديك تنزيلات قيد التقدم من هذه المواقع.\n"
+"حذفها وتنزيلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:523
 #, kde-format
@@ -1338,6 +1369,9 @@ msgid ""
 "%1\n"
 "Overwrite them?"
 msgstr ""
+"الملفات موجودة بالفعل:\n"
+"%1\n"
+"الكتابة فوقها؟"
 
 #: core/urlchecker.cpp:525
 #, kde-format
@@ -1348,6 +1382,11 @@ msgid ""
 "\n"
 " Download them again?"
 msgstr ""
+"لقد أكملت بالفعل التنزيلات في تلك الوجهات: \n"
+"\n"
+"%1\n"
+"\n"
+" حمّلهم مرة أخرى؟"
 
 #: core/urlchecker.cpp:527
 #, kde-format
@@ -1358,6 +1397,11 @@ msgid ""
 "\n"
 "Delete them and download again?"
 msgstr ""
+"لديك تنزيلات قيد التقدم إلى هذه الوجهات: \n"
+"\n"
+"%1\n"
+"\n"
+"احذفهم وحمّلهم مرة أخرى؟"
 
 #: core/urlchecker.cpp:535
 #, kde-format
@@ -1368,6 +1412,11 @@ msgid ""
 "\n"
 "Download them again?"
 msgstr ""
+"لقد أكملت بالفعل التنزيلات من هذه المواقع: \n"
+"\n"
+"%1\n"
+"\n"
+"حمّلهم مرة أخرى؟"
 
 #: core/urlchecker.cpp:537
 #, kde-format
@@ -1378,6 +1427,11 @@ msgid ""
 "\n"
 "Delete them and download again?"
 msgstr ""
+"لديك تنزيلات قيد التقدم من هذه المواقع: \n"
+"\n"
+"%1\n"
+"\n"
+"احذفهم وحمّلهم مرة أخرى؟"
 
 #: core/verificationmodel.cpp:148
 #, kde-format
@@ -1398,20 +1452,19 @@ msgid "Verified"
 msgstr "متحقّق منه"
 
 #: main.cpp:100
-#, fuzzy, kde-format
-#| msgid "An advanced download manager for KDE"
+#, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "مدير تنزيل متقدم لكِيدِي"
 
 #: main.cpp:102
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
 "(C) 2001 - 2002, Patrick Charbonnier\n"
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
-"(C) 2005 - 2011, The KGet developers\n"
+"(C) 2005 - 2011, مطورو كجت\n"
 "(C) 2001 - 2002, Patrick Charbonnier\n"
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
@@ -1474,12 +1527,12 @@ msgstr "مطور"
 #: main.cpp:114
 #, kde-format
 msgid "Aish Raj Dahal"
-msgstr ""
+msgstr "عيش راج داهال"
 
 #: main.cpp:114
 #, kde-format
 msgid "Google Summer of Code Student"
-msgstr ""
+msgstr "صيف جوجل للترجمة للطلاب"
 
 #: main.cpp:115
 #, kde-format
@@ -1489,7 +1542,7 @@ msgstr "Ernesto Rodriguez Ortiz"
 #: main.cpp:115
 #, kde-format
 msgid "Mms Plugin Author"
-msgstr ""
+msgstr "مؤلف البرنامج المساعد Mms"
 
 #: main.cpp:116
 #, kde-format
@@ -1563,7 +1616,7 @@ msgstr "أبدأ كجت بدون تحريكات هدف الإسقاط"
 #: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
-msgstr ""
+msgstr "تنفيذ اختبار الوحدة"
 
 #: main.cpp:135
 #, kde-format
@@ -1588,7 +1641,7 @@ msgstr "صدِّر &قائمة عمليات النقل..."
 #: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr ""
+msgstr "أ&نشئ ميتالنك..."
 
 #: mainwindow.cpp:173
 #, kde-format
@@ -1685,7 +1738,7 @@ msgstr "ابدأ المحدد"
 #: mainwindow.cpp:282
 #, kde-format
 msgid "Pause All"
-msgstr ""
+msgstr "ألبث الكل"
 
 #: mainwindow.cpp:289
 #, kde-format
@@ -1745,7 +1798,7 @@ msgstr "استورد ر&وابطًا..."
 #: mainwindow.cpp:352
 #, kde-format
 msgid "After downloads finished action"
-msgstr ""
+msgstr "بعد انتهاء التنزيلات من العمل"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
 #: mainwindow.cpp:356
@@ -1809,8 +1862,7 @@ msgid "Confirm Quit"
 msgstr "تأكيد الإنهاء"
 
 #: mainwindow.cpp:592
-#, fuzzy, kde-format
-#| msgid "Export Transfers"
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "صدّر عمليات النقل"
@@ -1852,16 +1904,16 @@ msgid "Confirm transfer delete"
 msgstr "أكّد حذف النقل"
 
 #: mainwindow.cpp:738
-#, fuzzy, kde-format
+#, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
-msgstr[0] "أمتأكد أنك تريد حذف عملية النقل المحددة؟"
-msgstr[1] "أمتأكد أنك تريد حذف عملية النقل المحددة؟"
-msgstr[2] "أمتأكد أنك تريد حذف عمليتا النقل المحددتان؟"
-msgstr[3] "أمتأكد أنك تريد حذف عمليات النقل المحددة؟"
-msgstr[4] "أمتأكد أنك تريد حذف عمليات النقل المحددة؟"
-msgstr[5] "أمتأكد أنك تريد حذف عمليات النقل المحددة؟"
+msgstr[0] "أمتأكد أنك تريد حذف عملية النقل المحددة بما في ذلك الملفات؟"
+msgstr[1] "أمتأكد أنك تريد حذف عملية النقل المحددة بما في ذلك الملفات؟"
+msgstr[2] "أمتأكد أنك تريد حذف عمليتي النقل المحدّدتين بما في ذلك الملفات؟"
+msgstr[3] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
+msgstr[4] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
+msgstr[5] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
 
 #: mainwindow.cpp:1073
 #, kde-format
@@ -2309,14 +2361,11 @@ msgid "Upload speed"
 msgstr "سرعة الرفع"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:367
-#, fuzzy, kde-format
-#| msgid ""
-#| "Whether or not the peer has choked us.  If we are choked, the peer will "
-#| "not send us any data."
+#, kde-format
 msgid ""
 "Whether or not the peer has choked us. If we are choked, the peer will not "
 "send us any data."
-msgstr "فيما إذا كان النظير خنقنا. إذن خُنقنا، فلن يرسل لنا النظير أي بيانات."
+msgstr "سواء خنقنا النظير أم لا. إذا اختنقنا، فلن يرسل لنا النظير أي بيانات."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:369
 #, kde-format
@@ -2425,7 +2474,7 @@ msgstr "أضف متتبعًا"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #, kde-format
 msgid "Enter the URL of the tracker:"
-msgstr ""
+msgstr "أدخل عنوان للمتتبع:"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
@@ -2611,9 +2660,9 @@ msgstr "يحفظ إلى:"
 #: transfer-plugins/bittorrent/scandlg.ui:155
 #: ui/linkview/importlinkdialog.ui:167 ui/metalinkcreator/files.ui:85
 #: ui/transferdetailsfrm.ui:83 ui/verificationdialog.ui:81
-#, fuzzy, no-c-format, kde-format
+#, no-c-format, kde-format
 msgid "%p%"
-msgstr "P"
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2647,7 +2696,7 @@ msgstr "حد التنزيل لعملية النقل الواحدة:"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:89
 #, kde-format
 msgid "Enable UTP protocol"
-msgstr ""
+msgstr "تمكين ميفاق UTP"
 
 #. i18n: ectx: property (title), widget (QGroupBox, folderGroupBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:105
@@ -2663,10 +2712,9 @@ msgstr "مجلد التورنت المبدئي:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:134
-#, fuzzy, kde-format
-#| msgid "Default temporary folder"
+#, kde-format
 msgid "Default temporary folder:"
-msgstr "المجلد المؤفت المبدئي:"
+msgstr "المجلد المؤقت المبدئي:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
@@ -2675,11 +2723,10 @@ msgid "Pre-allocate disk space"
 msgstr "مساحة القرص المسبقة"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "اختر مجلد التورنت المبدئي"
+msgstr "اختر ملف تورنت جديدا"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -2699,9 +2746,9 @@ msgid "Cannot add a tracker to a private torrent."
 msgstr "لا يمكن إضافة متتبع إلى تورنت خاص."
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:408
-#, fuzzy, kde-format
+#, kde-format
 msgid "Torrent file does not exist"
-msgstr "المجلد %1 غير موجود"
+msgstr "ملف التورنت غير موجود"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
@@ -2722,7 +2769,7 @@ msgstr "توزيع..."
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
 msgid "Cannot initialize libktorrent. Torrent support might not work."
-msgstr ""
+msgstr "لا يمكن تهيئة libktorrent. قد لا يعمل دعم التورنت."
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:75
 #, kde-format
@@ -2800,13 +2847,13 @@ msgstr "استبدل ملف"
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
 msgid "Replace file-ending"
-msgstr ""
+msgstr "استبدل نهاية الملف"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
-#, fuzzy, kde-format
+#, kde-format
 msgid "Change string:"
-msgstr "غير خصائص المظهر"
+msgstr "غيّر السلسلة:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
@@ -2818,7 +2865,7 @@ msgstr "الوضع:"
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:43
 #, kde-format
 msgid "Checksum type:"
-msgstr ""
+msgstr "نوع المجموع الاختباري:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:77
@@ -2840,13 +2887,13 @@ msgstr "أضف عنصرًا"
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:70
 #, kde-format
 msgid "%1 would become %2"
-msgstr ""
+msgstr "%1 ستصبح %2"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:177
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "the string that is used to modify an url"
 msgid "Change string"
-msgstr "غير خصائص المظهر"
+msgstr "غيّر السلسلة"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:178
 #, kde-format
@@ -2858,7 +2905,7 @@ msgstr "غيّر الوضع"
 #, kde-format
 msgctxt "the type of the checksum e.g. md5"
 msgid "Checksum type"
-msgstr ""
+msgstr "نوع المجموع الاختباري"
 
 #. i18n: ectx: label, entry (SearchStrings), group (ChecksumSearch)
 #. i18n: ectx: label, entry (SearchEnginesNameList), group (SearchEngines)
@@ -2874,9 +2921,9 @@ msgstr "قائمة بمحركات البحث المتوفرة"
 #: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:13
 #: transfer-plugins/checksumsearch/kget_checksumsearchfactory.kcfg:17
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
-#, fuzzy, kde-format
+#, kde-format
 msgid "List of the available search engine URLs"
-msgstr "استخدم محركات البحث"
+msgstr " قائمة عناوين محركات البحث"
 
 #: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
@@ -2888,7 +2935,7 @@ msgstr "يجري الاتصال..."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
-msgstr ""
+msgstr "تعذر التحقق من التنزيل (%1). هل تريد إصلاحه؟"
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
@@ -2904,17 +2951,17 @@ msgstr "أصلح"
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
-msgstr ""
+msgstr "تعذر التحقق من التنزيل (%1). هل تريد إعادة تنزيله؟"
 
 #: transfer-plugins/kio/transferKio.cpp:279
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Verification failed."
-msgstr ""
+msgstr "فشل التحقق."
 
 #: transfer-plugins/kio/transferKio.cpp:279
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
-#, fuzzy, kde-format
+#, kde-format
 msgid "Ignore"
 msgstr "تجاهل"
 
@@ -2925,43 +2972,45 @@ msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
 "not work the download would be restarted) it?"
 msgstr ""
+"تعذر التحقق من التنزيل ، هل تريد إصلاح (إذا كان الإصلاح لا يعمل سيعاد تشغيل "
+"التنزيل) ذلك؟"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
 #: transfer-plugins/metalink/metalink.cpp:118
 #: transfer-plugins/metalink/metalink.cpp:457
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
 msgstr "تجاهل"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
-#, fuzzy, kde-format
+#, kde-format
 msgid "Number of simultaneous file downloads:"
-msgstr "عدد الكتل التي تم تنزيلها:"
+msgstr "عدد تنزيلات الملفات المتزامنة:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/metalink/dlgmetalink.ui:39
-#, fuzzy, kde-format
+#, kde-format
 msgid "Number of mirrors per file:"
-msgstr "عدد المحاولات:"
+msgstr "عدد المرايا لكل ملف:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: transfer-plugins/metalink/dlgmetalink.ui:56
 #: transfer-plugins/mmsthreads/dlgmms.ui:22
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:22
-#, fuzzy, kde-format
+#, kde-format
 msgid "Number of connections per URL:"
-msgstr "عدد المحاولات:"
+msgstr "عدد المحاولات لكل رابط :"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: transfer-plugins/metalink/fileselection.ui:17
 #, kde-format
 msgid "Select the files you want to be downloaded."
-msgstr ""
+msgstr "حدد الملفات التي تريد تنزيلها."
 
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
 #, kde-format
@@ -2970,34 +3019,34 @@ msgstr "تحديد الملف"
 
 #: transfer-plugins/metalink/metalink.cpp:76
 #: transfer-plugins/metalink/metalinkxml.cpp:72
-#, fuzzy, kde-format
+#, kde-format
 msgid "Downloading Metalink File...."
-msgstr "تنزيل ملف تورنت.."
+msgstr "تنزيل ملف ميتالنك...."
 
 #: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
-msgstr ""
+msgstr "قد يوجد إصدار أحدث من هذا الميتالنك، هل تريد تنزيله؟"
 
 #: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:112
-#, fuzzy, kde-format
+#, kde-format
 msgid "Redownload Metalink"
-msgstr "أعد تنزيل النقل المحدد"
+msgstr "أعد تنزيل ميتالنك"
 
 #: transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
 msgid "Download failed, no working URLs were found."
-msgstr ""
+msgstr "فشل التنزيل، لم يُعثر على عناوين  تعمل."
 
 #: transfer-plugins/metalink/metalinkhttp.cpp:156
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
-msgstr ""
+msgstr "تعذر التحقق من التنزيل، حاول إصلاحه؟"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
@@ -3059,7 +3108,7 @@ msgstr "منتهي"
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:162
 #, kde-format
 msgid "Download failed, could not access this URL."
-msgstr ""
+msgstr "فشل التنزيل، تعذر الوصول إلى عنوان هذا."
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:173
 #, kde-format
@@ -3067,6 +3116,8 @@ msgid ""
 "This URL does not allow multiple connections,\n"
 "the download will take longer."
 msgstr ""
+"لا يسمح هذا عنوان باتصالات متعددة،\n"
+"سيستغرق التنزيل وقتا أطول."
 
 #. i18n: ectx: property (text), widget (QCheckBox, enginesCheckBox)
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
@@ -3078,12 +3129,12 @@ msgstr "استخدم محركات البحث"
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
 #, kde-format
 msgid "Search for verification information"
-msgstr ""
+msgstr "ابحث عن معلومات التحقق"
 
 #: transfer-plugins/multisegmentkio/segment.cpp:287
-#, fuzzy, kde-format
+#, kde-format
 msgid "Failed to write to the file."
-msgstr "فشل في الكتابة إلى الملف %1: %2"
+msgstr "فشل في الكتابة إلى الملف"
 
 #: ui/contextmenu.cpp:115
 #, kde-format
@@ -3171,10 +3222,9 @@ msgstr "إعدادات المجموعة"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/groupsettingsdialog.ui:44
-#, fuzzy, kde-format
-#| msgid "Default &folder:"
+#, kde-format
 msgid "Defau&lt folder:"
-msgstr "المجلد المبدئيّ"
+msgstr "المجلد ال&مبدئيّ:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
@@ -3230,10 +3280,10 @@ msgid "&Open File"
 msgstr "ا&فتح ملفًا"
 
 #: ui/history/transferhistory.cpp:74
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr "P"
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:214
 #, kde-format
@@ -3347,9 +3397,9 @@ msgstr "أوضاع العرض:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/history/transferhistory.ui:77
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select Ranges:"
-msgstr "اختر المدى:"
+msgstr "حدد النطاقات:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: ui/history/transferhistory.ui:85
@@ -3455,8 +3505,7 @@ msgstr "شريط الأدوات الرئيسي"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/linkview/importlinkdialog.ui:34
-#, fuzzy, kde-format
-#| msgid "&File with links to import:"
+#, kde-format
 msgid "File with &links to import:"
 msgstr "&ملف بروابط لاستيرادها:"
 
@@ -3620,7 +3669,7 @@ msgstr "ألغِ تحديد المُرَشح"
 #: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
-msgstr ""
+msgstr "عمود التصفية"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/commondata.ui:22
@@ -3650,13 +3699,13 @@ msgstr "الشّعار:"
 #: ui/metalinkcreator/commondata.ui:63
 #, kde-format
 msgid "URL to the logo"
-msgstr ""
+msgstr "عنوان الشعار"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:73
 #, kde-format
 msgid "The language of the file"
-msgstr ""
+msgstr "لغة الملف"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:76
@@ -3668,13 +3717,13 @@ msgstr "اللغة:"
 #: ui/metalinkcreator/commondata.ui:86
 #, kde-format
 msgid "Operating systems:"
-msgstr ""
+msgstr "أنظمة التشغيل:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, os)
 #: ui/metalinkcreator/commondata.ui:93
 #, kde-format
 msgid "Supported OSes, separated with commas"
-msgstr ""
+msgstr "أنظمة تشغيل مدعومة، مفصولة بفواصل"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: ui/metalinkcreator/commondata.ui:103
@@ -3736,7 +3785,7 @@ msgstr "عامّ"
 #: ui/metalinkcreator/dragdlg.ui:27
 #, kde-format
 msgid "Create partial checksums"
-msgstr ""
+msgstr "إنشاء مجاميع اختبارية جزئية"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/dragdlg.ui:40
@@ -3751,6 +3800,8 @@ msgid ""
 "Automatically create checksums for the selected types. Keep in mind that "
 "this might take a while."
 msgstr ""
+"إنشاء المجاميع الاختبارية تلقائيا للأنواع المحددة. ضع في اعتبارك أن هذا قد "
+"يستغرق بعض الوقت."
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/metalinkcreator/dragdlg.ui:92
@@ -3760,18 +3811,20 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
+"أدخل عناوين هنا إذا كانت جميع الملفات التي أُسقطت موجودة على هذا الخادم وفي "
+"نفس الدليل. لكل ملف أُسقط سيتألف عنوان من الجزء الذي أُدخل واسم الملف."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/metalinkcreator/dragdlg.ui:102
 #, kde-format
 msgid "Types of the checksums:"
-msgstr ""
+msgstr "أنواع المجاميع الاختبارية:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/dragdlg.ui:115
 #, kde-format
 msgid "Create checksums:"
-msgstr ""
+msgstr "أنشئ مجاميع اختبارية:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #: ui/metalinkcreator/dragdlg.ui:123
@@ -3784,13 +3837,13 @@ msgstr "اختياري"
 #: ui/metalinkcreator/dragdlg.ui:135
 #, kde-format
 msgid "Optional data:"
-msgstr ""
+msgstr "البيانات الاختيارية:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/metalinkcreator/dragdlg.ui:160
 #, kde-format
 msgid "Enter information that all chosen files share."
-msgstr ""
+msgstr "أدخل المعلومات التي تشاركها جميع الملفات المختارة."
 
 #: ui/metalinkcreator/filedlg.cpp:122
 #, kde-format
@@ -3798,9 +3851,9 @@ msgid "File Properties"
 msgstr "خصائص الملفّ"
 
 #: ui/metalinkcreator/filedlg.cpp:134
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enter a filename."
-msgstr "أدخل اسم المجموعة"
+msgstr "أدخل اسم الملف"
 
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
@@ -3808,9 +3861,9 @@ msgid "The filename exists already, choose a different one."
 msgstr "اسم الملم مستخدم مسبقاً، استخدم ملفاً آخر."
 
 #: ui/metalinkcreator/filedlg.cpp:140
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enter at least one URL."
-msgstr "أدخل اسم المجموعة"
+msgstr "أدخل على الأقل رابط واحدا"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/metalinkcreator/filedlg.ui:24
@@ -3828,7 +3881,7 @@ msgstr "اسم الملف:"
 #: ui/metalinkcreator/filedlg.ui:95
 #, kde-format
 msgid "Used Mirrors:"
-msgstr ""
+msgstr "المرايا المستعملة:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: ui/metalinkcreator/filedlg.ui:103
@@ -3840,7 +3893,7 @@ msgstr "مستحسن"
 #: ui/metalinkcreator/filedlg.ui:111
 #, kde-format
 msgid "File size (in bytes):"
-msgstr ""
+msgstr "حجم الملف (بالبايت):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -3859,19 +3912,19 @@ msgstr "اختياري"
 #: ui/metalinkcreator/files.ui:26
 #, kde-format
 msgid "Adds local files adding a lot information automatically."
-msgstr ""
+msgstr "يضيف الملفات المحلية مضيفا الكثير من المعلومات تلقائيا."
 
 #. i18n: ectx: property (text), widget (QPushButton, add_local_file)
 #: ui/metalinkcreator/files.ui:29
 #, kde-format
 msgid "Add local files"
-msgstr ""
+msgstr "أضف ملفات محلية"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
-msgstr ""
+msgstr "إضافة ملفات محلية..."
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/metalinkcreator/generalwidget.ui:23
@@ -3883,7 +3936,7 @@ msgstr "المعلومات العامة:"
 #: ui/metalinkcreator/generalwidget.ui:30
 #, kde-format
 msgid "Here you can enter optional general information on the metalink."
-msgstr ""
+msgstr "هنا يمكنك إدخال معلومات عامة اختيارية على الميتالنك."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/generalwidget.ui:61
@@ -3895,25 +3948,25 @@ msgstr "الأصل:"
 #: ui/metalinkcreator/generalwidget.ui:68
 #, kde-format
 msgid "Web URL to the metalink"
-msgstr ""
+msgstr "عنوان الويب إلى الميتالنك"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:75
 #, kde-format
 msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
-msgstr ""
+msgstr "الديناميكي تعني أنه يمكن العثور على الميتالنك المحدثة في \"الأصل\"."
 
 #. i18n: ectx: property (text), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:78
 #, kde-format
 msgid "Dynamic:"
-msgstr ""
+msgstr "ديناميكي:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, publishedGroupBox)
 #: ui/metalinkcreator/generalwidget.ui:110
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink published"
-msgstr "التحديث التالي عند:"
+msgstr "نُشر الميتالينك"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #. i18n: ectx: property (text), widget (QLabel, label_29)
@@ -3929,7 +3982,7 @@ msgstr "التاريخ والوقت:"
 #: ui/metalinkcreator/generalwidget.ui:217
 #, kde-format
 msgid "Timezone offset:"
-msgstr ""
+msgstr "إزاحة المنطقة الزمنية:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -3937,13 +3990,13 @@ msgstr ""
 #: ui/metalinkcreator/generalwidget.ui:210
 #, kde-format
 msgid "Negative offset:"
-msgstr ""
+msgstr "الإزاحة السلبية:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, updatedGroupBox)
 #: ui/metalinkcreator/generalwidget.ui:182
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink updated"
-msgstr "التحديث التالي عند:"
+msgstr "حُدّث الميتالنك"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/metalinkcreator/introduction.ui:17
@@ -3954,69 +4007,72 @@ msgid ""
 "enter them if desired. The minimum is a save location, at least one file and "
 "one URL."
 msgstr ""
+"يتيح لك هذا المساعد إنشاء ميتالنك من البداية أو تأسيسها على الميتالنك "
+"الموجودة. الكثير من الحقول اختيارية أو موصى بها، لذلك أدخلها إذا رغبت في "
+"ذلك. الحد الأدنى هو موقع حفظ، ملف واحد على الأقل و عنوان واحد."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/introduction.ui:48
 #, kde-format
 msgid "Save created Metalink at:"
-msgstr ""
+msgstr "احفظ الميتالنك الذي أنشئ في:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, createButton)
 #: ui/metalinkcreator/introduction.ui:78
 #, kde-format
 msgid "Create new Metalink"
-msgstr ""
+msgstr "أنشئ ميتالنك جديدا"
 
 #. i18n: ectx: property (text), widget (QRadioButton, loadButton)
 #: ui/metalinkcreator/introduction.ui:88
 #, kde-format
 msgid "Load existing Metalink:"
-msgstr ""
+msgstr "حمّل الميتالنك الحالي:"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:83
-#, fuzzy, kde-format
+#, kde-format
 msgid "Create a Metalink"
 msgstr "أنشئ ميتالنك"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:101
-#, fuzzy, kde-format
+#, kde-format
 msgid "Add at least one file."
-msgstr "أدخل اسم المجموعة"
+msgstr "أضف ملفا واحدا على الأقل"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:103
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
-msgstr ""
+msgstr "تحتاج إلى تعيين المرايا للإدخالات مع أيقونة."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:116
 #, kde-format
 msgid "General optional information for the metalink."
-msgstr ""
+msgstr "معلومات اختيارية عامة للميتالنك."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:145
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unable to load: %1"
-msgstr "غير قادر على الحفظ إلى :%1"
+msgstr "غير قادر على التحميل: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "افتح ملف"
+msgstr "ملف الميتالنك الإصدار 4.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "افتح ملف"
+msgstr "ملف الميتالنك الإصدار 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "افتح ملف"
+msgstr "ملف الميتالنك (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:179
 #, kde-format
 msgid "Define the saving location."
-msgstr ""
+msgstr "حدد موقع الحفظ."
 
 #: ui/metalinkcreator/metalinkcreator.cpp:225
 #, kde-format
@@ -4032,9 +4088,9 @@ msgstr "مرآة:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelConnections)
 #: ui/mirror/mirroradddlg.ui:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "Number of connections:"
-msgstr "عدد المحاولات:"
+msgstr "عدد الاتصالات:"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, url)
 #: ui/mirror/mirroradddlg.ui:33
@@ -4052,7 +4108,7 @@ msgstr "الأولوية:"
 #: ui/mirror/mirroradddlg.ui:60
 #, kde-format
 msgid "Optional: The priority of the mirror, 1 highest 999999 lowest."
-msgstr ""
+msgstr "اختياري: أولوية المرآة، 1 أعلى 999999 أدنى."
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, priority)
 #: ui/mirror/mirroradddlg.ui:72 ui/mirror/mirrormodel.cpp:179
@@ -4094,12 +4150,12 @@ msgstr "الموقع"
 #: ui/mirror/mirrorsettings.cpp:54
 #, kde-format
 msgid "Add mirror"
-msgstr ""
+msgstr "أضف مرآة"
 
 #: ui/mirror/mirrorsettings.cpp:144
 #, kde-format
 msgid "Modify the used mirrors"
-msgstr ""
+msgstr "عدّل المرايا المستخدمة"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/mirror/mirrorsettings.ui:36
@@ -4108,14 +4164,14 @@ msgid "PushButton"
 msgstr "زرّ"
 
 #: ui/newtransferdialog.cpp:315
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select at least one source url."
-msgstr "اختر مجلد التورنت المبدئي"
+msgstr "حدد عنوان مصدر واحد على الأقل."
 
 #: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
-msgstr ""
+msgstr "وُضعت علامة على الملفات الموجودة بالفعل في المجلد الحالي."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/newtransferwidget.ui:30
@@ -4149,32 +4205,32 @@ msgstr "أ&عِد التسمية"
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
-msgstr ""
+msgstr "توقيع %1."
 
 #: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
-msgstr ""
+msgstr "هذا الخيار غير مدعوم للنقل الحالي."
 
 #: ui/signaturedlg.cpp:97
-#, fuzzy, kde-format
+#, kde-format
 msgid "Load Signature File"
-msgstr "الملف المصدر"
+msgstr "حمّل ملف التوقيع"
 
 #: ui/signaturedlg.cpp:99
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
-msgstr ""
+msgstr "توقيع OpenPGP ASCII المنفصل (*.asc)"
 
 #: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
-msgstr ""
+msgstr "توقيع OpenPGP الثنائي المنفصل (*.sig)"
 
 #: ui/signaturedlg.cpp:153
 #, kde-format
 msgid "You need to define a signature."
-msgstr ""
+msgstr "تحتاج إلى تحديد توقيع."
 
 #: ui/signaturedlg.cpp:157
 #, kde-format
@@ -4182,6 +4238,8 @@ msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr ""
+"لا يمكن العثور على بصمة الإصبع، تحقق مما إذا كان التوقيع صحيحا أو راجع "
+"التنزيل."
 
 #: ui/signaturedlg.cpp:191
 #, kde-format
@@ -4222,37 +4280,37 @@ msgstr "غير محدود"
 #: ui/signaturedlg.cpp:195
 #, kde-format
 msgid "The key has been revoked."
-msgstr ""
+msgstr "أُبطل المفتاح."
 
 #: ui/signaturedlg.cpp:199
 #, kde-format
 msgid "The key is disabled."
-msgstr ""
+msgstr "عُطّل المفتاح"
 
 #: ui/signaturedlg.cpp:203
 #, kde-format
 msgid "The key is invalid."
-msgstr ""
+msgstr "المفتاح غير صالح."
 
 #: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is expired."
-msgstr ""
+msgstr "انتهت صلاحية المفتاح."
 
 #: ui/signaturedlg.cpp:222
 #, kde-format
 msgid "The key is not to be trusted."
-msgstr ""
+msgstr "المفتاح لا يمكن الوثوق به."
 
 #: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is to be trusted marginally."
-msgstr ""
+msgstr "المفتاح هو أن تكون موضع ثقة هامشي."
 
 #: ui/signaturedlg.cpp:240
 #, kde-format
 msgid "Trust level of the key is unclear."
-msgstr ""
+msgstr "مستوى الثقة في المفتاح غير واضح."
 
 #: ui/signaturedlg.cpp:269
 #, kde-format
@@ -4276,7 +4334,7 @@ msgstr "فشل"
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
 "data has been modified."
-msgstr ""
+msgstr "تنبيه: فشل التحقق. إما أنك أدخلت توقيعا خاطئا ، أو عُدّلت البيانات."
 
 #: ui/signaturedlg.cpp:299
 #, kde-format
@@ -4284,29 +4342,31 @@ msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
+"التحقق غير ممكن. تحقق من البيانات المدخلة، سواء كان وكيل gpg قيد التشغيل، أو "
+"ما إذا كان لديك اتصال بالإنترنت (لاسترداد المفاتيح.)"
 
 #: ui/signaturedlg.cpp:317
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
-msgstr ""
+msgstr "الميزة غير مدعومة، حيث لم يُبنَ كجت بدعم QPGME."
 
 #. i18n: ectx: property (text), widget (QLabel, binaryLabel)
 #: ui/signaturedlg.ui:80
 #, kde-format
 msgid "Has binary PGP signature."
-msgstr ""
+msgstr "لديه توقيع PGP ثنائي."
 
 #. i18n: ectx: property (text), widget (QLabel, asciiLabel)
 #: ui/signaturedlg.ui:87
 #, kde-format
 msgid "Ascii PGP signature:"
-msgstr ""
+msgstr "توقيع Ascii PGP:"
 
 #. i18n: ectx: property (text), widget (QPushButton, loadSignature)
 #: ui/signaturedlg.ui:112
 #, kde-format
 msgid "Load Signature"
-msgstr ""
+msgstr "حمّل التوقيع"
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
 #: ui/signaturedlg.ui:119
@@ -4365,7 +4425,7 @@ msgstr "البصمة:"
 #: ui/transferdetails.cpp:72
 #, kde-format
 msgid "Average speed: %1/s"
-msgstr ""
+msgstr "متوسط السرعة: %1/ ث"
 
 #: ui/transferdetails.cpp:77
 #, kde-format
@@ -4400,7 +4460,7 @@ msgstr "إعدادات نقل %1"
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
-msgstr ""
+msgstr "لم ينجح تغيير الوجهة، تبقى الوجهة دون تعديل."
 
 #: ui/transfersettingsdialog.cpp:164
 #, kde-format
@@ -4441,7 +4501,7 @@ msgstr "&نسبة المشاركة القصوى:"
 #: ui/transfersettingsdialog.ui:139
 #, kde-format
 msgid "Modify the mirrors used for downloading."
-msgstr ""
+msgstr "تعديل المرايا المستخدمة للتنزيل."
 
 #. i18n: ectx: property (text), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:142
@@ -4468,8 +4528,7 @@ msgid "Transfer Details"
 msgstr "تفاصيل عملية النقل"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
 msgstr "%1 %"
@@ -4505,31 +4564,31 @@ msgid "Add checksum"
 msgstr "أضف تدقيق المجموع"
 
 #: ui/verificationdialog.cpp:94
-#, fuzzy, kde-format
+#, kde-format
 msgid "Transfer Verification for %1"
-msgstr "إعدادات نقل %1"
+msgstr "التحقق من التحويل لـ %1"
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "%1 was successfully verified."
-msgstr ""
+msgstr "تحقق من %1 بنجاح."
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "Verification successful"
-msgstr ""
+msgstr "تحقق بنجاح"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/verificationdialog.ui:65
 #, kde-format
 msgid "Verifying:"
-msgstr ""
+msgstr "التحقق:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:121
 #, kde-format
 msgid "Verify the finished download with the selected checksum."
-msgstr ""
+msgstr "تحقق من التنزيل النهائي باستخدام المجموع الاختباري المحدد."
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:124
