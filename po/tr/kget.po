@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-03-27 13:38+0300\n"
+"PO-Revision-Date: 2024-03-31 06:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -1730,7 +1730,7 @@ msgstr "Seçiliyi Kaldır ve Dosyaları Sil"
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
-msgstr "Seçilileri Yeniden İndir"
+msgstr "Seçiliyi Yeniden İndir"
 
 #: mainwindow.cpp:269
 #, kde-format
@@ -1750,7 +1750,7 @@ msgstr "Tümünü Duraklat"
 #: mainwindow.cpp:289
 #, kde-format
 msgid "Stop Selected"
-msgstr "Seçilileri Durdur"
+msgstr "Seçiliyi Durdur"
 
 #: mainwindow.cpp:294
 #, kde-format
@@ -3335,7 +3335,7 @@ msgstr "Dosya Boyutu"
 #: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Less than 1MiB"
-msgstr "1MiB Aşağısı"
+msgstr "1 MiB Aşağısı"
 
 #: ui/history/transferhistory.cpp:256
 #, kde-format
@@ -3355,7 +3355,7 @@ msgstr "100 MiB–1 GiB Arası"
 #: ui/history/transferhistory.cpp:259
 #, kde-format
 msgid "More than 1GiB"
-msgstr "1GiB Yukarısı"
+msgstr "1 GiB Yukarısı"
 
 #: ui/history/transferhistory.cpp:262
 #: ui/history/transferhistorycategorizeddelegate.cpp:46
@@ -4456,7 +4456,7 @@ msgstr "Durum:"
 #: ui/transferdetailsfrm.ui:169
 #, kde-format
 msgid "Remaining Time:"
-msgstr "Kalan Süre:"
+msgstr "Kalan süre:"
 
 #: ui/transfersettingsdialog.cpp:33
 #, kde-format
