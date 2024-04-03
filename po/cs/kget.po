@@ -4519,11 +4519,10 @@ msgid "Transfer Details"
 msgstr "Podrobnosti přenosu"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "%1 %"
+msgstr ""
 
 #: ui/tray.cpp:48
 #, kde-format
