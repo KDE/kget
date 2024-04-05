@@ -1,12 +1,12 @@
 # Translation for kget.po to Euskara/Basque (eu).
-# Copyright (C) 2003-2023 This file is copyright:
+# Copyright (C) 2003-2024 This file is copyright:
 # This file is distributed under the same license as the kget package.
-# SPDX-FileCopyrightText: 2023 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Marcos  <marcos@euskalgnu.org>, 2003, 2004, 2005, 2006.
 # Ion Gaztañaga <igaztanaga@gmail.com>, 2005.
-# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2009, 2019, 2021, 2022, 2023.
+# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2009, 2019, 2021, 2022, 2023, 2024.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009, 2011.
 # Gontzal M. Pujana <juchuf@gmail.com>, 2018.
 msgid ""
@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2023-12-15 14:22+0100\n"
+"PO-Revision-Date: 2024-04-04 19:24+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: conf/autopastemodel.cpp:174
@@ -4523,11 +4523,10 @@ msgid "Transfer Details"
 msgstr "Transferentziaren xehetasunak"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "% %1"
+msgstr "%%1"
 
 #: ui/tray.cpp:48
 #, kde-format
