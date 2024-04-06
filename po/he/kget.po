@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-03-22 09:09+0200\n"
+"PO-Revision-Date: 2024-04-04 08:07+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2866,7 +2866,7 @@ msgstr ""
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:12
 #, kde-format
 msgid "List of the available search engines"
-msgstr ""
+msgstr "רשימת מנועי החיפוש הזמינים"
 
 #. i18n: ectx: label, entry (UrlChangeModeList), group (ChecksumSearch)
 #. i18n: ectx: label, entry (ChecksumTypeList), group (ChecksumSearch)
@@ -2876,7 +2876,7 @@ msgstr ""
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
 #, kde-format
 msgid "List of the available search engine URLs"
-msgstr ""
+msgstr "רשימת כתובות מנועי החיפוש הזמינים"
 
 #: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
@@ -2888,7 +2888,7 @@ msgstr "מתבצעת התחברות…"
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
-msgstr ""
+msgstr "אי אפשר לאמת את ההורדה (%1). לתקן אותה?"
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
@@ -2898,25 +2898,25 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "תיקון"
 
 #: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
-msgstr ""
+msgstr "אי אפשר לאמת את ההורדה (%1). להוריד אותה מחדש?"
 
 #: transfer-plugins/kio/transferKio.cpp:279
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Verification failed."
-msgstr ""
+msgstr "האימות נכשל."
 
 #: transfer-plugins/kio/transferKio.cpp:279
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "התעלמות"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
 #: transfer-plugins/metalink/metalink.cpp:453
@@ -2924,7 +2924,7 @@ msgstr ""
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
 "not work the download would be restarted) it?"
-msgstr ""
+msgstr "אי אפשר לאמת את ההורדה, לתקן אותה (אם התיקון לא יצליח ההורדה תתחדש)?"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
 #: transfer-plugins/metalink/metalink.cpp:118
@@ -2934,7 +2934,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "התעלמות"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -2961,7 +2961,7 @@ msgstr "מספר החיבורים לכתובת:"
 #: transfer-plugins/metalink/fileselection.ui:17
 #, kde-format
 msgid "Select the files you want to be downloaded."
-msgstr ""
+msgstr "נא לבחור את הקבצים להורדה."
 
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
 #, kde-format
