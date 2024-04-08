@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-04-03 19:14\n"
+"PO-Revision-Date: 2024-04-07 00:28\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -236,7 +236,7 @@ msgstr "全局下载限制(&D)："
 #: ui/transfersettingsdialog.ui:54 ui/transfersettingsdialog.ui:70
 #, kde-format
 msgid " KiB/s"
-msgstr " KiB/秒"
+msgstr " KiB/s"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgnetwork.ui:70
@@ -3130,7 +3130,7 @@ msgstr "%1(%2) %3"
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
-msgstr "%1(%2% %3/%4) 速度：%5/秒"
+msgstr "%1(%2% %3/%4) 速度：%5/s"
 
 #: ui/droptarget.cpp:404
 #, kde-format
@@ -4357,7 +4357,7 @@ msgstr "指纹："
 #: ui/transferdetails.cpp:72
 #, kde-format
 msgid "Average speed: %1/s"
-msgstr "平均速度：%1/秒"
+msgstr "平均速度：%1/s"
 
 #: ui/transferdetails.cpp:77
 #, kde-format
