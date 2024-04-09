@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-04-04 08:07+0300\n"
+"PO-Revision-Date: 2024-04-08 18:43+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1707,7 +1707,7 @@ msgstr "התחלת הנבחרים"
 #: mainwindow.cpp:282
 #, kde-format
 msgid "Pause All"
-msgstr "השהייה של הכול"
+msgstr "השהיה של הכול"
 
 #: mainwindow.cpp:289
 #, kde-format
@@ -1722,7 +1722,7 @@ msgstr "התחלה"
 #: mainwindow.cpp:301
 #, kde-format
 msgid "Pause"
-msgstr "השהייה"
+msgstr "השהיה"
 
 #: mainwindow.cpp:309
 #, kde-format
