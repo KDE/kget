@@ -232,7 +232,7 @@ public:
     /**
      * @returns a list of pluginInfos associated with all transferFactories
      */
-    static QVector<KPluginMetaData> plugins();
+    static QList<KPluginMetaData> plugins();
 
     /**
      * @returns The factory of a given transfer
@@ -428,7 +428,7 @@ private:
     static TransferTreeSelectionModel *m_selectionModel;
 
     // Lists of available plugins
-    static QVector<KPluginMetaData> m_pluginList;
+    static QList<KPluginMetaData> m_pluginList;
     static QList<TransferFactory *> m_transferFactories;
 
     // pointer to the Main window

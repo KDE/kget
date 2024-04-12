@@ -604,7 +604,7 @@ QList<TransferFactory *> KGet::factories()
     return m_transferFactories;
 }
 
-QVector<KPluginMetaData> KGet::plugins()
+QList<KPluginMetaData> KGet::plugins()
 {
     return m_pluginList;
 }
@@ -783,7 +783,7 @@ void KGet::calculateGlobalUploadLimit()
 // ------ STATIC MEMBERS INITIALIZATION ------
 TransferTreeModel *KGet::m_transferTreeModel;
 TransferTreeSelectionModel *KGet::m_selectionModel;
-QVector<KPluginMetaData> KGet::m_pluginList;
+QList<KPluginMetaData> KGet::m_pluginList;
 QList<TransferFactory *> KGet::m_transferFactories;
 TransferGroupScheduler *KGet::m_scheduler = nullptr;
 MainWindow *KGet::m_mainWindow = nullptr;
@@ -1113,7 +1113,7 @@ void KGet::loadPlugins()
     m_pluginList.clear();
 
     // TransferFactory plugins
-    const QVector<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData &md) {
+    const QList<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData &md) {
         return md.value(QStringLiteral("X-KDE-KGet-framework-version")) == QString::number(FrameworkVersion)
             && md.value(QStringLiteral("X-KDE-KGet-rank")).toInt() > 0
             && md.value(QStringLiteral("X-KDE-KGet-plugintype")) == QStringLiteral("TransferFactory");

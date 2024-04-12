@@ -127,7 +127,7 @@ void TransfersView::populateHeaderActions()
     connect(columnMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mappedInt), this, &TransfersView::slotHideSection);
 
     // Create for each column an action with the column-header as name
-    QVector<QAction *> orderedMenuItems(header()->count());
+    QList<QAction *> orderedMenuItems(header()->count());
     for (int i = 0; i < header()->count(); ++i) {
         auto *action = new QAction(this);
         action->setText(model()->headerData(i, Qt::Horizontal).toString());
