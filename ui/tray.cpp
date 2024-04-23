@@ -40,7 +40,7 @@ Tray::Tray(MainWindow *parent)
 
     // Set up basic tray parameters
     setCategory(ApplicationStatus);
-    setIconByName("kget");
+    setIconByName("kget-symbolic");
     setTitle(i18n("KGet"));
     setContextMenu(cm);
     setAssociatedWindow(parent->windowHandle());
