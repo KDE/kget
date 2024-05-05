@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-04-12 08:49+0300\n"
+"PO-Revision-Date: 2024-05-04 15:29+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -590,12 +590,12 @@ msgstr "חתימה"
 #, kde-format
 msgid ""
 "No server for downloading keys is specified in settings. Downloading aborted."
-msgstr ""
+msgstr "לא צוין שרת להורדת מפתחות בהגדרות. ההורדה בוטלה לחלוטין."
 
 #: core/keydownloader.cpp:73 core/keydownloader.cpp:93
 #, kde-format
 msgid "No key server"
-msgstr ""
+msgstr "אין שרת מפתחות"
 
 #: core/keydownloader.cpp:92
 #, kde-format
@@ -603,6 +603,8 @@ msgid ""
 "No useful key server found, key not downloaded. Add more servers to the "
 "settings or restart KGet and retry downloading."
 msgstr ""
+"לא נמצא שרת מפתחות שימושי, המפתח לא התקבל. יש להוסיף שרתים נוספים להגדרות או "
+"להפעיל את KGet מחדש ולנסות להוריד שוב."
 
 #: core/kget.cpp:114
 #, fuzzy, kde-format
@@ -630,6 +632,7 @@ msgid ""
 "<p>The following transfer has been added to the download list:</p><p style="
 "\"font-size: small;\">%1</p>"
 msgstr ""
+"<p>ההעברה הבאה נוספה לרשימת ההורדות:</p><p style=\"font-size: small;\">%1</p>"
 
 #: core/kget.cpp:250 core/kget.cpp:343
 #, kde-format
@@ -639,12 +642,12 @@ msgstr "הורדה נוספה"
 #: core/kget.cpp:338
 #, kde-format
 msgid "<p>The following transfer has been added to the download list:</p>"
-msgstr ""
+msgstr "<p>ההעברה הבאה נוספה לרשימת ההורדות:</p>"
 
 #: core/kget.cpp:340
 #, kde-format
 msgid "<p>The following transfers have been added to the download list:</p>"
-msgstr ""
+msgstr "<p>ההעברות הבאות נוספו לרשימת ההורדות:</p>"
 
 #: core/kget.cpp:502 core/kget.cpp:544
 #, kde-format
@@ -808,7 +811,7 @@ msgstr "הקובץ כבר ירד. להוריד בכל מקרה?"
 #: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
-msgstr ""
+msgstr "הקובץ הזה כבר יורד"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
@@ -820,7 +823,7 @@ msgstr "הקובץ כבר קיים"
 #: core/kget.cpp:1179
 #, kde-format
 msgid "Internet connection established, resuming transfers."
-msgstr ""
+msgstr "יש חיבור לאינטרנט, ההעברות מתחדשות."
 
 #: core/kget.cpp:1182
 #, kde-format
