@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-05-04 15:29+0300\n"
+"PO-Revision-Date: 2024-05-05 12:03+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -607,9 +607,9 @@ msgstr ""
 "להפעיל את KGet מחדש ולנסות להוריד שוב."
 
 #: core/kget.cpp:114
-#, fuzzy, kde-format
+#, kde-format
 msgid "Are you sure that you want to remove the group named %1?"
-msgstr "האם אתה בטוח שברצונך למחוק העברה זו?"
+msgstr "להסיר את הקבוצה בשם %1?"
 
 #: core/kget.cpp:115
 #, kde-format
@@ -1779,16 +1779,13 @@ msgid "No Action"
 msgstr "ללא פעולה"
 
 #: mainwindow.cpp:433
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is the first time that you have run KGet.\n"
-#| "Do you want to use KGet as Download Manager for Konqueror?"
+#, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
 "Would you like to enable KGet as the download manager for Konqueror?"
 msgstr ""
-"זו הפעם הראשונה שאתה מפעיל את KGet.\n"
-"האם ברצונך להשתמש ב-KGet כמנהל ההורדות עבור Konqueror?"
+"זאת ההפעלה הראשונה של KGet.\n"
+"להגדיר את KGet כמנהל ההורדות של Konqueror?"
 
 #: mainwindow.cpp:435
 #, kde-format
@@ -1823,16 +1820,13 @@ msgid "KGet - %1%"
 msgstr ""
 
 #: mainwindow.cpp:563
-#, fuzzy, kde-format
-#| msgid ""
-#| "Some transfers are still running.\n"
-#| "Are you sure you want to quit KGet?"
+#, kde-format
 msgid ""
 "Some transfers are still running.\n"
 "Are you sure you want to close KGet?"
 msgstr ""
-"תהליך ההורדה של מספר קבצים טרם הסתיים.\n"
-"האם אתה בטוח שברצונך לסגור את KGet?"
+"חלק מההעברות עדיין פעילות.\n"
+"לסגור את KGet?"
 
 #: mainwindow.cpp:565
 #, kde-format
