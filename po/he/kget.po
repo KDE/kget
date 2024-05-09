@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-05-07 09:32+0300\n"
+"PO-Revision-Date: 2024-05-08 22:27+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -55,7 +55,7 @@ msgstr "ביטוי רגולרי"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "למחוק אוטומטית את כל היסטוריית ההורדות מלפני:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -109,7 +109,7 @@ msgstr "מנגנון היסטוריה:"
 #: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
-msgstr ""
+msgstr "הפעלת מעקב תהליך כוללני של KDE"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
 #: conf/dlgadvanced.ui:111
@@ -191,9 +191,9 @@ msgstr "להשתמש כמנהל ההורדות של Konqueror"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_AutoPaste)
 #: conf/dlgintegration.ui:24
-#, fuzzy, kde-format
+#, kde-format
 msgid "Monitor Clipboard for Files to Download"
-msgstr "לא נבחרו קבצים להורדה."
+msgstr "מעקב אחר לוח הגזירים לאיתור קבצים להורדה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: conf/dlgintegration.ui:36
@@ -217,10 +217,9 @@ msgstr "גופן:"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
 #: conf/dlgnetwork.ui:19
-#, fuzzy, kde-format
-#| msgid "Download finished"
+#, kde-format
 msgid "Maximum downloads per group:"
-msgstr "ההורדה הושלמה"
+msgstr "כמות הורדות מרבית לקבוצה:"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_MaxConnections)
 #: conf/dlgnetwork.ui:26
@@ -237,9 +236,9 @@ msgstr "הגבלת מהירות"
 
 #. i18n: ectx: property (text), widget (QLabel, dllimitlb)
 #: conf/dlgnetwork.ui:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Global &download limit:"
-msgstr "ההורדה חודשה"
+msgstr "מגבלת הו&רדה כוללת:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalDownloadLimit)
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_GlobalUploadLimit)
@@ -257,9 +256,9 @@ msgstr " KiB לשנייה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgnetwork.ui:70
-#, fuzzy, kde-format
+#, kde-format
 msgid "Global &upload limit:"
-msgstr "ההורדה חודשה"
+msgstr "מגבלת ה&עלאה כוללת:"
 
 #. i18n: ectx: property (text), widget (QLabel, lb_per_transfer)
 #: conf/dlgnetwork.ui:96
@@ -537,7 +536,7 @@ msgstr "גודל הקובץ גדול מגודל הקובץ המרבי בו תו�
 #, kde-format
 msgctxt "A mirror is removed when the file has the wrong download size"
 msgid "%1 removed as it did report a wrong file size."
-msgstr ""
+msgstr "%1 הוסר כיוון שדיווח על גודל קובץ שגוי."
 
 #: core/filemodel.cpp:248
 #, kde-format
@@ -665,9 +664,13 @@ msgid_plural ""
 "<p>The following URLs cannot be downloaded, their protocols are not "
 "supported by KGet:</p>"
 msgstr[0] ""
+"<p>אי אפשר להוריד מהכתובת הבאה, הפרוטוקול שלה לא נתמך על ידי KGet:</p>"
 msgstr[1] ""
+"<p>אי אפשר להוריד מהכתובות הבאות, הפרוטוקולים שלהן לא נתמכים על ידי KGet:</p>"
 msgstr[2] ""
+"<p>אי אפשר להוריד מהכתובות הבאות, הפרוטוקולים שלהן לא נתמכים על ידי KGet:</p>"
 msgstr[3] ""
+"<p>אי אפשר להוריד מהכתובות הבאות, הפרוטוקולים שלהן לא נתמכים על ידי KGet:</p>"
 
 #: core/kget.cpp:880
 #, kde-format
@@ -941,13 +944,13 @@ msgid "KGet"
 msgstr "KGet"
 
 #: core/kgetglobaljob.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "KGet is downloading %1 file"
 msgid_plural "KGet is downloading %1 files"
-msgstr[0] "מנהל ההורדה"
-msgstr[1] "מנהל ההורדה"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "KGet מוריד קובץ"
+msgstr[1] "KGet מוריד שני קבצים"
+msgstr[2] "KGet מוריד %1 קבצים"
+msgstr[3] "KGet מוריד %1 קבצים"
 
 #: core/kgetkjobadapter.cpp:48
 #, kde-format
@@ -1380,6 +1383,11 @@ msgid ""
 "\n"
 " Download them again?"
 msgstr ""
+"כבר הושלמו הורדות ביעדים האלו: \n"
+"\n"
+"%1\n"
+"\n"
+" להוריד אותן שוב?"
 
 #: core/urlchecker.cpp:527
 #, kde-format
@@ -1390,6 +1398,11 @@ msgid ""
 "\n"
 "Delete them and download again?"
 msgstr ""
+"יש הורדות שמתבצעות ליעדים האלו: \n"
+"\n"
+"%1\n"
+"\n"
+"למחוק אותן ולנסות שוב?"
 
 #: core/urlchecker.cpp:535
 #, kde-format
@@ -1400,6 +1413,11 @@ msgid ""
 "\n"
 "Download them again?"
 msgstr ""
+"יש כבר הורדות שהושלמו מהיעדים האלה: \n"
+"\n"
+"%1\n"
+"\n"
+"להוריד אותן שוב?"
 
 #: core/urlchecker.cpp:537
 #, kde-format
@@ -1410,6 +1428,11 @@ msgid ""
 "\n"
 "Delete them and download again?"
 msgstr ""
+"יש הורדות פעילות ברקע מהמקומות האלה: \n"
+"\n"
+"%1\n"
+"\n"
+"למחוק אותן לנסות שוב?"
 
 #: core/verificationmodel.cpp:148
 #, kde-format
@@ -1442,6 +1465,10 @@ msgid ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
+"(C) 2005‏ - 2014, מפתחי KGet\n"
+"(C) 2001‏ - 2002, פטריק שרבונייה\n"
+"(C) 2002, קרסטן פייפר\n"
+"(C) 1998‏ - 2000, מאטיי קוס"
 
 #: main.cpp:106
 #, kde-format
@@ -1892,6 +1919,8 @@ msgid ""
 "want to disable it forever, go to Settings->Advanced and disable \"Use as "
 "download manager for Konqueror\"."
 msgstr ""
+"KGet הושבת זמנית כמנהל ההורדה של Konqueror. כדי להשבית אותו לצמיתות, יש לגשת "
+"אל הגדרות -> מתקדם ולהשבית את „להשתמש כמנהל ההורדות של Konqueror”."
 
 #: mainwindow.cpp:1188 ui/droptarget.cpp:215
 #, kde-format
@@ -2084,40 +2113,40 @@ msgstr[3] ""
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
 #, kde-format
 msgid "Select a directory to move the data to"
-msgstr ""
+msgstr "נא לבחור תיקייה להעביר אליה את הנתונים"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
 #, kde-format
 msgid "Priority"
-msgstr ""
+msgstr "עדיפות"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:68
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:70
 #, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "תצוגה מקדימה"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:71
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:73
 #, kde-format
 msgctxt "Percent of File Downloaded"
 msgid "% Complete"
-msgstr ""
+msgstr "% שהושלמו"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:82
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:84
 #, kde-format
 msgctxt "Download first"
 msgid "First"
-msgstr ""
+msgstr "ראשון"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:85
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:87
 #, kde-format
 msgctxt "Download last"
 msgid "Last"
-msgstr ""
+msgstr "אחרון"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:91
 #, kde-format
@@ -2131,7 +2160,7 @@ msgstr "רגיל"
 #, kde-format
 msgctxt "Preview available"
 msgid "Available"
-msgstr ""
+msgstr "זמין"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:126
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:145
@@ -2140,7 +2169,7 @@ msgstr ""
 #, kde-format
 msgctxt "Preview pending"
 msgid "Pending"
-msgstr ""
+msgstr "ממתין"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:128
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:147
@@ -2149,7 +2178,7 @@ msgstr ""
 #, kde-format
 msgctxt "No preview available"
 msgid "No"
-msgstr ""
+msgstr "אין"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:131
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:150
@@ -2170,7 +2199,7 @@ msgstr "רגיל"
 #, kde-format
 msgctxt "preview available"
 msgid "Available"
-msgstr ""
+msgstr "זמינה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:52
 #, kde-format
@@ -2258,12 +2287,12 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, kde-format
 msgid "Availability"
-msgstr ""
+msgstr "זמינות"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
 #, kde-format
 msgid "DHT"
-msgstr ""
+msgstr "DHT"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
 #, kde-format
@@ -2273,12 +2302,12 @@ msgstr "ניקוד"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:342
 #, kde-format
 msgid "Upload Slot"
-msgstr ""
+msgstr "חלון הורדה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:344
 #, kde-format
 msgid "Requests"
-msgstr ""
+msgstr "בקשות"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:346
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:124
@@ -2289,7 +2318,7 @@ msgstr "הורד"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:348
 #, kde-format
 msgid "Uploaded"
-msgstr ""
+msgstr "נשלח"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:350
 #, kde-format
@@ -2304,12 +2333,12 @@ msgstr "מעניין"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:359
 #, kde-format
 msgid "IP address of the peer"
-msgstr ""
+msgstr "כתובת ה־IP של העמית"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:361
 #, kde-format
 msgid "Which client the peer is using"
-msgstr ""
+msgstr "כתובת ה־IP של העמית"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:363
 #, kde-format
@@ -2336,48 +2365,48 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:371
 #, kde-format
 msgid "How much of the torrent's data the peer has"
-msgstr ""
+msgstr "כמה מנתונים הטורנט נמצאים אצל העמית"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:373
 #, kde-format
 msgid "Whether or not the peer has DHT enabled"
-msgstr ""
+msgstr "האם DHT פעיל אצל העמית או לא"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:375
 #, kde-format
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
-msgstr ""
+msgstr "הניקוד של העמית. KTorrent משתמש בזה כדי לקבוע למי להעלות."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:377
 #, kde-format
 msgid "Only peers which have an upload slot will get data from us"
-msgstr ""
+msgstr "רק עמיתים שיש להם חלון הורדה יקבלו מאיתנו נתונים"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:379
 #, kde-format
 msgid "The number of download and upload requests"
-msgstr ""
+msgstr "מספר בקשות ההורדה וההעלאה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:381
 #, kde-format
 msgid "How much data we have downloaded from this peer"
-msgstr ""
+msgstr "כמה נתונים הורדנו מהעמית הזה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:383
 #, kde-format
 msgid "How much data we have uploaded to this peer"
-msgstr ""
+msgstr "כמה נתונים שלחנו לעמית הזה"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:385
 #, kde-format
 msgid "Whether the peer is interested in downloading data from us"
-msgstr ""
+msgstr "האם העמית מעוניין להוריד מאיתנו נתונים"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:387
 #, kde-format
 msgid "Whether we are interested in downloading from this peer"
-msgstr ""
+msgstr "האם אנחנו מעוניינים להוריד מהעמית הזה"
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
 #: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:348
@@ -2391,12 +2420,12 @@ msgstr "קובץ"
 #: ui/history/transferhistory.ui:90
 #, kde-format
 msgid "Size"
-msgstr ""
+msgstr "גודל"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:134
 #, kde-format
 msgid "Url"
-msgstr ""
+msgstr "כתובת"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
@@ -2425,24 +2454,24 @@ msgstr "פעמים שהורד"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:144
 #, kde-format
 msgid "Next Update"
-msgstr ""
+msgstr "העדכון הבא"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:21
 #, kde-format
 msgid "Add Tracker"
-msgstr ""
+msgstr "הוספת עוקב"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:84
 #, kde-format
 msgid "Enter the URL of the tracker:"
-msgstr ""
+msgstr "נא למלא את כתובת העוקב:"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
-msgstr ""
+msgstr "כבר יש עוקב בשם <b>%1</b>."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
@@ -2454,7 +2483,7 @@ msgstr "הסרת עוקב"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:35
 #, kde-format
 msgid "Change Tracker"
-msgstr ""
+msgstr "החלפת עוקב"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_scrape)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
@@ -2466,7 +2495,7 @@ msgstr "עדכון עוקבים"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
 #, kde-format
 msgid "Restore Defaults"
-msgstr ""
+msgstr "שחזור לברירות מחדל"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:120
@@ -2474,7 +2503,7 @@ msgstr ""
 #: ui/linkview/kget_linkview.cpp:91
 #, kde-format
 msgid "URL"
-msgstr ""
+msgstr "כתובת"
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:122
 #, kde-format
@@ -2555,7 +2584,7 @@ msgstr "מהירות"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:221
 #, kde-format
 msgid "<n>"
-msgstr ""
+msgstr "<n>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:77
@@ -2976,7 +3005,7 @@ msgstr "קובץ קישור העל מתקבל…"
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
-msgstr ""
+msgstr "יש גרסה עדכנית יותר של קישור העל, להוריד אותה?"
 
 #: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:112
@@ -2989,12 +3018,12 @@ msgstr "הורדת קישור־על מחדש"
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
 msgid "Download failed, no working URLs were found."
-msgstr ""
+msgstr "הורדה נכשלה, לא נמצאו כתובות פעילות."
 
 #: transfer-plugins/metalink/metalinkhttp.cpp:156
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
-msgstr ""
+msgstr "לא ניתן לאמת את ההורדה, לנסות לתקן אותה?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
@@ -3233,7 +3262,7 @@ msgstr "%p%"
 #, kde-format
 msgctxt "The transfer is running"
 msgid "Running"
-msgstr ""
+msgstr "פעילה"
 
 #: ui/history/transferhistory.cpp:216
 #, kde-format
@@ -3245,7 +3274,7 @@ msgstr "נעצר"
 #, kde-format
 msgctxt "The transfer is aborted"
 msgid "Aborted"
-msgstr ""
+msgstr "בוטלה"
 
 #: ui/history/transferhistory.cpp:220
 #, kde-format
