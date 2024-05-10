@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-05-08 22:27+0300\n"
+"PO-Revision-Date: 2024-05-09 08:06+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -203,17 +203,15 @@ msgstr "תלוי רישיות:"
 
 #. i18n: ectx: property (text), widget (QPushButton, increase)
 #: conf/dlgintegration.ui:93 conf/verificationpreferences.cpp:35
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgid "&Increase Priority"
-msgstr "גופן:"
+msgstr "ה&גדלת עדיפות"
 
 #. i18n: ectx: property (text), widget (QPushButton, decrease)
 #: conf/dlgintegration.ui:100 conf/verificationpreferences.cpp:36
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgid "&Decrease Priority"
-msgstr "גופן:"
+msgstr "ה&קטנת עדיפות"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_maxnum)
 #: conf/dlgnetwork.ui:19
@@ -2104,10 +2102,10 @@ msgstr "הרחבת עץ תיקייה"
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "כל הנתונים שבקובץ הזה יאבדו, להמשיך?"
+msgstr[1] "כל הנתונים שבקבצים האלה יאבדו, להמשיך?"
+msgstr[2] "כל הנתונים שבקבצים האלה יאבדו, להמשיך?"
+msgstr[3] "כל הנתונים שבקבצים האלה יאבדו, להמשיך?"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
@@ -2435,16 +2433,14 @@ msgid "Status"
 msgstr "מצב"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:138
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Seeders"
-msgstr "מהירות"
+msgstr "משתפים"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:140
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Leechers"
-msgstr "מהירות"
+msgstr "מורידים"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:142
 #, kde-format
@@ -2561,10 +2557,9 @@ msgstr "סטטיסטיקה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:49
-#, fuzzy, kde-format
-#| msgid "Speed"
+#, kde-format
 msgid "Seeders:"
-msgstr "מהירות"
+msgstr "משתפים:"
 
 #. i18n: ectx: property (text), widget (QLabel, seederLabel)
 #. i18n: ectx: property (text), widget (QLabel, dlSpeedLabel)
@@ -3773,6 +3768,8 @@ msgid ""
 "Automatically create checksums for the selected types. Keep in mind that "
 "this might take a while."
 msgstr ""
+"ליצור סיכומי ביקורת אוטומטית לסוגים הנבחרים. כדאי לשים לב שזה עשוי לארוך זמן "
+"מה."
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/metalinkcreator/dragdlg.ui:92
@@ -3782,6 +3779,8 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
+"נא למלא כאן כתובת אם כל הקבצים שנגררו הם בשרת הזה ובאותה התיקייה. לכל קובץ "
+"שנגרר הכתובת תורכב מהחלק שמולא ומשם הקובץ."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/metalinkcreator/dragdlg.ui:102
@@ -3923,7 +3922,7 @@ msgstr "כתובת אתר לקישור העל"
 #: ui/metalinkcreator/generalwidget.ui:75
 #, kde-format
 msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
-msgstr ""
+msgstr "דינמי משמעותו שאפשר למצוא קישורי על שעודכנו ב־„Origin” (מקור)."
 
 #. i18n: ectx: property (text), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:78
@@ -3976,6 +3975,9 @@ msgid ""
 "enter them if desired. The minimum is a save location, at least one file and "
 "one URL."
 msgstr ""
+"המסייע הזה מאפשר לך ליצור קישורי על מאפס או לבסס אותם על קישורי על קיימים. "
+"רבים מהשדות הם בגדר רשות או מומלצים, לכן אפשר למלא אותם רק אם מתחשק. לכל "
+"הפחות זה מקום שמירה, לפחות קובץ אחד וכתובת אחת."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/introduction.ui:48
