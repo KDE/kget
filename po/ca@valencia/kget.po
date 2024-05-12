@@ -175,7 +175,7 @@ msgstr "Canvia el nom"
 #: conf/dlggroups.ui:65
 #, kde-format
 msgid "Select Icon..."
-msgstr "Seleccioneu una icona..."
+msgstr "Seleccioneu una icona…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
 #: conf/dlgintegration.ui:17
@@ -997,7 +997,7 @@ msgstr "Signatura no verificada"
 
 #: core/transfer.cpp:28
 msgid "Downloading...."
-msgstr "S'està baixant..."
+msgstr "S'està baixant…"
 
 #: core/transfer.cpp:29
 msgctxt "transfer state: delayed"
@@ -1631,22 +1631,22 @@ msgstr "Els URL que s'han de baixar"
 #: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
-msgstr "Baixada &nova..."
+msgstr "Baixada &nova…"
 
 #: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
-msgstr "&Importa les transferències..."
+msgstr "&Importa les transferències…"
 
 #: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
-msgstr "E&xporta la llista de transferències..."
+msgstr "E&xporta la llista de transferències…"
 
 #: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr "&Crea un Metalink..."
+msgstr "&Crea un Metalink…"
 
 #: mainwindow.cpp:173
 #, kde-format
@@ -1678,12 +1678,12 @@ msgstr "Suprimix el grup"
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Canvia el nom del grup..."
+msgstr "Canvia el nom del grup…"
 
 #: mainwindow.cpp:213
 #, kde-format
 msgid "Set Icon..."
-msgstr "Establix la icona..."
+msgstr "Establix la icona…"
 
 #: mainwindow.cpp:218
 #, kde-format
@@ -1798,7 +1798,7 @@ msgstr "Configureu les &transferències"
 #: mainwindow.cpp:346
 #, kde-format
 msgid "Import &Links..."
-msgstr "Importa els en&llaços..."
+msgstr "Importa els en&llaços…"
 
 #: mainwindow.cpp:352
 #, kde-format
@@ -2732,14 +2732,14 @@ msgstr "Seleccioneu un fitxer Torrent nou"
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
-msgstr "S'està baixant el fitxer torrent..."
+msgstr "S'està baixant el fitxer torrent…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:198
 #: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
-msgstr "S'està baixant..."
+msgstr "S'està baixant…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
@@ -2754,18 +2754,18 @@ msgstr "El fitxer torrent no existix"
 #: transfer-plugins/bittorrent/bttransfer.cpp:415
 #, kde-format
 msgid "Analyzing torrent...."
-msgstr "S'està analitzant el torrent..."
+msgstr "S'està analitzant el torrent…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:431
 #, kde-format
 msgid "Cannot initialize port..."
-msgstr "No s'ha pogut iniciar el port..."
+msgstr "No s'ha pogut iniciar el port…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:501
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
-msgstr "S'està sembrant..."
+msgstr "S'està sembrant…"
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
@@ -2932,7 +2932,7 @@ msgstr "Llista d'URL dels motors de busca disponibles"
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
-msgstr "S'està connectant..."
+msgstr "S'està connectant…"
 
 #: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
@@ -3024,7 +3024,7 @@ msgstr "Seleccioneu un fitxer"
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
-msgstr "S'està baixant el fitxer Metalink..."
+msgstr "S'està baixant el fitxer Metalink…"
 
 #: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
@@ -3088,7 +3088,7 @@ msgstr "Nom del motor"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
 #, kde-format
 msgid "New Engine..."
-msgstr "Motor nou..."
+msgstr "Motor nou…"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
@@ -3100,7 +3100,7 @@ msgstr "Elimina"
 #, kde-format
 msgctxt "transfer state: running"
 msgid "Running...."
-msgstr "En marxa..."
+msgstr "En marxa…"
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:116
 #, kde-format
@@ -3150,8 +3150,8 @@ msgstr[1] "Suprimix els grups"
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
-msgstr[0] "Canvia el nom del grup..."
-msgstr[1] "Canvia el nom dels grups..."
+msgstr[0] "Canvia el nom del grup…"
+msgstr[1] "Canvia el nom dels grups…"
 
 #: ui/droptarget.cpp:88
 #, kde-format
@@ -3534,7 +3534,7 @@ msgstr "Podeu utilitzar comodins per a filtrar."
 #: ui/linkview/importlinkdialog.ui:118
 #, kde-format
 msgid "Filter files here...."
-msgstr "Filtra ací els fitxers..."
+msgstr "Filtra ací els fitxers…"
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
 #: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
@@ -3923,7 +3923,7 @@ msgstr "Afig fitxers locals"
 #: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
-msgstr "S'estan afegint fitxers locals..."
+msgstr "S'estan afegint fitxers locals…"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/metalinkcreator/generalwidget.ui:23
