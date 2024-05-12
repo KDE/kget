@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-05-09 08:06+0300\n"
+"PO-Revision-Date: 2024-05-11 06:24+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1955,7 +1955,7 @@ msgstr "עוקבים"
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:76
 #, kde-format
 msgid "Webseeds"
-msgstr ""
+msgstr "מקורות רשת"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:218
 #, kde-format
@@ -1986,7 +1986,7 @@ msgstr "מספר החלק"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:235
 #, kde-format
 msgid "Download progress of the chunk"
-msgstr ""
+msgstr "תהליך הורדה של החלק"
 
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:237
 #, kde-format
@@ -2001,7 +2001,7 @@ msgstr "מהירות הורדה של החלק"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:241
 #, kde-format
 msgid "Which files the chunk is located in"
-msgstr ""
+msgstr "באילו קבצים ממוקם החלק"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (windowTitle), widget (QWidget, ChunkDownloadView)
@@ -2009,7 +2009,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:163
 #, kde-format
 msgid "Chunks"
-msgstr ""
+msgstr "חלקים"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:23
@@ -2280,7 +2280,7 @@ msgstr "חנוק"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:334
 #, kde-format
 msgid "Snubbed"
-msgstr ""
+msgstr "מזלזל"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:336
 #, kde-format
@@ -2321,7 +2321,7 @@ msgstr "נשלח"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:350
 #, kde-format
 msgid "Interested"
-msgstr ""
+msgstr "מעוניין"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:352
 #, kde-format
@@ -2353,12 +2353,12 @@ msgstr "מהירות העלאה"
 msgid ""
 "Whether or not the peer has choked us. If we are choked, the peer will not "
 "send us any data."
-msgstr ""
+msgstr "האם העמית חנק אותנו. אם אנחנו חנוקים, העמית לא ישלח אלינו נתונים כלל."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:369
 #, kde-format
 msgid "Snubbed means the peer has not sent us any data in the last 2 minutes"
-msgstr ""
+msgstr "מזלזל משמעו שהעמית לא שלח לנו נתונים כלל במשך 2 הדקות האחרונות"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:371
 #, kde-format
@@ -2509,12 +2509,12 @@ msgstr "מהירות"
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:94
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
-msgstr ""
+msgstr "לא ניתן להוסיף את מקור הרשת %1, הוא כבר חלק מרשימת מקורות הרשת."
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:109
 #, kde-format
 msgid "Cannot remove webseed %1, it is part of the torrent."
-msgstr ""
+msgstr "לא ניתן להסיר את מקור הרשת %1, הוא חלק מהטורנט."
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, m_webseed)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:21
@@ -2536,18 +2536,33 @@ msgid ""
 "weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
 "html>"
 msgstr ""
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal; dir=\"rtl\";\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">מקור רשת להוספה לטורנט.</"
+"p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">Note: </span>Only http webseeds are supported.</p></body></"
+"html>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_add)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:28
 #, kde-format
 msgid "Add Webseed"
-msgstr ""
+msgstr "הוספת מקור רשת"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove)
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.ui:50
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove Webseed"
-msgstr "&המשך"
+msgstr "הסרת מקור רשת"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:30
@@ -2591,7 +2606,7 @@ msgstr "מהירות הורדה:"
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:105
 #, kde-format
 msgid "Leechers:"
-msgstr ""
+msgstr "מורידים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:133
@@ -3596,7 +3611,7 @@ msgstr "הו&רדה"
 #: ui/linkview/kget_linkview.cpp:156
 #, kde-format
 msgid "Auxiliary header"
-msgstr ""
+msgstr "כותרת מסייעת"
 
 #: ui/linkview/kget_linkview.cpp:157
 #, kde-format
@@ -3627,17 +3642,17 @@ msgstr "קישורים ב־: %1 - KGet"
 #: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
-msgstr ""
+msgstr "בחירת &כל המסוננים"
 
 #: ui/linkview/kget_linkview.cpp:322
 #, kde-format
 msgid "D&eselect All Filtered"
-msgstr ""
+msgstr "&ביטול בחירת המסוננים"
 
 #: ui/linkview/kget_linkview.cpp:432
 #, kde-format
 msgid "Filter Column"
-msgstr ""
+msgstr "סינון עמודה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/metalinkcreator/commondata.ui:22
@@ -4129,7 +4144,7 @@ msgstr "שינוי אתרי המראה בשימוש"
 #: ui/mirror/mirrorsettings.ui:36
 #, kde-format
 msgid "PushButton"
-msgstr ""
+msgstr "כפתור לחיץ"
 
 #: ui/newtransferdialog.cpp:315
 #, kde-format

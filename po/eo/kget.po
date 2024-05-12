@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-03-27 09:18+0100\n"
+"PO-Revision-Date: 2024-05-10 11:33+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -412,7 +412,7 @@ msgstr "RetInterfaco"
 #: conf/preferencesdialog.cpp:88
 #, kde-format
 msgid "Control KGet over a Network or the Internet"
-msgstr "Kontrolu KGet per Reto aŭ Interreto"
+msgstr "Regi KGet per Reto aŭ Interreto"
 
 #: conf/preferencesdialog.cpp:89
 #, kde-format
@@ -434,7 +434,7 @@ msgstr "Speciala"
 #: conf/preferencesdialog.cpp:94
 #, kde-format
 msgid "Advanced Options"
-msgstr "Pliaj opcioj"
+msgstr "Pliaj elektebloj"
 
 #: conf/preferencesdialog.cpp:95
 #, kde-format
@@ -955,7 +955,7 @@ msgstr "Eraro provante akiri %1"
 #: core/signature.cpp:230
 #, kde-format
 msgid "The key to verify the signature is missing, do you want to download it?"
-msgstr "La ŝlosilo por kontroli la subskribon mankas, ĉu vi volas elŝuti ĝin?"
+msgstr "La ŝlosilo por konfirmi la subskribon mankas, ĉu vi volas elŝuti ĝin?"
 
 #: core/signature.cpp:232
 #, kde-format
@@ -975,13 +975,13 @@ msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
 "information."
 msgstr ""
-"La subskribo ne povis esti kontrolita por %1. Vidu translokajn agordojn por "
+"La subskribo ne povis esti konfirmita por %1. Vidu translokajn agordojn por "
 "pliaj informoj."
 
 #: core/signature.cpp:257
 #, kde-format
 msgid "Signature not verified"
-msgstr "Subskribo ne kontrolita"
+msgstr "Subskribo ne konfirmita"
 
 #: core/transfer.cpp:28
 msgid "Downloading...."
@@ -1439,7 +1439,7 @@ msgstr "Haketkodo"
 #, kde-format
 msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
-msgstr "Kontrolita"
+msgstr "Konfirmita"
 
 #: main.cpp:100
 #, kde-format
@@ -2920,7 +2920,7 @@ msgstr "Konektante...."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to repair it?"
-msgstr "La elŝuto (%1) ne povis esti kontrolita. Ĉu vi volas ripari ĝin?"
+msgstr "La elŝuto (%1) ne povis esti konfirmita. Ĉu vi volas ripari ĝin?"
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
@@ -2936,13 +2936,13 @@ msgstr "Ripari"
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
 #, kde-format
 msgid "The download (%1) could not be verified. Do you want to redownload it?"
-msgstr "La elŝuto (%1) ne povis esti kontrolita. Ĉu vi volas reelŝuti ĝin?"
+msgstr "La elŝuto (%1) ne povis esti konfirmita. Ĉu vi volas reelŝuti ĝin?"
 
 #: transfer-plugins/kio/transferKio.cpp:279
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Verification failed."
-msgstr "Kontrolo malsukcesis."
+msgstr "Konfirmo malsukcesis."
 
 #: transfer-plugins/kio/transferKio.cpp:279
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
@@ -2957,7 +2957,7 @@ msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
 "not work the download would be restarted) it?"
 msgstr ""
-"La elŝuto ne povis esti kontrolita, ĉu vi volas ripari (se la riparo ne "
+"La elŝuto ne povis esti konfirmita, ĉu vi volas ripari (se la riparo ne "
 "funkcias, la elŝuto estus rekomencita) ĝin?"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
@@ -3032,7 +3032,7 @@ msgstr "Elŝuto malsukcesis, neniuj funkciaj URL estis trovitaj."
 #: transfer-plugins/metalink/metalinkhttp.cpp:156
 #, kde-format
 msgid "The download could not be verified, try to repair it?"
-msgstr "La elŝuto ne povis esti kontrolita, ĉu provi ripari ĝin?"
+msgstr "La elŝuto ne povis esti konfirmita, ĉu provi ripari ĝin?"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
@@ -4191,7 +4191,7 @@ msgstr "Subskribo de %1."
 #: ui/signaturedlg.cpp:69
 #, kde-format
 msgid "This option is not supported for the current transfer."
-msgstr "Ĉi tiu opcio ne estas subtenata por la nuna transigo."
+msgstr "Ĉi tiu elekteblo ne estas subtenata por la nuna transigo."
 
 #: ui/signaturedlg.cpp:97
 #, kde-format
@@ -4302,7 +4302,7 @@ msgstr "Senlima"
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
-msgstr "Kontrolita"
+msgstr "Konfirmita"
 
 #: ui/signaturedlg.cpp:290
 #, kde-format
@@ -4316,7 +4316,7 @@ msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
 "data has been modified."
 msgstr ""
-"Atentu: Kontrolo malsukcesis. Aŭ vi enigis malĝustan subskribon, aŭ la "
+"Atentu: Konfirmo malsukcesis. Aŭ vi enigis malĝustan subskribon, aŭ la "
 "datumoj estas modifitaj."
 
 #: ui/signaturedlg.cpp:299
@@ -4325,7 +4325,7 @@ msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
 "running, or whether you have an Internet connection (for retrieving keys.)"
 msgstr ""
-"Kontrolo ne eblas. Kontrolu la enigitajn datumojn, ĉu gpg-agent funkcias, aŭ "
+"Konfirmo ne eblas. Kontrolu la enigitajn datumojn, ĉu gpg-agent funkcias, aŭ "
 "ĉu vi havas interretan konekton (por preni ŝlosilojn.)"
 
 #: ui/signaturedlg.cpp:317
@@ -4356,7 +4356,7 @@ msgstr "Ŝargi Subskribon"
 #: ui/signaturedlg.ui:119
 #, kde-format
 msgid "Verify"
-msgstr "Kontrolu"
+msgstr "Konfirmi"
 
 #. i18n: ectx: property (title), widget (QGroupBox, keyGroup)
 #: ui/signaturedlg.ui:131
@@ -4555,30 +4555,30 @@ msgstr "Transdona Verkontrolo por %1"
 #: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "%1 was successfully verified."
-msgstr "%1 estis sukcese kontrolita."
+msgstr "%1 estis sukcese konfirmita."
 
 #: ui/verificationdialog.cpp:205
 #, kde-format
 msgid "Verification successful"
-msgstr "Kontrolo sukcesa"
+msgstr "Konfirmo sukcesa"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/verificationdialog.ui:65
 #, kde-format
 msgid "Verifying:"
-msgstr "Kontrolante:"
+msgstr "Konfirmante:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:121
 #, kde-format
 msgid "Verify the finished download with the selected checksum."
-msgstr "Kontroli la finitan elŝuton per la elektita kontrolsumo."
+msgstr "Konfirmi la finitan elŝuton per la elektita kontrolsumo."
 
 #. i18n: ectx: property (text), widget (QPushButton, verify)
 #: ui/verificationdialog.ui:124
 #, kde-format
 msgid "&Verify"
-msgstr "&Kontroli"
+msgstr "&Konfirmi"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/verificationdialog.ui:150
