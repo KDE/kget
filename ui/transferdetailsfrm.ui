@@ -95,7 +95,7 @@
      <item>
       <widget class="QLabel" name="completedContentLabel">
        <property name="text">
-        <string comment="KDE::DoNotExtract">&lt;done&gt; MiB of &lt;todo&gt; MiB</string>
+        <string notr="true">&lt;done&gt; MiB of &lt;todo&gt; MiB</string>
        </property>
       </widget>
      </item>
@@ -122,14 +122,14 @@
      <item>
       <widget class="QLabel" name="statusPixmapContentLabel">
        <property name="text">
-        <string comment="KDE::DoNotExtract">&lt;icon&gt;</string>
+        <string notr="true">&lt;icon&gt;</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="statusTextContentLabel">
        <property name="text">
-        <string comment="KDE::DoNotExtract">&lt;status&gt;</string>
+        <string notr="true">&lt;status&gt;</string>
        </property>
       </widget>
      </item>
@@ -146,7 +146,7 @@
      <item>
       <widget class="QLabel" name="speedContentLabel">
        <property name="text">
-        <string comment="KDE::DoNotExtract">&lt;speed&gt;</string>
+        <string notr="true">&lt;speed&gt;</string>
        </property>
       </widget>
      </item>
@@ -173,7 +173,7 @@
      <item>
       <widget class="QLabel" name="remainingTimeLabel">
        <property name="text">
-        <string comment="KDE::DoNotExtract">&lt;remaining time&gt;</string>
+        <string notr="true">&lt;remaining time&gt;</string>
        </property>
       </widget>
      </item>
