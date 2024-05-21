@@ -48,7 +48,7 @@
 #include <KMessageBox>
 #include <KNotifyConfigWidget>
 #include <KSelectAction>
-#include <KStandardAction>
+#include <KStandardActions>
 
 #include <QApplication>
 #include <QClipboard>
@@ -230,16 +230,16 @@ void MainWindow::setupActions()
     m_konquerorIntegration->setChecked(Settings::konquerorIntegration());
 
     // local - Destroys all sub-windows and exits
-    KStandardAction::quit(this, SLOT(slotQuit()), actionCollection());
+    KStandardActions::quit(this, &MainWindow::slotQuit, actionCollection());
     // local - Standard configure actions
-    KStandardAction::preferences(this, SLOT(slotPreferences()), actionCollection());
+    KStandardActions::preferences(this, &MainWindow::slotPreferences, actionCollection());
 
-    KStandardAction::configureNotifications(this, SLOT(slotConfigureNotifications()), actionCollection());
-    m_menubarAction = KStandardAction::showMenubar(this, SLOT(slotShowMenubar()), actionCollection());
+    KStandardActions::configureNotifications(this, &MainWindow::slotConfigureNotifications, actionCollection());
+    m_menubarAction = KStandardAction::showMenubar(this, &MainWindow::slotShowMenubar, actionCollection());
     m_menubarAction->setChecked(!menuBar()->isHidden());
 
     // Transfer related actions
-    actionCollection()->addAction(KStandardAction::SelectAll, "select_all", m_viewsContainer, SLOT(selectAll()));
+    actionCollection()->addAction(KStandardActions::SelectAll, "select_all", m_viewsContainer, &ViewsContainer::selectAll);
 
     QAction *deleteSelectedAction = actionCollection()->addAction("delete_selected_download");
     deleteSelectedAction->setText(i18nc("delete selected transfer item", "Remove Selected"));
