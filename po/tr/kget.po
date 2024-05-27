@@ -355,12 +355,12 @@ msgstr "Bilgisayarı kapat"
 #: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
 #, kde-format
 msgid "Hibernate Computer"
-msgstr "Bilgisayarı hazırda beklet"
+msgstr "Bilgisayarı derin uykuya geçir"
 
 #: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
 #, kde-format
 msgid "Suspend Computer"
-msgstr "Askıya al"
+msgstr "Bilgisayarı askıya al"
 
 #: conf/preferencesdialog.cpp:70
 #, kde-format
@@ -897,31 +897,33 @@ msgstr "Tüm aktarımlar tamamlandı, bilgisayar şimdi kapatılıyor."
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
-msgstr "Bilgisayarı Kapat"
+msgstr "Bilgisayar Kapatılıyor"
 
 #: core/kget.cpp:1407
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
-msgstr "Tüm aktarımlar tamamlandı, bilgisayar şimdi hazırda bekletilecek."
+msgstr ""
+"Tüm aktarımlar tamamlandı, bilgisayar şimdi disk kullanılarak askıya "
+"alınacak."
 
 #: core/kget.cpp:1409
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
-msgstr "Hazırda Beklet"
+msgstr "Derin Uykuya Geçiliyor"
 
 #: core/kget.cpp:1414
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
-"Tüm aktarımlar tamamlandı, bilgisayar şimdi bellek kullanarak askıya "
+"Tüm aktarımlar tamamlandı, bilgisayar şimdi bellek kullanılarak askıya "
 "alınacak."
 
 #: core/kget.cpp:1416
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
-msgstr "Askıya Al"
+msgstr "Askıya Alınıyor"
 
 #: core/kget.cpp:1424
 #, kde-format
