@@ -3,13 +3,13 @@
 #
 # Malcolm Hunter <malcolm.hunter@gmx.co.uk>, 2002,2003, 2004, 2005, 2006, 2009.
 # Andrew Coles <andrew_coles@yahoo.co.uk>, 2004, 2005, 2009, 2010.
-# Steve Allewell <steve.allewell@gmail.com>, 2014, 2016, 2017, 2019, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2014, 2016, 2017, 2019, 2021, 2022, 2023, 2024 Steve Allewell <steve.allewell@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2023-02-26 19:50+0000\n"
+"PO-Revision-Date: 2024-05-30 19:41+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -43,7 +43,7 @@ msgstr "Regular expression"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Automatically delete all transfer history older than:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -355,24 +355,22 @@ msgstr "Suspend Computer"
 #: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "Day(s)"
 
 #: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "Hour(s)"
 
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minute(s)"
 
 #: conf/preferencesdialog.cpp:73
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "seconds"
+msgstr "Second(s)"
 
 #: conf/preferencesdialog.cpp:85
 #, kde-format
@@ -871,8 +869,7 @@ msgstr ""
 "\">%2</p>"
 
 #: core/kget.cpp:1343
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Resolve"
@@ -2652,7 +2649,7 @@ msgstr "Saving to:"
 #: ui/transferdetailsfrm.ui:83 ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -3266,7 +3263,7 @@ msgstr "&Open File"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:214
 #, kde-format
@@ -4040,22 +4037,19 @@ msgid "Unable to load: %1"
 msgstr "Unable to load: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Metalink Version 4.0 file (*.meta4)"
+msgstr "Metalink Version 4.0 file"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Metalink Version 4.0 file (*.meta4)"
+msgstr "Metalink Version 3.0 file"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+msgstr "Metalink file (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:179
 #, kde-format
@@ -4519,11 +4513,10 @@ msgid "Transfer Details"
 msgstr "Transfer Details"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "%1 %"
+msgstr "%1%"
 
 #: ui/tray.cpp:48
 #, kde-format
