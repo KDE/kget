@@ -3,6 +3,9 @@
   <id>org.kde.kget</id>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
+  <developer id="org.kde">
+    <name translate="no">KDE</name>
+  </developer>
   <name>KGet</name>
   <name xml:lang="ar">كجت</name>
   <name xml:lang="ast">KGet</name>
