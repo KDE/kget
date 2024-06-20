@@ -872,7 +872,6 @@ msgstr ""
 
 #: core/kget.cpp:1343
 #, kde-format
-#| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Lös upp"
@@ -4531,7 +4530,6 @@ msgstr "Överföringsinformation"
 
 #: ui/transfersviewdelegate.cpp:361
 #, kde-format
-#| msgid "%1 %"
 msgctxt "Progress bar percent value"
 msgid "%1%"
 msgstr "%1 %"
@@ -5567,4 +5565,3 @@ msgstr "Stäng"
 
 #~ msgid "Cannot expand file : %1"
 #~ msgstr "Kan inte expandera fil: %1"
-
