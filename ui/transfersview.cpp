@@ -93,7 +93,7 @@ void TransfersView::setModel(QAbstractItemModel *model)
 
 void TransfersView::dropEvent(QDropEvent *event)
 {
-    QModelIndex dropIndex = indexAt(event->pos());
+    QModelIndex dropIndex = indexAt(event->position().toPoint());
     QTreeView::dropEvent(event);
 
     setExpanded(dropIndex, true);

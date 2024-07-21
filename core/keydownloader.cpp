@@ -122,12 +122,6 @@ void KeyDownloader::slotDownloaded(KJob *job)
     const QString fingerprint = m_jobs[job];
     auto *transferJob = static_cast<KIO::StoredTransferJob *>(job);
 
-    if (transferJob->isErrorPage()) {
-        qCDebug(KGET_DEBUG) << "Mirror did not work, try another one.";
-        downloadKey(fingerprint, nullptr, true);
-        return;
-    }
-
     QByteArray data = transferJob->data();
     if (data.isEmpty()) {
         qCDebug(KGET_DEBUG) << "Downloaded data is empty.";
