@@ -29,6 +29,7 @@ include(ECMSetupQtPluginMacroNames)
 include(GenerateExportHeader)
 include(KDEClangFormat)
 include(KDEGitCommitHooks)
+include(ECMDeprecationSettings)
 
 find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED CONFIG COMPONENTS
     DBus
@@ -137,7 +138,9 @@ ecm_setup_version(PROJECT
 )
 
 ecm_setup_qtplugin_macro_names(JSON_NONE KGET_EXPORT_PLUGIN KGET_EXPORT_PLUGIN_CONFIG)
-
+ecm_set_disabled_deprecation_versions(
+    KF 6.4.0
+) 
 add_subdirectory(conf)
 add_subdirectory(core)
 add_subdirectory(ui)
