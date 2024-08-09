@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-27 00:37+0000\n"
+"POT-Creation-Date: 2024-08-09 00:39+0000\n"
 "PO-Revision-Date: 2022-09-28 20:09+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -934,7 +934,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "Thư mục tải về mặc định"
 
-#: core/kget.h:361 main.cpp:98 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1470,13 +1470,13 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr ""
 
-#: main.cpp:100
+#: main.cpp:101
 #, fuzzy, kde-format
 #| msgid "An advanced download manager for KDE"
 msgid "An advanced download manager by KDE"
 msgstr "Trình quản lí tải về cao cấp cho KDE"
 
-#: main.cpp:102
+#: main.cpp:103
 #, fuzzy, kde-format
 #| msgid ""
 #| "(C) 2005 - 2007, The KGet developers\n"
@@ -1494,163 +1494,163 @@ msgstr ""
 "© năm 2002 của Carsten Pfeiffer\n"
 "© năm 1998 - 2000 của Matej Koss"
 
-#: main.cpp:106
+#: main.cpp:107
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:108
+#: main.cpp:109
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr ""
 
-#: main.cpp:108
+#: main.cpp:109
 #, fuzzy, kde-format
 #| msgid "Multithreaded Plugin Author"
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "Tác giả bổ sung đa mạch"
 
-#: main.cpp:109
+#: main.cpp:110
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:109 main.cpp:110 main.cpp:112
+#: main.cpp:110 main.cpp:111 main.cpp:113
 #, kde-format
 msgid "Core Developer"
 msgstr "Nhà phát triển lõi"
 
-#: main.cpp:110
+#: main.cpp:111
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:111
+#: main.cpp:112
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:111
+#: main.cpp:112
 #, fuzzy, kde-format
 #| msgid "Multithreaded Plugin Author"
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "Tác giả bổ sung đa mạch"
 
-#: main.cpp:112
+#: main.cpp:113
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:114
 #, kde-format
 msgid "Javier Goday"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:114
 #, fuzzy, kde-format
 #| msgid "Core Developer"
 msgid "Developer"
 msgstr "Nhà phát triển lõi"
 
-#: main.cpp:114
+#: main.cpp:115
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr ""
 
-#: main.cpp:114
+#: main.cpp:115
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr ""
 
-#: main.cpp:115
+#: main.cpp:116
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr ""
 
-#: main.cpp:115
+#: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr ""
 
-#: main.cpp:116
+#: main.cpp:117
 #, fuzzy, kde-format
 #| msgid "Patrick  Charbonnier"
 msgid "Patrick Charbonnier"
 msgstr "Patrick  Charbonnier"
 
-#: main.cpp:116 main.cpp:117 main.cpp:118
+#: main.cpp:117 main.cpp:118 main.cpp:119
 #, fuzzy, kde-format
 #| msgid "Core Developer"
 msgid "Former Developer"
 msgstr "Nhà phát triển lõi"
 
-#: main.cpp:117
+#: main.cpp:118
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:118
+#: main.cpp:119
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:119
+#: main.cpp:120
 #, kde-format
 msgid "Joris Guisson"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:120
 #, fuzzy, kde-format
 #| msgid "Former KGet Developer"
 msgid "BTCore (KTorrent) Developer"
 msgstr "Nhà phát triển trước"
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr ""
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "Thiết kế giao diện mạng"
 
-#: main.cpp:122
+#: main.cpp:123
 #, fuzzy, kde-format
 #| msgid "Group name:"
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Tên nhóm:"
 
-#: main.cpp:122
+#: main.cpp:123
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "herophuong93@gmail.com"
 
-#: main.cpp:129
+#: main.cpp:132
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "Hiện cửa sổ thả xuống khi chạy KGet"
 
-#: main.cpp:130
+#: main.cpp:133
 #, fuzzy, kde-format
 #| msgid "Start KGet with drop target"
 msgid "Start KGet with hidden main window"
 msgstr "Hiện cửa sổ thả xuống khi chạy KGet"
 
-#: main.cpp:131
+#: main.cpp:134
 #, fuzzy, kde-format
 #| msgid "Start KGet with drop target"
 msgid "Start KGet without drop target animation"
 msgstr "Hiện cửa sổ thả xuống khi chạy KGet"
 
-#: main.cpp:133
+#: main.cpp:136
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr ""
 
-#: main.cpp:135
+#: main.cpp:138
 #, kde-format
 msgid "URL(s) to download"
 msgstr "URL để tải về"

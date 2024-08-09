@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-27 00:37+0000\n"
+"POT-Creation-Date: 2024-08-09 00:39+0000\n"
 "PO-Revision-Date: 2007-08-20 12:42+0545\n"
 "Last-Translator: Nabin Gautam <nabin@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -916,7 +916,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "पूर्वानिर्धारित फोल्डर"
 
-#: core/kget.h:361 main.cpp:98 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1441,13 +1441,13 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr ""
 
-#: main.cpp:100
+#: main.cpp:101
 #, fuzzy, kde-format
 #| msgid "An advanced download manager for KDE"
 msgid "An advanced download manager by KDE"
 msgstr "केडीई का लागि एउटा उन्नत डाउनलोड प्रबन्धक"
 
-#: main.cpp:102
+#: main.cpp:103
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1456,156 +1456,156 @@ msgid ""
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
 
-#: main.cpp:106
+#: main.cpp:107
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr ""
 
-#: main.cpp:108
+#: main.cpp:109
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr ""
 
-#: main.cpp:108
+#: main.cpp:109
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr ""
 
-#: main.cpp:109
+#: main.cpp:110
 #, kde-format
 msgid "Dario Massarin"
 msgstr ""
 
-#: main.cpp:109 main.cpp:110 main.cpp:112
+#: main.cpp:110 main.cpp:111 main.cpp:113
 #, kde-format
 msgid "Core Developer"
 msgstr ""
 
-#: main.cpp:110
+#: main.cpp:111
 #, kde-format
 msgid "Urs Wolfer"
 msgstr ""
 
-#: main.cpp:111
+#: main.cpp:112
 #, kde-format
 msgid "Manolo Valdes"
 msgstr ""
 
-#: main.cpp:111
+#: main.cpp:112
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr ""
 
-#: main.cpp:112
+#: main.cpp:113
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:114
 #, kde-format
 msgid "Javier Goday"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:114
 #, kde-format
 msgid "Developer"
 msgstr ""
 
-#: main.cpp:114
+#: main.cpp:115
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr ""
 
-#: main.cpp:114
+#: main.cpp:115
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr ""
 
-#: main.cpp:115
+#: main.cpp:116
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr ""
 
-#: main.cpp:115
+#: main.cpp:116
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr ""
 
-#: main.cpp:116
+#: main.cpp:117
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr ""
 
-#: main.cpp:116 main.cpp:117 main.cpp:118
+#: main.cpp:117 main.cpp:118 main.cpp:119
 #, kde-format
 msgid "Former Developer"
 msgstr ""
 
-#: main.cpp:117
+#: main.cpp:118
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr ""
 
-#: main.cpp:118
+#: main.cpp:119
 #, kde-format
 msgid "Matej Koss"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:120
 #, kde-format
 msgid "Joris Guisson"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:120
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr ""
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr ""
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgid "Design of Web Interface"
 msgstr ""
 
-#: main.cpp:122
+#: main.cpp:123
 #, fuzzy, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "श्यामकृष्ण बल"
 
-#: main.cpp:122
+#: main.cpp:123
 #, fuzzy, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "<shyamkrishna_bal@yahoo.com>"
 
-#: main.cpp:129
+#: main.cpp:132
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "छोड्ने लक्ष्यसँग के गेट सुरु गर्नुहोस्"
 
-#: main.cpp:130
+#: main.cpp:133
 #, fuzzy, kde-format
 #| msgid "Start KGet with drop target"
 msgid "Start KGet with hidden main window"
 msgstr "छोड्ने लक्ष्यसँग के गेट सुरु गर्नुहोस्"
 
-#: main.cpp:131
+#: main.cpp:134
 #, fuzzy, kde-format
 #| msgid "Start KGet with drop target"
 msgid "Start KGet without drop target animation"
 msgstr "छोड्ने लक्ष्यसँग के गेट सुरु गर्नुहोस्"
 
-#: main.cpp:133
+#: main.cpp:136
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr ""
 
-#: main.cpp:135
+#: main.cpp:138
 #, kde-format
 msgid "URL(s) to download"
 msgstr "डाउनलोड गर्न यूआरएल "
