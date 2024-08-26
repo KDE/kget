@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2010, 2023 Johannes Obermayr <johannesobermayr@gmx.de>
+# SPDX-FileCopyrightText: 2010, 2023, 2024 Johannes Obermayr <johannesobermayr@gmx.de>
 # Luc de Louw <luc@delouw.ch>, 2002, 2003.
 # Thomas Diehl <thd@kde.org>, 2002, 2003, 2004.
 # Stephan Johach <lucardus@onlinehome.de>, 2003, 2006.
@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-09 00:39+0000\n"
-"PO-Revision-Date: 2023-12-21 16:44+0100\n"
+"PO-Revision-Date: 2024-08-25 21:38+0200\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -4599,8 +4599,7 @@ msgid "Transfer Details"
 msgstr "Transfer-Details"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
 msgstr "%1 %"

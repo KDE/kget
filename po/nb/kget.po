@@ -871,7 +871,6 @@ msgstr ""
 
 #: core/kget.cpp:1343
 #, fuzzy, kde-format
-#| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Løs opp"
@@ -4518,7 +4517,6 @@ msgstr "Detaljer om overføringen"
 
 #: ui/transfersviewdelegate.cpp:361
 #, fuzzy, kde-format
-#| msgid "%1 %"
 msgctxt "Progress bar percent value"
 msgid "%1%"
 msgstr "%1 %"
