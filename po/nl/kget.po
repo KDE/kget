@@ -23,14 +23,14 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-09 00:39+0000\n"
-"PO-Revision-Date: 2024-03-27 15:20+0100\n"
+"PO-Revision-Date: 2024-09-06 13:59+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: conf/autopastemodel.cpp:174
@@ -2226,7 +2226,7 @@ msgstr "Beschikbaar"
 #: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:52
 #, kde-format
 msgid "Kick Peer"
-msgstr "Peer kicken"
+msgstr "Peer verbannen"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerview.cpp:53
 #, kde-format
