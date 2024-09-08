@@ -1473,7 +1473,7 @@ msgstr ""
 "© 1998-2000 Matej Koss\n"
 "© 2001-2002 Patrick Charbonnier\n"
 "© 2002 Carsten Pfeiffer\n"
-"© 2005-2014 Equipo de desenvolvemento de KGet"
+"© 2005-2014 Equipo desenvolvedor de KGet"
 
 #: main.cpp:107
 #, kde-format
