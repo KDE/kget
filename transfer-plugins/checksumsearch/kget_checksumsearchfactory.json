@@ -43,6 +43,7 @@
         "Description[ca]": "Intenta cercar sumes de verificació per a un URL especificat",
         "Description[cs]": "Pokusí se najít kontrolní součty pro zadanou URL",
         "Description[de]": "Versucht Prüfsummen für eine angegebene Adresse zu finden",
+        "Description[el]": "Προσπαθεί να βρει αθροίσματα ελέγχου για ένα ορισμένο URL",
         "Description[en_GB]": "Tries to find checksums for a specified URL",
         "Description[eo]": "Provas trovi kontrolsumojn por specifa URL",
         "Description[es]": "Intenta encontrar sumas de verificación para la URL especificada",

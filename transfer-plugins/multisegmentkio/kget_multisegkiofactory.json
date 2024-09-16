@@ -43,6 +43,7 @@
         "Description[ca]": "Connector de transferències multifil",
         "Description[cs]": "Modul pro stahování ve více vláknech",
         "Description[de]": "Multithread-Übertragungsmodul für KGet",
+        "Description[el]": "Πολυνηματικό πρόσθετο λήψης αρχείων",
         "Description[en_GB]": "Multithreaded file download plugin",
         "Description[eo]": "Plurfadena dosierelŝuta kromaĵo",
         "Description[es]": "Complemento de descarga multihilo de archivos",
