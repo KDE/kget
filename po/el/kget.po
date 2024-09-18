@@ -376,9 +376,7 @@ msgid "Minute(s)"
 msgstr ""
 
 #: conf/preferencesdialog.cpp:73
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
 msgstr "δευτερόλεπτα"
 
@@ -4565,11 +4563,10 @@ msgid "Transfer Details"
 msgstr "Λεπτομέρειες μεταφοράς"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "%1 %"
+msgstr "%1%"
 
 #: ui/tray.cpp:48
 #, kde-format
