@@ -4,7 +4,7 @@ target_sources(kget_kio PRIVATE
   transferKio.cpp
   transferKioFactory.cpp
   kget_kiofactory.json
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 target_link_libraries(kget_kio kgetcore)

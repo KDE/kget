@@ -15,7 +15,7 @@ if(BUILD_TESTING)
         ${kget_test_transfers_dbus_SRCS}
         testkget.cpp
         testtransfers.cpp
-        ../kget_debug.cpp
+        ${kget_debug_SRCS}
     )
 
     # TODO enable it in ctest once it's fixed to not popup a "first run" messagebox on first start.
@@ -46,7 +46,7 @@ if(BUILD_TESTING)
     ecm_add_test(
             metalinktest.cpp
             ../ui/metalinkcreator/metalinker.cpp
-            ../kget_debug.cpp
+            ${kget_debug_SRCS}
         LINK_LIBRARIES
             Qt::Xml
             KF6::I18n

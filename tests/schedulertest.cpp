@@ -19,7 +19,7 @@
 
 #include "schedulertest.h"
 #include "../core/scheduler.h"
-#include "../settings.h"
+#include "settings.h"
 
 #include <QVariant>
 #include <QtTest>

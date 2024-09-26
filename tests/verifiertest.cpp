@@ -1,7 +1,7 @@
 
 #include "verifiertest.h"
 #include "../core/verifier.h"
-#include "../settings.h"
+#include "settings.h"
 
 #include <QDebug>
 #include <QTemporaryDir>

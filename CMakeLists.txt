@@ -141,10 +141,8 @@ ecm_setup_qtplugin_macro_names(JSON_NONE KGET_EXPORT_PLUGIN KGET_EXPORT_PLUGIN_C
 ecm_set_disabled_deprecation_versions(
     KF 6.4.0
 ) 
-add_subdirectory(conf)
 
-add_subdirectory(core)
-ecm_qt_declare_logging_category(kgetcore
+ecm_qt_declare_logging_category(kget_debug_SRCS
     HEADER kget_debug.h
     IDENTIFIER KGET_DEBUG
     CATEGORY_NAME kget
@@ -152,17 +150,20 @@ ecm_qt_declare_logging_category(kgetcore
     EXPORT KGET
 )
 
+add_subdirectory(conf)
+add_subdirectory(core)
 add_subdirectory(ui)
 add_subdirectory(transfer-plugins)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
-add_subdirectory(tests)
 add_subdirectory(doc)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/core/
     ${CMAKE_CURRENT_BINARY_DIR}/core/
 )
+
+add_subdirectory(tests)
 
 if(SQLite3_FOUND)
     add_definitions(-DHAVE_SQLITE)
@@ -183,7 +184,7 @@ target_sources(kget PRIVATE
 #     core/transferhandler.cpp
 #     core/transfertreemodel.cpp
     dbus/dbuskgetwrapper.cpp
-    kget_debug.cpp
+    ${kget_debug_SRCS}
     conf/autopastemodel.cpp
     conf/integrationpreferences.cpp
     conf/dlgwebinterface.cpp

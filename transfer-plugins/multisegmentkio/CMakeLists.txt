@@ -6,7 +6,7 @@ target_sources(kget_multisegkiofactory PRIVATE
   transfermultisegkio.cpp
   transfermultisegkiofactory.cpp
   kget_multisegkiofactory.json
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 kconfig_add_kcfg_files(kget_multisegkiofactory multisegkiosettings.kcfgc)
@@ -21,7 +21,7 @@ kcoreaddons_add_plugin(kcm_kget_multisegkiofactory INSTALL_NAMESPACE "kget_kcms"
 
 target_sources(kcm_kget_multisegkiofactory PRIVATE
   dlgmultisegkio.cpp
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 ki18n_wrap_ui(kcm_kget_multisegkiofactory

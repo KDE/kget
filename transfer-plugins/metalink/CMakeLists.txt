@@ -11,7 +11,7 @@ target_sources(kget_metalinkfactory PRIVATE
   fileselectiondlg.cpp
   kget_metalinkfactory.json
   ../../ui/metalinkcreator/metalinker.cpp
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 ki18n_wrap_ui(kget_metalinkfactory
@@ -29,7 +29,7 @@ kcoreaddons_add_plugin(kcm_kget_metalinkfactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_metalinkfactory PRIVATE
     dlgmetalink.cpp
-    ../../kget_debug.cpp
+    ${kget_debug_SRCS}
 )
 
 ki18n_wrap_ui(kcm_kget_metalinkfactory

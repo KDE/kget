@@ -5,7 +5,7 @@ target_sources(kget_checksumsearchfactory PRIVATE
   checksumsearchtransferdatasource.cpp
   checksumsearchfactory.cpp
   kget_checksumsearchfactory.json
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 kconfig_add_kcfg_files(kget_checksumsearchfactory checksumsearchsettings.kcfgc)
@@ -18,7 +18,7 @@ install(FILES kget_checksumsearchfactory.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR}
 kcoreaddons_add_plugin(kcm_kget_checksumsearchfactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_checksumsearchfactory PRIVATE
-../../kget_debug.cpp
+${kget_debug_SRCS}
 checksumsearch.cpp
 dlgchecksumsearch.cpp
 )

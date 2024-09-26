@@ -14,6 +14,7 @@ qt_add_dbus_interface(kgetcore_dbus_SRCS ../dbus/org.kde.Shutdown.xml plasmashud
 
 target_sources(kgetcore PRIVATE
     ${kgetcore_dbus_SRCS}
+    ${kget_debug_SRCS}
     job.cpp
     jobqueue.cpp
     kget.cpp

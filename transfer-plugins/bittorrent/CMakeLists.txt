@@ -31,7 +31,7 @@ target_sources(kget_bittorrent PRIVATE
     advanceddetails/webseedsmodel.cpp
     advanceddetails/webseedstab.cpp
     kget_bittorrentfactory.json
-    ../../kget_debug.cpp
+    ${kget_debug_SRCS}
     )
 
 ki18n_wrap_ui(kget_bittorrent
@@ -52,7 +52,7 @@ kcoreaddons_add_plugin(kcm_kget_bittorrentfactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_bittorrentfactory PRIVATE
     btsettingswidget.cpp
-    ../../kget_debug.cpp
+    ${kget_debug_SRCS}
     )
 
 ki18n_wrap_ui(kcm_kget_bittorrentfactory

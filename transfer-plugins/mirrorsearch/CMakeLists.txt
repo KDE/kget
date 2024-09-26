@@ -5,7 +5,7 @@ target_sources(kget_mirrorsearchfactory PRIVATE
   mirrorsearchtransferdatasource.cpp
   mirrorsearchfactory.cpp
   kget_mirrorsearchfactory.json
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 kconfig_add_kcfg_files(kget_mirrorsearchfactory mirrorsearchsettings.kcfgc)
@@ -20,7 +20,7 @@ kcoreaddons_add_plugin(kcm_kget_mirrorsearchfactory INSTALL_NAMESPACE "kget_kcms
 
 target_sources(kcm_kget_mirrorsearchfactory PRIVATE
   dlgmirrorsearch.cpp
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 ki18n_wrap_ui(kcm_kget_mirrorsearchfactory

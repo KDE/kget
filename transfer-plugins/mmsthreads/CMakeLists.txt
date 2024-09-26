@@ -10,7 +10,7 @@ target_sources(kget_mmsfactory PRIVATE
   mmstransferfactory.cpp
   mmsthread.cpp
   kget_mmsfactory.json
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 kconfig_add_kcfg_files(kget_mmsfactory mmssettings.kcfgc)
@@ -24,7 +24,7 @@ kcoreaddons_add_plugin(kcm_kget_mmsfactory INSTALL_NAMESPACE "kget_kcms")
 
 target_sources(kcm_kget_mmsfactory PRIVATE
   dlgmms.cpp
-  ../../kget_debug.cpp
+  ${kget_debug_SRCS}
 )
 
 ki18n_wrap_ui(kcm_kget_mmsfactory
