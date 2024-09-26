@@ -1115,8 +1115,7 @@ void KGet::loadPlugins()
     // TransferFactory plugins
     const QList<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("kget"), [](const KPluginMetaData &md) {
         return md.value(QStringLiteral("X-KDE-KGet-framework-version")) == QString::number(FrameworkVersion)
-            && md.value(QStringLiteral("X-KDE-KGet-rank")).toInt() > 0
-            && md.value(QStringLiteral("X-KDE-KGet-plugintype")) == QStringLiteral("TransferFactory");
+            && md.value(QStringLiteral("X-KDE-KGet-rank")).toInt() > 0;
     });
 
     qCDebug(KGET_DEBUG) << "Found" << offers.size() << "plugins";
@@ -1127,8 +1126,7 @@ void KGet::loadPlugins()
     for (const KPluginMetaData &md : offers) {
         sortedOffers[md.value("X-KDE-KGet-rank").toInt()] = md;
         qCDebug(KGET_DEBUG) << " TransferFactory plugin found:\n"
-                            << "  rank = " << md.value("X-KDE-KGet-rank").toInt() << '\n'
-                            << "  plugintype = " << md.value("X-KDE-KGet-plugintype");
+                            << "  rank = " << md.value("X-KDE-KGet-rank").toInt();
     }
 
     // I must fill this pluginList before and my m_transferFactories list after.

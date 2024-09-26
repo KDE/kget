@@ -134,6 +134,5 @@
         "Name[zh_TW]": "KIO"
     },
     "X-KDE-KGet-framework-version": "2",
-    "X-KDE-KGet-plugintype": "TransferFactory",
     "X-KDE-KGet-rank": "50"
 }

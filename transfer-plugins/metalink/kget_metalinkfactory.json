@@ -133,6 +133,5 @@
     },
     "X-KDE-ConfigModule": "kget_kcms/kcm_kget_metalinkfactory",
     "X-KDE-KGet-framework-version": "2",
-    "X-KDE-KGet-plugintype": "TransferFactory",
     "X-KDE-KGet-rank": "110"
 }

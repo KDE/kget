@@ -134,6 +134,5 @@
     },
     "X-KDE-ConfigModule": "kget_kcms/kcm_kget_multisegkiofactory",
     "X-KDE-KGet-framework-version": "2",
-    "X-KDE-KGet-plugintype": "TransferFactory",
     "X-KDE-KGet-rank": "70"
 }
