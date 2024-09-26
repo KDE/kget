@@ -142,7 +142,16 @@ ecm_set_disabled_deprecation_versions(
     KF 6.4.0
 ) 
 add_subdirectory(conf)
+
 add_subdirectory(core)
+ecm_qt_declare_logging_category(kgetcore
+    HEADER kget_debug.h
+    IDENTIFIER KGET_DEBUG
+    CATEGORY_NAME kget
+    DESCRIPTION "KGet"
+    EXPORT KGET
+)
+
 add_subdirectory(ui)
 add_subdirectory(transfer-plugins)
 add_subdirectory(sounds)
@@ -160,108 +169,6 @@ if(SQLite3_FOUND)
 endif()
 
 remove_definitions(-DQT_NO_HTTP)
-
-# kgetcore
-
-add_library(kgetcore SHARED)
-set_target_properties(kgetcore PROPERTIES
-    VERSION 6.0.0
-    SOVERSION 6
-)
-
-set(kgetcore_dbus_SRCS)
-qt_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.transfer.xml dbus/dbustransferwrapper.h DBusTransferWrapper)
-qt_add_dbus_adaptor(kgetcore_dbus_SRCS dbus/org.kde.kget.verifier.xml dbus/dbusverifierwrapper.h DBusVerifierWrapper)
-
-qt_add_dbus_interface(kgetcore_dbus_SRCS dbus/org.kde.Shutdown.xml plasmashudown_interface)
-
-target_sources(kgetcore PRIVATE
-    ${kgetcore_dbus_SRCS}
-    core/job.cpp
-    core/jobqueue.cpp
-    core/kget.cpp
-    core/scheduler.cpp
-    core/transfertreemodel.cpp
-    core/transfertreeselectionmodel.cpp
-    core/transfer.cpp
-    core/transfergroup.cpp
-    core/transfergrouphandler.cpp
-    core/transferhandler.cpp
-    core/handler.cpp
-    core/transfergroupscheduler.cpp
-    core/plugin/plugin.cpp
-    core/plugin/transferfactory.cpp
-    core/transferdatasource.cpp
-    core/datasourcefactory.cpp
-    core/kgetkjobadapter.cpp
-    core/kuiserverjobs.cpp
-    core/kgetglobaljob.cpp
-    core/bitset.cpp
-    core/download.cpp
-    core/transferhistorystore.cpp
-    core/transferhistorystore_xml.cpp
-    core/transferhistorystore_sqlite.cpp
-    core/linkimporter.cpp
-    dbus/dbustransferwrapper.cpp
-    dbus/dbusverifierwrapper.cpp
-    core/filemodel.cpp
-    core/verifier.cpp
-    core/verificationthread.cpp
-    core/verificationmodel.cpp
-    core/verificationdelegate.cpp
-    core/signature.cpp
-    core/signaturethread.cpp
-    core/keydownloader.cpp
-    core/urlchecker.cpp
-    core/basedialog.cpp
-    core/mostlocalurl.cpp
-    core/filedeleter.cpp
-)
-
-ecm_qt_declare_logging_category(kgetcore
-    HEADER kget_debug.h
-    IDENTIFIER KGET_DEBUG
-    CATEGORY_NAME kget
-    DESCRIPTION "KGet"
-    EXPORT KGET
-)
-
-kconfig_add_kcfg_files(kgetcore conf/settings.kcfgc)
-
-generate_export_header(kgetcore BASE_NAME kget)
-
-target_link_libraries(kgetcore PUBLIC
-    KF6::ConfigGui
-    KF6::CoreAddons
-    KF6::DBusAddons
-    KF6::I18n
-    KF6::I18nLocaleData
-    KF6::IconThemes
-    KF6::IconWidgets
-    KF6::KCMUtils
-    KF6::KIOCore
-    KF6::KIOWidgets
-    KF6::Notifications
-    KF6::StatusNotifierItem
-    KF6::XmlGui
-    Qt6::Core
-    Qt6::Widgets
-    Qt6::Sql
-    Qt6::Network
-    Qt6::DBus
-    Boost::headers
-)
-
-if (SQLITE_FOUND)
-    target_link_libraries(kgetcore PUBLIC ${QT_QTSQL_LIBRARY})
-endif()
-
-if (TARGET Gpgmepp)
-    target_link_libraries(kgetcore PUBLIC QGpgmeQt6 Gpgmepp)
-    kde_enable_exceptions()
-endif()
-
-install(TARGETS kgetcore ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 
 # kget
