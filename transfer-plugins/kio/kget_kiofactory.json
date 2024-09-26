@@ -131,11 +131,7 @@
         "Name[uk]": "KIO",
         "Name[x-test]": "xxKIOxx",
         "Name[zh_CN]": "KIO",
-        "Name[zh_TW]": "KIO",
-        "ServiceTypes": [
-            "KGet/Plugin"
-        ],
-        "Version": "1.0"
+        "Name[zh_TW]": "KIO"
     },
     "X-KDE-KGet-framework-version": "2",
     "X-KDE-KGet-plugintype": "TransferFactory",

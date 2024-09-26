@@ -130,11 +130,7 @@
         "Name[uk]": "Багатосегментний KIO",
         "Name[x-test]": "xxMulti Segment KIOxx",
         "Name[zh_CN]": "多段式 KIO",
-        "Name[zh_TW]": "多段式 KIO",
-        "ServiceTypes": [
-            "KGet/Plugin"
-        ],
-        "Version": "1.0"
+        "Name[zh_TW]": "多段式 KIO"
     },
     "X-KDE-ConfigModule": "kget_kcms/kcm_kget_multisegkiofactory",
     "X-KDE-KGet-framework-version": "2",

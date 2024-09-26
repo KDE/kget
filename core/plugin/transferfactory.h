@@ -16,15 +16,16 @@
  *
  * Defines a ...XXX...
  *
- * Common fields in the [Desktop Entry]:
- *   Type=Service
- *   ServiceTypes=KGet/Plugin
- *   X-KDE-KGet-plugintype=TransferFactory
- *   X-KDE-KGet-framework-version=1
- * Custom fields in the [Desktop Entry]:
- *   Name=%YOURTRANSFERFACTORY%
- *   X-KDE-Library=lib%YOURLIBRARY%
- *   X-KDE-KGet-rank=%PLUGINRANK%
+ * Common fields in the JSON file:
+{
+    "KPlugin": {
+        "Name": "MyPlugin"
+
+    },
+    "X-KDE-ConfigModule": "kget_kcms/kcm",
+    "X-KDE-KGet-framework-version": "2",
+    "X-KDE-KGet-rank": "70"
+}
  *
  * @see kget_plugin.desktop - for "KGet/Plugin" definition
  * @see transfers/kio/kget_kiotransfer.desktop - desktop entry example

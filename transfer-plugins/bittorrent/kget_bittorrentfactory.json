@@ -131,11 +131,7 @@
         "Name[uk]": "Bittorrent",
         "Name[x-test]": "xxBittorrentxx",
         "Name[zh_CN]": "BitTorrent",
-        "Name[zh_TW]": "Bittorrent",
-        "ServiceTypes": [
-            "KGet/Plugin"
-        ],
-        "Version": "1.0"
+        "Name[zh_TW]": "Bittorrent"
     },
     "X-KDE-ConfigModule": "kget_kcms/kcm_kget_bittorrentfactory",
     "X-KDE-KGet-framework-version": "2",

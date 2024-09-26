@@ -127,11 +127,7 @@
         "Name[uk]": "Пошук контрольної суми",
         "Name[x-test]": "xxChecksum Searchxx",
         "Name[zh_CN]": "校验和搜索",
-        "Name[zh_TW]": "驗證碼搜尋",
-        "ServiceTypes": [
-            "KGet/Plugin"
-        ],
-        "Version": "0.1"
+        "Name[zh_TW]": "驗證碼搜尋"
     },
     "X-KDE-ConfigModule": "kget_kcms/kcm_kget_checksumsearchfactory",
     "X-KDE-KGet-framework-version": "2",

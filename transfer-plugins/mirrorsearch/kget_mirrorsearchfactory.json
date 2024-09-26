@@ -130,11 +130,7 @@
         "Name[wa]": "Cweraedje e muroe",
         "Name[x-test]": "xxMirror Searchxx",
         "Name[zh_CN]": "镜像搜索",
-        "Name[zh_TW]": "映射搜尋",
-        "ServiceTypes": [
-            "KGet/Plugin"
-        ],
-        "Version": "1.0"
+        "Name[zh_TW]": "映射搜尋"
     },
     "X-KDE-ConfigModule": "kget_kcms/kcm_kget_mirrorsearchfactory",
     "X-KDE-KGet-framework-version": "2",

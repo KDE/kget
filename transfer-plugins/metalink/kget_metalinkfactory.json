@@ -129,11 +129,7 @@
         "Name[uk]": "Metalink",
         "Name[x-test]": "xxMetalinkxx",
         "Name[zh_CN]": "元链接",
-        "Name[zh_TW]": "Metalink",
-        "ServiceTypes": [
-            "KGet/Plugin"
-        ],
-        "Version": "1.0"
+        "Name[zh_TW]": "Metalink"
     },
     "X-KDE-ConfigModule": "kget_kcms/kcm_kget_metalinkfactory",
     "X-KDE-KGet-framework-version": "2",
