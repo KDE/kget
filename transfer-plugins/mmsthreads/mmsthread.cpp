@@ -51,7 +51,7 @@ void MmsThread::run()
         while ((m_begin < m_end) && m_download) {
             if ((m_begin + 1024) > m_end) {
                 const int var = m_end - m_begin;
-		std::vector<char> data(var);
+                std::vector<char> data(var);
                 readed = mmsx_read(nullptr, mms, data.data(), var);
                 m_locker.lock();
                 Q_EMIT signReading(var, m_end, m_begin = m_end);
@@ -61,7 +61,7 @@ void MmsThread::run()
                 }
                 m_locker.unlock();
             } else {
-		std::vector<char> data(1024);
+                std::vector<char> data(1024);
                 readed = mmsx_read(nullptr, mms, data.data(), 1024);
                 m_locker.lock();
                 Q_EMIT signReading(1024, m_end, m_begin += 1024);
