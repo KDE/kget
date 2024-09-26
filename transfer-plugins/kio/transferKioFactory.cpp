@@ -49,10 +49,7 @@ bool TransferKioFactory::isSupported(const QUrl &url) const
 
 QStringList TransferKioFactory::addsProtocols() const
 {
-    static const QStringList protocols = QStringList() << "http"
-                                                       << "https"
-                                                       << "ftp"
-                                                       << "sftp";
+    static const QStringList protocols{"http", "https", "ftp", "sftp"};
     return protocols;
 }
 

@@ -129,11 +129,11 @@ int main(int argc, char *argv[])
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
 
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("showDropTarget"), i18n("Start KGet with drop target")));
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("hideMainWindow"), i18n("Start KGet with hidden main window")));
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("startWithoutAnimation"), i18n("Start KGet without drop target animation")));
+    parser.addOption(QCommandLineOption(QStringList{QStringLiteral("showDropTarget")}, i18n("Start KGet with drop target")));
+    parser.addOption(QCommandLineOption(QStringList{QStringLiteral("hideMainWindow")}, i18n("Start KGet with hidden main window")));
+    parser.addOption(QCommandLineOption(QStringList{QStringLiteral("startWithoutAnimation")}, i18n("Start KGet without drop target animation")));
 #ifdef DEBUG
-    parser.addOption(QCommandLineOption(QStringList() << QLatin1String("test"), i18n("Execute Unit Testing")));
+    parser.addOption(QCommandLineOption(QStringList{QStringLiteral("test")}, i18n("Execute Unit Testing")));
 #endif
     parser.addPositionalArgument(QLatin1String("[URL(s)]"), i18n("URL(s) to download"));
 

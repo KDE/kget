@@ -25,20 +25,24 @@ struct StatusStrings {
     KLazyLocalizedString name;
 };
 
-const StatusStrings STATUSTEXTS[] = {{kli18n("Downloading....")},
-                                     {kli18nc("transfer state: delayed", "Delayed")},
-                                     {kli18nc("transfer state: stopped", "Stopped")},
-                                     {kli18nc("transfer state: aborted", "Aborted")},
-                                     {kli18nc("transfer state: finished", "Finished")},
-                                     {KLazyLocalizedString()}, // TODO: Add FinishedKeepAlive status
-                                     {kli18nc("changing the destination of the file", "Changing destination")}};
-const QStringList STATUSICONS = QStringList() << "media-playback-start"
-                                              << "view-history"
-                                              << "process-stop"
-                                              << "dialog-error"
-                                              << "dialog-ok"
-                                              << "media-playback-start"
-                                              << "media-playback-pause";
+const StatusStrings STATUSTEXTS[] = {
+    {kli18n("Downloading....")},
+    {kli18nc("transfer state: delayed", "Delayed")},
+    {kli18nc("transfer state: stopped", "Stopped")},
+    {kli18nc("transfer state: aborted", "Aborted")},
+    {kli18nc("transfer state: finished", "Finished")},
+    {KLazyLocalizedString()}, // TODO: Add FinishedKeepAlive status
+    {kli18nc("changing the destination of the file", "Changing destination")},
+};
+const QStringList STATUSICONS = QStringList{
+    "media-playback-start",
+    "view-history",
+    "process-stop",
+    "dialog-error",
+    "dialog-ok",
+    "media-playback-start",
+    "media-playback-pause",
+};
 
 Transfer::Transfer(TransferGroup *parent, TransferFactory *factory, Scheduler *scheduler, const QUrl &source, const QUrl &dest, const QDomElement *e)
     : Job(scheduler, parent)

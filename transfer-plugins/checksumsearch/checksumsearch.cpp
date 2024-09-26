@@ -28,7 +28,7 @@
 
 #include <KLocalizedString>
 
-const QStringList ChecksumSearch::URLCHANGEMODES = (QStringList() << i18n("Append") << i18n("Replace file") << i18n("Replace file-ending"));
+const QStringList ChecksumSearch::URLCHANGEMODES{i18n("Append"), i18n("Replace file"), i18n("Replace file-ending")};
 
 ChecksumSearch::ChecksumSearch(const QList<QUrl> &srcs, const QString &fileName, const QStringList &types, QObject *parent)
     : QObject(parent)

@@ -274,7 +274,7 @@ bool AutoPasteModel::removeRows(int row, int count, const QModelIndex &parent)
 
 void AutoPasteModel::addItem(TypeData dataType, PatternSyntaxData patternSyntax, const QString &pattern)
 {
-    addItems(QList<int>() << dataType, QList<int>() << patternSyntax, QStringList() << pattern);
+    addItems(QList<int>{dataType}, QList<int>{patternSyntax}, QStringList{pattern});
 }
 
 void AutoPasteModel::addItems(const QList<int> &dataTypes, const QList<int> patternSyntaxes, const QStringList &patterns)
@@ -340,9 +340,7 @@ void AutoPasteModel::save()
 
 void AutoPasteModel::resetDefaults()
 {
-    QStringList names = QStringList() << "AutoPastePatterns"
-                                      << "AutoPasteTypes"
-                                      << "AutoPastePatternSyntaxes";
+    QStringList names{"AutoPastePatterns", "AutoPasteTypes", "AutoPastePatternSyntaxes"};
     foreach (const QString &name, names) {
         KConfigSkeletonItem *item = Settings::self()->findItem(name);
         if (item) {

@@ -109,7 +109,7 @@ void DlgSettingsWidget::load()
 
 void DlgSettingsWidget::addSearchEngineItem(const QString &name, const QString &url)
 {
-    ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << name << url));
+    ui.enginesTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList{name, url}));
     Q_EMIT markAsChanged();
 }
 
