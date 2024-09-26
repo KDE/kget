@@ -11,17 +11,16 @@
 #include "dlgmirrorsearch.h"
 
 #include "kget_debug.h"
-#include "kget_macro.h"
 #include "mirrorsearchsettings.h"
 
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <KPluginFactory>
 
 #include <QDebug>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <qobject.h>
 
 DlgEngineEditing::DlgEngineEditing(QWidget *parent)
     : QDialog(parent)
@@ -68,7 +67,7 @@ QString DlgEngineEditing::engineUrl() const
     return ui.urlEdit->text();
 }
 
-KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
+K_PLUGIN_CLASS(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QObject *parent, const KPluginMetaData &data)
     : KCModule(parent, data)

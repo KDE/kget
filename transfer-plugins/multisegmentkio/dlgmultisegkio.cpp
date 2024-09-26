@@ -12,9 +12,9 @@
 
 #include "multisegkiosettings.h"
 
-#include "kget_macro.h"
+#include <KPluginFactory>
 
-KGET_EXPORT_PLUGIN_CONFIG(DlgSettingsWidget)
+K_PLUGIN_CLASS(DlgSettingsWidget)
 
 DlgSettingsWidget::DlgSettingsWidget(QObject *parent, const KPluginMetaData &data)
     : KCModule(parent, data)

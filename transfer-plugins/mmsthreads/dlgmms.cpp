@@ -18,10 +18,10 @@
 */
 
 #include "dlgmms.h"
-#include "kget_macro.h"
 #include "mmssettings.h"
+#include <KPluginFactory>
 
-KGET_EXPORT_PLUGIN_CONFIG(DlgMmsSettings)
+K_PLUGIN_CLASS(DlgMmsSettings)
 
 DlgMmsSettings::DlgMmsSettings(QObject *parent, const KPluginMetaData &data)
     : KCModule(parent, data)

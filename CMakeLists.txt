@@ -25,7 +25,6 @@ include(ECMInstallIcons)
 include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
 include(ECMSetupVersion)
-include(ECMSetupQtPluginMacroNames)
 include(GenerateExportHeader)
 include(KDEClangFormat)
 include(KDEGitCommitHooks)
@@ -137,7 +136,6 @@ ecm_setup_version(PROJECT
     VERSION_HEADER "kget_version.h"
 )
 
-ecm_setup_qtplugin_macro_names(JSON_NONE KGET_EXPORT_PLUGIN KGET_EXPORT_PLUGIN_CONFIG)
 ecm_set_disabled_deprecation_versions(
     KF 6.4.0
 ) 

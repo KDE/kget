@@ -10,12 +10,12 @@
 #include "btsettingswidget.h"
 
 #include "bittorrentsettings.h"
-#include "kget_macro.h"
+#include <KPluginFactory>
 
 #include "kget_debug.h"
 #include <qobject.h>
 
-KGET_EXPORT_PLUGIN_CONFIG(BTSettingsWidget)
+K_PLUGIN_CLASS(BTSettingsWidget)
 
 BTSettingsWidget::BTSettingsWidget(QObject *parent, const KPluginMetaData &data)
     : KCModule(parent, data)

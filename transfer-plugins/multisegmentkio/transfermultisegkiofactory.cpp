@@ -20,7 +20,6 @@
 #include <QDomElement>
 
 #include "kget_debug.h"
-#include "kget_macro.h"
 #include <QDebug>
 
 K_PLUGIN_CLASS_WITH_JSON(TransferMultiSegKioFactory, "kget_multisegkiofactory.json")
@@ -85,10 +84,7 @@ bool TransferMultiSegKioFactory::isSupported(const QUrl &url) const
 
 QStringList TransferMultiSegKioFactory::addsProtocols() const
 {
-    static const QStringList protocols = QStringList() << "http"
-                                                       << "https"
-                                                       << "ftp"
-                                                       << "sftp";
+    static const QStringList protocols = QStringList() << "http" << "https" << "ftp" << "sftp";
     return protocols;
 }
 
