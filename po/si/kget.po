@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-09 00:39+0000\n"
+"POT-Creation-Date: 2024-09-27 00:39+0000\n"
 "PO-Revision-Date: 2011-11-11 19:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com> \n"
 "Language-Team: Sinhala <info@hanthana.org> \n"
@@ -506,7 +506,7 @@ msgid "Keyservers:"
 msgstr "යතුරු සේවාදායක:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -794,23 +794,23 @@ msgstr "ඔබ මෙම ගොනුවම බාගනිමින් පව�
 msgid "File already exists"
 msgstr "ගොනුව දැනටමත් පවතී"
 
-#: core/kget.cpp:1179
+#: core/kget.cpp:1177
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "අන්තර්ජාල සබඳතාව ඇතිවිය, හුවමාරු අරඹමින්"
 
-#: core/kget.cpp:1182
+#: core/kget.cpp:1180
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "අන්තර්ජාල සබඳතාවක් නැත, හුවමාරු නවතමින්."
 
-#: core/kget.cpp:1194
+#: core/kget.cpp:1192
 #, fuzzy, kde-format
 #| msgid "Plugin loader could not load the plugin: %1."
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "ප්ලගින පූරකයට ප්ලගිනය පූරණය කල නොහැකි විය: %1"
 
-#: core/kget.cpp:1205
+#: core/kget.cpp:1203
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -821,7 +821,7 @@ msgstr ""
 "\n"
 "එය බහලුමකි."
 
-#: core/kget.cpp:1214
+#: core/kget.cpp:1212
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -832,7 +832,7 @@ msgstr ""
 "\n"
 "එය දේශීය ගොනුවක් නොවේ."
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1320
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -842,12 +842,12 @@ msgid ""
 "small;\">%1</p>"
 msgstr "<p>පහත ගොනුව බාගැනීම අවසන්:</p><p style=\"font-size: small;\">\\%1</p>"
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, kde-format
 msgid "Download completed"
 msgstr "බාගැනීම සම්පූර්ණයි"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1326
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The following transfer has been started:</p><p style=\"font-size: "
@@ -857,12 +857,12 @@ msgid ""
 "\">%1</p>"
 msgstr "<p>පහත හුවමාරු ඇරඹිනි:</p><p style=\"font-size: small;\">\\%1</p>"
 
-#: core/kget.cpp:1330
+#: core/kget.cpp:1328
 #, kde-format
 msgid "Download started"
 msgstr "බාගැනීම ඇරඹිනි"
 
-#: core/kget.cpp:1335
+#: core/kget.cpp:1333
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -876,63 +876,63 @@ msgstr ""
 "<p>පහත හුවමාරු වල දෝශයක් පැවතිනි:</p><p style=\"font-size: small;\">\\%1</"
 "p><p>දෝශ පණිවුඩය වනුයේ:</p><p style=\"font-size: small;\">\\%2</p>"
 
-#: core/kget.cpp:1343
+#: core/kget.cpp:1341
 #, fuzzy, kde-format
 #| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "විසඳන්න"
 
-#: core/kget.cpp:1393
+#: core/kget.cpp:1391
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "සියළු බාගැනීම් සම්පූර්ණ බැවින් KGet දැන් වසාදැමේ."
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1398
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "සියළු බාගැනීම් සම්පූර්ණ බැවින් පරිගණකය දැන් වසාදැමේ."
 
-#: core/kget.cpp:1402
+#: core/kget.cpp:1400
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "වසාදමන්න"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1405
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "සියළු බාගැනීම් සම්පූර්ණ බැවින් පරිගණකය තැටිය වෙත නවතාදමේ."
 
-#: core/kget.cpp:1409
+#: core/kget.cpp:1407
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "ශිශිරතරණය කරමින්"
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1412
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "සියළු බාගැනීම් සම්පූර්ණ බැවින් පරිගණකය මතකය වෙත නවතාදමේ."
 
-#: core/kget.cpp:1416
+#: core/kget.cpp:1414
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "නවතමින්"
 
-#: core/kget.cpp:1424
+#: core/kget.cpp:1422
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "පිටවෙන්න"
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>සියළු හුවමාරු අවසන් විය.</p>"
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "Downloads completed"
 msgstr "බාගැනීම සම්පූර්ණයි"
@@ -990,16 +990,16 @@ msgstr "%1 සඳහා අත්සන තහවුරු කල නොහැ�
 msgid "Signature not verified"
 msgstr "අත්සන තහවුරු කර නොමැත"
 
-#: core/transfer.cpp:28
+#: core/transfer.cpp:29
 msgid "Downloading...."
 msgstr "බාගනිමින්..."
 
-#: core/transfer.cpp:29
+#: core/transfer.cpp:30
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "පමාවූ"
 
-#: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
+#: core/transfer.cpp:31 core/transfer.cpp:235 core/transfer.cpp:254
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
@@ -1007,19 +1007,19 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "නවතා ඇත"
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:32
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "පිටවූ"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: core/transfer.cpp:33 transfer-plugins/bittorrent/bttransfer.cpp:234
 #: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "අවසන් වූ"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -3039,7 +3039,7 @@ msgstr "(%1) බාගැනීම තහවුරු කල නොහැක. �
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
 #, kde-format
 msgid "Engine name:"
 msgstr "එළවුම් නාමය:"
@@ -3047,13 +3047,13 @@ msgstr "එළවුම් නාමය:"
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr "URL:"
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
 #, kde-format
 msgid "Insert Engine"
 msgstr "එළවුම එක් කරන්න"

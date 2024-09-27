@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-09 00:39+0000\n"
+"POT-Creation-Date: 2024-09-27 00:39+0000\n"
 "PO-Revision-Date: 2024-09-19 17:33+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -512,7 +512,7 @@ msgid "Keyservers:"
 msgstr "Εξυπηρετητές κλειδιών:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -806,23 +806,23 @@ msgstr "Γίνεται ήδη λήψη του ίδιου αρχείου"
 msgid "File already exists"
 msgstr "Το αρχείο υπάρχει ήδη"
 
-#: core/kget.cpp:1179
+#: core/kget.cpp:1177
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "Επίτευξη σύνδεσης στο διαδίκτυο, συνέχιση των μεταφορών."
 
-#: core/kget.cpp:1182
+#: core/kget.cpp:1180
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "Χωρίς σύνδεση στο διαδίκτυο, σταμάτημα των μεταφορών."
 
-#: core/kget.cpp:1194
+#: core/kget.cpp:1192
 #, fuzzy, kde-format
 #| msgid "Plugin loader could not load the plugin: %1."
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "Ο φορτωτής πρόσθετων δεν μπόρεσε να φορτώσει το πρόσθετο: %1"
 
-#: core/kget.cpp:1205
+#: core/kget.cpp:1203
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -833,7 +833,7 @@ msgstr ""
 "%1\n"
 "καθώς είναι κατάλογος."
 
-#: core/kget.cpp:1214
+#: core/kget.cpp:1212
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -844,7 +844,7 @@ msgstr ""
 "%1\n"
 "καθώς δεν είναι ένα τοπικό αρχείο."
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1320
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -853,12 +853,12 @@ msgstr ""
 "<p>Ολοκληρώθηκε η λήψη του παρακάτω αρχείου:</p><p style=\"font-size: small;"
 "\">%1</p>"
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, kde-format
 msgid "Download completed"
 msgstr "Η λήψη ολοκληρώθηκε"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1326
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -866,12 +866,12 @@ msgid ""
 msgstr ""
 "<p>Η παρακάτω μεταφορά ξεκίνησε:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1330
+#: core/kget.cpp:1328
 #, kde-format
 msgid "Download started"
 msgstr "Η λήψη ξεκίνησε"
 
-#: core/kget.cpp:1335
+#: core/kget.cpp:1333
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -882,66 +882,66 @@ msgstr ""
 "small;\">%1</p><p>Το μήνυμα λάθους είναι το παρακάτω:</p><p style=\"font-"
 "size: small;\">%2</p>"
 
-#: core/kget.cpp:1343
+#: core/kget.cpp:1341
 #, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Επίλυση"
 
-#: core/kget.cpp:1393
+#: core/kget.cpp:1391
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "Το KGet θα τερματίσει τώρα γιατί έχουν ολοκληρωθεί όλες οι λήψεις."
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1398
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "Ο υπολογιστής θα κλείσει τώρα γιατί έχουν ολοκληρωθεί όλες οι λήψεις."
 
-#: core/kget.cpp:1402
+#: core/kget.cpp:1400
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Τερματισμός"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1405
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "Τώρα θα γίνει αναστολή του υπολογιστή στο δίσκο, γιατί έχουν ολοκληρωθεί "
 "όλες οι λήψεις."
 
-#: core/kget.cpp:1409
+#: core/kget.cpp:1407
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "Νάρκωση"
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1412
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 "Τώρα θα γίνει αναστολή του υπολογιστή στη μνήμη, γιατί έχουν ολοκληρωθεί "
 "όλες οι λήψεις."
 
-#: core/kget.cpp:1416
+#: core/kget.cpp:1414
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Γίνεται αναστολή του υπολογιστή"
 
-#: core/kget.cpp:1424
+#: core/kget.cpp:1422
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Εγκατάλειψη"
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>Όλες οι μεταφορές ολοκληρώθηκαν.</p>"
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "Downloads completed"
 msgstr "Οι λήψεις ολοκληρώθηκαν"
@@ -1002,16 +1002,16 @@ msgstr ""
 msgid "Signature not verified"
 msgstr "Η υπογραφή δεν επαληθεύτηκε"
 
-#: core/transfer.cpp:28
+#: core/transfer.cpp:29
 msgid "Downloading...."
 msgstr "Λήψη..."
 
-#: core/transfer.cpp:29
+#: core/transfer.cpp:30
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "Σε καθυστέρηση"
 
-#: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
+#: core/transfer.cpp:31 core/transfer.cpp:235 core/transfer.cpp:254
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
@@ -1019,19 +1019,19 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "Σταματημένο"
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:32
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "Εγκαταλείφθηκε"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: core/transfer.cpp:33 transfer-plugins/bittorrent/bttransfer.cpp:234
 #: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "Ολοκληρώθηκε"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -3075,7 +3075,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
 #, kde-format
 msgid "Engine name:"
 msgstr "Όνομα μηχανής:"
@@ -3083,13 +3083,13 @@ msgstr "Όνομα μηχανής:"
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr "URL:"
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
 #, kde-format
 msgid "Insert Engine"
 msgstr "Εισαγωγή μηχανής"

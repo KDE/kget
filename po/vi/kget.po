@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-09 00:39+0000\n"
+"POT-Creation-Date: 2024-09-27 00:39+0000\n"
 "PO-Revision-Date: 2022-09-28 20:09+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -510,7 +510,7 @@ msgid "Keyservers:"
 msgstr "Máy chủ khoá:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -794,17 +794,17 @@ msgstr ""
 "Tệp %1 đã có.\n"
 "Ghi đè không?"
 
-#: core/kget.cpp:1179
+#: core/kget.cpp:1177
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr ""
 
-#: core/kget.cpp:1182
+#: core/kget.cpp:1180
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr ""
 
-#: core/kget.cpp:1194
+#: core/kget.cpp:1192
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>KLibLoader could not load the plugin:<br/><i>%1</i></p><p>Error "
@@ -814,7 +814,7 @@ msgstr ""
 "<p>Bộ nạp thư viện KLibLoader không thể nạp bổ sung:<br/><i>%1</i></"
 "p><p>Thông điệp lỗi:<br/><i>%2</i></p>"
 
-#: core/kget.cpp:1205
+#: core/kget.cpp:1203
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -825,7 +825,7 @@ msgstr ""
 "%1\n"
 "vì đó là một thư mục."
 
-#: core/kget.cpp:1214
+#: core/kget.cpp:1212
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -836,33 +836,33 @@ msgstr ""
 "%1\n"
 "vì không phải là tệp trên máy này."
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1320
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, fuzzy, kde-format
 #| msgid "Default Download Folders"
 msgid "Download completed"
 msgstr "Thư mục tải về mặc định"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1326
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1330
+#: core/kget.cpp:1328
 #, fuzzy, kde-format
 #| msgid "Downloads"
 msgid "Download started"
 msgstr "Tải về"
 
-#: core/kget.cpp:1335
+#: core/kget.cpp:1333
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -870,65 +870,65 @@ msgid ""
 "\">%2</p>"
 msgstr ""
 
-#: core/kget.cpp:1343
+#: core/kget.cpp:1341
 #, fuzzy, kde-format
 #| msgid "Transfers:"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Truyền:"
 
-#: core/kget.cpp:1393
+#: core/kget.cpp:1391
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1398
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "Máy tính sẽ tắt ngay bây giờ: tất cả mục tải đã hoàn tất."
 
-#: core/kget.cpp:1402
+#: core/kget.cpp:1400
 #, fuzzy, kde-format
 #| msgid "Auto shutdown"
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Tự động thoát"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1405
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "Máy tính sẽ ngủ đông ngay bây giờ: tất cả mục tải đã hoàn tất."
 
-#: core/kget.cpp:1409
+#: core/kget.cpp:1407
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr ""
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1412
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "Máy tính sẽ ngưng ngay bây giờ: tất cả mục tải đã hoàn tất."
 
-#: core/kget.cpp:1416
+#: core/kget.cpp:1414
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Tốc độ"
 
-#: core/kget.cpp:1424
+#: core/kget.cpp:1422
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr ""
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, fuzzy, kde-format
 #| msgid "Default Download Folders"
 msgid "Downloads completed"
@@ -988,20 +988,20 @@ msgstr ""
 msgid "Signature not verified"
 msgstr "Chữ kí chưa được xác minh"
 
-#: core/transfer.cpp:28
+#: core/transfer.cpp:29
 #, fuzzy
 #| msgid "Downloads"
 msgid "Downloading...."
 msgstr "Tải về"
 
-#: core/transfer.cpp:29
+#: core/transfer.cpp:30
 #, fuzzy
 #| msgid "Delayed"
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "Bị trễ"
 
-#: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
+#: core/transfer.cpp:31 core/transfer.cpp:235 core/transfer.cpp:254
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, fuzzy, kde-format
@@ -1010,12 +1010,12 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "Bị ngừng"
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:32
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr ""
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: core/transfer.cpp:33 transfer-plugins/bittorrent/bttransfer.cpp:234
 #: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, fuzzy, kde-format
 #| msgid "Finished"
@@ -1023,7 +1023,7 @@ msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "Xong"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, fuzzy, kde-format
 #| msgid "Open Destination"
 msgctxt "changing the destination of the file"
@@ -3109,7 +3109,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
 #, kde-format
 msgid "Engine name:"
 msgstr "Tên cơ chế:"
@@ -3117,13 +3117,13 @@ msgstr "Tên cơ chế:"
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr ""
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
 #, kde-format
 msgid "Insert Engine"
 msgstr ""

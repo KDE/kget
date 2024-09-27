@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-09 00:39+0000\n"
+"POT-Creation-Date: 2024-09-27 00:39+0000\n"
 "PO-Revision-Date: 2013-04-01 10:57+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -504,7 +504,7 @@ msgid "Keyservers:"
 msgstr "कळ सर्व्हर्स :"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -770,22 +770,22 @@ msgstr ""
 msgid "File already exists"
 msgstr "फाईल आधीपासूनच अस्तित्वात आहे"
 
-#: core/kget.cpp:1179
+#: core/kget.cpp:1177
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr ""
 
-#: core/kget.cpp:1182
+#: core/kget.cpp:1180
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "महाजाळची जुळवणी नाही, बदल्या थांबवित आहे."
 
-#: core/kget.cpp:1194
+#: core/kget.cpp:1192
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr ""
 
-#: core/kget.cpp:1205
+#: core/kget.cpp:1203
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -793,7 +793,7 @@ msgid ""
 "as it is a directory."
 msgstr ""
 
-#: core/kget.cpp:1214
+#: core/kget.cpp:1212
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -801,31 +801,31 @@ msgid ""
 "as it is not a local file."
 msgstr ""
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1320
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, kde-format
 msgid "Download completed"
 msgstr "डाउनलोड पूर्ण झाले"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1326
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1330
+#: core/kget.cpp:1328
 #, kde-format
 msgid "Download started"
 msgstr "डाउनलोड सुरु झाले"
 
-#: core/kget.cpp:1335
+#: core/kget.cpp:1333
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -833,63 +833,63 @@ msgid ""
 "\">%2</p>"
 msgstr ""
 
-#: core/kget.cpp:1343
+#: core/kget.cpp:1341
 #, fuzzy, kde-format
 #| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "निवाडा करा"
 
-#: core/kget.cpp:1393
+#: core/kget.cpp:1391
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1398
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1402
+#: core/kget.cpp:1400
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "बंद करा"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1405
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1409
+#: core/kget.cpp:1407
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "हायबरनेट करत आहे"
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1412
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 
-#: core/kget.cpp:1416
+#: core/kget.cpp:1414
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "अकार्यक्षम करत आहे"
 
-#: core/kget.cpp:1424
+#: core/kget.cpp:1422
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "रद्द करत आहे"
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "Downloads completed"
 msgstr "डाउनलोड पूर्ण झाले"
@@ -947,16 +947,16 @@ msgstr ""
 msgid "Signature not verified"
 msgstr "स्वाक्षरी तपासली नाही"
 
-#: core/transfer.cpp:28
+#: core/transfer.cpp:29
 msgid "Downloading...."
 msgstr "डाउनलोड करत आहे..."
 
-#: core/transfer.cpp:29
+#: core/transfer.cpp:30
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "विलंबीत केले"
 
-#: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
+#: core/transfer.cpp:31 core/transfer.cpp:235 core/transfer.cpp:254
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
@@ -964,19 +964,19 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "थांबले"
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:32
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "तोडले"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: core/transfer.cpp:33 transfer-plugins/bittorrent/bttransfer.cpp:234
 #: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "संपले"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -2911,7 +2911,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
 #, kde-format
 msgid "Engine name:"
 msgstr ""
@@ -2919,13 +2919,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr "URL:"
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
 #, kde-format
 msgid "Insert Engine"
 msgstr ""

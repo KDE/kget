@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-09 00:39+0000\n"
+"POT-Creation-Date: 2024-09-27 00:39+0000\n"
 "PO-Revision-Date: 2024-03-29 21:15+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -509,7 +509,7 @@ msgid "Keyservers:"
 msgstr "金鑰伺服器："
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1334 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -789,22 +789,22 @@ msgstr "您已經下載過相同的檔案"
 msgid "File already exists"
 msgstr "檔案已經存在"
 
-#: core/kget.cpp:1179
+#: core/kget.cpp:1177
 #, kde-format
 msgid "Internet connection established, resuming transfers."
 msgstr "網路連線已建立，回復傳輸中。"
 
-#: core/kget.cpp:1182
+#: core/kget.cpp:1180
 #, kde-format
 msgid "No internet connection, stopping transfers."
 msgstr "沒有網路連線，停止傳輸。"
 
-#: core/kget.cpp:1194
+#: core/kget.cpp:1192
 #, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
 msgstr "外掛程式載入器無法載入外掛程式 %1：%2。"
 
-#: core/kget.cpp:1205
+#: core/kget.cpp:1203
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -814,7 +814,7 @@ msgstr ""
 "未刪除 %1\n"
 "因為它是個目錄。"
 
-#: core/kget.cpp:1214
+#: core/kget.cpp:1212
 #, kde-format
 msgid ""
 "Not deleting\n"
@@ -824,31 +824,31 @@ msgstr ""
 "未刪除 %1\n"
 "因為它不是本地端檔案。"
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1320
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr "<p>以下檔案已完成下載：</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1324
+#: core/kget.cpp:1322
 #, kde-format
 msgid "Download completed"
 msgstr "下載完成"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1326
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr "<p>以下檔案已開始下載：</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1330
+#: core/kget.cpp:1328
 #, kde-format
 msgid "Download started"
 msgstr "下載已開始"
 
-#: core/kget.cpp:1335
+#: core/kget.cpp:1333
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -858,62 +858,62 @@ msgstr ""
 "<p>以下傳輸發生了錯誤：</p><p style=\"font-size: small;\">%1</p><p>錯誤訊息"
 "為：</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1343
+#: core/kget.cpp:1341
 #, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "解析"
 
-#: core/kget.cpp:1393
+#: core/kget.cpp:1391
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "所有下載都已完成，KGet 即將關閉。"
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1398
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "所有下載都已完成，電腦即將關閉。"
 
-#: core/kget.cpp:1402
+#: core/kget.cpp:1400
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "關機"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1405
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "所有下載都已完成，電腦即將暫停。"
 
-#: core/kget.cpp:1409
+#: core/kget.cpp:1407
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "休眠中"
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1412
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "所有下載都已完成，電腦即將暫停並儲存到記憶體。"
 
-#: core/kget.cpp:1416
+#: core/kget.cpp:1414
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "暫停中"
 
-#: core/kget.cpp:1424
+#: core/kget.cpp:1422
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "中止"
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>所有傳輸都已完成。</p>"
 
-#: core/kget.cpp:1433
+#: core/kget.cpp:1431
 #, kde-format
 msgid "Downloads completed"
 msgstr "下載完成"
@@ -969,16 +969,16 @@ msgstr "簽章無法對 %1 驗證。詳情請參考傳輸設定。"
 msgid "Signature not verified"
 msgstr "簽章未驗證"
 
-#: core/transfer.cpp:28
+#: core/transfer.cpp:29
 msgid "Downloading...."
 msgstr "下載中..."
 
-#: core/transfer.cpp:29
+#: core/transfer.cpp:30
 msgctxt "transfer state: delayed"
 msgid "Delayed"
 msgstr "延遲"
 
-#: core/transfer.cpp:30 core/transfer.cpp:231 core/transfer.cpp:250
+#: core/transfer.cpp:31 core/transfer.cpp:235 core/transfer.cpp:254
 #: transfer-plugins/bittorrent/bttransfer.cpp:313
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:85
 #, kde-format
@@ -986,19 +986,19 @@ msgctxt "transfer state: stopped"
 msgid "Stopped"
 msgstr "已停止"
 
-#: core/transfer.cpp:31
+#: core/transfer.cpp:32
 msgctxt "transfer state: aborted"
 msgid "Aborted"
 msgstr "已中止"
 
-#: core/transfer.cpp:32 transfer-plugins/bittorrent/bttransfer.cpp:234
+#: core/transfer.cpp:33 transfer-plugins/bittorrent/bttransfer.cpp:234
 #: transfer-plugins/bittorrent/bttransfer.cpp:311
 #, kde-format
 msgctxt "transfer state: finished"
 msgid "Finished"
 msgstr "已完成"
 
-#: core/transfer.cpp:34 transfer-plugins/bittorrent/bttransfer.cpp:184
+#: core/transfer.cpp:35 transfer-plugins/bittorrent/bttransfer.cpp:184
 #, kde-format
 msgctxt "changing the destination of the file"
 msgid "Changing destination"
@@ -2998,7 +2998,7 @@ msgstr "下載無法被檢查。您要修復它嗎？"
 
 #. i18n: ectx: property (text), widget (QLabel, engineNameLabel)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:16
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:44
 #, kde-format
 msgid "Engine name:"
 msgstr "引擎名稱："
@@ -3006,13 +3006,13 @@ msgstr "引擎名稱："
 #. i18n: ectx: property (text), widget (QLabel, urlLabel)
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: transfer-plugins/mirrorsearch/dlgengineediting.ui:30
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:46
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:45
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
 msgstr "網址："
 
-#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:35
+#: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
 #, kde-format
 msgid "Insert Engine"
 msgstr "插入引擎"
