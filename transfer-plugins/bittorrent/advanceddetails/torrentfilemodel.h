@@ -41,7 +41,10 @@ class TorrentFileModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    enum DeselectMode { KEEP_FILES, DELETE_FILES };
+    enum DeselectMode {
+        KEEP_FILES,
+        DELETE_FILES
+    };
     TorrentFileModel(bt::TorrentInterface *tc, DeselectMode mode, QObject *parent);
     ~TorrentFileModel() override;
 

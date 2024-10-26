@@ -46,9 +46,19 @@ class AutoPasteModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    enum DataType { Type = 0, Pattern, PatternSyntax };
-    enum TypeData { Include = 0, Exclude };
-    enum PatternSyntaxData { Wildcard = 0, RegExp };
+    enum DataType {
+        Type = 0,
+        Pattern,
+        PatternSyntax
+    };
+    enum TypeData {
+        Include = 0,
+        Exclude
+    };
+    enum PatternSyntaxData {
+        Wildcard = 0,
+        RegExp
+    };
 
     explicit AutoPasteModel(QObject *parent = nullptr);
     ~AutoPasteModel() override;

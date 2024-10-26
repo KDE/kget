@@ -30,9 +30,18 @@ public:
     explicit KGetSortFilterProxyModel(int sortColumn, QObject *parent = nullptr);
     ~KGetSortFilterProxyModel() override;
 
-    enum DownloadFilterType { NoFilter, VideoFiles, AudioFiles, CompressedFiles, ImageFiles };
+    enum DownloadFilterType {
+        NoFilter,
+        VideoFiles,
+        AudioFiles,
+        CompressedFiles,
+        ImageFiles
+    };
 
-    enum FilterMode { Contain, DoesNotContain };
+    enum FilterMode {
+        Contain,
+        DoesNotContain
+    };
 
     void setFilterType(int filterType);
     void setFilterMode(int filterMode);

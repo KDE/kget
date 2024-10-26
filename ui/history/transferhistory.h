@@ -34,7 +34,11 @@ public:
     QSize sizeHint() const override;
 
 private:
-    enum RangeType { Date = 0, Size = 1, Host = 2 };
+    enum RangeType {
+        Date = 0,
+        Size = 1,
+        Host = 2
+    };
     void hideEvent(QHideEvent *event) override;
     QString statusText(int status) const;
 

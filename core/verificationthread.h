@@ -39,7 +39,11 @@ public:
     void findBrokenPieces(const QString &type, const QList<QString> checksums, KIO::filesize_t length, const QUrl &file);
 
 private:
-    enum WorkType { Nothing, Verify, BrokenPieces };
+    enum WorkType {
+        Nothing,
+        Verify,
+        BrokenPieces
+    };
 
     void doVerify();
     void doBrokenPieces();

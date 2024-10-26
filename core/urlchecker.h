@@ -36,7 +36,11 @@ class TransferHandler;
 class KGET_EXPORT UrlChecker
 {
 public:
-    enum UrlType { Source, Destination, Folder };
+    enum UrlType {
+        Source,
+        Destination,
+        Folder
+    };
 
     /**
      * Before using UrlChecker you have to specify a type

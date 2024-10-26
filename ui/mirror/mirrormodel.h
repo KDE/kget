@@ -62,7 +62,13 @@ class MirrorItem
 public:
     MirrorItem();
 
-    enum DataType { Used = 0, Url, Connections, Priority, Country };
+    enum DataType {
+        Used = 0,
+        Url,
+        Connections,
+        Priority,
+        Country
+    };
 
     QVariant data(int column, int role = Qt::DisplayRole) const;
     Qt::ItemFlags flags(int column) const;

@@ -65,7 +65,11 @@ public:
     /**
      * Describes different types of errors and how the scheduler should manage them.
      */
-    enum ErrorType { AutomaticRetry, ManualSolve, NotSolveable };
+    enum ErrorType {
+        AutomaticRetry,
+        ManualSolve,
+        NotSolveable
+    };
     struct Error {
         int id;
         QString text;

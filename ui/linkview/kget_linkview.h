@@ -63,7 +63,10 @@ private:
     void showLinks(const QStringList &links, bool urlRequestVisible);
 
 private:
-    enum PatternSyntax { Wildcard = 0, RegExp };
+    enum PatternSyntax {
+        Wildcard = 0,
+        RegExp
+    };
     Ui::ImportLinkDialog ui;
     KGetSortFilterProxyModel *m_proxyModel;
     QStringList m_links;

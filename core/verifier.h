@@ -92,7 +92,11 @@ public:
         Verified
     };
 
-    enum ChecksumStrength { Weak, Strong, Strongest };
+    enum ChecksumStrength {
+        Weak,
+        Strong,
+        Strongest
+    };
 
     /**
      * @returns the object path that will be shown in the DBUS interface

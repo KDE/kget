@@ -33,7 +33,11 @@ public:
      * @enum Error
      * @brief Error type enum
      */
-    enum Error { Unknown, WrongDownloadSize, NotResumeable };
+    enum Error {
+        Unknown,
+        WrongDownloadSize,
+        NotResumeable
+    };
 
     /**
      * Returns the capabilities this TransferDataSource supports

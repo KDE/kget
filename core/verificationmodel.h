@@ -33,7 +33,11 @@ class KGET_EXPORT VerificationModel : public QAbstractTableModel
 public:
     VerificationModel(QObject *parent = nullptr);
 
-    enum dataType { Type, Checksum, Verified };
+    enum dataType {
+        Type,
+        Checksum,
+        Verified
+    };
 
     QVariant data(const QModelIndex &index, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;

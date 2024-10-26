@@ -19,7 +19,12 @@ class TransferHistoryCategorizedDelegate : public QObject
 {
     Q_OBJECT
 public:
-    enum AlternativeRoles { RoleSize = 0xFF, RoleDate = 0xFE, RoleUrl = 0xFD, RoleDest = 0xFA };
+    enum AlternativeRoles {
+        RoleSize = 0xFF,
+        RoleDate = 0xFE,
+        RoleUrl = 0xFD,
+        RoleDest = 0xFA
+    };
 
     TransferHistoryCategorizedDelegate();
     ~TransferHistoryCategorizedDelegate() override;

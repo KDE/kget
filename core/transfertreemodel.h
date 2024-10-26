@@ -114,7 +114,14 @@ class KGET_EXPORT TransferTreeModel : public QStandardItemModel
     friend class Transfer;
 
 public:
-    enum Columns { Name, Status, Size, Progress, Speed, RemainingTime };
+    enum Columns {
+        Name,
+        Status,
+        Size,
+        Progress,
+        Speed,
+        RemainingTime
+    };
     TransferTreeModel(Scheduler *scheduler);
     ~TransferTreeModel() override;
 

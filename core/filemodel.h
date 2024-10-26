@@ -40,7 +40,13 @@ public:
     explicit FileItem(const QString &name, FileItem *parent = nullptr);
     ~FileItem();
 
-    enum DataType { File = 0, Status, Size, ChecksumVerified, SignatureVerified };
+    enum DataType {
+        File = 0,
+        Status,
+        Size,
+        ChecksumVerified,
+        SignatureVerified
+    };
 
     void appendChild(FileItem *child);
 

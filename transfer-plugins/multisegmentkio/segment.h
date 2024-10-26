@@ -36,7 +36,13 @@ public:
      * @param Timeout The transfer is broken because an error occurred
      * @param Finished The transfer exited successfully
      */
-    enum Status { Running, Stopped, Killed, Timeout, Finished };
+    enum Status {
+        Running,
+        Stopped,
+        Killed,
+        Timeout,
+        Finished
+    };
 
     Segment(const QUrl &src, const QPair<KIO::fileoffset_t, KIO::fileoffset_t> &segmentSize, const QPair<int, int> &segmentRange, QObject *parent);
 
