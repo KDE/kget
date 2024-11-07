@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-09-29 14:37+0200\n"
+"PO-Revision-Date: 2024-11-06 23:58+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.07.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -634,7 +634,7 @@ msgid ""
 "The file %1 already exists.\n"
 "Overwrite?"
 msgstr ""
-"Файлът \"%1\" вече съществува.\n"
+"Файлът „%1“ вече съществува.\n"
 "Да се презапише ли?"
 
 #: core/kget.cpp:554
