@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-27 00:37+0000\n"
-"PO-Revision-Date: 2024-11-06 23:58+0100\n"
+"PO-Revision-Date: 2024-11-07 18:52+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -3944,8 +3944,8 @@ msgstr "URL-адрес към metalink"
 #, kde-format
 msgid "Dynamic means that updated metalinks can be found at \"Origin\"."
 msgstr ""
-"Динамично означава, че актуализирани metalinks могат да бъдат намерени в \" "
-"Произход\"."
+"Динамично означава, че актуализирани metalinks могат да бъдат намерени в "
+"\"Произход\"."
 
 #. i18n: ectx: property (text), widget (QLabel, labelDynamic)
 #: ui/metalinkcreator/generalwidget.ui:78
