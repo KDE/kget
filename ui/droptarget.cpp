@@ -33,7 +33,7 @@
 #include <QTimer>
 #include <QToolTip>
 
-#ifndef Q_OS_WIN
+#if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
 #include <KX11Extras>
 #endif
 
@@ -49,7 +49,7 @@ DropTarget::DropTarget(MainWindow *mw)
     , animTimer(nullptr)
     , showInformation(false)
 {
-#ifndef Q_OS_WIN
+#if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
     KX11Extras::setState(winId(), NET::SkipTaskbar | NET::KeepAbove);
 #endif
 
