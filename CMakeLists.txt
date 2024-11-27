@@ -284,11 +284,7 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
 endif()
 
 if (Gpgmepp_FOUND)
-    if (QT_MAJOR_VERSION STREQUAL "6")
-        target_link_libraries(kget QGpgmeQt6)
-    else()
-        target_link_libraries(kget QGpgme)
-    endif()
+    target_link_libraries(kget QGpgmeQt6)
 endif()
 
 install(TARGETS kget ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
