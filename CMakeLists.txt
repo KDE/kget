@@ -258,9 +258,6 @@ ki18n_wrap_ui(kget
     ui/signaturedlg.ui
 )
 
-file(GLOB ICON_SRCS "ui/icons/*-apps-kget.png")
-ecm_add_app_icon(kget ICONS ${ICON_SRCS})
-
 target_link_libraries(kget
     kgetcore
     KF6::Crash
