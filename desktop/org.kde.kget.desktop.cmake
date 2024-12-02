@@ -2,7 +2,7 @@
 [Desktop Entry]
 Type=Application
 Exec=kget -qwindowtitle %c %U
-Icon=kget
+Icon=org.kde.kget
 Terminal=false
 MimeType=@SUPPORTED_KGET_MIMETYPES@
 Name=KGet

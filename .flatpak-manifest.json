@@ -4,7 +4,6 @@
     "runtime-version": "6.7",
     "sdk": "org.kde.Sdk",
     "command": "kget",
-    "rename-icon": "kget",
     "finish-args": [
         "--share=ipc",
         "--socket=fallback-x11",
