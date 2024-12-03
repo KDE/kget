@@ -44,41 +44,6 @@
   <name xml:lang="zh-CN">KGet</name>
   <name xml:lang="zh-TW">KGet</name>
   <summary>Download manager</summary>
-  <summary xml:lang="ar">مدير التّنزيل</summary>
-  <summary xml:lang="bg">Мениджър на изтегляния</summary>
-  <summary xml:lang="ca">Gestor de baixades</summary>
-  <summary xml:lang="ca-valencia">Gestor de baixades</summary>
-  <summary xml:lang="cs">Správce stahování</summary>
-  <summary xml:lang="da">Downloadhåndtering</summary>
-  <summary xml:lang="de">Download-Verwaltung</summary>
-  <summary xml:lang="el">Διαχειριστής λήψεων</summary>
-  <summary xml:lang="en-GB">Download Manager</summary>
-  <summary xml:lang="eo">Elŝuta Administranto</summary>
-  <summary xml:lang="es">Gestor de descargas</summary>
-  <summary xml:lang="et">Allalaadimiste haldur</summary>
-  <summary xml:lang="eu">Deskarga kudeatzailea</summary>
-  <summary xml:lang="fi">Lataustenhallinta</summary>
-  <summary xml:lang="fr">Gestionnaire de téléchargement</summary>
-  <summary xml:lang="gl">Xestor de descargas</summary>
-  <summary xml:lang="he">מנהל הורדות</summary>
-  <summary xml:lang="ia">Gerente del discargamento</summary>
-  <summary xml:lang="id">Unduh Manager</summary>
-  <summary xml:lang="it">Gestore degli scaricamenti</summary>
-  <summary xml:lang="ka">გადმოწერების მმართველი</summary>
-  <summary xml:lang="ko">다운로드 관리자</summary>
-  <summary xml:lang="nl">Downloadbeheerder</summary>
-  <summary xml:lang="pl">Zarządzanie pobieraniem</summary>
-  <summary xml:lang="pt">Gestor de Transferências</summary>
-  <summary xml:lang="pt-BR">Gerenciador de downloads</summary>
-  <summary xml:lang="ru">Диспетчер загрузок</summary>
-  <summary xml:lang="sk">Správca sťahovania</summary>
-  <summary xml:lang="sl">Upravljalnik prenosov s strežnikov</summary>
-  <summary xml:lang="sv">Nerladdningshanterare</summary>
-  <summary xml:lang="tr">İndirme Yöneticisi</summary>
-  <summary xml:lang="uk">Керування отриманням даних</summary>
-  <summary xml:lang="x-test">xxDownload Managerxx</summary>
-  <summary xml:lang="zh-CN">下载管理器</summary>
-  <summary xml:lang="zh-TW">下載管理器</summary>
   <description>
     <p>
      KGet is a versatile and user-friendly download manager.
