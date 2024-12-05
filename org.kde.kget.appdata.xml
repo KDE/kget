@@ -47,6 +47,7 @@
   <summary xml:lang="ca">Gestor de baixades</summary>
   <summary xml:lang="es">Gestor de descargas</summary>
   <summary xml:lang="eu">Zama-jaitsiera kudeatzailea</summary>
+  <summary xml:lang="gl">Xestor de descargas</summary>
   <summary xml:lang="ia">Gerente del discargamento</summary>
   <summary xml:lang="it">Gestore degli scaricamenti</summary>
   <summary xml:lang="ka">გადმოწერების მმართველი</summary>
@@ -56,6 +57,7 @@
   <summary xml:lang="tr">İndirme Yöneticisi</summary>
   <summary xml:lang="uk">Керування отриманнями</summary>
   <summary xml:lang="x-test">xxDownload managerxx</summary>
+  <summary xml:lang="zh-CN">下载管理器</summary>
   <description>
     <p>
      KGet is a versatile and user-friendly download manager.
