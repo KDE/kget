@@ -94,7 +94,7 @@
     <p xml:lang="eo">KGet estas diverstalenta kaj uzebla elŝuta administranto.</p>
     <p xml:lang="es">KGet es un gestor de descargas versátil y amigable.</p>
     <p xml:lang="et">KGet on töökindel ja kasutajasõbralik allalaadimiste haldur.</p>
-    <p xml:lang="eu">KGet trebezia anitzeko deskarga kudeatzaile lagunkoia da.</p>
+    <p xml:lang="eu">KGet trebezia anitzeko zama-jaitsiera kudeatzaile lagunkoia da.</p>
     <p xml:lang="fi">KGet on monipuolinen ja käyttäjäystävällinen lataustenhallintaohjelma.</p>
     <p xml:lang="fr">KGet est un gestionnaire de téléchargements intuitif et polyvalent</p>
     <p xml:lang="gl">KGet é un xestor de descargar versátil e fácil de usar.</p>
@@ -166,7 +166,7 @@
       <li xml:lang="eo">Elŝutante dosierojn el FTP kaj HTTP(S) fontoj.</li>
       <li xml:lang="es">Descarga de archivos de fuentes FTP y HTTP(S).</li>
       <li xml:lang="et">Failide allalaadimine FTP ja HTTP(S) allikatest.</li>
-      <li xml:lang="eu">Jaitsi fitxategiak FTP eta HTTP(S) sorburuetatik.</li>
+      <li xml:lang="eu">Fitxategiak FTP eta HTTP(S) sorburuetatik zama-jaistea.</li>
       <li xml:lang="fi">Tiedostojen lataus FTP- ja HTTP(S)-lähteistä.</li>
       <li xml:lang="fr">Téléchargement de fichiers depuis des sources FTP et HTTP(S).</li>
       <li xml:lang="gl">Descargar ficheiros de fontes FTP, HTTP e HTTPS.</li>
@@ -201,7 +201,7 @@
       <li xml:lang="eo">Paŭzo kaj rekomenco de elŝutado de dosieroj, same kiel la kapablo rekomenci elŝuton.</li>
       <li xml:lang="es">Pausa y reanudación de los archivos en descarga, así como la posibilidad de reiniciar descargas.</li>
       <li xml:lang="et">Failide allalaadimise peatamine ja taasalustamine, samuti võimalus allalaadimist taaskäivitada.</li>
-      <li xml:lang="eu">Fitxategi jaitsierak eten eta berrekitea, baita jaitsiera bat berriz hasteko gaitasuna ere.</li>
+      <li xml:lang="eu">Fitxategien zama-jaitsierak eten eta berrekitea, baita zama-jaitsiera bat berriz hasteko gaitasuna ere.</li>
       <li xml:lang="fi">Tiedostojen latauksen keskeytys ja jatkaminen kuten myös latauksen uudelleenkäynnistys.</li>
       <li xml:lang="fr">Mise en pause et reprise du téléchargement de fichiers, possibilité de relancer un téléchargement.</li>
       <li xml:lang="gl">Pausa e continuación de descargas de ficheiros, así como a posibilidade de reiniciar a descarga.</li>
@@ -236,7 +236,7 @@
       <li xml:lang="eo">Rakontas multajn informojn pri aktualaj kaj pritraktataj elŝutoj.</li>
       <li xml:lang="es">Muestra gran cantidad de información sobre las descargas actuales y pendientes.</li>
       <li xml:lang="et">Mitmesuguse teabe pakkumine käimasolevate ja eesootavate allalaadimiste kohta.</li>
-      <li xml:lang="eu">Informazio asko ematen du uneko eta zain dauden deskargei buruz.</li>
+      <li xml:lang="eu">Informazio asko ematen du uneko eta zain dauden zama-jaitsierei buruz.</li>
       <li xml:lang="fi">Antaa runsaasti tietoa käynnistä olevasta ja odottavista latauksista.</li>
       <li xml:lang="fr">Affichage de nombreuses informations relatives aux téléchargements en cours et en attente.</li>
       <li xml:lang="gl">Fornece unha morea de información sobre as descargas actuais e pendentes.</li>
@@ -341,7 +341,7 @@
       <li xml:lang="eo">Subteno de Metalink kiu enhavas plurajn URL-ojn por elŝutoj, kune kun kontrolsumoj kaj aliaj informoj.</li>
       <li xml:lang="es">Permite usar Metalink, que contiene múltiples URL para las descargas, además de sumas de verificación y otra información.</li>
       <li xml:lang="et">Metalinki toetus, mis sisaldab mitmeid URL-e allalaadimiseks ühes kontrollsummade ja muu teabega.</li>
-      <li xml:lang="eu">«Metalink» onartzen du, jaisteko URL ugari ditu, egiaztapen-batura eta beste informazio batzuekin batera.</li>
+      <li xml:lang="eu">«Metalink» onartzen du, zama-jaisteko URL ugari ditu, egiaztapen-batura eta beste informazio batzuekin batera.</li>
       <li xml:lang="fi">Tukee metalinkkejä, jotka sisältävät useampia latauslinkkejä tarkistussummineen ja muine tietoineen.</li>
       <li xml:lang="fr">Prise en charge des méta-liens contenant plusieurs URL de téléchargement, des sommes de contrôle et d'autres informations.</li>
       <li xml:lang="gl">Compatibilidade con metaligazóns que conteñen varios enderezos URL de descarga, xunto con sumas de comprobación e outra información.</li>
@@ -385,7 +385,7 @@
       <caption xml:lang="eo">Elŝuti dosierojn per KGet</caption>
       <caption xml:lang="es">Descargando archivos con KGet</caption>
       <caption xml:lang="et">Failide allalaadimine KGetiga</caption>
-      <caption xml:lang="eu">Fitxategiak KGet erabiliz jaistea</caption>
+      <caption xml:lang="eu">Fitxategiak KGet erabiliz zama-jaistea</caption>
       <caption xml:lang="fi">Tiedostojen lataaminen KGetillä</caption>
       <caption xml:lang="fr">Téléchargement de fichiers avec KGet</caption>
       <caption xml:lang="gl">Descargando os ficheiros con KGet</caption>
