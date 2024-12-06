@@ -44,10 +44,12 @@
   <name xml:lang="zh-CN">KGet</name>
   <name xml:lang="zh-TW">KGet</name>
   <summary>Download manager</summary>
+  <summary xml:lang="bg">Мениджър на изтегляния</summary>
   <summary xml:lang="ca">Gestor de baixades</summary>
   <summary xml:lang="es">Gestor de descargas</summary>
   <summary xml:lang="eu">Zama-jaitsiera kudeatzailea</summary>
   <summary xml:lang="gl">Xestor de descargas</summary>
+  <summary xml:lang="he">מנהל הורדות</summary>
   <summary xml:lang="ia">Gerente del discargamento</summary>
   <summary xml:lang="it">Gestore degli scaricamenti</summary>
   <summary xml:lang="ka">გადმოწერების მმართველი</summary>
