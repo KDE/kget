@@ -47,7 +47,6 @@ find_package(KF6 ${KF_VERSION} REQUIRED
     CoreAddons
     Crash
     DBusAddons
-    DocTools
     I18n
     IconThemes
     ItemViews
@@ -80,6 +79,12 @@ set_package_properties(SQLite3 PROPERTIES
     DESCRIPTION "SQLite is a Binary-Database"
     TYPE RECOMMENDED
     PURPOSE "Needed for the SQLite-Backend of the KGet-History"
+)
+
+find_package(KF6DocTools ${KF_VERSION})
+set_package_properties(KF6DocTools PROPERTIES
+    DESCRIPTION "Tools to generate documentation"
+    TYPE OPTIONAL
 )
 
 if (NOT WIN32)
@@ -154,7 +159,6 @@ add_subdirectory(ui)
 add_subdirectory(transfer-plugins)
 add_subdirectory(sounds)
 add_subdirectory(desktop)
-add_subdirectory(doc)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/core/
@@ -299,7 +303,12 @@ file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
 kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 
+if (KF6DocTools_FOUND)
+    add_subdirectory(doc)
+    kdoctools_install(po)
+endif()
+
 ki18n_install(po)
-kdoctools_install(po)
+
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
