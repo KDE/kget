@@ -35,6 +35,7 @@
   <name xml:lang="pt">KGet</name>
   <name xml:lang="pt-BR">KGet</name>
   <name xml:lang="ru">KGet</name>
+  <name xml:lang="sa">केगेट्</name>
   <name xml:lang="sk">KGet</name>
   <name xml:lang="sl">KGet</name>
   <name xml:lang="sv">Kget</name>
@@ -58,6 +59,7 @@
   <summary xml:lang="ka">გადმოწერების მმართველი</summary>
   <summary xml:lang="nl">Downloadbeheerder</summary>
   <summary xml:lang="pl">Zarządzanie pobieraniem</summary>
+  <summary xml:lang="sa">डाउनलोड प्रबन्धक</summary>
   <summary xml:lang="sl">Upravljalnik prenosov</summary>
   <summary xml:lang="sv">Nerladdningshanterare</summary>
   <summary xml:lang="tr">İndirme Yöneticisi</summary>
@@ -94,6 +96,7 @@
     <p xml:lang="pt">O KGet é um gestor de transferências versátil e amigável.</p>
     <p xml:lang="pt-BR">KGet é um gerenciador de downloads versátil e amigável.</p>
     <p xml:lang="ru">KGet — это гибкий и простой в использовании диспетчер загрузок.</p>
+    <p xml:lang="sa">KGet बहुमुखी उपयोक्तृ-अनुकूलः च डाउनलोड्-प्रबन्धकः अस्ति ।</p>
     <p xml:lang="sk">KGet je univerzálny a ľahko použiteľný správca sťahovania.</p>
     <p xml:lang="sl">KGet je vsestranski in uporabniku prijazen upravljalnik prenosov datotek.</p>
     <p xml:lang="sv">Kget är en mångsidig och lättanvänd nerladdningshanterare av filer.</p>
@@ -130,6 +133,7 @@
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Funcionalidades:</p>
     <p xml:lang="ru">Возможности:</p>
+    <p xml:lang="sa">गुणाः:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Možnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
@@ -166,6 +170,7 @@
       <li xml:lang="pt">Transferência de ficheiros de fontes em FTP ou HTTP(S).</li>
       <li xml:lang="pt-BR">Download de arquivos com origem em FTP e HTTP(S).</li>
       <li xml:lang="ru">Загрузка файлов через FTP и HTTP(S).</li>
+      <li xml:lang="sa">FTP तथा HTTP(S) स्रोतेभ्यः सञ्चिकाः डाउनलोड् करणम् ।</li>
       <li xml:lang="sk">Sťahovanie súborov zo zdrojov FTP a HTTP(S).</li>
       <li xml:lang="sl">Prenos datotek iz virov FTP in HTTP (S).</li>
       <li xml:lang="sv">Nerladdning av filer från FTP- och HTTP(S)-källor.</li>
@@ -201,6 +206,7 @@
       <li xml:lang="pt">Pausa e continuação dos ficheiros transferidos, assim como a capacidade de reiniciar uma transferência.</li>
       <li xml:lang="pt-BR">Pausa e continuação de arquivos durante o download, assim como a capacidade de reiniciar uma transferência.</li>
       <li xml:lang="ru">Приостановка и возобновление загрузки файлов, а также возможность перезапуска.</li>
+      <li xml:lang="sa">सञ्चिकानां अवतरणस्य विरामः पुनः आरम्भः च, तथैव अवतरणस्य पुनः आरम्भस्य क्षमता च ।</li>
       <li xml:lang="sk">Pozastavenie a obnovenie sťahovania súborov, ako aj možnosť reštartovania sťahovania.</li>
       <li xml:lang="sl">Zaustavitev in nadaljevanje prenosa datotek ter možnost ponovnega zagona prenosa.</li>
       <li xml:lang="sv">Pausa och återuppta nerladdning av filer, samt möjlighet att starta om en nerladdning.</li>
@@ -236,6 +242,7 @@
       <li xml:lang="pt">Devolve bastantes informações sobre as transferências actuais e pendentes.</li>
       <li xml:lang="pt-BR">Retorna diversas informações sobre os downloads atuais e pendentes.</li>
       <li xml:lang="ru">Подробная информация о текущих и ожидающих загрузках.</li>
+      <li xml:lang="sa">वर्तमानस्य लम्बितस्य च डाउनलोड् विषये बहु सूचनां वदति ।</li>
       <li xml:lang="sk">Poskytuje veľa informácií o aktuálnych a čakajúcich stiahnutiach.</li>
       <li xml:lang="sl">Sporoča veliko informacij o trenutnih in čakajočih prenosih.</li>
       <li xml:lang="sv">Ger mängder av information om aktuella och väntande nerladdningar.</li>
@@ -271,6 +278,7 @@
       <li xml:lang="pt">Incorporação na bandeja do sistema.</li>
       <li xml:lang="pt-BR">Incorporação na área de notificação.</li>
       <li xml:lang="ru">Встраиваемость в системный лоток.</li>
+      <li xml:lang="sa">सिस्टम् ट्रे मध्ये एम्बेडिंग्।</li>
       <li xml:lang="sk">Vloženie do systémovej lišty.</li>
       <li xml:lang="sl">Vdelan v sistemsko vrstico.</li>
       <li xml:lang="sv">Inbäddning i systembrickan.</li>
@@ -306,6 +314,7 @@
       <li xml:lang="pt">Integração com o navegador Web Konqueror.</li>
       <li xml:lang="pt-BR">Integração com o navegador Konqueror.</li>
       <li xml:lang="ru">Интеграция с браузером Konqueror.</li>
+      <li xml:lang="sa">Konqueror जालपुटेन सह एकीकरणम् ।</li>
       <li xml:lang="sk">Integrácia s webovým prehliadačom Konqueror.</li>
       <li xml:lang="sl">Integracija s spletnim brskalnikom Konqueror.</li>
       <li xml:lang="sv">Integrering i webbläsaren Konqueror.</li>
@@ -341,6 +350,7 @@
       <li xml:lang="pt">Suporte para 'metalink', o qual contém vários URL's para as transferências, em conjunto com os códigos de validação e outras informações.</li>
       <li xml:lang="pt-BR">Suporte a metalink, que contém várias URLs para os downloads, em conjunto com os códigos de verificação e outras informações.</li>
       <li xml:lang="ru">Поддержка Metalink, которая содержит несколько URL-адресов для загрузки, а также контрольные суммы и другую информацию.</li>
+      <li xml:lang="sa">मेटालिङ्क् समर्थनं यस्मिन् डाउनलोड् कृते बहुविधाः URL सन्ति, चेकसम्स् इत्यादीनि सूचनाभिः सह ।</li>
       <li xml:lang="sk">Podpora Metalink, ktorá obsahuje viac URL na stiahnutie, spolu s kontrolnými súčtami a ďalšími informáciami.</li>
       <li xml:lang="sl">Podpora za Metalink, ki vsebuje več spletnih naslovov za prenos, skupaj s kontrolnimi vsotami in drugimi informacijami.</li>
       <li xml:lang="sv">Stör för metalänkar som innehåller flera webbadresser för nerladdning, tillsammans med checksummor och annan information.</li>
@@ -385,6 +395,7 @@
       <caption xml:lang="pt">Transferência de ficheiros com o KGet</caption>
       <caption xml:lang="pt-BR">Baixando arquivos com o KGet</caption>
       <caption xml:lang="ru">Загрузка файлов с помощью KGet</caption>
+      <caption xml:lang="sa">KGet इत्यनेन सह सञ्चिकाः डाउनलोड् करणम्</caption>
       <caption xml:lang="sk">Sťahovanie súborov s KGet</caption>
       <caption xml:lang="sl">Prenos datotek s programom KGet</caption>
       <caption xml:lang="sv">Nerladdning av filer med Kget</caption>
