@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-27 00:39+0000\n"
-"PO-Revision-Date: 2024-03-29 10:40+0100\n"
+"PO-Revision-Date: 2024-12-17 18:53+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -1613,6 +1613,7 @@ msgstr "Iniciar KGet con obxectivo onde deixar o destino"
 msgid "Start KGet with hidden main window"
 msgstr "Iniciar KGet coa xanela principal agochada"
 
+# skip-rule: trasno-icon_reverse
 #: main.cpp:134
 #, kde-format
 msgid "Start KGet without drop target animation"
@@ -3170,15 +3171,17 @@ msgstr "Amosar a xanela principal"
 msgid "Hide Main Window"
 msgstr "Agochar a xanela principal"
 
+# skip-rule: trasno-icon_reverse
 #: ui/droptarget.cpp:343
 #, kde-format
 msgid "Drop Target"
 msgstr "Icona de descargas"
 
+# skip-rule: trasno-icon_reverse
 #: ui/droptarget.cpp:343
 #, kde-format
 msgid "You can drag download links into the drop target."
-msgstr "Pode arrastrar as descargas á icona de descargas."
+msgstr "Pode arrastrar as ligazóns de descarga á icona de descargas."
 
 #: ui/droptarget.cpp:388
 #, kde-format
