@@ -116,11 +116,6 @@ public:
      */
     virtual void update();
 
-    /**
-     * Codec has changed, so update the model.
-     */
-    virtual void onCodecChange();
-
     /// Set the file names editable
     void setFileNamesEditable(bool on)
     {

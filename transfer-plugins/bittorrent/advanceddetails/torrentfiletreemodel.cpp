@@ -311,15 +311,6 @@ void TorrentFileTreeModel::constructTree()
     }
 }
 
-void TorrentFileTreeModel::onCodecChange()
-{
-    beginResetModel();
-    delete root;
-    root = nullptr;
-    constructTree();
-    endResetModel();
-}
-
 int TorrentFileTreeModel::rowCount(const QModelIndex &parent) const
 {
     if (!parent.isValid()) {

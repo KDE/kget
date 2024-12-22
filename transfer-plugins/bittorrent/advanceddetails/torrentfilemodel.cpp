@@ -56,12 +56,6 @@ void TorrentFileModel::update()
 {
 }
 
-void TorrentFileModel::onCodecChange()
-{
-    beginResetModel();
-    endResetModel();
-}
-
 Qt::ItemFlags TorrentFileModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())

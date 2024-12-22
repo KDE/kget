@@ -91,7 +91,6 @@ public:
     bt::TorrentFileInterface *indexToFile(const QModelIndex &idx) override;
     QString dirPath(const QModelIndex &idx) override;
     void changePriority(const QModelIndexList &indexes, bt::Priority newpriority) override;
-    void onCodecChange() override;
 
 private:
     void constructTree();
