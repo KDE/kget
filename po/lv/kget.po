@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-27 00:39+0000\n"
+"POT-Creation-Date: 2024-12-23 00:40+0000\n"
 "PO-Revision-Date: 2010-01-09 18:49+0200\n"
 "Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -2634,14 +2634,14 @@ msgid "Whether we are interested in downloading from this peer"
 msgstr "Vai mums ir interese lejupielādēt no šī dalībnieka"
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:348
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:339
 #, kde-format
 msgid "File"
 msgstr "Fails"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:350
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:341
 #: ui/history/transferhistory.ui:90
 #, kde-format
 msgid "Size"

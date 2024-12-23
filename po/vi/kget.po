@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-27 00:39+0000\n"
+"POT-Creation-Date: 2024-12-23 00:40+0000\n"
 "PO-Revision-Date: 2022-09-28 20:09+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -2461,7 +2461,7 @@ msgid "Whether we are interested in downloading from this peer"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:348
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:339
 #, fuzzy, kde-format
 #| msgid "&File"
 msgid "File"
@@ -2469,7 +2469,7 @@ msgstr "&Tệp"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:350
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:341
 #: ui/history/transferhistory.ui:90
 #, kde-format
 msgid "Size"
