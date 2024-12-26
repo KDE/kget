@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-23 00:40+0000\n"
-"PO-Revision-Date: 2024-12-24 20:39+0530\n"
+"PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -397,7 +397,7 @@ msgstr "समूहान् प्रबन्धयन्तु"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:23
 #, kde-format
 msgid "Network"
-msgstr "जाल"
+msgstr "जालकृति"
 
 #: conf/preferencesdialog.cpp:87
 #, kde-format
@@ -529,7 +529,7 @@ msgstr "%1 अपसारितम् यतः तया गलत् सञ�
 #, kde-format
 msgctxt "file in a filesystem"
 msgid "File"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #: core/filemodel.cpp:248
 #, kde-format
@@ -2397,7 +2397,7 @@ msgstr "अस्मात् समवयस्कात् डाउनलो�
 #: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:339
 #, kde-format
 msgid "File"
-msgstr "संचिका"
+msgstr "सञ्चिका"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
