@@ -34,9 +34,9 @@ public:
 
     bool check(const QVariant &data) const
     {
-        if (data.type() == QVariant::String) {
+        if (data.typeId() == QMetaType::QString) {
             return (QString::compare(data.toString(), min.toString()) == 0);
-        } else if (data.type() == QVariant::Int || data.type() == QVariant::Double) {
+        } else if (data.typeId() == QMetaType::Int || data.typeId() == QMetaType::Double) {
             if (data.toDouble() >= min.toDouble() && (data.toDouble() <= max.toDouble() || max.toDouble() < 0)) {
                 // the last range ends with -1
                 return true;

@@ -227,9 +227,9 @@ bool MirrorItem::setData(int column, const QVariant &value, int role)
         return true;
     } else if ((column == MirrorItem::Url) && (role == Qt::EditRole)) {
         QUrl url;
-        if (value.type() == QVariant::Url) {
+        if (value.typeId() == QMetaType::QUrl) {
             url = QUrl(value.toUrl());
-        } else if (value.type() == QVariant::String) {
+        } else if (value.typeId() == QMetaType::QString) {
             url = QUrl(value.toString());
         }
 
