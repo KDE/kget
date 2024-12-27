@@ -107,7 +107,7 @@ QList<QPair<int, QVariant>> Commands::parseCommands(const QDomElement &e, TestTr
         case Repair:
             if (args.count() == 1) {
                 data = args.first();
-                if (data.canConvert(QVariant::Bool)) {
+                if (data.canConvert(QMetaType(QMetaType::Type::Bool))) {
                     commands.append(QPair<int, QVariant>(type, data));
                     break;
                 }
@@ -167,7 +167,7 @@ QList<QPair<int, QVariant>> Commands::parseCommands(const QDomElement &e, TestTr
             QList<QVariant> list;
             if (args.count() == 1) {
                 data = args.takeFirst();
-                if (data.canConvert(QVariant::Bool) && !data.toBool()) {
+                if (data.canConvert(QMetaType(QMetaType::Type::Bool)) && !data.toBool()) {
                     list << data.toBool();
                     data = list;
                     commands.append(QPair<int, QVariant>(type, data));
@@ -175,7 +175,7 @@ QList<QPair<int, QVariant>> Commands::parseCommands(const QDomElement &e, TestTr
                 }
             } else if (args.count() == 2) {
                 data = args.takeFirst();
-                if (data.canConvert(QVariant::Bool) && data.toBool()) {
+                if (data.canConvert(QMetaType(QMetaType::Type::Bool)) && data.toBool()) {
                     list << data.toBool();
                     bool worked;
                     list << args.takeFirst().toInt(&worked);
@@ -197,7 +197,7 @@ QList<QPair<int, QVariant>> Commands::parseCommands(const QDomElement &e, TestTr
                 if (transfer) {
                     newDirectory.replace("${DIR}/", transfer->tempDir());
                 }
-                if (!newDirectory.isEmpty() && data.canConvert(QVariant::Bool)) {
+                if (!newDirectory.isEmpty() && data.canConvert(QMetaType(QMetaType::Type::Bool))) {
                     const bool shouldWork = data.toBool();
                     QList<QVariant> list;
                     list << newDirectory << shouldWork;
@@ -499,7 +499,7 @@ void Commands::slotVerified(bool verified)
         if (type == Verified) {
             const QVariant command = operation.second;
             m_commands.takeFirst();
-            if (command.canConvert(QVariant::Bool)) {
+            if (command.canConvert(QMetaType(QMetaType::Type::Bool))) {
                 const bool shouldWork = command.toBool();
                 qCDebug(KGET_DEBUG) << this << "is verified" << verified;
                 QVERIFY(verified == shouldWork);
