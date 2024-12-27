@@ -93,6 +93,8 @@ void ScanDlg::accept()
 
 void ScanDlg::description(KJob *job, const QString &title, const QPair<QString, QString> &field1, const QPair<QString, QString> &field2)
 {
+    Q_UNUSED(job)
+    Q_UNUSED(title)
     m_chunks_found->setText(field1.first);
     m_chunks_failed->setText(field1.second);
     m_chunks_downloaded->setText(field1.first);
@@ -112,6 +114,7 @@ void ScanDlg::result(KJob *job)
 
 void ScanDlg::percent(KJob *job, unsigned long percent)
 {
+    Q_UNUSED(job)
     m_progress->setValue(percent);
 }
 }
