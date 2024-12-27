@@ -1224,7 +1224,7 @@ GenericObserver::GenericObserver(QObject *parent)
     , m_save(nullptr)
     , m_finishAction(nullptr)
 {
-    QNetworkInformation::load(QNetworkInformation::Feature::Reachability);
+    QNetworkInformation::loadBackendByFeatures(QNetworkInformation::Feature::Reachability);
     KGet::setHasNetworkConnection(QNetworkInformation::instance()->reachability() == QNetworkInformation::Reachability::Online);
 
     connect(KGet::model(), &TransferTreeModel::groupRemovedEvent, this, &GenericObserver::groupRemovedEvent);
