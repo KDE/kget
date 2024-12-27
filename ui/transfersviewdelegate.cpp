@@ -348,7 +348,7 @@ void TransfersViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
             progressBarOption.state = QStyle::State_Enabled | QStyle::State_Horizontal;
             progressBarOption.direction = QApplication::layoutDirection();
             progressBarOption.rect = option.rect;
-            progressBarOption.fontMetrics = QApplication::fontMetrics();
+            progressBarOption.fontMetrics = QFontMetrics(QGuiApplication::font());
             progressBarOption.minimum = 0;
             progressBarOption.maximum = 100;
             progressBarOption.textAlignment = Qt::AlignCenter;
@@ -363,8 +363,8 @@ void TransfersViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
                 progressBarOption.text = i18nc("not available", "n/a");
             }
 
-            progressBarOption.rect.setY(progressBarOption.rect.y() + (option.rect.height() - QApplication::fontMetrics().height()) / 2);
-            progressBarOption.rect.setHeight(QApplication::fontMetrics().height());
+            progressBarOption.rect.setY(progressBarOption.rect.y() + (option.rect.height() - progressBarOption.fontMetrics.height()) / 2);
+            progressBarOption.rect.setHeight(progressBarOption.fontMetrics.height());
 
             // Draw the progress bar onto the view.
             QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
