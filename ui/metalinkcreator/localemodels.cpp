@@ -59,9 +59,9 @@ void CountryModel::setupModelData()
     beginResetModel();
     for (int c = 1; c <= QLocale::LastCountry; ++c) {
         QString countryCode;
-        const auto country = static_cast<QLocale::Country>(c);
-        QLocale locale(QLocale::AnyLanguage, country);
-        if (locale.country() == country) {
+        const auto territory = static_cast<QLocale::Territory>(c);
+        QLocale locale(QLocale::AnyLanguage, territory);
+        if (locale.territory() == territory) {
             const QString localeName = locale.name();
             const auto idx = localeName.indexOf(QLatin1Char('_'));
             if (idx != -1) {
