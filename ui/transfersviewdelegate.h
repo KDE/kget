@@ -38,13 +38,7 @@ protected:
     void timerEvent(QTimerEvent *event) override;
 
 private:
-    enum {
-        None,
-        Selecting,
-        Deselecting,
-        Blinking,
-        BlinkingExiting
-    } m_status;
+    enum class Status { None, Selecting, Deselecting, Blinking, BlinkingExiting } m_status;
     QModelIndex m_index;
 
     int m_timerId;

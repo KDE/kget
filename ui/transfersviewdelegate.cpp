@@ -37,7 +37,7 @@
 
 GroupStatusButton::GroupStatusButton(const QModelIndex &index, QWidget *parent)
     : QToolButton(parent)
-    , m_status(None)
+    , m_status(Status::None)
     , m_index(index)
     , m_timerId(-1)
     , m_iconSize(22)
@@ -53,13 +53,13 @@ void GroupStatusButton::checkStateSet()
     QToolButton::checkStateSet();
 
     if (isChecked()) {
-        if (m_status == None)
+        if (m_status == Status::None)
             m_gradientId = 0.9;
-        m_status = Selecting;
+        m_status = Status::Selecting;
     } else {
-        if (m_status == None)
+        if (m_status == Status::None)
             m_gradientId = 1;
-        m_status = Deselecting;
+        m_status = Status::Deselecting;
     }
 
     setMouseTracking(!isChecked());
@@ -72,12 +72,12 @@ void GroupStatusButton::enterEvent(QEnterEvent *event)
 {
     Q_UNUSED(event)
     if (!isChecked()) {
-        m_status = Blinking;
+        m_status = Status::Blinking;
 
         if (m_timerId == -1) {
             m_timerId = startTimer(100);
 
-            if (m_status == !BlinkingExiting)
+            if (m_status != Status::BlinkingExiting)
                 m_gradientId = 1;
         }
     }
@@ -86,8 +86,8 @@ void GroupStatusButton::enterEvent(QEnterEvent *event)
 void GroupStatusButton::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event)
-    if (m_status == Blinking)
-        m_status = BlinkingExiting;
+    if (m_status == Status::Blinking)
+        m_status = Status::BlinkingExiting;
 }
 
 void GroupStatusButton::paintEvent(QPaintEvent *event)
@@ -130,34 +130,34 @@ void GroupStatusButton::paintEvent(QPaintEvent *event)
     }
 
     p.drawPixmap(rect().topLeft() + QPoint(offset, offset - 1),
-                 icon().pixmap(m_iconSize, isChecked() || m_status == Blinking ? QIcon::Normal : QIcon::Disabled));
+                 icon().pixmap(m_iconSize, isChecked() || m_status == Status::Blinking ? QIcon::Normal : QIcon::Disabled));
 }
 
 void GroupStatusButton::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
 
-    if (m_status == Selecting) {
+    if (m_status == Status::Selecting) {
         m_gradientId += 0.04;
 
         if (m_gradientId >= 1) {
-            m_status = None;
+            m_status = Status::None;
             m_gradientId = 1;
             killTimer(m_timerId);
             m_timerId = -1;
         }
-    } else if (m_status == Deselecting) {
+    } else if (m_status == Status::Deselecting) {
         m_gradientId -= 0.04;
 
         if (m_gradientId <= 0.7) {
-            m_status = None;
+            m_status = Status::None;
             m_gradientId = 0.7;
             killTimer(m_timerId);
             m_timerId = -1;
         }
-    } else if (m_status == Blinking) {
+    } else if (m_status == Status::Blinking) {
         if (isChecked()) {
-            m_status = Selecting;
+            m_status = Status::Selecting;
             m_gradientId = 0.9;
             return;
         }
@@ -167,11 +167,11 @@ void GroupStatusButton::timerEvent(QTimerEvent *event)
         if (m_gradientId <= 0.7) {
             m_gradientId = 1;
         }
-    } else if (m_status == BlinkingExiting) {
+    } else if (m_status == Status::BlinkingExiting) {
         m_gradientId -= 0.04;
 
         if (m_gradientId <= 0.7) {
-            m_status = None;
+            m_status = Status::None;
             m_gradientId = 0.7;
             killTimer(m_timerId);
             m_timerId = -1;
