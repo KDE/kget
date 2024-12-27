@@ -367,7 +367,7 @@ QString Verifier::checksum(const QUrl &dest, const QString &type, bool *abortPtr
     int len;
 
     while ((len = file.read(reinterpret_cast<char *>(buffer), sizeof(buffer))) > 0) {
-        hash.addData(buffer, len);
+        hash.addData(QByteArrayView(buffer, len));
         if (abortPtr && *abortPtr) {
             file.close();
             return QString();
