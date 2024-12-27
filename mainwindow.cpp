@@ -1040,7 +1040,6 @@ void MainWindow::slotCheckClipboard()
             const QList<int> types = Settings::autoPasteTypes();
             const QList<int> syntaxes = Settings::autoPastePatternSyntaxes();
             const QStringList patterns = Settings::autoPastePatterns();
-            const Qt::CaseSensitivity cs = (Settings::autoPasteCaseSensitive() ? Qt::CaseSensitive : Qt::CaseInsensitive);
             for (int i = 0; i < types.count(); ++i) {
                 QRegularExpression regex;
                 if (syntaxes[i] == AutoPasteModel::Wildcard) {
