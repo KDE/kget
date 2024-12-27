@@ -128,7 +128,7 @@ bool KGetSortFilterProxyModel::acceptText(const QString &text) const
     // look if the text-filter matches
     const auto re = filterRegularExpression();
     const auto match = re.match(text);
-    bool accept = (match.hasMatch() != -1) ? true : false;
+    bool accept = match.hasMatch() ? true : false;
     if ((m_filterMode == DoesNotContain) && !re.pattern().isEmpty()) {
         accept = !accept;
     }
