@@ -269,7 +269,7 @@ void MainWindow::setupActions()
     startAllAction->setText(i18n("Start All"));
     startAllAction->setIcon(QIcon::fromTheme("media-seek-forward"));
     //     startAllAction->setHelpText(i18n("Starts / resumes all transfers"));
-    actionCollection()->setDefaultShortcut(startAllAction, QKeySequence(Qt::CTRL + Qt::Key_R));
+    actionCollection()->setDefaultShortcut(startAllAction, QKeySequence(Qt::CTRL | Qt::Key_R));
     connect(startAllAction, &QAction::triggered, this, &MainWindow::slotStartAllDownload);
 
     QAction *startSelectedAction = actionCollection()->addAction("start_selected_download");
@@ -282,7 +282,7 @@ void MainWindow::setupActions()
     stopAllAction->setText(i18n("Pause All"));
     stopAllAction->setIcon(QIcon::fromTheme("media-playback-pause"));
     //     stopAllAction->setHelpText(i18n("Pauses all transfers"));
-    actionCollection()->setDefaultShortcut(stopAllAction, QKeySequence(Qt::CTRL + Qt::Key_P));
+    actionCollection()->setDefaultShortcut(stopAllAction, QKeySequence(Qt::CTRL | Qt::Key_P));
     connect(stopAllAction, &QAction::triggered, this, &MainWindow::slotStopAllDownload);
 
     QAction *stopSelectedAction = actionCollection()->addAction("stop_selected_download");
@@ -327,25 +327,25 @@ void MainWindow::setupActions()
     QAction *transferHistoryAction = actionCollection()->addAction("transfer_history");
     transferHistoryAction->setText(i18n("&Transfer History"));
     transferHistoryAction->setIcon(QIcon::fromTheme("view-history"));
-    actionCollection()->setDefaultShortcut(transferHistoryAction, QKeySequence(Qt::CTRL + Qt::Key_H));
+    actionCollection()->setDefaultShortcut(transferHistoryAction, QKeySequence(Qt::CTRL | Qt::Key_H));
     connect(transferHistoryAction, &QAction::triggered, this, &MainWindow::slotTransferHistory);
 
     QAction *transferGroupSettingsAction = actionCollection()->addAction("transfer_group_settings");
     transferGroupSettingsAction->setText(i18n("&Group Settings"));
     transferGroupSettingsAction->setIcon(QIcon::fromTheme("preferences-system"));
-    actionCollection()->setDefaultShortcut(transferGroupSettingsAction, QKeySequence(Qt::CTRL + Qt::Key_G));
+    actionCollection()->setDefaultShortcut(transferGroupSettingsAction, QKeySequence(Qt::CTRL | Qt::Key_G));
     connect(transferGroupSettingsAction, &QAction::triggered, this, &MainWindow::slotTransferGroupSettings);
 
     QAction *transferSettingsAction = actionCollection()->addAction("transfer_settings");
     transferSettingsAction->setText(i18n("&Transfer Settings"));
     transferSettingsAction->setIcon(QIcon::fromTheme("preferences-system"));
-    actionCollection()->setDefaultShortcut(transferSettingsAction, QKeySequence(Qt::CTRL + Qt::Key_T));
+    actionCollection()->setDefaultShortcut(transferSettingsAction, QKeySequence(Qt::CTRL | Qt::Key_T));
     connect(transferSettingsAction, &QAction::triggered, this, &MainWindow::slotTransferSettings);
 
     QAction *listLinksAction = actionCollection()->addAction("import_links");
     listLinksAction->setText(i18n("Import &Links..."));
     listLinksAction->setIcon(QIcon::fromTheme("view-list-text"));
-    actionCollection()->setDefaultShortcut(listLinksAction, QKeySequence(Qt::CTRL + Qt::Key_L));
+    actionCollection()->setDefaultShortcut(listLinksAction, QKeySequence(Qt::CTRL | Qt::Key_L));
     connect(listLinksAction, &QAction::triggered, this, &MainWindow::slotShowListLinks);
 
     // create the download finished actions which can be displayed in the toolbar
