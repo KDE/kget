@@ -81,12 +81,9 @@ void XmlStore::DeleteThread::run()
     QDomDocument doc("tempHistory");
     QFile file(m_url);
 
-    QString error;
-    int line;
-    int column;
-
-    if (!doc.setContent(&file, &error, &line, &column)) {
-        qCDebug(KGET_DEBUG) << "Error1" << error << line << column;
+    QDomDocument::ParseResult r = doc.setContent(&file);
+    if (!r) {
+        qCDebug(KGET_DEBUG) << "Error1" << r.errorMessage << r.errorLine << r.errorColumn;
         return;
     }
     file.close();
@@ -133,13 +130,11 @@ void XmlStore::LoadThread::run()
     QDomDocument doc("tempHistory");
     QFile file(m_url);
 
-    QString error;
-    int line;
-    int column;
     int total;
 
-    if (!doc.setContent(&file, &error, &line, &column)) {
-        qCDebug(KGET_DEBUG) << "Error1" << error << line << column;
+    QDomDocument::ParseResult r = doc.setContent(&file);
+    if (!r) {
+        qCDebug(KGET_DEBUG) << "Error1" << r.errorMessage << r.errorLine << r.errorColumn;
         file.close();
         return;
     }
