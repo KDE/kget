@@ -27,8 +27,8 @@ BTSettingsWidget::BTSettingsWidget(QObject *parent, const KPluginMetaData &data)
     connect(downloadBox, &QSpinBox::valueChanged, this, &BTSettingsWidget::markAsChanged);
     connect(torrentEdit, &KUrlRequester::textChanged, this, &BTSettingsWidget::markAsChanged);
     connect(tempEdit, &KUrlRequester::textChanged, this, &BTSettingsWidget::markAsChanged);
-    connect(preallocBox, &QCheckBox::stateChanged, this, &BTSettingsWidget::markAsChanged);
-    connect(utpBox, &QCheckBox::stateChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(preallocBox, &QCheckBox::checkStateChanged, this, &BTSettingsWidget::markAsChanged);
+    connect(utpBox, &QCheckBox::checkStateChanged, this, &BTSettingsWidget::markAsChanged);
 }
 
 void BTSettingsWidget::load()

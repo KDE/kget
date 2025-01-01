@@ -28,8 +28,8 @@ Q_SIGNALS:
     void resetDefaults();
 
 private Q_SLOTS:
-    void slotToggleAfterFinishAction(int state);
-    void slotToggleAutomaticDeletion(int state);
+    void slotToggleAfterFinishAction(Qt::CheckState state);
+    void slotToggleAutomaticDeletion(Qt::CheckState state);
     void slotCheckExpiryValue();
     void disableApplyButton();
     void enableApplyButton();

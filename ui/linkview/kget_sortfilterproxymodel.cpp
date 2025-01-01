@@ -72,9 +72,9 @@ void KGetSortFilterProxyModel::setShowWebContent(bool show)
     invalidateFilter();
 }
 
-void KGetSortFilterProxyModel::setShowWebContent(int show)
+void KGetSortFilterProxyModel::setShowWebContent(Qt::CheckState show)
 {
-    m_showWebContent = show;
+    m_showWebContent = show == Qt::Checked;
     invalidateFilter();
 }
 

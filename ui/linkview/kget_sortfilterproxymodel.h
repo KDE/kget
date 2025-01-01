@@ -50,7 +50,7 @@ public:
 
 public Q_SLOTS:
     void setShowWebContent(bool show);
-    void setShowWebContent(int show);
+    void setShowWebContent(Qt::CheckState show);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;

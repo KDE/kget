@@ -107,7 +107,7 @@ KGetLinkView::KGetLinkView(QWidget *parent)
     connect(ui.deselectAll, &QAbstractButton::clicked, this, &KGetLinkView::uncheckAll);
     connect(ui.invertSelection, &QAbstractButton::clicked, this, &KGetLinkView::slotInvertSelection);
     connect(this, &QDialog::accepted, this, &KGetLinkView::slotStartLeech);
-    connect(ui.showWebContent, &QCheckBox::stateChanged, m_proxyModel, [this](int show) {
+    connect(ui.showWebContent, &QCheckBox::checkStateChanged, m_proxyModel, [this](Qt::CheckState show) {
         m_proxyModel->setShowWebContent(show);
     });
     connect(ui.importLinks, &QAbstractButton::clicked, this, &KGetLinkView::slotStartImport);

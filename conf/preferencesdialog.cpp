@@ -65,7 +65,7 @@ PreferencesDialog::PreferencesDialog(QWidget *parent, KConfigSkeleton *skeleton)
 
     // enable or disable the AfterFinishAction depends on the AfterFinishActionEnabled checkbox state
     dlgAdv.kcfg_AfterFinishAction->setEnabled(dlgAdv.kcfg_AfterFinishActionEnabled->checkState() == Qt::Checked);
-    connect(dlgAdv.kcfg_AfterFinishActionEnabled, &QCheckBox::stateChanged, this, &PreferencesDialog::slotToggleAfterFinishAction);
+    connect(dlgAdv.kcfg_AfterFinishActionEnabled, &QCheckBox::checkStateChanged, this, &PreferencesDialog::slotToggleAfterFinishAction);
 
     dlgAdv.kcfg_ExpiryTimeType->addItem(i18n("Day(s)"), QVariant(TransferHistoryStore::Day));
     dlgAdv.kcfg_ExpiryTimeType->addItem(i18n("Hour(s)"), QVariant(TransferHistoryStore::Hour));
@@ -75,7 +75,7 @@ PreferencesDialog::PreferencesDialog(QWidget *parent, KConfigSkeleton *skeleton)
     // enable or disable the SetExpiryTimeType and SetExpiryTimeValue on the EnableAutomaticDeletion checkbox state
     dlgAdv.kcfg_ExpiryTimeType->setEnabled(dlgAdv.kcfg_AutomaticDeletionEnabled->checkState() == Qt::Checked);
     dlgAdv.kcfg_ExpiryTimeValue->setEnabled(dlgAdv.kcfg_AutomaticDeletionEnabled->checkState() == Qt::Checked);
-    connect(dlgAdv.kcfg_AutomaticDeletionEnabled, &QCheckBox::stateChanged, this, &PreferencesDialog::slotToggleAutomaticDeletion);
+    connect(dlgAdv.kcfg_AutomaticDeletionEnabled, &QCheckBox::checkStateChanged, this, &PreferencesDialog::slotToggleAutomaticDeletion);
     connect(this, &PreferencesDialog::settingsChanged, this, &PreferencesDialog::slotCheckExpiryValue);
 
     // TODO: remove the following lines as soon as these features are ready
@@ -108,12 +108,12 @@ void PreferencesDialog::enableApplyButton()
     button(QDialogButtonBox::Apply)->setEnabled(true);
 }
 
-void PreferencesDialog::slotToggleAfterFinishAction(int state)
+void PreferencesDialog::slotToggleAfterFinishAction(Qt::CheckState state)
 {
     dlgAdv.kcfg_AfterFinishAction->setEnabled(state == Qt::Checked);
 }
 
-void PreferencesDialog::slotToggleAutomaticDeletion(int state)
+void PreferencesDialog::slotToggleAutomaticDeletion(Qt::CheckState state)
 {
     dlgAdv.kcfg_ExpiryTimeType->setEnabled(state == Qt::Checked);
     dlgAdv.kcfg_ExpiryTimeValue->setEnabled(state == Qt::Checked);
