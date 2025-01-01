@@ -11,7 +11,7 @@
 #include "urlcheckertest.h"
 #include "../core/urlchecker.h"
 
-#include <QtTest>
+#include <QTest>
 
 UrlCheckerTest::UrlCheckerTest(QObject *parent)
     : QObject(parent)

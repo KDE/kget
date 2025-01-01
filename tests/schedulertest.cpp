@@ -21,8 +21,8 @@
 #include "../core/scheduler.h"
 #include "settings.h"
 
+#include <QTest>
 #include <QVariant>
-#include <QtTest>
 
 Q_DECLARE_METATYPE(Job::ErrorType)
 Q_DECLARE_METATYPE(Job::Status)

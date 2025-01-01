@@ -4,8 +4,9 @@
 #include "settings.h"
 
 #include <QDebug>
+#include <QSignalSpy>
 #include <QTemporaryDir>
-#include <QtTest>
+#include <QTest>
 
 typedef QPair<QString, QString> Checksum;
 typedef QPair<QString, PartialChecksums> Checksums;

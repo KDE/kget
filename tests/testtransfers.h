@@ -15,7 +15,7 @@
 #include <QDBusVariant>
 #include <QDomElement>
 #include <QTemporaryDir>
-#include <QtTest>
+#include <QTest>
 class OrgKdeKgetTransferInterface;
 class OrgKdeKgetVerifierInterface;
 class TestTransfers;

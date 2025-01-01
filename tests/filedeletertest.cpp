@@ -24,8 +24,8 @@
 #include <QFile>
 #include <QSignalSpy>
 #include <QTemporaryFile>
+#include <QTest>
 #include <QUrl>
-#include <QtTest>
 
 #include <KJob>
 

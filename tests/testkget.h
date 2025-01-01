@@ -11,7 +11,7 @@
 #ifndef _TESTKGET_H
 #define _TESTKGET_H
 
-#include <QtTest>
+#include <QTest>
 
 class TransferGroupHandler;
 
