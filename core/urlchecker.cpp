@@ -29,7 +29,6 @@
 #include "urlchecker_p.h"
 
 #include <algorithm>
-#include <boost/bind/bind.hpp>
 
 #include "kget_debug.h"
 
@@ -113,11 +112,12 @@ struct lessThan {
 void UrlChecker::removeDuplicates(QList<QUrl> &urls)
 {
     std::sort(urls.begin(), urls.end(), lessThan()); // sort the urls, to find duplicates fast
-    urls.erase(
-        std::unique(urls.begin(),
-                    urls.end(),
-                    boost::bind(&QUrl::matches, boost::placeholders::_1, boost::placeholders::_2, QUrl::StripTrailingSlash | QUrl::NormalizePathSegments)),
-        urls.end());
+    urls.erase(std::unique(urls.begin(),
+                           urls.end(),
+                           [](const QUrl &lhs, const QUrl &rhs) {
+                               return lhs.matches(rhs, QUrl::StripTrailingSlash | QUrl::NormalizePathSegments);
+                           }),
+               urls.end());
 }
 
 UrlChecker::UrlError UrlChecker::checkUrl(const QUrl &url, const UrlChecker::UrlType type, bool showNotification)

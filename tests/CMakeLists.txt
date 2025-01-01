@@ -65,4 +65,11 @@ if(BUILD_TESTING)
         TEST_NAME filedeletertest
     )
 
+    #===========UrlChecker===========
+    ecm_add_test(
+            urlcheckertest.cpp
+        LINK_LIBRARIES
+            Qt::Test
+            kgetcore
+        TEST_NAME urlcheckertest)
 endif()

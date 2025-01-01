@@ -79,7 +79,6 @@ target_link_libraries(kgetcore PUBLIC
     Qt6::Sql
     Qt6::Network
     Qt6::DBus
-    Boost::headers
 )
 
 if (SQLITE_FOUND)

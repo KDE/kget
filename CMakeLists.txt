@@ -123,8 +123,6 @@ if(CMAKE_BUILD_TYPE MATCHES debugfull)
      add_definitions(-DDEBUG)
 endif()
 
-find_package(Boost REQUIRED)
-
 if (Gpgmepp_FOUND AND NOT WIN32)
     find_package(QGpgmeQt6 ${GPGME_REQUIRED_VERSION} CONFIG REQUIRED)
     add_definitions(-DHAVE_QGPGME)
