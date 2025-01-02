@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2009-06-13 15:37+0000\n"
 "Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
 "Language-Team: icelandic <kde-isl@molar.is>\n"
@@ -1130,13 +1130,13 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Tími eftir"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Question"
 msgstr "Lýsing"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr ""
@@ -1938,7 +1938,7 @@ msgid_plural ""
 msgstr[0] "Ertu viss um að þú viljir eyða þessari færslu?"
 msgstr[1] "Ertu viss um að þú viljir eyða þessari færslu?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1946,17 +1946,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Opna flutning:"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "Niðurhali haldið áfram"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "Opna flutning:"
@@ -2775,7 +2775,7 @@ msgstr "Niðurhali haldið áfram"
 msgid "Cannot add a tracker to a private torrent."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, fuzzy, kde-format
 #| msgid ""
 #| "The specified file does not exist:\n"
@@ -2785,17 +2785,17 @@ msgstr ""
 "Þessi skrá er ekki til:\n"
 "%1"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, fuzzy, kde-format
 msgid "Analyzing torrent...."
 msgstr "Niðurhali haldið áfram"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, fuzzy, kde-format
 #| msgid "Scheduling"
 msgctxt "Transfer status: seeding"
@@ -2818,7 +2818,7 @@ msgstr "Ítarlegri valkostir"
 msgid "&Scan Files"
 msgstr "Opna &skrá"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, fuzzy, kde-format
 msgid "Error scanning data: %1"
 msgstr "Villa við skönnun gagna: %1"

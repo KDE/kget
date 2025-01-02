@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2022-09-27 17:54+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -1115,12 +1115,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Sisa Waktu"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "Pertanyaan"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "Tera&pkan semua"
@@ -1914,7 +1914,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Apakah Anda yakin ingin menghapus transferan yang dipilih termasuk file?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1926,17 +1926,17 @@ msgstr ""
 "Pengaturan->Tingkat Lanjut dan nonfungsikan \"Gunakan sebagai download "
 "manager untuk Konqueror\"."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "File yang diletakkan adalah sebagai Daftar Transfer KGet"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Unduh"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Muat daftar transsfer"
@@ -2750,22 +2750,22 @@ msgstr "Mengunduh..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Tidak bisa menambahkan pelacak untuk sebuah torrent privasi."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "File torrent belum ada"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Menganalisa torrent..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Tidak bisa menginisial port..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2787,7 +2787,7 @@ msgstr "Detail Tingkat &Lanjut"
 msgid "&Scan Files"
 msgstr "&Pindai File-file"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Galat memindai data: %1"

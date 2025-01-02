@@ -1,5 +1,5 @@
 # translation of kget.po to
-# Version: $Revision: 1698449 $
+# Version: $Revision: 1699261 $
 # Copyright (C) 2002,2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Wojciech Milewski <Wojciech.Milewski@wp.pl>, 2002.
 # Krzysztof Lichota <lichota@mimuw.edu.pl>, 2002, 2005, 2006, 2007.
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2024-04-01 08:03+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1121,12 +1121,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Pozostały czas"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "Pytanie"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "Zas&tosuj do wszystkich"
@@ -1914,7 +1914,7 @@ msgstr[1] ""
 msgstr[2] ""
 "Czy na pewno chcesz usunąć wybrane przesyłania uwzględniając w tym pliki?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1925,17 +1925,17 @@ msgstr ""
 "Jeśli chcesz wyłączyć tę funkcjonalność na stałe, przejdź do Ustawienia-"
 ">Rozszerzone i wyłącz opcję \"Użyj KGet do przesyłania przez Konqueror\"."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Upuszczony plik jest listą przesyłań KGet"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Pobierz"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Wczytaj listę pobieranych"
@@ -2745,22 +2745,22 @@ msgstr "Pobieranie..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Nie można dodać trackera do prywatnego torrenta."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "Plik torrent nie istnieje"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Analiza pliku torrent..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Nie można zainicjować portu..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2781,7 +2781,7 @@ msgstr "Rozbudow&ane szczegóły"
 msgid "&Scan Files"
 msgstr "Skanuj &pliki"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Błąd skanowania danych: %1"

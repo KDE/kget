@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2014-06-29 22:07+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -1110,12 +1110,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Nablieven Tiet"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "Fraag"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "För all &bruken"
@@ -1916,7 +1916,7 @@ msgid_plural ""
 msgstr[0] "Wullt Du redig de utsöcht Överdregen mit Dateien wegdoon?"
 msgstr[1] "Wullt Du redig de utsöchten Överdregen mit Dateien wegdoon?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1927,17 +1927,17 @@ msgstr ""
 "dat heel utmaken wullt, kiek binnen \"Instellen\" -> \"Verwiedert\" un maak "
 "\"As Daallaadpleger för Konqueror bruken\" ut."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "De afleggt Datei is en KGet-Överdregenlist"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Daalladen"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "Överdregenlist &laden"
@@ -2750,22 +2750,22 @@ msgstr "Bi to daalladen..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Na en privaat Torrent lett sik keen Tracker tofögen."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "De Torrent-Datei gifft dat nich."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Torrent warrt ünnersöcht..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Port lett sik nich torechtmaken..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2788,7 +2788,7 @@ msgstr "&Verwiedert Enkelheiten"
 msgid "&Scan Files"
 msgstr "&Dateien dörkieken"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Fehler bi't Daten-Inlesen: %1"

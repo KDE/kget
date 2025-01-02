@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2024-06-18 19:48+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1110,12 +1110,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Återstående tid"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "Fråga"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "&Verkställ för alla"
@@ -1911,7 +1911,7 @@ msgstr[1] ""
 "Är du säker på att du vill ta bort de markerade överföringarna inklusive "
 "filer?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1922,17 +1922,17 @@ msgstr ""
 "du vill inaktivera det permanent, gå till Inställningar -> Avancerat och "
 "inaktivera \"Använd som nerladdningshanterare i Konqueror\"."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Den släppta filen är en överföringslista för Kget"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "Ladda &ner"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Ladda överföringslista"
@@ -2746,22 +2746,22 @@ msgstr "Laddar ner..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Kan inte lägga till spårare för ett privat flöde."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "Dataflödesfilen finns inte"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Analyserar dataflöde..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Kan inte initiera porten..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2783,7 +2783,7 @@ msgstr "&Avancerad detaljinformation"
 msgid "&Scan Files"
 msgstr "&Sök filer"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Fel vid sökning av data: %1"

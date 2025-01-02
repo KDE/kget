@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2024-04-04 19:24+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1111,12 +1111,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Geratzen den denbora"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "Galdera"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "&Aplikatu denei"
@@ -1904,7 +1904,7 @@ msgstr[1] ""
 "Ziur zaude hautatutako transferentziak, fitxategiak barne, ezabatu nahi "
 "dituzula?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1915,17 +1915,17 @@ msgstr ""
 "izatetik. Betirako desgaitzea nahi baduzu, joan Ezarpenak->Aurreratua eta "
 "desgaitu \"Erabili KGet Konqueror-eko deskarga-kudeatzaile gisa\"."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Jaregindako fitxategia KGet-en transferentzia-zerrenda bat da"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Deskargatu"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Kargatu transferentzia-zerrenda"
@@ -2737,22 +2737,22 @@ msgstr "Deskargatzen..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Ezin zaio aztarnari bat torrent pribatuari gehitu."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "Torrent fitxategia ez da existitzen"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Torrent-a analizatzen..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Ezin da ataka hasieratu..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2774,7 +2774,7 @@ msgstr "Xehetasun &aurreratuak"
 msgid "&Scan Files"
 msgstr "&Eskaneatu fitxategiak"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Errorea datuak aztertzean: %1"

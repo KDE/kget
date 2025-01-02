@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2023-12-06 19:04+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -1120,12 +1120,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Zostávajúci čas"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "Otázka"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "Použiť na všetk&o"
@@ -1915,7 +1915,7 @@ msgstr[0] "Ste si istý, že chcete odstrániť vybraný prenos vrátane súboro
 msgstr[1] "Ste si istý, že chcete odstrániť vybrané prenosy vrátane súborov?"
 msgstr[2] "Ste si istý, že chcete odstrániť vybrané prenosy vrátane súborov?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1926,17 +1926,17 @@ msgstr ""
 "vypnúť navždy, choďte do Nastavenie->Pokročilé a vypnite \"Použiť KGet ako "
 "správcu sťahovania pre Konqueror\"."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Pustený súbor je zoznam prenosov KGet"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Stiahnuť"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Načítať zoznam prenosov"
@@ -2748,22 +2748,22 @@ msgstr "Sťahuje sa...."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "Tracker nie je možné pridať do súkromného torrentu."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "Torrent súbor neexistuje"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "Analyzuje sa torrent...."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "Nie je možné inicializovať port..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2785,7 +2785,7 @@ msgstr "&Pokročilé detaily"
 msgid "&Scan Files"
 msgstr "&Skontrolovať súbory"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "Chyba pri kontrole dát: %1"

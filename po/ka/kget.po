@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2024-09-29 08:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1103,12 +1103,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "დარჩენილი დრო"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "კითხვა"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "ყველაზე &გადატარება"
@@ -1898,7 +1898,7 @@ msgstr[1] ""
 "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული გადმოტვირთვები "
 "ფაილების ჩათვლით?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1909,17 +1909,17 @@ msgstr ""
 "გათიშვა სამუდამოდ გნებავთ, გადადით მორგების ფანჯარაში -> დამატებით და "
 "გამორთეთ \"Konqueror-ის გადმოწერების მმართველად გამოყენება\"."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "დაგდებული ფაილი KGet-ის გადმოტვირთვების სიაშია"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&გადმოწერა"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&გადმოწერების სიის ჩატვირთვა"
@@ -2728,22 +2728,22 @@ msgstr "გადმოწერა..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "პირადი ტორენტისთვის ტრეკერის დამატება შეუძლებელია."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "ტორენტის ფაილი არ არსებობს"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "ტორენტის ანალიზი..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "პორტის ინიციალიზაციის შეცდომა..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2765,7 +2765,7 @@ msgstr "&დამატებითი დეტალები"
 msgid "&Scan Files"
 msgstr "&ფაილებს სკანირება"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "მონაცემების სკანირების შეცდომა: %1"

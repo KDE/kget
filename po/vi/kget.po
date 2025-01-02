@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2022-09-28 20:09+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1118,13 +1118,13 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Thời gian chờ"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, fuzzy, kde-format
 #| msgid "Open Destination"
 msgid "Question"
 msgstr "Mở đích"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr ""
@@ -1945,7 +1945,7 @@ msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "Bạn có chắc muốn xoá các mục tải đã chọn cùng với các tệp?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1956,19 +1956,19 @@ msgstr ""
 "vô hiệu mãi mãi, hãy vào Thiết lập->Nâng cao và tắt \"Sử dụng làm trình quản "
 "lí tải cho Konqueror\"."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 #| msgid "KGet Transfer List"
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Danh sách truyền KGet"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 #| msgid "&Downloads"
 msgid "&Download"
 msgstr "Tải &về"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 #| msgid "KGet Transfer List"
 msgid "&Load transfer list"
@@ -2788,23 +2788,23 @@ msgstr "Tải về"
 msgid "Cannot add a tracker to a private torrent."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, fuzzy, kde-format
 #| msgid "Downloads"
 msgid "Analyzing torrent...."
 msgstr "Tải về"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, fuzzy, kde-format
 #| msgid "Speed"
 msgctxt "Transfer status: seeding"
@@ -2828,7 +2828,7 @@ msgstr "Tuỳ chọn cấp cao"
 msgid "&Scan Files"
 msgstr "&Tệp"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2011-11-11 19:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com> \n"
 "Language-Team: Sinhala <info@hanthana.org> \n"
@@ -1114,12 +1114,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "ඉතිරි කාලය"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "ප්‍රශ්ණය"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "සියල්ලට යොදන්න (&y)"
@@ -1911,7 +1911,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1919,17 +1919,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "මඟහැරුනු ගොනුව KGet හුවමාරු ලැයිස්තුවකි"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "බාගන්න (&D)"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "හුවමාරු ලැයිස්තුව පූර්ණය කරන්න (&L)"
@@ -2733,22 +2733,22 @@ msgstr "බාගනිමින්..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "පුද්ගලික"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "ටොරෙන්ට් ගොනුව නොපවතී"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "ටොරෙන්ට් විශ්ලේශනය කරමින්..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "පේනුව ආරම්භ කල නොහැක..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2769,7 +2769,7 @@ msgstr "උසස් තොරතුරු (&A)"
 msgid "&Scan Files"
 msgstr "ගොනු පරිලෝකනය (&S)"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "දත්ත පරිලෝකන දෝශයක්: %1"

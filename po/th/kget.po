@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2010-03-04 21:36+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -1153,13 +1153,13 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "เวลาที่เหลือ"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Question"
 msgstr "คำอธิบาย"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr ""
@@ -2104,7 +2104,7 @@ msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "คุณแน่ใจหรือว่าต้องการจะลบการส่งถ่ายข้อมูลตัวที่เลือกไว้ออกไป ?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -2115,17 +2115,17 @@ msgstr ""
 "ถ้าคุณต้องการปิดความสามารถนี้ตลอดไป ให้ไปที่ การตั้งค่า -> เพิ่มเติม และปิดตัวเลือก "
 "\"ใช้เป็นตัวจัดการการดาวน์โหลดของคอนเควอร์เรอร์\""
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "แฟ้มที่หย่อนลงมาเป็นแฟ้มรายการถ่ายโอนของ 'ช่วยดาวน์โหลด-K'"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&ดาวน์โหลด"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "เ&รียกรายการการถ่ายโอน"
@@ -2931,23 +2931,23 @@ msgstr "กำลังดาวน์โหลด..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "ไม่สามารถเพิ่มแทร็กเกอร์ไปยังทอร์เรนต์ส่วนตัวได้"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, fuzzy, kde-format
 #| msgid "The directory %1 does not exist"
 msgid "Torrent file does not exist"
 msgstr "ยังไม่มีไดเรกทอรี %1 อยู่"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "กำลังวิเคราะห์แฟ้มทอร์เรนต์..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2968,7 +2968,7 @@ msgstr "รายละเอียดเ&พิ่มเติม"
 msgid "&Scan Files"
 msgstr "&สแกนแฟ้มต่าง ๆ"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "ผิดพลาดในการสแกนข้อมูล: %1"

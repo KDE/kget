@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2009-02-26 22:16+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -1146,13 +1146,13 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "बाकी समय"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Question"
 msgstr "वर्नन"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr ""
@@ -1976,7 +1976,7 @@ msgstr[1] ""
 "का आप मन सचमुच समूह नाम %1 \n"
 "को मिटाना चाहथो ?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1984,17 +1984,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "केगेट ट्रांसफर सूची"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "डाउनलोड (&D)"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "ट्रांसफर सूची लोड करव (&L)"
@@ -2788,23 +2788,23 @@ msgstr "डाउनलोड करत हे..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, fuzzy, kde-format
 #| msgid "The directory %1 does not exist"
 msgid "Torrent file does not exist"
 msgstr "डिरेक्टरी %1 मौजूद नइ हे"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, fuzzy, kde-format
 msgid "Analyzing torrent...."
 msgstr "टोरेंट एनलाइज करत हे..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, fuzzy, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2825,7 +2825,7 @@ msgstr "विस्तृत विवरन (&A)"
 msgid "&Scan Files"
 msgstr "फाइल स्कैन करव (&S)"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "डाटा %1 स्कैन करे मं गलती"

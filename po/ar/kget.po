@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2024-03-28 10:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1117,12 +1117,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "الوقت المتبقي"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "سؤال"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "&طبّق على الجميع"
@@ -1913,7 +1913,7 @@ msgstr[3] "أمتأكد أنك تريد حذف عمليات النقل المح�
 msgstr[4] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
 msgstr[5] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1923,17 +1923,17 @@ msgstr ""
 "كجت معطل مؤقتًا كمدير تنزيل لكنكرر. إذا أردت تعطيله إلى الأبد، اذهب إلى "
 "إعدادات -> متقدمة وعطل \"استعمل كمدير التنزيل لكنكرر\""
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "الملف المُسقط هو قائمة عمليات نقل لكجت"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "ن&زّل"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&حمّل قائمة عمليات النقل"
@@ -2743,22 +2743,22 @@ msgstr "يجري التنزيل..."
 msgid "Cannot add a tracker to a private torrent."
 msgstr "لا يمكن إضافة متتبع إلى تورنت خاص."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "ملف التورنت غير موجود"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "يجري تحليل التورنت..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "تعذّر بدء المنفذ..."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2779,7 +2779,7 @@ msgstr "التفاصيل المتقد&مة"
 msgid "&Scan Files"
 msgstr "م&سح الملفات"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "خطأ في مسح البيانات: %1"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2021-01-18 19:01+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1129,12 +1129,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "Rem. நேரம்"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "கேள்வி"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr ""
@@ -1940,7 +1940,7 @@ msgid_plural ""
 msgstr[0] "\"நீங்கள் கண்டிப்பாக இந்த மாற்றத்தை நீக்க வேண்டுமா?\""
 msgstr[1] "\"நீங்கள் கண்டிப்பாக இந்த மாற்றத்தை நீக்க வேண்டுமா?\""
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1948,17 +1948,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "திறந்த மாற்றல்"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "இறக்குதல் திரும்ப தொடங்கியது "
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "திறந்த மாற்றல்"
@@ -2769,7 +2769,7 @@ msgstr "இறக்குதல் திரும்ப தொடங்கி�
 msgid "Cannot add a tracker to a private torrent."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, fuzzy, kde-format
 #| msgid ""
 #| "Folder does not exist:\n"
@@ -2779,17 +2779,17 @@ msgstr ""
 "இந்த அடைவு இல்லை:\n"
 "%1"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, fuzzy, kde-format
 msgid "Analyzing torrent...."
 msgstr "இறக்குதல் திரும்ப தொடங்கியது "
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr ""
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, fuzzy, kde-format
 #| msgid "Scheduling"
 msgctxt "Transfer status: seeding"
@@ -2812,7 +2812,7 @@ msgstr "கூடுதல் தேர்வுகள்"
 msgid "&Scan Files"
 msgstr "கோப்பினை திற"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr ""

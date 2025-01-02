@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-23 00:40+0000\n"
+"POT-Creation-Date: 2025-01-02 00:40+0000\n"
 "PO-Revision-Date: 2024-05-28 12:43+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -1116,12 +1116,12 @@ msgctxt "remaining time of download"
 msgid "Remaining Time"
 msgstr "זמן שנותר"
 
-#: core/urlchecker.cpp:51
+#: core/urlchecker.cpp:50
 #, kde-format
 msgid "Question"
 msgstr "שאלה"
 
-#: core/urlchecker.cpp:61
+#: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
 msgstr "החלה על ה&כול"
@@ -1910,7 +1910,7 @@ msgstr[1] "למחוק את ההעברות הנבחרות על קבציהן?"
 msgstr[2] "למחוק את ההעברות הנבחרות על קבציהן?"
 msgstr[3] "למחוק את ההעברות הנבחרות על קבציהן?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1072
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1920,17 +1920,17 @@ msgstr ""
 "KGet הושבת זמנית כמנהל ההורדה של Konqueror. כדי להשבית אותו לצמיתות, יש לגשת "
 "אל הגדרות -> מתקדם ולהשבית את „להשתמש כמנהל ההורדות של Konqueror”."
 
-#: mainwindow.cpp:1188 ui/droptarget.cpp:215
+#: mainwindow.cpp:1187 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "הקובץ שנגרר הוא רשימת העברות של KGet"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:217
+#: mainwindow.cpp:1189 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "הו&רדה"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:218
+#: mainwindow.cpp:1190 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&טעינת רשימת העברות"
@@ -2734,22 +2734,22 @@ msgstr "מתבצעת הורדה…"
 msgid "Cannot add a tracker to a private torrent."
 msgstr "לא ניתן להוסיף עוקב לטורנט פרטי."
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:408
+#: transfer-plugins/bittorrent/bttransfer.cpp:410
 #, kde-format
 msgid "Torrent file does not exist"
 msgstr "קובץ הטורנט לא קיים"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:415
+#: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
 msgstr "הטורנט מפוענח…"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:431
+#: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
 msgstr "לא ניתן להקים פתחה…"
 
-#: transfer-plugins/bittorrent/bttransfer.cpp:501
+#: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
@@ -2770,7 +2770,7 @@ msgstr "&פרטים מתקדמים"
 msgid "&Scan Files"
 msgstr "&סריקת קבצים"
 
-#: transfer-plugins/bittorrent/scandlg.cpp:105
+#: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
 msgstr "שגיאה בסריקת נתונים: %1"
