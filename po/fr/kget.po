@@ -17,7 +17,7 @@
 # Nicolas Ternisien <nicolas.ternisien@gmail.com>, 2005, 2006, 2008, 2010.
 # Nicolas Ternisien <nternisien@meilleurtaux.com>, 2008.
 # Guillaume Pujol <guill.p@gmail.com>, 2008, 2012.
-# SPDX-FileCopyrightText: 2013, 2024 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2013, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
 # Vincent PINON <vpinon@kde.org>, 2014, 2017.
 # Simon Depiets <sdepiets@gmail.com>, 2018, 2019.
 # SPDX-FileCopyrightText: 2021, 2022, 2023 Xavier Besnard <xavier.besnard@kde.org>
@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-27 00:39+0000\n"
-"PO-Revision-Date: 2024-08-16 13:43+0200\n"
+"PO-Revision-Date: 2025-01-06 11:55+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -2757,7 +2757,7 @@ msgstr "Dossier temporaire par défaut :"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
 #, kde-format
 msgid "Pre-allocate disk space"
-msgstr "Pré-allouer l'espace disque"
+msgstr "Préallouer l'espace disque"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
 #, kde-format
