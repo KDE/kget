@@ -184,6 +184,7 @@ Comment[id]=KGet adalah download manager yang serbaguna dan mudah digunakan
 Comment[it]=KGet è un gestore di scaricamenti versatile e facile da utilizzare
 Comment[ka]=KGet გაფართოებადი და მეგობრული გადმოწერების მმართველია
 Comment[ko]=KGet은 기능이 다양하고 사용하기 편리한 다운로드 관리자입니다
+Comment[lv]=„KGet“ ir daudzpusīgs un lietotājam draudzīgs lejupielāžu pārvaldnieks
 Comment[nl]=KGet is een veelzijdige en gebruikersvriendelijke downloadbeheerder
 Comment[pl]=KGet jest wszechstronnym i przyjaznym użytkownikowi programem do zarządzania pobieraniem
 Comment[pt]=O KGet é um gestor de transferências de ficheiros simples e versátil de usar
