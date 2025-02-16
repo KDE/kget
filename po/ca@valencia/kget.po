@@ -582,7 +582,7 @@ msgid ""
 "settings or restart KGet and retry downloading."
 msgstr ""
 "No s'ha trobat cap servidor de claus útil, la clau no ha baixat. Afegiu més "
-"servidors a la configuració o reinicieu KGet i torneu a intentar la baixada."
+"servidors a la configuració o reinicieu KGet i torneu a provar la baixada."
 
 #: core/kget.cpp:114
 #, kde-format
@@ -993,7 +993,7 @@ msgstr ""
 #: core/signature.cpp:257
 #, kde-format
 msgid "Signature not verified"
-msgstr "Signatura no verificada"
+msgstr "Signatura sense verificar"
 
 #: core/transfer.cpp:29
 msgid "Downloading...."
