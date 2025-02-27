@@ -53,9 +53,9 @@ public:
             auto *wrapper = new DBusKGetWrapper(kget);
             new MainAdaptor(wrapper);
             QDBusConnection::sessionBus().registerObject("/KGet", wrapper);
-        } else {
+        } else if (!parser->isSet("hideMainWindow")) {
             // activate window if it is already open
-            kget->setAttribute(Qt::WA_NativeWindow, true);
+            kget->show();
             KWindowSystem::updateStartupId(kget->windowHandle());
             KWindowSystem::activateWindow(kget->windowHandle());
         }
