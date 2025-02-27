@@ -571,6 +571,7 @@ void MainWindow::slotQuit()
     }
 
     Settings::self()->save();
+    m_isQuitting = true;
     qApp->quit();
 }
 
@@ -1164,7 +1165,8 @@ void MainWindow::closeEvent(QCloseEvent *e)
 
 void MainWindow::hideEvent(QHideEvent *)
 {
-    Settings::setShowMain(false);
+    if (!m_isQuitting)
+        Settings::setShowMain(false);
 }
 
 void MainWindow::showEvent(QShowEvent *)

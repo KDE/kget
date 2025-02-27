@@ -148,6 +148,7 @@ private:
     QTimer *clipboardTimer = nullptr;
 
     bool m_startWithoutAnimation;
+    bool m_isQuitting = false;
     bool m_doTesting; // UnitTest flag
 
     // HttpServer *m_webinterface;
