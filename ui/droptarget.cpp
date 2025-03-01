@@ -119,14 +119,13 @@ DropTarget::DropTarget(MainWindow *mw)
 DropTarget::~DropTarget()
 {
     Settings::setDropPosition(pos());
-    Settings::setShowDropTarget(!isHidden());
     Settings::self()->save();
     //    unsigned long state = KWindowSystem::windowInfo(kdrop->winId()).state();
     //    // state will be 0L if droptarget is hidden. Sigh.
     //    config->writeEntry("State", state ? state : DEFAULT_DOCK_STATE );
 }
 
-void DropTarget::setDropTargetVisible(bool shown, bool internal)
+void DropTarget::setDropTargetVisible(bool shown, bool internal, bool startWithoutAnimation)
 {
     if (shown == !isHidden())
         return;
@@ -142,7 +141,7 @@ void DropTarget::setDropTargetVisible(bool shown, bool internal)
         else
             hide();
     } else {
-        if (Settings::animateDropTarget()) {
+        if (Settings::animateDropTarget() && !startWithoutAnimation) {
             playAnimationShow();
         } else {
             move(position);

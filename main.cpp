@@ -45,9 +45,9 @@ public:
     {
         if (!kget) {
 #ifdef DEBUG
-            kget = new MainWindow(!parser->isSet("hideMainWindow"), parser->isSet("startWithoutAnimation"), parser->isSet("test"));
+            kget = new MainWindow(!parser->isSet("hideMainWindow"), parser->isSet("showDropTarget"), parser->isSet("startWithoutAnimation"), parser->isSet("test"));
 #else
-            kget = new MainWindow(!parser->isSet("hideMainWindow"), parser->isSet("startWithoutAnimation"), false);
+            kget = new MainWindow(!parser->isSet("hideMainWindow"), parser->isSet("showDropTarget"), parser->isSet("startWithoutAnimation"), false);
 #endif
 
             auto *wrapper = new DBusKGetWrapper(kget);
@@ -59,9 +59,6 @@ public:
             KWindowSystem::updateStartupId(kget->windowHandle());
             KWindowSystem::activateWindow(kget->windowHandle());
         }
-
-        if (parser->isSet("showDropTarget"))
-            Settings::setShowDropTarget(true);
 
         QList<QUrl> l;
         const QStringList args = parser->positionalArguments();

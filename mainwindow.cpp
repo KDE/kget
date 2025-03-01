@@ -64,11 +64,12 @@
 #include <QTest>
 #endif
 
-MainWindow::MainWindow(bool showMainwindow, bool startWithoutAnimation, bool doTesting, QWidget *parent)
+MainWindow::MainWindow(bool showMainwindow, bool showDropTarget, bool startWithoutAnimation, bool doTesting, QWidget *parent)
     : KXmlGuiWindow(parent)
     , m_drop(nullptr)
     , m_dock(nullptr)
     , clipboardTimer(nullptr)
+    , m_showDropTarget(showDropTarget)
     , m_startWithoutAnimation(startWithoutAnimation)
     , m_doTesting(doTesting) /*,
        m_webinterface(nullptr)*/
@@ -447,8 +448,8 @@ void MainWindow::init()
         Settings::setFirstRun(false);
     }
 
-    if (Settings::showDropTarget() && !m_startWithoutAnimation)
-        m_drop->setDropTargetVisible(true);
+    if (Settings::showDropTarget() || m_showDropTarget)
+        m_drop->setDropTargetVisible(true, false, m_startWithoutAnimation);
 
     // auto paste stuff
     lastClipboard = QApplication::clipboard()->text(QClipboard::Clipboard).trimmed();

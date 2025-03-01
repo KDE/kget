@@ -39,7 +39,7 @@ class MainWindow : public KXmlGuiWindow
 
     Q_OBJECT
 public:
-    explicit MainWindow(bool showMainwindow = true, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = nullptr);
+    explicit MainWindow(bool showMainwindow = true, bool showDropTarget = false, bool startWithoutAnimation = false, bool doTesting = false, QWidget *parent = nullptr);
     ~MainWindow() override;
 
     virtual void setSystemTrayDownloading(bool running);
@@ -147,6 +147,7 @@ private:
     // timer for checking clipboard - autopaste function
     QTimer *clipboardTimer = nullptr;
 
+    bool m_showDropTarget;
     bool m_startWithoutAnimation;
     bool m_isQuitting = false;
     bool m_doTesting; // UnitTest flag
