@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2010-03-04 21:36+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -2056,46 +2056,46 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "ยืนยันการออก"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "ส่งออกรายการถ่ายโอน"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "รายการการถ่ายโอนของ KGet"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, fuzzy, kde-format
 #| msgid "Move File"
 msgid "Text File"
 msgstr "ย้ายแฟ้ม"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "ป้อนชื่อกลุ่ม"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "ชื่อกลุ่ม:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "คุณแน่ใจหรือว่าต้องการจะลบการส่งถ่ายข้อมูลตัวที่เลือกไว้ออกไป ?"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "ยืนยันการลบการส่งถ่ายข้อมูล"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to delete the selected transfer?"
 #| msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -2104,7 +2104,7 @@ msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "คุณแน่ใจหรือว่าต้องการจะลบการส่งถ่ายข้อมูลตัวที่เลือกไว้ออกไป ?"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -2115,17 +2115,17 @@ msgstr ""
 "ถ้าคุณต้องการปิดความสามารถนี้ตลอดไป ให้ไปที่ การตั้งค่า -> เพิ่มเติม และปิดตัวเลือก "
 "\"ใช้เป็นตัวจัดการการดาวน์โหลดของคอนเควอร์เรอร์\""
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "แฟ้มที่หย่อนลงมาเป็นแฟ้มรายการถ่ายโอนของ 'ช่วยดาวน์โหลด-K'"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&ดาวน์โหลด"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "เ&รียกรายการการถ่ายโอน"

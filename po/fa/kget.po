@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2007-09-03 12:28+0330\n"
 "Last-Translator: Nazanin Kazemi <kazemi@itland.ir>\n"
 "Language-Team: Persian <kde-i18n-fa@kde.org>\n"
@@ -1869,34 +1869,34 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "تأیید خروج"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "صادرات انتقالها"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "فهرست انتقال KGet"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, fuzzy, kde-format
 msgid "Text File"
 msgstr "باز کردن پرونده"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "نام گروه را وارد کنید"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "نام گروه:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1908,12 +1908,12 @@ msgstr[0] ""
 "گروه با نام %1 را حذف کنید؟"
 msgstr[1] ""
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "فهرست انتقال KGet"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1926,7 +1926,7 @@ msgstr[0] ""
 "گروه با نام %1 را حذف کنید؟"
 msgstr[1] ""
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1934,18 +1934,18 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 #| msgid "KGet Transfer List"
 msgid "The dropped file is a KGet Transfer List"
 msgstr "فهرست انتقال KGet"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "&بارگیریها‌"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "فهرست انتقال KGet"

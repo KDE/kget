@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2024-11-10 12:49+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -1853,45 +1853,45 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "Потвърждение на излизането"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Експортиране на трансфери"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Списък с трансфери на KGet"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "Text File"
 msgstr "Текстов файл"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Въведете име на групата"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "Име на група:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Наистина ли искате да изтриете избрания трансфер?"
 msgstr[1] "Наистина ли искате да изтриете избраните трансфери?"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Потвърждаване на изтриването на трансфера"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1903,7 +1903,7 @@ msgstr[1] ""
 "Сигурни ли сте, че искате да изтриете избраните трансфери, включително и "
 "файловете?"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1914,17 +1914,17 @@ msgstr ""
 "искате да го изключите за постоянно, отидете до Настройки-> Интеграция и "
 "деактивирайте \"Използване като мениджър на изтегляния на Konqueror\"."
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Завлеченият файл е трансферен списък на KGet"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Изтегляне"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Зареждане на списък с трансфери"

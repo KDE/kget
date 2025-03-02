@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2007-02-26 22:30+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -1900,33 +1900,33 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr ""
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "&Изнеси ја листата за пренос..."
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, fuzzy, kde-format
 msgid "KGet Transfer List"
 msgstr "Отворам пренос:"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, fuzzy, kde-format
 msgid "Text File"
 msgstr "Отвори &датотека"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, fuzzy, kde-format
 msgid "Enter Group Name"
 msgstr "Божидар Проевски"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, fuzzy, kde-format
 msgid "Group name:"
 msgstr "Божидар Проевски"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to delete this transfer?"
 msgid "Are you sure you want to delete the selected transfer?"
@@ -1935,12 +1935,12 @@ msgstr[0] "Дали навистина сакате да го избришете
 msgstr[1] "Дали навистина сакате да го избришете овој пренос?"
 msgstr[2] "Дали навистина сакате да го избришете овој пренос?"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "Отворам пренос:"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to delete this transfer?"
 msgid "Are you sure you want to delete the selected transfer including files?"
@@ -1950,7 +1950,7 @@ msgstr[0] "Дали навистина сакате да го избришете
 msgstr[1] "Дали навистина сакате да го избришете овој пренос?"
 msgstr[2] "Дали навистина сакате да го избришете овој пренос?"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1958,17 +1958,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Отворам пренос:"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 msgid "&Download"
 msgstr "Симнувањето е продолжено"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "Отворам пренос:"

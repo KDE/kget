@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2024-06-18 19:48+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1861,45 +1861,45 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "Bekräfta avslutning"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Exportera överföringar"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Kget överföringslista"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "Text File"
 msgstr "Textfil"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Ange gruppens namn"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "Gruppnamn:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Är du säker på att du vill ta bort den markerade överföringen?"
 msgstr[1] "Är du säker på att du vill ta bort de markerade överföringarna?"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Bekräfta borttagning av överföringar"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1911,7 +1911,7 @@ msgstr[1] ""
 "Är du säker på att du vill ta bort de markerade överföringarna inklusive "
 "filer?"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1922,17 +1922,17 @@ msgstr ""
 "du vill inaktivera det permanent, gå till Inställningar -> Avancerat och "
 "inaktivera \"Använd som nerladdningshanterare i Konqueror\"."
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Den släppta filen är en överföringslista för Kget"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "Ladda &ner"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Ladda överföringslista"

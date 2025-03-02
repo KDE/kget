@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2014-04-28 17:48+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -1851,45 +1851,45 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "Bekreft avslutning"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr ""
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet overføringsliste"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "Text File"
 msgstr "Tekstfil"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Skriv inn gruppenavn"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "Gruppenavn:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Er du sikker på at du vil slette den valgte overføringen?"
 msgstr[1] "Er du sikker på at du vil slette de valgte overføringene?"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Bekreft sletting av overføring"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1897,7 +1897,7 @@ msgid_plural ""
 msgstr[0] "Er du sikker på at du vil slette den valgte overføringen og filene?"
 msgstr[1] "Er du sikker på at du vil slette de valgte overføringene og filene?"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1908,17 +1908,17 @@ msgstr ""
 "vil slå den av for godt må du gå til Innstillinger->Avansert og fjerne "
 "avkrysningen i «Bruk KGet som nedlastingsbehandler for Konqueror»."
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Fila som ble sluppet er en KGet-overføringsliste"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Last ned"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Last inn overføringsliste"

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2024-05-12 16:11+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1886,33 +1886,33 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "Подтвердите выход"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Экспорт списка загрузок"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Список загрузок Kget"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "Text File"
 msgstr "Текстовый файл"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Введите имя группы"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "Имя группы:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1921,12 +1921,12 @@ msgstr[1] "Вы действительно хотите удалить выбр�
 msgstr[2] "Вы действительно хотите удалить выбранные загрузки?"
 msgstr[3] "Вы действительно хотите удалить выбранную загрузку?"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Подтвердить удаление загрузки"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1936,7 +1936,7 @@ msgstr[1] "Вы действительно хотите удалить выбр�
 msgstr[2] "Вы действительно хотите удалить выбранные загрузки, включая файлы?"
 msgstr[3] "Вы действительно хотите удалить выбранную загрузку, включая файлы?"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1947,17 +1947,17 @@ msgstr ""
 "отключить его окончательно, зайдите в Настройка->Расширенные и снимите "
 "флажок с «Использовать KGet в качестве диспетчера загрузок в Konqueror»"
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Сброшенный файл - список загрузок KGet"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Загрузки"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "Откр&ыть список загрузок"

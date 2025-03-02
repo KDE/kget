@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2023-12-06 19:04+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -1867,33 +1867,33 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "Potvrdiť ukončenie"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Exportovať prenosy"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Zoznam prenosov KGet"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "Text File"
 msgstr "Textový súbor"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Zadajte názov skupiny"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "Názov skupiny:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1901,12 +1901,12 @@ msgstr[0] "Ste si istý, že chcete odstrániť vybraný prenos?"
 msgstr[1] "Ste si istý, že chcete odstrániť vybrané prenosy?"
 msgstr[2] "Ste si istý, že chcete odstrániť vybrané prenosy?"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Potvrdiť odstránenie prenosu"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1915,7 +1915,7 @@ msgstr[0] "Ste si istý, že chcete odstrániť vybraný prenos vrátane súboro
 msgstr[1] "Ste si istý, že chcete odstrániť vybrané prenosy vrátane súborov?"
 msgstr[2] "Ste si istý, že chcete odstrániť vybrané prenosy vrátane súborov?"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1926,17 +1926,17 @@ msgstr ""
 "vypnúť navždy, choďte do Nastavenie->Pokročilé a vypnite \"Použiť KGet ako "
 "správcu sťahovania pre Konqueror\"."
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Pustený súbor je zoznam prenosov KGet"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "&Stiahnuť"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Načítať zoznam prenosov"

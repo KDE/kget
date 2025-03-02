@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-02 00:40+0000\n"
 "PO-Revision-Date: 2024-03-28 10:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1859,33 +1859,33 @@ msgstr ""
 msgid "Confirm Quit"
 msgstr "تأكيد الإنهاء"
 
-#: mainwindow.cpp:592
+#: mainwindow.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "صدّر عمليات النقل"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "قائمة عمليات نقل كجت"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:595
 #, kde-format
 msgid "Text File"
 msgstr "ملف نصي"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Enter Group Name"
 msgstr "أدخل اسم المجموعة"
 
-#: mainwindow.cpp:623
+#: mainwindow.cpp:624
 #, kde-format
 msgid "Group name:"
 msgstr "اسم المجموعة:"
 
-#: mainwindow.cpp:707
+#: mainwindow.cpp:708
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1896,12 +1896,12 @@ msgstr[3] "أمتأكد أنك تريد حذف عمليات النقل المح�
 msgstr[4] "أمتأكد أنك تريد حذف عمليات النقل المحددة؟"
 msgstr[5] "أمتأكد أنك تريد حذف عمليات النقل المحددة؟"
 
-#: mainwindow.cpp:710 mainwindow.cpp:741
+#: mainwindow.cpp:711 mainwindow.cpp:742
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "أكّد حذف النقل"
 
-#: mainwindow.cpp:738
+#: mainwindow.cpp:739
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1913,7 +1913,7 @@ msgstr[3] "أمتأكد أنك تريد حذف عمليات النقل المح�
 msgstr[4] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
 msgstr[5] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
 
-#: mainwindow.cpp:1072
+#: mainwindow.cpp:1073
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1923,17 +1923,17 @@ msgstr ""
 "كجت معطل مؤقتًا كمدير تنزيل لكنكرر. إذا أردت تعطيله إلى الأبد، اذهب إلى "
 "إعدادات -> متقدمة وعطل \"استعمل كمدير التنزيل لكنكرر\""
 
-#: mainwindow.cpp:1187 ui/droptarget.cpp:215
+#: mainwindow.cpp:1189 ui/droptarget.cpp:215
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "الملف المُسقط هو قائمة عمليات نقل لكجت"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:217
+#: mainwindow.cpp:1191 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Download"
 msgstr "ن&زّل"
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:218
+#: mainwindow.cpp:1192 ui/droptarget.cpp:218
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&حمّل قائمة عمليات النقل"
