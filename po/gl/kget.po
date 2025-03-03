@@ -2387,7 +2387,7 @@ msgstr "Se o parceiro ten DHT activado ou non"
 msgid ""
 "The score of the peer. KTorrent uses this to determine who to upload to."
 msgstr ""
-"A puntuación do parceiro. KTorrent usa isto para determinar a quen enviar."
+"A puntuación do parceiro. KTorrent usa isto para determinar a quen subir."
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:377
 #, kde-format
