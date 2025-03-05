@@ -1609,13 +1609,13 @@ msgstr "Entwurf der Web-Oberfläche"
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Panagiotis Papadopoulos,Thomas Reitelbach"
+msgstr "Deutsches KDE-Übersetzungsteam"
 
 #: main.cpp:123
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "pano_90@gmx.net,tr@erdfunkstelle.de"
+msgstr "kde-i18n-de@kde.org"
 
 #: main.cpp:132
 #, kde-format
