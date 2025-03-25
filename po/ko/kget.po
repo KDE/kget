@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-25 00:41+0000\n"
 "PO-Revision-Date: 2024-08-21 00:34+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -57,7 +57,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "모든 다운로드가 완료되었을 때 실행할 동작:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:361 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "KGet 끝내기"
@@ -336,17 +336,17 @@ msgstr "XML"
 msgid "Sqlite"
 msgstr "SQLite"
 
-#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:366
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "컴퓨터 끄기"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:371
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "최대 절전 모드로 전환"
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
 msgstr "절전 모드로 전환"
@@ -919,7 +919,7 @@ msgstr "<p>모든 전송이 완료되었습니다.</p>"
 msgid "Downloads completed"
 msgstr "다운로드 완료됨"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:96 mainwindow.cpp:96 mainwindow.cpp:518
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1429,12 +1429,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "검증됨"
 
-#: main.cpp:101
+#: main.cpp:98
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "KDE 고급 다운로드 관리자"
 
-#: main.cpp:103
+#: main.cpp:100
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1447,221 +1447,221 @@ msgstr ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 
-#: main.cpp:107
+#: main.cpp:104
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "관리자, 코어 개발자, 토렌트 플러그인 작성자"
 
-#: main.cpp:110
+#: main.cpp:107
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:110 main.cpp:111 main.cpp:113
+#: main.cpp:107 main.cpp:108 main.cpp:110
 #, kde-format
 msgid "Core Developer"
 msgstr "코어 개발자"
 
-#: main.cpp:111
+#: main.cpp:108
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "코어 개발자, 다중 스레드 플러그인 작성자"
 
-#: main.cpp:113
+#: main.cpp:110
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Developer"
 msgstr "개발자"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "Aish Raj Dahal"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "Google Summer of Code 학생"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodriguez Ortiz"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "MMS 플러그인 작성자"
 
-#: main.cpp:117
+#: main.cpp:114
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:117 main.cpp:118 main.cpp:119
+#: main.cpp:114 main.cpp:115 main.cpp:116
 #, kde-format
 msgid "Former Developer"
 msgstr "이전 개발자"
 
-#: main.cpp:118
+#: main.cpp:115
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:119
+#: main.cpp:116
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "BTCore(KTorrent) 개발자"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "웹 인터페이스 디자인"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "박신조"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: main.cpp:132
+#: main.cpp:129
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "KGet을 떨어트리기 영역으로 시작"
 
-#: main.cpp:133
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "KGet 주 창을 숨기고 시작"
 
-#: main.cpp:134
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "KGet 떨어트리기 영역의 애니메이션 없이 시작"
 
-#: main.cpp:136
+#: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "유닛 테스트"
 
-#: main.cpp:138
+#: main.cpp:135
 #, kde-format
 msgid "URL(s) to download"
 msgstr "다운로드할 URL"
 
-#: mainwindow.cpp:146
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr "새 다운로드(&N)..."
 
-#: mainwindow.cpp:153
+#: mainwindow.cpp:154
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "전송 목록 가져오기(&I)..."
 
-#: mainwindow.cpp:160
+#: mainwindow.cpp:161
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "전송 목록 내보내기(&E)..."
 
-#: mainwindow.cpp:167
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "메타링크 만들기(&C)..."
 
-#: mainwindow.cpp:173
+#: mainwindow.cpp:174
 #, kde-format
 msgid "Top Priority"
 msgstr "가장 높은 순위"
 
-#: mainwindow.cpp:180
+#: mainwindow.cpp:181
 #, kde-format
 msgid "Least Priority"
 msgstr "가장 낮은 순위"
 
-#: mainwindow.cpp:187
+#: mainwindow.cpp:188
 #, kde-format
 msgid "Increase Priority"
 msgstr "우선 순위 증가"
 
-#: mainwindow.cpp:194
+#: mainwindow.cpp:195
 #, kde-format
 msgid "Decrease Priority"
 msgstr "우선 순위 감소"
 
-#: mainwindow.cpp:202
+#: mainwindow.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "그룹 삭제"
 
-#: mainwindow.cpp:208
+#: mainwindow.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "그룹 이름 바꾸기..."
 
-#: mainwindow.cpp:213
+#: mainwindow.cpp:214
 #, kde-format
 msgid "Set Icon..."
 msgstr "아이콘 설정..."
 
-#: mainwindow.cpp:218
+#: mainwindow.cpp:219
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "자동 붙여넣기 모드"
 
-#: mainwindow.cpp:222
+#: mainwindow.cpp:223
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1671,117 +1671,117 @@ msgstr ""
 "<b>자동 붙여넣기</b> 단추는 자동 붙여넣기 모드를 켜거나 끕니다.\n"
 "사용할 경우에는 KGet에서 자동으로 클립보드의 URL을 검색하여 붙여넣습니다."
 
-#: mainwindow.cpp:227
+#: mainwindow.cpp:228
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "KGet을 Konqueror 다운로드 관리자로 사용하기"
 
-#: mainwindow.cpp:245
+#: mainwindow.cpp:246
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "선택한 항목 삭제"
 
-#: mainwindow.cpp:252
+#: mainwindow.cpp:253
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "모든 완료된 항목 삭제"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:259
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "선택한 항목과 파일 삭제"
 
-#: mainwindow.cpp:264
+#: mainwindow.cpp:265
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "선택한 항목 다시 다운로드"
 
-#: mainwindow.cpp:269
+#: mainwindow.cpp:270
 #, kde-format
 msgid "Start All"
 msgstr "모두 시작"
 
-#: mainwindow.cpp:276
+#: mainwindow.cpp:277
 #, kde-format
 msgid "Start Selected"
 msgstr "선택한 항목 시작"
 
-#: mainwindow.cpp:282
+#: mainwindow.cpp:283
 #, kde-format
 msgid "Pause All"
 msgstr "모두 일시 정지"
 
-#: mainwindow.cpp:289
+#: mainwindow.cpp:290
 #, kde-format
 msgid "Stop Selected"
 msgstr "선택 항목 정지"
 
-#: mainwindow.cpp:294
+#: mainwindow.cpp:295
 #, kde-format
 msgid "Start"
 msgstr "시작"
 
-#: mainwindow.cpp:301
+#: mainwindow.cpp:302
 #, kde-format
 msgid "Pause"
 msgstr "일시 정지"
 
-#: mainwindow.cpp:309
+#: mainwindow.cpp:310
 #, kde-format
 msgid "Open Destination"
 msgstr "대상 열기"
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:315
 #, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
-#: mainwindow.cpp:318
+#: mainwindow.cpp:319
 #, kde-format
 msgid "Show Details"
 msgstr "자세한 정보 표시"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:324
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "URL을 클립보드에 복사"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:329
 #, kde-format
 msgid "&Transfer History"
 msgstr "전송 기록(&T)"
 
-#: mainwindow.cpp:334
+#: mainwindow.cpp:335
 #, kde-format
 msgid "&Group Settings"
 msgstr "그룹 설정(&G)"
 
-#: mainwindow.cpp:340
+#: mainwindow.cpp:341
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "전송 설정(&T)"
 
-#: mainwindow.cpp:346
+#: mainwindow.cpp:347
 #, kde-format
 msgid "Import &Links..."
 msgstr "링크 가져오기(&L)..."
 
-#: mainwindow.cpp:352
+#: mainwindow.cpp:353
 #, kde-format
 msgid "After downloads finished action"
 msgstr "다운로드가 끝난 후 동작"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:356
+#: mainwindow.cpp:357
 #, kde-format
 msgid "No Action"
 msgstr "동작 없음"
 
-#: mainwindow.cpp:433
+#: mainwindow.cpp:434
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1790,39 +1790,39 @@ msgstr ""
 "KGet을 처음으로 실행했습니다.\n"
 "Konqueror의 다운로드 관리자로 KGet을 사용하시겠습니까?"
 
-#: mainwindow.cpp:435
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror 통합"
 
-#: mainwindow.cpp:436
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Enable"
 msgstr "사용함"
 
-#: mainwindow.cpp:437
+#: mainwindow.cpp:438
 #, kde-format
 msgid "Do Not Enable"
 msgstr "사용하지 않음"
 
-#: mainwindow.cpp:498
+#: mainwindow.cpp:499
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "파일 열기"
 
-#: mainwindow.cpp:500
+#: mainwindow.cpp:501
 #, kde-format
 msgid "All Openable Files"
 msgstr "모든 열 수 있는 파일"
 
-#: mainwindow.cpp:515
+#: mainwindow.cpp:516
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:563
+#: mainwindow.cpp:564
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1831,56 +1831,56 @@ msgstr ""
 "일부 파일이 전송 중입니다.\n"
 "KGet을 닫으시겠습니까?"
 
-#: mainwindow.cpp:565
+#: mainwindow.cpp:566
 #, kde-format
 msgid "Confirm Quit"
 msgstr "종료 확인"
 
-#: mainwindow.cpp:593
+#: mainwindow.cpp:594
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "전송 목록 내보내기"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet 전송 목록"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "Text File"
 msgstr "텍스트 파일"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Enter Group Name"
 msgstr "그룹 이름 입력"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Group name:"
 msgstr "그룹 이름:"
 
-#: mainwindow.cpp:708
+#: mainwindow.cpp:709
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "선택한 전송 항목을 삭제하시겠습니까?"
 
-#: mainwindow.cpp:711 mainwindow.cpp:742
+#: mainwindow.cpp:712 mainwindow.cpp:743
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "전송 항목 삭제 확인"
 
-#: mainwindow.cpp:739
+#: mainwindow.cpp:740
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "선택한 전송 항목과 파일을 같이 삭제하시겠습니까?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1074
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1891,17 +1891,17 @@ msgstr ""
 "영원히 비활성화시키시려면 설정->고급에서 \"Konqueror 다운로드 관리자로 사용"
 "\"을 비활성화시키십시오."
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:215
+#: mainwindow.cpp:1190 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "떨어트린 파일이 KGet 전송 목록입니다"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:217
+#: mainwindow.cpp:1192 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "다운로드(&D)"
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:218
+#: mainwindow.cpp:1193 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "전송 목록 불러오기(&L)"
@@ -3115,39 +3115,39 @@ msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "위치 고정"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Show Main Window"
 msgstr "주 창 표시"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Hide Main Window"
 msgstr "주 창 숨기기"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "Drop Target"
 msgstr "떨어트리기 영역"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "다운로드 링크를 떨어트리기 영역에 끌어다 놓을 수 있습니다."
 
-#: ui/droptarget.cpp:388
+#: ui/droptarget.cpp:387
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1(%2) %3"
 
-#: ui/droptarget.cpp:395
+#: ui/droptarget.cpp:394
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1(%2% %3/%4) 속도: %5/초"
 
-#: ui/droptarget.cpp:404
+#: ui/droptarget.cpp:403
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3155,7 +3155,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1(%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:418
+#: ui/droptarget.cpp:417
 #, kde-format
 msgid "Ready"
 msgstr "준비"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-25 00:41+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -58,7 +58,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "सर्वेषां डाउनलोड् समाप्तेः अनन्तरं क्रियां निष्पादयन्तु:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:361 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "KGet त्यजतु"
@@ -337,17 +337,17 @@ msgstr "Xml"
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:366
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "कम्प्यूटरं निष्क्रियं कुर्वन्तु"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:371
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "हाइबरनेट कम्प्यूटर"
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
 msgstr "कम्प्यूटर निलम्बित करें"
@@ -927,7 +927,7 @@ msgstr "<p>सर्वाणि स्थानान्तरणानि स�
 msgid "Downloads completed"
 msgstr "डाउनलोड् सम्पन्नम्"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:96 mainwindow.cpp:96 mainwindow.cpp:518
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1437,12 +1437,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "सत्यापित"
 
-#: main.cpp:101
+#: main.cpp:98
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "KDE द्वारा एकः उन्नतः डाउनलोड् प्रबन्धकः"
 
-#: main.cpp:103
+#: main.cpp:100
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1455,221 +1455,221 @@ msgstr ""
 "(ग) 2002, कार्स्टेन फीफर\n"
 "(ग) 1998 - 2000, मतेज कोस"
 
-#: main.cpp:107
+#: main.cpp:104
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org इति</a>"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "लुकास एप्पलहान्स"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "अनुरक्षणकर्ता, कोर विकासक, टोरेंट प्लगिन् लेखक"
 
-#: main.cpp:110
+#: main.cpp:107
 #, kde-format
 msgid "Dario Massarin"
 msgstr "डारियो मस्सारिन्"
 
-#: main.cpp:110 main.cpp:111 main.cpp:113
+#: main.cpp:107 main.cpp:108 main.cpp:110
 #, kde-format
 msgid "Core Developer"
 msgstr "कोर डेवलपर"
 
-#: main.cpp:111
+#: main.cpp:108
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "उर्स वोल्फर"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "मनोलो वाल्डेस्"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "कोर डेवलपर, मल्टीथ्रेडेड प्लगइन लेखक"
 
-#: main.cpp:113
+#: main.cpp:110
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "मथियस फुच्स"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Javier Goday"
 msgstr "जेवियर गोडे"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Developer"
 msgstr "विकासकः"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "ऐश राज दाहाल"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "कोड छात्रस्य गूगल ग्रीष्मकालः"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "अर्नेस्टो रोड्रिग्ज ओर्टिज्"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "Mms प्लगइन लेखक"
 
-#: main.cpp:117
+#: main.cpp:114
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "पैट्रिक चार्बोनियर"
 
-#: main.cpp:117 main.cpp:118 main.cpp:119
+#: main.cpp:114 main.cpp:115 main.cpp:116
 #, kde-format
 msgid "Former Developer"
 msgstr "पूर्व विकासक"
 
-#: main.cpp:118
+#: main.cpp:115
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "कार्स्टेन फीफर"
 
-#: main.cpp:119
+#: main.cpp:116
 #, kde-format
 msgid "Matej Koss"
 msgstr "मतेज कोस्स"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "Joris Guisson"
 msgstr "जोरिस् गुइसन"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "BTCore (KTorrent) विकासकः"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "मेन्सुर जाहिरोविच् (नूकी)"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "जाल-अन्तरफलकस्य डिजाइनम्"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "श्रीकान्त् कलवार्"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "skkalwar999@gmail.com"
 
-#: main.cpp:132
+#: main.cpp:129
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "KGet इत्येतत् drop target इत्यनेन आरभत"
 
-#: main.cpp:133
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "गुप्त मुख्यविण्डो सह KGet आरभत"
 
-#: main.cpp:134
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "ड्रॉप् टार्गेट एनिमेशनं विना KGet आरभत"
 
-#: main.cpp:136
+#: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "यूनिट टेस्टिंग् निष्पादयन्तु"
 
-#: main.cpp:138
+#: main.cpp:135
 #, kde-format
 msgid "URL(s) to download"
 msgstr "डाउनलोड् कर्तुं URL(s)"
 
-#: mainwindow.cpp:146
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr "&नव डाउनलोड..."
 
-#: mainwindow.cpp:153
+#: mainwindow.cpp:154
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "&आयात स्थानांतरण..."
 
-#: mainwindow.cpp:160
+#: mainwindow.cpp:161
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "&निर्यात स्थानान्तरणसूची..."
 
-#: mainwindow.cpp:167
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "&एकं मेटालिङ्कं रचयन्तु..."
 
-#: mainwindow.cpp:173
+#: mainwindow.cpp:174
 #, kde-format
 msgid "Top Priority"
 msgstr "सर्वोच्च प्राथमिकता"
 
-#: mainwindow.cpp:180
+#: mainwindow.cpp:181
 #, kde-format
 msgid "Least Priority"
 msgstr "न्यूनतम प्राथमिकता"
 
-#: mainwindow.cpp:187
+#: mainwindow.cpp:188
 #, kde-format
 msgid "Increase Priority"
 msgstr "प्राथमिकता वर्धयतु"
 
-#: mainwindow.cpp:194
+#: mainwindow.cpp:195
 #, kde-format
 msgid "Decrease Priority"
 msgstr "प्राथमिकता न्यूनीकरोतु"
 
-#: mainwindow.cpp:202
+#: mainwindow.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "समूहं विलोपयन्तु"
 
-#: mainwindow.cpp:208
+#: mainwindow.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "समूहस्य नाम परिवर्तनं कुर्वन्तु..."
 
-#: mainwindow.cpp:213
+#: mainwindow.cpp:214
 #, kde-format
 msgid "Set Icon..."
 msgstr "सेट् चिह्न..."
 
-#: mainwindow.cpp:218
+#: mainwindow.cpp:219
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "स्वतः पेस्ट मोड"
 
-#: mainwindow.cpp:222
+#: mainwindow.cpp:223
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1679,117 +1679,117 @@ msgstr ""
 "<b>स्वतः पेस्ट्</b> बटन् स्वतः पेस्ट् मोड् चालू-निष्क्रान्तं च टॉग्ल् करोति । यदा सेट् भवति तदा "
 "KGet समये समये क्लिप्बोर्ड् URL कृते स्कैन् कृत्वा स्वयमेव चिनोति ।"
 
-#: mainwindow.cpp:227
+#: mainwindow.cpp:228
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "KGet इत्यस्य उपयोगं Konqueror Download Manager इत्यस्य रूपेण कुर्वन्तु"
 
-#: mainwindow.cpp:245
+#: mainwindow.cpp:246
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "चयनितं निष्कासयतु"
 
-#: mainwindow.cpp:252
+#: mainwindow.cpp:253
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "सर्वं समाप्तं निष्कासयतु"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:259
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "चयनितानि सञ्चिकाः निष्कास्य विलोपयन्तु"
 
-#: mainwindow.cpp:264
+#: mainwindow.cpp:265
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "पुनः डाउनलोड् करणं चयनितम्"
 
-#: mainwindow.cpp:269
+#: mainwindow.cpp:270
 #, kde-format
 msgid "Start All"
 msgstr "सर्वं आरभत"
 
-#: mainwindow.cpp:276
+#: mainwindow.cpp:277
 #, kde-format
 msgid "Start Selected"
 msgstr "चयनितम् आरभत"
 
-#: mainwindow.cpp:282
+#: mainwindow.cpp:283
 #, kde-format
 msgid "Pause All"
 msgstr "विरामं कुरुत सर्वं"
 
-#: mainwindow.cpp:289
+#: mainwindow.cpp:290
 #, kde-format
 msgid "Stop Selected"
 msgstr "चयनितं स्थगयतु"
 
-#: mainwindow.cpp:294
+#: mainwindow.cpp:295
 #, kde-format
 msgid "Start"
 msgstr "प्रारंभः"
 
-#: mainwindow.cpp:301
+#: mainwindow.cpp:302
 #, kde-format
 msgid "Pause"
 msgstr "विराम"
 
-#: mainwindow.cpp:309
+#: mainwindow.cpp:310
 #, kde-format
 msgid "Open Destination"
 msgstr "गन्तव्यं उद्घाटयतु"
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:315
 #, kde-format
 msgid "Open File"
 msgstr "सञ्चिकां उद्घाटयन्तु"
 
-#: mainwindow.cpp:318
+#: mainwindow.cpp:319
 #, kde-format
 msgid "Show Details"
 msgstr "विवरणं दर्शयतु"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:324
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "URL प्रतिलिपिं Clipboard मध्ये कुर्वन्तु"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:329
 #, kde-format
 msgid "&Transfer History"
 msgstr "&हस्तांतरण इतिहास"
 
-#: mainwindow.cpp:334
+#: mainwindow.cpp:335
 #, kde-format
 msgid "&Group Settings"
 msgstr "&समूह सेटिंग्स्"
 
-#: mainwindow.cpp:340
+#: mainwindow.cpp:341
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "&स्थानांतरण सेटिंग्स्"
 
-#: mainwindow.cpp:346
+#: mainwindow.cpp:347
 #, kde-format
 msgid "Import &Links..."
 msgstr "आयात &लिङ्क्स्..."
 
-#: mainwindow.cpp:352
+#: mainwindow.cpp:353
 #, kde-format
 msgid "After downloads finished action"
 msgstr "डाउनलोड्स् समाप्तस्य अनन्तरं क्रिया"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:356
+#: mainwindow.cpp:357
 #, kde-format
 msgid "No Action"
 msgstr "न कर्म"
 
-#: mainwindow.cpp:433
+#: mainwindow.cpp:434
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1798,39 +1798,39 @@ msgstr ""
 "एतत् प्रथमवारं भवता KGet चालितम् अस्ति ।\n"
 "किं भवान् KGet इत्येतत् Konqueror इत्यस्य डाउनलोड् प्रबन्धकरूपेण सक्षमं कर्तुम् इच्छति?"
 
-#: mainwindow.cpp:435
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "विजेता एकीकरण"
 
-#: mainwindow.cpp:436
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Enable"
 msgstr "सक्रियं करोतु"
 
-#: mainwindow.cpp:437
+#: mainwindow.cpp:438
 #, kde-format
 msgid "Do Not Enable"
 msgstr "सक्षमं न कुर्वन्तु"
 
-#: mainwindow.cpp:498
+#: mainwindow.cpp:499
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "सञ्चिकां उद्घाटयन्तु"
 
-#: mainwindow.cpp:500
+#: mainwindow.cpp:501
 #, kde-format
 msgid "All Openable Files"
 msgstr "सर्वाणि उद्घाटनीयाः सञ्चिकाः"
 
-#: mainwindow.cpp:515
+#: mainwindow.cpp:516
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "केगेट् - %1% ."
 
-#: mainwindow.cpp:563
+#: mainwindow.cpp:564
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1839,50 +1839,50 @@ msgstr ""
 "अद्यापि केचन स्थानान्तरणाः प्रचलन्ति।\n"
 "किं भवन्तः निश्चिताः सन्ति यत् भवन्तः KGet बन्दं कर्तुम् इच्छन्ति?"
 
-#: mainwindow.cpp:565
+#: mainwindow.cpp:566
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Confirm Quit"
 
-#: mainwindow.cpp:593
+#: mainwindow.cpp:594
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "निर्यात स्थानान्तरणम्"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet स्थानान्तरणसूची"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "Text File"
 msgstr "पाठसञ्चिका"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Enter Group Name"
 msgstr "समूहनाम प्रविष्टं कुर्वन्तु"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Group name:"
 msgstr "समूहनाम :"
 
-#: mainwindow.cpp:708
+#: mainwindow.cpp:709
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "किं भवान् निश्चितरूपेण चयनितं स्थानान्तरणं विलोपयितुम् इच्छति?"
 msgstr[1] "किं भवान् निश्चितरूपेण चयनितस्थानांतरणं विलोपयितुम् इच्छति?"
 
-#: mainwindow.cpp:711 mainwindow.cpp:742
+#: mainwindow.cpp:712 mainwindow.cpp:743
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "स्थानान्तरणविलोपनस्य पुष्टिं कुर्वन्तु"
 
-#: mainwindow.cpp:739
+#: mainwindow.cpp:740
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1890,7 +1890,7 @@ msgid_plural ""
 msgstr[0] "किं भवान् निश्चयेन सञ्चिकासहितं चयनितं स्थानान्तरणं विलोपयितुम् इच्छति?"
 msgstr[1] "किं भवान् निश्चयेन सञ्चिकासहितं चयनितस्थापनं विलोपयितुम् इच्छति?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1074
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1901,17 +1901,17 @@ msgstr ""
 "तत् सदा निष्क्रियं कर्तुम् इच्छति तर्हि Settings->Advanced इत्यत्र गत्वा \"Use as "
 "download manager for Konqueror\" अक्षमम् ।"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:215
+#: mainwindow.cpp:1190 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "पातिता सञ्चिका KGet Transfer List अस्ति"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:217
+#: mainwindow.cpp:1192 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "&अवाहरन"
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:218
+#: mainwindow.cpp:1193 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&स्थानांतरणसूचीं लोडं कुर्वन्तु"
@@ -3130,39 +3130,39 @@ msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "चिपचिपा"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Show Main Window"
 msgstr "मुख्यविण्डो दर्शयतु"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Hide Main Window"
 msgstr "मुख्यविण्डो गोपयन्तु"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "Drop Target"
 msgstr "लक्ष्यं पातयन्तु"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "भवन्तः डाउनलोड् लिङ्क्स् ड्रॉप् टार्गेट् मध्ये कर्षितुं शक्नुवन्ति ।"
 
-#: ui/droptarget.cpp:388
+#: ui/droptarget.cpp:387
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1(%2) %3"
 
-#: ui/droptarget.cpp:395
+#: ui/droptarget.cpp:394
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1(%2% %3/%4) गतिः%5/s"
 
-#: ui/droptarget.cpp:404
+#: ui/droptarget.cpp:403
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3170,7 +3170,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1(%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:418
+#: ui/droptarget.cpp:417
 #, kde-format
 msgid "Ready"
 msgstr "आत्त"

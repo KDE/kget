@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-25 00:41+0000\n"
 "PO-Revision-Date: 2022-09-27 17:54+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -56,7 +56,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "Tindakan eksekusi sesudah semua unduhan mencapai finis:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:361 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "Berhentikan KGet"
@@ -335,17 +335,17 @@ msgstr "Xml"
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:366
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "Matikan Komputer"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:371
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "Hibernasikan Komputer"
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
 msgstr "Suspensikan Komputer"
@@ -934,7 +934,7 @@ msgstr "<p>Semua transferan telah finis.</p>"
 msgid "Downloads completed"
 msgstr "Unduhan rampung"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:96 mainwindow.cpp:96 mainwindow.cpp:518
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1457,12 +1457,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "Terverifikasi"
 
-#: main.cpp:101
+#: main.cpp:98
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "Sebuah download manager tingkat lanjut oleh KDE"
 
-#: main.cpp:103
+#: main.cpp:100
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1475,221 +1475,221 @@ msgstr ""
 "Carsten Pfeiffer, (C) 2002\n"
 "Matej Koss, (C) 1998 - 2000"
 
-#: main.cpp:107
+#: main.cpp:104
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "Pemelihara, Penulis Plugin Torrent, Pengembang Inti"
 
-#: main.cpp:110
+#: main.cpp:107
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:110 main.cpp:111 main.cpp:113
+#: main.cpp:107 main.cpp:108 main.cpp:110
 #, kde-format
 msgid "Core Developer"
 msgstr "Pengembang Inti"
 
-#: main.cpp:111
+#: main.cpp:108
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "Pengembang Inti, Penulis Plugin Multithreaded"
 
-#: main.cpp:113
+#: main.cpp:110
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Developer"
 msgstr "Pengembang"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "Aish Raj Dahal"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "Google Summer of Code Student"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodriguez Ortiz"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "Penulis Plugin Mms"
 
-#: main.cpp:117
+#: main.cpp:114
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:117 main.cpp:118 main.cpp:119
+#: main.cpp:114 main.cpp:115 main.cpp:116
 #, kde-format
 msgid "Former Developer"
 msgstr "Mantan Pengembang"
 
-#: main.cpp:118
+#: main.cpp:115
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:119
+#: main.cpp:116
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "Pengembang BTCore (KTorrent)"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "Desain Antarmuka Web"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Wantoyèk"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "wantoyek@gmail.com"
 
-#: main.cpp:132
+#: main.cpp:129
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "Mulaikan KGet dengan drop target"
 
-#: main.cpp:133
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "Mulaikan KGet dengan jendela utama yang tersembunyi"
 
-#: main.cpp:134
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "Mulaikan KGet tanpa animasi drop targer"
 
-#: main.cpp:136
+#: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "Eksekusikan Pengujian Unit"
 
-#: main.cpp:138
+#: main.cpp:135
 #, kde-format
 msgid "URL(s) to download"
 msgstr "URL untuk unduh"
 
-#: mainwindow.cpp:146
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr "Unduhan &Baru..."
 
-#: mainwindow.cpp:153
+#: mainwindow.cpp:154
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "&Impor Transferan..."
 
-#: mainwindow.cpp:160
+#: mainwindow.cpp:161
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "&Ekspor Daftar Transferan..."
 
-#: mainwindow.cpp:167
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "&Buat sebuah Metalink..."
 
-#: mainwindow.cpp:173
+#: mainwindow.cpp:174
 #, kde-format
 msgid "Top Priority"
 msgstr "Ataskan Prioritas"
 
-#: mainwindow.cpp:180
+#: mainwindow.cpp:181
 #, kde-format
 msgid "Least Priority"
 msgstr "Bawahkan Prioritas"
 
-#: mainwindow.cpp:187
+#: mainwindow.cpp:188
 #, kde-format
 msgid "Increase Priority"
 msgstr "Naikkan Prioritas"
 
-#: mainwindow.cpp:194
+#: mainwindow.cpp:195
 #, kde-format
 msgid "Decrease Priority"
 msgstr "Turunkan Prioritas"
 
-#: mainwindow.cpp:202
+#: mainwindow.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "Hapus Kelompok"
 
-#: mainwindow.cpp:208
+#: mainwindow.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "Ubah Nama Kelompok..."
 
-#: mainwindow.cpp:213
+#: mainwindow.cpp:214
 #, kde-format
 msgid "Set Icon..."
 msgstr "Setel Ikon..."
 
-#: mainwindow.cpp:218
+#: mainwindow.cpp:219
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "Mode Auto Tempel"
 
-#: mainwindow.cpp:222
+#: mainwindow.cpp:223
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1701,117 +1701,117 @@ msgstr ""
 "Jika disetel, KGet akan secara berkala memindai papan klip untuk untuk URL "
 "dan menempelkannya secara otomatis."
 
-#: mainwindow.cpp:227
+#: mainwindow.cpp:228
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "Gunakan KGet sebagai Download Manager Konqueror"
 
-#: mainwindow.cpp:245
+#: mainwindow.cpp:246
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "Singkirkan Yang Dipilih"
 
-#: mainwindow.cpp:252
+#: mainwindow.cpp:253
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "Singkirkan Semua Yang Finis"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:259
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "Singkirkan Yang Dipilih dan Hapus File-file"
 
-#: mainwindow.cpp:264
+#: mainwindow.cpp:265
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "Unduh Ulang Yang Dipilih"
 
-#: mainwindow.cpp:269
+#: mainwindow.cpp:270
 #, kde-format
 msgid "Start All"
 msgstr "Mulaikan Semua"
 
-#: mainwindow.cpp:276
+#: mainwindow.cpp:277
 #, kde-format
 msgid "Start Selected"
 msgstr "Mulaikan Yang Dipilih"
 
-#: mainwindow.cpp:282
+#: mainwindow.cpp:283
 #, kde-format
 msgid "Pause All"
 msgstr "Jeda Semua"
 
-#: mainwindow.cpp:289
+#: mainwindow.cpp:290
 #, kde-format
 msgid "Stop Selected"
 msgstr "Hentikan Yang Dipilih"
 
-#: mainwindow.cpp:294
+#: mainwindow.cpp:295
 #, kde-format
 msgid "Start"
 msgstr "Mulai"
 
-#: mainwindow.cpp:301
+#: mainwindow.cpp:302
 #, kde-format
 msgid "Pause"
 msgstr "Jeda"
 
-#: mainwindow.cpp:309
+#: mainwindow.cpp:310
 #, kde-format
 msgid "Open Destination"
 msgstr "Buka Destinasi"
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:315
 #, kde-format
 msgid "Open File"
 msgstr "Buka File"
 
-#: mainwindow.cpp:318
+#: mainwindow.cpp:319
 #, kde-format
 msgid "Show Details"
 msgstr "Tampilkan Perincian"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:324
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "Salin URL ke Clipboard"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:329
 #, kde-format
 msgid "&Transfer History"
 msgstr "Histori &Transfer"
 
-#: mainwindow.cpp:334
+#: mainwindow.cpp:335
 #, kde-format
 msgid "&Group Settings"
 msgstr "Pengaturan &Kelompok"
 
-#: mainwindow.cpp:340
+#: mainwindow.cpp:341
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "Pengaturan &Transfer"
 
-#: mainwindow.cpp:346
+#: mainwindow.cpp:347
 #, kde-format
 msgid "Import &Links..."
 msgstr "Impor Ta&utan..."
 
-#: mainwindow.cpp:352
+#: mainwindow.cpp:353
 #, kde-format
 msgid "After downloads finished action"
 msgstr "Aksi sesudah unduhan finis"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:356
+#: mainwindow.cpp:357
 #, kde-format
 msgid "No Action"
 msgstr "Tanpa Aksi"
 
-#: mainwindow.cpp:433
+#: mainwindow.cpp:434
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1820,39 +1820,39 @@ msgstr ""
 "Ini pertama kalinya Anda menjalankan KGet.\n"
 "Apakah Anda ingin memfungsikan KGet sebagai download manager untuk Konqueror?"
 
-#: mainwindow.cpp:435
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Integrasi Konqueror"
 
-#: mainwindow.cpp:436
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Enable"
 msgstr "Fungsikan"
 
-#: mainwindow.cpp:437
+#: mainwindow.cpp:438
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Jangan Fungsikan"
 
-#: mainwindow.cpp:498
+#: mainwindow.cpp:499
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Buka File"
 
-#: mainwindow.cpp:500
+#: mainwindow.cpp:501
 #, kde-format
 msgid "All Openable Files"
 msgstr "Semua File Yang Bisa Dibuka"
 
-#: mainwindow.cpp:515
+#: mainwindow.cpp:516
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:563
+#: mainwindow.cpp:564
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1861,50 +1861,50 @@ msgstr ""
 "Beberapa transferan masih sedang berjalan.\n"
 "Apakah Anda yakin ingin menutup KGet?"
 
-#: mainwindow.cpp:565
+#: mainwindow.cpp:566
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Konfirmasi Berhenti"
 
-#: mainwindow.cpp:593
+#: mainwindow.cpp:594
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Ekspor Transferan"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Daftar Transfer KGet"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "Text File"
 msgstr "File Teks"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Masukkan Nama Kelompok"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Group name:"
 msgstr "Nama grup:"
 
-#: mainwindow.cpp:708
+#: mainwindow.cpp:709
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Apakah Anda yakin ingin menghapus transfer yang dipilih?"
 msgstr[1] "Apakah Anda yakin ingin menghapus transferan yang dipilih?"
 
-#: mainwindow.cpp:711 mainwindow.cpp:742
+#: mainwindow.cpp:712 mainwindow.cpp:743
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Konfirmasi hapus transfer"
 
-#: mainwindow.cpp:739
+#: mainwindow.cpp:740
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1914,7 +1914,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Apakah Anda yakin ingin menghapus transferan yang dipilih termasuk file?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1074
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1926,17 +1926,17 @@ msgstr ""
 "Pengaturan->Tingkat Lanjut dan nonfungsikan \"Gunakan sebagai download "
 "manager untuk Konqueror\"."
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:215
+#: mainwindow.cpp:1190 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "File yang diletakkan adalah sebagai Daftar Transfer KGet"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:217
+#: mainwindow.cpp:1192 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "&Unduh"
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:218
+#: mainwindow.cpp:1193 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Muat daftar transsfer"
@@ -3166,39 +3166,39 @@ msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "Lengket"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Show Main Window"
 msgstr "Tampilkan Jendela Utama"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Hide Main Window"
 msgstr "Sembunyikan Jendela Utama"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "Drop Target"
 msgstr "Drop Target"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "Anda bisa menyeret tautan unduhan ke dalam drop target."
 
-#: ui/droptarget.cpp:388
+#: ui/droptarget.cpp:387
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1(%2) %3"
 
-#: ui/droptarget.cpp:395
+#: ui/droptarget.cpp:394
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1(%2% %3/%4) Kecepatan:%5/dt"
 
-#: ui/droptarget.cpp:404
+#: ui/droptarget.cpp:403
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3206,7 +3206,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1(%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:418
+#: ui/droptarget.cpp:417
 #, kde-format
 msgid "Ready"
 msgstr "Siap"

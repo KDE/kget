@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-25 00:41+0000\n"
 "PO-Revision-Date: 2013-06-27 02:50+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -59,7 +59,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "Барлық жүктеулері аяқталған соң орындайтыны:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:361 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "KGet-тен шығу"
@@ -338,17 +338,17 @@ msgstr "Xml"
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:366
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "Компьютерді сөндіру"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:371
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "Компьютерді ұйықтату"
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
 msgstr "Компьютерді қалғыту"
@@ -935,7 +935,7 @@ msgstr "<p>Барлық тасымалдары аяқталды.</p>"
 msgid "Downloads completed"
 msgstr "Жүктеулер аяқталды"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:96 mainwindow.cpp:96 mainwindow.cpp:518
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1445,13 +1445,13 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "Тексерілгені"
 
-#: main.cpp:101
+#: main.cpp:98
 #, fuzzy, kde-format
 #| msgid "An advanced download manager for KDE"
 msgid "An advanced download manager by KDE"
 msgstr "Озық KDE жүктеу менеджері"
 
-#: main.cpp:103
+#: main.cpp:100
 #, fuzzy, kde-format
 #| msgid ""
 #| "(C) 2005 - 2012, The KGet developers\n"
@@ -1469,199 +1469,199 @@ msgstr ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 
-#: main.cpp:107
+#: main.cpp:104
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "Жетілдірушісі, Негізін жасаушысы, Торрент плагинінің авторы"
 
-#: main.cpp:110
+#: main.cpp:107
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:110 main.cpp:111 main.cpp:113
+#: main.cpp:107 main.cpp:108 main.cpp:110
 #, kde-format
 msgid "Core Developer"
 msgstr "Негізін жасаушысы"
 
-#: main.cpp:111
+#: main.cpp:108
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "Негізін жасаушысы, Көпағынды плагинінің авторы"
 
-#: main.cpp:113
+#: main.cpp:110
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Developer"
 msgstr "Құрастырушысы"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "Aish Raj Dahal"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "Google Summer of Code студенті"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodriguez Ortiz"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "Mms плагиннің авторы"
 
-#: main.cpp:117
+#: main.cpp:114
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:117 main.cpp:118 main.cpp:119
+#: main.cpp:114 main.cpp:115 main.cpp:116
 #, kde-format
 msgid "Former Developer"
 msgstr "Бұрынғы құрастырушысы"
 
-#: main.cpp:118
+#: main.cpp:115
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:119
+#: main.cpp:116
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "BTCore (KTorrent) құрастырушысы"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "Веб интерфейсін жобалау"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Сайран Киккарин"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sairan@computer.org"
 
-#: main.cpp:132
+#: main.cpp:129
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "KGet-ті сүйреп әкелетін орынымен бастау"
 
-#: main.cpp:133
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "KGet-ті негізгі терезесін жасырып бастау"
 
-#: main.cpp:134
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "KGet-ті сүйреп әкелетін орнының анимациясыз бастау"
 
-#: main.cpp:136
+#: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "Модуль сынағын орындау"
 
-#: main.cpp:138
+#: main.cpp:135
 #, kde-format
 msgid "URL(s) to download"
 msgstr "Жүктейтін URL адрес(тер)"
 
-#: mainwindow.cpp:146
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr "&Жаңа жүктеу..."
 
-#: mainwindow.cpp:153
+#: mainwindow.cpp:154
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "Тасымалдарды &импорттау..."
 
-#: mainwindow.cpp:160
+#: mainwindow.cpp:161
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "Тасымалдарды &экспорттау..."
 
-#: mainwindow.cpp:167
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "Метасілтемені құ&ру"
 
-#: mainwindow.cpp:173
+#: mainwindow.cpp:174
 #, kde-format
 msgid "Top Priority"
 msgstr "Ең жоғары артықшылығы"
 
-#: mainwindow.cpp:180
+#: mainwindow.cpp:181
 #, kde-format
 msgid "Least Priority"
 msgstr "Ең төмен артықшылығы"
 
-#: mainwindow.cpp:187
+#: mainwindow.cpp:188
 #, kde-format
 msgid "Increase Priority"
 msgstr "Артықшылығын көтеру"
 
-#: mainwindow.cpp:194
+#: mainwindow.cpp:195
 #, kde-format
 msgid "Decrease Priority"
 msgstr "Артықшылығын түсіру"
 
-#: mainwindow.cpp:202
+#: mainwindow.cpp:203
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 #| msgid_plural "Delete Groups"
@@ -1669,7 +1669,7 @@ msgctxt "@action"
 msgid "Delete Group"
 msgstr "Топт(ард)ы өшіру"
 
-#: mainwindow.cpp:208
+#: mainwindow.cpp:209
 #, fuzzy, kde-format
 #| msgid "Rename Group..."
 #| msgid_plural "Rename Groups..."
@@ -1677,17 +1677,17 @@ msgctxt "@action"
 msgid "Rename Group..."
 msgstr "Топт(ард)ы қайта атау..."
 
-#: mainwindow.cpp:213
+#: mainwindow.cpp:214
 #, kde-format
 msgid "Set Icon..."
 msgstr "Таңбашасын орнату..."
 
-#: mainwindow.cpp:218
+#: mainwindow.cpp:219
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "Авто орналастыру режімі"
 
-#: mainwindow.cpp:222
+#: mainwindow.cpp:223
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1698,117 +1698,117 @@ msgstr ""
 "қосып-өшіреді. Бұл режімде KGet алмасу буферде URL адресі бар-жоғын мезгіл "
 "сайын қарап тұрады, бар болса - автоматты түрде орналастырады."
 
-#: mainwindow.cpp:227
+#: mainwindow.cpp:228
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "KGet Konqueror-дың жүктеу менеджері болсын"
 
-#: mainwindow.cpp:245
+#: mainwindow.cpp:246
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "Таңдалғанды алып тастау"
 
-#: mainwindow.cpp:252
+#: mainwindow.cpp:253
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "Аяқталғандарды алып тастау"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:259
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "Таңдалғанды алып тастап файлдарын өшіру"
 
-#: mainwindow.cpp:264
+#: mainwindow.cpp:265
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "Таңдалғанды қайта жүктеп алу"
 
-#: mainwindow.cpp:269
+#: mainwindow.cpp:270
 #, kde-format
 msgid "Start All"
 msgstr "Бүкілін бастау"
 
-#: mainwindow.cpp:276
+#: mainwindow.cpp:277
 #, kde-format
 msgid "Start Selected"
 msgstr "Таңдалғанды бастау"
 
-#: mainwindow.cpp:282
+#: mainwindow.cpp:283
 #, kde-format
 msgid "Pause All"
 msgstr "Бүкілін аялдату"
 
-#: mainwindow.cpp:289
+#: mainwindow.cpp:290
 #, kde-format
 msgid "Stop Selected"
 msgstr "Таңдалғанды тоқтату"
 
-#: mainwindow.cpp:294
+#: mainwindow.cpp:295
 #, kde-format
 msgid "Start"
 msgstr "Бастау"
 
-#: mainwindow.cpp:301
+#: mainwindow.cpp:302
 #, kde-format
 msgid "Pause"
 msgstr "Аялдау"
 
-#: mainwindow.cpp:309
+#: mainwindow.cpp:310
 #, kde-format
 msgid "Open Destination"
 msgstr "Мақсатталған орынды ашу"
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:315
 #, kde-format
 msgid "Open File"
 msgstr "Файлды ашу"
 
-#: mainwindow.cpp:318
+#: mainwindow.cpp:319
 #, kde-format
 msgid "Show Details"
 msgstr "Егжей-тегжейлерін көрсету"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:324
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "URL-ді алмасу буферіне көшіріп алу"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:329
 #, kde-format
 msgid "&Transfer History"
 msgstr "&Тасымалдар журналы"
 
-#: mainwindow.cpp:334
+#: mainwindow.cpp:335
 #, kde-format
 msgid "&Group Settings"
 msgstr "&Топ параметрлері"
 
-#: mainwindow.cpp:340
+#: mainwindow.cpp:341
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "&Тасымалдың параметрлері"
 
-#: mainwindow.cpp:346
+#: mainwindow.cpp:347
 #, kde-format
 msgid "Import &Links..."
 msgstr "&Сілтемелерді импорттау..."
 
-#: mainwindow.cpp:352
+#: mainwindow.cpp:353
 #, kde-format
 msgid "After downloads finished action"
 msgstr "Жүктеулер аяқталған кейінгі әрекет"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:356
+#: mainwindow.cpp:357
 #, kde-format
 msgid "No Action"
 msgstr "Жоқ"
 
-#: mainwindow.cpp:433
+#: mainwindow.cpp:434
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1817,40 +1817,40 @@ msgstr ""
 "KGet-ті бірінші рет жегіп жатырсыз.\n"
 "KGet-ті Konqueror-дың жүктеу менеджері болсын ба?"
 
-#: mainwindow.cpp:435
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror-мен біріктіру"
 
-#: mainwindow.cpp:436
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Enable"
 msgstr "Болсын"
 
-#: mainwindow.cpp:437
+#: mainwindow.cpp:438
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Болмасын"
 
-#: mainwindow.cpp:498
+#: mainwindow.cpp:499
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Файлды ашу"
 
-#: mainwindow.cpp:500
+#: mainwindow.cpp:501
 #, kde-format
 msgid "All Openable Files"
 msgstr "Барлық ашылатын файлдар"
 
-#: mainwindow.cpp:515
+#: mainwindow.cpp:516
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:563
+#: mainwindow.cpp:564
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1859,57 +1859,57 @@ msgstr ""
 "Кейбір тасымалдаулар әлі орындалып жатыр.\n"
 "KGet-тен шыққыңыз келгені рас па?"
 
-#: mainwindow.cpp:565
+#: mainwindow.cpp:566
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Шығуды құптау"
 
-#: mainwindow.cpp:593
+#: mainwindow.cpp:594
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Тасымалдар тзімін экспорттау"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet тасымалдар тізімі"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "Text File"
 msgstr "Мәтін файлы"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Топтың атауын келтіріңіз"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Group name:"
 msgstr "Топтың атауы:"
 
-#: mainwindow.cpp:708
+#: mainwindow.cpp:709
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Таңдалған тасымалды өшірмексіз бе?"
 
-#: mainwindow.cpp:711 mainwindow.cpp:742
+#: mainwindow.cpp:712 mainwindow.cpp:743
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Тасымалды өшіруін құптау"
 
-#: mainwindow.cpp:739
+#: mainwindow.cpp:740
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "Таңдалған тасымалдың файл(дар)ын өшірмексіз бе?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1074
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1920,17 +1920,17 @@ msgstr ""
 "айыру үшін мәзірдегі 'KGet баптауы->Жетелеу' дегенге барып, \"Konqueror-дың "
 "жүктеу менеджері қылу\" дегенді өзгерту керек."
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:215
+#: mainwindow.cpp:1190 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Әкелген файл KGet тасымалдар тзімі"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:217
+#: mainwindow.cpp:1192 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "&Жүктеп алу"
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:218
+#: mainwindow.cpp:1193 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Тасымалдар тізімін жүктеу"
@@ -3152,39 +3152,39 @@ msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "Жабыстыру"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Show Main Window"
 msgstr "Негізгі терезені көрсету"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Hide Main Window"
 msgstr "Негізгі терезені жасыру"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "Drop Target"
 msgstr "Сүйреп әкелетін орын"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "Жүктеп алатынды осыған сүйреп әкеліп тастаңыз."
 
-#: ui/droptarget.cpp:388
+#: ui/droptarget.cpp:387
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1(%2) %3"
 
-#: ui/droptarget.cpp:395
+#: ui/droptarget.cpp:394
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1(%2% %3/%4) Жылдамдығы:%5/с"
 
-#: ui/droptarget.cpp:404
+#: ui/droptarget.cpp:403
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3192,7 +3192,7 @@ msgctxt ""
 msgid "%1(%2% %3/%4) %5"
 msgstr "%1(%2% %3/%4) %5"
 
-#: ui/droptarget.cpp:418
+#: ui/droptarget.cpp:417
 #, kde-format
 msgid "Ready"
 msgstr "Дайын"

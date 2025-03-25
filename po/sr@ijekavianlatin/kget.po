@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:40+0000\n"
+"POT-Creation-Date: 2025-03-25 00:41+0000\n"
 "PO-Revision-Date: 2017-12-03 22:53+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -67,7 +67,7 @@ msgstr "Radnja nakon što se sva preuzimanja završe:"
 # >! @title:window
 # >! @action:button
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:361 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "Napusti KGet"
@@ -350,19 +350,19 @@ msgid "Sqlite"
 msgstr "SQLite"
 
 # >> @item:inlistbox
-#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:366
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "ugasi računar"
 
 # >> @item:inlistbox
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:371
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "hiberniši računar"
 
 # >> @item:inlistbox
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:376
 #, kde-format
 msgid "Suspend Computer"
 msgstr "suspenduj računar"
@@ -966,7 +966,7 @@ msgstr "<p>Svi prenosi su završeni.</p>"
 msgid "Downloads completed"
 msgstr "Preuzimanja završena"
 
-#: core/kget.h:361 main.cpp:99 mainwindow.cpp:95 mainwindow.cpp:517
+#: core/kget.h:361 main.cpp:96 mainwindow.cpp:96 mainwindow.cpp:518
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1490,12 +1490,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "ovjereno"
 
-#: main.cpp:101
+#: main.cpp:98
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "Napredni menadžer preuzimanja iz KDE‑a"
 
-#: main.cpp:103
+#: main.cpp:100
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1508,199 +1508,199 @@ msgstr ""
 "© 2002, Karsten Pfajfer\n"
 "© 1998–2000, Matej Kos"
 
-#: main.cpp:107
+#: main.cpp:104
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Apelhans"
 
-#: main.cpp:109
+#: main.cpp:106
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "održavalac, središnji programer, autor bittorrent priključka"
 
-#: main.cpp:110
+#: main.cpp:107
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Masarin"
 
-#: main.cpp:110 main.cpp:111 main.cpp:113
+#: main.cpp:107 main.cpp:108 main.cpp:110
 #, kde-format
 msgid "Core Developer"
 msgstr "središnji programer"
 
-#: main.cpp:111
+#: main.cpp:108
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Volfer"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:112
+#: main.cpp:109
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "središnji programer, autor višenitnog priključka"
 
-#: main.cpp:113
+#: main.cpp:110
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matijas Fuhs"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Javier Goday"
 msgstr "Havijer Godaj"
 
-#: main.cpp:114
+#: main.cpp:111
 #, kde-format
 msgid "Developer"
 msgstr "programer"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "Aiš Radž Dahal"
 
-#: main.cpp:115
+#: main.cpp:112
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "Student Googleovog Leta koda"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodrigez Ortiz"
 
-#: main.cpp:116
+#: main.cpp:113
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "Autor priključka MMS‑a"
 
-#: main.cpp:117
+#: main.cpp:114
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrik Šarbonije"
 
-#: main.cpp:117 main.cpp:118 main.cpp:119
+#: main.cpp:114 main.cpp:115 main.cpp:116
 #, kde-format
 msgid "Former Developer"
 msgstr "bivši programer"
 
-#: main.cpp:118
+#: main.cpp:115
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Karsten Pfajfer"
 
-#: main.cpp:119
+#: main.cpp:116
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Kos"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Gison"
 
-#: main.cpp:120
+#: main.cpp:117
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "programer BTCore (KTorrenta)"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirović (Nookie)"
 
-#: main.cpp:121
+#: main.cpp:118
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "dizajn veb sučelja"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Toplica Tanasković,Slobodan Simić,Mladen Pejaković"
 
-#: main.cpp:123
+#: main.cpp:120
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "toptan@kde.org.yu,slsimic@gmail.com,pejakm@gmail.com"
 
-#: main.cpp:132
+#: main.cpp:129
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "Pokreni KGet sa mjestom za spuštanje"
 
-#: main.cpp:133
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "Pokreni KGet sa skrivenim glavnim prozorom"
 
-#: main.cpp:134
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "Pokreni KGet bez animacije mjesta za spuštanje"
 
-#: main.cpp:136
+#: main.cpp:133
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "Izvrši jedinične probe"
 
-#: main.cpp:138
+#: main.cpp:135
 #, kde-format
 msgid "URL(s) to download"
 msgstr "URL‑ovi za preuzimanje"
 
-#: mainwindow.cpp:146
+#: mainwindow.cpp:147
 #, kde-format
 msgid "&New Download..."
 msgstr "&Novo preuzimanje..."
 
-#: mainwindow.cpp:153
+#: mainwindow.cpp:154
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "&Uvezi prenose..."
 
-#: mainwindow.cpp:160
+#: mainwindow.cpp:161
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "&Izvezi listu prenosa..."
 
-#: mainwindow.cpp:167
+#: mainwindow.cpp:168
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "Napravi &metavezu..."
 
-#: mainwindow.cpp:173
+#: mainwindow.cpp:174
 #, kde-format
 msgid "Top Priority"
 msgstr "Najviši prioritet"
 
-#: mainwindow.cpp:180
+#: mainwindow.cpp:181
 #, kde-format
 msgid "Least Priority"
 msgstr "Najniži prioritet"
 
-#: mainwindow.cpp:187
+#: mainwindow.cpp:188
 #, kde-format
 msgid "Increase Priority"
 msgstr "Povećaj prioritet"
 
-#: mainwindow.cpp:194
+#: mainwindow.cpp:195
 #, kde-format
 msgid "Decrease Priority"
 msgstr "Smanji prioritet"
 
-#: mainwindow.cpp:202
+#: mainwindow.cpp:203
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 #| msgid_plural "Delete Groups"
@@ -1708,7 +1708,7 @@ msgctxt "@action"
 msgid "Delete Group"
 msgstr "Obriši grupe"
 
-#: mainwindow.cpp:208
+#: mainwindow.cpp:209
 #, fuzzy, kde-format
 #| msgid "Rename Group..."
 #| msgid_plural "Rename Groups..."
@@ -1716,17 +1716,17 @@ msgctxt "@action"
 msgid "Rename Group..."
 msgstr "Preimenuj grupe"
 
-#: mainwindow.cpp:213
+#: mainwindow.cpp:214
 #, kde-format
 msgid "Set Icon..."
 msgstr "Postavi ikonicu..."
 
-#: mainwindow.cpp:218
+#: mainwindow.cpp:219
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "Automatsko naljepljivanje"
 
-#: mainwindow.cpp:222
+#: mainwindow.cpp:223
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1737,117 +1737,117 @@ msgstr ""
 "režim rada. Kada je uključen, KGet će periodično ispitivati klipbord za "
 "novim URL‑ovima i automatski ih naljepljivati.</html>"
 
-#: mainwindow.cpp:227
+#: mainwindow.cpp:228
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "KGet kao menadžer preuzimanja u K‑osvajaču"
 
-#: mainwindow.cpp:245
+#: mainwindow.cpp:246
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "Ukloni izabrani"
 
-#: mainwindow.cpp:252
+#: mainwindow.cpp:253
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "Ukloni sve završene"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:259
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "Ukloni izabrani i obriši fajlove"
 
-#: mainwindow.cpp:264
+#: mainwindow.cpp:265
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "Ponovo preuzmi izabrane"
 
-#: mainwindow.cpp:269
+#: mainwindow.cpp:270
 #, kde-format
 msgid "Start All"
 msgstr "Započni sve"
 
-#: mainwindow.cpp:276
+#: mainwindow.cpp:277
 #, kde-format
 msgid "Start Selected"
 msgstr "Započni izabrane"
 
-#: mainwindow.cpp:282
+#: mainwindow.cpp:283
 #, kde-format
 msgid "Pause All"
 msgstr "Pauziraj sve"
 
-#: mainwindow.cpp:289
+#: mainwindow.cpp:290
 #, kde-format
 msgid "Stop Selected"
 msgstr "Zaustavi izabrane"
 
-#: mainwindow.cpp:294
+#: mainwindow.cpp:295
 #, kde-format
 msgid "Start"
 msgstr "Pokreni"
 
-#: mainwindow.cpp:301
+#: mainwindow.cpp:302
 #, kde-format
 msgid "Pause"
 msgstr "Pauziraj"
 
-#: mainwindow.cpp:309
+#: mainwindow.cpp:310
 #, kde-format
 msgid "Open Destination"
 msgstr "Otvori odredište"
 
-#: mainwindow.cpp:314
+#: mainwindow.cpp:315
 #, kde-format
 msgid "Open File"
 msgstr "Otvori fajl"
 
-#: mainwindow.cpp:318
+#: mainwindow.cpp:319
 #, kde-format
 msgid "Show Details"
 msgstr "Prikaži detalje"
 
-#: mainwindow.cpp:323
+#: mainwindow.cpp:324
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "Kopiraj URL u klipbord"
 
-#: mainwindow.cpp:328
+#: mainwindow.cpp:329
 #, kde-format
 msgid "&Transfer History"
 msgstr "&Istorijat prenosa"
 
-#: mainwindow.cpp:334
+#: mainwindow.cpp:335
 #, kde-format
 msgid "&Group Settings"
 msgstr "Postavke &grupa"
 
-#: mainwindow.cpp:340
+#: mainwindow.cpp:341
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "Postavke &prenosa"
 
-#: mainwindow.cpp:346
+#: mainwindow.cpp:347
 #, kde-format
 msgid "Import &Links..."
 msgstr "Uvezi &veze..."
 
-#: mainwindow.cpp:352
+#: mainwindow.cpp:353
 #, kde-format
 msgid "After downloads finished action"
 msgstr "Radnja po završetku preuzimanja"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:356
+#: mainwindow.cpp:357
 #, kde-format
 msgid "No Action"
 msgstr "Bez radnje"
 
-#: mainwindow.cpp:433
+#: mainwindow.cpp:434
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1856,22 +1856,22 @@ msgstr ""
 "Ovo je prvi put da ste pokrenuli KGet.\n"
 "Želite li da ga koristite kao menadžer preuzimanja u K‑osvajaču?"
 
-#: mainwindow.cpp:435
+#: mainwindow.cpp:436
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Integracija sa K‑osvajačem"
 
-#: mainwindow.cpp:436
+#: mainwindow.cpp:437
 #, kde-format
 msgid "Enable"
 msgstr "Koristi"
 
-#: mainwindow.cpp:437
+#: mainwindow.cpp:438
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Ne koristi"
 
-#: mainwindow.cpp:498
+#: mainwindow.cpp:499
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
@@ -1879,18 +1879,18 @@ msgid "Open File"
 msgstr "Otvori fajl"
 
 # >> @item:intext
-#: mainwindow.cpp:500
+#: mainwindow.cpp:501
 #, kde-format
 msgid "All Openable Files"
 msgstr "svi otvorivi fajlovi"
 
-#: mainwindow.cpp:515
+#: mainwindow.cpp:516
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet — %1%"
 
-#: mainwindow.cpp:563
+#: mainwindow.cpp:564
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1900,40 +1900,40 @@ msgstr ""
 "Želite li zaista da zatvorite KGet?"
 
 # >> @title:window
-#: mainwindow.cpp:565
+#: mainwindow.cpp:566
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Potvrda napuštanja"
 
-#: mainwindow.cpp:593
+#: mainwindow.cpp:594
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Izvezi prenose"
 
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGetova lista prenosa"
 
 # >> @item:intext
-#: mainwindow.cpp:595
+#: mainwindow.cpp:596
 #, kde-format
 msgid "Text File"
 msgstr "tekstualni fajl"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Unesite ime grupe"
 
-#: mainwindow.cpp:624
+#: mainwindow.cpp:625
 #, kde-format
 msgid "Group name:"
 msgstr "Ime grupe:"
 
-#: mainwindow.cpp:708
+#: mainwindow.cpp:709
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1943,12 +1943,12 @@ msgstr[2] "Želite li zaista da uklonite izabrane prenose?"
 msgstr[3] "Želite li zaista da uklonite izabrani prenos?"
 
 # @title:window
-#: mainwindow.cpp:711 mainwindow.cpp:742
+#: mainwindow.cpp:712 mainwindow.cpp:743
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Potvrda brisanja prenosa"
 
-#: mainwindow.cpp:739
+#: mainwindow.cpp:740
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1958,7 +1958,7 @@ msgstr[1] "Želite li zaista da uklonite izabrane prenose sa sve fajlovima?"
 msgstr[2] "Želite li zaista da uklonite izabrane prenose sa sve fajlovima?"
 msgstr[3] "Želite li zaista da uklonite izabrani prenos sa sve fajlovima?"
 
-#: mainwindow.cpp:1073
+#: mainwindow.cpp:1074
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1969,17 +1969,17 @@ msgstr ""
 "želite da to bude za stalno, idite na <i>Podešavanje→Napredno</i> i "
 "isključite <i>Menadžer preuzimanja u K‑osvajaču</i>.</html>"
 
-#: mainwindow.cpp:1189 ui/droptarget.cpp:215
+#: mainwindow.cpp:1190 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Ispušteni fajl je KGetova lista prenosa"
 
-#: mainwindow.cpp:1191 ui/droptarget.cpp:217
+#: mainwindow.cpp:1192 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "&Preuzmi"
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:218
+#: mainwindow.cpp:1193 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Učitaj listu prenosa"
@@ -3270,39 +3270,39 @@ msgctxt "fix position for droptarget"
 msgid "Sticky"
 msgstr "Ljepljiv"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Show Main Window"
 msgstr "Prikaži glavni prozor"
 
-#: ui/droptarget.cpp:262
+#: ui/droptarget.cpp:261
 #, kde-format
 msgid "Hide Main Window"
 msgstr "Sakrij glavni prozor"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "Drop Target"
 msgstr "Mjesto za spuštanje"
 
-#: ui/droptarget.cpp:343
+#: ui/droptarget.cpp:342
 #, kde-format
 msgid "You can drag download links into the drop target."
 msgstr "Možete prevući veze za preuzimanje na mjesto za spuštanje."
 
-#: ui/droptarget.cpp:388
+#: ui/droptarget.cpp:387
 #, kde-format
 msgctxt "%1 filename, %2 total size, %3 status"
 msgid "%1(%2) %3"
 msgstr "%1 (%2, %3)"
 
-#: ui/droptarget.cpp:395
+#: ui/droptarget.cpp:394
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
 msgstr "%1 (%2%, %3/%4, brzina %5/s)"
 
-#: ui/droptarget.cpp:404
+#: ui/droptarget.cpp:403
 #, kde-format
 msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
@@ -3311,7 +3311,7 @@ msgid "%1(%2% %3/%4) %5"
 msgstr "%1 (%2%, %3/%4, %5)"
 
 # >> @info:tooltip
-#: ui/droptarget.cpp:418
+#: ui/droptarget.cpp:417
 #, kde-format
 msgid "Ready"
 msgstr "Spreman."
