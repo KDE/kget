@@ -1,22 +1,21 @@
-# Translation of kget.po to Spanish
-# translation of kget.po to Español
-# Copyright (C) 2003, 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
+# Spanish translations for kget.po package.
+# Copyright (C) 2003-2025 This file is copyright:
+# This file is distributed under the same license as the kget package.
 #
-# Jaime Robles <jaime@kde.org>, 2003, 2004.
-# Matias Costa <mcc3@alu.um.es>, 2005.
-# Pablo de Vicente <p.devicente@oan.es>, 2005.
-# Pablo de Vicente <pablo.devicente@gmail.com>, 2006.
-# Israel Garcia <israelgarcia86@gmail.com>, 2008.
-# SPDX-FileCopyrightText: 2008, 2010, 2012, 2017, 2019, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
-# Israel Garcia Garcia <israelgarcia86@gmail.com>, 2008, 2009, 2010.
-# Enrique Matias Sanchez <cronopios@gmail.com>, 2009.
-# Rocio Gallego <traducciones@rociogallego.com>, 2010, 2011, 2012, 2013, 2014.
+# SPDX-FileCopyrightText: 2003, 2004 Jaime Robles <jaime@kde.org>
+# SPDX-FileCopyrightText: 2005 Matias Costa <mcc3@alu.um.es>
+# SPDX-FileCopyrightText: 2005 Pablo de Vicente <p.devicente@oan.es>
+# SPDX-FileCopyrightText: 2006 Pablo de Vicente <pablo.devicente@gmail.com>
+# SPDX-FileCopyrightText: 2008, 2009, 2010 Israel Garcia Garcia <israelgarcia86@gmail.com>
+# SPDX-FileCopyrightText: 2008, 2010, 2012, 2017, 2019, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009 Enrique Matias Sanchez <cronopios@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:40+0000\n"
-"PO-Revision-Date: 2024-03-27 16:06+0100\n"
+"PO-Revision-Date: 2025-05-17 12:57+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -176,7 +175,7 @@ msgstr "Renombrar"
 #: conf/dlggroups.ui:65
 #, kde-format
 msgid "Select Icon..."
-msgstr "Seleccionar icono..."
+msgstr "Seleccionar icono…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
 #: conf/dlgintegration.ui:17
@@ -997,7 +996,7 @@ msgstr "Firma no verificada"
 
 #: core/transfer.cpp:29
 msgid "Downloading...."
-msgstr "Descargando..."
+msgstr "Descargando…"
 
 #: core/transfer.cpp:30
 msgctxt "transfer state: delayed"
@@ -1635,22 +1634,22 @@ msgstr "URL(s) a descargar"
 #: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
-msgstr "&Nueva descarga..."
+msgstr "&Nueva descarga…"
 
 #: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
-msgstr "&Importar transferencias..."
+msgstr "&Importar transferencias…"
 
 #: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
-msgstr "&Exportar lista de transferencias..."
+msgstr "&Exportar lista de transferencias…"
 
 #: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
-msgstr "&Crear un Metalink..."
+msgstr "&Crear un Metalink…"
 
 #: mainwindow.cpp:173
 #, kde-format
@@ -1682,12 +1681,12 @@ msgstr "Borrar grupo"
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Cambiar nombre de grupo..."
+msgstr "Cambiar nombre de grupo…"
 
 #: mainwindow.cpp:213
 #, kde-format
 msgid "Set Icon..."
-msgstr "Colocar icono..."
+msgstr "Colocar icono…"
 
 #: mainwindow.cpp:218
 #, kde-format
@@ -1803,7 +1802,7 @@ msgstr "Preferencias de &transferencia"
 #: mainwindow.cpp:346
 #, kde-format
 msgid "Import &Links..."
-msgstr "Importar en&laces..."
+msgstr "Importar en&laces…"
 
 #: mainwindow.cpp:352
 #, kde-format
@@ -2741,14 +2740,14 @@ msgstr "Seleccione un nuevo archivo Torrent"
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
 msgid "Downloading Torrent File...."
-msgstr "Descargando archivo Torrent..."
+msgstr "Descargando archivo Torrent…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:198
 #: transfer-plugins/bittorrent/bttransfer.cpp:295
 #, kde-format
 msgctxt "transfer state: downloading"
 msgid "Downloading...."
-msgstr "Descargando..."
+msgstr "Descargando…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:269
 #, kde-format
@@ -2763,18 +2762,18 @@ msgstr "El archivo torrent existe"
 #: transfer-plugins/bittorrent/bttransfer.cpp:417
 #, kde-format
 msgid "Analyzing torrent...."
-msgstr "Analizando torrent..."
+msgstr "Analizando torrent…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:433
 #, kde-format
 msgid "Cannot initialize port..."
-msgstr "No se puede inicializar el puerto..."
+msgstr "No se puede inicializar el puerto…"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:503
 #, kde-format
 msgctxt "Transfer status: seeding"
 msgid "Seeding...."
-msgstr "Sembrando..."
+msgstr "Sembrando…"
 
 #: transfer-plugins/bittorrent/bttransferfactory.cpp:32
 #, kde-format
@@ -2941,7 +2940,7 @@ msgstr "Lista de URL de motores de busqueda disponibles"
 #, kde-format
 msgctxt "transfer state: connecting"
 msgid "Connecting...."
-msgstr "Conectando..."
+msgstr "Conectando…"
 
 #: transfer-plugins/kio/transferKio.cpp:273
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:260
@@ -3033,7 +3032,7 @@ msgstr "Selección del archivo"
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
-msgstr "Descargar archivo de Metalink..."
+msgstr "Descargar archivo de Metalink…"
 
 #: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:111
@@ -3099,7 +3098,7 @@ msgstr "Nombre del motor"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:55
 #, kde-format
 msgid "New Engine..."
-msgstr "Nuevo motor..."
+msgstr "Nuevo motor…"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeEngineBt)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:62
@@ -3111,7 +3110,7 @@ msgstr "Eliminar"
 #, kde-format
 msgctxt "transfer state: running"
 msgid "Running...."
-msgstr "En ejecución..."
+msgstr "En ejecución…"
 
 #: transfer-plugins/mmsthreads/mmstransfer.cpp:116
 #, kde-format
@@ -3161,7 +3160,7 @@ msgstr[1] "Borrar grupo"
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
-msgstr[0] "Renombrar grupo..."
+msgstr[0] "Renombrar grupo…"
 msgstr[1] "Renombrar grupo"
 
 #: ui/droptarget.cpp:88
@@ -3544,7 +3543,7 @@ msgstr "Puede usar comodines para filtrar."
 #: ui/linkview/importlinkdialog.ui:118
 #, kde-format
 msgid "Filter files here...."
-msgstr "Filtrar archivos aquí..."
+msgstr "Filtrar archivos aquí…"
 
 #. i18n: ectx: property (text), widget (QPushButton, selectAll)
 #: ui/linkview/importlinkdialog.ui:192 ui/linkview/kget_linkview.cpp:321
@@ -3933,7 +3932,7 @@ msgstr "Añadir archivos locales"
 #: ui/metalinkcreator/files.ui:75
 #, kde-format
 msgid "Adding local files..."
-msgstr "Añadiendo archivos locales..."
+msgstr "Añadiendo archivos locales…"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/metalinkcreator/generalwidget.ui:23
@@ -4620,274 +4619,3 @@ msgstr "&Verificar"
 #, kde-format
 msgid "Close"
 msgstr "Cerrar"
-
-#~ msgid "Metalink Version 4.0 file (*.meta4)"
-#~ msgstr "Archivo de Metalink versión 4.0 (*.meta4)"
-
-#~ msgid "Metalink Version 3.0 file (*.metalink)"
-#~ msgstr "Archivo de Metalink versión 3.0 (*.metalink)"
-
-#~ msgctxt "Transfer state: processing script"
-#~ msgid "Processing script...."
-#~ msgstr "Procesando el guion..."
-
-#~ msgctxt "Transfer State: Finished"
-#~ msgid "Finished"
-#~ msgstr "Terminado"
-
-#~ msgctxt "Transfer State: Aborted"
-#~ msgid "Aborted"
-#~ msgstr "Interrumpido"
-
-#~ msgctxt "Configure script"
-#~ msgid "Configure script"
-#~ msgstr "Configurar el guion"
-
-#~ msgid "User Scripts"
-#~ msgstr "Guiones del usuario"
-
-#~ msgid "Path"
-#~ msgstr "Ruta"
-
-#~ msgid "RegExp"
-#~ msgstr "Expresión regular"
-
-#~ msgid "New Script...."
-#~ msgstr "Nuevo guion..."
-
-#~ msgid "Edit...."
-#~ msgstr "Editar..."
-
-#~ msgid "Configure...."
-#~ msgstr "Configurar..."
-
-#~ msgid "Add New Script"
-#~ msgstr "Añadir un guion nuevo"
-
-#~ msgid "Edit Script"
-#~ msgstr "Editar el guion"
-
-#~ msgid "Set Script File"
-#~ msgstr "Editar el archivo de guion"
-
-#~ msgid "Regexp:"
-#~ msgstr "Expresión regular:"
-
-#~ msgid "Path:"
-#~ msgstr "Ruta:"
-
-#~ msgid "List of the Regexp to match input URL"
-#~ msgstr "Lista de los registros para acordar con las URL"
-
-#~ msgid "List of descriptions for user scripts"
-#~ msgstr "Lista de las descripciones para usar guiones"
-
-#~ msgid "List of whether the script is enabled"
-#~ msgstr "Lista de que guiones están disponibles"
-
-#~ msgid "File Settings"
-#~ msgstr "Preferencias de archivo"
-
-#~ msgid "Use Normalized Name"
-#~ msgstr "Usar el nombre normalizado"
-
-#~ msgid "Use Literal Name"
-#~ msgstr "Usar el nombre literal"
-
-#~ msgid "Quality:"
-#~ msgstr "Calidad:"
-
-#~ msgid "Best Quality (.mp4)"
-#~ msgstr "Mejor calidad (.mp4)"
-
-#~ msgid "Normal Quality (.flv)"
-#~ msgstr "Calidad normal (.flv)"
-
-#~ msgid ""
-#~ "Provide login info of your YouTube account in order to access restricted "
-#~ "media."
-#~ msgstr ""
-#~ "Proporcione la información de acceso a su cuenta de YouTube para acceder "
-#~ "a los medios restringidos."
-
-#~ msgid "Login Info"
-#~ msgstr "Información de acceso"
-
-#~ msgid "Username:"
-#~ msgstr "Usuario:"
-
-#~ msgid ".netrc must have a hostname called 'youtube'."
-#~ msgstr ".netrc debe tener un nombre de máquina llamado «youtube»."
-
-#~ msgid "User .netrc file"
-#~ msgstr "Archivo .netrc del usuario"
-
-#~ msgid "Unable to start WebInterface: Could not open KWallet"
-#~ msgstr "No se puede iniciar WebInterface: no se pudo abrir KWallet"
-
-#~ msgctxt "@info"
-#~ msgid "Unable to start WebInterface: %1"
-#~ msgstr "No se ha podido iniciar WebInterface: %1"
-
-#~ msgctxt "@item speed of transfer per seconds"
-#~ msgid "%1/s"
-#~ msgstr "%1/s"
-
-#~ msgctxt "@label"
-#~ msgid "KGet Web Interface"
-#~ msgstr "Interfaz web de KGet"
-
-#~ msgctxt "@label number"
-#~ msgid "Nr"
-#~ msgstr "Nº"
-
-#~ msgctxt "@label"
-#~ msgid "File name"
-#~ msgstr "Nombre de archivo"
-
-#~ msgctxt "@label Progress of transfer"
-#~ msgid "Finished"
-#~ msgstr "Terminado"
-
-#~ msgctxt "@label Speed of transfer"
-#~ msgid "Speed"
-#~ msgstr "Velocidad"
-
-#~ msgctxt "@label Status of transfer"
-#~ msgid "Status"
-#~ msgstr "Estado"
-
-#~ msgctxt "@action:button start a transfer"
-#~ msgid "Start"
-#~ msgstr "Comenzar"
-
-#~ msgctxt "@action:button"
-#~ msgid "Stop"
-#~ msgstr "Detener"
-
-#~ msgctxt "@action:button"
-#~ msgid "Remove"
-#~ msgstr "Eliminar"
-
-#~ msgctxt "@label Download from"
-#~ msgid "Source:"
-#~ msgstr "Fuente:"
-
-#~ msgctxt "@label Save download to"
-#~ msgid "Saving to:"
-#~ msgstr "Guardar a:"
-
-#~ msgctxt "@label Title in header"
-#~ msgid "Web Interface"
-#~ msgstr "Interfaz de web"
-
-#~ msgctxt "@action"
-#~ msgid "Settings"
-#~ msgstr "Preferencias"
-
-#~ msgctxt "@action"
-#~ msgid "Refresh"
-#~ msgstr "Actualizar"
-
-#~ msgctxt "@action"
-#~ msgid "Enter URL: "
-#~ msgstr "Introducir URL: "
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "Aceptar"
-
-#~ msgctxt "@action Refresh download list every x (seconds)"
-#~ msgid "Refresh download list every"
-#~ msgstr "Actualizar lista de descarga cada"
-
-#~ msgctxt "@action:button"
-#~ msgid "Save Settings"
-#~ msgstr "Guardar preferencias"
-
-#~ msgctxt "@title"
-#~ msgid "Downloads"
-#~ msgstr "Descargas"
-
-#~ msgctxt "@label text in footer"
-#~ msgid "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS"
-#~ msgstr "Interfaz web KGet | Válido XHTML 1.0 Strict &amp; CSS"
-
-#~ msgid "Select a default temporary folder"
-#~ msgstr "Selecciona una carpeta temporal predeterminada"
-
-#~ msgid "0123456789"
-#~ msgstr "0123456789"
-
-#~ msgid "Nepomuk"
-#~ msgstr "Nepomuk"
-
-#~ msgid "Opens a dialog to add a transfer to the list"
-#~ msgstr "Abre un cuadro de diálogo para añadir una transferencia a la lista"
-
-#~ msgid "Imports a list of transfers"
-#~ msgstr "Importa una lista de transferencias"
-
-#~ msgid "Exports the current transfers into a file"
-#~ msgstr "Exporta la transferencia actual a un archivo"
-
-#~ msgid "Creates or modifies a metalink and saves it on disk"
-#~ msgstr "Crea o modifica un Metalink y lo graba en el disco"
-
-#~ msgid "Download selected transfer first"
-#~ msgstr "Descargar primero la transferencia seleccionada"
-
-#~ msgid "Download selected transfer last"
-#~ msgstr "Descargar en último lugar la transferencia seleccionada"
-
-#~ msgid "Increase priority for selected transfer"
-#~ msgstr "Incrementar la prioridad para la transferencia seleccionada"
-
-#~ msgid "Decrease priority for selected transfer"
-#~ msgstr "Disminuir la prioridad para la transferencia seleccionada"
-
-#~ msgid "Delete selected group"
-#~ msgstr "Borrar grupo seleccionado"
-
-#~ msgid "Select a custom icon for the selected group"
-#~ msgstr "Seleccionar un icono personalizado para el grupo seleccionado"
-
-#~ msgid ""
-#~ "Removes selected transfer and deletes files from disk if it's not finished"
-#~ msgstr ""
-#~ "Elimina la transferencia seleccionada y borra los archivos del disco si "
-#~ "no se había terminado"
-
-#~ msgid "Removes all finished transfers and leaves all files on disk"
-#~ msgstr ""
-#~ "Elimina todas las transferencias finalizadas y deja todos los archivos en "
-#~ "el disco"
-
-#~ msgid "Removes selected transfer and deletes files from disk in any case"
-#~ msgstr ""
-#~ "Elimina la transferencia seleccionada y borra los archivos del disco en "
-#~ "cualquier caso"
-
-#~ msgid "Starts / resumes all transfers"
-#~ msgstr "Comienza/continúa todas las transferencias"
-
-#~ msgid "Starts / resumes selected transfer"
-#~ msgstr "Comienza/continúa la transferencia seleccionada"
-
-#~ msgid "Pauses all transfers"
-#~ msgstr "Pausar todas las transferencias"
-
-#~ msgid "Pauses selected transfer"
-#~ msgstr "Pausa la transferencia seleccionada"
-
-#~ msgid ""
-#~ "Choose an action that is executed after all downloads have been finished."
-#~ msgstr ""
-#~ "Elegir una acción que se ejecute después de que todas las descargas hayan "
-#~ "terminado."
-
-#~ msgid "Scanning data of <b>%1</b> :"
-#~ msgstr "Analizando los datos de <b>%1</b>:"
-
-#~ msgid "Semantic Desktop"
-#~ msgstr "Semántica de escritorio"
