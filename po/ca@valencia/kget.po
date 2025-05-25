@@ -3857,7 +3857,7 @@ msgstr "Introduïu un nom de fitxer."
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
 msgid "The filename exists already, choose a different one."
-msgstr "El nom de fitxer ja existix, escolliu-ne un de diferent."
+msgstr "El nom de fitxer ja existix, trieu-ne un de diferent."
 
 #: ui/metalinkcreator/filedlg.cpp:140
 #, kde-format
