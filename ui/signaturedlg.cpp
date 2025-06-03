@@ -185,7 +185,7 @@ void SignatureDlg::updateData()
             QByteArray fingerprint = fingerprintString.toLatin1();
             const GpgME::Key key = context->key(fingerprint.constData(), err);
             if (err || key.isNull() || !key.numUserIDs() || !key.numSubkeys()) {
-                qCDebug(KGET_DEBUG) << "There was an error while loading the key:" << err;
+                qCDebug(KGET_DEBUG) << "There was an error while loading the key:" << err.asStdString();
             } else {
                 static const QStringList OWNERTRUST = QStringList()
                     << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal")
