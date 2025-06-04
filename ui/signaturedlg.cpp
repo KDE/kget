@@ -30,6 +30,7 @@
 #ifdef HAVE_QGPGME
 #include <gpgme++/context.h>
 #include <gpgme++/key.h>
+#include <gpgme++/gpgmepp_version.h>
 #endif
 
 #include <QLayoutItem>
@@ -185,7 +186,11 @@ void SignatureDlg::updateData()
             QByteArray fingerprint = fingerprintString.toLatin1();
             const GpgME::Key key = context->key(fingerprint.constData(), err);
             if (err || key.isNull() || !key.numUserIDs() || !key.numSubkeys()) {
+#if GPGMEPP_VERSION >= QT_VERSION_CHECK(1, 24, 0)
                 qCDebug(KGET_DEBUG) << "There was an error while loading the key:" << err.asStdString();
+#else
+                qCDebug(KGET_DEBUG) << "There was an error while loading the key:" << err;
+#endif
             } else {
                 static const QStringList OWNERTRUST = QStringList()
                     << i18nc("trust level", "Unknown") << i18nc("trust level", "Undefined") << i18nc("trust level", "Never") << i18nc("trust level", "Marginal")
