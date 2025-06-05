@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:41+0000\n"
+"POT-Creation-Date: 2025-06-05 00:42+0000\n"
 "PO-Revision-Date: 2011-08-27 17:32-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -4385,40 +4385,40 @@ msgstr "‘%1’ の新しい名前:"
 msgid "&Rename"
 msgstr "名前変更(&R)"
 
-#: ui/signaturedlg.cpp:46
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "%1 の署名"
 
-#: ui/signaturedlg.cpp:69
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "このオプションは現在の転送には使えません。"
 
-#: ui/signaturedlg.cpp:97
+#: ui/signaturedlg.cpp:98
 #, fuzzy, kde-format
 #| msgid "Signature"
 msgid "Load Signature File"
 msgstr "署名"
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:101
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr ""
 
-#: ui/signaturedlg.cpp:153
+#: ui/signaturedlg.cpp:154
 #, kde-format
 msgid "You need to define a signature."
 msgstr "署名を定義する必要があります。"
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:158
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4427,95 +4427,95 @@ msgstr ""
 "フィンガープリントを見つけることができませんでした。署名が正しいことを確認す"
 "るか、ダウンロードを検証してください。"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Unknown"
 msgstr "不明"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Undefined"
 msgstr "未定義"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Never"
 msgstr "信頼しない"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Marginal"
 msgstr "ある程度信頼"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Full"
 msgstr "完全に信頼"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Ultimate"
 msgstr "絶対的に信頼"
 
-#: ui/signaturedlg.cpp:195
+#: ui/signaturedlg.cpp:200
 #, kde-format
 msgid "The key has been revoked."
 msgstr "鍵は破棄されました。"
 
-#: ui/signaturedlg.cpp:199
+#: ui/signaturedlg.cpp:204
 #, kde-format
 msgid "The key is disabled."
 msgstr "鍵は無効になっています。"
 
-#: ui/signaturedlg.cpp:203
+#: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is invalid."
 msgstr "鍵は不正です。"
 
-#: ui/signaturedlg.cpp:208
+#: ui/signaturedlg.cpp:213
 #, kde-format
 msgid "The key is expired."
 msgstr "鍵は失効しています。"
 
-#: ui/signaturedlg.cpp:222
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr "鍵は信頼できません。"
 
-#: ui/signaturedlg.cpp:227
+#: ui/signaturedlg.cpp:232
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr "鍵はある程度信頼できます。"
 
-#: ui/signaturedlg.cpp:240
+#: ui/signaturedlg.cpp:245
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr "鍵の信頼度は不明です。"
 
-#: ui/signaturedlg.cpp:269
+#: ui/signaturedlg.cpp:274
 #, kde-format
 msgid "Unlimited"
 msgstr "無制限"
 
-#: ui/signaturedlg.cpp:287
+#: ui/signaturedlg.cpp:292
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "検証済み"
 
-#: ui/signaturedlg.cpp:290
+#: ui/signaturedlg.cpp:295
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "失敗"
 
-#: ui/signaturedlg.cpp:293
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
@@ -4523,7 +4523,7 @@ msgid ""
 msgstr ""
 "警告: 検証に失敗しました。間違った署名を入力したか、データが変更されました。"
 
-#: ui/signaturedlg.cpp:299
+#: ui/signaturedlg.cpp:304
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
@@ -4532,7 +4532,7 @@ msgstr ""
 "検証できません。入力したデータに間違いがないか、gpg-agent が起動しているか、"
 "インターネットに接続しているか (鍵を取得するために必要) 確認してください。"
 
-#: ui/signaturedlg.cpp:317
+#: ui/signaturedlg.cpp:322
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""

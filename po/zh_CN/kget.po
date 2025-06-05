@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:41+0000\n"
+"POT-Creation-Date: 2025-06-05 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -4134,141 +4134,141 @@ msgstr "将 %1 重命名为:"
 msgid "&Rename"
 msgstr "重命名(&R)："
 
-#: ui/signaturedlg.cpp:46
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "%1 的签名。"
 
-#: ui/signaturedlg.cpp:69
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "当前传输不支持此选项。"
 
-#: ui/signaturedlg.cpp:97
+#: ui/signaturedlg.cpp:98
 #, kde-format
 msgid "Load Signature File"
 msgstr "加载签名文件"
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "分离的 OpenPGP ASCII 签名 (*.asc)"
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:101
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "分离的 OpenPGP 二进制签名 (*.sig)"
 
-#: ui/signaturedlg.cpp:153
+#: ui/signaturedlg.cpp:154
 #, kde-format
 msgid "You need to define a signature."
 msgstr "您需要定义一个签名。"
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:158
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
 "the download."
 msgstr "找不到指纹，请检查签名的正确性并验证下载内容。"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Unknown"
 msgstr "未知"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Undefined"
 msgstr "未定义"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Never"
 msgstr "从不显示"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Marginal"
 msgstr "勉强"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Full"
 msgstr "完全"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Ultimate"
 msgstr "绝对"
 
-#: ui/signaturedlg.cpp:195
+#: ui/signaturedlg.cpp:200
 #, kde-format
 msgid "The key has been revoked."
 msgstr "此密钥已被撤销。"
 
-#: ui/signaturedlg.cpp:199
+#: ui/signaturedlg.cpp:204
 #, kde-format
 msgid "The key is disabled."
 msgstr "此密钥已被禁用。"
 
-#: ui/signaturedlg.cpp:203
+#: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is invalid."
 msgstr "此密钥无效。"
 
-#: ui/signaturedlg.cpp:208
+#: ui/signaturedlg.cpp:213
 #, kde-format
 msgid "The key is expired."
 msgstr "此密钥已过期。"
 
-#: ui/signaturedlg.cpp:222
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr "此密钥不受信任。"
 
-#: ui/signaturedlg.cpp:227
+#: ui/signaturedlg.cpp:232
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr "此密钥仅被勉强信任。"
 
-#: ui/signaturedlg.cpp:240
+#: ui/signaturedlg.cpp:245
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr "此密钥的信任等级不明。"
 
-#: ui/signaturedlg.cpp:269
+#: ui/signaturedlg.cpp:274
 #, kde-format
 msgid "Unlimited"
 msgstr "不限速"
 
-#: ui/signaturedlg.cpp:287
+#: ui/signaturedlg.cpp:292
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "已验证"
 
-#: ui/signaturedlg.cpp:290
+#: ui/signaturedlg.cpp:295
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "已失败"
 
-#: ui/signaturedlg.cpp:293
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
 "data has been modified."
 msgstr "注意：验证失败。可能您输入了错误的签名或数据已被更改。"
 
-#: ui/signaturedlg.cpp:299
+#: ui/signaturedlg.cpp:304
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
@@ -4277,7 +4277,7 @@ msgstr ""
 "无法验证。请检查所输入的数据，gpg-agent 是否正在运行，以及您是否有互联网连接"
 "(用来获取密钥。)"
 
-#: ui/signaturedlg.cpp:317
+#: ui/signaturedlg.cpp:322
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr "不支持的特性，因为 KGet 未编译入 QPGME 支持。"

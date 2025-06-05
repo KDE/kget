@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:41+0000\n"
+"POT-Creation-Date: 2025-06-05 00:42+0000\n"
 "PO-Revision-Date: 2025-04-18 18:25+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -4253,39 +4253,39 @@ msgstr "Renommer « %1 » en :"
 msgid "&Rename"
 msgstr "&Renommer"
 
-#: ui/signaturedlg.cpp:46
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "Signature de %1."
 
-#: ui/signaturedlg.cpp:69
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "Cette option n'est pas gérée pour le transfert actuel."
 
-#: ui/signaturedlg.cpp:97
+#: ui/signaturedlg.cpp:98
 #, kde-format
 msgid "Load Signature File"
 msgstr "Charger le fichier de signature"
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "Signature OpenPGP ASCII détachée (« *.asc »)"
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:101
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "Signature OpenPGP binaire détachée (« *.sig »)"
 
-#: ui/signaturedlg.cpp:153
+#: ui/signaturedlg.cpp:154
 #, kde-format
 msgid "You need to define a signature."
 msgstr "Vous devez définir une signature."
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:158
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4294,95 +4294,95 @@ msgstr ""
 "Aucune empreinte trouvée, vérifiez que la signature est correcte et que le "
 "téléchargement a bien fonctionné."
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Undefined"
 msgstr "Indéfini"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Never"
 msgstr "Jamais"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Marginal"
 msgstr "Marginal"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Full"
 msgstr "Complet"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Ultimate"
 msgstr "Absolu"
 
-#: ui/signaturedlg.cpp:195
+#: ui/signaturedlg.cpp:200
 #, kde-format
 msgid "The key has been revoked."
 msgstr "La clé a été révoquée."
 
-#: ui/signaturedlg.cpp:199
+#: ui/signaturedlg.cpp:204
 #, kde-format
 msgid "The key is disabled."
 msgstr "La clé est désactivé."
 
-#: ui/signaturedlg.cpp:203
+#: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is invalid."
 msgstr "La clé n'est pas valable."
 
-#: ui/signaturedlg.cpp:208
+#: ui/signaturedlg.cpp:213
 #, kde-format
 msgid "The key is expired."
 msgstr "La clé a expiré."
 
-#: ui/signaturedlg.cpp:222
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr "La clé n'est pas digne de confiance."
 
-#: ui/signaturedlg.cpp:227
+#: ui/signaturedlg.cpp:232
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr "La clé n'est que marginalement digne de confiance."
 
-#: ui/signaturedlg.cpp:240
+#: ui/signaturedlg.cpp:245
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr "Le niveau de confiance de la clé n'est pas clair."
 
-#: ui/signaturedlg.cpp:269
+#: ui/signaturedlg.cpp:274
 #, kde-format
 msgid "Unlimited"
 msgstr "Illimité"
 
-#: ui/signaturedlg.cpp:287
+#: ui/signaturedlg.cpp:292
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "Vérifiée"
 
-#: ui/signaturedlg.cpp:290
+#: ui/signaturedlg.cpp:295
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "Échec"
 
-#: ui/signaturedlg.cpp:293
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
@@ -4391,7 +4391,7 @@ msgstr ""
 "Attention : échec de la vérification. Soit vous avez saisi une mauvaise "
 "signature, soit les données ont été modifiées."
 
-#: ui/signaturedlg.cpp:299
+#: ui/signaturedlg.cpp:304
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
@@ -4401,7 +4401,7 @@ msgstr ""
 "l'agent « GPG » est lancé et que votre connexion Internet fonctionne (pour "
 "télécharger les clés)."
 
-#: ui/signaturedlg.cpp:317
+#: ui/signaturedlg.cpp:322
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""

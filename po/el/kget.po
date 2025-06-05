@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:41+0000\n"
+"POT-Creation-Date: 2025-06-05 00:42+0000\n"
 "PO-Revision-Date: 2024-09-19 17:33+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -4229,39 +4229,39 @@ msgstr "Μετονομασία του %1 σε:"
 msgid "&Rename"
 msgstr "&Μετονομασία"
 
-#: ui/signaturedlg.cpp:46
+#: ui/signaturedlg.cpp:47
 #, kde-format
 msgctxt ""
 "Signature here is meant in cryptographic terms, so the signature of a file."
 msgid "Signature of %1."
 msgstr "Υπογραφή του %1"
 
-#: ui/signaturedlg.cpp:69
+#: ui/signaturedlg.cpp:70
 #, kde-format
 msgid "This option is not supported for the current transfer."
 msgstr "Αυτή η επιλογή δεν υποστηρίζεται για την τρέχουσα μεταφορά."
 
-#: ui/signaturedlg.cpp:97
+#: ui/signaturedlg.cpp:98
 #, kde-format
 msgid "Load Signature File"
 msgstr "Φόρτωση αρχείου υπογραφής"
 
-#: ui/signaturedlg.cpp:99
+#: ui/signaturedlg.cpp:100
 #, kde-format
 msgid "Detached OpenPGP ASCII signature (*.asc)"
 msgstr "Αποκολλημένη υπογραφή OpenPGP ASCII (*.asc)"
 
-#: ui/signaturedlg.cpp:100
+#: ui/signaturedlg.cpp:101
 #, kde-format
 msgid "Detached OpenPGP binary signature (*.sig)"
 msgstr "Αποκολλημένη υπογραφή OpenPGP binary (*.asc)"
 
-#: ui/signaturedlg.cpp:153
+#: ui/signaturedlg.cpp:154
 #, kde-format
 msgid "You need to define a signature."
 msgstr "Πρέπει να καθορίσετε μια υπογραφή."
 
-#: ui/signaturedlg.cpp:157
+#: ui/signaturedlg.cpp:158
 #, kde-format
 msgid ""
 "No fingerprint could be found, check if the signature is correct or verify "
@@ -4270,95 +4270,95 @@ msgstr ""
 "Αδυναμία εύρεσης αποτυπώματος, ελέγξτε εάν η υπογραφή είναι σωστή ή "
 "επαληθεύστε τη λήψη."
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Undefined"
 msgstr "Απροσδιόριστο"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Never"
 msgstr "Ποτέ"
 
-#: ui/signaturedlg.cpp:191
+#: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Marginal"
 msgstr "Οριακά"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Full"
 msgstr "Πλήρης"
 
-#: ui/signaturedlg.cpp:192
+#: ui/signaturedlg.cpp:197
 #, kde-format
 msgctxt "trust level"
 msgid "Ultimate"
 msgstr "Απόλυτα"
 
-#: ui/signaturedlg.cpp:195
+#: ui/signaturedlg.cpp:200
 #, kde-format
 msgid "The key has been revoked."
 msgstr "Το κλειδί έχει ανακληθεί."
 
-#: ui/signaturedlg.cpp:199
+#: ui/signaturedlg.cpp:204
 #, kde-format
 msgid "The key is disabled."
 msgstr "Το κλειδί είναι απενεργοποιημένο."
 
-#: ui/signaturedlg.cpp:203
+#: ui/signaturedlg.cpp:208
 #, kde-format
 msgid "The key is invalid."
 msgstr "Το κλειδί δεν είναι έγκυρο."
 
-#: ui/signaturedlg.cpp:208
+#: ui/signaturedlg.cpp:213
 #, kde-format
 msgid "The key is expired."
 msgstr "Το κλειδί έχει λήξει."
 
-#: ui/signaturedlg.cpp:222
+#: ui/signaturedlg.cpp:227
 #, kde-format
 msgid "The key is not to be trusted."
 msgstr "Το κλειδί δεν είναι έμπιστο."
 
-#: ui/signaturedlg.cpp:227
+#: ui/signaturedlg.cpp:232
 #, kde-format
 msgid "The key is to be trusted marginally."
 msgstr "Το κλειδί είναι αξιόπιστο οριακά."
 
-#: ui/signaturedlg.cpp:240
+#: ui/signaturedlg.cpp:245
 #, kde-format
 msgid "Trust level of the key is unclear."
 msgstr "Το επίπεδο εμπιστοσύνης του κλειδιού είναι ασαφές."
 
-#: ui/signaturedlg.cpp:269
+#: ui/signaturedlg.cpp:274
 #, kde-format
 msgid "Unlimited"
 msgstr "Απεριόριστο"
 
-#: ui/signaturedlg.cpp:287
+#: ui/signaturedlg.cpp:292
 #, kde-format
 msgctxt "pgp signature is verified"
 msgid "Verified"
 msgstr "Επαληθεύτηκε"
 
-#: ui/signaturedlg.cpp:290
+#: ui/signaturedlg.cpp:295
 #, kde-format
 msgctxt "pgp signature is not verified"
 msgid "Failed"
 msgstr "Απέτυχε"
 
-#: ui/signaturedlg.cpp:293
+#: ui/signaturedlg.cpp:298
 #, kde-format
 msgid ""
 "Caution: Verification failed. Either you entered the wrong signature, or the "
@@ -4367,7 +4367,7 @@ msgstr ""
 "Προσοχή: Η επαλήθευση απέτυχε. Είτε εισαγάγατε μια λανθασμένη υπογραφή, ή τα "
 "δεδομένα έχουν τροποποιηθεί."
 
-#: ui/signaturedlg.cpp:299
+#: ui/signaturedlg.cpp:304
 #, kde-format
 msgid ""
 "Verification not possible. Check the entered data, whether gpg-agent is "
@@ -4377,7 +4377,7 @@ msgstr ""
 "πράκτορας GPG εκτελείται, ή αν έχετε σύνδεση στο Internet (για την ανάκτηση "
 "κλειδιών.)"
 
-#: ui/signaturedlg.cpp:317
+#: ui/signaturedlg.cpp:322
 #, kde-format
 msgid "Feature is not supported, as KGet is not compiled with QPGME support."
 msgstr ""
