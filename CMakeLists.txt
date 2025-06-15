@@ -105,7 +105,7 @@ if (NOT WIN32)
     )
 endif()
 
-find_package(KTorrent6 23.11.70)
+find_package(KTorrent6 25.07.70)
 set_package_properties(KTorrent6 PROPERTIES
     DESCRIPTION "Backend Library of KTorrent"
     TYPE RECOMMENDED
