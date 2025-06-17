@@ -29,7 +29,7 @@ class QSortFilterProxyModel;
 namespace bt
 {
 class BEncoder;
-class BNode;
+class BDictNode;
 }
 
 namespace kt
@@ -68,7 +68,7 @@ protected:
         void initPercentage(const bt::TorrentInterface *tc, const bt::BitSet &havechunks);
 
         void saveExpandedState(const QModelIndex &index, QSortFilterProxyModel *pm, QTreeView *tv, bt::BEncoder *enc);
-        void loadExpandedState(const QModelIndex &index, QSortFilterProxyModel *pm, QTreeView *tv, bt::BNode *node);
+        void loadExpandedState(const QModelIndex &index, QSortFilterProxyModel *pm, QTreeView *tv, bt::BDictNode *node);
     };
 
 public:
