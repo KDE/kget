@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork/kget.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:42+0000\n"
+"POT-Creation-Date: 2025-06-24 00:42+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -2400,14 +2400,14 @@ msgid "Whether we are interested in downloading from this peer"
 msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:339
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:338
 #, kde-format
 msgid "File"
 msgstr "Comhad"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:341
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:340
 #: ui/history/transferhistory.ui:90
 #, kde-format
 msgid "Size"

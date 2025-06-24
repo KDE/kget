@@ -1,5 +1,5 @@
 # translation of kget.po to
-# Version: $Revision: 1710456 $
+# Version: $Revision: 1711928 $
 # Copyright (C) 2002,2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Wojciech Milewski <Wojciech.Milewski@wp.pl>, 2002.
 # Krzysztof Lichota <lichota@mimuw.edu.pl>, 2002, 2005, 2006, 2007.
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:42+0000\n"
+"POT-Creation-Date: 2025-06-24 00:42+0000\n"
 "PO-Revision-Date: 2024-04-01 08:03+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -2418,14 +2418,14 @@ msgid "Whether we are interested in downloading from this peer"
 msgstr "Pokazuje, czy jesteśmy zainteresowani pobieraniem od partnera"
 
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:71
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:339
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:338
 #, kde-format
 msgid "File"
 msgstr "Plik"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: transfer-plugins/bittorrent/advanceddetails/torrentfilelistmodel.cpp:73
-#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:341
+#: transfer-plugins/bittorrent/advanceddetails/torrentfiletreemodel.cpp:340
 #: ui/history/transferhistory.ui:90
 #, kde-format
 msgid "Size"
