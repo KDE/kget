@@ -150,13 +150,13 @@ msgstr "ანიმაციების ჩართვა"
 #: conf/dlggroups.ui:17
 #, kde-format
 msgid "Use default folders for groups as suggestion"
-msgstr "ჯგუფებისთვის რჩევის სახით ნაგულისხმები საქაღალდეების გამოყენება"
+msgstr "ჯგუფებისთვის რჩევის სახით ნაგულისხმევი საქაღალდეების გამოყენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr "სამიზნის კითხვა, თუ ნაგულისხმები საქაღალდეები მითითებული არაა"
+msgstr "სამიზნის კითხვა, თუ ნაგულისხმევი საქაღალდეები მითითებული არაა"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -2691,13 +2691,13 @@ msgstr "საქაღალდეები"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:117
 #, kde-format
 msgid "Default torrent folder:"
-msgstr "Torrent-ის ნაგულისხმები საქაღალდე:"
+msgstr "Torrent-ის ნაგულისხმევი საქაღალდე:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:134
 #, kde-format
 msgid "Default temporary folder:"
-msgstr "ნაგულისხმები დროებითი საქაღალდე:"
+msgstr "ნაგულისხმევი დროებითი საქაღალდე:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
@@ -3201,7 +3201,7 @@ msgstr "ჯგუფის პარამეტრები"
 #: ui/groupsettingsdialog.ui:44
 #, kde-format
 msgid "Defau&lt folder:"
-msgstr "&ნაგულისხმები საქაღალდე:"
+msgstr "&ნაგულისხმევი საქაღალდე:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
