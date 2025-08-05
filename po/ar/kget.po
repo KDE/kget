@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-24 00:42+0000\n"
-"PO-Revision-Date: 2025-08-03 12:02+0400\n"
+"PO-Revision-Date: 2025-08-03 23:04+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -104,7 +104,7 @@ msgstr "النهاية الخلفية للتاريخ"
 #: conf/dlgadvanced.ui:99
 #, kde-format
 msgid "Enable KDE Global Progress Tracking"
-msgstr "فعّل تتبع تقدم كِيدِي العام"
+msgstr "مكّن تتبع تقدم كِيدِي العام"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_ExportSingleTransfer)
 #: conf/dlgadvanced.ui:111
@@ -134,7 +134,7 @@ msgstr "اسأل دائمًا"
 #: conf/dlgadvanced.ui:141
 #, kde-format
 msgid "Automatic rename"
-msgstr "أعِد التسمية آليا"
+msgstr "أعِد التسمية آليّا"
 
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_FilesOverwrite)
 #: conf/dlgadvanced.ui:148
@@ -152,7 +152,7 @@ msgstr "استعمل سلة الإسقاط"
 #: conf/dlgappearance.ui:29
 #, kde-format
 msgid "Enable animations"
-msgstr "فعّل التحريكات"
+msgstr "مكّن التحريكات"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DirectoriesAsSuggestion)
 #: conf/dlggroups.ui:17
@@ -164,7 +164,7 @@ msgstr "استخدم الأدلة المبدئية المقترحة للمجمو
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr "اسأل عن الوجهة إذا لم تكن هناك مجلدات افتراضية"
+msgstr "اسأل عن الوجهة إذا لم تكن هناك مجلدات مبدئية"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -292,7 +292,7 @@ msgstr "تعذّر فتح محفظة.ك"
 #: conf/dlgwebinterface.ui:29
 #, kde-format
 msgid "Enable Web Interface"
-msgstr "فعّل واجهة الوب"
+msgstr "مكّن واجهة الوب"
 
 #. i18n: ectx: property (text), widget (QLabel, portLabel)
 #: conf/dlgwebinterface.ui:41
@@ -457,7 +457,7 @@ msgstr "مجموعة جديدة"
 #: conf/verificationpreferences.ui:17
 #, kde-format
 msgid "Automatic checksums verification"
-msgstr "التحقق التلقائي للمجموع"
+msgstr "التحقق الآليّ للمجموع"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: conf/verificationpreferences.ui:32
@@ -496,13 +496,13 @@ msgstr "التّوقيع"
 #: conf/verificationpreferences.ui:93
 #, kde-format
 msgid "Automatic verification"
-msgstr "التحقّق التلقائيّ"
+msgstr "التحقّق الآليّ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SignatureAutomaticDownloading)
 #: conf/verificationpreferences.ui:100
 #, kde-format
 msgid "Automatic downloading of missing keys"
-msgstr "التنزيل التلقائي للمفاتيح المفقودة"
+msgstr "التنزيل الآليّ للمفاتيح المفقودة"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: conf/verificationpreferences.ui:123
@@ -1682,7 +1682,7 @@ msgstr "اضبط الأيقونة..."
 #: mainwindow.cpp:219
 #, kde-format
 msgid "Auto-Paste Mode"
-msgstr "وضع اللصق التلقائي"
+msgstr "وضع اللصق الآليّ"
 
 #: mainwindow.cpp:223
 #, kde-format
@@ -1691,9 +1691,9 @@ msgid ""
 "When set, KGet will periodically scan the clipboard for URLs and paste them "
 "automatically."
 msgstr ""
-"يشغل زر <b> لصق تلقائي</b> ويعطل وضع اللصق التلقائي.\n"
-"عند تشغيله ، سيقوم كجت بمسح للحافظة بشكل دوري لأي مسارات وسيقوم بلصقها "
-"تلقائياً إن وجدها."
+"يشغل زر <b> لصق آليّ</b> ويعطل وضع اللصق الآليّ.\n"
+"عند تشغيله ، سيقوم كجت بمسح للحافظة بشكل دوري لأي مسارات وسيقوم بلصقها آليّاً "
+"إن وجدها."
 
 #: mainwindow.cpp:228
 #, kde-format
@@ -3799,7 +3799,7 @@ msgid ""
 "Automatically create checksums for the selected types. Keep in mind that "
 "this might take a while."
 msgstr ""
-"إنشاء المجاميع الاختبارية تلقائيا للأنواع المحددة. ضع في اعتبارك أن هذا قد "
+"إنشاء المجاميع الاختبارية آليّا للأنواع المحددة. ضع في اعتبارك أن هذا قد "
 "يستغرق بعض الوقت."
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
@@ -3911,7 +3911,7 @@ msgstr "اختياري"
 #: ui/metalinkcreator/files.ui:26
 #, kde-format
 msgid "Adds local files adding a lot information automatically."
-msgstr "يضيف الملفات المحلية مضيفا الكثير من المعلومات تلقائيا."
+msgstr "يضيف الملفات المحلية مضيفا الكثير من المعلومات آليّا."
 
 #. i18n: ectx: property (text), widget (QPushButton, add_local_file)
 #: ui/metalinkcreator/files.ui:29
