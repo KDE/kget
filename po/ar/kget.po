@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-24 00:42+0000\n"
-"PO-Revision-Date: 2025-08-03 23:04+0400\n"
+"PO-Revision-Date: 2025-08-06 17:02+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -86,7 +86,7 @@ msgstr "استعد حالة التنزيل"
 #: conf/dlgadvanced.ui:74
 #, kde-format
 msgid "Start All Downloads"
-msgstr "ابدء جميع التنزيلات"
+msgstr "ابدأ جميع التنزيلات"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_StartupAction)
 #: conf/dlgadvanced.ui:79
@@ -164,7 +164,7 @@ msgstr "استخدم الأدلة المبدئية المقترحة للمجمو
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr "اسأل عن الوجهة إذا لم تكن هناك مجلدات مبدئية"
+msgstr "اسأل عن المقصد إذا لم تكن هناك مجلدات مبدئية"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -508,7 +508,7 @@ msgstr "التنزيل الآليّ للمفاتيح المفقودة"
 #: conf/verificationpreferences.ui:123
 #, kde-format
 msgid "Keyservers:"
-msgstr "خواديم المفاتيح"
+msgstr "خوادم المفاتيح"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
 #: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
@@ -613,7 +613,7 @@ msgstr ""
 #: core/kget.cpp:250 core/kget.cpp:343
 #, kde-format
 msgid "Download added"
-msgstr "تم إضافة التنزيل"
+msgstr "أُضيف التنزيل"
 
 #: core/kget.cpp:338
 #, kde-format
@@ -881,12 +881,12 @@ msgstr "حُلّ"
 #: core/kget.cpp:1391
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
-msgstr "سيتم الآن إغلاق كجت لأن جميع التنزيلات اكتملت."
+msgstr "سيُغلق كجت الآن لأن جميع التنزيلات اكتملت."
 
 #: core/kget.cpp:1398
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
-msgstr "سيتم الآن إيقاف تشغيل الحاسوب لأن جميع التنزيلات اكتملت."
+msgstr "سيُطفئ تشغيل الحاسوب الآن لأن جميع التنزيلات اكتملت."
 
 #: core/kget.cpp:1400
 #, kde-format
@@ -897,7 +897,7 @@ msgstr "أطفئ"
 #: core/kget.cpp:1405
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
-msgstr "سيتم الآن تعليق الحاسوب في القرص لأن جميع التنزيلات اكتملت."
+msgstr "سيُعلق الحاسوب في القرص الآن لأن جميع التنزيلات اكتملت."
 
 #: core/kget.cpp:1407
 #, kde-format
@@ -908,8 +908,7 @@ msgstr "السبات"
 #: core/kget.cpp:1412
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
-msgstr ""
-"سيتم الآن تعليق الحاسوب في الذاكرة العشوائية لأن جميع التنزيلات اكتملت."
+msgstr "سيُعلق الحاسوب في الذاكرة العشوائية الآن لأن جميع التنزيلات اكتملت."
 
 #: core/kget.cpp:1414
 #, kde-format
@@ -926,7 +925,7 @@ msgstr "الغِ"
 #: core/kget.cpp:1431
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
-msgstr "<p>تمت جميع التحويلات.</p>"
+msgstr "<p>انتهت جميع التحويلات.</p>"
 
 #: core/kget.cpp:1431
 #, kde-format
@@ -1146,17 +1145,17 @@ msgstr "مجلد التنزيل غير قابل للكتابة."
 #: core/urlchecker.cpp:312 core/urlchecker.cpp:352
 #, kde-format
 msgid "No download destination specified."
-msgstr "لم تُحدّد وجهة تنزيل."
+msgstr "لم تُحدّد مقصد تنزيل."
 
 #: core/urlchecker.cpp:314
 #, kde-format
 msgid "Invalid download destination specified."
-msgstr "حُدّدت وجهة تنزيل غير صالحة."
+msgstr "حُدّدت مقصد تنزيل غير صالحة."
 
 #: core/urlchecker.cpp:316
 #, kde-format
 msgid "Download destination is not writeable."
-msgstr "وجهة التنزيل غير قابلة للكتابة."
+msgstr "مقصد التنزيل غير قابلة للكتابة."
 
 #: core/urlchecker.cpp:324 core/urlchecker.cpp:364 core/urlchecker.cpp:454
 #: core/urlchecker.cpp:468
@@ -1203,7 +1202,7 @@ msgid ""
 "Invalid download destination specified:\n"
 "%1"
 msgstr ""
-"حُدّدت وجهة تنزيل غير صالحة:\n"
+"حُدّدت مقصد تنزيل غير صالحة:\n"
 "%1"
 
 #: core/urlchecker.cpp:356
@@ -1212,7 +1211,7 @@ msgid ""
 "Download destination is not writeable:\n"
 "%1"
 msgstr ""
-"وجهة التنزيل غير قابلة للكتابة:\n"
+"مقصد التنزيل غير قابلة للكتابة:\n"
 "%1"
 
 #: core/urlchecker.cpp:370
@@ -1334,7 +1333,7 @@ msgstr "الملفات موجودة مسبقا. أأكتب فوقه؟"
 msgid ""
 "You have already completed downloads at those destinations. Download them "
 "again?"
-msgstr "لقد أكملت بالفعل التنزيلات في تلك الوجهات. قم بتنزيلها مرة أخرى؟"
+msgstr "لقد أكملت بالفعل التنزيلات في تلك المقاصد. قم بتنزيلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:504
 #, kde-format
@@ -1342,7 +1341,7 @@ msgid ""
 "You have downloads in progress to these destinations.\n"
 "Delete them and download again?"
 msgstr ""
-"لديك تنزيلات قيد التقدم إلى هذه الوجهات.\n"
+"لديك تنزيلات قيد التقدم إلى هذه المقاصد.\n"
 "حذفها وتنزيلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:512
@@ -1381,7 +1380,7 @@ msgid ""
 "\n"
 " Download them again?"
 msgstr ""
-"لقد أكملت بالفعل التنزيلات في تلك الوجهات: \n"
+"لقد أكملت بالفعل التنزيلات في تلك المقاصد: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1396,7 +1395,7 @@ msgid ""
 "\n"
 "Delete them and download again?"
 msgstr ""
-"لديك تنزيلات قيد التقدم إلى هذه الوجهات: \n"
+"لديك تنزيلات قيد التقدم إلى هذه المقاصد: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1531,7 +1530,7 @@ msgstr "عيش راج داهال"
 #: main.cpp:112
 #, kde-format
 msgid "Google Summer of Code Student"
-msgstr "صيف جوجل للترجمة للطلاب"
+msgstr "صيف غوغل للترجمة للطلاب"
 
 #: main.cpp:113
 #, kde-format
@@ -2342,7 +2341,7 @@ msgstr "الاهتمام"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:359
 #, kde-format
 msgid "IP address of the peer"
-msgstr "عنوان آيبي النظير"
+msgstr "عنوان إنترنت النظير"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:361
 #, kde-format
@@ -2520,7 +2519,7 @@ msgstr "السرعة"
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:94
 #, kde-format
 msgid "Cannot add the webseed %1, it is already part of the list of webseeds."
-msgstr "تعذّر إضافة بذرة الوب %1, فهي أصلًا موجودة في قائمة بذور الةب."
+msgstr "تعذّر إضافة بذرة الوب %1, فهي أصلًا موجودة في قائمة بذور الوب."
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedstab.cpp:109
 #, kde-format
@@ -3300,7 +3299,7 @@ msgstr "موقف"
 #, kde-format
 msgctxt "The transfer is aborted"
 msgid "Aborted"
-msgstr "مُجعض"
+msgstr "مجهض"
 
 #: ui/history/transferhistory.cpp:220
 #, kde-format
@@ -3331,7 +3330,7 @@ msgstr "حجم الملف"
 #: ui/history/transferhistory.cpp:255
 #, kde-format
 msgid "Less than 1MiB"
-msgstr "أقل من ميجابايت"
+msgstr "أقل من ميغابايت"
 
 #: ui/history/transferhistory.cpp:256
 #, kde-format
@@ -4459,12 +4458,12 @@ msgstr "إعدادات نقل %1"
 #, kde-format
 msgid ""
 "Changing the destination did not work, the destination stays unmodified."
-msgstr "لم ينجح تغيير الوجهة، تبقى الوجهة دون تعديل."
+msgstr "لم ينجح تغيير المقصد، تبقى المقصد دون تعديل."
 
 #: ui/transfersettingsdialog.cpp:164
 #, kde-format
 msgid "Destination unmodified"
-msgstr "لم يتم تغيير الوجهة"
+msgstr "لم تُغير المقصد"
 
 #. i18n: ectx: property (text), widget (KTitleWidget, ktitlewidget)
 #: ui/transfersettingsdialog.ui:23
@@ -4476,7 +4475,7 @@ msgstr "إعدادات النقل"
 #: ui/transfersettingsdialog.ui:35
 #, kde-format
 msgid "Download des&tination:"
-msgstr "وجهة التنزيل"
+msgstr "مقصد التنزيل"
 
 #. i18n: ectx: property (text), widget (QLabel, labelUpload)
 #: ui/transfersettingsdialog.ui:90
