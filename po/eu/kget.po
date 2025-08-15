@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-24 00:42+0000\n"
-"PO-Revision-Date: 2025-03-28 21:15+0100\n"
+"PO-Revision-Date: 2025-08-14 11:55+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: conf/autopastemodel.cpp:174
@@ -2426,7 +2426,7 @@ msgstr "Tamaina"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:134
 #, kde-format
 msgid "Url"
-msgstr "URLa"
+msgstr "URL"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
@@ -2502,7 +2502,7 @@ msgstr "Leheneratu lehenetsiak"
 #: ui/linkview/kget_linkview.cpp:91
 #, kde-format
 msgid "URL"
-msgstr "URLa"
+msgstr "URL"
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:122
 #, kde-format
@@ -3055,7 +3055,7 @@ msgstr "Motorraren izena:"
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
-msgstr "URLa:"
+msgstr "URL:"
 
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
 #, kde-format
@@ -3636,7 +3636,7 @@ msgstr "Fitxategi mota"
 #: ui/linkview/kget_linkview.cpp:160
 #, kde-format
 msgid "Location (URL)"
-msgstr "Helbidea (URLa)"
+msgstr "Helbidea (URL)"
 
 #: ui/linkview/kget_linkview.cpp:260
 #, kde-format
@@ -3686,7 +3686,7 @@ msgstr "Logotipoa:"
 #: ui/metalinkcreator/commondata.ui:63
 #, kde-format
 msgid "URL to the logo"
-msgstr "Logotipoaren URLa"
+msgstr "Logotipoaren URL"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_13)
 #: ui/metalinkcreator/commondata.ui:73
@@ -3747,7 +3747,7 @@ msgstr "Argitaratzailearen izena"
 #: ui/metalinkcreator/commondata.ui:180
 #, kde-format
 msgid "URL to the publisher"
-msgstr "Argitaratzailearen URLa"
+msgstr "Argitaratzailearen URL"
 
 #: ui/metalinkcreator/dragdlg.cpp:73
 #, kde-format
@@ -4087,7 +4087,7 @@ msgstr "Konexio kopurua:"
 #: ui/mirror/mirroradddlg.ui:33
 #, kde-format
 msgid "Enter a URL"
-msgstr "Sartu URLa"
+msgstr "Sartu URL"
 
 #. i18n: ectx: property (text), widget (QLabel, labelPriority)
 #: ui/mirror/mirroradddlg.ui:53

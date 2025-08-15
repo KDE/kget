@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-24 00:42+0000\n"
-"PO-Revision-Date: 2025-08-09 22:30+0400\n"
+"PO-Revision-Date: 2025-08-14 09:54+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -721,7 +721,7 @@ msgid ""
 "\n"
 "Download it again?"
 msgstr ""
-"لقد أكملت بالفعل التنزيل من الموقع: \n"
+"لقد أكملت فعلًا التنزيل من الموقع: \n"
 "\n"
 "%1\n"
 "\n"
@@ -787,12 +787,12 @@ msgstr ""
 #: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
-msgstr "الملف منزل بالفعل. هل تريد تنزيله مرة أخرى؟"
+msgstr "الملف منزل فعلًا. هل تريد تنزيله مرة أخرى؟"
 
 #: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
-msgstr "أنت تنزّل هذا الملف بالفعل"
+msgstr "أنت تنزّل هذا الملف فعلًا"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
@@ -1234,7 +1234,7 @@ msgid ""
 "You have already downloaded that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
-"لقد نزلتَ بالفعل هذا الملف من موقع آخر.\n"
+"لقد نزلتَ فعلًا هذا الملف من موقع آخر.\n"
 "تحميل وحذف السابق؟"
 
 #: core/urlchecker.cpp:390 core/urlchecker.cpp:416
@@ -1243,14 +1243,14 @@ msgid ""
 "You are already downloading that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
-"أنت تنزّل بالفعل هذا الملف من موقع آخر.\n"
+"أنت تنزّل فعلًا هذا الملف من موقع آخر.\n"
 "تحميل وحذف السابق؟"
 
 #: core/urlchecker.cpp:400
 #, kde-format
 msgid ""
 "You have already completed a download from that location. Download it again?"
-msgstr "لقد أكملت بالفعل تنزيلاً من هذا الموقع. قم بتنزيله مرة أخرى؟"
+msgstr "لقد أكملت فعلًا تنزيلاً من هذا الموقع. نزّله مرة أخرى؟"
 
 #: core/urlchecker.cpp:402
 #, kde-format
@@ -1333,7 +1333,7 @@ msgstr "الملفات موجودة مسبقا. أأكتب فوقه؟"
 msgid ""
 "You have already completed downloads at those destinations. Download them "
 "again?"
-msgstr "لقد أكملت بالفعل التنزيلات في تلك المقاصد. قم بتنزيلها مرة أخرى؟"
+msgstr "لقد أكملت فعلًا التنزيلات في تلك المقاصد. نزّلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:504
 #, kde-format
@@ -1349,7 +1349,7 @@ msgstr ""
 msgid ""
 "You have already completed downloads from these locations. Download them "
 "again?"
-msgstr "لقد أكملت بالفعل التنزيلات من هذه المواقع. قم بتنزيلها مرة أخرى؟"
+msgstr "لقد أكملت فعلًا التنزيلات من هذه المواقع. نزّلها مرة أخرى؟"
 
 #: core/urlchecker.cpp:514
 #, kde-format
@@ -1367,7 +1367,7 @@ msgid ""
 "%1\n"
 "Overwrite them?"
 msgstr ""
-"الملفات موجودة بالفعل:\n"
+"الملفات موجودة فعلًا:\n"
 "%1\n"
 "الكتابة فوقها؟"
 
@@ -1380,7 +1380,7 @@ msgid ""
 "\n"
 " Download them again?"
 msgstr ""
-"لقد أكملت بالفعل التنزيلات في تلك المقاصد: \n"
+"لقد أكملت فعلًا التنزيلات في تلك المقاصد: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1410,7 +1410,7 @@ msgid ""
 "\n"
 "Download them again?"
 msgstr ""
-"لقد أكملت بالفعل التنزيلات من هذه المواقع: \n"
+"لقد أكملت فعلًا التنزيلات من هذه المواقع: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1691,8 +1691,7 @@ msgid ""
 "automatically."
 msgstr ""
 "يشغل زر <b> لصق آليّ</b> ويعطل وضع اللصق الآليّ.\n"
-"عند تشغيله، سيقوم كجت بمسح للحافظة بشكل دوري لأي مسارات وسيقوم بلصقها آليّاً "
-"إن وجدها."
+"عند تشغيله، سيمسح كجت الحافظة بشكل دوري لأي مسارات وسيلصقها آليّاً إن وجدها."
 
 #: mainwindow.cpp:228
 #, kde-format
@@ -2477,7 +2476,7 @@ msgstr "أدخل عنوان للمتتبع:"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
-msgstr "يوجد بالفعل متتبع بالاسم <b>%1</b>."
+msgstr "يوجد فعلًا متتبع بالاسم <b>%1</b>."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
@@ -4169,7 +4168,7 @@ msgstr "حدد عنوان مصدر واحد على الأقل."
 #: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
-msgstr "وُضعت علامة على الملفات الموجودة بالفعل في المجلد الحالي."
+msgstr "وُضعت علامة على الملفات الموجودة فعلًا في المجلد الحالي."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/newtransferwidget.ui:30
