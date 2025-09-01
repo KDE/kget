@@ -175,7 +175,7 @@ msgstr "Canvia el nom"
 #: conf/dlggroups.ui:65
 #, kde-format
 msgid "Select Icon..."
-msgstr "Seleccioneu una icona…"
+msgstr "Tria una icona…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
 #: conf/dlgintegration.ui:17
@@ -686,7 +686,7 @@ msgstr "Introduïu un URL:"
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
-msgstr "Seleccioneu un directori"
+msgstr "Trieu un directori"
 
 #: core/kget.cpp:974
 #, kde-format
@@ -2115,7 +2115,7 @@ msgstr[1] "Perdreu totes les dades d'estos fitxers. Segur que voleu fer açò?"
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
 #, kde-format
 msgid "Select a directory to move the data to"
-msgstr "Seleccioneu un directori cap a on s'han de moure les dades"
+msgstr "Trieu un directori cap a on s'han de moure les dades"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
@@ -2727,7 +2727,7 @@ msgstr "Preassigna l'espai del disc"
 #, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "Seleccioneu un fitxer Torrent nou"
+msgstr "Trieu un fitxer Torrent nou"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -3013,12 +3013,12 @@ msgstr "Nombre de connexions per URL:"
 #: transfer-plugins/metalink/fileselection.ui:17
 #, kde-format
 msgid "Select the files you want to be downloaded."
-msgstr "Seleccioneu els fitxers que voleu baixar."
+msgstr "Trieu els fitxers que voleu baixar."
 
 #: transfer-plugins/metalink/fileselectiondlg.cpp:35
 #, kde-format
 msgid "File Selection"
-msgstr "Seleccioneu un fitxer"
+msgstr "Trieu un fitxer"
 
 #: transfer-plugins/metalink/metalink.cpp:76
 #: transfer-plugins/metalink/metalinkxml.cpp:72
@@ -3396,7 +3396,7 @@ msgstr "Modes de vista:"
 #: ui/history/transferhistory.ui:77
 #, kde-format
 msgid "Select Ranges:"
-msgstr "Selecciona els intervals:"
+msgstr "Tria els intervals:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, rangeType)
 #: ui/history/transferhistory.ui:85
@@ -3656,7 +3656,7 @@ msgstr "Enllaços en: %1 - KGet"
 #: ui/linkview/kget_linkview.cpp:321
 #, kde-format
 msgid "&Select All Filtered"
-msgstr "&Selecciona tots els filtratges"
+msgstr "&Tria tots els filtratges"
 
 #: ui/linkview/kget_linkview.cpp:322
 #, kde-format
@@ -4167,7 +4167,7 @@ msgstr "Botó"
 #: ui/newtransferdialog.cpp:315
 #, kde-format
 msgid "Select at least one source url."
-msgstr "Seleccioneu un URL origen com a mínim."
+msgstr "Trieu un URL origen com a mínim."
 
 #: ui/newtransferdialog.cpp:333
 #, kde-format
@@ -4529,7 +4529,7 @@ msgstr "Verificació"
 #: ui/transfersview.cpp:124
 #, kde-format
 msgid "Select columns"
-msgstr "Seleccioneu les columnes"
+msgstr "Trieu les columnes"
 
 #: ui/transfersview.cpp:312
 #, kde-format
