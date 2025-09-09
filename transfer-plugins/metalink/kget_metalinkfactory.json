@@ -32,7 +32,6 @@
                 "Name[sv]": "Manolo Valdes",
                 "Name[tr]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
-                "Name[x-test]": "xxManolo Valdesxx",
                 "Name[zh_CN]": "Manolo Valdes",
                 "Name[zh_TW]": "Manolo Valdes"
             }
@@ -68,7 +67,6 @@
         "Description[sv]": "Gör det möjligt att ladda ner filer från Metalink",
         "Description[tr]": "Metalink'ten dosyaların indirilebilmesine olanak tanır",
         "Description[uk]": "Надає змогу отримувати файли з Metalink",
-        "Description[x-test]": "xxAllows files to be downloaded from Metalinkxx",
         "Description[zh_CN]": "允许从元链接下载文件",
         "Description[zh_TW]": "允許從 Metalink 下載檔案",
         "EnabledByDefault": true,
@@ -132,7 +130,6 @@
         "Name[tr]": "Metalink",
         "Name[ug]": "مېتا ئۇلانما",
         "Name[uk]": "Metalink",
-        "Name[x-test]": "xxMetalinkxx",
         "Name[zh_CN]": "元链接",
         "Name[zh_TW]": "Metalink"
     },

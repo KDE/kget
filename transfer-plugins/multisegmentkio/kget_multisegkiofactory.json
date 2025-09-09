@@ -32,7 +32,6 @@
                 "Name[sv]": "Manolo Valdes",
                 "Name[tr]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
-                "Name[x-test]": "xxManolo Valdesxx",
                 "Name[zh_CN]": "Manolo Valdes",
                 "Name[zh_TW]": "Manolo Valdes"
             }
@@ -68,7 +67,6 @@
         "Description[sv]": "Flertrådigt insticksprogram för nerladdning av filer",
         "Description[tr]": "Çok parçacıklı dosya indirme eklentisi",
         "Description[uk]": "Додаток отримання файлів у декілька потоків",
-        "Description[x-test]": "xxMultithreaded file download pluginxx",
         "Description[zh_CN]": "多线程文件下载插件",
         "Description[zh_TW]": "多緒檔案下載外掛程式",
         "EnabledByDefault": true,
@@ -133,7 +131,6 @@
         "Name[tr]": "Çoklu Bölütlü KIO",
         "Name[ug]": "كۆپ بۆلەك KIO",
         "Name[uk]": "Багатосегментний KIO",
-        "Name[x-test]": "xxMulti Segment KIOxx",
         "Name[zh_CN]": "多段式 KIO",
         "Name[zh_TW]": "多段式 KIO"
     },

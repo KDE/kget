@@ -32,7 +32,6 @@
                 "Name[sv]": "Matthias Fuchs",
                 "Name[tr]": "Matthias Fuchs",
                 "Name[uk]": "Matthias Fuchs",
-                "Name[x-test]": "xxMatthias Fuchsxx",
                 "Name[zh_CN]": "Matthias Fuchs",
                 "Name[zh_TW]": "Matthias Fuchs"
             }
@@ -68,7 +67,6 @@
         "Description[sv]": "Försöker hitta checksummor för en angiven webbadress",
         "Description[tr]": "Belirli bir URL için sağlama toplamlarını bulmaya çalışır",
         "Description[uk]": "Намагається знайти контрольні суми файла за вказаною адресою",
-        "Description[x-test]": "xxTries to find checksums for a specified URLxx",
         "Description[zh_CN]": "尝试查找指定 URL 的数据校验和",
         "Description[zh_TW]": "試著尋找指定網址的驗證碼",
         "EnabledByDefault": true,
@@ -130,7 +128,6 @@
         "Name[tr]": "Sağlama Araması",
         "Name[ug]": "تەكشۈرۈش ئىزدەش",
         "Name[uk]": "Пошук контрольної суми",
-        "Name[x-test]": "xxChecksum Searchxx",
         "Name[zh_CN]": "校验和搜索",
         "Name[zh_TW]": "驗證碼搜尋"
     },

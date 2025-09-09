@@ -32,7 +32,6 @@
                 "Name[sv]": "Manolo Valdes",
                 "Name[tr]": "Manolo Valdes",
                 "Name[uk]": "Manolo Valdes",
-                "Name[x-test]": "xxManolo Valdesxx",
                 "Name[zh_CN]": "Manolo Valdes",
                 "Name[zh_TW]": "Manolo Valdes"
             }
@@ -68,7 +67,6 @@
         "Description[sv]": "Gör det möjligt för Kget att söka efter filer via spegelsöktjänster",
         "Description[tr]": "K İndir uygulamasının dosyalar için yansı arama motorlarında arayabilmesini sağlar",
         "Description[uk]": "Вмикає у KGet можливість пошуку за допомогою рушіїв пошуку дзеркал",
-        "Description[x-test]": "xxAllows KGet to search through mirror search engines for filesxx",
         "Description[zh_CN]": "允许 KGet 通过镜像搜索引擎查找文件",
         "Description[zh_TW]": "允許 KGet 透過映射搜尋引擎來搜尋檔案",
         "EnabledByDefault": true,
@@ -133,7 +131,6 @@
         "Name[ug]": "تەسۋىر ئىزدەش",
         "Name[uk]": "Пошук дзеркал",
         "Name[wa]": "Cweraedje e muroe",
-        "Name[x-test]": "xxMirror Searchxx",
         "Name[zh_CN]": "镜像搜索",
         "Name[zh_TW]": "映射搜尋"
     },
