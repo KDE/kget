@@ -1854,7 +1854,7 @@ msgstr "Todos los archivos que se pueden abrir"
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
-msgstr "KGet - %1%"
+msgstr "KGet - %1 %"
 
 #: mainwindow.cpp:564
 #, kde-format
@@ -2671,7 +2671,7 @@ msgstr "Guardar a:"
 #: ui/transferdetailsfrm.ui:83 ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr "%p%"
+msgstr "%p %"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2693,7 +2693,7 @@ msgstr "Sin límite"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:79
 #, kde-format
 msgid "KiB"
-msgstr "KB"
+msgstr "KiB"
 
 #. i18n: ectx: property (text), widget (QLabel, downloadLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:69
@@ -3199,7 +3199,7 @@ msgstr "%1(%2) %3"
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
-msgstr "%1(%2% %3/%4) Tasa:%5/s"
+msgstr "%1(%2 % %3/%4) Tasa:%5/s"
 
 #: ui/droptarget.cpp:403
 #, kde-format
@@ -3207,7 +3207,7 @@ msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
 "status"
 msgid "%1(%2% %3/%4) %5"
-msgstr "%1(%2% %3/%4) %5"
+msgstr "%1(%2 % %3/%4) %5"
 
 #: ui/droptarget.cpp:417
 #, kde-format
@@ -3289,7 +3289,7 @@ msgstr "Abrir archiv&o"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr "%p%"
+msgstr "%p %"
 
 #: ui/history/transferhistory.cpp:214
 #, kde-format
