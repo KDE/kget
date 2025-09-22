@@ -723,7 +723,7 @@
 > <guimenu
 >Archivo</guimenu
 > <guimenuitem
->Nueva descarga...</guimenuitem
+>Nueva descarga…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -746,7 +746,7 @@
 > <guimenu
 >Archivo</guimenu
 > <guimenuitem
->Importar enlaces...</guimenuitem
+>Importar enlaces…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -790,7 +790,7 @@
 > <guimenu
 >Archivo</guimenu
 > <guimenuitem
->Importar transferencias...</guimenuitem
+>Importar transferencias…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -821,7 +821,7 @@
 > <guimenu
 >Archivo</guimenu
 > <guimenuitem
->Exportar lista de transferencias...</guimenuitem
+>Exportar lista de transferencias…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
