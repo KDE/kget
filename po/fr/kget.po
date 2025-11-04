@@ -71,7 +71,7 @@ msgstr ""
 #: conf/dlgadvanced.ui:36
 #, kde-format
 msgid "Enable system tray icon"
-msgstr "Activer l'icône dans la boîte à miniatures"
+msgstr "Activer l'icône dans la boite à miniatures"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
 #: conf/dlgadvanced.ui:45
@@ -2892,7 +2892,7 @@ msgstr "Remplacer la fin du fichier"
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:19
 #, kde-format
 msgid "Change string:"
-msgstr "Modifier la chaîne :"
+msgstr "Modifier la chaine :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: transfer-plugins/checksumsearch/checksumsearchadddlg.ui:33
@@ -2932,7 +2932,7 @@ msgstr "%1 deviendra %2"
 #, kde-format
 msgctxt "the string that is used to modify an url"
 msgid "Change string"
-msgstr "Modifier la chaîne"
+msgstr "Modifier la chaine"
 
 #: transfer-plugins/checksumsearch/dlgchecksumsearch.cpp:178
 #, kde-format
