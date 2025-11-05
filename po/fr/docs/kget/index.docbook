@@ -156,7 +156,7 @@
     <listitem>
       <para>
 	<action
->Cette option affiche ou minimise la fenêtre principale dans la boîte à miniatures.</action>
+>Cette option affiche ou minimise la fenêtre principale dans la boite à miniatures.</action>
       </para>
      </listitem>
     </varlistentry>
@@ -561,13 +561,13 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Activer l'icône dans la boîte à miniatures</guimenuitem>
+>Activer l'icône dans la boite à miniatures</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
 	<para>
 	  <action
->Cochez cette case pour activer l'icône de &kget; dans la boîte à miniatures.</action>
+>Cochez cette case pour activer l'icône de &kget; dans la boite à miniatures.</action>
 	</para>
       </listitem>
     </varlistentry>
@@ -723,7 +723,7 @@
 </screenshot>
 <para
 ><action
->Cette action fait apparaître une autre fenêtre, dans laquelle vous pouvez voir et manipuler les fichiers à télécharger. Vous pouvez également faire une sélection sur les <guilabel
+>Cette action fait apparaitre une autre fenêtre, dans laquelle vous pouvez voir et manipuler les fichiers à télécharger. Vous pouvez également faire une sélection sur les <guilabel
 >Vidéos</guilabel
 >, <guilabel
 >Images</guilabel
