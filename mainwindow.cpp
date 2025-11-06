@@ -57,7 +57,6 @@
 #include <QInputDialog>
 #include <QKeySequence>
 #include <QMenuBar>
-#include <QSessionManager>
 #include <QStandardPaths>
 #include <QTimer>
 #ifdef DO_KGET_TEST
@@ -414,12 +413,6 @@ void MainWindow::init()
 
     // enable hide toolbar
     setStandardToolBarMenuEnabled(true);
-
-    // session management stuff
-    auto disableSessionManagement = [](QSessionManager &sm) {
-        sm.setRestartHint(QSessionManager::RestartNever);
-    };
-    QObject::connect(qApp, &QGuiApplication::saveStateRequest, disableSessionManagement);
 
     // set auto-resume in kioslaverc (is there a cleaner way?)
     KConfig cfg("kioslaverc", KConfig::NoGlobals);

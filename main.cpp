@@ -90,6 +90,7 @@ private:
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_DisableSessionManager);
     QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("kget");
     KAboutData aboutData(QStringLiteral("kget"),
