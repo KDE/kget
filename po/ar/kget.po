@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-24 00:42+0000\n"
+"POT-Creation-Date: 2025-11-08 00:41+0000\n"
 "PO-Revision-Date: 2025-08-14 09:54+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -65,7 +65,7 @@ msgid "Execute action after all downloads have been finished:"
 msgstr "نفذ أمرًا معينًا بعد انتهاء جميع التنزيلات:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_AfterFinishAction)
-#: conf/dlgadvanced.ui:53 mainwindow.cpp:361 ui/droptarget.cpp:95
+#: conf/dlgadvanced.ui:53 mainwindow.cpp:360 ui/droptarget.cpp:95
 #, kde-format
 msgid "Quit KGet"
 msgstr "أنه كجت"
@@ -344,17 +344,17 @@ msgstr "Xml"
 msgid "Sqlite"
 msgstr "Sqlite"
 
-#: conf/preferencesdialog.cpp:62 mainwindow.cpp:366
+#: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
 #, kde-format
 msgid "Turn Off Computer"
 msgstr "أ&طفئ الحاسوب"
 
-#: conf/preferencesdialog.cpp:63 mainwindow.cpp:371
+#: conf/preferencesdialog.cpp:63 mainwindow.cpp:370
 #, kde-format
 msgid "Hibernate Computer"
 msgstr "أسبِت الحاسوب"
 
-#: conf/preferencesdialog.cpp:64 mainwindow.cpp:376
+#: conf/preferencesdialog.cpp:64 mainwindow.cpp:375
 #, kde-format
 msgid "Suspend Computer"
 msgstr "علّق الحاسوب"
@@ -932,7 +932,7 @@ msgstr "<p>انتهت جميع التحويلات.</p>"
 msgid "Downloads completed"
 msgstr "اكتمل التنزيل"
 
-#: core/kget.h:361 main.cpp:96 mainwindow.cpp:96 mainwindow.cpp:518
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1449,12 +1449,12 @@ msgctxt "verification-result of a file, can be true/false"
 msgid "Verified"
 msgstr "متحقّق منه"
 
-#: main.cpp:98
+#: main.cpp:99
 #, kde-format
 msgid "An advanced download manager by KDE"
 msgstr "مدير تنزيل متقدم لكِيدِي"
 
-#: main.cpp:100
+#: main.cpp:101
 #, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
@@ -1467,128 +1467,128 @@ msgstr ""
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 
-#: main.cpp:104
+#: main.cpp:105
 #, kde-format
 msgid "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 msgstr "<a href=\"mailto:kget@kde.org\">kget@kde.org</a>"
 
-#: main.cpp:106
+#: main.cpp:107
 #, kde-format
 msgid "Lukas Appelhans"
 msgstr "Lukas Appelhans"
 
-#: main.cpp:106
+#: main.cpp:107
 #, kde-format
 msgid "Maintainer, Core Developer, Torrent Plugin Author"
 msgstr "مشرف، مطوّر أساسيّ، مؤلّف ملحق التورنت"
 
-#: main.cpp:107
+#: main.cpp:108
 #, kde-format
 msgid "Dario Massarin"
 msgstr "Dario Massarin"
 
-#: main.cpp:107 main.cpp:108 main.cpp:110
+#: main.cpp:108 main.cpp:109 main.cpp:111
 #, kde-format
 msgid "Core Developer"
 msgstr "مطور أساسي"
 
-#: main.cpp:108
+#: main.cpp:109
 #, kde-format
 msgid "Urs Wolfer"
 msgstr "Urs Wolfer"
 
-#: main.cpp:109
+#: main.cpp:110
 #, kde-format
 msgid "Manolo Valdes"
 msgstr "Manolo Valdes"
 
-#: main.cpp:109
+#: main.cpp:110
 #, kde-format
 msgid "Core Developer, Multithreaded Plugin Author"
 msgstr "مطور أساسي، وكاتب ملحق مسارات المعالجة المتعددة"
 
-#: main.cpp:110
+#: main.cpp:111
 #, kde-format
 msgid "Matthias Fuchs"
 msgstr "Matthias Fuchs"
 
-#: main.cpp:111
+#: main.cpp:112
 #, kde-format
 msgid "Javier Goday"
 msgstr "Javier Goday"
 
-#: main.cpp:111
+#: main.cpp:112
 #, kde-format
 msgid "Developer"
 msgstr "مطور"
 
-#: main.cpp:112
+#: main.cpp:113
 #, kde-format
 msgid "Aish Raj Dahal"
 msgstr "عيش راج داهال"
 
-#: main.cpp:112
+#: main.cpp:113
 #, kde-format
 msgid "Google Summer of Code Student"
 msgstr "صيف غوغل للترجمة للطلاب"
 
-#: main.cpp:113
+#: main.cpp:114
 #, kde-format
 msgid "Ernesto Rodriguez Ortiz"
 msgstr "Ernesto Rodriguez Ortiz"
 
-#: main.cpp:113
+#: main.cpp:114
 #, kde-format
 msgid "Mms Plugin Author"
 msgstr "مؤلف البرنامج المساعد Mms"
 
-#: main.cpp:114
+#: main.cpp:115
 #, kde-format
 msgid "Patrick Charbonnier"
 msgstr "Patrick Charbonnier"
 
-#: main.cpp:114 main.cpp:115 main.cpp:116
+#: main.cpp:115 main.cpp:116 main.cpp:117
 #, kde-format
 msgid "Former Developer"
 msgstr "مطور سابق"
 
-#: main.cpp:115
+#: main.cpp:116
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: main.cpp:116
+#: main.cpp:117
 #, kde-format
 msgid "Matej Koss"
 msgstr "Matej Koss"
 
-#: main.cpp:117
+#: main.cpp:118
 #, kde-format
 msgid "Joris Guisson"
 msgstr "Joris Guisson"
 
-#: main.cpp:117
+#: main.cpp:118
 #, kde-format
 msgid "BTCore (KTorrent) Developer"
 msgstr "مطور BTCore (KTorrent)"
 
-#: main.cpp:118
+#: main.cpp:119
 #, kde-format
 msgid "Mensur Zahirovic (Nookie)"
 msgstr "Mensur Zahirovic (Nookie)"
 
-#: main.cpp:118
+#: main.cpp:119
 #, kde-format
 msgid "Design of Web Interface"
 msgstr "تصميم واجهة الوب"
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Majed Ali,زايد السعيدي,أسامة خالد,عبدالرحيم الفاخوري"
 
-#: main.cpp:120
+#: main.cpp:121
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
@@ -1596,94 +1596,94 @@ msgstr ""
 "GMajedli@gmail.com,zayed.alsaidi@gmail.com,osamak.wfm@gmail.com,"
 "abdilra7eem@yahoo.com"
 
-#: main.cpp:129
+#: main.cpp:130
 #, kde-format
 msgid "Start KGet with drop target"
 msgstr "ابدأ كجت مع هدف الإسقاط"
 
-#: main.cpp:130
+#: main.cpp:131
 #, kde-format
 msgid "Start KGet with hidden main window"
 msgstr "ابدأ كجت مع إخفاء النافذة الرئيسة"
 
-#: main.cpp:131
+#: main.cpp:132
 #, kde-format
 msgid "Start KGet without drop target animation"
 msgstr "أبدأ كجت دون تحريكات هدف الإسقاط"
 
-#: main.cpp:133
+#: main.cpp:134
 #, kde-format
 msgid "Execute Unit Testing"
 msgstr "تنفيذ اختبار الوحدة"
 
-#: main.cpp:135
+#: main.cpp:136
 #, kde-format
 msgid "URL(s) to download"
 msgstr "المسارات المطلوب تنزيلها"
 
-#: mainwindow.cpp:147
+#: mainwindow.cpp:146
 #, kde-format
 msgid "&New Download..."
 msgstr "تنزيل &جديد..."
 
-#: mainwindow.cpp:154
+#: mainwindow.cpp:153
 #, kde-format
 msgid "&Import Transfers..."
 msgstr "اس&تورد عمليات النقل..."
 
-#: mainwindow.cpp:161
+#: mainwindow.cpp:160
 #, kde-format
 msgid "&Export Transfers List..."
 msgstr "صدِّر &قائمة عمليات النقل..."
 
-#: mainwindow.cpp:168
+#: mainwindow.cpp:167
 #, kde-format
 msgid "&Create a Metalink..."
 msgstr "أ&نشئ ميتالنك..."
 
-#: mainwindow.cpp:174
+#: mainwindow.cpp:173
 #, kde-format
 msgid "Top Priority"
 msgstr "الأولوية القصوى"
 
-#: mainwindow.cpp:181
+#: mainwindow.cpp:180
 #, kde-format
 msgid "Least Priority"
 msgstr "الأولويّة الدنيا"
 
-#: mainwindow.cpp:188
+#: mainwindow.cpp:187
 #, kde-format
 msgid "Increase Priority"
 msgstr "زِد الأولوية"
 
-#: mainwindow.cpp:195
+#: mainwindow.cpp:194
 #, kde-format
 msgid "Decrease Priority"
 msgstr "قلِّل الأولوية"
 
-#: mainwindow.cpp:203
+#: mainwindow.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "احذف المجموعة"
 
-#: mainwindow.cpp:209
+#: mainwindow.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "أعد تسمية المجموعة..."
 
-#: mainwindow.cpp:214
+#: mainwindow.cpp:213
 #, kde-format
 msgid "Set Icon..."
 msgstr "اضبط الأيقونة..."
 
-#: mainwindow.cpp:219
+#: mainwindow.cpp:218
 #, kde-format
 msgid "Auto-Paste Mode"
 msgstr "وضع اللصق الآليّ"
 
-#: mainwindow.cpp:223
+#: mainwindow.cpp:222
 #, kde-format
 msgid ""
 "<b>Auto paste</b> button toggles the auto-paste mode on and off.\n"
@@ -1693,117 +1693,117 @@ msgstr ""
 "يشغل زر <b> لصق آليّ</b> ويعطل وضع اللصق الآليّ.\n"
 "عند تشغيله، سيمسح كجت الحافظة بشكل دوري لأي مسارات وسيلصقها آليّاً إن وجدها."
 
-#: mainwindow.cpp:228
+#: mainwindow.cpp:227
 #, kde-format
 msgid "Use KGet as Konqueror Download Manager"
 msgstr "استخدم كجت كمدير التنزيل لكنرر"
 
-#: mainwindow.cpp:246
+#: mainwindow.cpp:245
 #, kde-format
 msgctxt "delete selected transfer item"
 msgid "Remove Selected"
 msgstr "أزل المحدّد"
 
-#: mainwindow.cpp:253
+#: mainwindow.cpp:252
 #, kde-format
 msgctxt "delete all finished transfers"
 msgid "Remove All Finished"
 msgstr "أزِل كلّ المنتهي"
 
-#: mainwindow.cpp:259
+#: mainwindow.cpp:258
 #, kde-format
 msgctxt "delete selected transfer item and files"
 msgid "Remove Selected and Delete Files"
 msgstr "أزِل المحدد مع حذف الملفات"
 
-#: mainwindow.cpp:265
+#: mainwindow.cpp:264
 #, kde-format
 msgctxt "redownload selected transfer item"
 msgid "Redownload Selected"
 msgstr "أعد تنزيل النقل المحدد"
 
-#: mainwindow.cpp:270
+#: mainwindow.cpp:269
 #, kde-format
 msgid "Start All"
 msgstr "ابدأ الكلّ"
 
-#: mainwindow.cpp:277
+#: mainwindow.cpp:276
 #, kde-format
 msgid "Start Selected"
 msgstr "ابدأ المحدد"
 
-#: mainwindow.cpp:283
+#: mainwindow.cpp:282
 #, kde-format
 msgid "Pause All"
 msgstr "ألبث الكل"
 
-#: mainwindow.cpp:290
+#: mainwindow.cpp:289
 #, kde-format
 msgid "Stop Selected"
 msgstr "أوقف المحدد"
 
-#: mainwindow.cpp:295
+#: mainwindow.cpp:294
 #, kde-format
 msgid "Start"
 msgstr "ابدأ"
 
-#: mainwindow.cpp:302
+#: mainwindow.cpp:301
 #, kde-format
 msgid "Pause"
 msgstr "ألبث"
 
-#: mainwindow.cpp:310
+#: mainwindow.cpp:309
 #, kde-format
 msgid "Open Destination"
 msgstr "افتح المقصد"
 
-#: mainwindow.cpp:315
+#: mainwindow.cpp:314
 #, kde-format
 msgid "Open File"
 msgstr "افتح الملف"
 
-#: mainwindow.cpp:319
+#: mainwindow.cpp:318
 #, kde-format
 msgid "Show Details"
 msgstr "أظهر التفاصيل"
 
-#: mainwindow.cpp:324
+#: mainwindow.cpp:323
 #, kde-format
 msgid "Copy URL to Clipboard"
 msgstr "انسخ المسار إلى الحافظة"
 
-#: mainwindow.cpp:329
+#: mainwindow.cpp:328
 #, kde-format
 msgid "&Transfer History"
 msgstr "تاريخ ال&نقل"
 
-#: mainwindow.cpp:335
+#: mainwindow.cpp:334
 #, kde-format
 msgid "&Group Settings"
 msgstr "إعدادات الم&جموعات"
 
-#: mainwindow.cpp:341
+#: mainwindow.cpp:340
 #, kde-format
 msgid "&Transfer Settings"
 msgstr "إعدادات الن&قل"
 
-#: mainwindow.cpp:347
+#: mainwindow.cpp:346
 #, kde-format
 msgid "Import &Links..."
 msgstr "استورد ر&وابطًا..."
 
-#: mainwindow.cpp:353
+#: mainwindow.cpp:352
 #, kde-format
 msgid "After downloads finished action"
 msgstr "بعد انتهاء التنزيلات من العمل"
 
 #. i18n("Choose an action that is executed after all downloads have been finished."));
-#: mainwindow.cpp:357
+#: mainwindow.cpp:356
 #, kde-format
 msgid "No Action"
 msgstr "لا إجراء"
 
-#: mainwindow.cpp:434
+#: mainwindow.cpp:427
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1812,39 +1812,39 @@ msgstr ""
 "هذه هي المرة الأولى التي تشغل فيها كجت.\n"
 "أتريد تفعيل كجت كمدير التحميل كنكرر ؟"
 
-#: mainwindow.cpp:436
+#: mainwindow.cpp:429
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "التكامل مع كنكرر"
 
-#: mainwindow.cpp:437
+#: mainwindow.cpp:430
 #, kde-format
 msgid "Enable"
 msgstr "مكّن"
 
-#: mainwindow.cpp:438
+#: mainwindow.cpp:431
 #, kde-format
 msgid "Do Not Enable"
 msgstr "لا تمكّن"
 
-#: mainwindow.cpp:499
+#: mainwindow.cpp:492
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "افتح الملف"
 
-#: mainwindow.cpp:501
+#: mainwindow.cpp:494
 #, kde-format
 msgid "All Openable Files"
 msgstr "كل الملفات القابلة للفتح"
 
-#: mainwindow.cpp:516
+#: mainwindow.cpp:509
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "كجت - %1%"
 
-#: mainwindow.cpp:564
+#: mainwindow.cpp:557
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1853,38 +1853,38 @@ msgstr ""
 "بعض عمليات النقل لا زالت قيد التشغيل.\n"
 "أمتأكد من أنك تريد إنهاء كجت؟"
 
-#: mainwindow.cpp:566
+#: mainwindow.cpp:559
 #, kde-format
 msgid "Confirm Quit"
 msgstr "تأكيد الإنهاء"
 
-#: mainwindow.cpp:594
+#: mainwindow.cpp:587
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "صدّر عمليات النقل"
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:589
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "قائمة عمليات نقل كجت"
 
-#: mainwindow.cpp:596
+#: mainwindow.cpp:589
 #, kde-format
 msgid "Text File"
 msgstr "ملف نصي"
 
-#: mainwindow.cpp:625
+#: mainwindow.cpp:618
 #, kde-format
 msgid "Enter Group Name"
 msgstr "أدخل اسم المجموعة"
 
-#: mainwindow.cpp:625
+#: mainwindow.cpp:618
 #, kde-format
 msgid "Group name:"
 msgstr "اسم المجموعة:"
 
-#: mainwindow.cpp:709
+#: mainwindow.cpp:702
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1895,12 +1895,12 @@ msgstr[3] "أمتأكد أنك تريد حذف عمليات النقل المح�
 msgstr[4] "أمتأكد أنك تريد حذف عمليات النقل المحددة؟"
 msgstr[5] "أمتأكد أنك تريد حذف عمليات النقل المحددة؟"
 
-#: mainwindow.cpp:712 mainwindow.cpp:743
+#: mainwindow.cpp:705 mainwindow.cpp:736
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "أكّد حذف النقل"
 
-#: mainwindow.cpp:740
+#: mainwindow.cpp:733
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1912,7 +1912,7 @@ msgstr[3] "أمتأكد أنك تريد حذف عمليات النقل المح�
 msgstr[4] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
 msgstr[5] "أمتأكد أنك تريد حذف عمليات النقل المحددة بما في ذلك الملفات؟"
 
-#: mainwindow.cpp:1074
+#: mainwindow.cpp:1067
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1922,17 +1922,17 @@ msgstr ""
 "كجت معطل مؤقتًا كمدير تنزيل لكنكرر. إذا أردت تعطيله إلى الأبد، اذهب إلى "
 "إعدادات -> متقدمة وعطل \"استعمل كمدير التنزيل لكنكرر\""
 
-#: mainwindow.cpp:1190 ui/droptarget.cpp:214
+#: mainwindow.cpp:1183 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "الملف المُسقط هو قائمة عمليات نقل لكجت"
 
-#: mainwindow.cpp:1192 ui/droptarget.cpp:216
+#: mainwindow.cpp:1185 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "ن&زّل"
 
-#: mainwindow.cpp:1193 ui/droptarget.cpp:217
+#: mainwindow.cpp:1186 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&حمّل قائمة عمليات النقل"
