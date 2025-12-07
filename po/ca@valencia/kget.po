@@ -873,7 +873,7 @@ msgid ""
 "size: small;\">%1</p><p>The error message is:</p><p style=\"font-size: small;"
 "\">%2</p>"
 msgstr ""
-"<p>S'ha produït un error en la transferència següent:</p><p style=\"font-"
+"<p>S'ha produït un error durant la transferència següent:</p><p style=\"font-"
 "size: small;\">%1</p><p>El missatge d'error és:</p><p style=\"font-size: "
 "small;\">%2</p>"
 
@@ -962,7 +962,7 @@ msgstr "Transferència de KGet"
 #: core/linkimporter.cpp:93
 #, kde-format
 msgid "Error trying to get %1"
-msgstr "S'ha produït un error en intentar obtindre %1"
+msgstr "S'ha produït un error mentre s'intentava obtindre %1"
 
 #: core/signature.cpp:230
 #, kde-format
@@ -1180,7 +1180,7 @@ msgstr "URL amb format incorrecte, falta el protocol."
 #: core/urlchecker.cpp:330
 #, kde-format
 msgid "Malformed URL, host missing."
-msgstr "URL amb format incorrecte, falta l'ordinador."
+msgstr "URL amb format incorrecte, falta l'amfitrió."
 
 #: core/urlchecker.cpp:342
 #, kde-format
@@ -1224,7 +1224,7 @@ msgid ""
 "Malformed URL, host missing:\n"
 "%1"
 msgstr ""
-"URL erroni, falta l'ordinador:\n"
+"URL erroni, falta l'amfitrió:\n"
 "%1"
 
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
@@ -1290,7 +1290,7 @@ msgstr "URL erronis, falta el protocol."
 #: core/urlchecker.cpp:460
 #, kde-format
 msgid "Malformed URLs, host missing."
-msgstr "URL erronis, falta l'ordinador."
+msgstr "URL erronis, falta l'amfitrió."
 
 #: core/urlchecker.cpp:470
 #, kde-format
@@ -1316,7 +1316,7 @@ msgid ""
 "Malformed URLs, host missing:\n"
 "%1"
 msgstr ""
-"URL erronis, falta l'ordinador:\n"
+"URL erronis, falta l'amfitrió:\n"
 "%1"
 
 #: core/urlchecker.cpp:476
@@ -2787,7 +2787,7 @@ msgstr "&Explora fitxers"
 #: transfer-plugins/bittorrent/scandlg.cpp:107
 #, kde-format
 msgid "Error scanning data: %1"
-msgstr "S'ha produït un error en explorar les dades: %1"
+msgstr "S'ha produït un error mentre s'exploraven les dades: %1"
 
 #. i18n: ectx: property (text), widget (QLabel, torrent_label)
 #: transfer-plugins/bittorrent/scandlg.ui:17
@@ -3137,7 +3137,7 @@ msgstr "Busca de la informació de verificació"
 #: transfer-plugins/multisegmentkio/segment.cpp:287
 #, kde-format
 msgid "Failed to write to the file."
-msgstr "No s'ha pogut escriure en el fitxer."
+msgstr "Ha fallat mentre s'escrivia al fitxer."
 
 #: ui/contextmenu.cpp:115
 #, kde-format
@@ -3408,7 +3408,7 @@ msgstr "Data"
 #: ui/history/transferhistory.ui:95
 #, kde-format
 msgid "Host"
-msgstr "Màquina"
+msgstr "Amfitrió"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:106
