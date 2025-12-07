@@ -37,6 +37,7 @@
         },
         {
             "name": "gpgme",
+            "builddir": true,
             "sources": [
                 {
                     "type": "archive",
@@ -49,10 +50,48 @@
                         "url-template": "https://gnupg.org/ftp/gcrypt/gpgme/gpgme-$version.tar.bz2"
                     }
                 }
+            ]
+        },
+        {
+            "name": "gpgmepp",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
             ],
-            "cleanup": [
-                "/lib/libgpgme*.la",
-                "/lib/libqgpgme.la"
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://gnupg.org/ftp/gcrypt/gpgmepp/gpgmepp-2.0.0.tar.xz",
+                    "sha256": "d4796049c06708a26f3096f748ef095347e1a3c1e570561701fe952c3f565382",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 378536,
+                        "stable-only": true,
+                        "url-template": "https://gnupg.org/ftp/gcrypt/gpgmepp/gpgmepp-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "qgpgme",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://gnupg.org/ftp/gcrypt/qgpgme/qgpgme-2.0.0.tar.xz",
+                    "sha256": "15645b2475cca6118eb2ed331b3a8d9442c9d4019c3846ba3f6d25321b4a61ad",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 378538,
+                        "stable-only": true,
+                        "url-template": "https://gnupg.org/ftp/gcrypt/qgpgme/qgpgme-$version.tar.xz"
+                    }
+                }
             ]
         },
         {
