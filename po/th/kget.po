@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-12-29 00:42+0000\n"
 "PO-Revision-Date: 2010-03-04 21:36+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -524,7 +524,7 @@ msgid "Keyservers:"
 msgstr "เซิร์ฟเวอร์เก็บกุญแจ:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -864,7 +864,7 @@ msgstr ""
 "%1\n"
 "เนื่องจากมันไม่ได้เป็นแฟ้มในระบบ"
 
-#: core/kget.cpp:1320
+#: core/kget.cpp:1324
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -876,12 +876,12 @@ msgstr ""
 "<p>แฟ้มต่อไปนี้ถูกดาวน์โหลดมาเสร็จสมบูรณ์แล้ว:</p><p style=\"font-size: small;"
 "\">                      %1</p>"
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1326
 #, kde-format
 msgid "Download completed"
 msgstr "การดาวน์โหลดเสร็จสมบูรณ์"
 
-#: core/kget.cpp:1326
+#: core/kget.cpp:1330
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -893,13 +893,13 @@ msgstr ""
 "<p>แฟ้มต่อไปนี้ถูกดาวน์โหลดมาเสร็จสมบูรณ์แล้ว:</p><p style=\"font-size: small;"
 "\">                      %1</p>"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1332
 #, fuzzy, kde-format
 #| msgid "Download speed"
 msgid "Download started"
 msgstr "ความเร็วการดาวน์โหลด"
 
-#: core/kget.cpp:1333
+#: core/kget.cpp:1337
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -912,64 +912,64 @@ msgstr ""
 "<p>แฟ้มต่อไปนี้ถูกดาวน์โหลดมาเสร็จสมบูรณ์แล้ว:</p><p style=\"font-size: small;"
 "\">                      %1</p>"
 
-#: core/kget.cpp:1341
+#: core/kget.cpp:1345
 #, fuzzy, kde-format
 #| msgid "Remove"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "เอาออก"
 
-#: core/kget.cpp:1391
+#: core/kget.cpp:1395
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "กำลังจะออกจาก 'ช่วยดาวน์โหลด-K' เดี๋ยวนี้ เนื่องจากการดาวน์โหลดทั้งหมดได้เสร็จสิ้นแล้ว"
 
-#: core/kget.cpp:1398
+#: core/kget.cpp:1402
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "กำลังจะปิดคอมพิวเตอร์เดี๋ยวนี้ เนื่องจากการดาวน์โหลดทั้งหมดได้เสร็จสิ้นแล้ว"
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1404
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "ปิดเครื่อง"
 
-#: core/kget.cpp:1405
+#: core/kget.cpp:1409
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "กำลังจะปิดพักเครื่องเดี๋ยวนี้ เนื่องจากการดาวน์โหลดทั้งหมดได้เสร็จสิ้นแล้ว"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1411
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "กำลังเตรียมการจำศีลเครื่อง"
 
-#: core/kget.cpp:1412
+#: core/kget.cpp:1416
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 "กำลังจะพักเครื่องโดยเก็บสถานะไว้ใน RAM เดี๋ยวนี้ เนื่องจากการดาวน์โหลดทั้งหมดได้เสร็จสิ้นแล้ว"
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1418
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "กำลังพักเครื่อง"
 
-#: core/kget.cpp:1422
+#: core/kget.cpp:1426
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "ยุติ"
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, kde-format
 msgid "Downloads completed"
 msgstr "การดาวน์โหลดเสร็จสมบูรณ์แล้ว"

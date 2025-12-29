@@ -1,5 +1,5 @@
 # translation of kget.po to
-# Version: $Revision: 1723076 $
+# Version: $Revision: 1726017 $
 # Copyright (C) 2002,2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Wojciech Milewski <Wojciech.Milewski@wp.pl>, 2002.
 # Krzysztof Lichota <lichota@mimuw.edu.pl>, 2002, 2005, 2006, 2007.
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-12-29 00:42+0000\n"
 "PO-Revision-Date: 2024-04-01 08:03+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -508,7 +508,7 @@ msgid "Keyservers:"
 msgstr "Serwery kluczy:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -838,7 +838,7 @@ msgstr ""
 "%1\n"
 "ponieważ to nie jest plik lokalny."
 
-#: core/kget.cpp:1320
+#: core/kget.cpp:1324
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -846,12 +846,12 @@ msgid ""
 msgstr ""
 "<p>Zakończono pobieranie pliku:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1326
 #, kde-format
 msgid "Download completed"
 msgstr "Pobieranie zakończone"
 
-#: core/kget.cpp:1326
+#: core/kget.cpp:1330
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -859,12 +859,12 @@ msgid ""
 msgstr ""
 "<p>Rozpoczęto przesyłanie pliku:</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1332
 #, kde-format
 msgid "Download started"
 msgstr "Pobieranie rozpoczęte"
 
-#: core/kget.cpp:1333
+#: core/kget.cpp:1337
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -874,69 +874,69 @@ msgstr ""
 "<p>Wystąpił błąd w następującym przesyłaniu:</p><p style=\"font- size: small;"
 "\">\\%1</p><p>Wiadomość błędu:</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1341
+#: core/kget.cpp:1345
 #, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Rozwiąż"
 
-#: core/kget.cpp:1391
+#: core/kget.cpp:1395
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr ""
 "KGet zakończy teraz działanie, bo wszystkie przesyłania zostały ukończone."
 
-#: core/kget.cpp:1398
+#: core/kget.cpp:1402
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr ""
 "Komputer zostanie teraz wyłączony, bo wszystkie przesyłania zostały "
 "ukończone."
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1404
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Wyłącz komputer"
 
-#: core/kget.cpp:1405
+#: core/kget.cpp:1409
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr ""
 "Komputer zostanie teraz uśpiony, ponieważ wszystkie przesyłania zostały "
 "ukończone."
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1411
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "Hibernuje"
 
-#: core/kget.cpp:1412
+#: core/kget.cpp:1416
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr ""
 "Komputer zostanie teraz wstrzymany, ponieważ wszystkie przesyłania zostały "
 "ukończone."
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1418
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Usypianie"
 
-#: core/kget.cpp:1422
+#: core/kget.cpp:1426
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Przerwij"
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>Wszystkie przesyłania zostały zakończone.</p>"
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, kde-format
 msgid "Downloads completed"
 msgstr "Pobieranie zakończone"

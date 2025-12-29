@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-12-29 00:42+0000\n"
 "PO-Revision-Date: 2004-07-26 11:18+0000\n"
 "Last-Translator: Hiromon\n"
 "Language-Team:  Tajik\n"
@@ -524,7 +524,7 @@ msgid "Keyservers:"
 msgstr "Суръат"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -840,32 +840,32 @@ msgstr ""
 "%1\n"
 "аз баски он файли маҳаллӣ аст."
 
-#: core/kget.cpp:1320
+#: core/kget.cpp:1324
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
 "small;\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1326
 #, fuzzy, kde-format
 #| msgid "Download finished"
 msgid "Download completed"
 msgstr "Боркуни ба итмом расид"
 
-#: core/kget.cpp:1326
+#: core/kget.cpp:1330
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
 "\">%1</p>"
 msgstr ""
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1332
 #, fuzzy, kde-format
 msgid "Download started"
 msgstr "Боркунӣ идома дода шудааст"
 
-#: core/kget.cpp:1333
+#: core/kget.cpp:1337
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -873,65 +873,65 @@ msgid ""
 "\">%2</p>"
 msgstr ""
 
-#: core/kget.cpp:1341
+#: core/kget.cpp:1345
 #, fuzzy, kde-format
 #| msgid "Open Transfer"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Кушодани Вогузорӣ"
 
-#: core/kget.cpp:1391
+#: core/kget.cpp:1395
 #, fuzzy, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "Боркуни ба итмом расид"
 
-#: core/kget.cpp:1398
+#: core/kget.cpp:1402
 #, fuzzy, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "Боркуни ба итмом расид"
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1404
 #, fuzzy, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "Баромадани худкор фаъол сохта шудааст."
 
-#: core/kget.cpp:1405
+#: core/kget.cpp:1409
 #, fuzzy, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "Боркуни ба итмом расид"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1411
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr ""
 
-#: core/kget.cpp:1412
+#: core/kget.cpp:1416
 #, fuzzy, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "Боркуни ба итмом расид"
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1418
 #, fuzzy, kde-format
 #| msgid "Scheduling"
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "Ба нақшагирӣ"
 
-#: core/kget.cpp:1422
+#: core/kget.cpp:1426
 #, fuzzy, kde-format
 #| msgid "Font:"
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "Ҳуруф:"
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr ""
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, fuzzy, kde-format
 #| msgid "Download finished"
 msgid "Downloads completed"

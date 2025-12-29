@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-12-29 00:42+0000\n"
 "PO-Revision-Date: 2012-07-09 10:43+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -505,7 +505,7 @@ msgid "Keyservers:"
 msgstr "ម៉ាស៊ីន​បម្រើ​សោ ៖"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1332 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #: ui/metalinkcreator/metalinkcreator.cpp:145
@@ -830,7 +830,7 @@ msgstr ""
 "%1 ឡើយ\n"
 "ដោយ​សារ​តែ​វា​ជា​ឯកសារ​មូលដ្ឋាន ។"
 
-#: core/kget.cpp:1320
+#: core/kget.cpp:1324
 #, kde-format
 msgid ""
 "<p>The following file has finished downloading:</p><p style=\"font-size: "
@@ -839,12 +839,12 @@ msgstr ""
 "<p>ឯកសារ​ដូច​ខាង​ក្រោម​បាន​បញ្ចប់​កា​រទាញយក​ហើយ​ ៖</p><p style=\"font-size: small;\">%1</"
 "p>"
 
-#: core/kget.cpp:1322
+#: core/kget.cpp:1326
 #, kde-format
 msgid "Download completed"
 msgstr "បាន​បញ្ចប់​ការ​ទាញយក"
 
-#: core/kget.cpp:1326
+#: core/kget.cpp:1330
 #, kde-format
 msgid ""
 "<p>The following transfer has been started:</p><p style=\"font-size: small;"
@@ -852,12 +852,12 @@ msgid ""
 msgstr ""
 "<p>ការ​ផ្ទេរ​ដូច​ខាង​ក្រោម​ត្រូ​វបាន​ចាប់ផ្ដើម ៖</p><p style=\"font-size: small;\">%1</p>"
 
-#: core/kget.cpp:1328
+#: core/kget.cpp:1332
 #, kde-format
 msgid "Download started"
 msgstr "បាន​ចាប់ផ្ដើម​កា​រទាញយក"
 
-#: core/kget.cpp:1333
+#: core/kget.cpp:1337
 #, kde-format
 msgid ""
 "<p>There has been an error in the following transfer:</p><p style=\"font-"
@@ -867,63 +867,63 @@ msgstr ""
 "<p>មាន​បញ្ហា​​នៅ​ក្នុង​ការ​ផ្ទេរ​ដូ​ច​ខា​ងក្រោម ៖</p><p style=\"font-size: small;\">%1</"
 "p><p>សារ​កំហុស​គឺ ៖</p><p style=\"font-size: small;\">%2</p>"
 
-#: core/kget.cpp:1341
+#: core/kget.cpp:1345
 #, fuzzy, kde-format
 #| msgid "Resolve"
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "ដោះស្រាយ"
 
-#: core/kget.cpp:1391
+#: core/kget.cpp:1395
 #, kde-format
 msgid "KGet is now closing, as all downloads have completed."
 msgstr "ឥឡូវ KGet បាន​បិទ ព្រោះ​បាន​បញ្ចប់​ការ​ទាញយក​ទាំងអស់​ហើយ ។"
 
-#: core/kget.cpp:1398
+#: core/kget.cpp:1402
 #, kde-format
 msgid "The computer will now turn off, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​បិទ​ឥឡូវ ពីព្រោះ​ការ​ទាញយក​ទាំងអស់​​បាន​បញ្ចប់​ហើយ ។"
 
-#: core/kget.cpp:1400
+#: core/kget.cpp:1404
 #, kde-format
 msgctxt "Shutting down computer"
 msgid "Shutdown"
 msgstr "បិទ"
 
-#: core/kget.cpp:1405
+#: core/kget.cpp:1409
 #, kde-format
 msgid "The computer will now suspend to disk, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​ផ្អាក​ទៅ​ថាស​ឥឡូវ ព្រោះ​ថា​ការ​ទាញយក​ទាំងអស់​បាន​បញ្ចប់​ហើយ ។"
 
-#: core/kget.cpp:1407
+#: core/kget.cpp:1411
 #, kde-format
 msgctxt "Hibernating computer"
 msgid "Hibernating"
 msgstr "សម្ងំ"
 
-#: core/kget.cpp:1412
+#: core/kget.cpp:1416
 #, kde-format
 msgid "The computer will now suspend to RAM, as all downloads have completed."
 msgstr "កុំព្យូទ័រ​នឹង​ផ្អាក​ទៅសតិ​ឥឡូវ ព្រោះថា​ការ​ទាញយក​ទាំងអស់​បាន​បញ្ចប់​ហើយ ។ "
 
-#: core/kget.cpp:1414
+#: core/kget.cpp:1418
 #, kde-format
 msgctxt "Suspending computer"
 msgid "Suspending"
 msgstr "ផ្អាក"
 
-#: core/kget.cpp:1422
+#: core/kget.cpp:1426
 #, kde-format
 msgctxt "abort the proposed action"
 msgid "Abort"
 msgstr "​បោះបង់"
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, kde-format
 msgid "<p>All transfers have been finished.</p>"
 msgstr "<p>ការ​ផ្ទេរ​ទាំងអស់​បាន​ចប់​ហើយ ។</p>"
 
-#: core/kget.cpp:1431
+#: core/kget.cpp:1435
 #, kde-format
 msgid "Downloads completed"
 msgstr "ការ​ទាញយក​បាន​បញ្ចប់"
