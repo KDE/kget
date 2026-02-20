@@ -367,11 +367,9 @@ msgid "Minute(s)"
 msgstr ""
 
 #: conf/preferencesdialog.cpp:73
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "soicind"
+msgstr ""
 
 #: conf/preferencesdialog.cpp:85
 #, kde-format
@@ -649,9 +647,6 @@ msgid_plural ""
 "supported by KGet:</p>"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
 
 #: core/kget.cpp:880
 #, kde-format
@@ -675,11 +670,10 @@ msgid "Choose Directory"
 msgstr ""
 
 #: core/kget.cpp:974
-#, fuzzy, kde-format
-#| msgid "Save As"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save As"
-msgstr "Sábháil Mar"
+msgstr ""
 
 #: core/kget.cpp:986 core/urlchecker.cpp:366
 #, kde-format
@@ -719,11 +713,10 @@ msgstr "Íosluchtaigh arís?"
 #: transfer-plugins/metalink/metalink.cpp:117
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr "Íosluchtaigh arís"
+msgstr ""
 
 #: core/kget.cpp:1006 core/kget.cpp:1019 core/kget.cpp:1074
 #, kde-format
@@ -787,10 +780,9 @@ msgid "No internet connection, stopping transfers."
 msgstr ""
 
 #: core/kget.cpp:1192
-#, fuzzy, kde-format
-#| msgid "Plugin loader could not load the plugin: %1."
+#, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr "Níorbh fhéidir le luchtóir na mbreiseán an breiseán a luchtú: %1."
+msgstr ""
 
 #: core/kget.cpp:1203
 #, kde-format
@@ -847,11 +839,10 @@ msgid ""
 msgstr ""
 
 #: core/kget.cpp:1345
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
-msgstr "Réitigh"
+msgstr ""
 
 #: core/kget.cpp:1395
 #, kde-format
@@ -944,11 +935,10 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
 
 #: core/signature.cpp:232
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
-msgstr "Íosluchtaigh"
+msgstr ""
 
 #: core/signature.cpp:233
 #, kde-format
@@ -1393,28 +1383,18 @@ msgid "Verified"
 msgstr ""
 
 #: main.cpp:98
-#, fuzzy, kde-format
-#| msgid "An advanced download manager for KDE"
+#, kde-format
 msgid "An advanced download manager by KDE"
-msgstr "Ardbhainisteoir íosluchtaithe KDE"
+msgstr ""
 
 #: main.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "(C) 2005 - 2011, The KGet developers\n"
-#| "(C) 2001 - 2002, Patrick Charbonnier\n"
-#| "(C) 2002, Carsten Pfeiffer\n"
-#| "(C) 1998 - 2000, Matej Koss"
+#, kde-format
 msgid ""
 "(C) 2005 - 2014, The KGet developers\n"
 "(C) 2001 - 2002, Patrick Charbonnier\n"
 "(C) 2002, Carsten Pfeiffer\n"
 "(C) 1998 - 2000, Matej Koss"
 msgstr ""
-"© 2005 - 2011, Forbróirí KGet\n"
-"© 2001 - 2002, Patrick Charbonnier\n"
-"© 2002, Carsten Pfeiffer\n"
-"© 1998 - 2000, Matej Koss"
 
 #: main.cpp:104
 #, kde-format
@@ -1609,20 +1589,16 @@ msgid "Decrease Priority"
 msgstr "Ísligh an Tosaíocht"
 
 #: mainwindow.cpp:203
-#, fuzzy, kde-format
-#| msgid "Delete Group"
-#| msgid_plural "Delete Groups"
+#, kde-format
 msgctxt "@action"
 msgid "Delete Group"
-msgstr "Scrios Grúpa"
+msgstr ""
 
 #: mainwindow.cpp:209
-#, fuzzy, kde-format
-#| msgid "Rename Group..."
-#| msgid_plural "Rename Groups..."
+#, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Athainmnigh Grúpa..."
+msgstr ""
 
 #: mainwindow.cpp:214
 #, kde-format
@@ -1781,11 +1757,10 @@ msgid "Do Not Enable"
 msgstr "Ná Cumasaigh"
 
 #: mainwindow.cpp:499
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open File"
-msgstr "Oscail Comhad"
+msgstr ""
 
 #: mainwindow.cpp:501
 #, kde-format
@@ -1813,11 +1788,10 @@ msgid "Confirm Quit"
 msgstr "Deimhnigh Scor"
 
 #: mainwindow.cpp:594
-#, fuzzy, kde-format
-#| msgid "Export Transfers"
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
-msgstr "Easpórtáil Aistrithe"
+msgstr ""
 
 #: mainwindow.cpp:596
 #, kde-format
@@ -2096,10 +2070,9 @@ msgstr[4] ""
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
-#, fuzzy, kde-format
-#| msgid "Select a directory to move the data to."
+#, kde-format
 msgid "Select a directory to move the data to"
-msgstr "Roghnaigh an chomhadlann ar mian leat bogadh na sonraí inti."
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
@@ -2679,10 +2652,9 @@ msgstr "Fillteán réamhshocraithe torrent:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:134
-#, fuzzy, kde-format
-#| msgid "Default temporary folder"
+#, kde-format
 msgid "Default temporary folder:"
-msgstr "Fillteán réamhshocraithe sealadach"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
@@ -2691,11 +2663,10 @@ msgid "Pre-allocate disk space"
 msgstr "Réamhdháil spás diosca"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr "Roghnaigh fillteán réamhshocraithe torrent"
+msgstr ""
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -3186,10 +3157,9 @@ msgstr "Socruithe Grúpa"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/groupsettingsdialog.ui:44
-#, fuzzy, kde-format
-#| msgid "Default &folder:"
+#, kde-format
 msgid "Defau&lt folder:"
-msgstr "&Fillteán réamhshocraithe:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
@@ -3199,10 +3169,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:64
-#, fuzzy, kde-format
-#| msgid "Regular &expression:"
+#, kde-format
 msgid "Re&gular expression:"
-msgstr "Slonn &ionadaíochta:"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, regExpEdit)
 #: ui/groupsettingsdialog.ui:74
@@ -3225,10 +3194,9 @@ msgstr "Gan socrú"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/groupsettingsdialog.ui:119
-#, fuzzy, kde-format
-#| msgid "Maximum &download speed:"
+#, kde-format
 msgid "Ma&ximum download speed:"
-msgstr "Luas uasta ío&sluchtaithe:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/groupsettingsdialog.ui:129
@@ -3473,10 +3441,9 @@ msgstr "Príomhbharra Uirlisí"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/linkview/importlinkdialog.ui:34
-#, fuzzy, kde-format
-#| msgid "&File with links to import:"
+#, kde-format
 msgid "File with &links to import:"
-msgstr "&Comhad ina bhfuil naisc le hiompórtáil:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, importLinks)
 #: ui/linkview/importlinkdialog.ui:50
@@ -3738,12 +3705,10 @@ msgstr ""
 
 #: ui/metalinkcreator/dragdlg.cpp:94 ui/metalinkcreator/filedlg.cpp:73
 #: ui/metalinkcreator/filedlg.cpp:181
-#, fuzzy, kde-format
-#| msgctxt "comma, to seperate members of a list"
-#| msgid ","
+#, kde-format
 msgctxt "comma, to separate members of a list"
 msgid ","
-msgstr ","
+msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, Seite)
 #: ui/metalinkcreator/dragdlg.ui:21
@@ -4100,11 +4065,10 @@ msgid "Priority"
 msgstr "Tosaíocht"
 
 #: ui/mirror/mirrormodel.cpp:298
-#, fuzzy, kde-format
-#| msgid "Connections"
+#, kde-format
 msgctxt "Number of parallel connections to the mirror"
 msgid "Connections"
-msgstr "Ceangail"
+msgstr ""
 
 #: ui/mirror/mirrormodel.cpp:300
 #, kde-format
@@ -4144,7 +4108,7 @@ msgstr ""
 msgid "Destination:"
 msgstr "Sprioc:"
 
-#  Transfer not a verb, see french - groupe de transfert
+# Transfer not a verb, see french - groupe de transfert
 #. i18n: ectx: property (text), widget (QLabel, groupLabel)
 #: ui/newtransferwidget.ui:40
 #, kde-format
@@ -4449,17 +4413,15 @@ msgstr "Teorainn &uasluchtaithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelDownload)
 #: ui/transfersettingsdialog.ui:100
-#, fuzzy, kde-format
-#| msgid "&Download limit:"
+#, kde-format
 msgid "Download &limit:"
-msgstr "Teorain&n íosluchtaithe:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
 #: ui/transfersettingsdialog.ui:110
-#, fuzzy, kde-format
-#| msgid "Maximum &share ratio:"
+#, kde-format
 msgid "Ma&ximum share ratio:"
-msgstr "Cóimhea&s uasta comhroinnte:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, mirrors)
 #: ui/transfersettingsdialog.ui:139
@@ -4492,11 +4454,10 @@ msgid "Transfer Details"
 msgstr "Mionsonraí an Aistrithe"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "%1 %"
+msgstr ""
 
 #: ui/tray.cpp:48
 #, kde-format
@@ -4566,1038 +4527,3 @@ msgstr "&Cinntigh"
 #, kde-format
 msgid "Close"
 msgstr ""
-
-#~ msgctxt "Transfer state: processing script"
-#~ msgid "Processing script...."
-#~ msgstr "Script á próiseáil..."
-
-#~ msgctxt "Transfer State: Finished"
-#~ msgid "Finished"
-#~ msgstr "Críochnaithe"
-
-#~ msgctxt "Transfer State: Aborted"
-#~ msgid "Aborted"
-#~ msgstr "Tobscortha"
-
-#~ msgctxt "Configure script"
-#~ msgid "Configure script"
-#~ msgstr "Cumraigh script"
-
-#~ msgid "User Scripts"
-#~ msgstr "Scripteanna Úsáideora"
-
-#~ msgid "Path"
-#~ msgstr "Conair"
-
-#~ msgid "RegExp"
-#~ msgstr "Slonn Ionadaíochta"
-
-#~ msgid "New Script...."
-#~ msgstr "Script Nua..."
-
-#~ msgid "Edit...."
-#~ msgstr "Eagar..."
-
-#~ msgid "Configure...."
-#~ msgstr "Cumraigh..."
-
-#~ msgid "Add New Script"
-#~ msgstr "Cuir Script Nua Leis"
-
-#~ msgid "Edit Script"
-#~ msgstr "Cuir Script in Eagar"
-
-#~ msgid "Set Script File"
-#~ msgstr "Socraigh Comhad Scripte"
-
-#~ msgid "Regexp:"
-#~ msgstr "Slonn ionadaíochta:"
-
-#~ msgid "Path:"
-#~ msgstr "Conair:"
-
-#~ msgid "File Settings"
-#~ msgstr "Socruithe Comhaid"
-
-#~ msgid "Quality:"
-#~ msgstr "Cáilíocht:"
-
-#~ msgid "Best Quality (.mp4)"
-#~ msgstr "Cáilíocht is fearr (.mp4)"
-
-#~ msgid "Normal Quality (.flv)"
-#~ msgstr "Gnáthcháilíocht (.flv)"
-
-#~ msgid "Login Info"
-#~ msgstr "Faisnéis Logála Isteach"
-
-#~ msgid "Username:"
-#~ msgstr "Ainm Úsáideora:"
-
-#~ msgid "User .netrc file"
-#~ msgstr "Comhad .netrc an úsáideora"
-
-#~ msgid "Unable to start WebInterface: Could not open KWallet"
-#~ msgstr ""
-#~ "Ní féidir an comhéadan Gréasáin a thosú: Níorbh fhéidir KWallet a oscailt"
-
-#~ msgctxt "@info"
-#~ msgid "Unable to start WebInterface: %1"
-#~ msgstr "Ní féidir an comhéadan Gréasáin a thosú: %1"
-
-#~ msgctxt "@item speed of transfer per seconds"
-#~ msgid "%1/s"
-#~ msgstr "%1/s"
-
-#~ msgctxt "@label"
-#~ msgid "KGet Web Interface"
-#~ msgstr "Comhéadan Gréasáin KGet"
-
-#~ msgctxt "@label number"
-#~ msgid "Nr"
-#~ msgstr "Uimh"
-
-#~ msgctxt "@label"
-#~ msgid "File name"
-#~ msgstr "Ainm comhaid"
-
-#~ msgctxt "@label Progress of transfer"
-#~ msgid "Finished"
-#~ msgstr "Críochnaithe"
-
-#~ msgctxt "@label Speed of transfer"
-#~ msgid "Speed"
-#~ msgstr "Luas"
-
-#~ msgctxt "@label Status of transfer"
-#~ msgid "Status"
-#~ msgstr "Stádas"
-
-#~ msgctxt "@action:button start a transfer"
-#~ msgid "Start"
-#~ msgstr "Tosaigh"
-
-#~ msgctxt "@action:button"
-#~ msgid "Stop"
-#~ msgstr "Stad"
-
-#~ msgctxt "@action:button"
-#~ msgid "Remove"
-#~ msgstr "Bain"
-
-#~ msgctxt "@label Download from"
-#~ msgid "Source:"
-#~ msgstr "Foinse:"
-
-#~ msgctxt "@label Save download to"
-#~ msgid "Saving to:"
-#~ msgstr "Á Shábháil i:"
-
-#~ msgctxt "@label Title in header"
-#~ msgid "Web Interface"
-#~ msgstr "Comhéadan Gréasáin"
-
-#~ msgctxt "@action"
-#~ msgid "Settings"
-#~ msgstr "Socruithe"
-
-#~ msgctxt "@action"
-#~ msgid "Refresh"
-#~ msgstr "Athnuaigh"
-
-#~ msgctxt "@action"
-#~ msgid "Enter URL: "
-#~ msgstr "Iontráil URL:"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgctxt "@action Refresh download list every x (seconds)"
-#~ msgid "Refresh download list every"
-#~ msgstr "Athnuaigh liosta na n-íosluchtuithe gach"
-
-#~ msgctxt "@action:button"
-#~ msgid "Save Settings"
-#~ msgstr "Sábháil Socruithe"
-
-#~ msgctxt "@title"
-#~ msgid "Downloads"
-#~ msgstr "Íosluchtuithe"
-
-#~ msgctxt "@label text in footer"
-#~ msgid "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS"
-#~ msgstr "Comhéadan Gréasáin KGet | XHTML 1.0 Strict &amp; CSS"
-
-#~ msgctxt "Number of paralell connections to the mirror"
-#~ msgid "Connections"
-#~ msgstr "Ceangail"
-
-#~ msgid "Select a default temporary folder"
-#~ msgstr "Roghnaigh fillteán réamhshocraithe sealadach"
-
-#~ msgid "0123456789"
-#~ msgstr "0123456789"
-
-#~ msgid "Nepomuk"
-#~ msgstr "Nepomuk"
-
-#~ msgid "Download selected transfer first"
-#~ msgstr "Íosluchtaigh an t-aistriú roghnaithe i dtosach báire"
-
-#~ msgid "Delete selected group"
-#~ msgstr "Scrios an grúpa roghnaithe"
-
-#~ msgid "Starts / resumes all transfers"
-#~ msgstr "Tosaigh / atosaigh gach aistriú"
-
-#~ msgid "Starts / resumes selected transfer"
-#~ msgstr "Tosaigh / atosaigh an t-aistriú roghnaithe"
-
-#~ msgid "Pauses all transfers"
-#~ msgstr "Cuir gach aistriú ar shos"
-
-#~ msgid ""
-#~ "Choose an action that is executed after all downloads have been finished."
-#~ msgstr "Roghnaigh gníomh a dhéanfar tar éis gach íosluchtú a chur i gcrích."
-
-#~ msgid "Scanning data of <b>%1</b> :"
-#~ msgstr "Sonraí de <b>%1</b> á scanadh:"
-
-#~ msgctxt "Download the items which have been selected"
-#~ msgid "&Download Checked"
-#~ msgstr "Íosluchtaigh na comhaid ticeáilte"
-
-#~ msgid "Number of downloads:"
-#~ msgstr "Líon na n-íosluchtuithe:"
-
-#~ msgctxt "filter: show all file types"
-#~ msgid "&All"
-#~ msgstr "&Uile"
-
-#~ msgid "Ima&ges"
-#~ msgstr "Íomhá&nna"
-
-#~ msgctxt "Check as in mark, not as in verify"
-#~ msgid "Chec&k Selected"
-#~ msgstr "Cuir ti&c leis na cinn roghnaithe"
-
-#~ msgid "Stop All"
-#~ msgstr "Stop Uile"
-
-#~ msgid "Start / Resume"
-#~ msgstr "Tosaigh / Atosaigh"
-
-#~ msgid "Stop"
-#~ msgstr "Stad"
-
-#~ msgid "Downloads from the same server:"
-#~ msgstr "Íosluchtuithe ón fhreastalaí chéanna:"
-
-#~ msgid "Move &Up"
-#~ msgstr "Bog S&uas"
-
-#~ msgid "Move &Down"
-#~ msgstr "Bog Sí&os"
-
-#~ msgid "After Completing Downloads"
-#~ msgstr "Tar Éis na Íosluchtuithe a Chur i gCrích"
-
-#~ msgid "Auto shutdown"
-#~ msgstr "Múchadh uathoibríoch"
-
-#~ msgid "Auto disconnect"
-#~ msgstr "Dícheangal uathoibríoch"
-
-#~ msgid "Startup"
-#~ msgstr "Tosú"
-
-#~ msgid "Show splashscreen"
-#~ msgstr "Taispeáin splancscáileán"
-
-#~ msgid "Show drop target"
-#~ msgstr "Taispeáin sprioc scaoilte"
-
-#~ msgid " KiB"
-#~ msgstr " KiB"
-
-#~ msgid ""
-#~ "Drop target has been hidden. If you want to show it again, go to Settings-"
-#~ ">Configure KGet->Look & Feel."
-#~ msgstr ""
-#~ "Cuireadh an sprioc scaoilte i bhfolach. Más mian leat é a thaispeáint "
-#~ "arís, téigh go Socruithe->Cumraigh KGet->Cuma."
-
-#~ msgid "Hiding drop target"
-#~ msgstr "Sprioc scaoilte á fholú"
-
-#~ msgid "&Export Transfers as Plain Text..."
-#~ msgstr "&Easpórtáil Aistrithe mar Ghnáth-Théacs..."
-
-#~ msgid "Disable confirmation dialogs (less verbosity)"
-#~ msgstr "Díchumasaigh dialóga deimhnithe (níos ciúine)"
-
-#~ msgid "History"
-#~ msgstr "Stair"
-
-#~ msgid "Error:"
-#~ msgstr "Earráid:"
-
-#~ msgctxt "Files as in files on a server"
-#~ msgid "Files:"
-#~ msgstr "Comhaid:"
-
-#~ msgid "TextLabel"
-#~ msgstr "Lipéad"
-
-#~ msgid "Show Drop Target"
-#~ msgstr "Taispeáin Sprioc Scaoilte"
-
-#~ msgid "List All Links"
-#~ msgstr "Taispeáin Gach Nasc"
-
-#~ msgid "List Selected Links"
-#~ msgstr "Taispeáin Gach Nasc Roghnaithe"
-
-#~ msgid "No Links"
-#~ msgstr "Gan Naisc"
-
-#~ msgid "Communication Error"
-#~ msgstr "Earráid Chumarsáide"
-
-#~ msgid "&Tools"
-#~ msgstr "&Uirlisí"
-
-#~ msgid "There are no links in the active frame of the current HTML page."
-#~ msgstr "Níl aon naisc sa fhráma gníomhach den leathanach reatha HTML."
-
-#~ msgid "Form"
-#~ msgstr "Foirm"
-
-#~ msgid "An error occurred...."
-#~ msgstr "Tharla earráid..."
-
-#~ msgid "Remove Tag"
-#~ msgstr "Bain Clib"
-
-#~ msgid "Add Tag"
-#~ msgstr "Cuir Clib Leis"
-
-#~ msgid "Tag Settings"
-#~ msgstr "Socruithe Clibe"
-
-#~ msgid "Available tags:"
-#~ msgstr "Clibeanna ar fáil:"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "Announcing"
-#~ msgstr "Fógairt"
-
-#~ msgid "Unknown client"
-#~ msgstr "Cliant anaithnid"
-
-#~ msgid "1 day "
-#~ msgid_plural "%1 days "
-#~ msgstr[0] "1 lá "
-#~ msgstr[1] "%1 lá "
-#~ msgstr[2] "%1 lá "
-#~ msgstr[3] "%1 lá "
-#~ msgstr[4] "%1 lá "
-
-#~ msgid "Cannot open log file %1 : %2"
-#~ msgstr "Ní féidir logchomhad %1 a oscailt: %2"
-
-#~ msgid "Cannot write to %1 : %2"
-#~ msgstr "Ní féidir scríobh i %1: %2"
-
-#~ msgid "Cannot read from %1"
-#~ msgstr "Ní féidir léamh ó %1"
-
-#~ msgid "Cannot create directory %1"
-#~ msgstr "Ní féidir comhadlann %1 a chruthú"
-
-#~ msgid "Cannot symlink %1 to %2: %3"
-#~ msgstr "Ní féidir nasc siombalach a dhéanamh ó %1 go %2: %3"
-
-#~ msgid "Cannot move %1 to %2: %3"
-#~ msgstr "Ní féidir %1 a bhogadh go %2: %3"
-
-#~ msgid "Cannot copy %1 to %2: %3"
-#~ msgstr "Ní féidir %1 a chóipeáil go %2: %3"
-
-#~ msgid "Cannot delete %1: %2"
-#~ msgstr "Ní féidir %1 a scriosadh: %2"
-
-#~ msgid "Cannot create %1: %2"
-#~ msgstr "Ní féidir %1 a chruthú: %2"
-
-#~ msgid "Cannot calculate the filesize of %1: %2"
-#~ msgstr "Ní féidir méid an chomhaid %1 a áireamh: %2"
-
-#~ msgid "Cannot calculate the filesize : %1"
-#~ msgstr "Ní féidir méid an chomhaid a áireamh: %1"
-
-#~ msgid "Cannot open %1 : %2"
-#~ msgstr "Ní féidir %1 a oscailt: %2"
-
-#~ msgid "Cannot expand file: %1"
-#~ msgstr "Ní féidir an comhad a fhairsingiú: %1"
-
-#~ msgid "Cannot seek in file : %1"
-#~ msgstr "Ní féidir lorg i gcomhad: %1"
-
-#~ msgid "General"
-#~ msgstr "Ginearálta"
-
-#~ msgid "Tracker"
-#~ msgstr "Lorgaire"
-
-#~ msgid "Disk Input/Output"
-#~ msgstr "Ionchur/Aschur Diosca"
-
-#~ msgid "Not connected"
-#~ msgstr "Gan cheangal"
-
-#~ msgid "Connection closed"
-#~ msgstr "Ceangal dúnta"
-
-#~ msgid "Resolving proxy %1:%2"
-#~ msgstr "Seachfhreastalaí %1:%2 á réiteach"
-
-#~ msgid "Resolving hostname %1"
-#~ msgstr "Óstainm %1 á réiteach"
-
-#~ msgid "Connected"
-#~ msgstr "Ceangailte"
-
-#~ msgid "Connecting"
-#~ msgstr "Ag Ceangal"
-
-#~ msgid "1 peer"
-#~ msgid_plural "%1 peers"
-#~ msgstr[0] "1 chomhghleacaí"
-#~ msgstr[1] "%1 chomhghleacaí"
-#~ msgstr[2] "%1 chomhghleacaí"
-#~ msgstr[3] "%1 gcomhghleacaí"
-#~ msgstr[4] "%1 comhghleacaí"
-
-#~ msgid "The directory %1 does not exist"
-#~ msgstr "Níl comhadlann %1 ann"
-
-#~ msgid "Illegal token: %1"
-#~ msgstr "Teaghrán neamhcheadaithe: %1"
-
-#~ msgid "Decode error"
-#~ msgstr "Earráid díchódaithe"
-
-#~ msgid "Cannot convert %1 to an int"
-#~ msgstr "Ní féidir %1 a thiontú go slánuimhir"
-
-#~ msgid "Failed to open %1 : %2"
-#~ msgstr "Níorbh fhéidir %1 a oscailt: %2"
-
-#~ msgid "Failed to create %1 : %2"
-#~ msgstr "Níorbh fhéidir %1 a chruthú: %2"
-
-#~ msgid "Cannot open index file %1 : %2"
-#~ msgstr "Ní féidir comhad innéacs %1 a oscailt: %2"
-
-#~ msgid "Cannot create file %1 : %2"
-#~ msgstr "Ní féidir comhad %1 a chruthú: %2"
-
-#~ msgid "Failed to write first chunk to DND file : %1"
-#~ msgstr "Níorbh fhéidir an chéad smután a scríobh i gcomhad DND: %1"
-
-#~ msgid "Failed to write last chunk to DND file : %1"
-#~ msgstr "Níorbh fhéidir an smután deiridh a scríobh i gcomhad DND: %1"
-
-#~ msgid "Cannot open %1 for writing : readonly filesystem"
-#~ msgstr ""
-#~ "Ní féidir %1 a oscailt chun é a scríobh: córas comhad inléite amháin"
-
-#~ msgid "Cannot expand file %1 : %2"
-#~ msgstr "Ní féidir comhad %1 a fhairsingiú: %2"
-
-#~ msgid "Error reading from %1"
-#~ msgstr "Earráid agus %1 á léamh"
-
-#~ msgid "Cannot preallocate diskspace : %1"
-#~ msgstr "Ní féidir spás diosca a réamhdháileadh: %1"
-
-#~ msgid "Cannot open file %1 : %2"
-#~ msgstr "Ní féidir comhad %1 a oscailt: %2"
-
-#~ msgid " Unable to open torrent file %1 : %2"
-#~ msgstr " Ní féidir comhad torrent %1 a oscailt: %2"
-
-#~ msgid "Parse Error"
-#~ msgstr "Earráid Pharsála"
-
-#~ msgid "Unable to create %1 : %2"
-#~ msgstr "Ní féidir %1 a chruthú: %2"
-
-#~ msgid "You are already downloading the torrent %1"
-#~ msgstr "Tá torrent %1 á íosluchtú cheana"
-
-#~ msgid "Not started"
-#~ msgstr "Gan tosú"
-
-#~ msgid "Seeding completed"
-#~ msgstr "Síolú críochnaithe"
-
-#~ msgid "Downloading"
-#~ msgstr "Á Íosluchtú"
-
-#~ msgid "Stopped"
-#~ msgstr "Stoptha"
-
-#~ msgid "Allocating diskspace"
-#~ msgstr "Spás diosca á dháileadh"
-
-#~ msgid "Checking data"
-#~ msgstr "Sonraí á seiceáil"
-
-#~ msgid "Stopped. No space left on device."
-#~ msgstr "Stoptha. Tá an gléas lán."
-
-#~ msgid "Cannot open file %1: %2"
-#~ msgstr "Ní féidir comhad %1 a oscailt: %2"
-
-#~ msgid "Cannot create index file: %1"
-#~ msgstr "Ní féidir an comhad innéacs a chruthú: %1"
-
-#~ msgid "Unable to resolve hostname %1"
-#~ msgstr "Ní féidir óstainm %1 a réiteach"
-
-#~ msgid "Cannot bind to udp port %1 or the 10 following ports."
-#~ msgstr ""
-#~ "Ní féidir ceangal le port udp %1, ná leis na deich bport seo a leanas."
-
-#~ msgid "Invalid response from tracker"
-#~ msgstr "Freagra neamhbhailí ó lorgaire"
-
-#~ msgid "Invalid data from tracker"
-#~ msgstr "Sonraí neamhbhailí ó lorgaire"
-
-#~ msgid "Invalid tracker URL"
-#~ msgstr "URL neamhbhailí ar an lorgaire"
-
-#~ msgid "Cannot open file : %1 : %2"
-#~ msgstr "Ní féidir an comhad a oscailt: %1: %2"
-
-#~ msgid "Add"
-#~ msgstr "Cuir Leis"
-
-#~ msgid "Delete"
-#~ msgstr "Scrios"
-
-#~ msgid "Configure..."
-#~ msgstr "Cumraigh..."
-
-#~ msgid "Details for: %1"
-#~ msgstr "Mionsonraí: %1"
-
-#~ msgid "All downloads"
-#~ msgstr "Gach íosluchtú"
-
-#~ msgid "Finished downloads"
-#~ msgstr "Íosluchtuithe críochnaithe"
-
-#~ msgid "Transfers:"
-#~ msgstr "Aistrithe:"
-
-#~ msgid "Downloads"
-#~ msgstr "Íosluchtuithe"
-
-#~ msgid "Transfer details:"
-#~ msgstr "Mionsonraí an aistrithe:"
-
-#~ msgid "Transfer List"
-#~ msgstr "Liosta Aistrithe"
-
-#~ msgid "Expandable transfer details instead of separate tabs"
-#~ msgstr "Mionsonraí inleathnaithe aistrithe, in ionad cluaisíní ar leith"
-
-#~ msgid "Threads"
-#~ msgstr "Snáitheanna"
-
-#~ msgid "Number of threads:"
-#~ msgstr "Líon na snáitheanna:"
-
-#~ msgid "License:"
-#~ msgstr "Ceadúnas:"
-
-#~ msgctxt "The transfer is delayed"
-#~ msgid "Delayed"
-#~ msgstr "Moillithe"
-
-#~ msgid ""
-#~ "Destination file \n"
-#~ "%1\n"
-#~ "already exists.\n"
-#~ "Do you want to overwrite it?"
-#~ msgstr ""
-#~ "Tá an sprioc-chomhad \n"
-#~ "%1\n"
-#~ "ann cheana.\n"
-#~ "An bhfuil fonn ort scríobh air?"
-
-#~ msgid "Cannot remove torrent default tracker."
-#~ msgstr "Ní féidir lorgaire réamhshocraithe torrent a bhaint."
-
-#~ msgid "You cannot add trackers to a private torrent"
-#~ msgstr "Ní féidir leat lorgairí a chur le torrent príobháideach"
-
-#~ msgid "Cannot migrate %1 : %2"
-#~ msgstr "Ní féidir %1 a aistriú: %2"
-
-#~ msgid "Select Folder to Save To"
-#~ msgstr "Roghnaigh Fillteán a Sábhálfar Ann"
-
-#~ msgid "Queued"
-#~ msgstr "Curtha ar Chiú"
-
-#~ msgid "Current Tracker"
-#~ msgstr "Lorgaire Reatha"
-
-#~ msgid "Manual Announce"
-#~ msgstr "Fógra Láimhe"
-
-#~ msgid "Scrape"
-#~ msgstr "Scríob"
-
-#~ msgid "Available Trackers"
-#~ msgstr "Lorgairí Ar Fáil"
-
-#~ msgid "Url:"
-#~ msgstr "URL:"
-
-#~ msgctxt "delete selected transfer item"
-#~ msgid "Delete Selected"
-#~ msgstr "Scrios na Míreanna Roghnaithe"
-
-#~ msgid "Rename transfer"
-#~ msgstr "Athainmnigh an t-aistriú"
-
-#~ msgid "Download URL again?"
-#~ msgstr "Íosluchtaigh an URL arís?"
-
-#~ msgid "Remaining Time"
-#~ msgstr "Am Fágtha"
-
-#~ msgid "KGet - Download Manager"
-#~ msgstr "KGet - Bainisteoir Íosluchtaithe"
-
-#~ msgid "Minimal segment size:"
-#~ msgstr "Íosmhéid deighleán:"
-
-#~ msgid "kBi"
-#~ msgstr "kBi"
-
-#~ msgid "Save data every:"
-#~ msgstr "Sábháil sonraí gach:"
-
-#~ msgid ""
-#~ "You will lose all data in these files, are you sure you want to do this?"
-#~ msgstr ""
-#~ "Caillfidh tú na sonraí uile sna comhaid seo; an bhfuil tú cinnte is mian "
-#~ "leat é seo a dhéanamh?"
-
-#~ msgid "Maintainer, Core Developer"
-#~ msgstr "Cothaitheoir, Bunfhorbróir"
-
-#~ msgid "Cannot expand file : %1"
-#~ msgstr "Ní féidir an comhad a fhairsingiú: %1"
-
-#~ msgid "Peers"
-#~ msgstr "Comhghleacaithe"
-
-#~ msgid "Torrent has no announce or nodes field"
-#~ msgstr "Níl réimse fógra ná réimse nód sa torrent"
-
-#~ msgid ""
-#~ "An error occurred while loading the torrent.\n"
-#~ "The torrent is probably corrupt or is not a torrent file."
-#~ msgstr ""
-#~ "Tharla earráid agus an torrent á luchtú.\n"
-#~ "Is dócha go bhfuil an torrent truaillithe, nó ní comhad torrent é."
-
-#~ msgid "&Transfer History..."
-#~ msgstr "S&tair Aistrithe..."
-
-#~ msgid "&Group Settings..."
-#~ msgstr "&Socruithe Grúpa..."
-
-#~ msgid "&Transfer Settings..."
-#~ msgstr "&Socruithe Aistrithe..."
-
-#~ msgid "Speed limit"
-#~ msgstr "Teorainn luais"
-
-#~ msgid "Download Speed:"
-#~ msgstr "Luas Íosluchtaithe:"
-
-#~ msgid "Upload Speed:"
-#~ msgstr "Luas Uasluchtaithe:"
-
-#~ msgid "The group name is empty"
-#~ msgstr "Tá ainm an ghrúpa folamh"
-
-#~ msgid ""
-#~ "A group can not have an empty name.\n"
-#~ "Please select a new one."
-#~ msgstr ""
-#~ "Ní cheadaítear ainm folamh ar ghrúpa.\n"
-#~ "Roghnaigh ainm nua, le do thoil."
-
-#~ msgid "You can not delete this group."
-#~ msgstr "Ní féidir leat an grúpa seo a scriosadh."
-
-#~ msgid "Default Download Folders"
-#~ msgstr "Fillteáin Réamhshocraithe Íosluchtaithe"
-
-#~ msgid "Folder and extension can not be empty."
-#~ msgstr "Ní cheadaítear fillteán folamh agus iarmhír fholamh."
-
-#~ msgid "Ask save location for every new download"
-#~ msgstr "Fiafraigh díom cén áit ar chóir gach íosluchtú nua a shábháil"
-
-#~ msgid "Place new downloads inside default folder:"
-#~ msgstr "Cuir íosluchtuithe nua san fhillteán réamhshocraithe:"
-
-#~ msgid "Except for specific file types"
-#~ msgstr "Seachas cineálacha áirithe comhaid"
-
-#~ msgid "Specify extension and target folder:"
-#~ msgstr "Sonraigh iarmhír agus spriocfhillteán:"
-
-#~ msgid "File Extension"
-#~ msgstr "Iarmhír"
-
-#~ msgid "Default Folder"
-#~ msgstr "Fillteán Réamhshocraithe"
-
-#~ msgid "Edit"
-#~ msgstr "Eagar"
-
-#~ msgid ""
-#~ "Use a regular expression for the extension. \n"
-#~ "Examples: *.tar.gz or *movies*.zip"
-#~ msgstr ""
-#~ "Úsáid slonn ionadaíochta le haghaidh na hiarmhíre. \n"
-#~ "Samplaí: *.tar.gz nó *movies*.zip"
-
-#~ msgid "Set as default folder"
-#~ msgstr "Socraigh mar fhillteán réamhshocraithe"
-
-#~ msgid "extRegExp, defaultFolder"
-#~ msgstr "extRegExp, fillteán réamhshocraithe"
-
-#~ msgid "Downloading.."
-#~ msgstr "Á Íosluchtú..."
-
-#~ msgid "Advanced-Details for %1"
-#~ msgstr "Mionsonraí ar %1"
-
-#~ msgctxt "transfer state: downloading"
-#~ msgid "Downloading.."
-#~ msgstr "Á Íosluchtú..."
-
-#~ msgctxt "@label Title in header"
-#~ msgid "Webinterface"
-#~ msgstr "Comhéadan Gréasáin"
-
-#~ msgid "Downloads number:"
-#~ msgstr "Líon na n-íosluchtuithe:"
-
-#~ msgid "Assigned Peers"
-#~ msgstr "Comhghleacaithe Sannta"
-
-#~ msgid "%1 GB"
-#~ msgstr "%1 GB"
-
-#~ msgid "%1 MB"
-#~ msgstr "%1 MB"
-
-#~ msgid "%1 KB"
-#~ msgstr "%1 kB"
-
-#~ msgid "%1 B"
-#~ msgstr "%1 B"
-
-#~ msgid "%1 KB/s"
-#~ msgstr "%1 kB/s"
-
-#~ msgid "kBi/s"
-#~ msgstr "kBi/s"
-
-#~ msgid "Maximum Shared Ration: (0 if no limit)"
-#~ msgstr "Cóimheas Uasta Comhroinnte: (0 = gan teorainn)"
-
-#~ msgid "Start downloading files immediately after startup"
-#~ msgstr "Crom ar chomhaid a íosluchtú go díreach tar éis tosaithe"
-
-#~ msgid "Not Deleted"
-#~ msgstr "Gan Scriosadh"
-
-#~ msgid "Konqueror Integration disabled"
-#~ msgstr "Díchumasaíodh Comhtháthú Konqueror"
-
-#~ msgid "Show main window at startup"
-#~ msgstr "Taispeáin an phríomhfhuinneog ag am tosaithe"
-
-#~ msgid "More than 50MiB and 100MiB"
-#~ msgstr "Níos mó ná 50MiB agus 100MiB"
-
-#~ msgid "<done> MiB of <todo> MiB"
-#~ msgstr "<done> MiB as <todo> MiB"
-
-#~ msgid "<icon>"
-#~ msgstr "<deilbhín>"
-
-#~ msgid "<status>"
-#~ msgstr "<stádas>"
-
-#~ msgid "<speed>"
-#~ msgstr "<luas>"
-
-#~ msgid "Error writing to %1 : %2"
-#~ msgstr "Earráid agus %1 á scríobh: %2"
-
-#~ msgid "Error writing to %1"
-#~ msgstr "Earráid agus %1 á scríobh"
-
-#~ msgid "Tracker-Url:"
-#~ msgstr "URL an lorgaire:"
-
-#~ msgctxt "Download normally(not as first or last"
-#~ msgid "Normal"
-#~ msgstr "Gnách"
-
-#~ msgctxt "the transfer has been aborted"
-#~ msgid "Aborted"
-#~ msgstr "Tobscortha"
-
-#~ msgid "History-File cannot be opened correctly!"
-#~ msgstr "Ní féidir an Comhad Staire a oscailt mar is ceart!"
-
-#~ msgid "Bittorrent-Speedlimits"
-#~ msgstr "Teorainneacha Luais Bittorrent"
-
-#~ msgid "Speed-Limits"
-#~ msgstr "Teorainneacha Luais"
-
-#~ msgid "ScanDlgBase"
-#~ msgstr "Bundialóg Scanta"
-
-#~ msgid "Change Password..."
-#~ msgstr "Athraigh Focal Faire..."
-
-#~ msgid " of "
-#~ msgstr " as "
-
-#~ msgid "Download Folder"
-#~ msgstr "Fillteán Íosluchtaithe"
-
-#~ msgid "Global:"
-#~ msgstr "Comhchoiteann:"
-
-#~ msgid "Look and Feel"
-#~ msgstr "Cuma"
-
-#~ msgid "Default Group"
-#~ msgstr "Grúpa Réamhshocraithe"
-
-#~ msgid "DlgAdvanced"
-#~ msgstr "DlgAdvanced"
-
-#~ msgid "Delete Group."
-#~ msgstr "Scrios Grúpa."
-
-#~ msgid "&Dock"
-#~ msgstr "&Cuir i nDuga"
-
-#~ msgid "Source Label"
-#~ msgstr "Lipéad Foinse"
-
-#~ msgid "&Keep this window open after the operation is complete."
-#~ msgstr "&Fág an fhuinneog seo ar oscailt i ndiaidh na hoibríochta."
-
-#~ msgid "Not resumed"
-#~ msgstr "Gan atosú"
-
-#~ msgid "System"
-#~ msgstr "Córas"
-
-#~ msgid "Maximize"
-#~ msgstr "Uasmhéadaigh"
-
-#~ msgid "Minimize"
-#~ msgstr "Íoslaghdaigh"
-
-#~ msgid ""
-#~ "You do not have read permission for the file:\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Níl cead agat an comhad seo a léamh:\n"
-#~ "%1"
-
-#~ msgid ""
-#~ "File %1 exists.\n"
-#~ "Do you want to replace it?"
-#~ msgstr ""
-#~ "Tá comhad %1 ann cheana.\n"
-#~ "An bhfuil fonn ort scríobh air?"
-
-#~ msgid "Could only write %1 bytes of %2."
-#~ msgstr "Níorbh fhéidir ach %1 beart as %2 a scríobh."
-
-#~ msgid "Welcome to KGet"
-#~ msgstr "Fáilte go dtí KGet"
-
-#~ msgid "Could not create valid socket"
-#~ msgstr "Níorbh fhéidir soicéad bailí a chruthú"
-
-#~ msgid "Offline"
-#~ msgstr "As Líne"
-
-#~ msgid "&Open Individual Window"
-#~ msgstr "&Oscail Fuinneog Aonair"
-
-#~ msgid "Move to &Beginning"
-#~ msgstr "Téigh go dtí an &Tús"
-
-#~ msgid "&Queue"
-#~ msgstr "&Ciú"
-
-#~ msgid "&Timer"
-#~ msgstr "&Uaineadóir"
-
-#~ msgid "De&lay"
-#~ msgstr "Mo&ill"
-
-#~ msgid "Use &Animation"
-#~ msgstr "Úsáid Beoch&an"
-
-#~ msgid "&Expert Mode"
-#~ msgstr "&Mód Saineolaí"
-
-#~ msgid "&Offline Mode"
-#~ msgstr "Mód &As Líne"
-
-#~ msgid "Show &Log Window"
-#~ msgstr "Taispeáin an Fhuinneog &Logála"
-
-#~ msgid " Files: %1 "
-#~ msgstr " Comhaid: %1 "
-
-#~ msgid " Size: %1 KB "
-#~ msgstr " Méid: %1 kB "
-
-#~ msgid " Time: %1 "
-#~ msgstr " Am: %1 "
-
-#~ msgid ""
-#~ "*.kgt|*.kgt\n"
-#~ "*|All Files"
-#~ msgstr ""
-#~ "*.kgt|*.kgt\n"
-#~ "*|Gach Comhad"
-
-#~ msgid "Quitting..."
-#~ msgstr "Ag Scor..."
-
-#~ msgid "Stopping all jobs"
-#~ msgstr "Gach jab á stopadh"
-
-#~ msgid "Do Not Overwrite"
-#~ msgstr "Ná Forscríobh"
-
-#~ msgid "Starting another queued job."
-#~ msgstr "Jab ciúáilte eile á thosú."
-
-#~ msgid " Size: %1 "
-#~ msgstr " Méid: %1 "
-
-#~ msgid "<br /><b>Files:</b> %1 "
-#~ msgstr "<br /><b>Comhaid:</b> %1 "
-
-#~ msgid "<br /><b>Size:</b> %1 "
-#~ msgstr "<br /><b>Méid:</b> %1 "
-
-#~ msgid "<br /><b>Time:</b> %1 "
-#~ msgstr "<br /><b>Am:</b> %1 "
-
-#~ msgid "<br /><b>Speed:</b> %1/s"
-#~ msgstr "<br /><b>Luas:</b> %1/s"
-
-#~ msgid "Do you really want to disconnect?"
-#~ msgstr "An bhfuil tú cinnte go dteastaíonn uait dícheangal?"
-
-#~ msgid "Disconnect"
-#~ msgstr "Dícheangail"
-
-#~ msgid "Disconnecting..."
-#~ msgstr "Ag dícheangal..."
-
-#~ msgid "Id"
-#~ msgstr "Aitheantas"
-
-#~ msgid "Mixed"
-#~ msgstr "Measctha"
-
-#~ msgid "Separated"
-#~ msgstr "Dealaithe"
-
-#~ msgid "Iconified"
-#~ msgstr "Íoslaghdaithe"
-
-#~ msgid "Show individual windows"
-#~ msgstr "Taispeáin fuinneoga aonair"
-
-#~ msgid " min"
-#~ msgstr " nóiméad"
-
-#~ msgid "Autosave file list every:"
-#~ msgstr "Uathshábháil an liosta comhad gach:"
-
-#~ msgid "Auto paste from clipboard"
-#~ msgstr "Uathghreamaigh ón ghearrthaisce"
-
-#~ msgid "Permanent"
-#~ msgstr "Buan"
-
-#~ msgid "PLIP"
-#~ msgstr "PLIP"
-
-#~ msgid "SLIP"
-#~ msgstr "SLIP"
-
-#~ msgid "PPP"
-#~ msgstr "PPP"
-
-#~ msgid "ISDN"
-#~ msgstr "LDSC"
-
-#~ msgid " bytes/sec"
-#~ msgstr " beart/soic"
-
-#~ msgid "Window style:"
-#~ msgstr "Stíl fuinneog:"
-
-#~ msgid "To: %1"
-#~ msgstr "Go: %1"
-
-#~ msgid "Stopping"
-#~ msgstr "Ag Stopadh"
-
-#~ msgid "Pausing"
-#~ msgstr "Sos"
-
-#~ msgid "Delaying"
-#~ msgstr "Moill"
-
-#~ msgid "%"
-#~ msgstr "%"
