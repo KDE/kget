@@ -83,6 +83,7 @@
     <p xml:lang="bg">KGet е гъвкава и потребителска ориентирана програма за управления на изтегляния.</p>
     <p xml:lang="ca">El KGet és un gestor de baixades versàtil i fàcil d'emprar.</p>
     <p xml:lang="ca-valencia">KGet és un gestor de baixades versàtil i fàcil d'emprar.</p>
+    <p xml:lang="cs">KGet je univerzální a uživatelsky přívětivý správce stahování.</p>
     <p xml:lang="da">KGet er en alsidig og brugervenlig downloadhåndtering.</p>
     <p xml:lang="de">Ein vielseitiges und einfach zu benutzendes Verwaltungsprogramm zum Herunterladen.</p>
     <p xml:lang="el">Το KGet είναι ένας ευέλικτος και φιλικός διαχειριστής λήψεων.</p>
@@ -157,6 +158,7 @@
       <li xml:lang="bg">Изтегляне на файлове от FTP и HTTP(S) източници.</li>
       <li xml:lang="ca">Baixa fitxers des de fonts FTP i HTTP/S.</li>
       <li xml:lang="ca-valencia">Baixa fitxers des de fonts FTP i HTTP/S.</li>
+      <li xml:lang="cs">Stahování souborů ze zdrojů FTP a HTTP(S).</li>
       <li xml:lang="da">Download af filer fra FTP- og HTTP(S)-kilder.</li>
       <li xml:lang="de">Herunterladen von Dateien aus FTP- und HTTP(s)-Adressen.</li>
       <li xml:lang="el">Κάνει λήψη αρχείων από ftp και http(s) πηγές.</li>
@@ -193,6 +195,7 @@
       <li xml:lang="bg">Паузиране и възобновяване на изтегляния, както и възможност за рестартиране на изтегляне.</li>
       <li xml:lang="ca">Fa pausa i reprèn la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
       <li xml:lang="ca-valencia">Fa pausa i reprén la baixada de fitxers, així com la possibilitat de reiniciar una baixada.</li>
+      <li xml:lang="cs">Pozastavení a obnovení stahování souborů, stejně jako možnost restartovat stahování.</li>
       <li xml:lang="da">Sæt downloadede filer på pause og genoptag dem, og muligheden for at genstarte en download.</li>
       <li xml:lang="de">Anhalten und Fortsetzen des Herunterladens von Dateien, außerdem gibt es auch die Möglichkeit, das Herunterladen neu zu starten.</li>
       <li xml:lang="el">Παύει και συνεχίζει τη λήψη αρχείων, και έχει τη δυνατότητα επανάληψης μιας λήψης.</li>
@@ -229,6 +232,7 @@
       <li xml:lang="bg">Дава много информация за текущи и предстоящи изтегляния.</li>
       <li xml:lang="ca">Dona molta informació sobre les baixades actuals i pendents.</li>
       <li xml:lang="ca-valencia">Dona molta informació sobre les baixades actuals i pendents.</li>
+      <li xml:lang="cs">Poskytuje mnoho informací o aktuálních a čekajících stahováních.</li>
       <li xml:lang="da">Viser massere af information om nuværende og afventende downloads.</li>
       <li xml:lang="de">Viele Informationen über aktuelle und anstehende Downloads.</li>
       <li xml:lang="el">Δίνει πολλές πληροφορίες για τις τρέχουσες και τις εκκρεμείς λήψεις.</li>
@@ -265,6 +269,7 @@
       <li xml:lang="bg">Интегрира се в системната област.</li>
       <li xml:lang="ca">Està incrustat a la safata del sistema.</li>
       <li xml:lang="ca-valencia">Està incrustat a dins de la safata del sistema.</li>
+      <li xml:lang="cs">Umístění do oznamovací oblasti.</li>
       <li xml:lang="da">Indlejring i systembakken.</li>
       <li xml:lang="de">Eingebettet in den Systemabschnitt der Kontrollleiste.</li>
       <li xml:lang="el">Ενσωμάτωση στο πλαίσιο συστήματος.</li>
@@ -301,6 +306,7 @@
       <li xml:lang="bg">Интегриране в Konqueror.</li>
       <li xml:lang="ca">S'integra amb el navegador web Konqueror.</li>
       <li xml:lang="ca-valencia">S'integra amb el navegador web Konqueror.</li>
+      <li xml:lang="cs">Integrace s webovým prohlížečem Konqueror.</li>
       <li xml:lang="da">Integration med Konqueror-webbrowseren.</li>
       <li xml:lang="de">Integration mit dem Internet-Browser Konqueror.</li>
       <li xml:lang="el">Ολοκλήρωση με τον περιηγητή ιστού Konqueror.</li>
@@ -337,6 +343,7 @@
       <li xml:lang="bg">Поддръжка на Metalink с множество URL-адреси за сваляне, наред с контролни суми и друга информация.</li>
       <li xml:lang="ca">Admet el «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
       <li xml:lang="ca-valencia">Admet «Metalink», el qual conté múltiples URL per a baixades, juntament amb les sumes de verificació i altra informació.</li>
+      <li xml:lang="cs">Podpora metalinků, které obsahují více odkazů ke stažení spolu s kontrolními součty a dalšími informacemi.</li>
       <li xml:lang="da">Understøttelse af metalink med flere URL'er til downloads, samt checksumme og andre informationer.</li>
       <li xml:lang="de">Unterstützung für Metalinks, die mehrere Adressen (Urls) zum Herunterladen enthalten, zusammen mit Prüfsummen und weiteren Informationen.</li>
       <li xml:lang="el">Υποστήριξη Metalink, η οποία περιέχει πολλά URL για λήψη, μαζί με αθροίσματα ελέγχου και άλλες πληροφορίες.</li>
@@ -381,7 +388,7 @@
       <caption xml:lang="bg">Изтегляне на файлове с KGet</caption>
       <caption xml:lang="ca">Baixada de fitxers amb el KGet</caption>
       <caption xml:lang="ca-valencia">Baixada de fitxers amb KGet</caption>
-      <caption xml:lang="cs">Stahuji soubory KGet</caption>
+      <caption xml:lang="cs">Stahování souborů pomocí KGet</caption>
       <caption xml:lang="da">Downloader filer med KGet</caption>
       <caption xml:lang="de">Herunterladen von Dateien mit KGet</caption>
       <caption xml:lang="el">Λήψη αρχείων με το KGet</caption>
