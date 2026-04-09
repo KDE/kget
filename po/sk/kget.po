@@ -20,8 +20,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -47,7 +47,7 @@ msgstr "Regulárny výraz"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Automaticky odstrániť celú históriu prenosov staršiu ako:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -813,10 +813,9 @@ msgid "No internet connection, stopping transfers."
 msgstr "Žiadne internetové pripojenie, zastavujem prenosy."
 
 #: core/kget.cpp:1192
-#, fuzzy, kde-format
-#| msgid "Plugin loader could not load the plugin: %1."
+#, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr "Zavádzač modulu nemohol načítať modul: %1."
+msgstr "Plugin loader could not load the plugin %1: %2."
 
 #: core/kget.cpp:1203
 #, kde-format
@@ -878,8 +877,7 @@ msgstr ""
 "%1</p><p>Chybová správa:</p><p style=\"font-size: small;\">%2</p>"
 
 #: core/kget.cpp:1345
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
 msgstr "Vyriešiť"
@@ -979,7 +977,7 @@ msgstr "Stiahnuť"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Pokračovať bez"
 
 #: core/signature.cpp:256
 #, kde-format
@@ -2725,8 +2723,7 @@ msgid "Pre-allocate disk space"
 msgstr "Alokovať miesto na disku"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select a default torrent folder"
+#, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
 msgstr "Vyberte štandardný priečinok torrentov"
@@ -4056,20 +4053,17 @@ msgid "Unable to load: %1"
 msgstr "Nepodarilo sa načítať: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
 msgstr "Súbor Metalink verzie 4.0 (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
 msgstr "Súbor Metalink verzie 4.0 (*.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:172
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "*.metalink *.meta4|Metalink súbor (*.metalink *.meta4)"
 
@@ -4536,8 +4530,7 @@ msgid "Transfer Details"
 msgstr "Detaily prenosu"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
 msgstr "%1 %"
