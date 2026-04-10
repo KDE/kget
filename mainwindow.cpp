@@ -414,11 +414,6 @@ void MainWindow::init()
     // enable hide toolbar
     setStandardToolBarMenuEnabled(true);
 
-    // set auto-resume in kioslaverc (is there a cleaner way?)
-    KConfig cfg("kioslaverc", KConfig::NoGlobals);
-    cfg.group(QString()).writeEntry("AutoResume", true);
-    cfg.sync();
-
     // DropTarget
     m_drop = new DropTarget(this);
 
