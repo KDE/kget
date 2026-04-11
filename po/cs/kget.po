@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2024-05-29 11:40+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -933,7 +933,7 @@ msgstr "<p>Všechny přenosy byly dokončeny.</p>"
 msgid "Downloads completed"
 msgstr "Stahování dokončena"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1804,7 +1804,7 @@ msgstr "Úlohy po dokončení stahování"
 msgid "No Action"
 msgstr "Žádná činnost"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1813,39 +1813,39 @@ msgstr ""
 "Toto je poprvé, co spouštíte KGet.\n"
 "Přejete si používat KGet jako správce stahování pro Konqueror?"
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Integrace do Konqueroru"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "Povolit"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Nepovolovat"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Otevřít soubor"
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "Všechny soubory, co lze otevřít"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1854,38 +1854,38 @@ msgstr ""
 "Některé přenosy stále probíhají.\n"
 "Opravdu si přejete ukončit KGet?"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Potvrdit ukončení"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Exportovat přenosy"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Seznam přenosů KGet"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "Text File"
 msgstr "Textový soubor"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Zadejte název skupiny"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "Název skupiny:"
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1893,12 +1893,12 @@ msgstr[0] "Opravdu si přejete odstranit vybraný přenos?"
 msgstr[1] "Opravdu si přejete odstranit vybrané přenosy?"
 msgstr[2] "Opravdu si přejete odstranit vybrané přenosy?"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Potvrdit smazání přenosu"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1907,7 +1907,7 @@ msgstr[0] "Opravdu si přejete odstranit vybraný přenos včetně souborů?"
 msgstr[1] "Opravdu si přejete odstranit vybrané přenosy včetně souborů?"
 msgstr[2] "Opravdu si přejete odstranit vybrané přenosy včetně souborů?"
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1918,17 +1918,17 @@ msgstr ""
 "přejete vypnout navždy, jděte do Nastavení->Pokročilá a vypnout \"Použít "
 "jako správce stahování pro Konqueror\"."
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Upuštěný soubor je seznam přenosů KGet"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "Sta&hování"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "Načíst se&znam přenosů"

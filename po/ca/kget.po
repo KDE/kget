@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2026-03-29 13:00+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -942,7 +942,7 @@ msgstr "<p>Totes les transferències han finalitzat.</p>"
 msgid "Downloads completed"
 msgstr "Baixades finalitzades"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1813,7 +1813,7 @@ msgstr "Acció després de finalitzar les baixades"
 msgid "No Action"
 msgstr "Cap acció"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1822,39 +1822,39 @@ msgstr ""
 "Aquesta és la primera vegada que executeu el KGet.\n"
 "Desitgeu emprar el KGet com a gestor de baixades del Konqueror?"
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Integració amb el Konqueror"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "Habilita"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "No habilitis"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Obre un fitxer"
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "Tots els fitxers que es puguin obrir"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1863,50 +1863,50 @@ msgstr ""
 "Encara teniu algunes transferències executant-se.\n"
 "Esteu segur de voler tancar el KGet?"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Confirma la sortida"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Exporta les transferències"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Llista de transferències del KGet"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "Text File"
 msgstr "Fitxer de text"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Introduïu un nom de grup"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "Nom de grup:"
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Esteu segur que voleu suprimir la transferència seleccionada?"
 msgstr[1] "Esteu segur que voleu suprimir les transferències seleccionades?"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Confirma la supressió de les transferències"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1918,7 +1918,7 @@ msgstr[1] ""
 "Esteu segur que voleu suprimir les transferències seleccionades incloent els "
 "fitxers?"
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1929,17 +1929,17 @@ msgstr ""
 "Si voleu desactivar-ho per sempre, aneu a «Arranjament -> Avançat» i "
 "inhabiliteu «Usa com a gestor de baixades del Konqueror»."
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "El fitxer deixat anar és una llista de transferències del KGet"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "&Baixa"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Carrega la llista de transferències"

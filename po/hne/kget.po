@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2009-02-26 22:16+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -965,7 +965,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "डाउनलोड पूरा"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1860,47 +1860,47 @@ msgstr ""
 msgid "No Action"
 msgstr "जगह (यूआरएल)"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
 "Would you like to enable KGet as the download manager for Konqueror?"
 msgstr ""
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "कान्करर के साथ एकीकरन"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "सक्छम करव"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "सक्छम नइ करव"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "फाइल खोलव"
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "सब्बो खोले जा सके फाइल मन ल"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "के-गेट - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1909,40 +1909,40 @@ msgstr ""
 "कुछ हस्तांतरन अभी घलोक होवत हे.\n"
 "का आप मन सही मं के-गेट बन्द करना चाहथो ?"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "बाहिर जाय के पुस्टि करव"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "ट्रांसफर निर्यात करव"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "केगेट ट्रांसफर सूची"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, fuzzy, kde-format
 #| msgid "Move File"
 msgid "Text File"
 msgstr "फाइल खिसकाव"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "समूह नाम भरव"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "समूह नामः"
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1956,12 +1956,12 @@ msgstr[1] ""
 "का आप मन सचमुच समूह नाम %1 \n"
 "को मिटाना चाहथो ?"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, fuzzy, kde-format
 msgid "Confirm transfer delete"
 msgstr "ट्रांसफर सूची लोड करव (&L)"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, fuzzy, kde-format
 #| msgid ""
 #| "Are you sure that you want to remove\n"
@@ -1976,7 +1976,7 @@ msgstr[1] ""
 "का आप मन सचमुच समूह नाम %1 \n"
 "को मिटाना चाहथो ?"
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1984,17 +1984,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, fuzzy, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "केगेट ट्रांसफर सूची"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "डाउनलोड (&D)"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, fuzzy, kde-format
 msgid "&Load transfer list"
 msgstr "ट्रांसफर सूची लोड करव (&L)"

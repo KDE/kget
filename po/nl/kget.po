@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2024-09-06 13:59+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -952,7 +952,7 @@ msgstr "<p>Alle overdrachten zijn gereed.</p>"
 msgid "Downloads completed"
 msgstr "Voltooide downloads"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1827,7 +1827,7 @@ msgstr "Actie nadat alle downloads zijn voltooid"
 msgid "No Action"
 msgstr "Geen actie"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1836,39 +1836,39 @@ msgstr ""
 "Dit is de eerste keer dat u KGet gebruikt.\n"
 "Wilt u KGet als downloadbeheerder voor Konqueror gebruiken?"
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror-integratie"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "Activeren"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Niet activeren"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Bestand openen"
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "Alle bestanden die geopend kunnen worden"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1877,50 +1877,50 @@ msgstr ""
 "Sommige overdrachten zijn nog bezig.\n"
 "Wilt u KGet toch sluiten?"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Afsluiten bevestigen"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Overdrachten exporteren"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet overdrachtlijst"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "Text File"
 msgstr "Tekstbestand"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Groepsnaam invoeren"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "Groepsnaam:"
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "Wilt u de geselecteerde overdracht verwijderen?"
 msgstr[1] "Wilt u de geselecteerde overdrachten verwijderen?"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "Bevestig het verwijderen van de overdracht"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1930,7 +1930,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Wilt u de geselecteerde overdrachten verwijderen, inclusief bestanden?"
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1942,17 +1942,17 @@ msgstr ""
 "en deselecteer het keuzevakje voor \"Als downloadbeheerder voor Konqueror "
 "gebruiken\"."
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Het gesleepte bestand is een KGet-overdrachtslijst"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "&Downloaden"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "Overdrachtslijst &laden"

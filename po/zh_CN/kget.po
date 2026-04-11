@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -914,7 +914,7 @@ msgstr "<p>全部传输均已完成。</p>"
 msgid "Downloads completed"
 msgstr "下载完成"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1774,7 +1774,7 @@ msgstr "下载完成后的操作"
 msgid "No Action"
 msgstr "无操作"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1783,39 +1783,39 @@ msgstr ""
 "这是您第一次运行 KGet。\n"
 "您是否想要将 KGet 用作 Konqueror 的下载管理器？"
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror 集成"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "允许"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "不启用"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "打开文件"
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "所有可打开的文件"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1824,56 +1824,56 @@ msgstr ""
 "有些传输仍在进行中。\n"
 "您确定要关闭 KGet 吗？"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "确认退出"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "导出传输列表"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet 传输列表"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "Text File"
 msgstr "文本文件"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "输入分组名称"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "组名称："
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "您确定要删除选定的传输任务吗？"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "确认删除传输任务"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "您确定要删除选定的传输任务包括文件吗？"
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1883,17 +1883,17 @@ msgstr ""
 "KGet 已被临时禁用作 Konqueror 的下载管理器。如果您希望永久禁用此功能，请进"
 "入“设置->高级”并取消“将 KGet 用作 Konqueror 的下载管理器”选项。"
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "拖放的文件是一个 KGet 传输列表"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "下载(&D)"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "加载传输列表(&L)"

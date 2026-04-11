@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork/kget.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -903,7 +903,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "Íosluchtuithe curtha i gcrích"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1731,7 +1731,7 @@ msgstr ""
 msgid "No Action"
 msgstr "Ná Déan Faic"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1741,39 +1741,39 @@ msgstr ""
 "An bhfuil fonn ort KGet a chumasú mar bhainisteoir réamhshocraithe "
 "íosluchtaithe le haghaidh Konqueror?"
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Comhtháthú Konqueror"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "Cumasaigh"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "Ná Cumasaigh"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr ""
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "Gach Comhad Inoscailte"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1782,38 +1782,38 @@ msgstr ""
 "Tá aistrithe ag rith fós.\n"
 "An bhfuil tú cinnte gur mian leat KGet a dhúnadh?"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "Deimhnigh Scor"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr ""
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "Liosta Aistrithe KGet"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "Text File"
 msgstr "Téacschomhad"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "Iontráil Ainm an Ghrúpa"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "Ainm an ghrúpa:"
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -1833,12 +1833,12 @@ msgstr[4] ""
 "An bhfuil tú cinnte go dteastaíonn uait na comhaid aistrithe roghnaithe a "
 "scriosadh?"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr ""
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1859,7 +1859,7 @@ msgstr[4] ""
 "An bhfuil tú cinnte go dteastaíonn uait na haistrithe roghnaithe a "
 "scriosadh, comhaid san áireamh?"
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1870,17 +1870,17 @@ msgstr ""
 "Más mian leat é a dhíchumasú go brách, téigh go Socruithe->Casta agus "
 "díchumasaigh \"Úsáid mar bhainisteoir íosluchtaithe i Konqueror\"."
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "Is Liosta Aistrithe KGet é an comhad a ligeadh titim"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "Íos&luchtaigh"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "&Luchtaigh liosta aistrithe"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2011-11-11 19:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com> \n"
 "Language-Team: Sinhala <info@hanthana.org> \n"
@@ -937,7 +937,7 @@ msgstr "<p>සියළු හුවමාරු අවසන් විය.</p>"
 msgid "Downloads completed"
 msgstr "බාගැනීම සම්පූර්ණයි"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1808,7 +1808,7 @@ msgstr "බාගැනීම අවසානයේ ක්‍රියාව"
 msgid "No Action"
 msgstr "ක්‍රියාවක් නොමැත"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1817,40 +1817,40 @@ msgstr ""
 "මෙය ඔබ KGet ක්‍රියාත්මක කරන පලමු අවස්ථාවයි.\n"
 "ඔබ KGet Konqueror හි බාගැනීම් පාලක ලෙස සක්‍රීය කිරීමට කැමතිද?"
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror තිළැලීම"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "සක්‍රීය කරන්න"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "සක්‍රීය නොකරන්න"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "ගොනුව විවෘත"
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "විවෘත කල හැකි සියළු ගොනු"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -1859,51 +1859,51 @@ msgstr ""
 "ඇතැම් හුවමාරු දැනටමත් ක්‍රියාත්මකව පවතී.\n"
 "ඔබට KGet වසාදැමීමට ඇවැසි බව විශ්වාසද?"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "පිටවීම තහවුරු කරන්න"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "හුවමාරු නිර්යාත කරන්න"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet හුවමාරු ලැයිස්තුව"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "Text File"
 msgstr "පෙළ ගොනුව"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "කණ්ඩායම් නම ඇතුළත් කරන්න"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "කණ්ඩායම් නම:"
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "ඔබට තෝරාගත් හුවමාරුව මකාදැමීමට ඇවැසි බව විශ්වාසද?"
 msgstr[1] "ඔබට තෝරාගත් හුවමාරු මකාදැමීමට අවශ්‍යද?"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "හුවමාරු මැකීම තහවුරු කරන්න"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer including files?"
 msgid_plural ""
@@ -1911,7 +1911,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -1919,17 +1919,17 @@ msgid ""
 "download manager for Konqueror\"."
 msgstr ""
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "මඟහැරුනු ගොනුව KGet හුවමාරු ලැයිස්තුවකි"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "බාගන්න (&D)"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "හුවමාරු ලැයිස්තුව පූර්ණය කරන්න (&L)"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-29 00:42+0000\n"
+"POT-Creation-Date: 2026-04-11 00:45+0000\n"
 "PO-Revision-Date: 2011-08-27 17:32-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -952,7 +952,7 @@ msgstr ""
 msgid "Downloads completed"
 msgstr "ダウンロード完了"
 
-#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:511
+#: core/kget.h:361 main.cpp:97 mainwindow.cpp:95 mainwindow.cpp:506
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
@@ -1970,7 +1970,7 @@ msgstr ""
 msgid "No Action"
 msgstr "場所 (国)"
 
-#: mainwindow.cpp:427
+#: mainwindow.cpp:422
 #, kde-format
 msgid ""
 "This is the first time you have run KGet.\n"
@@ -1979,40 +1979,40 @@ msgstr ""
 "今回初めて KGet を起動しました。\n"
 "KGet を Konqueror のダウンロードマネージャとして使いますか？"
 
-#: mainwindow.cpp:429
+#: mainwindow.cpp:424
 #, kde-format
 msgid "Konqueror Integration"
 msgstr "Konqueror への統合"
 
-#: mainwindow.cpp:430
+#: mainwindow.cpp:425
 #, kde-format
 msgid "Enable"
 msgstr "使う"
 
-#: mainwindow.cpp:431
+#: mainwindow.cpp:426
 #, kde-format
 msgid "Do Not Enable"
 msgstr "使わない"
 
-#: mainwindow.cpp:492
+#: mainwindow.cpp:487
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "ファイルを開く"
 
-#: mainwindow.cpp:494
+#: mainwindow.cpp:489
 #, kde-format
 msgid "All Openable Files"
 msgstr "開くことのできるすべてのファイル"
 
-#: mainwindow.cpp:509
+#: mainwindow.cpp:504
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
 msgstr "KGet - %1%"
 
-#: mainwindow.cpp:557
+#: mainwindow.cpp:552
 #, kde-format
 msgid ""
 "Some transfers are still running.\n"
@@ -2021,51 +2021,51 @@ msgstr ""
 "実行中の転送があります。\n"
 "本当に KGet を閉じますか？"
 
-#: mainwindow.cpp:559
+#: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
 msgstr "終了の確認"
 
-#: mainwindow.cpp:587
+#: mainwindow.cpp:582
 #, fuzzy, kde-format
 #| msgid "Export Transfers"
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "転送をエクスポート"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, kde-format
 msgid "KGet Transfer List"
 msgstr "KGet 転送リスト"
 
-#: mainwindow.cpp:589
+#: mainwindow.cpp:584
 #, fuzzy, kde-format
 #| msgid "Move File"
 msgid "Text File"
 msgstr "ファイルを移動"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Enter Group Name"
 msgstr "グループ名を入力"
 
-#: mainwindow.cpp:618
+#: mainwindow.cpp:613
 #, kde-format
 msgid "Group name:"
 msgstr "グループ名:"
 
-#: mainwindow.cpp:702
+#: mainwindow.cpp:697
 #, kde-format
 msgid "Are you sure you want to delete the selected transfer?"
 msgid_plural "Are you sure you want to delete the selected transfers?"
 msgstr[0] "本当に選択した転送を削除しますか？"
 
-#: mainwindow.cpp:705 mainwindow.cpp:736
+#: mainwindow.cpp:700 mainwindow.cpp:731
 #, kde-format
 msgid "Confirm transfer delete"
 msgstr "転送の削除を確認"
 
-#: mainwindow.cpp:733
+#: mainwindow.cpp:728
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to delete the selected transfer?"
 #| msgid_plural "Are you sure you want to delete the selected transfers?"
@@ -2074,7 +2074,7 @@ msgid_plural ""
 "Are you sure you want to delete the selected transfers including files?"
 msgstr[0] "本当に選択した転送を削除しますか？"
 
-#: mainwindow.cpp:1067
+#: mainwindow.cpp:1062
 #, kde-format
 msgid ""
 "KGet has been temporarily disabled as download manager for Konqueror. If you "
@@ -2085,17 +2085,17 @@ msgstr ""
 "は、「設定|詳細」で「Konqueror のダウンロードマネージャとして使う」オプション"
 "を無効にしてください。"
 
-#: mainwindow.cpp:1183 ui/droptarget.cpp:214
+#: mainwindow.cpp:1178 ui/droptarget.cpp:214
 #, kde-format
 msgid "The dropped file is a KGet Transfer List"
 msgstr "ドロップされたファイルは KGet の転送リストです"
 
-#: mainwindow.cpp:1185 ui/droptarget.cpp:216
+#: mainwindow.cpp:1180 ui/droptarget.cpp:216
 #, kde-format
 msgid "&Download"
 msgstr "ダウンロード(&D)"
 
-#: mainwindow.cpp:1186 ui/droptarget.cpp:217
+#: mainwindow.cpp:1181 ui/droptarget.cpp:217
 #, kde-format
 msgid "&Load transfer list"
 msgstr "転送リストを読み込み(&L)"
