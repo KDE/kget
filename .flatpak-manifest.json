@@ -101,7 +101,7 @@
                 {
                     "type": "git",
                     "url": "https://invent.kde.org/network/libktorrent",
-                    "branch": "master"
+                    "branch": "release/26.04"
                 }
             ]
         },
