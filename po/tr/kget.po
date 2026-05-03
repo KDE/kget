@@ -13,21 +13,21 @@
 # Rıdvan CAN <ridvancan@linux-sevenler.org>, 2004.
 # obsoleteman <tulliana@gmail.com>, 2008-2010,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-11 00:45+0000\n"
-"PO-Revision-Date: 2025-10-03 10:10+0300\n"
-"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
+"PO-Revision-Date: 2026-05-02 19:54+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
@@ -722,7 +722,7 @@ msgid ""
 "\n"
 "Download it again?"
 msgstr ""
-"Aşağıdaki konum için halihazırda tamamlanmış bir indirme yapmışsınız: \n"
+"Aşağıdaki konum için hâlihazırda tamamlanmış bir indirme yapmışsınız: \n"
 "\n"
 "%1\n"
 "\n"
@@ -781,26 +781,26 @@ msgid ""
 "\n"
 "Download and delete the previous one?"
 msgstr ""
-"Bu dosyayı halihazırda başka bir konumdan indirmişsiniz.\n"
+"Bu dosyayı hâlihazırda başka bir konumdan indirmişsiniz.\n"
 "\n"
 "Eski indirilen silinip yeniden indirilsin mi?"
 
 #: core/kget.cpp:1072 core/urlchecker.cpp:648
 #, kde-format
 msgid "File already downloaded. Download anyway?"
-msgstr "Dosya halihazırda indirilmiş. Yine de indirilsin mi?"
+msgstr "Dosya hâlihazırda indirilmiş. Yine de indirilsin mi?"
 
 #: core/kget.cpp:1083
 #, kde-format
 msgid "You are already downloading the same file"
-msgstr "Aynı dosya halihazırda indiriliyor"
+msgstr "Aynı dosya hâlihazırda indiriliyor"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
 #: transfer-plugins/metalink/metalink.cpp:663
 #, kde-format
 msgid "File already exists"
-msgstr "Dosya halihazırda var"
+msgstr "Dosya hâlihazırda var"
 
 #: core/kget.cpp:1177
 #, kde-format
@@ -1231,7 +1231,7 @@ msgstr ""
 #: core/urlchecker.cpp:386 core/urlchecker.cpp:398
 #, kde-format
 msgid "File already exists. Overwrite it?"
-msgstr "Dosya halihazırda var. Üzerine yazmak istiyor musunuz?"
+msgstr "Dosya hâlihazırda var. Üzerine yazmak istiyor musunuz?"
 
 #: core/urlchecker.cpp:388 core/urlchecker.cpp:414
 #, kde-format
@@ -1239,7 +1239,7 @@ msgid ""
 "You have already downloaded that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
-"Bu dosyayı halihazırda başka bir konumdan indirmişsiniz.\n"
+"Bu dosyayı hâlihazırda başka bir konumdan indirmişsiniz.\n"
 "Önceden indirilen dosya silinip yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:390 core/urlchecker.cpp:416
@@ -1248,7 +1248,7 @@ msgid ""
 "You are already downloading that file from another location.\n"
 "Download and delete the previous one?"
 msgstr ""
-"Bu dosyayı halihazırda başka bir konumdan indirmişsiniz.\n"
+"Bu dosyayı hâlihazırda başka bir konumdan indirmişsiniz.\n"
 "Önceden indirilen dosya silinip yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:400
@@ -1256,7 +1256,7 @@ msgstr ""
 msgid ""
 "You have already completed a download from that location. Download it again?"
 msgstr ""
-"Bu konum için bir indirme işleminiz halihazırda tamamlanmış. Yeniden "
+"Bu konum için bir indirme işleminiz hâlihazırda tamamlanmış. Yeniden "
 "indirilsin mi?"
 
 #: core/urlchecker.cpp:402
@@ -1334,7 +1334,7 @@ msgstr ""
 #, kde-format
 msgid "Files exist already. Overwrite them?"
 msgstr ""
-"Dosyalar halihazırda var. Bu dosyaların üzerine yazmak istiyor musunuz?"
+"Dosyalar hâlihazırda var. Bu dosyaların üzerine yazmak istiyor musunuz?"
 
 #: core/urlchecker.cpp:502
 #, kde-format
@@ -1342,7 +1342,7 @@ msgid ""
 "You have already completed downloads at those destinations. Download them "
 "again?"
 msgstr ""
-"Bu konumlar için halihazırda tamamlanmış indirmeler yapmışsınız. Bu dosyalar "
+"Bu konumlar için hâlihazırda tamamlanmış indirmeler yapmışsınız. Bu dosyalar "
 "yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:504
@@ -1360,7 +1360,7 @@ msgid ""
 "You have already completed downloads from these locations. Download them "
 "again?"
 msgstr ""
-"Aşağıdaki konumlardan halihazırda tamamlanmış bir indirmeler yapmışsınız. Bu "
+"Aşağıdaki konumlardan hâlihazırda tamamlanmış bir indirmeler yapmışsınız. Bu "
 "dosyalar yeniden indirilsin mi?"
 
 #: core/urlchecker.cpp:514
@@ -1392,7 +1392,7 @@ msgid ""
 "\n"
 " Download them again?"
 msgstr ""
-"Bu konumlar için halihazırda tamamlanmış indirmeler yapmışsınız: \n"
+"Bu konumlar için hâlihazırda tamamlanmış indirmeler yapmışsınız: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1422,7 +1422,7 @@ msgid ""
 "\n"
 "Download them again?"
 msgstr ""
-"Bu konumlar için halihazırda tamamlanmış indirmeler yapmışsınız: \n"
+"Bu konumlar için hâlihazırda tamamlanmış indirmeler yapmışsınız: \n"
 "\n"
 "%1\n"
 "\n"
@@ -1598,7 +1598,7 @@ msgstr "Web arayüzünün tasarımı"
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Muhammet Kara, Serdar Soytetir, Volkan Gezer"
+msgstr "Muhammet KARA, Serdar SOYTETİR, Volkan GEZER"
 
 #: main.cpp:121
 #, kde-format
@@ -2487,7 +2487,7 @@ msgstr "İzleyici URL’sinini gir:"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.cpp:97
 #, kde-format
 msgid "There already is a tracker named <b>%1</b>."
-msgstr "<b>%1</b> adlı bir izleyici halihazırda var."
+msgstr "<b>%1</b> adlı bir izleyici hâlihazırda var."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_remove_tracker)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:28
@@ -3863,7 +3863,7 @@ msgstr "Bir dosya adı girin."
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
 msgid "The filename exists already, choose a different one."
-msgstr "Dosya adı halihazırda var, farklı bir tane seçin."
+msgstr "Dosya adı hâlihazırda var, farklı bir tane seçin."
 
 #: ui/metalinkcreator/filedlg.cpp:140
 #, kde-format
@@ -4178,7 +4178,7 @@ msgstr "En az bir kaynak URL’si girin."
 #: ui/newtransferdialog.cpp:333
 #, kde-format
 msgid "Files that exist already in the current folder have been marked."
-msgstr "İmlenen geçerli klasörde halihazırda dosya var."
+msgstr "İmlenen geçerli klasörde hâlihazırda dosya var."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/newtransferwidget.ui:30
