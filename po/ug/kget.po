@@ -8,25 +8,25 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-11 00:45+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-05-31 18:32-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 3.9\n"
 
 #: conf/autopastemodel.cpp:174
 #, kde-format
 msgid "Pattern"
-msgstr "Pattern"
+msgstr "ئەندىزە"
 
 #: conf/autopastemodel.cpp:176
 #, kde-format
 msgid "Syntax"
-msgstr "گرامماتىكا"
+msgstr "گىرامماتىكا"
 
 #: conf/autopastemodel.cpp:209 conf/integrationpreferences.cpp:38
 #, kde-format
@@ -48,7 +48,7 @@ msgstr ""
 #: conf/dlgadvanced.ui:36
 #, kde-format
 msgid "Enable system tray icon"
-msgstr "سىستېما قونداق سىنبەلگىسىنى ئىناۋەتلىك قىل"
+msgstr "سىستېما قونداق سىنبەلگىسىنى قوزغىتىدۇ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AfterFinishActionEnabled)
 #: conf/dlgadvanced.ui:45
@@ -237,7 +237,7 @@ msgstr ""
 #: ui/transfersettingsdialog.ui:54 ui/transfersettingsdialog.ui:70
 #, kde-format
 msgid " KiB/s"
-msgstr " كىلوبايت‏/s"
+msgstr " KiB/s"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: conf/dlgnetwork.ui:70
@@ -329,12 +329,12 @@ msgstr "قىستۇرما"
 #: conf/preferencesdialog.cpp:57
 #, kde-format
 msgid "Xml"
-msgstr "Xml"
+msgstr ""
 
 #: conf/preferencesdialog.cpp:59
 #, kde-format
 msgid "Sqlite"
-msgstr "Sqlite"
+msgstr ""
 
 #: conf/preferencesdialog.cpp:62 mainwindow.cpp:365
 #, kde-format
@@ -354,7 +354,7 @@ msgstr ""
 #: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "كۈن"
 
 #: conf/preferencesdialog.cpp:71
 #, kde-format
@@ -367,16 +367,14 @@ msgid "Minute(s)"
 msgstr ""
 
 #: conf/preferencesdialog.cpp:73
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
-msgstr "سېكۇنت"
+msgstr ""
 
 #: conf/preferencesdialog.cpp:85
 #, kde-format
 msgid "Appearance"
-msgstr "كۆرۈنۈشى"
+msgstr "قىياپەت"
 
 #: conf/preferencesdialog.cpp:85
 #, kde-format
@@ -386,7 +384,7 @@ msgstr ""
 #: conf/preferencesdialog.cpp:86
 #, kde-format
 msgid "Groups"
-msgstr "گۇرۇپپىلار"
+msgstr "گۇرۇپپا"
 
 #: conf/preferencesdialog.cpp:86
 #, kde-format
@@ -669,8 +667,7 @@ msgid "Choose Directory"
 msgstr ""
 
 #: core/kget.cpp:974
-#, fuzzy, kde-format
-#| msgid "Save As"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "باشقا ئاتتا ساقلا"
@@ -711,17 +708,16 @@ msgstr "ئۇنى قايتا چۈشۈرەمدۇ؟"
 #: transfer-plugins/metalink/metalink.cpp:117
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
-#, fuzzy, kde-format
-#| msgid "Download it again?"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
-msgstr "ئۇنى قايتا چۈشۈرەمدۇ؟"
+msgstr "قايتا چۈشۈر"
 
 #: core/kget.cpp:1006 core/kget.cpp:1019 core/kget.cpp:1074
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "ئاتلا"
 
 #: core/kget.cpp:1016 core/urlchecker.cpp:426
 #, kde-format
@@ -832,11 +828,10 @@ msgid ""
 msgstr ""
 
 #: core/kget.cpp:1345
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
-msgstr "تەھلىل"
+msgstr ""
 
 #: core/kget.cpp:1395
 #, kde-format
@@ -896,7 +891,7 @@ msgstr "چۈشۈرۈشلەر تاماملاندى"
 #: ui/tray.cpp:44
 #, kde-format
 msgid "KGet"
-msgstr "KGet"
+msgstr ""
 
 #: core/kgetglobaljob.cpp:56
 #, kde-format
@@ -920,8 +915,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr ""
 
 #: core/signature.cpp:232
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "چۈشۈرۈش"
@@ -995,7 +989,7 @@ msgstr "%1/s"
 #, kde-format
 msgctxt "start transfergroup downloads"
 msgid "Start"
-msgstr "باشلاش"
+msgstr "باشلا"
 
 #: core/transfergrouphandler.cpp:169
 #, kde-format
@@ -1024,7 +1018,7 @@ msgstr "توختا"
 #, kde-format
 msgctxt "not available"
 msgid "n/a"
-msgstr "n/a"
+msgstr "ئىشلەتكىلى بولمايدۇ"
 
 #: core/transferhandler.cpp:136 ui/transferdetails.cpp:89
 #, kde-format
@@ -1333,7 +1327,7 @@ msgstr ""
 #, kde-format
 msgctxt "the type of the hash, e.g. MD5"
 msgid "Type"
-msgstr "تىپى"
+msgstr "تۈرى"
 
 #: core/verificationmodel.cpp:150
 #, kde-format
@@ -1414,7 +1408,7 @@ msgstr ""
 #: main.cpp:112
 #, kde-format
 msgid "Developer"
-msgstr "ئىجادىيەتچى"
+msgstr "ئىجادكار"
 
 #: main.cpp:113
 #, kde-format
@@ -1454,12 +1448,12 @@ msgstr "Carsten Pfeiffer"
 #: main.cpp:117
 #, kde-format
 msgid "Matej Koss"
-msgstr "Matej Koss"
+msgstr ""
 
 #: main.cpp:118
 #, kde-format
 msgid "Joris Guisson"
-msgstr "Joris Guisson"
+msgstr ""
 
 #: main.cpp:118
 #, kde-format
@@ -1480,13 +1474,13 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #: main.cpp:121
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: main.cpp:130
 #, kde-format
@@ -1554,19 +1548,16 @@ msgid "Decrease Priority"
 msgstr ""
 
 #: mainwindow.cpp:202
-#, fuzzy, kde-format
-#| msgid "Delete Group"
-#| msgid_plural "Delete Groups"
+#, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "گۇرۇپپا ئۆچۈر"
 
 #: mainwindow.cpp:208
-#, fuzzy, kde-format
-#| msgid "Remove Group"
+#, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "گۇرۇپپىنى چىقىرىۋەت"
+msgstr ""
 
 #: mainwindow.cpp:213
 #, kde-format
@@ -1638,7 +1629,7 @@ msgstr "تاللىغاننى توختات"
 #: mainwindow.cpp:294
 #, kde-format
 msgid "Start"
-msgstr "باشلاش"
+msgstr "باشلا"
 
 #: mainwindow.cpp:301
 #, kde-format
@@ -1719,8 +1710,7 @@ msgid "Do Not Enable"
 msgstr ""
 
 #: mainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "ھۆججەت ئاچ"
@@ -1746,7 +1736,7 @@ msgstr ""
 #: mainwindow.cpp:554
 #, kde-format
 msgid "Confirm Quit"
-msgstr "چېكىنىشنى جەزملەش"
+msgstr "چېكىنىشنى جەزملە"
 
 #: mainwindow.cpp:582
 #, kde-format
@@ -1825,7 +1815,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadmodel.cpp:226
 #, kde-format
 msgid "Files"
-msgstr "ھۆججەتلەر"
+msgstr "ھۆججەت"
 
 #: transfer-plugins/bittorrent/advanceddetails/btadvanceddetailswidget.cpp:73
 #, kde-format
@@ -1983,20 +1973,19 @@ msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] ""
-"بۇ ھۆججەتلەرنىڭ بارلىق سانلىق-مەلۇماتلىرى يوقىلىدۇ، راست بۇنى قىلامسىز؟"
+"بۇ ھۆججەتلەرنىڭ بارلىق سانلىق مەلۇماتلىرى يوقىلىدۇ، راست بۇنى قىلامسىز؟"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
-#, fuzzy, kde-format
-#| msgid "Select a directory to move the data to."
+#, kde-format
 msgid "Select a directory to move the data to"
-msgstr "سانلىق-مەلۇماتلارنى يۆتكەيدىغان مۇندەرىجىنى تاللايدۇ."
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:68
 #, kde-format
 msgid "Priority"
-msgstr "مەرتىۋە"
+msgstr "ئالدىنلىق"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:68
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:70
@@ -2029,7 +2018,7 @@ msgstr "ئاخىرقى"
 #, kde-format
 msgctxt "Download Normal (not as first or last)"
 msgid "Normal"
-msgstr "نورمال"
+msgstr "ئادەتتىكى"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:124
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:143
@@ -2070,7 +2059,7 @@ msgstr "%1 %"
 #, kde-format
 msgctxt "Download normally(not as first or last)"
 msgid "Normal"
-msgstr "نورمال"
+msgstr "ئادەتتىكى"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:127
 #, kde-format
@@ -2139,7 +2128,7 @@ msgstr "ياق"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:324
 #, kde-format
 msgid "IP Address"
-msgstr "‍IP ئادرېس:"
+msgstr "‍IP ئادرېس"
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:326
 #, kde-format
@@ -2169,7 +2158,7 @@ msgstr "بارى"
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:338
 #, kde-format
 msgid "DHT"
-msgstr "DHT"
+msgstr ""
 
 #: transfer-plugins/bittorrent/advanceddetails/peerviewmodel.cpp:340
 #, kde-format
@@ -2302,7 +2291,7 @@ msgstr "چوڭلۇقى"
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:134
 #, kde-format
 msgid "Url"
-msgstr "Url"
+msgstr "تور ئادرېس"
 
 #: transfer-plugins/bittorrent/advanceddetails/trackermodel.cpp:136
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:126
@@ -2378,7 +2367,7 @@ msgstr "كۆڭۈلدىكىگە قايتۇر"
 #: ui/linkview/kget_linkview.cpp:91
 #, kde-format
 msgid "URL"
-msgstr "URL"
+msgstr "تور ئادرېسى"
 
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:122
 #, kde-format
@@ -2458,7 +2447,7 @@ msgstr ""
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:221
 #, kde-format
 msgid "<n>"
-msgstr "<n>"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: transfer-plugins/bittorrent/btdetailswidgetfrm.ui:77
@@ -2515,7 +2504,7 @@ msgstr "ساقلايدۇ:"
 #: ui/transferdetailsfrm.ui:83 ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2537,7 +2526,7 @@ msgstr "چەكلىمە يوق"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:79
 #, kde-format
 msgid "KiB"
-msgstr "كىلوبايت"
+msgstr "KiB"
 
 #. i18n: ectx: property (text), widget (QLabel, downloadLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:69
@@ -2555,7 +2544,7 @@ msgstr "UTP كېلىشىمنى قوزغات"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:105
 #, kde-format
 msgid "Folders"
-msgstr "قىسقۇچلار"
+msgstr "قىسقۇچ"
 
 #. i18n: ectx: property (text), widget (QLabel, torrentFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:117
@@ -2565,10 +2554,9 @@ msgstr "كۆڭۈلدىكى توررېنت قىسقۇچ:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:134
-#, fuzzy, kde-format
-#| msgid "Default temporary folder"
+#, kde-format
 msgid "Default temporary folder:"
-msgstr "كۆڭۈلدىكى ۋاقىتلىق قىسقۇچ"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
@@ -2686,7 +2674,7 @@ msgstr "0"
 #: transfer-plugins/bittorrent/scandlg.ui:187
 #, kde-format
 msgid "Cancel"
-msgstr "ئەمەلدىن قالدۇر"
+msgstr "ۋاز كەچ"
 
 #: transfer-plugins/checksumsearch/checksumsearch.cpp:31
 #, kde-format
@@ -2817,7 +2805,7 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "پەرۋا قىلما"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
 #: transfer-plugins/metalink/metalink.cpp:453
@@ -2835,7 +2823,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "پەرۋا قىلما"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -2914,7 +2902,7 @@ msgstr "ماتور ئىسمى:"
 #: ui/metalinkcreator/commondata.ui:170 ui/newtransferwidget.ui:23
 #, kde-format
 msgid "URL:"
-msgstr "URL:"
+msgstr "تور ئادرېسى:"
 
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.cpp:34
 #, kde-format
@@ -2925,7 +2913,7 @@ msgstr "ماتور قوش"
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:16
 #, kde-format
 msgid "Search Engines"
-msgstr "ئىزدەش ماتورى"
+msgstr "ئىزدەش موتورى"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/mirrorsearch/dlgmirrorsearch.ui:27
@@ -3062,10 +3050,9 @@ msgstr "گۇرۇپپا تەڭشەكلەر"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/groupsettingsdialog.ui:44
-#, fuzzy, kde-format
-#| msgid "Default torrent folder:"
+#, kde-format
 msgid "Defau&lt folder:"
-msgstr "كۆڭۈلدىكى توررېنت قىسقۇچ:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
@@ -3075,10 +3062,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:64
-#, fuzzy, kde-format
-#| msgid "Regular expression"
+#, kde-format
 msgid "Re&gular expression:"
-msgstr "مۇنتىزىم ئىپادە"
+msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, regExpEdit)
 #: ui/groupsettingsdialog.ui:74
@@ -3101,10 +3087,9 @@ msgstr "تەڭشەلمىگەن"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/groupsettingsdialog.ui:119
-#, fuzzy, kde-format
-#| msgid "Download speed:"
+#, kde-format
 msgid "Ma&ximum download speed:"
-msgstr "چۈشۈرۈش سۈرئىتى:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/groupsettingsdialog.ui:129
@@ -3126,13 +3111,13 @@ msgstr "ھۆججەتنى ئاچ(&O)"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:214
 #, kde-format
 msgctxt "The transfer is running"
 msgid "Running"
-msgstr "ئىجرادا"
+msgstr "ئىجرا قىلىنىۋاتىدۇ"
 
 #: ui/history/transferhistory.cpp:216
 #, kde-format
@@ -3230,7 +3215,7 @@ msgstr "تاماملاندى"
 #: ui/history/transferhistory.ui:27
 #, kde-format
 msgid "Clear History"
-msgstr "تارىخنى تازىلاش"
+msgstr "تارىخنى تازىلا"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/history/transferhistory.ui:47
@@ -3254,7 +3239,7 @@ msgstr "چېسلا"
 #: ui/history/transferhistory.ui:95
 #, kde-format
 msgid "Host"
-msgstr "ماشىنا"
+msgstr "مۇلازىمېتىر"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:106
@@ -3267,7 +3252,7 @@ msgstr ""
 #, kde-format
 msgctxt "delete selected transfer"
 msgid "Delete Selected"
-msgstr "تاللانغاننى ئۆچۈرۈش"
+msgstr "تاللانغاننى ئۆچۈر"
 
 #. i18n: ectx: property (text), widget (KLineEdit, searchBar)
 #: ui/history/transferhistory.ui:125
@@ -3408,7 +3393,7 @@ msgstr "ئۇلانما ئەكىر"
 #: ui/linkview/kget_linkview.cpp:59
 #, kde-format
 msgid "Contains"
-msgstr "ئۆز ئىچىگە ئالغان"
+msgstr "ئىچىدە"
 
 #: ui/linkview/kget_linkview.cpp:60
 #, kde-format
@@ -3423,12 +3408,12 @@ msgstr "ھەممىسى"
 #: ui/linkview/kget_linkview.cpp:65
 #, kde-format
 msgid "Videos"
-msgstr "سىنلار"
+msgstr "سىن"
 
 #: ui/linkview/kget_linkview.cpp:66
 #, kde-format
 msgid "Images"
-msgstr "سۈرەتلەر"
+msgstr "سۈرەت"
 
 #: ui/linkview/kget_linkview.cpp:67
 #, kde-format
@@ -3487,7 +3472,7 @@ msgstr "چۈشەندۈرۈش"
 #, kde-format
 msgctxt "list header: type of file"
 msgid "File Type"
-msgstr "ھۆججەت تىپى"
+msgstr "ھۆججەت تۈرى"
 
 #: ui/linkview/kget_linkview.cpp:160
 #, kde-format
@@ -3612,9 +3597,7 @@ msgstr ""
 
 #: ui/metalinkcreator/dragdlg.cpp:94 ui/metalinkcreator/filedlg.cpp:73
 #: ui/metalinkcreator/filedlg.cpp:181
-#, fuzzy, kde-format
-#| msgctxt "comma, to seperate members of a list"
-#| msgid ","
+#, kde-format
 msgctxt "comma, to separate members of a list"
 msgid ","
 msgstr "،"
@@ -3916,7 +3899,7 @@ msgstr ""
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"
-msgstr "ھۆججەتلەر"
+msgstr "ھۆججەت"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMirror)
 #: ui/mirror/mirroradddlg.ui:19
@@ -3940,7 +3923,7 @@ msgstr ""
 #: ui/mirror/mirroradddlg.ui:53
 #, kde-format
 msgid "Priority:"
-msgstr "مەرتىۋىسى:"
+msgstr "ئالدىنلىق:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, priority)
 #: ui/mirror/mirroradddlg.ui:60
@@ -3965,18 +3948,16 @@ msgstr "ئورنى:"
 #, kde-format
 msgctxt "Mirror as in server, in url"
 msgid "Mirror"
-msgstr "ئەينەك"
+msgstr "تەسۋىر"
 
 #: ui/mirror/mirrormodel.cpp:293
 #, kde-format
 msgctxt "The priority of the mirror"
 msgid "Priority"
-msgstr "مەرتىۋە"
+msgstr "ئالدىنلىق"
 
 #: ui/mirror/mirrormodel.cpp:298
-#, fuzzy, kde-format
-#| msgctxt "Number of paralell connections to the mirror"
-#| msgid "Connections"
+#, kde-format
 msgctxt "Number of parallel connections to the mirror"
 msgid "Connections"
 msgstr "باغلىنىشلار"
@@ -4083,13 +4064,13 @@ msgstr ""
 #, kde-format
 msgctxt "trust level"
 msgid "Unknown"
-msgstr "نامەلۇم"
+msgstr "يوچۇن"
 
 #: ui/signaturedlg.cpp:196
 #, kde-format
 msgctxt "trust level"
 msgid "Undefined"
-msgstr "ئېنىقلىمىسىز"
+msgstr "ئېنىقلانمىغان"
 
 #: ui/signaturedlg.cpp:196
 #, kde-format
@@ -4266,7 +4247,7 @@ msgstr ""
 #: ui/transferdetails.cpp:77
 #, kde-format
 msgid "%1 of %2"
-msgstr "%2 نىڭ %1"
+msgstr "%1 / %2"
 
 #. i18n: ectx: property (text), widget (QLabel, sourceLabel)
 #: ui/transferdetailsfrm.ui:51
@@ -4323,10 +4304,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelDownload)
 #: ui/transfersettingsdialog.ui:100
-#, fuzzy, kde-format
-#| msgid "Download last"
+#, kde-format
 msgid "Download &limit:"
-msgstr "ئەڭ ئاخىرىدا چۈشۈر"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelShareRatio)
 #: ui/transfersettingsdialog.ui:110
@@ -4365,16 +4345,15 @@ msgid "Transfer Details"
 msgstr ""
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "%1 %"
+msgstr "%1%"
 
 #: ui/tray.cpp:48
 #, kde-format
 msgid "Download Manager"
-msgstr "چۈشۈرۈش باشقۇرغۇسى"
+msgstr "چۈشۈرۈش باشقۇرغۇچ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/verificationadddlg.ui:19
@@ -4438,7 +4417,7 @@ msgstr "تەكشۈر(&V)"
 #: ui/verificationdialog.ui:150
 #, kde-format
 msgid "Close"
-msgstr ""
+msgstr "ياپ"
 
 #~ msgctxt "Transfer State: Finished"
 #~ msgid "Finished"
