@@ -41,12 +41,15 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://gnupg.org/ftp/gcrypt/gpgme/gpgme-2.1.0.tar.bz2",
-                    "sha256": "841c5ea53fc26259f4fbf0e8bde982dea1b8a1ca0cb77e681c82b050566bf92b",
+                    "url": "https://gnupg.org/ftp/gcrypt/gpgme/gpgme-2.0.1.tar.bz2",
+                    "sha256": "821ab0695c842eab51752a81980c92b0410c7eadd04103f791d5d2a526784966",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1239,
                         "stable-only": true,
+                        "versions": {
+                            "<": "2.1.0"
+                        },
                         "url-template": "https://gnupg.org/ftp/gcrypt/gpgme/gpgme-$version.tar.bz2"
                     }
                 }
