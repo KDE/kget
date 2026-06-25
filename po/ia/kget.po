@@ -3793,7 +3793,7 @@ msgid ""
 "this might take a while."
 msgstr ""
 "Crea automaticamente checksums pro le typos seligite. Tu tene in mente que "
-"isto poterea prender un pauc de tempore."
+"isto poterea prender un pauco de tempore."
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: ui/metalinkcreator/dragdlg.ui:92
