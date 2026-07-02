@@ -31,7 +31,6 @@
 #include <KIO/OpenUrlJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kwidgetsaddons_version.h>
 
 #include "iwfilelistmodel.h"
 #include "iwfiletreemodel.h"

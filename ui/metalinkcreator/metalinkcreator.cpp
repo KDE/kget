@@ -33,7 +33,6 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kio_version.h>
 
 // TODO for 4.4 look at the changes of the newest Draft --> what elements have to be added/removed
 
