@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-11 00:45+0000\n"
+"POT-Creation-Date: 2026-07-03 00:45+0000\n"
 "PO-Revision-Date: 2011-11-11 19:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com> \n"
 "Language-Team: Sinhala <info@hanthana.org> \n"
@@ -506,11 +506,11 @@ msgid "Keyservers:"
 msgstr "යතුරු සේවාදායක:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
-#: ui/metalinkcreator/metalinkcreator.cpp:145
-#: ui/metalinkcreator/metalinkcreator.cpp:160
+#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Error"
 msgstr "දෝශයක්"
@@ -642,7 +642,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "දැනට තිබෙන ගොනුව මත ලියන්න ද?"
 
-#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "සුරකිය නොහැක: %1"
@@ -726,7 +726,7 @@ msgstr "එය නැවත බාගන්නද?"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, fuzzy, kde-format
@@ -789,7 +789,7 @@ msgstr "ඔබ මෙම ගොනුවම බාගනිමින් පව�
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:663
+#: transfer-plugins/metalink/metalink.cpp:662
 #, kde-format
 msgid "File already exists"
 msgstr "ගොනුව දැනටමත් පවතී"
@@ -2050,53 +2050,53 @@ msgstr "ඉතිරි:"
 msgid "Size:"
 msgstr "ප්‍රමාණය:"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "විවෘත කරන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download first"
 msgstr "ප්‍රථමයෙන් බාගන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download normally"
 msgstr "සාමාන්‍ය ලෙස බාගන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download last"
 msgstr "අවසන බාගන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Do Not Download"
 msgstr "බාගන්න එපා"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Delete File(s)"
 msgstr "ගොනු(ව) මකන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Move File"
 msgstr "ගොනුව ගෙනයන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "බහලුම් වෘක්‍ෂය හකුළන්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "බහලුම් වෘක්‍ෂය දිගහරින්න"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:253
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2104,8 +2104,8 @@ msgid_plural ""
 msgstr[0] "ඔබට මෙම ගොනුවේ සියළු දත්ත අහිමි වනු ඇත. ඔබට මෙය සිදුකිරීමට ඇවැසිද?"
 msgstr[1] "ඔබට මෙම ගොනුවල සියළු දත්ත අහිමි වනු ඇත. ඔබට මෙය සිදුකිරීමට ඇවැසිද?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:267
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:283
 #, fuzzy, kde-format
 #| msgid "Select a directory to move the data to."
 msgid "Select a directory to move the data to"
@@ -2927,7 +2927,7 @@ msgstr "(%1) බාගැනීම තහවුරු කල නොහැක. �
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:456
+#: transfer-plugins/metalink/metalink.cpp:455
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -2954,7 +2954,7 @@ msgid "Ignore"
 msgstr ""
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:453
+#: transfer-plugins/metalink/metalink.cpp:452
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2964,8 +2964,8 @@ msgstr ""
 "බාගැනීම නැවත ඇරඹෙනු ඇත)"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:118
-#: transfer-plugins/metalink/metalink.cpp:457
+#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -3005,26 +3005,26 @@ msgstr "ඔබට බාගැනීමට ඇවැසි ගොනු තෝ�
 msgid "File Selection"
 msgstr "ගොනු තෝරාගැනීම"
 
-#: transfer-plugins/metalink/metalink.cpp:76
+#: transfer-plugins/metalink/metalink.cpp:75
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "මෙටාසබැඳි ගොනුව බාගනිමින්..."
 
-#: transfer-plugins/metalink/metalink.cpp:115
+#: transfer-plugins/metalink/metalink.cpp:114
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "මෙම මෙටා සබැඳියේ නව සංස්කරණයක් පැවතිය හැක. ඔබට එය නැවත බාගැනීමට ඇවැසිද?"
 
-#: transfer-plugins/metalink/metalink.cpp:116
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "මෙටාසබැඳිය නැවත බාගනිමින්..."
 
-#: transfer-plugins/metalink/metalink.cpp:194
+#: transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
@@ -4009,55 +4009,55 @@ msgstr "නව මෙටාසබැඳියක් නිර්මාණය ක
 msgid "Load existing Metalink:"
 msgstr "පවතින මෙටාසබැඳිය පූර්‍ණය කරන්න:"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:83
+#: ui/metalinkcreator/metalinkcreator.cpp:82
 #, kde-format
 msgid "Create a Metalink"
 msgstr "මෙටාසබැඳිය නිර්මාණය "
 
-#: ui/metalinkcreator/metalinkcreator.cpp:101
+#: ui/metalinkcreator/metalinkcreator.cpp:100
 #, kde-format
 msgid "Add at least one file."
 msgstr "අවම වශයෙන් එක් ගොනුවක්වත්."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:103
+#: ui/metalinkcreator/metalinkcreator.cpp:102
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "අයිකනයක් සහිත ඇතුළත් කිරීම් සඳහා ඔබට කැඩපත් එක් කිරීමට සිදුවේ."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:116
+#: ui/metalinkcreator/metalinkcreator.cpp:115
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "මෙටා සබැඳිය සඳහා සාමාන්‍ය අමතර තොරතුරු."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:144
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "පූර්‍ණය කල නොහැකි විය: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 4.0 file"
 msgstr "මෙටාසබැඳි සංස්කරණය 4.0 (*.metalink4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 3.0 file"
 msgstr "මෙටාසබැඳි සංස්කරණය 4.0 (*.metalink4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, fuzzy, kde-format
 #| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "*.metalink *.meta4|Metalink ගොනුව (*.metalink *.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:179
+#: ui/metalinkcreator/metalinkcreator.cpp:178
 #, kde-format
 msgid "Define the saving location."
 msgstr "සුරකින ස්ථානය නිවේශනය කරන්න."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:225
+#: ui/metalinkcreator/metalinkcreator.cpp:224
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"

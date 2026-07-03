@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-11 00:45+0000\n"
+"POT-Creation-Date: 2026-07-03 00:45+0000\n"
 "PO-Revision-Date: 2024-03-29 21:15+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -509,11 +509,11 @@ msgid "Keyservers:"
 msgstr "金鑰伺服器："
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
-#: ui/metalinkcreator/metalinkcreator.cpp:145
-#: ui/metalinkcreator/metalinkcreator.cpp:160
+#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Error"
 msgstr "錯誤"
@@ -640,7 +640,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "要覆寫現有檔案嗎？"
 
-#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "無法儲存：%1"
@@ -722,7 +722,7 @@ msgstr "要再次下載嗎？"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
@@ -784,7 +784,7 @@ msgstr "您已經下載過相同的檔案"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:663
+#: transfer-plugins/metalink/metalink.cpp:662
 #, kde-format
 msgid "File already exists"
 msgstr "檔案已經存在"
@@ -2015,61 +2015,61 @@ msgstr "剩餘："
 msgid "Size:"
 msgstr "大小："
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "開啟"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download first"
 msgstr "優先下載"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download normally"
 msgstr "正常下載"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download last"
 msgstr "最後下載"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Do Not Download"
 msgstr "不要下載"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Delete File(s)"
 msgstr "刪除檔案"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Move File"
 msgstr "移動檔案"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "折疊資料夾樹"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "展開資料夾樹"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:253
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] "您會失去這些檔案的所有資料。您確定要這樣做嗎？"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:267
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:283
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr "選取資料要移動到的目錄"
@@ -2889,7 +2889,7 @@ msgstr "下載（%1）無法被檢查。您要修復它嗎？"
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:456
+#: transfer-plugins/metalink/metalink.cpp:455
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -2916,7 +2916,7 @@ msgid "Ignore"
 msgstr "忽略"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:453
+#: transfer-plugins/metalink/metalink.cpp:452
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2924,8 +2924,8 @@ msgid ""
 msgstr "下載無法被檢查。您要修復它嗎？若修復無法完成，則會重新開始下載。"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:118
-#: transfer-plugins/metalink/metalink.cpp:457
+#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -2965,26 +2965,26 @@ msgstr "選擇您要下載的檔案。"
 msgid "File Selection"
 msgstr "選擇檔案"
 
-#: transfer-plugins/metalink/metalink.cpp:76
+#: transfer-plugins/metalink/metalink.cpp:75
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "下載 Metalink 檔案中..."
 
-#: transfer-plugins/metalink/metalink.cpp:115
+#: transfer-plugins/metalink/metalink.cpp:114
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "可能有新版本的 Metalink。您要下載它嗎？"
 
-#: transfer-plugins/metalink/metalink.cpp:116
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "重新下載 Metalink"
 
-#: transfer-plugins/metalink/metalink.cpp:194
+#: transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
@@ -3964,52 +3964,52 @@ msgstr "建立新的 Metalink"
 msgid "Load existing Metalink:"
 msgstr "載入已存在的 Metalink："
 
-#: ui/metalinkcreator/metalinkcreator.cpp:83
+#: ui/metalinkcreator/metalinkcreator.cpp:82
 #, kde-format
 msgid "Create a Metalink"
 msgstr "建立 Metalink"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:101
+#: ui/metalinkcreator/metalinkcreator.cpp:100
 #, kde-format
 msgid "Add at least one file."
 msgstr "請新增至少一個檔案。"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:103
+#: ui/metalinkcreator/metalinkcreator.cpp:102
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "您需要對有圖示的項目設定鏡射站台。"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:116
+#: ui/metalinkcreator/metalinkcreator.cpp:115
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "Metalink 的一般非必要資訊。"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:144
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "無法載入：%1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, kde-format
 msgid "Metalink Version 4.0 file"
 msgstr "Metalink 4.0 版檔案"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, kde-format
 msgid "Metalink Version 3.0 file"
 msgstr "Metalink 3.0 版檔案"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "Metalink 檔案（*.metalink *.meta4）"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:179
+#: ui/metalinkcreator/metalinkcreator.cpp:178
 #, kde-format
 msgid "Define the saving location."
 msgstr "定義儲存位置。"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:225
+#: ui/metalinkcreator/metalinkcreator.cpp:224
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"

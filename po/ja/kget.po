@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-11 00:45+0000\n"
+"POT-Creation-Date: 2026-07-03 00:45+0000\n"
 "PO-Revision-Date: 2011-08-27 17:32-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -518,11 +518,11 @@ msgid "Keyservers:"
 msgstr "鍵サーバ:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
-#: ui/metalinkcreator/metalinkcreator.cpp:145
-#: ui/metalinkcreator/metalinkcreator.cpp:160
+#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Error"
 msgstr "エラー"
@@ -656,7 +656,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "既存のファイルを上書きしますか？"
 
-#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "次に保存できません: %1"
@@ -739,7 +739,7 @@ msgstr "もう一度ダウンロードしますか？"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, fuzzy, kde-format
@@ -802,7 +802,7 @@ msgstr "同じファイルを既にダウンロード中です"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:663
+#: transfer-plugins/metalink/metalink.cpp:662
 #, kde-format
 msgid "File already exists"
 msgstr "ファイルは既に存在します"
@@ -2216,53 +2216,53 @@ msgstr "残り:"
 msgid "Size:"
 msgstr "サイズ:"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "開く"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download first"
 msgstr "最初にダウンロード"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download normally"
 msgstr "普通にダウンロード"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download last"
 msgstr "最後にダウンロード"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Do Not Download"
 msgstr "ダウンロードしない"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Delete File(s)"
 msgstr "ファイルを削除"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Move File"
 msgstr "ファイルを移動"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "フォルダツリーをたたむ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "フォルダツリーを展開"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:253
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2270,8 +2270,8 @@ msgid_plural ""
 msgstr[0] ""
 "これらのファイルのすべてのデータを失うことになります。本当によろしいですか？"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:267
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:283
 #, fuzzy, kde-format
 #| msgid "Select a directory to move the data to."
 msgid "Select a directory to move the data to"
@@ -3091,7 +3091,7 @@ msgstr "ダウンロード (%1) を検証できませんでした。修復しま
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:456
+#: transfer-plugins/metalink/metalink.cpp:455
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -3118,7 +3118,7 @@ msgid "Ignore"
 msgstr ""
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:453
+#: transfer-plugins/metalink/metalink.cpp:452
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -3128,8 +3128,8 @@ msgstr ""
 "ロードを再開します)"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:118
-#: transfer-plugins/metalink/metalink.cpp:457
+#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -3169,13 +3169,13 @@ msgstr "ダウンロードするファイルを選択します。"
 msgid "File Selection"
 msgstr "ファイルの選択"
 
-#: transfer-plugins/metalink/metalink.cpp:76
+#: transfer-plugins/metalink/metalink.cpp:75
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "メタリンクファイルをダウンロード中..."
 
-#: transfer-plugins/metalink/metalink.cpp:115
+#: transfer-plugins/metalink/metalink.cpp:114
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
@@ -3184,7 +3184,7 @@ msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "署名を検証するための鍵がありません。ダウンロードしますか？"
 
-#: transfer-plugins/metalink/metalink.cpp:116
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, fuzzy, kde-format
 #| msgctxt "redownload selected transfer item"
@@ -3192,7 +3192,7 @@ msgstr "署名を検証するための鍵がありません。ダウンロード
 msgid "Redownload Metalink"
 msgstr "選択したものを再ダウンロード"
 
-#: transfer-plugins/metalink/metalink.cpp:194
+#: transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
@@ -4203,57 +4203,57 @@ msgstr "新しいメタリンクを作成"
 msgid "Load existing Metalink:"
 msgstr "既存のメタリンクを読み込み:"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:83
+#: ui/metalinkcreator/metalinkcreator.cpp:82
 #, kde-format
 msgid "Create a Metalink"
 msgstr "メタリンクを作成"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:101
+#: ui/metalinkcreator/metalinkcreator.cpp:100
 #, fuzzy, kde-format
 #| msgctxt "file as in file on hard drive"
 #| msgid "Enter at least one file."
 msgid "Add at least one file."
 msgstr "最低 1 つのファイルを入力します。"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:103
+#: ui/metalinkcreator/metalinkcreator.cpp:102
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "アイコンの付いたエントリにミラーを設定する必要があります。"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:116
+#: ui/metalinkcreator/metalinkcreator.cpp:115
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "メタリンクの一般的な情報 (任意)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:144
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "読み込めません: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 4.0 file"
 msgstr "Metalink バージョン 4.0 ファイル (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 3.0 file"
 msgstr "Metalink バージョン 4.0 ファイル (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, fuzzy, kde-format
 #| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "*.metalink *.meta4|メタリンクファイル (*.metalink *.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:179
+#: ui/metalinkcreator/metalinkcreator.cpp:178
 #, kde-format
 msgid "Define the saving location."
 msgstr "保存場所を定義します。"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:225
+#: ui/metalinkcreator/metalinkcreator.cpp:224
 #, fuzzy, kde-format
 #| msgid "Files"
 msgctxt "file as in file on hard drive"

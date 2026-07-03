@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-11 00:45+0000\n"
+"POT-Creation-Date: 2026-07-03 00:45+0000\n"
 "PO-Revision-Date: 2024-09-29 08:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -503,11 +503,11 @@ msgid "Keyservers:"
 msgstr "გასაღების სერვერები:"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
-#: ui/metalinkcreator/metalinkcreator.cpp:145
-#: ui/metalinkcreator/metalinkcreator.cpp:160
+#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Error"
 msgstr "შეცდომა"
@@ -638,7 +638,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "გადავაწერო ფაილს?"
 
-#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "ჩაწერის შეცდომა: %1"
@@ -725,7 +725,7 @@ msgstr "გადმოვწერო თავიდან?"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, kde-format
@@ -787,7 +787,7 @@ msgstr "ამ ფაილს უკვე იწერთ"
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:663
+#: transfer-plugins/metalink/metalink.cpp:662
 #, kde-format
 msgid "File already exists"
 msgstr "ფაილი უკვე არსებობს"
@@ -2040,53 +2040,53 @@ msgstr "დარჩენილი:"
 msgid "Size:"
 msgstr "ზომა:"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "გახსნა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download first"
 msgstr "ჯერ ამის გადმოწერა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download normally"
 msgstr "ნორმალურად გადმოწერა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download last"
 msgstr "ბოლოს გადმოწერა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Do Not Download"
 msgstr "არ გადმოწერო"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Delete File(s)"
 msgstr "ფაილების წაშლა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Move File"
 msgstr "ფაილის გადატანა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "საქაღალდეების სიის ჩაკეცვა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "საქაღალდეების სიის ამოკეცვა"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:253
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
@@ -2094,8 +2094,8 @@ msgid_plural ""
 msgstr[0] "ამ ფაილში ყველა მონაცემს დაკარგავთ. მართლა გნებავთ, ეს გააკეთოთ?"
 msgstr[1] "ამ ფაილებში ყველა მონაცემს დაკარგავთ. მართლა გნებავთ, ეს გააკეთოთ?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:267
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:283
 #, kde-format
 msgid "Select a directory to move the data to"
 msgstr "აირჩიეთ საქაღალდე, სადაც მონაცემებს გადავიტან"
@@ -2923,7 +2923,7 @@ msgstr "გადმოწერის (%1) გადამოწმება �
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:456
+#: transfer-plugins/metalink/metalink.cpp:455
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -2951,7 +2951,7 @@ msgid "Ignore"
 msgstr "იგნორი"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:453
+#: transfer-plugins/metalink/metalink.cpp:452
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2961,8 +2961,8 @@ msgstr ""
 "მოხერხდება, გადმოწერა თავიდან მოხდება) ის?"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:118
-#: transfer-plugins/metalink/metalink.cpp:457
+#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -3002,26 +3002,26 @@ msgstr "აირჩიეთ ფაილები, რომლებიც �
 msgid "File Selection"
 msgstr "ფაილის არჩევანი"
 
-#: transfer-plugins/metalink/metalink.cpp:76
+#: transfer-plugins/metalink/metalink.cpp:75
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "მეტაბმულის ფაილის გადმოწერა..."
 
-#: transfer-plugins/metalink/metalink.cpp:115
+#: transfer-plugins/metalink/metalink.cpp:114
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "არსებობს მეტაბმულის ახალი ვერსია. გნებავთ, გადმოწერის ის?"
 
-#: transfer-plugins/metalink/metalink.cpp:116
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "მეტაბმულის თავიდან გადმოწერა"
 
-#: transfer-plugins/metalink/metalink.cpp:194
+#: transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
@@ -4013,52 +4013,52 @@ msgstr "ახალი მეტაბმულის შექმნა"
 msgid "Load existing Metalink:"
 msgstr "არსებული მეტაბმულის ჩატვირთვა:"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:83
+#: ui/metalinkcreator/metalinkcreator.cpp:82
 #, kde-format
 msgid "Create a Metalink"
 msgstr "მეტაბმულის შექმნა"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:101
+#: ui/metalinkcreator/metalinkcreator.cpp:100
 #, kde-format
 msgid "Add at least one file."
 msgstr "დაამატეთ ერთი ფაილი მაინც."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:103
+#: ui/metalinkcreator/metalinkcreator.cpp:102
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "ხატულის მქონე ჩანაწერებისთვის სარკეების მითითება აუცილებელია."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:116
+#: ui/metalinkcreator/metalinkcreator.cpp:115
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "ზოგადი არასავალდებულო ინფორმაცია მეტაბმულისთვის."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:144
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "ჩატვირთვის შეცდომა: %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, kde-format
 msgid "Metalink Version 4.0 file"
 msgstr "Metalink ვერსია 4.0 ფაილი (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, kde-format
 msgid "Metalink Version 3.0 file"
 msgstr "Metalink ვერსია 3.0 ფაილი"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "მეტაბმულის ფაილი (*.metalink *.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:179
+#: ui/metalinkcreator/metalinkcreator.cpp:178
 #, kde-format
 msgid "Define the saving location."
 msgstr "შენახვის მდებარეობის აღწერა."
 
-#: ui/metalinkcreator/metalinkcreator.cpp:225
+#: ui/metalinkcreator/metalinkcreator.cpp:224
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"

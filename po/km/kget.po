@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-11 00:45+0000\n"
+"POT-Creation-Date: 2026-07-03 00:45+0000\n"
 "PO-Revision-Date: 2012-07-09 10:43+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -505,11 +505,11 @@ msgid "Keyservers:"
 msgstr "ម៉ាស៊ីន​បម្រើ​សោ ៖"
 
 #: core/datasourcefactory.cpp:269 core/datasourcefactory.cpp:580
-#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:194
+#: core/kget.cpp:1336 transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
-#: ui/metalinkcreator/metalinkcreator.cpp:145
-#: ui/metalinkcreator/metalinkcreator.cpp:160
+#: ui/metalinkcreator/metalinkcreator.cpp:144
+#: ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Error"
 msgstr "កំហុស"
@@ -639,7 +639,7 @@ msgstr ""
 msgid "Overwrite existing file?"
 msgstr "សរសេរ​ជាន់លើ​ឯកសារ​ដែល​មាន​រួច?"
 
-#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:160
+#: core/kget.cpp:575 ui/metalinkcreator/metalinkcreator.cpp:159
 #, kde-format
 msgid "Unable to save to: %1"
 msgstr "មិន​អាច​រក្សា​ទុក​ទៅ ៖ %1"
@@ -724,7 +724,7 @@ msgstr "ទាញយក​ម្ដង​ទៀត ?"
 
 #: core/kget.cpp:1005 core/kget.cpp:1018 core/kget.cpp:1073
 #: transfer-plugins/kio/transferKio.cpp:277
-#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
 #, fuzzy, kde-format
@@ -787,7 +787,7 @@ msgstr "កំពុង​កំពុង​ទាញយក​ឯកសារ​
 
 #: core/kget.cpp:1089 core/kget.cpp:1091 core/urlchecker.cpp:651
 #: core/urlchecker.cpp:733 transfer-plugins/metalink/abstractmetalink.cpp:477
-#: transfer-plugins/metalink/metalink.cpp:663
+#: transfer-plugins/metalink/metalink.cpp:662
 #, kde-format
 msgid "File already exists"
 msgstr "មាន​ឯកសារ​រួច​ហើយ"
@@ -2047,61 +2047,61 @@ msgstr "ឆ្វេង ៖"
 msgid "Size:"
 msgstr "ទំហំ ៖"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:69
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:68
 #, kde-format
 msgctxt "Open file"
 msgid "Open"
 msgstr "បើក​"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download first"
 msgstr "ទាញ​យក​ដំបូង"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
 msgid "Download normally"
 msgstr "​ទាញយក​ធម្មតា"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:73
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:72
 #, kde-format
 msgid "Download last"
 msgstr "ទាញ​យក​ចុងក្រោយ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:74
 #, kde-format
 msgid "Do Not Download"
 msgstr "កុំទាញយក"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:76
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:75
 #, kde-format
 msgid "Delete File(s)"
 msgstr "លុប​ឯកសារ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:78
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:77
 #, kde-format
 msgid "Move File"
 msgstr "ផ្លាស់ទី​ឯកសារ"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:79
 #, kde-format
 msgid "Collapse Folder Tree"
 msgstr "វេញ​មែកធាង​ថត"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:81
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:80
 #, kde-format
 msgid "Expand Folder Tree"
 msgstr "ពង្រីក​មែកធាង​ថត"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:254
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:253
 #, kde-format
 msgid "You will lose all data in this file, are you sure you want to do this?"
 msgid_plural ""
 "You will lose all data in these files, are you sure you want to do this?"
 msgstr[0] "អ្នក​នឹង​បាត់បង់​ទិន្នន័យ​ទាំងអស់​នៅ​ក្នុង​ឯកសារទាំង​នេះ តើ​អ្នក​ប្រាកដ​ជា​ចង់​ធ្វើ​ដូចនេះ​ឬ ?"
 
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:268
-#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:284
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:267
+#: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:283
 #, fuzzy, kde-format
 #| msgid "Select a directory to move the data to."
 msgid "Select a directory to move the data to"
@@ -2928,7 +2928,7 @@ msgstr "ការ​ទាញយក (%1) មិនអាច​ត្រូ​វ
 
 #: transfer-plugins/kio/transferKio.cpp:274
 #: transfer-plugins/metalink/abstractmetalink.cpp:218
-#: transfer-plugins/metalink/metalink.cpp:456
+#: transfer-plugins/metalink/metalink.cpp:455
 #: transfer-plugins/metalink/metalinkhttp.cpp:159
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:261
 #, kde-format
@@ -2955,7 +2955,7 @@ msgid "Ignore"
 msgstr ""
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
-#: transfer-plugins/metalink/metalink.cpp:453
+#: transfer-plugins/metalink/metalink.cpp:452
 #, kde-format
 msgid ""
 "The download could not be verified, do you want to repair (if repairing does "
@@ -2965,8 +2965,8 @@ msgstr ""
 "ការ​ទាញយក​នឹង​ត្រូវ​បាន​ចាប់ផ្ដើម​ឡើង​វិញ)"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:219
-#: transfer-plugins/metalink/metalink.cpp:118
-#: transfer-plugins/metalink/metalink.cpp:457
+#: transfer-plugins/metalink/metalink.cpp:117
+#: transfer-plugins/metalink/metalink.cpp:456
 #: transfer-plugins/metalink/metalinkhttp.cpp:160
 #: transfer-plugins/metalink/metalinkxml.cpp:114
 #, kde-format
@@ -3006,26 +3006,26 @@ msgstr "ជ្រើស​ឯកសារ​ដែល​អ្នកចង់​
 msgid "File Selection"
 msgstr "ការ​ជ្រើស​ឯកសារ"
 
-#: transfer-plugins/metalink/metalink.cpp:76
+#: transfer-plugins/metalink/metalink.cpp:75
 #: transfer-plugins/metalink/metalinkxml.cpp:72
 #, kde-format
 msgid "Downloading Metalink File...."
 msgstr "កំពុង​ទាញយក​ឯកសារ​តំណ​មេតា...."
 
-#: transfer-plugins/metalink/metalink.cpp:115
+#: transfer-plugins/metalink/metalink.cpp:114
 #: transfer-plugins/metalink/metalinkxml.cpp:111
 #, kde-format
 msgid ""
 "A newer version of this Metalink might exist, do you want to download it?"
 msgstr "មាន​កំណែ​ថ្មីជាង​របស់​តំណមេតា​​នេះ តើ​អ្នក​ចង់ទាញយក​វា​ដែរឬទេ ?"
 
-#: transfer-plugins/metalink/metalink.cpp:116
+#: transfer-plugins/metalink/metalink.cpp:115
 #: transfer-plugins/metalink/metalinkxml.cpp:112
 #, kde-format
 msgid "Redownload Metalink"
 msgstr "ទាញយក​តំណ​មេតា​ឡើងវិញ"
 
-#: transfer-plugins/metalink/metalink.cpp:194
+#: transfer-plugins/metalink/metalink.cpp:193
 #: transfer-plugins/metalink/metalinkhttp.cpp:240
 #: transfer-plugins/metalink/metalinkxml.cpp:190
 #, kde-format
@@ -4013,55 +4013,55 @@ msgstr "បង្កើត​តំណ​មេ​តា​ថ្មី"
 msgid "Load existing Metalink:"
 msgstr "ផ្ទុកតំណ​មេតា​ដែលមាន​ស្រាប់ ៖"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:83
+#: ui/metalinkcreator/metalinkcreator.cpp:82
 #, kde-format
 msgid "Create a Metalink"
 msgstr "បង្កើត​តំណ​មេតា"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:101
+#: ui/metalinkcreator/metalinkcreator.cpp:100
 #, kde-format
 msgid "Add at least one file."
 msgstr "បញ្ចូល​ឯកសារ​យ៉ាង​ហោចណាស់​មួយ ។"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:103
+#: ui/metalinkcreator/metalinkcreator.cpp:102
 #, kde-format
 msgid "You need to set mirrors for the entries with an icon."
 msgstr "អ្នក​ត្រូវ​តែ​កំណត់​កញ្ចក់​សម្រាប់​ធាតុ​ដែល​មាន​រូបតំណាង ។"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:116
+#: ui/metalinkcreator/metalinkcreator.cpp:115
 #, kde-format
 msgid "General optional information for the metalink."
 msgstr "ព័ត៌មាន​ជា​ជម្រើស​ទូទៅ​សម្រាប់​តំណ​មេតា ។"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:145
+#: ui/metalinkcreator/metalinkcreator.cpp:144
 #, kde-format
 msgid "Unable to load: %1"
 msgstr "មិនអាច​ផ្ទុក ៖ %1"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 4.0 file"
 msgstr "ឯកសារ​តំណ​មេតា​កំណែ 4.0 (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:171
+#: ui/metalinkcreator/metalinkcreator.cpp:170
 #, fuzzy, kde-format
 #| msgid "Metalink Version 4.0 file (*.meta4)"
 msgid "Metalink Version 3.0 file"
 msgstr "ឯកសារ​តំណ​មេតា​កំណែ 4.0 (*.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:172
+#: ui/metalinkcreator/metalinkcreator.cpp:171
 #, fuzzy, kde-format
 #| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
 msgid "Metalink file (*.metalink *.meta4)"
 msgstr "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:179
+#: ui/metalinkcreator/metalinkcreator.cpp:178
 #, kde-format
 msgid "Define the saving location."
 msgstr "កំណត់​ទីតាំង​រក្សាទុក ។"
 
-#: ui/metalinkcreator/metalinkcreator.cpp:225
+#: ui/metalinkcreator/metalinkcreator.cpp:224
 #, kde-format
 msgctxt "file as in file on hard drive"
 msgid "Files"
