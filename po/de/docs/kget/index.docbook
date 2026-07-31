@@ -267,7 +267,7 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Zielfeld benutzen</guimenuitem>
+>Zielfeld verwenden</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -467,7 +467,7 @@
 <para
 >Klicken Sie auf das Ankreuzfeld, um die <guilabel
 >Web-Oberfläche zu aktivieren</guilabel
->; Als Standardport ist 8080 eingestellt, sie können jeden Port größer als 1024 benutzen. Geben Sie dann <guilabel
+>; Als Standardport ist 8080 eingestellt, sie können jeden Port größer als 1024 verwenden. Geben Sie dann <guilabel
 >Benutzer</guilabel
 > und <guilabel
 >Passwort</guilabel
@@ -650,7 +650,7 @@
 	</mediaobject>
   </screenshot>
   <para
->Auf dieser Seite können Sie die verwendeten Module zur Übertragung wählen. Benutzen Sie <inlinemediaobject
+>Auf dieser Seite können Sie die verwendeten Module zur Übertragung wählen. Verwenden Sie <inlinemediaobject
 ><imageobject
 ><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
 ></inlinemediaobject
@@ -967,7 +967,7 @@
 <para
 >&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (für die Hilfe mit dem Docbookformat).</para>
 <para
->&Jonathan.Drews; &Jonathan.Drews.mail; (Schrieb die vorherige Dokumentation für &kget;, die hier teilweise mit benutzt wurde) </para>
+>&Jonathan.Drews; &Jonathan.Drews.mail; (Schrieb die vorherige Dokumentation für &kget;, die hier teilweise mit verwendet wurde) </para>
 
 <para
 >Deutsche Übersetzung Frank Schütte<email
