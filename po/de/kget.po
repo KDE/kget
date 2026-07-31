@@ -147,7 +147,7 @@ msgstr "Überschreiben"
 #: conf/dlgappearance.ui:17
 #, kde-format
 msgid "Use Drop Target"
-msgstr "Zielfeld benutzen"
+msgstr "Zielfeld verwenden"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateDropTarget)
 #: conf/dlgappearance.ui:29
@@ -1833,7 +1833,7 @@ msgid ""
 "This is the first time you have run KGet.\n"
 "Would you like to enable KGet as the download manager for Konqueror?"
 msgstr ""
-"Sie benutzen KGet zum ersten Mal.\n"
+"Sie verwenden KGet zum ersten Mal.\n"
 "Soll KGet als Download-Verwaltung in Konqueror eingebunden werden?"
 
 #: mainwindow.cpp:424
