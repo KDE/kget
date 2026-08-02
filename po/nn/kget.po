@@ -1,6 +1,7 @@
 # Translation of kget to Norwegian Nynorsk
 #
 # Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 2003, 2004, 2005.
+# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2012, 2016, 2020, 2026.
 # Øystein Steffensen-Alværvik <oysteins.omsetting@protonmail.com>, 2018, 2019.
 msgid ""
 msgstr ""
