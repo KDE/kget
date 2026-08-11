@@ -177,8 +177,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_KonquerorIntegration)
 #: conf/dlgintegration.ui:17
-#, fuzzy, kde-format
-#| msgid "Use as download manager for Konqueror"
+#, kde-format
 msgid "Use as download manager for Konqueror"
 msgstr "Koristi kao upravitelja preuzimanja za Konqueror"
 
