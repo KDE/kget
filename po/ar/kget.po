@@ -799,12 +799,12 @@ msgstr "أنت تنزّل هذا الملف فعلًا"
 #: transfer-plugins/metalink/metalink.cpp:662
 #, kde-format
 msgid "File already exists"
-msgstr "الملف موجود مسبقاً"
+msgstr "الملف موجود مسبقًا"
 
 #: core/kget.cpp:1177
 #, kde-format
 msgid "Internet connection established, resuming transfers."
-msgstr "أصبح الاتصال بالإنترنت جاهزاً، ستستأنف عمليات النقل."
+msgstr "أصبح الاتصال بالإنترنت جاهزًا، ستستأنف عمليات النقل."
 
 #: core/kget.cpp:1180
 #, kde-format
@@ -1250,7 +1250,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "You have already completed a download from that location. Download it again?"
-msgstr "لقد أكملت فعلًا تنزيلاً من هذا الموقع. نزّله مرة أخرى؟"
+msgstr "لقد أكملت فعلًا تنزيلًا من هذا الموقع. نزّله مرة أخرى؟"
 
 #: core/urlchecker.cpp:402
 #, kde-format
@@ -1691,7 +1691,7 @@ msgid ""
 "automatically."
 msgstr ""
 "يشغل زر <b> لصق آليّ</b> ويعطل وضع اللصق الآليّ.\n"
-"عند تشغيله، سيمسح كجت الحافظة بشكل دوري لأي مسارات وسيلصقها آليّاً إن وجدها."
+"عند تشغيله، سيمسح كجت الحافظة بشكل دوري لأي مسارات وسيلصقها آليًّا إن وجدها."
 
 #: mainwindow.cpp:227
 #, kde-format
@@ -2023,7 +2023,7 @@ msgstr "الإجمالي:"
 #: transfer-plugins/bittorrent/advanceddetails/chunkdownloadview.ui:59
 #, kde-format
 msgid "Currently downloading:"
-msgstr "ما يجري تحميله حالياً:"
+msgstr "ما يجري تحميله حاليًا:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
@@ -2062,7 +2062,7 @@ msgstr "افتح"
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:70
 #, kde-format
 msgid "Download first"
-msgstr "نزّل أولاً"
+msgstr "نزّل أولًا"
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:71
 #, kde-format
@@ -3855,7 +3855,7 @@ msgstr "أدخل اسم الملف"
 #: ui/metalinkcreator/filedlg.cpp:137
 #, kde-format
 msgid "The filename exists already, choose a different one."
-msgstr "اسم الملم مستخدم مسبقاً، استخدم ملفاً آخر."
+msgstr "اسم الملم مستخدم مسبقًا، استخدم ملفًا آخر."
 
 #: ui/metalinkcreator/filedlg.cpp:140
 #, kde-format
@@ -4254,7 +4254,7 @@ msgstr "غير معرّف"
 #, kde-format
 msgctxt "trust level"
 msgid "Never"
-msgstr "أبداً"
+msgstr "أبدًا"
 
 #: ui/signaturedlg.cpp:196
 #, kde-format
