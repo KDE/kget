@@ -1,12 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!-- Define an entity for your application if it is not part of KDE CVS -->
-  <!ENTITY kget "<application
->KGet</application
->">
-  <!ENTITY kappname "&kget;"
-><!-- replace kget here do *not* replace kappname-->
-  <!ENTITY package "kdenetwork">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Russian "INCLUDE"
 > 
@@ -15,7 +9,7 @@
 <book id="kget" lang="&language;">
 <bookinfo>
 <title
->Руководство &kget;</title>
+>Руководство пользователя &kget;</title>
 
 <authorgroup>
 <author
@@ -70,15 +64,15 @@
 >&FDLNotice;</legalnotice>
 
 <date
->17 июля 2010 г.</date>
+>21 ноября 2017 г.</date>
 <releaseinfo
->2.4.93 (&kde; 4.5)</releaseinfo>
+>2.95.0 (Приложения KDE 17.12)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para
->&kget; — диспетчер загрузок для &kde; </para>
+>&kget; — многофункциональный диспетчер загрузок от &kde; </para>
 </abstract>
 
 <keywordset>
@@ -108,7 +102,7 @@
 ></listitem>
     <listitem
 ><para
->Перетащите нужные адреса &URL; в окно &kget; или на цель для  перетаскивания.</para
+>Перетащите нужные адреса &URL; в окно &kget; или на цель для перетаскивания.</para
 ></listitem>
   </orderedlist>
 <screenshot>
@@ -194,22 +188,6 @@
       </para>
      </listitem>
     </varlistentry>
-<!-- no longer in 4.5
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Show Drop Target</guimenuitem>
-	</menuchoice>
-      </term>
-    <listitem>
-      <para>
-	<action
->Uncheck this box to make the &kget; Drop Target go away.</action>
-      </para>
-     </listitem>
-    </varlistentry>
--->
     <varlistentry>
       <term>
 	<menuchoice>
@@ -303,21 +281,7 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Заставка при запуске</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->Отметьте этот пункт, чтобы показывать заставку при запуске.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Показывать цель для перетаскивания</guimenuitem>
+>Использовать цель для перетаскивания</guimenuitem>
 	</menuchoice>
       </term>
       <listitem>
@@ -341,22 +305,6 @@
 	</para>
       </listitem>
     </varlistentry>
-<!-- what is this?
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Enable popup tooltip</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->???</action>
-	</para>
-      </listitem>
-    </varlistentry>
--->
   </variablelist>
 </para>
 </sect1>
@@ -433,22 +381,6 @@
 	</para>
       </listitem>
     </varlistentry>
-    
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Количество загрузок</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->Здесь вы можете установить максимальное число загрузок.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-
     <varlistentry>
       <term>
 	<menuchoice>
@@ -590,14 +522,50 @@
   </screenshot>
 
 <para
->Используя два способа (<guilabel
->Контрольные суммы</guilabel
+>Загрузки можно проверять двумя способами: <guilabel
+>Автоматическая проверка контрольных сумм</guilabel
 > и <guilabel
 >Подпись</guilabel
->), вы можете проверять свои загрузки. Просто отметьте автоматическую проверку.</para>
+>. Для этого установите флажок <guilabel
+>Автоматическая проверка</guilabel
+>.</para>
 </sect1>
 
-<sect1 id='Advanced'>
+<sect1 id="Integration">
+<title
+>Интеграция</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Использовать &kget; в качестве диспетчера загрузок в Konqueror</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>Позволяет использовать &kget; в качестве диспетчера загрузок в &konqueror;.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>Наблюдать буфер обмена на предмет ссылок</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>Позволяет включить функцию, которая запрашивает, загружать ли адреса &URL;, скопированные в буфер обмена. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
 <title
 >Дополнительно</title>
   <para
@@ -617,21 +585,6 @@
   </screenshot>
 
   <variablelist>
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Отключить подтверждение операций</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para
-><action
->Отключить подтверждение операций</action
->, которое может быть причиной раздражающих сообщений. </para>
-      </listitem>
-    </varlistentry>
-
     <varlistentry>
       <term>
 	<menuchoice>
@@ -681,38 +634,6 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Использовать &kget; в качестве диспетчера загрузок в Konqueror</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-	  <action
->Позволяет использовать &kget; в качестве диспетчера загрузок в &konqueror;.</action>
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
->Наблюдать буфер обмена на предмет ссылок</guimenuitem>
-	</menuchoice>
-      </term>
-      <listitem>
-	<para>
-<!--
-	  <action
->Blank</action>
--->
-	</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-	<menuchoice>
-	  <guimenuitem
 >Разрешить глобальное слежение за ходом выполнения</guimenuitem>
 	</menuchoice>
       </term>
@@ -725,6 +646,31 @@
     </varlistentry>
   </variablelist>
 </sect1>
+
+<sect1 id="Plugins">
+<title
+>Модули</title>
+  <screenshot>
+    <screeninfo
+>Параметры модулей &kget;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Параметры модулей &kget;</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>На этой странице можно выбрать модули передачи, которые будут использоваться. Чтобы изменить параметры модуля по умолчанию, нажмите кнопку <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+>.</para>
+
+ </sect1>
 
 </chapter>
 
@@ -749,9 +695,7 @@
 
 <sect1 id='File_Options'>
 <title
->Меню <guimenu
->Файл</guimenu
-></title>
+>Меню «Файл»</title>
 <variablelist>
 <varlistentry>
 <term
@@ -772,75 +716,6 @@
 ><para
 ><action
 >Добавить файл</action
-></para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->I</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Файл</guimenu
-> <guimenuitem
->Импорт загрузок...</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Загружает файлы *.kgt, *.metalink, *.meta4 и *.torrent.</action
-></para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->E</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Файл</guimenu
-> <guimenuitem
->Экспорт списка загрузок...</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Экспорт выделенных загрузок в файл .kgt для загрузки позднее.</action
-></para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->P</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Файл</guimenu
-> <guimenuitem
->Экспорт списка загрузок в простой текст...</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Экспорт ссылок на загружаемые данные в формате простого текста.</action
 ></para
 ></listitem>
 </varlistentry>
@@ -885,6 +760,62 @@
 > и <guilabel
 >Архивы</guilabel
 >. Есть и поле ввода для более точной фильтрации результатов.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Импорт загрузок...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Загружает файл <filename class="extension"
+>*.kgt</filename
+>, <filename class="extension"
+>*.metalink</filename
+>, <filename class="extension"
+>*.meta4</filename
+> или <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Экспорт списка загрузок...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Экспорт выделенных ссылок в файл <filename class="extension"
+>.kgt</filename
+> для последующей загрузки.</action
 ></para
 ></listitem>
 </varlistentry>
@@ -1060,23 +991,7 @@
 >Обновление перевода на русский: Евгений Асланов <email
 >aslanov.ev@gmail.com</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
-
-<appendix id="installation">
-<title
->Установка</title>
-
-<sect1 id="getting-KGet">
-<title
->Как получить &kget;</title>
-&install.intro.documentation; </sect1>
-
-<sect1 id="compilation">
-<title
->Сборка и установка</title>
-&install.compile.documentation; </sect1>
-</appendix>
+> &underFDL; &underGPL; </chapter>
 
 &documentation.index;
 </book>
