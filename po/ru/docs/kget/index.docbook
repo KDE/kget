@@ -130,14 +130,14 @@
 
 <screenshot>
 <screeninfo
->Снимок цели для перетаскивания &kget; </screeninfo>
+>Снимок цели для перетаскивания &kget;</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase
->Снимок цели для перетаскивания &kget; </phrase>
+>Снимок цели для перетаскивания &kget;</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
@@ -146,7 +146,7 @@
 <title
 >Варианты действий цели для перетаскивания &kget;</title>
 <para
->Щёлкните правой кнопкой мыши на цели для перетаскивания, чтобы увидеть меню вариантов действий. </para>
+>Щёлкните правой кнопкой мыши по цели для перетаскивания, чтобы увидеть меню вариантов действий. </para>
 
   <variablelist>
     <varlistentry>
@@ -178,7 +178,7 @@
       <term>
 	<menuchoice>
 	  <guimenuitem
->Скрыть главное окно</guimenuitem>
+>Показать/скрыть главное окно</guimenuitem>
 	</menuchoice>
       </term>
     <listitem>
@@ -301,7 +301,7 @@
       <listitem>
 	<para>
 	  <action
->Включить причудливую анимацию.</action>
+>Включает некоторые эффекты анимации.</action>
 	</para>
       </listitem>
     </varlistentry>
@@ -506,7 +506,7 @@
 <title
 >Проверка</title>
   <para
->Проверять ваши загрузки.</para>
+>Проверка загрузок.</para>
   <screenshot>
     <screeninfo
 >Проверка &kget;</screeninfo>
@@ -640,7 +640,7 @@
       <listitem>
 	<para>
 	  <action
->Можно показывать прогресс выполнения каждой загрузки отдельно или общий прогресс.</action>
+>Можно показывать ход выполнения каждой загрузки отдельно или общий ход выполнения.</action>
 	</para>
       </listitem>
     </varlistentry>
@@ -715,7 +715,7 @@
 <listitem
 ><para
 ><action
->Добавить файл</action
+>Добавить файл для загрузки</action
 ></para
 ></listitem>
 </varlistentry>
@@ -862,7 +862,7 @@
 	</mediaobject>
 </screenshot>
 <para
->Тут вы можете ввести некоторую необязательную информацию. Например, откуда этот metalink может быть получен (введите адрес &URL; в поле ввода после <guilabel
+>Здесь можно ввести некоторую необязательную информацию. Например, откуда этот metalink может быть получен (введите адрес &URL; в поле рядом с надписью <guilabel
 >Источник</guilabel
 >).</para>
 
@@ -896,7 +896,7 @@
 	</mediaobject>
 </screenshot>
 <para
->Откроется новое окно, в котором будут показаны все ваши импортированные файлы.</para>
+>Откроется новое окно, в котором будут показаны все файлы, которые будут импортированы.</para>
 </listitem>
 </varlistentry>
 
@@ -948,7 +948,7 @@
 > <guimenu
 >Файл</guimenu
 > <guimenuitem
->Выйти</guimenuitem
+>Выход</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -972,7 +972,7 @@
 >&kget; </para>
 
 <para
->Авторские права на документацию принадлежат Gaurav Chaturvedi <email
+>Авторские права на документацию: &copy; Gaurav Chaturvedi <email
 >gaurav.p.chaturvedi@gmail.com</email
 >, 2009 </para>
 <para
