@@ -5,13 +5,14 @@
 # Slobodan Simic <slsimic@gmail.com>, 2005, 2009.
 # Mladen Pejakovic <pejakm@gmail.com>, 2008.
 # Dalibor Djuric <daliborddjuric@gmail.com>, 2010, 2011.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-03 00:45+0000\n"
-"PO-Revision-Date: 2017-12-03 22:53+0100\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-10-05 12:49+0200\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@ijekavian\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +50,7 @@ msgstr "Регуларни израз"
 #: conf/dlgadvanced.ui:19
 #, kde-format
 msgid "Automatically delete all transfer history older than:"
-msgstr ""
+msgstr "Аутоматски обриши сав историјат преноса старији од:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EnableSystemTray)
 #: conf/dlgadvanced.ui:36
@@ -163,13 +164,13 @@ msgstr "Анимације"
 #: conf/dlggroups.ui:17
 #, kde-format
 msgid "Use default folders for groups as suggestion"
-msgstr "Подразумијеване фасцикле за групе као предлози"
+msgstr "Подразумијеване фасцикле за групе као приједлози"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr "Питај за одредиште ако нема подразумеваних фасцикли"
+msgstr "Питај за одредиште ако нема подразумијеваних фасцикли"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -370,22 +371,20 @@ msgstr "суспендуј рачунар"
 #: conf/preferencesdialog.cpp:70
 #, kde-format
 msgid "Day(s)"
-msgstr ""
+msgstr "дана"
 
 #: conf/preferencesdialog.cpp:71
 #, kde-format
 msgid "Hour(s)"
-msgstr ""
+msgstr "сати"
 
 #: conf/preferencesdialog.cpp:72
 #, kde-format
 msgid "Minute(s)"
-msgstr ""
+msgstr "минута"
 
 #: conf/preferencesdialog.cpp:73
-#, fuzzy, kde-format
-#| msgctxt "@action (Refresh very x )seconds"
-#| msgid "seconds"
+#, kde-format
 msgid "Second(s)"
 msgstr "секунди"
 
@@ -707,12 +706,11 @@ msgstr "Унесите УРЛ:"
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Directory"
-msgstr ""
+msgstr "Избор фасцикле"
 
 # >> @title:window
 #: core/kget.cpp:974
-#, fuzzy, kde-format
-#| msgid "Save As"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save As"
 msgstr "Уписивање као"
@@ -760,8 +758,7 @@ msgstr "Преузети поново?"
 #: transfer-plugins/metalink/metalink.cpp:116
 #: transfer-plugins/metalink/metalinkxml.cpp:113
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:264
-#, fuzzy, kde-format
-#| msgid "Download again"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download Again"
 msgstr "Преузми поново"
@@ -770,7 +767,7 @@ msgstr "Преузми поново"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip"
-msgstr ""
+msgstr "Прескочи"
 
 #: core/kget.cpp:1016 core/urlchecker.cpp:426
 #, kde-format
@@ -836,10 +833,9 @@ msgid "No internet connection, stopping transfers."
 msgstr "Нема везе са Интернетом, заустављам преносе."
 
 #: core/kget.cpp:1192
-#, fuzzy, kde-format
-#| msgid "Plugin loader could not load the plugin: %1."
+#, kde-format
 msgid "Plugin loader could not load the plugin %1: %2."
-msgstr "Прикључак није могао да се учита: %1."
+msgstr "Не могу да учитам прикључак %1: %2."
 
 #: core/kget.cpp:1203
 #, kde-format
@@ -900,11 +896,10 @@ msgstr ""
 "p><p>Порука о грешци:</p><p style=\"font-size: small;\">%2</p>"
 
 #: core/kget.cpp:1345
-#, fuzzy, kde-format
-#| msgid "Resolve"
+#, kde-format
 msgctxt "@action:button"
 msgid "Resolve"
-msgstr "Разреши"
+msgstr "Разријеши"
 
 #: core/kget.cpp:1395
 #, kde-format
@@ -996,8 +991,7 @@ msgid "The key to verify the signature is missing, do you want to download it?"
 msgstr "Недостаје кључ за овјеравање потписа, желите ли да га преузмете?"
 
 #: core/signature.cpp:232
-#, fuzzy, kde-format
-#| msgid "Download"
+#, kde-format
 msgctxt "@action:button"
 msgid "Download"
 msgstr "Преузми"
@@ -1006,7 +1000,7 @@ msgstr "Преузми"
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue Without"
-msgstr ""
+msgstr "Настави без њега"
 
 #: core/signature.cpp:256
 #, kde-format
@@ -1014,7 +1008,7 @@ msgid ""
 "The signature could not be verified for %1. See transfer settings for more "
 "information."
 msgstr ""
-"Потпис за %1 не може да се добави. Погледајте поставке преноса за више "
+"Потпис за %1 не може да се овјери. Погледајте поставке преноса за више "
 "детаља."
 
 #: core/signature.cpp:257
@@ -1162,7 +1156,7 @@ msgstr "Питање"
 #: core/urlchecker.cpp:60
 #, kde-format
 msgid "Appl&y to all"
-msgstr "Примени на &све"
+msgstr "Примијени на &све"
 
 #: core/urlchecker.cpp:300 core/urlchecker.cpp:340
 #, kde-format
@@ -1307,7 +1301,7 @@ msgid ""
 "%1\n"
 "Overwrite it?"
 msgstr ""
-"Фајл %1 већ постоји:\n"
+"Фајл већ постоји:\n"
 "%1\n"
 "Пребрисати га?"
 
@@ -1626,13 +1620,14 @@ msgstr "дизајн веб сучеља"
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Топлица Танасковић,Слободан Симић,Младен Пејаковић"
+msgstr "Топлица Танасковић,Слободан Симић,Младен Пејаковић,Немања Хиршл"
 
 #: main.cpp:121
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "toptan@kde.org.yu,slsimic@gmail.com,pejakm@gmail.com"
+msgstr ""
+"toptan@kde.org.yu,slsimic@gmail.com,pejakm@gmail.com,nemhirsl@gmail.com"
 
 #: main.cpp:130
 #, kde-format
@@ -1700,17 +1695,13 @@ msgid "Decrease Priority"
 msgstr "Смањи приоритет"
 
 #: mainwindow.cpp:202
-#, fuzzy, kde-format
-#| msgid "Delete Group"
-#| msgid_plural "Delete Groups"
+#, kde-format
 msgctxt "@action"
 msgid "Delete Group"
 msgstr "Обриши групе"
 
 #: mainwindow.cpp:208
-#, fuzzy, kde-format
-#| msgid "Rename Group..."
-#| msgid_plural "Rename Groups..."
+#, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
 msgstr "Преименуј групе"
@@ -1871,8 +1862,7 @@ msgid "Do Not Enable"
 msgstr "Не користи"
 
 #: mainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Отвори фајл"
@@ -1905,8 +1895,7 @@ msgid "Confirm Quit"
 msgstr "Потврда напуштања"
 
 #: mainwindow.cpp:582
-#, fuzzy, kde-format
-#| msgid "Export Transfers"
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
 msgstr "Извези преносе"
@@ -2172,10 +2161,9 @@ msgstr[3] ""
 
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:267
 #: transfer-plugins/bittorrent/advanceddetails/fileview.cpp:283
-#, fuzzy, kde-format
-#| msgid "Select a directory to move the data to."
+#, kde-format
 msgid "Select a directory to move the data to"
-msgstr "Изаберите фасциклу за премијештање података."
+msgstr "Изаберите фасциклу за премијештање података"
 
 # >> @title:column
 #: transfer-plugins/bittorrent/advanceddetails/iwfilelistmodel.cpp:66
@@ -2600,7 +2588,7 @@ msgstr "Уклони пратилац"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:35
 #, kde-format
 msgid "Change Tracker"
-msgstr "Промени пратилац"
+msgstr "Промијени пратилац"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_scrape)
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:42
@@ -2760,7 +2748,7 @@ msgstr "Уписујем у:"
 #: ui/transferdetailsfrm.ui:83 ui/verificationdialog.ui:81
 #, no-c-format, kde-format
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #. i18n: ectx: property (text), widget (QLabel, uploadLimitLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:49
@@ -2820,11 +2808,12 @@ msgstr "Подразумијевана привремена фасцикла:"
 msgid "Pre-allocate disk space"
 msgstr "Резервиши простор на диску"
 
+# >> @title:window
 #: transfer-plugins/bittorrent/bttransfer.cpp:126
 #, kde-format
 msgctxt "@title"
 msgid "Select a New Torrent File"
-msgstr ""
+msgstr "Избор новог торент фајла"
 
 #: transfer-plugins/bittorrent/bttransfer.cpp:158
 #, kde-format
@@ -3049,7 +3038,7 @@ msgstr "Преузимање (%1) не може да се овјери. Жели
 #, kde-format
 msgctxt "@action:button"
 msgid "Repair"
-msgstr ""
+msgstr "Поправи"
 
 #: transfer-plugins/kio/transferKio.cpp:276
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:263
@@ -3068,7 +3057,7 @@ msgstr "Овјера пропала."
 #: transfer-plugins/multisegmentkio/transfermultisegkio.cpp:266
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Игнориши"
 
 #: transfer-plugins/metalink/abstractmetalink.cpp:215
 #: transfer-plugins/metalink/metalink.cpp:452
@@ -3088,7 +3077,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Ignore"
-msgstr ""
+msgstr "Игнориши"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: transfer-plugins/metalink/dlgmetalink.ui:22
@@ -3388,7 +3377,7 @@ msgstr "&Отвори фајл"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%p%"
-msgstr ""
+msgstr "%p%"
 
 #: ui/history/transferhistory.cpp:214
 #, kde-format
@@ -3738,7 +3727,7 @@ msgstr "Синтакса образаца"
 #: ui/linkview/kget_linkview.cpp:75
 #, kde-format
 msgid "Escape Sequences"
-msgstr "избегавачки низови"
+msgstr "избјегавачки низови"
 
 # >> @option:check
 #: ui/linkview/kget_linkview.cpp:78
@@ -3951,7 +3940,7 @@ msgid ""
 "directory. For each dropped file the URL would consist of the entered part "
 "and the filename."
 msgstr ""
-"Унесите УРЛ‑ове овде ако су сви испуштени фајлови на том серверу и у истој "
+"Унесите УРЛ‑ове овдје ако су сви испуштени фајлови на том серверу и у истој "
 "фасцикли. За сваки испуштени фајл УРЛ ће се састојати од унесене ниске и "
 "имена фајла."
 
@@ -4200,22 +4189,19 @@ msgid "Unable to load: %1"
 msgstr "Не могу да учитам: %1"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:170
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 4.0 file"
-msgstr "Фајл метавезе верзије 4.0 (*.meta4)"
+msgstr "Фајл метавезе верзије 4.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:170
-#, fuzzy, kde-format
-#| msgid "Metalink Version 4.0 file (*.meta4)"
+#, kde-format
 msgid "Metalink Version 3.0 file"
-msgstr "Фајл метавезе верзије 4.0 (*.meta4)"
+msgstr "Фајл метавезе верзије 3.0"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:171
-#, fuzzy, kde-format
-#| msgid "*.metalink *.meta4|Metalink file (*.metalink *.meta4)"
+#, kde-format
 msgid "Metalink file (*.metalink *.meta4)"
-msgstr "*.metalink *.meta4|фајлови метавеза"
+msgstr "Фајл метавезе (*.metalink *.meta4)"
 
 #: ui/metalinkcreator/metalinkcreator.cpp:178
 #, kde-format
@@ -4288,9 +4274,7 @@ msgstr "приоритет"
 
 # >> @title:column
 #: ui/mirror/mirrormodel.cpp:298
-#, fuzzy, kde-format
-#| msgctxt "Number of paralell connections to the mirror"
-#| msgid "Connections"
+#, kde-format
 msgctxt "Number of parallel connections to the mirror"
 msgid "Connections"
 msgstr "повезивања"
@@ -4311,7 +4295,7 @@ msgstr "Додавање огледала"
 #: ui/mirror/mirrorsettings.cpp:144
 #, kde-format
 msgid "Modify the used mirrors"
-msgstr "Измени коришћена огледала"
+msgstr "Измијени коришћена огледала"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/mirror/mirrorsettings.ui:36
@@ -4587,7 +4571,7 @@ msgstr "Отисак:"
 #: ui/transferdetails.cpp:72
 #, kde-format
 msgid "Average speed: %1/s"
-msgstr "Просечна брзина: %1/s"
+msgstr "Просјечна брзина: %1/s"
 
 #: ui/transferdetails.cpp:77
 #, kde-format
@@ -4691,11 +4675,10 @@ msgid "Transfer Details"
 msgstr "Детаљи преноса"
 
 #: ui/transfersviewdelegate.cpp:361
-#, fuzzy, kde-format
-#| msgid "%1 %"
+#, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "%1 %"
+msgstr "%1%"
 
 #: ui/tray.cpp:48
 #, kde-format
@@ -4767,197 +4750,3 @@ msgstr "&Овјери"
 #, kde-format
 msgid "Close"
 msgstr "Затвори"
-
-#~ msgid "Unable to start WebInterface: Could not open KWallet"
-#~ msgstr "Не могу да покренем веб сучеље: не могу да отворим К‑новчаник."
-
-#~ msgctxt "@info"
-#~ msgid "Unable to start WebInterface: %1"
-#~ msgstr "Не могу да покренем веб сучеље: %1"
-
-#~ msgctxt "@item speed of transfer per seconds"
-#~ msgid "%1/s"
-#~ msgstr "%1/s"
-
-#~ msgctxt "@label"
-#~ msgid "KGet Web Interface"
-#~ msgstr "Веб сучеље К‑гета"
-
-#~ msgctxt "@label number"
-#~ msgid "Nr"
-#~ msgstr "Бр."
-
-#~ msgctxt "@label"
-#~ msgid "File name"
-#~ msgstr "Име фајла"
-
-#~ msgctxt "@label Progress of transfer"
-#~ msgid "Finished"
-#~ msgstr "Завршено"
-
-#~ msgctxt "@label Speed of transfer"
-#~ msgid "Speed"
-#~ msgstr "Брзина"
-
-#~ msgctxt "@label Status of transfer"
-#~ msgid "Status"
-#~ msgstr "Стање"
-
-#~ msgctxt "@action:button start a transfer"
-#~ msgid "Start"
-#~ msgstr "Покрени"
-
-#~ msgctxt "@action:button"
-#~ msgid "Stop"
-#~ msgstr "Заустави"
-
-#~ msgctxt "@action:button"
-#~ msgid "Remove"
-#~ msgstr "Уклони"
-
-#~ msgctxt "@label Download from"
-#~ msgid "Source:"
-#~ msgstr "Извор:"
-
-#~ msgctxt "@label Save download to"
-#~ msgid "Saving to:"
-#~ msgstr "Уписујем у:"
-
-#~ msgctxt "@label Title in header"
-#~ msgid "Web Interface"
-#~ msgstr "Веб сучеље"
-
-#~ msgctxt "@action"
-#~ msgid "Settings"
-#~ msgstr "Поставке"
-
-#~ msgctxt "@action"
-#~ msgid "Refresh"
-#~ msgstr "Освежи"
-
-#~ msgctxt "@action"
-#~ msgid "Enter URL: "
-#~ msgstr "Унесите УРЛ: "
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "У реду"
-
-#~ msgctxt "@action Refresh download list every x (seconds)"
-#~ msgid "Refresh download list every"
-#~ msgstr "Освјежи списак преузимања сваких"
-
-#~ msgctxt "@action:button"
-#~ msgid "Save Settings"
-#~ msgstr "Сачувај поставке"
-
-#~ msgctxt "@title"
-#~ msgid "Downloads"
-#~ msgstr "Преузимања"
-
-#~ msgctxt "@label text in footer"
-#~ msgid "KGet Web Interface | Valid XHTML 1.0 Strict &amp; CSS"
-#~ msgstr "Веб сучеље К‑гета | правилан ИксХТМЛ 1.0 строги &amp; ЦСС"
-
-#~ msgctxt "Transfer state: processing script"
-#~ msgid "Processing script...."
-#~ msgstr "Обрађујем скрипту..."
-
-#~ msgctxt "Transfer State: Finished"
-#~ msgid "Finished"
-#~ msgstr "Завршен"
-
-#~ msgctxt "Transfer State: Aborted"
-#~ msgid "Aborted"
-#~ msgstr "Обустављен"
-
-# >> @title:window
-#~ msgctxt "Configure script"
-#~ msgid "Configure script"
-#~ msgstr "Подешавање скрипте"
-
-#~ msgid "User Scripts"
-#~ msgstr "Корисничке скрипте"
-
-#~ msgid "Path"
-#~ msgstr "путања"
-
-#~ msgid "RegExp"
-#~ msgstr "региз"
-
-#~ msgid "New Script...."
-#~ msgstr "Нова скрипта..."
-
-#~ msgid "Edit...."
-#~ msgstr "Уреди..."
-
-#~ msgid "Configure...."
-#~ msgstr "Подеси..."
-
-# >> @title:window
-#~ msgid "Add New Script"
-#~ msgstr "Додавање нове скрипте"
-
-# >> @title:window
-#~ msgid "Edit Script"
-#~ msgstr "Уређивање скрипте"
-
-# >> @title:window
-#~ msgid "Set Script File"
-#~ msgstr "Задавање фајла скрипте"
-
-#~ msgid "Regexp:"
-#~ msgstr "Региз:"
-
-#~ msgid "Path:"
-#~ msgstr "Путања:"
-
-#~ msgid "List of the Regexp to match input URL"
-#~ msgstr "Списак региза за поклапање улазног УРЛ‑а"
-
-#~ msgid "List of descriptions for user scripts"
-#~ msgstr "Списак описа корисничких скрипти"
-
-#~ msgid "List of whether the script is enabled"
-#~ msgstr "Списак показатеља укључености скрипти"
-
-#~ msgid "File Settings"
-#~ msgstr "Поставке фајла"
-
-#~ msgid "Use Normalized Name"
-#~ msgstr "нормализовано име"
-
-#~ msgid "Use Literal Name"
-#~ msgstr "дословно име"
-
-#~ msgid "Quality:"
-#~ msgstr "Квалитет:"
-
-#~ msgid "Best Quality (.mp4)"
-#~ msgstr "најбољи (МП4)"
-
-#~ msgid "Normal Quality (.flv)"
-#~ msgstr "нормалан (ФЛВ)"
-
-#~ msgid ""
-#~ "Provide login info of your YouTube account in order to access restricted "
-#~ "media."
-#~ msgstr ""
-#~ "Задајте пријавне податке свог налога на Јутјубу да бисте приступили "
-#~ "ограниченим садржајима."
-
-#~ msgid "Login Info"
-#~ msgstr "Пријавни подаци"
-
-#~ msgid "Username:"
-#~ msgstr "Корисничко име:"
-
-#~ msgid ".netrc must have a hostname called 'youtube'."
-#~ msgstr ""
-#~ "<html><tt>.netrc</tt> мора да садржи име домаћина <tt>youtube</tt>.</html>"
-
-#~ msgid "User .netrc file"
-#~ msgstr "Корисников .netrc фајл"
-
-#~ msgid "Metalink Version 3.0 file (*.metalink)"
-#~ msgstr "Фајл метавезе верзије 3.0 (*.metalink)"
