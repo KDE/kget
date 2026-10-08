@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-03 00:45+0000\n"
-"PO-Revision-Date: 2026-10-05 12:49+0200\n"
+"PO-Revision-Date: 2026-10-07 11:45+0200\n"
 "Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
@@ -1703,7 +1703,7 @@ msgstr "Обриши групе"
 #, kde-format
 msgctxt "@action"
 msgid "Rename Group..."
-msgstr "Преименуј групе"
+msgstr "Преименуј групе..."
 
 #: mainwindow.cpp:213
 #, kde-format
@@ -1864,7 +1864,7 @@ msgstr "Не користи"
 #, kde-format
 msgctxt "@title:window"
 msgid "Open File"
-msgstr "Отвори фајл"
+msgstr "Отварање фајла"
 
 # >> @item:intext
 #: mainwindow.cpp:489
@@ -1897,7 +1897,7 @@ msgstr "Потврда напуштања"
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Transfers"
-msgstr "Извези преносе"
+msgstr "Извоз преноса"
 
 #: mainwindow.cpp:584
 #, kde-format
@@ -3244,10 +3244,10 @@ msgstr[3] "Обриши групу"
 #, kde-format
 msgid "Rename Group..."
 msgid_plural "Rename Groups..."
-msgstr[0] "Преименуј групе"
-msgstr[1] "Преименуј групе"
-msgstr[2] "Преименуј групе"
-msgstr[3] "Преименуј групу"
+msgstr[0] "Преименуј групе..."
+msgstr[1] "Преименуј групе..."
+msgstr[2] "Преименуј групе..."
+msgstr[3] "Преименуј групу..."
 
 #: ui/droptarget.cpp:88
 #, kde-format
@@ -4293,7 +4293,7 @@ msgstr "Додавање огледала"
 #: ui/mirror/mirrorsettings.cpp:144
 #, kde-format
 msgid "Modify the used mirrors"
-msgstr "Измени коришћена огледала"
+msgstr "Измена коришћених огледала"
 
 #. i18n: ectx: property (text), widget (QPushButton, closeButton)
 #: ui/mirror/mirrorsettings.ui:36
