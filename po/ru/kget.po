@@ -2938,7 +2938,7 @@ msgstr "Тип контрольной суммы"
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:12
 #, kde-format
 msgid "List of the available search engines"
-msgstr "Список доступных поисковых движков"
+msgstr "Список доступных поисковых систем"
 
 #. i18n: ectx: label, entry (UrlChangeModeList), group (ChecksumSearch)
 #. i18n: ectx: label, entry (ChecksumTypeList), group (ChecksumSearch)
@@ -2948,7 +2948,7 @@ msgstr "Список доступных поисковых движков"
 #: transfer-plugins/mirrorsearch/kget_mirrorsearchfactory.kcfg:16
 #, kde-format
 msgid "List of the available search engine URLs"
-msgstr "Список доступных адресов поисковых движков"
+msgstr "Список доступных адресов поисковых систем"
 
 #: transfer-plugins/kio/transferKio.cpp:101
 #, kde-format
@@ -3148,7 +3148,7 @@ msgstr ""
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:44
 #, kde-format
 msgid "Use search engines"
-msgstr "Использовать поисковые движки"
+msgstr "Использовать поисковые системы"
 
 #. i18n: ectx: property (text), widget (QCheckBox, verificationCheckBox)
 #: transfer-plugins/multisegmentkio/dlgmultisegkio.ui:51
