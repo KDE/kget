@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: kget\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-08 00:13+0000\n"
-"PO-Revision-Date: 2024-05-12 16:11+0300\n"
+"PO-Revision-Date: 2026-11-11 22:57+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -1870,7 +1870,7 @@ msgstr "Все файлы, которые можно открыть"
 #, kde-format
 msgctxt "window title including overall download progress in percent"
 msgid "KGet - %1%"
-msgstr "KGet - %1%"
+msgstr "KGet - %1 %"
 
 #: mainwindow.cpp:552
 #, kde-format
@@ -2212,7 +2212,7 @@ msgstr "Нет"
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:158
 #, kde-format
 msgid "%1 %"
-msgstr "%1 %"
+msgstr "%1 %"
 
 #: transfer-plugins/bittorrent/advanceddetails/iwfiletreemodel.cpp:93
 #, kde-format
@@ -3215,7 +3215,7 @@ msgstr "%1(%2) %3"
 #, kde-format
 msgctxt "%1 filename, %2 percent complete, %3 downloaded out of %4 total size"
 msgid "%1(%2% %3/%4) Speed:%5/s"
-msgstr "%1(%2% %3/%4) Скорость:%5/с"
+msgstr "%1(%2 % %3/%4) Скорость:%5/с"
 
 #: ui/droptarget.cpp:403
 #, kde-format
@@ -3223,7 +3223,7 @@ msgctxt ""
 "%1 filename, %2 percent complete, %3 downloaded out of %4 total size, %5 "
 "status"
 msgid "%1(%2% %3/%4) %5"
-msgstr "%1(%2% %3/%4) %5"
+msgstr "%1(%2 % %3/%4) %5"
 
 #: ui/droptarget.cpp:417
 #, kde-format
@@ -4561,7 +4561,7 @@ msgstr "Сведения о загрузке"
 #, kde-format
 msgctxt "Progress bar percent value"
 msgid "%1%"
-msgstr "%1%"
+msgstr "%1 %"
 
 #: ui/tray.cpp:48
 #, kde-format
