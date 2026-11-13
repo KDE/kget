@@ -1,0 +1,991 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Arabic "INCLUDE"
+> 
+]>
+
+<book id="kget" lang="&language;">
+<bookinfo>
+<title
+>دليل كجت</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Gaurav</firstname
+> <surname
+>Chaturvedi</surname
+> </personname
+> <email
+>gaurav.p.chaturvedi@gmail.com</email
+> </author>
+
+<othercredit role="translator"
+><firstname
+>زايد</firstname
+><surname
+>السعيدي</surname
+><affiliation
+><address
+><email
+>zayed.alsaidi@gmail.com</email
+></address
+></affiliation
+><contrib
+>التّرجمة العربيّة</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Gaurav Chaturvedi</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2017-11-21</date>
+<releaseinfo
+>2.95.0 (التّطبيقات 17.12)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>كجت مدير تنزيل متقدم من كيدي </para>
+</abstract>
+
+<keywordset>
+<keyword
+>كيدي</keyword>
+<keyword
+>شبكة كيدي</keyword>
+<keyword
+>كجت</keyword>
+<keyword
+>kppp</keyword>
+<keyword
+>تنزيل</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="Introduction">
+<title
+>مقدمة</title>
+
+<para>
+  <orderedlist>
+    <listitem
+><para
+>ابدأ كجت (يجب أن ترى هدف الإسقاط)</para
+></listitem>
+    <listitem
+><para
+>اسحب وأسقط العنوان المطلوب في نافذة كجت أو هدف الإسقاط.</para
+></listitem>
+  </orderedlist>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لكجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_group.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>لقطة شاشة لكجت</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="KGet_Drop_Target">
+<title
+>هدف إسقاط كجت </title>
+
+<para
+>يحتوي هدف إسقاط كجت على أربعة خيارات. </para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لهدف إسقاط كجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_drop_target.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>لقطة شاشة لهدف إسقاط كجت</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id="kget-features">
+<title
+>خيارات هدف إسقاط كجت</title>
+<para
+>انقر بالزر الأيمن على هدف الإسقاط لرؤية الخيارات. </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>ابدأ / استأنف الكل</guimenuitem
+> </menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>لبدء تنزيل أو استئناف كل التنزيلات المعلقة. اختصار هذا الإجراء هو <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></action>
+	</para>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>أظهر/أخفِ النافذة الرئيسة</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>يُظهر هذا الخيار النافذة الرئيسة أو يصغرها إلى صينية النظام.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>لاصق</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>يجعل هدف إسقاط كجت غير قابل للسحب.</action>
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>أنهِ كجت</guimenuitem>
+	</menuchoice>
+      </term>
+    <listitem>
+      <para>
+	<action
+>ينهي كجت</action>
+      </para>
+     </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+</chapter>
+
+<chapter id="Configuration">
+<title
+>نافذة ضبط كجت </title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>إعدادات</guimenu
+> <guimenuitem
+>اضبط كجت</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح نافذة ضبط كجت</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<sect1 id="Appearance">
+<title
+>المظهر</title>
+<para>
+ <screenshot>
+  <screeninfo
+>المظهر</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kget_Appearance.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+	<phrase
+>المظهر</phrase>
+      </textobject>
+  </mediaobject>
+ </screenshot>
+</para>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>المظهر</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>يمكنك تعديل مختلف الأمور المتعلقة بالمظهر هنا.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>استعمل هدف الإسقاط</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>أزل التأشير عن هذا إذا كنت لا تريد هدف إسقاط كجت.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>مكّن التحريكات</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>يُمكّن بعض التحريكات الجذابة.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Groups">
+<title
+>المجموعات</title>
+  <para
+>يمكنك تجميع التنزيلات.</para>
+  <screenshot>
+  <screeninfo
+>مجموعات كجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_groups.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>مجموعات كجت</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>استخدم المجلدات المبدئية للمجموعات كاقتراح</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>أشر على هذا المربع إذا كنت تريد أن يستخدم كجت المجلدات المبدئية لتنزيلاتك.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+ </variablelist>
+</para>
+</sect1>
+
+<sect1 id="Network">
+<title
+>الشبكة</title>
+  <para
+>يمكنك تعديل إعداداتك المتعلقة بالشبكة هنا.</para>
+  <screenshot>
+  <screeninfo
+>شبكة كجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Network.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>شبكة كجت</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+<para>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>حدّد أقصى عدد للتنزيلات لكل مجموعة</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>أشر على هذا المربع إذا كنت تريد تطبيق حدود التنزيل.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>حد السرعة</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>أشر على هذا المربع إذا كنت تريد استخدام حدود السرعة العامة.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>حد التنزيل العام</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>اضبط الحد الأقصى للتنزيل العام.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>حد الرفع العام</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>اضبط الحد الأقصى للرفع.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>أعد الاتصال عند انقطاع الاتصال</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>أشر على هذا المربع إذا كنت تريد أن يعيد كجت الاتصال بعد حدوث خطأ أو انقطاع في الاتصال.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>عدد المحاولات</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>اضبط الحد الأقصى لعدد المرات التي سيحاول فيها كجت إعادة الاتصال.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>أعِد المحاولة بعد</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>اضبط فاصل إعادة المحاولة هنا (بالثواني)</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+</sect1>
+
+<sect1 id='Web_Interface'>
+<title
+>واجهة الوب</title>
+<para
+>لتمكين واجهة الوب، أشر على <guilabel
+>مكّن واجهة الوب</guilabel
+>؛ المنفذ المبدئي هو 8080، ويمكنك ضبط أي منفذ أعلى من 1024. ثم اضبط <guilabel
+>المستخدم</guilabel
+> و <guilabel
+>كلمة السر</guilabel
+>. يمكنك الوصول إلى واجهة الوب الخاصة بك عبر العنوان http://127.0.0.1:&lt;port&gt;. ستحتاج إلى إدخال اسم المستخدم وكلمة السر للوصول. </para>
+  <screenshot>
+    <screeninfo
+>واجهة وب كجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Web_Interface.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>واجهة وب كجت</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+</sect1>
+
+<sect1 id='Verification'>
+
+<title
+>التحقّق</title>
+  <para
+>تحقق من تنزيلاتك.</para>
+  <screenshot>
+    <screeninfo
+>تحقق كجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_verification.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>تحقق كجت</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+<para
+>باستخدام الطريقتين <guilabel
+>التحقق الآلي من مجموع الفحص</guilabel
+> و <guilabel
+>التوقيع</guilabel
+> يمكنك التحقق من تنزيلاتك. ما عليك سوى التأشير على مربع الخيار <guilabel
+>التحقق الآلي</guilabel
+>.</para>
+</sect1>
+
+<sect1 id="Integration">
+<title
+>التكامل</title>
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>استعمل كمدير تنزيل لكنكرر</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>يمكنك ضبط كجت ليكون مدير التنزيل لـ كنكرر.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>راقب الحافظة بحثًا عن ملفات لتنزيلها</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para
+>يمكنك تشغيل هذه الميزة التي تسأل عما إذا كنت تريد تنزيل العناوين التي نُسخت إلى الحافظة. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Advanced">
+<title
+>متقدّم</title>
+  <para
+>عدّل الخيارات المتقدمة.</para>
+  <screenshot>
+    <screeninfo
+>خيارات كجت المتقدمة</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_Advanced.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>خيارات كجت المتقدمة</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>مكّن أيقونة صينية النظام</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>يُمكّن مربع الخيار هذا أيقونة صينية نظام كجت.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>نفّذ إجراءً بعد انتهاء جميع التنزيلات</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>أشر على هذا المربع لتمكين إنهاء كجت بعد انتهاء جميع التنزيلات. عند البدء يمكنك اختيار استعادة حالة التنزيل. مثل إيقاف كل التنزيلات أو بدء كل التنزيلات.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>النهاية الخلفية للتاريخ</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>يمكنك اختيار النهاية الخلفية لتاريخك لتكون Sqlite أو Xml.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<menuchoice>
+	  <guimenuitem
+>مكّن تتبع التقدم العام لكيدي</guimenuitem>
+	</menuchoice>
+      </term>
+      <listitem>
+	<para>
+	  <action
+>يمكنك ضبط كجت ليُظهر كل تنزيل على حدة أو يُظهر التقدم الإجمالي.</action>
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="Plugins">
+<title
+>الملحقات</title>
+  <screenshot>
+    <screeninfo
+>خيارات ملحقات كجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_plugins.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>خيارات ملحقات كجت</phrase>
+	  </textobject>
+	</mediaobject>
+  </screenshot>
+  <para
+>في هذه الصفحة يمكنك اختيار ملحقات النقل المراد استخدامها. استخدم زر <inlinemediaobject
+><imageobject
+><imagedata fileref="pluginsettings.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> لتغيير الإعدادات المبدئية للملحق.</para>
+
+ </sect1>
+
+</chapter>
+
+<chapter id="Main_Window">
+<title
+>النافذة الرئيسة</title>
+<para
+>نظرة عامة على نافذة كجت الرئيسة</para>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لكجت</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="file.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>لقطة شاشة لكجت</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+
+<sect1 id='File_Options'>
+<title
+>قائمة ملف</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>تنزيل جديد...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>أضف ملفًا جديدًا لتنزيله</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>استورد روابط...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>استيراد الروابط</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="import_link.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>استيراد الروابط</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>يُظهر هذا الإجراء نافذة أخرى، حيث يمكنك رؤية والتحكم في الملف المراد تنزيله. كما يمكنك إجراء تحديد بناءً على <guilabel
+>فيديوهات</guilabel
+>، و <guilabel
+>صور</guilabel
+>، و <guilabel
+>صوت</guilabel
+> و <guilabel
+>أرشيفات</guilabel
+>. يوجد أيضًا مربع نصي لتصفية النتائج.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>استورد عمليات النقل...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُحمّل ملفًا بامتداد <filename class="extension"
+>*.kgt</filename
+>، أو <filename class="extension"
+>*.metalink</filename
+>، أو <filename class="extension"
+>*.meta4</filename
+> أو <filename class="extension"
+>*.torrent</filename
+>.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>صدّر قائمة عمليات النقل...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>تصدير الروابط المحددة إلى ملف <filename class="extension"
+>.kgt</filename
+>، ليُحمّل لاحقًا.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>أنشئ Metalink</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>إنشاء metalink0</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink0.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>إنشاء Metalink0</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>اختر بين إنشاء Metalink جديد أو تحميل Metalink موجود. انقر فوق زر <guilabel
+>التالي</guilabel
+> للمتابعة.</para>
+
+<screenshot>
+  <screeninfo
+>إنشاء metalink1</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink1.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>إنشاء Metalink1</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>هنا يمكنك اختيار إدخال بعض المعلومات العامة الاختيارية. مثل مكان الحصول على هذا الـ metalink (أدخل العنوان في المربع النصي بجانب <guilabel
+>الأصل</guilabel
+>).</para>
+
+<screenshot>
+  <screeninfo
+>إنشاء metalink2</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink2.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>إنشاء Metalink2</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>هنا يجب عليك إدخال العنوان الذي تحاول تنزيل الملف منه. يمكنك أيضًا إدخال بعض المعلومات الاختيارية مثل التفضيل (الأولوية) لمرآة معينة إذا كنت تضيف أكثر من مرآة للملف الذي تريد تنزيله.</para>
+
+<screenshot>
+  <screeninfo
+>إنشاء metalink 3</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="metalink3.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>إنشاء Metalink 3</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+>يجب أن تتمكن من رؤية نافذة جديدة حيث ستُعرض جميع ملفاتك التي سيتم استيرادها.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>تاريخ النقل</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<screenshot>
+  <screeninfo
+>تاريخ النقل</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="kget_transfer_hostory.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>تاريخ النقل</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+<para
+><action
+>يفتح نافذة جديدة حيث يمكنك رؤية جميع الملفات التي نُزّلت باستخدام كجت. يمكنك إدارة تاريخك هنا، بما في ذلك التصفية ومسح التاريخ. </action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>أنهِ</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>ينهي كجت</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+<title
+>الحقوق والترخيص</title>
+
+<para
+>كجت </para>
+
+<para
+>حقوق نشر التوثيق © 2009 Gaurav Chaturvedi <email
+>gaurav.p.chaturvedi@gmail.com </email
+> </para>
+<para
+>شكرًا لـ:</para>
+
+<para
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; (لمساعدتي في الأمور المتعلقة بـ DocBook)</para>
+<para
+>&Jonathan.Drews; &Jonathan.Drews.mail; (لنسخ ولصق الكثير من الأشياء من توثيق كجت القديم الخاص به) </para>
+
+<para
+>الترجمة: زايد السعيدي <email
+>zayed.alsaidi@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet:noai
+-->
