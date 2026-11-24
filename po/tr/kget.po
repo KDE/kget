@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-08 02:57+0000\n"
-"PO-Revision-Date: 2026-11-16 19:17+0300\n"
+"PO-Revision-Date: 2026-11-23 18:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -161,13 +161,13 @@ msgstr "Canlandırmaları etkinleştir"
 #: conf/dlggroups.ui:17
 #, kde-format
 msgid "Use default folders for groups as suggestion"
-msgstr "Gruplar için öneri olarak öntanımlı klasörleri kullan"
+msgstr "Gruplar için öneri olarak varsayılan klasörleri kullan"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AskForDestination)
 #: conf/dlggroups.ui:24
 #, kde-format
 msgid "Ask for destination if there are no default folders"
-msgstr "Öntanımlı bir klasör yoksa indirme hedeflerini sor"
+msgstr "Varsayılan bir klasör yoksa indirme hedeflerini sor"
 
 #. i18n: ectx: property (text), widget (QPushButton, rename)
 #: conf/dlggroups.ui:52 ui/transfersettingsdialog.ui:152
@@ -2510,7 +2510,7 @@ msgstr "İzleyicileri Güncelle"
 #: transfer-plugins/bittorrent/advanceddetails/trackerview.ui:62
 #, kde-format
 msgid "Restore Defaults"
-msgstr "Öntanımlıları Geri Yükle"
+msgstr "Varsayılanları Geri Yükle"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, enginesTreeWidget)
 #: transfer-plugins/bittorrent/advanceddetails/webseedsmodel.cpp:120
@@ -2718,13 +2718,13 @@ msgstr "Klasörler"
 #: transfer-plugins/bittorrent/btsettingswidget.ui:117
 #, kde-format
 msgid "Default torrent folder:"
-msgstr "Öntanımlı torrent klasörü:"
+msgstr "Varsayılan torrent klasörü:"
 
 #. i18n: ectx: property (text), widget (QLabel, tempFolderLabel)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:134
 #, kde-format
 msgid "Default temporary folder:"
-msgstr "Öntanımlı geçici klasör:"
+msgstr "Varsayılan geçici klasör:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, preallocBox)
 #: transfer-plugins/bittorrent/btsettingswidget.ui:151
@@ -3228,7 +3228,7 @@ msgstr "Grup Ayarları"
 #: ui/groupsettingsdialog.ui:44
 #, kde-format
 msgid "Defau&lt folder:"
-msgstr "Ö&ntanımlı klasör:"
+msgstr "&Varsayılan klasör:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_2)
 #: ui/groupsettingsdialog.ui:61
